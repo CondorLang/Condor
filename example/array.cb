@@ -1,0 +1,21 @@
+Array{
+	var ary = [];
+
+	#name = 'Array';
+
+	indexOf(val){
+		if (!val){
+			throw Exception('Expected 1 argument');
+		}
+		for (var i = 0; i < ary.length; i++){
+			if (val == ary[i]){
+				return i;
+			}
+		}
+		return -1;
+	}
+}
+
+var a = 1 + 2;
+var b = a + 3;
+var c = a / b;
