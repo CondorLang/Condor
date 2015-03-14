@@ -1,7 +1,7 @@
 Include
 ======
 
-Include is used when including another file into your project. Include will be search, compiled and executed before the rest of the code is executed. (See [export](export.md)) The included modules will return the exported variables.
+Include is used when including another file into your project. Include will be search, compiled and executed before the rest of the code is executed. (See [export](export.md)) The included modules will return the exported variables. Includes are to be loaded on the top of the file.
 
 Syntax
 ------

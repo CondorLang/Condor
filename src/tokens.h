@@ -1,12 +1,12 @@
 #ifndef TOKENS_H_
 #define TOKENS_H_
 
-#include <string>
+#include <string.h>
 
 namespace Cobra {
 	namespace Tokens {
 
-		#define RESERVED_WORDS " import include macro, var short bool char int float double long return if else null true false for do while each new this strict try catch finally throw export delete "
+		#define RESERVED_WORDS " import include macro var short bool char int float double long return if else null true false for do while each new this strict try catch finally throw export delete "
 
 		#define TOK_IMPORT "import"
 		#define TOK_INCLDUE "include"

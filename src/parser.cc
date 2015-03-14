@@ -23,6 +23,6 @@ namespace Cobra{
 }
 
 void Compile(){
-	std::string code = "import 'os';var i = 10.10;";
+	std::string code = "import 'os';";
 	Cobra::Parser parser(&code);	
 }
