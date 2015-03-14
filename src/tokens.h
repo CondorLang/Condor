@@ -6,7 +6,7 @@
 namespace Cobra {
 	namespace Tokens {
 
-		#define RESERVED_WORDS " import include macro, var short bool char int float double long return if else null true false for do while each new this strict try catch finally throw "
+		#define RESERVED_WORDS " import include macro, var short bool char int float double long return if else null true false for do while each new this strict try catch finally throw export delete "
 
 		#define TOK_IMPORT "import"
 		#define TOK_INCLDUE "include"
@@ -36,6 +36,8 @@ namespace Cobra {
 		#define TOK_CATCH "catch"
 		#define TOK_FINALLY "finally"
 		#define TOK_THROW "throw"
+		#define TOK_EXPORT "export"
+		#define TOK_DELETE "delete"
 		
 		typedef struct {
 			int* pos;

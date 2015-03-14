@@ -1,4 +1,4 @@
-import
+Import
 ======
 
 Import is used when importing other language built modules into your code. Imports can be declared in an inline format as well as in a block format.
@@ -26,10 +26,14 @@ Syntax
 
 Examples
 --------
-```import 'os';```
+```js
+import 'os';
+```
 
-```import {
+```js
+import {
 	'os';
 	'fs';
 	'path';
-}```
+}
+```
