@@ -2,32 +2,29 @@
 #define LEXER_H_
 
 #include <string>
-#include "tokens.h"
 #include <stdio.h>
+#include "tokens.h"
 
 namespace Cobra {
 	class Lexer
 	{
 	private:
-		std::string* mRaw;
-		int mPos; // position of string
-		int mCol;
-		int mRow;
-		char mCh;
-		std::string mBuffer;
-		Tokens::Token* mCurrTok;
-		char nextChar();
+		int pos;
+		int rawCodeLength;
+		bool hasError;
+		std::string rawCode;
+
 		char peek();
-		void skipSpace();
-		void scanLetters();
-		void scanNumbers();
-		void bufferToToken();
+		char nextChar();
+		void eatSpaces();
+		void eatComments();
 
 	public:
-		Lexer(std::string* code);
+		Lexer(std::string code);
 		~Lexer();
-		void nextToken();
-		const char* getTokenText();
+		void nextToken(Tokens::Token* tok);
+		int col;
+		int row;
 	};
 }
 
