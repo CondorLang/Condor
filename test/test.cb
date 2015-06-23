@@ -1,0 +1,4 @@
+func main(args, argv){
+	var a = 'Hello';
+	return a;
+}

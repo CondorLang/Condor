@@ -7,7 +7,7 @@ namespace Cobra {
 	namespace Tokens {
 
 		enum TOKEN_TYPES{
-			KEYWORD,
+			KEYWORD = 255,
 			IDENTIFIER,
 			CONSTANT,
 			STRING,

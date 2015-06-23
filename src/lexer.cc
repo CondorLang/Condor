@@ -89,6 +89,32 @@ void Lexer::nextToken(Tokens::Token* tok){
 				return;
 			}
 		}
+		case '\'': {
+			std::string str = "";
+			char p = peek();
+			while (p != '\''){
+				currentChar = nextChar();
+				p = peek();
+				str += currentChar;
+			}
+			nextChar(); // eat '
+			tok->type = Tokens::STRING;
+			tok->lexeme = str;
+			return;
+		}
+		case '"': {
+			std::string str = "";
+			char p = peek();
+			while (p != '"'){
+				currentChar = nextChar();
+				p = peek();
+				str += currentChar;
+			}
+			nextChar(); // eat '
+			tok->type = Tokens::STRING;
+			tok->lexeme = str;
+			return;
+		}
 		case '{': case '}':
 		case '(': case ')':
 		case '[': case ']': {
@@ -232,11 +258,11 @@ void Lexer::nextToken(Tokens::Token* tok){
 			p = peek();
 		}
 
-		if (identifier == "if"    || identifier == "else"    ||
-			  identifier == "func"  || identifier == "for"     ||
-			  identifier == "while" || identifier == "each" ||
-			  identifier == "var"   || identifier == "do"      ||
-			  identifier == "return"){
+		if (identifier == "if"     || identifier == "else"    ||
+			  identifier == "func"   || identifier == "for"     ||
+			  identifier == "while"  || identifier == "each" ||
+			  identifier == "var"    || identifier == "do"      ||
+			  identifier == "return" || identifier == "object"){
 			tok->type = Tokens::KEYWORD;
 			tok->lexeme = identifier;
 		}
