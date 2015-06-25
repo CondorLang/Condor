@@ -11,10 +11,6 @@ func minus(a, b){
 	return a - b;
 }
 
-func pythagorean(a, b){
-	var c = a^2 + b^2;
-	return c^^2;
-}
 
 /**
  * Strict Code Section

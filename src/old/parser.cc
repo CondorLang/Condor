@@ -11,6 +11,13 @@ Parser::Parser(std::string rawCode){
 
 Parser::~Parser(){
 	delete lexer;
+	for (std::map<std::string, ASTNode*>::iterator it = program.begin(); it != program.end(); ++it){
+	  delete it->second;
+	}
+	while (!stack.empty()){
+		delete stack.top();
+		stack.pop();
+	}
 }
 
 void Parser::nextToken(){

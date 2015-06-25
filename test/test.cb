@@ -1,4 +1,8 @@
+/*
+ * This is a test function
+ */
 func main(args, argv){
-	var a = 'Hello';
+	var a = "Hello";
+	var b = 1.000001;
 	return a;
 }

@@ -1,3 +1,11 @@
 object Person{
-		
+	a = b;
+	c = d;
+	e = f;
+	g = object {
+		a  = 25;
+	};
+	f = func(){
+
+	};
 }

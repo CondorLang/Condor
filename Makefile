@@ -1,16 +1,6 @@
 CFLAGS=-Wall
 FLAGS=-std=c++11 -stdlib=libc++
-SRC=$(wildcard src/*.cc)
-CSRC=$(wildcard src/*.c)
-
-# c: $(CSRC)
-# 	gcc -c -Wall $^
-# 	make lib
-# 	make ctest
-
-# ctest:
-# 	gcc -I ./ test/main.c -Iinclude build/libcobra.a -o build/Cobra
-# 	./build/Cobra ${ARGS}
+SRC=$(wildcard src/cobra/*/*.cc)
 
 all: $(SRC)
 	g++ $(FLAGS) -c -Wall $^
