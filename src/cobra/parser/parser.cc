@@ -55,6 +55,9 @@ namespace Cobra{
 		if (trace) Trace("Parsing", "Started");
 		ASTFile* file = new ASTFile;
 
+		//Compiler options
+		ParseOptions();
+
 		ParseMode(); // parse the file mode
 		ParseImportOrInclude();
 
@@ -463,7 +466,6 @@ namespace Cobra{
 	 * #mode "lazy"
 	 */
 	void Parser::ParseMode(){
-		Next();
 		Expect(HASH);
 		Next();
 		Expect(IDENT);
@@ -484,6 +486,18 @@ namespace Cobra{
 
 		Next();
 		Expect(SEMICOLON);
+	}
+
+	void Parser::ParseOptions(){
+		Next();
+		if (tok->value == MOD){
+			Next();
+			Expect(IDENT);
+			if (tok->raw == "trace")
+				trace = true;
+			Next();
+			Next(); // eat ;
+		}
 	}
 
 }	// namespace Cobra

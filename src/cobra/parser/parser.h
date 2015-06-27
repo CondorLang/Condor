@@ -44,6 +44,7 @@ namespace Cobra {
 		void Expect(TOKEN val);
 		bool IsOperator();
 		void Parse();
+		void ParseOptions();
 		void ParseMode();
 		void ParseImportOrInclude();
 		ASTNode* ParseNodes();

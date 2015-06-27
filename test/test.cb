@@ -1,6 +1,4 @@
-/*
- * This is how we declare what it is
- */
+%trace;
 
 #mode "strict";
 

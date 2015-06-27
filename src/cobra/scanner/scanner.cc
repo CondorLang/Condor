@@ -6,10 +6,11 @@ namespace Cobra{
 		offset = -1;
 		readOffset = 0;
 		row = 1;
+		ch = -1;
 	}
 
 	Token* Scanner::NextToken(){
-		Next(); // set char
+		Next();
 		
 		while (ch == '\n' || ch == ' ' || ch == '\t')
 			Next();
