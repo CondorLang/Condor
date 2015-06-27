@@ -6,6 +6,9 @@ namespace Error {
 		int err = (int) e;
 		switch (err){
 			case INVALID_MODE: return "Invalid mode";
+			case EXPECTED_MODE: return "Expected mode";
+			case MODE_UNKNOWN: return "Mode unknown";
+			case EXPECTED_VARIABLE_TYPE: return "Expected variable type";
 			case EXPECTED: {
 				if (tok != NULL){
 					std::string msg = "Expected ";

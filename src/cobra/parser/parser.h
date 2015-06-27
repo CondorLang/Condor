@@ -2,6 +2,8 @@
 #define PARSER_H_
 
 #include <string>
+#include <fstream>
+#include <streambuf>
 #include "../token/token.h"
 #include "../scanner/scanner.h"
 #include "../ast/scope.h"
@@ -32,6 +34,7 @@ namespace Cobra {
 		Scope* currentFunctionScope;
 		P_MODE mode;
 		Token* expected;
+		std::vector<std::string> imports;
 
 		void OpenScope();
 		void CloseScope();
@@ -39,6 +42,11 @@ namespace Cobra {
 		void Expect(TOKEN val);
 		void Parse();
 		void ParseMode();
+		void ParseImportOrInclude();
+		ASTNode* ParseNodes();
+		ASTFunc* ParseFunc();
+		void ParseFuncParams(ASTFunc* func);
+		ASTBlock* ParseBlock();
 	};
 }
 

@@ -8,7 +8,10 @@ namespace Cobra {
 	namespace Error {
 		enum ERROR {
 			INVALID_MODE,
-			EXPECTED
+			EXPECTED,
+			EXPECTED_MODE,
+			MODE_UNKNOWN,
+			EXPECTED_VARIABLE_TYPE
 		};
 
 		std::string String(ERROR e, Token* tok);

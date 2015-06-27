@@ -1,7 +1,20 @@
 /*
+ * This is how we declare what it is
+ */
+
+#mode "strict";
+
+import {
+	"fs";
+	"os";
+	"math";
+}
+
+/*
  * This is a test function
  */
-func main(args, argv){
+
+func main(string args[], int argv){
 	var a = "Hello";
 	var b = 1.000001;
 	return a;

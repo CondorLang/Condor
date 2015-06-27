@@ -10,23 +10,20 @@ namespace Cobra{
 
 	Token* Scanner::NextToken(){
 		Next(); // set char
+		
+		while (ch == '\n' || ch == ' ' || ch == '\t')
+			Next();
 
 		switch (ch){
 			case -1: return NULL;
-			case '\t': case ' ': {
-				ScanWhiteSpaces();
-				return NextToken();
-			}
 			case '/': {
 				char p = Peek();
 				if (p == '*'){
 					ScanComments(true);
-					Next();
 					return NextToken();
 				}
 				else if (p == '/'){
 					ScanComments(false);
-					Next();
 					return NextToken();
 				}
 				else if (p == '='){
@@ -136,11 +133,15 @@ namespace Cobra{
 				Error("Invalid char value");
 			}
 			case '"': {
-				Next();
-				result = ch;
-				while (ch != '"'){
-					Next();
-					result += ch;
+				Next(); // eat "
+				if (ch == '"') result = "";
+				else{
+					result = ch;
+					while (true){
+						Next();
+						if (ch == '"') break;
+						result += ch;
+					}
 				}
 				Token* tok = new Token(STRING);
 				tok->raw = result;
@@ -209,10 +210,9 @@ namespace Cobra{
 			offset = readOffset;
 			if (ch == '\n') {
 				row++;
-				col = 0;
+				col = 1;
 				ch = src[offset];
 				readOffset++;
-				Next();
 			}
 			else{
 				ch = src[offset];
@@ -243,6 +243,8 @@ namespace Cobra{
 				Next();
 				p = Peek();
 			}
+			Next(); // eat *
+			Next(); // eat /
 		}
 		else{
 			while (p != '\n'){
@@ -255,10 +257,15 @@ namespace Cobra{
 	}
 
 	void Scanner::ScanWhiteSpaces(){
-		char p = Peek();
-		while (p == ' ' || p == '\t'){
+		if (ch == ' ' || ch == '\t' || ch == '\n'){
+			char p = Peek();
 			Next();
-			p = Peek();
+			while (true){				
+				if (p != ' ' || p != '\t' || p != '\n')
+					break;
+				p = Peek();
+				Next();
+			}
 		}
 	}
 

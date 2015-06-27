@@ -16,6 +16,7 @@ namespace Cobra {
 		BOOLEAN, // 1 or 0
 		CHAR, // 'a'
 		STRING, // "apple"
+		ARRAY, // []
 		LITERAL_END,
 
 		// Operators

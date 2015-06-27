@@ -3,7 +3,6 @@
 
 #include <string>
 #include <vector>
-#include <fstream>
 #include "../token/token.h"
 
 namespace Cobra {
