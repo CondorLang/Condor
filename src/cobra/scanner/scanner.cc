@@ -15,7 +15,7 @@ namespace Cobra{
 			Next();
 
 		switch (ch){
-			case -1: return NULL;
+			case -1: return new Token(END);
 			case '/': {
 				char p = Peek();
 				if (p == '*'){

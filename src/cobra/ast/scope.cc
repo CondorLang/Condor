@@ -37,4 +37,10 @@ namespace Cobra{
 		Insert(obj);
 		return obj;
 	}
+
+	void Scope::String(){
+		for (std::map<std::string, ASTNode*>::iterator it = objects.begin(); it != objects.end(); ++it){
+			printf("Found: %s\n", it->first.c_str());
+		}
+	}
 } // namespace Cobra	

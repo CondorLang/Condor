@@ -14,8 +14,12 @@ import {
  * This is a test function
  */
 
+func add(int a, int b){
+	return a + b;
+}
+
 func main(string args[], int argv){
-	var a = "Hello";
-	var b = 1.000001;
-	return a;
+	string a = "Hello";
+	int b = add(1, add(3, 4));
+	return a + b;
 }

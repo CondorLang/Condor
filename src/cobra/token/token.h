@@ -5,7 +5,16 @@
 
 namespace Cobra {
 	enum TOKEN{
+		// Internal
 		ILLEGAL = 255,
+		END,
+		EXPR,
+		LITERARY,
+		UNARY,
+		BINARY,
+		FUNC_CALL,
+		FILE,
+		BLOCK,
 
 		// Literals
 		LITERAL_BEGIN,

@@ -35,11 +35,14 @@ namespace Cobra {
 		P_MODE mode;
 		Token* expected;
 		std::vector<std::string> imports;
+		bool trace;
 
+		void Trace(const char* name, const char* value);
 		void OpenScope();
 		void CloseScope();
 		void Next();
 		void Expect(TOKEN val);
+		bool IsOperator();
 		void Parse();
 		void ParseMode();
 		void ParseImportOrInclude();
@@ -47,6 +50,17 @@ namespace Cobra {
 		ASTFunc* ParseFunc();
 		void ParseFuncParams(ASTFunc* func);
 		ASTBlock* ParseBlock();
+		void ParseStmtList();
+		ASTNode* ParseStmt();
+		ASTNode* ParseVar();
+		ASTNode* ParseReturn();
+		ASTExpr* ParseSimpleStmt();
+		ASTExpr* ParseExpr();
+		ASTExpr* ParseBinaryExpr();
+		ASTExpr* ParseUnaryExpr();
+		ASTExpr* ParsePrimaryExpr();
+		ASTExpr* ParseOperand();
+		ASTExpr* ParseIdent();
 	};
 }
 

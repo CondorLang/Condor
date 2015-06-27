@@ -15,10 +15,75 @@ namespace Cobra {
 	class ASTNode
 	{
 	public:
-		ASTNode();
+		ASTNode(){type = ILLEGAL;}
 		~ASTNode(){}
 		std::string name;
 		TOKEN type;
+	};
+
+	class ASTExpr : public ASTNode
+	{
+	public:
+		ASTExpr(){type = EXPR;}
+		~ASTExpr();
+		ASTExpr* expr;
+		TOKEN assignType;
+	};
+
+	class ASTIdent : public ASTExpr
+	{
+	public:
+		ASTIdent(){type = IDENT;}
+		~ASTIdent(){}
+		int pos;
+	};
+
+	class ASTLiterary : public ASTExpr
+	{
+	public:
+		ASTLiterary(){type = LITERARY;}
+		~ASTLiterary(){}
+		int pos;
+		std::string value;
+		TOKEN kind;
+	};
+
+	class ASTUnaryExpr : public ASTExpr
+	{
+	public:
+		ASTUnaryExpr(){type = UNARY;}
+		~ASTUnaryExpr();
+		ASTExpr* value;
+		Token* op;
+		int pos;
+	};
+
+	class ASTBinaryExpr : public ASTExpr
+	{
+	public:
+		ASTBinaryExpr(){type = BINARY;}
+		~ASTBinaryExpr();
+		ASTExpr* Left;
+		ASTExpr* Right;
+		Token* op;
+	};
+
+	class ASTFuncCallExpr : public ASTExpr
+	{
+	public:
+		ASTFuncCallExpr(){type = FUNC_CALL;}
+		~ASTFuncCallExpr();
+		std::vector<ASTExpr*> params;
+		int pos;
+	};
+
+	class ASTVar : public ASTNode
+	{
+	public:
+		ASTVar(){type = VAR;}
+		~ASTVar(){}
+		ASTNode* stmt;
+		TOKEN varType;
 	};
 
 	// Literals
@@ -73,7 +138,7 @@ namespace Cobra {
 	class ASTBlock : public ASTNode
 	{
 	public:
-		ASTBlock(){}
+		ASTBlock(){type = BLOCK;}
 		~ASTBlock(){}
 		Scope* scope;
 	};
@@ -83,7 +148,6 @@ namespace Cobra {
 	public:
 		ASTFunc(){type = FUNC;}
 		~ASTFunc();
-		std::string name;
 		ASTBlock* body;
 		std::map<std::string, ASTNode*> args;
 	};
@@ -97,10 +161,10 @@ namespace Cobra {
 		TOKEN arrayType;
 	};
 
-	class ASTFile
+	class ASTFile : public ASTNode
 	{
 	public:
-		ASTFile(){}
+		ASTFile(){type = FILE;}
 		~ASTFile();
 		Scope* scope;
 	};

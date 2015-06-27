@@ -21,6 +21,7 @@ namespace Cobra {
 		ASTNode* Lookup(std::string name);
 		void Insert(ASTNode* node);
 		ASTNode* NewObject(std::string name);
+		void String();
 	};
 }
 
