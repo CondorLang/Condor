@@ -48,6 +48,7 @@ namespace Cobra {
 		void Expect(TOKEN val);
 		bool IsOperator();
 		bool IsAssignment();
+		bool IsVarType();
 		void ParseOptions();
 		void ParseMode();
 		void ParseImportOrInclude();
@@ -69,6 +70,7 @@ namespace Cobra {
 		ASTExpr* ParseIdent();
 		void ParseFuncCall(ASTExpr* unary);
 		ASTExpr* ParseArray(ASTExpr* expr);
+		ASTNode* ParseObject();
 	};
 }
 

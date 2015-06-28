@@ -11,10 +11,12 @@ lib:
 	make cleano
 
 test:
-	make all
 	g++ $(FLAGS) -I ./ test/main.cc -Iinclude build/libcobra.a -o build/Cobra 
 	./build/Cobra ${ARGS}
 
+testall:
+	make all
+	make test
 
 cleano:
 	rm -rf *.o

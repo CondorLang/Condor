@@ -90,6 +90,7 @@ namespace Cobra {
 			case SWITCH: return "switch";
 			case TYPE: return "type";
 			case VAR: return "var";
+			case OBJECT: return "object";
 
 			default: return "";
 		}
@@ -135,6 +136,7 @@ namespace Cobra {
 		else if (str == "double") return new Token(DOUBLE);
 		else if (str == "char") return new Token(CHAR);
 		else if (str == "string") return new Token(STRING);
+		else if (str == "object") return new Token(OBJECT);
 		else return new Token(IDENT);
 	}
 } // namespace Cobra

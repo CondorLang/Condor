@@ -10,8 +10,8 @@ void runFile();
 void runTests1();
 
 int main(){
-	//runFile();
-	runTests1();
+	runFile();
+	//runTests1();
 }
 
 void runFile(){

@@ -108,6 +108,7 @@ namespace Cobra {
 		INCLUDE,
 
 		MAP,
+		OBJECT,
 		RETURN,
 
 		STRUCT,

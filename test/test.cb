@@ -1,13 +1,10 @@
-//%trace;
-//%printVariables;
-
+%trace;
 #mode "lazy";
 
-/**
- * Add these numbers together
- */
-
-func main(args[], argv){
-	var a = 1 + 1;
-	return a;
+object Person {
+	name = "Chase";
+	gender = "Male";
+	height = 6.0;
 }
+
+object Employee {}

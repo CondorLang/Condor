@@ -26,7 +26,7 @@ namespace Cobra {
 	public:
 		ASTExpr(){type = EXPR;}
 		~ASTExpr();
-		ASTExpr* expr;
+		ASTExpr* value;
 		TOKEN assignType;
 	};
 
@@ -168,6 +168,14 @@ namespace Cobra {
 		~ASTArray(){}
 		std::vector<ASTNode*> value;
 		TOKEN arrayType;
+	};
+
+	class ASTObject : public ASTNode
+	{
+	public:
+		ASTObject(){}
+		~ASTObject();
+		std::map<std::string, ASTExpr*> members;
 	};
 
 	class ASTFile : public ASTNode

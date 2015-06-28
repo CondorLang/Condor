@@ -3,10 +3,11 @@
 
 #include <string>
 
-int goodSimpleSize = 12;
+int goodSimpleSize = 13;
 
 std::string goodSimple[] = {
 	"#mode \"strict\"; func isTrue(){return true;}", // 1 func, 1 bool
+	"#mode \"strict\"; func add(int a, int b){return a + (b);}", // 1 func, paren around variable
 	"#mode \"lazy\"; func add(a, b){return a + b;}", // lazy, 1 func
 	"#mode \"strict\"; func add(int a, int b){return a + b;}", // strict, 1 func
 	"#mode \"lazy\"; func add(a, b){return a + b;}func minus(a, b){return a - b;}", // lazy, 2 func

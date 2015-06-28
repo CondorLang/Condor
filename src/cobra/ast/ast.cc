@@ -11,7 +11,7 @@ namespace Cobra {
 		}
 	}
 	ASTExpr::~ASTExpr(){
-		delete expr;
+		delete value;
 	}
 	ASTUnaryExpr::~ASTUnaryExpr(){
 		delete value;
@@ -30,5 +30,10 @@ namespace Cobra {
 	ASTArrayMemberExpr::~ASTArrayMemberExpr(){
 		delete member;
 		delete value;
+	}
+	ASTObject::~ASTObject(){
+		for (std::map<std::string, ASTExpr*>::iterator it = members.begin(); it != members.end(); ++it){
+			delete it->second;
+		}
 	}
 } // namespace Cobra

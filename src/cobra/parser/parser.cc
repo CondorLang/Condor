@@ -67,6 +67,11 @@ namespace Cobra{
 					|| type == SHR_ASSIGN || type == AND_NOT_ASSIGN;
 	}
 
+	bool Parser::IsVarType(){
+		int type = (int) tok->value;
+		return type == INT || type == BOOLEAN || type == FLOAT || type == DOUBLE || type == CHAR || type == STRING;
+	}
+
 	ASTFile* Parser::Parse(){
 		if (trace) Trace("Parsing", "Started");
 		ASTFile* file = new ASTFile;
@@ -88,6 +93,44 @@ namespace Cobra{
 			file->scope->String();
 		}
 		return file;
+	}
+
+	ASTNode* Parser::ParseObject(){
+		Expect(OBJECT);
+		Next();
+		TOKEN varType;
+		if (mode == STRICT && IsVarType()){
+			varType = tok->value;
+			Next();
+		}
+		Expect(IDENT);
+		if (trace) {
+			std::string str = tok->raw;
+			str = "Object - " + str;
+			Trace("Parsing", str.c_str());
+		}
+		ASTObject* obj = new ASTObject;
+		obj->name = tok->raw;
+		Next();
+		Expect(LBRACE);
+		Next();
+		while (true){
+			if (tok->value == RBRACE) break; // empty object
+			if (mode == LAZY)
+				obj->members[tok->raw] = ParseSimpleStmt();
+			else{
+				ASTExpr* var = new ASTExpr;
+				var->assignType = varType;
+				var->name = tok->raw;
+				var->value = ParseSimpleStmt();
+				obj->members[tok->raw] = var;
+			}
+			if (tok->value == RBRACE) break;
+			Next();
+		}
+		Expect(RBRACE);
+		Next();
+		return obj;
 	}
 
 	ASTExpr* Parser::ParseArray(ASTExpr* expr){
@@ -394,6 +437,7 @@ namespace Cobra{
 			if (mode == STRICT){
 				if (tok->value == RPAREN) return;
 				int type = (int)tok->value;
+				if (!IsVarType()) throw Error::EXPECTED_VARIABLE_TYPE;
 				TOKEN rType = tok->value;
 				Next();
 				Expect(IDENT);
@@ -502,6 +546,9 @@ namespace Cobra{
 			case VAR: {
 				if (mode == STRICT) throw Error::VAR_NOT_ALLOWED_IN_STRICT_MODE;
 				return ParseVar();
+			}
+			case OBJECT: {
+				return ParseObject();
 			}
 			case INT: case BOOLEAN: case DOUBLE: case FLOAT: case CHAR: case STRING: {
 				if (mode == LAZY) throw Error::EXPECTED_VAR;
