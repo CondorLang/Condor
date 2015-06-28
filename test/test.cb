@@ -1,23 +1,13 @@
-%trace;
+//%trace;
+//%printVariables;
 
-#mode "strict";
+#mode "lazy";
 
-import {
-	"fs";
-	"os";
-	"math";
-}
-
-/*
- * This is a test function
+/**
+ * Add these numbers together
  */
 
-func add(int a, int b){
-	return a + b;
-}
-
-func main(string args[], int argv){
-	string a = "Hello";
-	int b = add(1, add(3, 4));
-	return a + b;
+func main(args[], argv){
+	var a = 1 + 1;
+	return a;
 }

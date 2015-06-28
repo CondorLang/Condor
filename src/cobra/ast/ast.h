@@ -77,6 +77,15 @@ namespace Cobra {
 		int pos;
 	};
 
+	class ASTArrayMemberExpr: public ASTExpr
+	{
+	public:
+		ASTArrayMemberExpr(){type = ARRAY_MEMBER;}
+		~ASTArrayMemberExpr();
+		ASTExpr* member;
+		ASTExpr* value;
+	};
+
 	class ASTVar : public ASTNode
 	{
 	public:

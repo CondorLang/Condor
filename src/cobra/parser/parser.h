@@ -2,8 +2,6 @@
 #define PARSER_H_
 
 #include <string>
-#include <fstream>
-#include <streambuf>
 #include "../token/token.h"
 #include "../scanner/scanner.h"
 #include "../ast/scope.h"
@@ -23,27 +21,33 @@ namespace Cobra {
 	class Parser
 	{
 	public:
-		Parser(std::string source);
-		~Parser();
-		Scanner* scanner;
+		P_MODE mode;
 		int pos;
 		int row;
 		int col;
+		Token* expected;
+
+		Parser(std::string source);
+		~Parser();
+		ASTFile* Parse();
+
+	private:
+		Scanner* scanner;
 		Token* tok;
 		Scope* topScope;
 		Scope* currentFunctionScope;
-		P_MODE mode;
-		Token* expected;
 		std::vector<std::string> imports;
 		bool trace;
+		bool printVariables;
 
 		void Trace(const char* name, const char* value);
+		void PrintTok();
 		void OpenScope();
 		void CloseScope();
 		void Next();
 		void Expect(TOKEN val);
 		bool IsOperator();
-		void Parse();
+		bool IsAssignment();
 		void ParseOptions();
 		void ParseMode();
 		void ParseImportOrInclude();
@@ -55,6 +59,7 @@ namespace Cobra {
 		ASTNode* ParseStmt();
 		ASTNode* ParseVar();
 		ASTNode* ParseReturn();
+		ASTNode* ParseIdentStart();
 		ASTExpr* ParseSimpleStmt();
 		ASTExpr* ParseExpr();
 		ASTExpr* ParseBinaryExpr();
@@ -62,6 +67,8 @@ namespace Cobra {
 		ASTExpr* ParsePrimaryExpr();
 		ASTExpr* ParseOperand();
 		ASTExpr* ParseIdent();
+		void ParseFuncCall(ASTExpr* unary);
+		ASTExpr* ParseArray(ASTExpr* expr);
 	};
 }
 

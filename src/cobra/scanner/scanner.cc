@@ -245,14 +245,12 @@ namespace Cobra{
 				p = Peek();
 			}
 			Next(); // eat *
-			Next(); // eat /
 		}
 		else{
 			while (p != '\n'){
 				Next();
 				p = Peek();
 			}
-			Next(); // eat \n
 		}
 		ScanWhiteSpaces();
 	}

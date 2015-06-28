@@ -2,11 +2,14 @@
 
 namespace Cobra{
 	Scope::Scope(){
-
+		count = 1;
 	}
 
 	Scope::~Scope(){
 		delete outer;
+		for (int i = 0; i < ordered.size(); i++){
+			delete ordered[0];
+		}
 	}
 
 	Scope* Scope::NewScope(){
@@ -28,6 +31,8 @@ namespace Cobra{
 	void Scope::Insert(ASTNode* node){
 		if (node != NULL){
 			objects[node->name] = node;
+			ordered.push_back(node);
+			count++;
 		}
 	}
 
@@ -36,6 +41,14 @@ namespace Cobra{
 		obj->name = name;
 		Insert(obj);
 		return obj;
+	}
+
+	ASTNode* Scope::Get(int index){
+		return ordered[index];
+	}
+
+	int Scope::Size(){
+		return ordered.size();
 	}
 
 	void Scope::String(){

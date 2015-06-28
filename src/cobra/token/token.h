@@ -15,6 +15,7 @@ namespace Cobra {
 		FUNC_CALL,
 		FILE,
 		BLOCK,
+		ARRAY_MEMBER,
 
 		// Literals
 		LITERAL_BEGIN,

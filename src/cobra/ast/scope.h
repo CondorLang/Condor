@@ -12,6 +12,8 @@ namespace Cobra {
 	{
 	private:
 		std::map<std::string, ASTNode*> objects;
+		std::vector<ASTNode*> ordered;
+		int count;
 	public:
 		Scope();
 		~Scope();
@@ -22,6 +24,8 @@ namespace Cobra {
 		void Insert(ASTNode* node);
 		ASTNode* NewObject(std::string name);
 		void String();
+		ASTNode* Get(int index);
+		int Size();
 	};
 }
 

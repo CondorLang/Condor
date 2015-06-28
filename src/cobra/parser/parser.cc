@@ -9,7 +9,8 @@ namespace Cobra{
 		scanner = new Scanner(source);
 		topScope = new Scope;
 		currentFunctionScope = NULL;
-		trace = true;
+		trace = false;
+		printVariables = false;
 	}
 
 	Parser::~Parser(){
@@ -21,6 +22,13 @@ namespace Cobra{
 
 	void Parser::Trace(const char* name, const char* value){
 		printf("%s - %s\n", name, value);
+	}
+
+	/**
+	 * Debuging
+	 */
+	void Parser::PrintTok(){
+		printf("Debug: %s\n", tok->String().c_str());
 	}
 
 	void Parser::OpenScope(){
@@ -51,7 +59,15 @@ namespace Cobra{
 		return type == ADD || type == SUB || type == MOD || type == DIV || type == MUL;
 	}
 
-	void Parser::Parse(){
+	bool Parser::IsAssignment(){
+		int type = (int) tok->value;
+		return type == ASSIGN || type == ADD_ASSIGN || type == SUB_ASSIGN || type == MUL_ASSIGN
+					|| type == DIV_ASSIGN || type == MOD_ASSIGN || type == AND_ASSIGN 
+					|| type == OR_ASSIGN || type == XOR_ASSIGN || type == SHL_ASSIGN
+					|| type == SHR_ASSIGN || type == AND_NOT_ASSIGN;
+	}
+
+	ASTFile* Parser::Parse(){
 		if (trace) Trace("Parsing", "Started");
 		ASTFile* file = new ASTFile;
 
@@ -66,7 +82,55 @@ namespace Cobra{
 		}
 
 		file->scope = topScope;
-		file->scope->String();
+
+		if (printVariables){
+			printf("\nGlobal\n------------\n");
+			file->scope->String();
+		}
+		return file;
+	}
+
+	ASTExpr* Parser::ParseArray(ASTExpr* expr){
+		if (tok->value == LBRACK && expr->type == IDENT){
+			if (trace) Trace("Parsing", "Array");
+			Next();
+			ASTArrayMemberExpr* aryMem = new ASTArrayMemberExpr;
+			aryMem->name = expr->name;
+			aryMem->member = ParseExpr();
+			Expect(RBRACK);
+			Next();
+			return aryMem;
+		}
+		return expr;
+	}
+
+	void Parser::ParseFuncCall(ASTExpr* expr){
+		// This will always be a function call
+		if (tok->value == LPAREN && expr->type == IDENT){
+			if (trace) Trace("Parsing", "Function call");
+
+			ASTFuncCallExpr* call = new ASTFuncCallExpr;
+			ASTIdent* ident = (ASTIdent*) expr;
+			call->name = ident->name;
+			call->pos = ident->pos;
+			expr = ident;
+			Next();
+			while (true){
+				ASTExpr* expr = ParseExpr();
+				call->params.push_back(expr);
+				if (tok->value == RPAREN){
+					Next();
+					break;
+				}
+				else if (tok->value == COMMA){
+					Next();
+					continue;
+				}
+				else{
+					throw Error::INVALID_FUNCTION_CALL;
+				}
+			}
+		}
 	}
 
 	ASTExpr* Parser::ParseIdent(){
@@ -109,9 +173,14 @@ namespace Cobra{
 		if (trace) Trace("Parsing", "Primary Expression");
 		ASTExpr* expr = ParseOperand();
 
+
+
 		// Will only loop once
 		while (true){
 			ASTBinaryExpr* binary = new ASTBinaryExpr;
+			// here
+			ParseFuncCall(expr);
+			expr = ParseArray(expr);
 			if (!IsOperator())
 				break;
 			binary->op = new Token(tok->value);
@@ -141,6 +210,16 @@ namespace Cobra{
 				unary->value = ParseUnaryExpr();
 				return unary;
 			}
+			case LPAREN: {
+				Next();
+				ASTExpr* expr = ParseExpr();
+				Expect(RPAREN);
+				Next();
+				return expr;
+			}
+			case LBRACK: {
+				return new ASTArrayMemberExpr;
+			}
 			default: {
 				return ParsePrimaryExpr();
 			}
@@ -154,39 +233,25 @@ namespace Cobra{
 	ASTExpr* Parser::ParseBinaryExpr(){
 		if (trace) Trace("Parsing", "Binary Expression");
 		ASTExpr* unary = ParseUnaryExpr();
-
-		// This will always be a function call
-		if (tok->value == LPAREN){
-			ASTFuncCallExpr* call = new ASTFuncCallExpr; // here
-			ASTIdent* ident = (ASTIdent*) unary;
-			call->name = ident->name;
-			call->pos = ident->pos;
-			unary = ident;
-			if (trace) Trace("Parsing", "Function call");
-			Next();
-			while (true){
-				ASTExpr* expr = ParseExpr();
-				call->params.push_back(expr);
-				if (tok->value == RPAREN){
-					Next();
-					break;
-				}
-				else if (tok->value == COMMA){
-					Next();
-					continue;
-				}
-				else{
-					throw Error::INVALID_FUNCTION_CALL;
-				}
-			}
-		}
-
+		ParseFuncCall(unary);
+		unary = ParseArray(unary);
 		return unary;
 	}
 
 	ASTExpr* Parser::ParseExpr(){
 		if (trace) Trace("Parsing", "Expression");
-		return ParseBinaryExpr();
+		ASTExpr* expr = ParseBinaryExpr();
+		if (IsOperator()){
+			ASTBinaryExpr* binary = new ASTBinaryExpr;
+			binary->op = new Token(tok->value);
+			Next(); // eat the operator
+			binary->Right = ParsePrimaryExpr();
+			binary->Left = expr;
+			return binary;
+		}
+		else {
+			return expr;
+		}
 	}
 
 	/**
@@ -213,7 +278,7 @@ namespace Cobra{
 				return unary;
 			}
 			default: {
-				return ParsePrimaryExpr();
+				return ParseExpr();
 			}
 		}
 	}
@@ -243,6 +308,21 @@ namespace Cobra{
 		return var;
 	}
 
+	ASTNode* Parser::ParseIdentStart(){
+		if (trace) Trace("Parsing", "ident start");
+		Expect(IDENT);
+		ASTNode* expr = ParseExpr();
+		if (IsAssignment()){
+			if (expr->type == ARRAY_MEMBER){ // for arrays
+				ASTArrayMemberExpr* aryMem = (ASTArrayMemberExpr*) expr;
+				aryMem->value = ParseSimpleStmt();
+			}
+		}
+		Expect(SEMICOLON);
+		Next();
+		return expr;
+	}
+
 	/**
 	 * TODO:
 	 * 	Complete all the different statmenet types
@@ -260,6 +340,9 @@ namespace Cobra{
 				if (mode == LAZY)
 					throw Error::EXPECTED_VAR;
 				return ParseVar();
+			}
+			case IDENT: {
+				return ParseIdentStart();
 			}
 			case CONST: {
 				//
@@ -299,6 +382,8 @@ namespace Cobra{
 
 		block->scope = topScope;
 
+		if (printVariables) topScope->String();
+
 		CloseScope();
 		return block;
 	}
@@ -307,6 +392,7 @@ namespace Cobra{
 		if (trace) Trace("Parsing", "Func Parameters");
 		while (true){
 			if (mode == STRICT){
+				if (tok->value == RPAREN) return;
 				int type = (int)tok->value;
 				TOKEN rType = tok->value;
 				Next();
@@ -362,6 +448,7 @@ namespace Cobra{
 				func->args[name] = node;
 			}
 			else{
+				if (tok->value == RPAREN) return;
 				Expect(IDENT);
 				ASTNode* var = new ASTVar;
 				std::string name = tok->raw;
@@ -397,15 +484,29 @@ namespace Cobra{
 		Next();
 		ParseFuncParams(func);
 		Expect(RPAREN);
+
+		if (printVariables) printf("\n%s\n------------\n", func->name.c_str());
+
 		func->body = ParseBlock();
 		return func;
 	}
 
+	/**
+	 * Globals
+	 */
 	ASTNode* Parser::ParseNodes(){
 		if (trace) Trace("Parsing", "Nodes");
 		int type = (int)tok->value;
 		switch (type){
 			case FUNC: return ParseFunc();
+			case VAR: {
+				if (mode == STRICT) throw Error::VAR_NOT_ALLOWED_IN_STRICT_MODE;
+				return ParseVar();
+			}
+			case INT: case BOOLEAN: case DOUBLE: case FLOAT: case CHAR: case STRING: {
+				if (mode == LAZY) throw Error::EXPECTED_VAR;
+				return ParseVar();
+			}
 		}
 		Next();
 		return NULL;
@@ -495,23 +596,11 @@ namespace Cobra{
 			Expect(IDENT);
 			if (tok->raw == "trace")
 				trace = true;
+			else if (tok->raw == "printVariables")
+				printVariables = true;
 			Next();
 			Next(); // eat ;
 		}
 	}
 
 }	// namespace Cobra
-
-void Compile(){
-	std::ifstream in("test/test.cb");
-	std::string fileStr((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
-	Cobra::Parser* parser = new Cobra::Parser(fileStr);
-	try {
-		parser->Parse();
-	}
-	catch (Cobra::Error::ERROR e){
-		std::string msg = Cobra::Error::String(e, parser->expected);
-		printf("%d:%d - %s\n", parser->row, parser->col, msg.c_str());
-	}
-	
-}

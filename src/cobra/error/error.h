@@ -17,7 +17,11 @@ namespace Cobra {
 			EXPECTED_VAR,
 			EXPECTED_OPERATOR,
 			INVALID_FUNCTION_CALL,
-			MISSING_EXPR
+			MISSING_EXPR,
+			INVALID_EXPR,
+			INVALID_LEFT_EXPR,
+			UNDEFINED_VARIABLE,
+			UNDEFINED
 		};
 
 		std::string String(ERROR e, Token* tok);

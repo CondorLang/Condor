@@ -5,8 +5,18 @@ namespace Cobra {
 	std::string Token::String(){
 		int t = (int)value;
 		switch (t){
+			// internal
 			case ILLEGAL: return "illegal";
+			case EXPR: return "kExpr";
+			case LITERARY: return "kLiterary";
+			case UNARY: return "kUnary";
+			case BINARY: return "kBinary";
+			case FUNC_CALL: return "kFuncCall";
+			case FILE: return "kFile";
+			case BLOCK: return "kBlock";
 			case IDENT: return "ident";
+			case ARRAY_MEMBER: return "karrayMember";
+
 			case INT: return "int";
 			case FLOAT: return "float";
 			case DOUBLE: return "double";

@@ -15,6 +15,10 @@ namespace Error {
 			case EXPECTED_OPERATOR: return "Expected operator";
 			case INVALID_FUNCTION_CALL: return "Invalid function call";
 			case MISSING_EXPR: return "Missing Expression";
+			case INVALID_EXPR: return "Invalid Expression";
+			case INVALID_LEFT_EXPR: return "Invalid left expression";
+			case UNDEFINED_VARIABLE: return "Undefined variable";
+			case UNDEFINED: return "Undefined";
 			case EXPECTED: {
 				if (tok != NULL){
 					std::string msg = "Expected ";

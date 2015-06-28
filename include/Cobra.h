@@ -1,8 +1,8 @@
-
-
 #ifndef COBRA_H_
 #define COBRA_H_
 
-void Compile();
+#include <string>
+
+void Compile(std::string);
 
 #endif // COBRA_H_

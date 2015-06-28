@@ -27,4 +27,8 @@ namespace Cobra {
 			delete params[0];
 		}
 	}
+	ASTArrayMemberExpr::~ASTArrayMemberExpr(){
+		delete member;
+		delete value;
+	}
 } // namespace Cobra
