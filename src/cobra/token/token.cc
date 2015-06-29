@@ -16,6 +16,8 @@ namespace Cobra {
 			case BLOCK: return "kBlock";
 			case IDENT: return "ident";
 			case ARRAY_MEMBER: return "karrayMember";
+			case OBJECT_MEMBER_CHAIN: return "kObjectMemberChain";
+			case CLASS: return "kClass";
 
 			case INT: return "int";
 			case FLOAT: return "float";
@@ -85,6 +87,7 @@ namespace Cobra {
 			case IMPORT: return "import";
 			case INCLUDE: return "include";
 			case MAP: return "map";
+			case NEW: return "new";
 			case RETURN: return "return";
 			case STRUCT: return "struct";
 			case SWITCH: return "switch";
@@ -137,6 +140,7 @@ namespace Cobra {
 		else if (str == "char") return new Token(CHAR);
 		else if (str == "string") return new Token(STRING);
 		else if (str == "object") return new Token(OBJECT);
+		else if (str == "new") return new Token(NEW);
 		else return new Token(IDENT);
 	}
 } // namespace Cobra

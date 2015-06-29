@@ -71,13 +71,14 @@ namespace Cobra {
 	class ASTFuncCallExpr : public ASTExpr
 	{
 	public:
-		ASTFuncCallExpr(){type = FUNC_CALL;}
+		ASTFuncCallExpr(){type = FUNC_CALL;isNew = false;}
 		~ASTFuncCallExpr();
 		std::vector<ASTExpr*> params;
 		int pos;
+		bool isNew;
 	};
 
-	class ASTArrayMemberExpr: public ASTExpr
+	class ASTArrayMemberExpr : public ASTExpr
 	{
 	public:
 		ASTArrayMemberExpr(){type = ARRAY_MEMBER;}
@@ -86,13 +87,25 @@ namespace Cobra {
 		ASTExpr* value;
 	};
 
+	class ASTObjectMemberChainExpr : public ASTExpr
+	{
+	public:
+		ASTObjectMemberChainExpr(){type = OBJECT_MEMBER_CHAIN; isSetting = false;}
+		~ASTObjectMemberChainExpr();
+		ASTExpr* member;
+		ASTIdent* object;
+		ASTExpr* value;
+		bool isSetting;
+	};
+
 	class ASTVar : public ASTNode
 	{
 	public:
 		ASTVar(){type = VAR;}
-		~ASTVar(){}
+		~ASTVar();
 		ASTNode* stmt;
 		TOKEN varType;
+		ASTIdent* varClass;
 	};
 
 	// Literals
@@ -176,6 +189,15 @@ namespace Cobra {
 		ASTObject(){}
 		~ASTObject();
 		std::map<std::string, ASTExpr*> members;
+	};
+
+	class ASTIf : public ASTNode
+	{
+	public:
+		ASTIf(){type = IF;}
+		~ASTIf();
+		ASTExpr* conditions;
+		ASTBlock* block;
 	};
 
 	class ASTFile : public ASTNode

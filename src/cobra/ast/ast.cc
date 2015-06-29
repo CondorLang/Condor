@@ -36,4 +36,17 @@ namespace Cobra {
 			delete it->second;
 		}
 	}
+	ASTObjectMemberChainExpr::~ASTObjectMemberChainExpr(){
+		delete member;
+		delete object;
+		delete value;
+	}
+	ASTVar::~ASTVar(){
+		delete stmt;
+		delete varClass;
+	}
+	ASTIf::~ASTIf(){
+		delete conditions;
+		delete block;
+	}
 } // namespace Cobra

@@ -30,7 +30,9 @@ namespace Cobra{
 
 	void Scope::Insert(ASTNode* node){
 		if (node != NULL){
-			objects[node->name] = node;
+			if (node->name[0] != '%'){
+				objects[node->name] = node;
+			}
 			ordered.push_back(node);
 			count++;
 		}

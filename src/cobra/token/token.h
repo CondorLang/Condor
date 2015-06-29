@@ -16,6 +16,8 @@ namespace Cobra {
 		FILE,
 		BLOCK,
 		ARRAY_MEMBER,
+		OBJECT_MEMBER_CHAIN,
+		CLASS,
 
 		// Literals
 		LITERAL_BEGIN,
@@ -108,6 +110,7 @@ namespace Cobra {
 		INCLUDE,
 
 		MAP,
+		NEW,
 		OBJECT,
 		RETURN,
 

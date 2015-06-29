@@ -1,10 +1,10 @@
 %trace;
-#mode "lazy";
+//%printVariables;
+#mode "strict";
 
-object Person {
-	name = "Chase";
-	gender = "Male";
-	height = 6.0;
+func test(){
+	int a = 10;
+	if (a == 10 && (2 == 3)){
+		return "a";
+	}
 }
-
-object Employee {}

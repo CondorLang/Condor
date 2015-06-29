@@ -49,13 +49,14 @@ namespace Cobra {
 		bool IsOperator();
 		bool IsAssignment();
 		bool IsVarType();
+		bool IsBoolean();
 		void ParseOptions();
 		void ParseMode();
 		void ParseImportOrInclude();
 		ASTNode* ParseNodes();
 		ASTFunc* ParseFunc();
 		void ParseFuncParams(ASTFunc* func);
-		ASTBlock* ParseBlock();
+		ASTBlock* ParseBlock(bool initEat);
 		void ParseStmtList();
 		ASTNode* ParseStmt();
 		ASTNode* ParseVar();
@@ -67,10 +68,11 @@ namespace Cobra {
 		ASTExpr* ParseUnaryExpr();
 		ASTExpr* ParsePrimaryExpr();
 		ASTExpr* ParseOperand();
-		ASTExpr* ParseIdent();
+		ASTIdent* ParseIdent();
 		void ParseFuncCall(ASTExpr* unary);
 		ASTExpr* ParseArray(ASTExpr* expr);
 		ASTNode* ParseObject();
+		ASTNode* ParseIf();
 	};
 }
 

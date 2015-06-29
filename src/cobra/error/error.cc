@@ -18,6 +18,7 @@ namespace Error {
 			case INVALID_EXPR: return "Invalid Expression";
 			case INVALID_LEFT_EXPR: return "Invalid left expression";
 			case UNDEFINED_VARIABLE: return "Undefined variable";
+			case INVALID_OBJECT_MEMBER: return "Invalid object member";
 			case UNDEFINED: return "Undefined";
 			case EXPECTED: {
 				if (tok != NULL){

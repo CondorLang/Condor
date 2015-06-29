@@ -28,80 +28,136 @@ namespace Cobra{
 					return NextToken();
 				}
 				else if (p == '='){
-					return new Token(DIV_ASSIGN);
+					Next(); return new Token(DIV_ASSIGN);
 				}
 				else {
-					return new Token(DIV);
+					Next(); return new Token(DIV);
 				}
 			}
 			case '*': {
 				char p = Peek();
-				if (p == '=') return new Token(MUL_ASSIGN);
+				if (p == '=') Next(); return new Token(MUL_ASSIGN);
 				return new Token(MUL);
 			}
 			case '+': {
 				char p = Peek();
-				if (p == '+') return new Token(INC);
-				else if (p == '=') return new Token(ADD_ASSIGN);
+				if (p == '+') {
+					Next(); 
+					return new Token(INC);
+				}
+				else if (p == '=') {
+					Next(); 
+					return new Token(ADD_ASSIGN);
+				}
 				else return new Token(ADD);
 			}
 			case '-': {
 				char p = Peek();
-				if (p == '=') return new Token(SUB_ASSIGN);
-				else if (p == '-') return new Token(DEC);
-				else if (p == '>') return new Token(RARROW);
+				if (p == '=') {
+					Next(); 
+					return new Token(SUB_ASSIGN);
+				}
+				else if (p == '-') {
+					Next(); 
+					return new Token(DEC);
+				}
+				else if (p == '>') {
+					Next(); 
+					return new Token(RARROW);
+				}
 				else return new Token(SUB);
 			}
 			case '%': {
 				char p = Peek();
-				if (p == '=') return new Token(MOD_ASSIGN);
+				if (p == '=') {
+					Next(); 
+					return new Token(MOD_ASSIGN);
+				}
 				return new Token(MOD);
 			}
 			case '<': {
 				char p = Peek();
-				if (p == '-') return new Token(LARROW);
+				if (p == '-') {
+					Next(); 
+					return new Token(LARROW);
+				}
 				else if (p == '<') {
 					char p2 = src[readOffset + 1];
-					if (p2 == '=') return new Token(SHL_ASSIGN);
+					if (p2 == '=') {
+						Next(); 
+						Next(); 
+						return new Token(SHL_ASSIGN);
+					}
 					return new Token(SHL);
 				}
-				else if (p == '=') return new Token(LEQ);
+				else if (p == '=') {
+					Next(); 
+					return new Token(LEQ);
+				}
 				else return new Token(LSS);
 			}
 			case '>': {
 				char p = Peek();
-				if (p == '=') return new Token(GEQ);
+				if (p == '=') {
+					Next(); 
+					return new Token(GEQ);
+				}
 				if (p == '>') {
 					char p2 = src[readOffset + 1];
-					if (p2 == '=') return new Token(SHR_ASSIGN);
+					if (p2 == '=') {
+						Next(); 
+						Next(); 
+						return new Token(SHR_ASSIGN);
+					}
 					return new Token(SHR); 
 				}
 				else return new Token(GTR);
 			}
 			case '&': {
 				char p = Peek();
-				if (p == '&') return new Token(LAND);
+				if (p == '&') {
+					Next(); 
+					return new Token(LAND);
+				}
 				else if (p == '^') {
 					char p2 = src[readOffset + 1];
-					if (p2 == '=') return new Token(AND_NOT_ASSIGN);
+					if (p2 == '=') {
+						Next(); 
+						return new Token(AND_NOT_ASSIGN);
+					}
 					return new Token(AND_NOT);
 				}
-				else if (p == '=') return new Token(AND_ASSIGN);
+				else if (p == '=') {
+					Next();
+					return new Token(AND_ASSIGN);
+				}
 				return new Token(AND);
 			}
 			case '|': {
 				char p = Peek();
-				if (p == '|') return new Token(LOR);
-				else if (p == '=') return new Token(OR_ASSIGN);
+				if (p == '|') {
+					Next(); 
+					return new Token(LOR);
+				}
+				else if (p == '=') {
+					Next(); 
+					return new Token(OR_ASSIGN);
+				}
 				return new Token(OR);
 			}
 			case '^': {
 				char p = Peek();
-				if (p == '=') return new Token(XOR_ASSIGN);
+				if (p == '=') {
+					Next(); 
+					return new Token(XOR_ASSIGN);
+				}
 			}
 			case '=': {
 				char p = Peek();
-				if (p == '=') return new Token(EQL);
+				if (p == '=') {
+					Next(); 
+					return new Token(EQL);
+				}
 				return new Token(ASSIGN);
 			}
 			case ';': return new Token(SEMICOLON);
