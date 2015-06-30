@@ -40,10 +40,15 @@ namespace Cobra{
 	}
 
 	void Parser::Next(){
-		tok = scanner->NextToken();
-		row = scanner->row;
-		col = scanner->col;
-		pos = scanner->offset;
+		try {
+			tok = scanner->NextToken();
+			row = scanner->row;
+			col = scanner->col;
+			pos = scanner->offset;
+		}
+		catch (Error::ERROR e){
+			throw e;
+		}
 	}
 
 	void Parser::Expect(TOKEN val){
@@ -101,7 +106,35 @@ namespace Cobra{
 		return file;
 	}
 
-	ASTNode* Parser::ParseIf(){
+	ASTWhile* Parser::ParseWhile(){
+		if (trace) Trace("Parsing", "While Statement");
+		Expect(WHILE);
+		Next();
+		ASTExpr* expr = ParseUnaryExpr();
+		ASTWhile* whileStmt = new ASTWhile;
+		whileStmt->conditions = expr;
+		whileStmt->block = ParseBlock(false);
+		return whileStmt;
+	}
+
+	ASTElse* Parser::ParseElse(){
+		if (trace) Trace("Parsing", "Else Statement");
+		Expect(ELSE);
+		Next();
+		ASTElse* elseStmt = new ASTElse;
+		if (tok->value == IF){
+			elseStmt->ifStmt = ParseIf();
+			elseStmt->conditions = NULL;
+			elseStmt->block = NULL;
+			return elseStmt;
+		}
+		elseStmt->conditions = NULL;
+		elseStmt->block = ParseBlock(false);
+		return elseStmt;
+
+	}
+
+	ASTIf* Parser::ParseIf(){
 		if (trace) Trace("Parsing", "If Statement");
 		Expect(IF);
 		Next();
@@ -133,17 +166,17 @@ namespace Cobra{
 		Next();
 		while (true){
 			if (tok->value == RBRACE) break; // empty object
-			if (mode == LAZY)
-				obj->members[tok->raw] = ParseSimpleStmt();
-			else{
-				ASTExpr* var = new ASTExpr;
-				var->assignType = varType;
-				var->name = tok->raw;
-				var->value = ParseSimpleStmt();
-				obj->members[tok->raw] = var;
+			if (mode == STRICT){
+				ASTNode* node = ParseNodes(); // here
+				if (node == NULL) throw Error::EXPECTED_VARIABLE_TYPE;
+				obj->members[node->name] = node;
 			}
-			if (tok->value == RBRACE) break;
-			Next();
+			else{
+				ASTNode* node = NULL;
+				if (tok->value == FUNC) node = ParseFunc();
+				else node = ParseVar();
+				obj->members[node->name] = node;
+			}
 		}
 		Expect(RBRACE);
 		Next();
@@ -327,6 +360,18 @@ namespace Cobra{
 			binary->Left = expr;
 			return binary;
 		}
+		else if (tok->value == DEC){
+			ASTIdent* ident = (ASTIdent*) expr;
+			ident->dec = true;
+			Next();
+			return ident;
+		}
+		else if (tok->value == INC){
+			ASTIdent* ident = (ASTIdent*) expr;
+			ident->inc = true;
+			Next();
+			return ident;
+		}
 		else {
 			return expr;
 		}
@@ -376,10 +421,15 @@ namespace Cobra{
 	}
 
 	ASTNode* Parser::ParseVar(){
-		if (trace) Trace("Parsing", tok->String().c_str());
 		ASTVar* var = new ASTVar;
-		var->varType = tok->value;
-		Next();
+		if (mode == STRICT){
+			if (trace) Trace("Parsing", ("Var: " + tok->String()).c_str());
+			var->varType = tok->value;
+			Next();
+		}
+		else{
+			if (trace) Trace("Parsing", ("Var: " + tok->raw).c_str());
+		}
 		Expect(IDENT);		
 		var->name = tok->raw;		
 		var->stmt = ParseSimpleStmt();
@@ -438,9 +488,9 @@ namespace Cobra{
 			case IDENT: {
 				return ParseIdentStart();
 			}
-			case IF: {
-				return ParseIf();
-			}
+			case IF: return ParseIf();
+			case ELSE: return ParseElse();
+			case WHILE: return ParseWhile();
 			case CONST: {
 				//
 			}
@@ -695,6 +745,12 @@ namespace Cobra{
 		Expect(SEMICOLON);
 	}
 
+	/**
+	 * These options are internal
+	 *
+	 * %trace; - traces the parsing method by method
+	 * %printVariables; - prints all the variables in a given scope
+	 */
 	void Parser::ParseOptions(){
 		Next();
 		if (tok->value == MOD){

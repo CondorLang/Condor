@@ -32,7 +32,7 @@ namespace Cobra {
 		delete value;
 	}
 	ASTObject::~ASTObject(){
-		for (std::map<std::string, ASTExpr*>::iterator it = members.begin(); it != members.end(); ++it){
+		for (std::map<std::string, ASTNode*>::iterator it = members.begin(); it != members.end(); ++it){
 			delete it->second;
 		}
 	}
@@ -46,6 +46,15 @@ namespace Cobra {
 		delete varClass;
 	}
 	ASTIf::~ASTIf(){
+		delete conditions;
+		delete block;
+	}
+	ASTElse::~ASTElse(){
+		delete conditions;
+		delete block;
+		delete ifStmt;
+	}
+	ASTWhile::~ASTWhile(){
 		delete conditions;
 		delete block;
 	}

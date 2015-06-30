@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "../token/token.h"
+#include "../error/error.h"
 
 namespace Cobra {
 	class Scanner {

@@ -113,6 +113,14 @@ namespace Cobra{
 				}
 				else return new Token(GTR);
 			}
+			case '!': {
+				char p = Peek();
+				if (p == '='){
+					Next();
+					return new Token(NEQ);
+				}
+				return new Token(NOT);
+			}
 			case '&': {
 				char p = Peek();
 				if (p == '&') {
@@ -182,12 +190,15 @@ namespace Cobra{
 				if (p2 == '\''){
 					Token* tok = new Token(CHAR);
 					tok->raw = p;
+					Next();
+					Next();
 					return tok;
 				}
 				else if (p == '\''){
+					Next();
 					return new Token(CHAR);
 				}
-				Error("Invalid char value");
+				throw Error::INVALID_CHAR_VALUE;
 			}
 			case '"': {
 				Next(); // eat "

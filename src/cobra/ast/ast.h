@@ -33,9 +33,11 @@ namespace Cobra {
 	class ASTIdent : public ASTExpr
 	{
 	public:
-		ASTIdent(){type = IDENT;}
+		ASTIdent(){type = IDENT;inc = false;dec = false;}
 		~ASTIdent(){}
 		int pos;
+		bool inc;
+		bool dec;
 	};
 
 	class ASTLiterary : public ASTExpr
@@ -188,7 +190,7 @@ namespace Cobra {
 	public:
 		ASTObject(){}
 		~ASTObject();
-		std::map<std::string, ASTExpr*> members;
+		std::map<std::string, ASTNode*> members;
 	};
 
 	class ASTIf : public ASTNode
@@ -196,6 +198,25 @@ namespace Cobra {
 	public:
 		ASTIf(){type = IF;}
 		~ASTIf();
+		ASTExpr* conditions;
+		ASTBlock* block;
+	};
+
+	class ASTElse : public ASTNode
+	{
+	public:
+		ASTElse(){type = ELSE;ifStmt = NULL;}
+		~ASTElse();
+		ASTExpr* conditions;
+		ASTBlock* block;
+		ASTIf* ifStmt;
+	};
+
+	class ASTWhile : public ASTNode
+	{
+	public:
+		ASTWhile(){}
+		~ASTWhile();
 		ASTExpr* conditions;
 		ASTBlock* block;
 	};

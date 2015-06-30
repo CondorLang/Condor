@@ -22,7 +22,9 @@ namespace Cobra {
 			INVALID_LEFT_EXPR,
 			UNDEFINED_VARIABLE,
 			UNDEFINED,
-			INVALID_OBJECT_MEMBER
+			INVALID_OBJECT_MEMBER,
+			SCANNER,
+			INVALID_CHAR_VALUE
 		};
 
 		std::string String(ERROR e, Token* tok);

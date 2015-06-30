@@ -94,6 +94,7 @@ namespace Cobra {
 			case TYPE: return "type";
 			case VAR: return "var";
 			case OBJECT: return "object";
+			case WHILE: return "while";
 
 			default: return "";
 		}
@@ -141,6 +142,7 @@ namespace Cobra {
 		else if (str == "string") return new Token(STRING);
 		else if (str == "object") return new Token(OBJECT);
 		else if (str == "new") return new Token(NEW);
+		else if (str == "while") return new Token(WHILE);
 		else return new Token(IDENT);
 	}
 } // namespace Cobra

@@ -118,6 +118,7 @@ namespace Cobra {
 		SWITCH,
 		TYPE,
 		VAR,
+		WHILE,
 		KEYWORD_END
 	};	
 

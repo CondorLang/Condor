@@ -19,6 +19,12 @@ namespace Error {
 			case INVALID_LEFT_EXPR: return "Invalid left expression";
 			case UNDEFINED_VARIABLE: return "Undefined variable";
 			case INVALID_OBJECT_MEMBER: return "Invalid object member";
+			case INVALID_CHAR_VALUE: return "Invalid char value";
+			case SCANNER: {
+				if (tok != NULL){
+					return tok->raw;
+				}
+			}
 			case UNDEFINED: return "Undefined";
 			case EXPECTED: {
 				if (tok != NULL){
