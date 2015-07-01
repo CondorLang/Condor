@@ -4,6 +4,7 @@ namespace Cobra {
 
 	Run::Run(std::string source){
 		parser = new Parser(source);
+		check = new Check;
 	}
 
 	Run::~Run(){
@@ -13,12 +14,20 @@ namespace Cobra {
 	void Run::Start(){
 		try {
 			files["main"] = parser->Parse();
-			Init();
 		}
 		catch (Error::ERROR e){
 			std::string msg = Error::String(e, parser->expected);
 			printf("%d:%d - %s\n", parser->row, parser->col, msg.c_str());
 		}	
+
+		try {
+			check->CheckFile(files["main"]);
+			//Init();
+		}
+		catch (Error::ERROR e){
+			std::string msg = Error::String(e, NULL);
+			printf("%d:%d - %s\n", check->row, check->col, msg.c_str());
+		}
 	}
 
 	void Run::Init(){
@@ -35,6 +44,7 @@ namespace Cobra {
 
 	void Run::CallFunction(ASTFunc* func){
 		if (func->body == NULL){} // do nothing
+
 	}
 
 	bool Run::HasObjectInScope(std::string name, Scope* scope){

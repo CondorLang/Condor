@@ -1,25 +1,8 @@
-%trace;
+//%trace;
 #mode "strict";
 
-object Person {
-	string name = "";
-	char gender = '';
-}
-
-func add(int a, int b){
-	int c = 100;
-	Person person = new Person();
-	person.name = "Chase";
-	person.gender = 'm';
-	return a+b + c;
-}
-
 func main(string args[], int argv){
-	int count = 0;
-	while (true){
-		if (count == 8){
-			return add(1,2);
-		}
-		count++;
+	for (int i = 0; i < argv; i++){
+		print(args[i]);
 	}
 }

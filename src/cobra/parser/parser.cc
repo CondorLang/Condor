@@ -61,7 +61,7 @@ namespace Cobra{
 
 	bool Parser::IsOperator(){
 		int type = (int) tok->value;
-		return type == ADD || type == SUB || type == MOD || type == DIV || type == MUL;
+		return type == ADD || type == SUB || type == MOD || type == DIV || type == MUL || type == SHL || type == SHR;
 	}
 
 	bool Parser::IsAssignment(){
@@ -106,13 +106,30 @@ namespace Cobra{
 		return file;
 	}
 
+	ASTFor* Parser::ParseFor(){
+		if (trace) Trace("Parsing", "For");
+		Expect(FOR);
+		Next();
+		Expect(LPAREN);
+		Next();
+		ASTFor* forStmt = new ASTFor;
+		forStmt->var = ParseVar();
+		forStmt->conditions = ParseUnaryExpr();
+		Expect(SEMICOLON);
+		Next();
+		forStmt->iterator = ParseExpr();
+		Expect(RPAREN);
+		Next();
+		forStmt->block = ParseBlock(false);
+		return forStmt;
+	}
+
 	ASTWhile* Parser::ParseWhile(){
 		if (trace) Trace("Parsing", "While Statement");
 		Expect(WHILE);
 		Next();
-		ASTExpr* expr = ParseUnaryExpr();
 		ASTWhile* whileStmt = new ASTWhile;
-		whileStmt->conditions = expr;
+		whileStmt->conditions = ParseUnaryExpr();
 		whileStmt->block = ParseBlock(false);
 		return whileStmt;
 	}
@@ -145,6 +162,41 @@ namespace Cobra{
 		return ifStmt;
 	}
 
+	VISIBILITY Parser::GetVisibility(){
+		int val = (int) tok->value;
+		VISIBILITY v;
+		switch (val){
+			case CONSTRUCTOR: {
+				if (trace) Trace("Parsing", "Constructor");
+				v = vCONSTRUCTOR;
+				Next();
+				break;
+			}
+			case PUBLIC: {
+				if (trace) Trace("Parsing", "Public");
+				v = vPUBLIC;
+				Next();
+				break;
+			}
+			case PRIVATE: {
+				if (trace) Trace("Parsing", "Private");
+				v = vPRIVATE;
+				Next();
+				break;
+			}
+			case STATIC: {
+				if (trace) Trace("Parsing", "Static");
+				v = vSTATIC;
+				Next();
+				break;
+			}
+			default: {
+				v = vPUBLIC;
+			}
+		}
+		return v;
+	}
+
 	ASTNode* Parser::ParseObject(){
 		Expect(OBJECT);
 		Next();
@@ -167,14 +219,18 @@ namespace Cobra{
 		while (true){
 			if (tok->value == RBRACE) break; // empty object
 			if (mode == STRICT){
+				VISIBILITY v = GetVisibility();
 				ASTNode* node = ParseNodes(); // here
+				node->visibility = v;
 				if (node == NULL) throw Error::EXPECTED_VARIABLE_TYPE;
 				obj->members[node->name] = node;
 			}
 			else{
+				VISIBILITY v = GetVisibility();
 				ASTNode* node = NULL;
 				if (tok->value == FUNC) node = ParseFunc();
 				else node = ParseVar();
+				node->visibility = v;
 				obj->members[node->name] = node;
 			}
 		}
@@ -208,16 +264,20 @@ namespace Cobra{
 			call->pos = ident->pos;
 			expr = ident;
 			Next();
+			bool expectExpr = false;
 			while (true){
 				ASTExpr* expr = ParseExpr();
+				if (expr != NULL) expectExpr = false;
 				call->params.push_back(expr);
-				if (tok->value == RPAREN){
+				if (tok->value == COMMA){
+					Next();
+					expectExpr = true;
+					continue;
+				}
+				else if (tok->value == RPAREN){
+					if (expectExpr) throw Error::EXPECTED_PARAMETER;
 					Next();
 					break;
-				}
-				else if (tok->value == COMMA){
-					Next();
-					continue;
 				}
 				else{
 					throw Error::INVALID_FUNCTION_CALL;
@@ -304,7 +364,7 @@ namespace Cobra{
 		if (trace) Trace("Parsing", "Unary Expression");
 		int type = (int) tok->value;
 		switch (type){
-			case ADD: case SUB:{
+			case ADD: case SUB: case MUL: case DIV: case MOD: {
 				ASTUnaryExpr* unary = new ASTUnaryExpr;
 				unary->pos = pos;
 				unary->op = new Token(tok->value);
@@ -491,6 +551,7 @@ namespace Cobra{
 			case IF: return ParseIf();
 			case ELSE: return ParseElse();
 			case WHILE: return ParseWhile();
+			case FOR: return ParseFor();
 			case CONST: {
 				//
 			}
@@ -587,14 +648,20 @@ namespace Cobra{
 					Next(); // eat ]
 					node = new ASTArray(rType);
 				}
+				if (node == NULL) throw Error::EXPECTED_VARIABLE_TYPE;
+				node->name = name;
 
 				if (tok->value == COMMA) {
+					func->args[name] = node;
+					func->ordered.push_back(node);
 					Next();
 				}
-				else if (tok->value == RPAREN) break;
+				else if (tok->value == RPAREN) {
+					func->args[name] = node;
+					func->ordered.push_back(node);
+					break;
+				}
 				else Expect(RPAREN);
-
-				func->args[name] = node;
 			}
 			else{
 				if (tok->value == RPAREN) return;
@@ -613,11 +680,17 @@ namespace Cobra{
 					var->name = name;
 				}
 
-				if (tok->value == COMMA) Next();
-				else if (tok->value == RPAREN) break;
+				if (tok->value == COMMA) {
+					func->args[name] = var;
+					func->ordered.push_back(var);
+					Next();
+				}
+				else if (tok->value == RPAREN) {
+					func->args[name] = var;
+					func->ordered.push_back(var);
+					break;
+				}
 				else Expect(RPAREN);
-
-				func->args[name] = var;
 			}
 		}
 	}
@@ -656,13 +729,17 @@ namespace Cobra{
 				if (mode == STRICT) throw Error::VAR_NOT_ALLOWED_IN_STRICT_MODE;
 				return ParseVar();
 			}
-			case OBJECT: {
-				return ParseObject();
-			}
+			case OBJECT: return ParseObject();
 			case INT: case BOOLEAN: case DOUBLE: case FLOAT: case CHAR: case STRING: {
 				if (mode == LAZY) throw Error::EXPECTED_VAR;
 				return ParseVar();
 			}
+			case IDENT: return ParseIdentStart();
+			case IF: return ParseIf();
+			case ELSE: return ParseElse();
+			case WHILE: return ParseWhile();
+			case FOR: return ParseFor();
+			case RETURN: throw Error::UNEXPECTED_RETURN;
 		}
 		Next();
 		return NULL;

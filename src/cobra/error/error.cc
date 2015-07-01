@@ -20,6 +20,10 @@ namespace Error {
 			case UNDEFINED_VARIABLE: return "Undefined variable";
 			case INVALID_OBJECT_MEMBER: return "Invalid object member";
 			case INVALID_CHAR_VALUE: return "Invalid char value";
+			case EXPECTED_PARAMETER: return "Expected parameter";
+			case UNEXPECTED_RETURN: return "Unexpected return";
+			case EXPECTED_ARG_NAME: return "Expected argument name";
+			case MISSING_FUNC_BODY: return "Missing func body";
 			case SCANNER: {
 				if (tok != NULL){
 					return tok->raw;

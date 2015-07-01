@@ -12,13 +12,22 @@ namespace Cobra {
 
 	class Scope;
 
+	enum VISIBILITY{
+		vPUBLIC, // default
+		vPRIVATE,
+		vPROTECTED,
+		vSTATIC,
+		vCONSTRUCTOR
+	};
+
 	class ASTNode
 	{
 	public:
-		ASTNode(){type = ILLEGAL;}
+		ASTNode(){type = ILLEGAL;visibility = vPUBLIC;}
 		~ASTNode(){}
 		std::string name;
 		TOKEN type;
+		VISIBILITY visibility;
 	};
 
 	class ASTExpr : public ASTNode
@@ -174,6 +183,7 @@ namespace Cobra {
 		~ASTFunc();
 		ASTBlock* body;
 		std::map<std::string, ASTNode*> args;
+		std::vector<ASTNode*> ordered;
 	};
 
 	class ASTArray : public ASTNode
@@ -215,9 +225,20 @@ namespace Cobra {
 	class ASTWhile : public ASTNode
 	{
 	public:
-		ASTWhile(){}
+		ASTWhile(){type = WHILE;}
 		~ASTWhile();
 		ASTExpr* conditions;
+		ASTBlock* block;
+	};
+
+	class ASTFor : public ASTNode
+	{
+	public:
+		ASTFor(){type = FOR;};
+		~ASTFor();
+		ASTNode* var;
+		ASTExpr* conditions;
+		ASTExpr* iterator;
 		ASTBlock* block;
 	};
 

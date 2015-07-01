@@ -34,9 +34,15 @@ namespace Cobra{
 					Next(); return new Token(DIV);
 				}
 			}
+			case '@': {
+				return new Token(CONSTRUCTOR);
+			}
 			case '*': {
 				char p = Peek();
-				if (p == '=') Next(); return new Token(MUL_ASSIGN);
+				if (p == '=') {
+					Next(); 
+					return new Token(MUL_ASSIGN);
+				}
 				return new Token(MUL);
 			}
 			case '+': {
@@ -88,6 +94,7 @@ namespace Cobra{
 						Next(); 
 						return new Token(SHL_ASSIGN);
 					}
+					Next();
 					return new Token(SHL);
 				}
 				else if (p == '=') {
@@ -109,6 +116,7 @@ namespace Cobra{
 						Next(); 
 						return new Token(SHR_ASSIGN);
 					}
+					Next();
 					return new Token(SHR); 
 				}
 				else return new Token(GTR);
@@ -133,6 +141,7 @@ namespace Cobra{
 						Next(); 
 						return new Token(AND_NOT_ASSIGN);
 					}
+					Next();
 					return new Token(AND_NOT);
 				}
 				else if (p == '=') {
@@ -174,7 +183,11 @@ namespace Cobra{
 			case '.': {
 				char p = Peek();
 				char p2 = src[readOffset + 1];
-				if (p == '.' && p2 == '.') return new Token(ELLIPSIS);
+				if (p == '.' && p2 == '.') {
+					Next();
+					Next();
+					return new Token(ELLIPSIS);
+				}
 				return new Token(PERIOD);
 			}
 			case '(': return new Token(LPAREN);

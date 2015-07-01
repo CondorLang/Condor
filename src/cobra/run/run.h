@@ -7,14 +7,17 @@
 #include "../ast/ast.h"
 #include "../error/error.h"
 #include "../parser/parser.h"
+#include "../ast/check.h"
 
 namespace Cobra {
+
 	class Run
 	{
 	public:
 		Run(std::string source);
 		~Run();
 		Parser* parser;
+		Check* check;
 
 		void Start();
 

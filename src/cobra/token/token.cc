@@ -25,6 +25,11 @@ namespace Cobra {
 			case BOOLEAN: return "boolean";
 			case CHAR: return "char";
 			case STRING: return "string";
+			case CONSTRUCTOR: return "@";
+			case PUBLIC: return "public";
+			case PRIVATE: return "private";
+			case PROTECTED: return "protected";
+			case STATIC: return "static";
 			case ADD: return "+";
 			case SUB: return "-";
 			case MUL: return "*";
@@ -143,6 +148,10 @@ namespace Cobra {
 		else if (str == "object") return new Token(OBJECT);
 		else if (str == "new") return new Token(NEW);
 		else if (str == "while") return new Token(WHILE);
+		else if (str == "public") return new Token(PUBLIC);
+		else if (str == "private") return new Token(PRIVATE);
+		else if (str == "protected") return new Token(PROTECTED);
+		else if (str == "static") return new Token(STATIC);
 		else return new Token(IDENT);
 	}
 } // namespace Cobra

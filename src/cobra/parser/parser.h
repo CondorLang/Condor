@@ -50,6 +50,7 @@ namespace Cobra {
 		bool IsAssignment();
 		bool IsVarType();
 		bool IsBoolean();
+		VISIBILITY GetVisibility();
 		void ParseOptions();
 		void ParseMode();
 		void ParseImportOrInclude();
@@ -75,6 +76,7 @@ namespace Cobra {
 		ASTIf* ParseIf();
 		ASTElse* ParseElse();
 		ASTWhile* ParseWhile();
+		ASTFor* ParseFor();
 	};
 }
 

@@ -31,6 +31,12 @@ namespace Cobra {
 		ARRAY, // []
 		LITERAL_END,
 
+		CONSTRUCTOR, // @
+		PUBLIC,
+		STATIC,
+		PROTECTED,
+		PRIVATE,
+
 		// Operators
 		OPERATOR_BEGIN,
 		ADD, // +
