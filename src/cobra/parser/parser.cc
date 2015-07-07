@@ -11,6 +11,7 @@ namespace Cobra{
 		currentFunctionScope = NULL;
 		trace = false;
 		printVariables = false;
+		printCheck = false;
 	}
 
 	Parser::~Parser(){
@@ -18,6 +19,13 @@ namespace Cobra{
 		delete topScope;
 		delete currentFunctionScope;
 		delete expected;
+	}
+
+	std::string Parser::GetParserOptions(){
+		if (trace) return "trace";
+		else if (printVariables) return "printVariables";
+		else if (printCheck) return "printCheck";
+		else return "";
 	}
 
 	void Parser::Trace(const char* name, const char* value){
@@ -93,9 +101,7 @@ namespace Cobra{
 		ParseMode(); // parse the file mode
 		ParseImportOrInclude();
 
-		while (tok != NULL && tok->value != END){
-			topScope->Insert(ParseNodes());
-		}
+		ParseStmtList();
 
 		file->scope = topScope;
 
@@ -220,7 +226,7 @@ namespace Cobra{
 			if (tok->value == RBRACE) break; // empty object
 			if (mode == STRICT){
 				VISIBILITY v = GetVisibility();
-				ASTNode* node = ParseNodes(); // here
+				ASTNode* node = ParseNodes();
 				node->visibility = v;
 				if (node == NULL) throw Error::EXPECTED_VARIABLE_TYPE;
 				obj->members[node->name] = node;
@@ -324,6 +330,9 @@ namespace Cobra{
 				if (trace) Trace("Literal Value", lit->value.c_str());
 				return lit;
 			}
+			case LPAREN: {
+				return ParseUnaryExpr();
+			}
 		}
 		return NULL;
 	}
@@ -394,7 +403,6 @@ namespace Cobra{
 	ASTExpr* Parser::ParseBinaryExpr(){
 		if (trace) Trace("Parsing", "Binary Expression");
 		ASTExpr* unary = ParseUnaryExpr();
-		ParseFuncCall(unary);
 		unary = ParseArray(unary);
 		return unary;
 	}
@@ -423,12 +431,14 @@ namespace Cobra{
 		else if (tok->value == DEC){
 			ASTIdent* ident = (ASTIdent*) expr;
 			ident->dec = true;
+			ident->post = true;
 			Next();
 			return ident;
 		}
 		else if (tok->value == INC){
 			ASTIdent* ident = (ASTIdent*) expr;
 			ident->inc = true;
+			ident->post = true;
 			Next();
 			return ident;
 		}
@@ -499,7 +509,7 @@ namespace Cobra{
 	ASTNode* Parser::ParseIdentStart(){
 		if (trace) Trace("Parsing", "ident start");
 		Expect(IDENT);
-		ASTNode* expr = ParseExpr();
+		ASTNode* expr = ParseExpr(); // here
 		if (IsAssignment()){
 			if (expr->type == ARRAY_MEMBER){ // for arrays
 				ASTArrayMemberExpr* aryMem = (ASTArrayMemberExpr*) expr;
@@ -514,6 +524,10 @@ namespace Cobra{
 				return chain;
 			}
 		}
+		else if (tok->value == SEMICOLON){
+			Next();
+			return expr;
+		}
 		else if (expr->type == IDENT){
 			ASTVar* var = new ASTVar;
 			var->varType = CLASS;
@@ -522,8 +536,11 @@ namespace Cobra{
 			var->name = tok->raw;
 			return var;
 		}
-		Expect(SEMICOLON);
-		Next();
+		else{
+			Expect(SEMICOLON);
+			Next();
+			return expr;
+		}
 		return expr;
 	}
 
@@ -545,9 +562,7 @@ namespace Cobra{
 					throw Error::EXPECTED_VAR;
 				return ParseVar();
 			}
-			case IDENT: {
-				return ParseIdentStart();
-			}
+			case IDENT: return ParseIdentStart();
 			case IF: return ParseIf();
 			case ELSE: return ParseElse();
 			case WHILE: return ParseWhile();
@@ -555,6 +570,7 @@ namespace Cobra{
 			case CONST: {
 				//
 			}
+			case FUNC: return ParseFunc();
 			case RETURN: return ParseReturn();
 			default: {
 				throw Error::INVALID_STMT;
@@ -570,7 +586,11 @@ namespace Cobra{
 	void Parser::ParseStmtList(){
 		if (trace) Trace("Parsing", "Statement List");
 		while (tok->value != CASE && tok->value != DEFAULT && tok->value != RBRACE && tok->value != END){
-			topScope->Insert(ParseStmt());
+			ASTNode* stmt = ParseStmt();
+			if (stmt == NULL) break;
+			if (topScope == NULL) throw Error::INTERNAL_SCOPE_ERROR;
+			topScope->Insert(stmt);
+			if (tok->value == END || tok->value == RBRACE) break;
 		}
 	}
 
@@ -583,9 +603,7 @@ namespace Cobra{
 		OpenScope();
 
 		ASTBlock* block = new ASTBlock;
-
 		ParseStmtList();
-
 		Expect(RBRACE);
 		Next();
 
@@ -602,51 +620,20 @@ namespace Cobra{
 		while (true){
 			if (mode == STRICT){
 				if (tok->value == RPAREN) return;
-				int type = (int)tok->value;
 				if (!IsVarType()) throw Error::EXPECTED_VARIABLE_TYPE;
 				TOKEN rType = tok->value;
 				Next();
 				Expect(IDENT);
-				ASTNode* node = NULL;
-				std::string name;
-				switch (type){
-					case INT: {
-						node = new ASTInt;						
-						break;
-					}
-					case FLOAT: {
-						node = new ASTFloat;
-						break;
-					}
-					case DOUBLE: {
-						node = new ASTDouble;
-						break;
-					}
-					case BOOLEAN: {
-						node = new ASTBoolean;
-						break;
-					}
-					case CHAR: {
-						node = new ASTChar;
-						break;
-					}
-					case STRING: {
-						node = new ASTString;
-						break;
-					}
-					case FUNC: {
-						node = new ASTFunc;
-						break;
-					}
-					default: throw Error::EXPECTED_VARIABLE_TYPE;
-				}
-				name = tok->raw;
+				ASTVar* node = new ASTVar;
+				std::string name = tok->raw;
+				node->varType = rType;
 				Next();
 				if (tok->value == LBRACK){
 					Next(); // eat [
 					Expect(RBRACK);
 					Next(); // eat ]
-					node = new ASTArray(rType);
+					node->arrayType = rType;
+					node->varType = ARRAY;
 				}
 				if (node == NULL) throw Error::EXPECTED_VARIABLE_TYPE;
 				node->name = name;
@@ -837,6 +824,8 @@ namespace Cobra{
 				trace = true;
 			else if (tok->raw == "printVariables")
 				printVariables = true;
+			else if (tok->raw == "printCheck")
+				printCheck = true;
 			Next();
 			Next(); // eat ;
 		}

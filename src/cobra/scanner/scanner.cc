@@ -13,10 +13,11 @@ namespace Cobra{
 		Next();
 		
 		while (ch == '\n' || ch == ' ' || ch == '\t')
-			Next();
+			ScanWhiteSpaces();
 
 		switch (ch){
 			case -1: return new Token(END);
+			case '\0': return new Token(END);
 			case '/': {
 				char p = Peek();
 				if (p == '*'){
@@ -220,7 +221,7 @@ namespace Cobra{
 					result = ch;
 					while (true){
 						Next();
-						if (ch == '"') break;
+						if (ch == '"' || ch == -1) break;
 						result += ch;
 					}
 				}
@@ -327,7 +328,7 @@ namespace Cobra{
 			Next(); // eat *
 		}
 		else{
-			while (p != '\n'){
+			while (p != '\n' && p != -1){
 				Next();
 				p = Peek();
 			}
@@ -339,8 +340,8 @@ namespace Cobra{
 		if (ch == ' ' || ch == '\t' || ch == '\n'){
 			char p = Peek();
 			Next();
-			while (true){				
-				if (p != ' ' || p != '\t' || p != '\n')
+			while (true){			
+				if (p != ' ' || p != '\t' || p != '\n' || p != -1)
 					break;
 				p = Peek();
 				Next();

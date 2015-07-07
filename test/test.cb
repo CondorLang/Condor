@@ -1,8 +1,13 @@
 //%trace;
+%printCheck;
 #mode "strict";
 
-func main(string args[], int argv){
-	for (int i = 0; i < argv; i++){
-		print(args[i]);
-	}
+func hello(string world){
+	return "hello, " + world;
 }
+
+func main(string args[], int argv){
+	return hello("world");
+}
+
+//hello("world");

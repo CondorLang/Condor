@@ -23,11 +23,12 @@ namespace Cobra {
 	class ASTNode
 	{
 	public:
-		ASTNode(){type = ILLEGAL;visibility = vPUBLIC;}
+		ASTNode(){type = ILLEGAL;visibility = vPUBLIC;scan = true;}
 		~ASTNode(){}
 		std::string name;
 		TOKEN type;
 		VISIBILITY visibility;
+		bool scan;
 	};
 
 	class ASTExpr : public ASTNode
@@ -42,11 +43,14 @@ namespace Cobra {
 	class ASTIdent : public ASTExpr
 	{
 	public:
-		ASTIdent(){type = IDENT;inc = false;dec = false;}
+		ASTIdent(){type = IDENT;inc = false;dec = false;pre = false;post = false;}
 		~ASTIdent(){}
 		int pos;
 		bool inc;
 		bool dec;
+		bool pre;
+		bool post;
+		ASTNode* value;
 	};
 
 	class ASTLiterary : public ASTExpr
@@ -116,6 +120,7 @@ namespace Cobra {
 		~ASTVar();
 		ASTNode* stmt;
 		TOKEN varType;
+		TOKEN arrayType;
 		ASTIdent* varClass;
 	};
 

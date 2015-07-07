@@ -28,7 +28,8 @@ namespace Cobra {
 			EXPECTED_PARAMETER,
 			UNEXPECTED_RETURN,
 			EXPECTED_ARG_NAME,
-			MISSING_FUNC_BODY
+			MISSING_FUNC_BODY,
+			INTERNAL_SCOPE_ERROR
 		};
 
 		std::string String(ERROR e, Token* tok);

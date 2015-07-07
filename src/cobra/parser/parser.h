@@ -30,6 +30,7 @@ namespace Cobra {
 		Parser(std::string source);
 		~Parser();
 		ASTFile* Parse();
+		std::string GetParserOptions();
 
 	private:
 		Scanner* scanner;
@@ -37,8 +38,11 @@ namespace Cobra {
 		Scope* topScope;
 		Scope* currentFunctionScope;
 		std::vector<std::string> imports;
+
+		// Parser options
 		bool trace;
 		bool printVariables;
+		bool printCheck;
 
 		void Trace(const char* name, const char* value);
 		void PrintTok();

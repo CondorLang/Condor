@@ -24,6 +24,7 @@ namespace Error {
 			case UNEXPECTED_RETURN: return "Unexpected return";
 			case EXPECTED_ARG_NAME: return "Expected argument name";
 			case MISSING_FUNC_BODY: return "Missing func body";
+			case INTERNAL_SCOPE_ERROR: return "Internal scope error";
 			case SCANNER: {
 				if (tok != NULL){
 					return tok->raw;

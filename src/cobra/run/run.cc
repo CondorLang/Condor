@@ -21,6 +21,7 @@ namespace Cobra {
 		}	
 
 		try {
+			check->SetOptions(parser->GetParserOptions());
 			check->CheckFile(files["main"]);
 			//Init();
 		}

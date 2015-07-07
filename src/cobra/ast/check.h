@@ -24,11 +24,17 @@ namespace Cobra {
 		void CountItemsInScope();
 		bool HasMain();
 		void ValidateFunc(ASTFunc* func);
-		void ValidateFuncArgs(std::vector<ASTNode*> ordered);
+		void ValidateFuncArgs(ASTFunc* func);
 		void ScanScope();
 		void CheckScopeLevelNode(ASTNode* node);
 		void ValidateFor(ASTNode* node);
 		void ValidateVar(ASTNode* node);
+		void ValidateStmt(ASTExpr* expr);
+		void ValidateUnaryStmt(ASTUnaryExpr* unary);
+		void ValidateLiterary(ASTLiterary* lit);
+		void ValidateBinaryStmt(ASTBinaryExpr* binary);
+		void ValidateIdent(ASTIdent* ident);
+		ASTNode* GetObjectInScope(ASTIdent* ident, Scope* sc);
 
 	public:
 		Check();
@@ -37,6 +43,7 @@ namespace Cobra {
 		int row;
 
 		void CheckFile(ASTFile* file);
+		void SetOptions(std::string option);
 	};
 }
 
