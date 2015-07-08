@@ -2,12 +2,14 @@
 %printCheck;
 #mode "strict";
 
-func hello(string world){
-	return "hello, " + world;
+func add(int a, int b, int c, int d, int e, int g){
+	return a + b + c + d + e + g;
+}
+
+func get(int a){
+	return a;
 }
 
 func main(string args[], int argv){
-	return hello("world");
+	return add(get(1), get(get(get(2))), 3, 4, 5, 6);
 }
-
-//hello("world");

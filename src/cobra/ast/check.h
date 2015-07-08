@@ -16,6 +16,7 @@ namespace Cobra {
 		Scope* scope;
 		ASTFile* file;
 		bool trace;
+		int printIndent;
 
 		void Trace(std::string msg1, std::string msg2);
 		void OpenBaseScope();
@@ -34,7 +35,9 @@ namespace Cobra {
 		void ValidateLiterary(ASTLiterary* lit);
 		void ValidateBinaryStmt(ASTBinaryExpr* binary);
 		void ValidateIdent(ASTIdent* ident);
+		void ValidateFuncCall(ASTFuncCallExpr* call);
 		ASTNode* GetObjectInScope(ASTIdent* ident, Scope* sc);
+		ASTNode* GetObjectInScopeByString(std::string name, Scope* sc);
 
 	public:
 		Check();

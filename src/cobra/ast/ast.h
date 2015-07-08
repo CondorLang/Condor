@@ -83,16 +83,6 @@ namespace Cobra {
 		Token* op;
 	};
 
-	class ASTFuncCallExpr : public ASTExpr
-	{
-	public:
-		ASTFuncCallExpr(){type = FUNC_CALL;isNew = false;}
-		~ASTFuncCallExpr();
-		std::vector<ASTExpr*> params;
-		int pos;
-		bool isNew;
-	};
-
 	class ASTArrayMemberExpr : public ASTExpr
 	{
 	public:
@@ -189,6 +179,17 @@ namespace Cobra {
 		ASTBlock* body;
 		std::map<std::string, ASTNode*> args;
 		std::vector<ASTNode*> ordered;
+	};
+
+	class ASTFuncCallExpr : public ASTExpr
+	{
+	public:
+		ASTFuncCallExpr(){type = FUNC_CALL;isNew = false;}
+		~ASTFuncCallExpr();
+		std::vector<ASTExpr*> params;
+		int pos;
+		bool isNew;
+		ASTFunc* func;
 	};
 
 	class ASTArray : public ASTNode

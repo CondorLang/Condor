@@ -7,6 +7,7 @@ namespace Cobra{
 		trace = false; // debug
 		col = 0;
 		row = 0;
+		printIndent = 0;
 	}
 
 	Check::~Check(){
@@ -28,7 +29,26 @@ namespace Cobra{
 	}
 
 	void Check::Trace(std::string msg1, std::string msg2){
-		printf("%s - %s\n", msg1.c_str(), msg2.c_str());
+		std::string ident = "";
+		for (int i = 0; i < printIndent; i++){
+			ident += "  ";
+			if (i == printIndent - 1){
+				ident += "- ";
+			}
+		}
+		printf("%s%s - %s\n", ident.c_str(), msg1.c_str(), msg2.c_str());
+	}
+
+	ASTNode* Check::GetObjectInScopeByString(std::string name, Scope* sc){
+		Scope* s = sc;
+		if (s == NULL){
+			return NULL;
+		}
+		ASTNode* node = s->Lookup(name);
+		if (node == NULL){
+			node = GetObjectInScopeByString(name, s->outer);
+		}
+		return node;
 	}
 
 	ASTNode* Check::GetObjectInScope(ASTIdent* ident, Scope* sc){
@@ -41,6 +61,18 @@ namespace Cobra{
 			node = GetObjectInScope(ident, s->outer);
 		}
 		return node;
+	}
+
+	void Check::ValidateFuncCall(ASTFuncCallExpr* call){
+		if (trace) Trace("Calling func", call->name);
+		ASTFunc* func = (ASTFunc*) GetObjectInScopeByString(call->name, scope);
+		if (func == NULL) throw Error::UNDEFINED_FUNC;
+		call->func = func;
+		printIndent++;
+		for (int i = 0; i < call->params.size(); i++){
+			ValidateStmt(call->params[i]);
+		}
+		printIndent--;
 	}
 
 	void Check::ValidateIdent(ASTIdent* ident){
@@ -118,6 +150,10 @@ namespace Cobra{
 			}
 			case IDENT: {
 				ValidateIdent((ASTIdent*) expr);
+				break;
+			}
+			case FUNC_CALL: {
+				ValidateFuncCall((ASTFuncCallExpr*) expr);
 				break;
 			}
 			default: {

@@ -259,7 +259,7 @@ namespace Cobra{
 		return expr;
 	}
 
-	void Parser::ParseFuncCall(ASTExpr* expr){
+	ASTExpr* Parser::ParseFuncCall(ASTExpr* expr){
 		// This will always be a function call
 		if (tok->value == LPAREN && expr->type == IDENT){
 			if (trace) Trace("Parsing", "Function call");
@@ -268,13 +268,14 @@ namespace Cobra{
 			ASTIdent* ident = (ASTIdent*) expr;
 			call->name = ident->name;
 			call->pos = ident->pos;
-			expr = ident;
 			Next();
 			bool expectExpr = false;
 			while (true){
-				ASTExpr* expr = ParseExpr();
-				if (expr != NULL) expectExpr = false;
-				call->params.push_back(expr);
+				ASTExpr* ex = ParseExpr();
+				if (ex != NULL) {
+					expectExpr = false;
+					call->params.push_back(ex);
+				}
 				if (tok->value == COMMA){
 					Next();
 					expectExpr = true;
@@ -289,7 +290,9 @@ namespace Cobra{
 					throw Error::INVALID_FUNCTION_CALL;
 				}
 			}
+			return call;
 		}
+		return expr;
 	}
 
 	ASTIdent* Parser::ParseIdent(){
@@ -327,7 +330,7 @@ namespace Cobra{
 				lit->value = tok->raw;
 				lit->pos = pos;
 				Next();
-				if (trace) Trace("Literal Value", lit->value.c_str());
+				if (trace) Trace("Literal Value1", lit->value.c_str());
 				return lit;
 			}
 			case LPAREN: {
@@ -348,7 +351,7 @@ namespace Cobra{
 		// Will only loop once
 		while (true){
 			ASTBinaryExpr* binary = new ASTBinaryExpr;
-			ParseFuncCall(expr);
+			expr = ParseFuncCall(expr);
 			expr = ParseArray(expr);
 			if (!IsOperator() && !IsBoolean())
 				break;
@@ -414,7 +417,7 @@ namespace Cobra{
 			if (trace) Trace("Parsing", "New Object");
 			Next(); // eat new
 			ASTExpr* expr = ParseIdent();
-			ParseFuncCall(expr);
+			expr = ParseFuncCall(expr);
 			ASTFuncCallExpr* obj = (ASTFuncCallExpr*) expr;
 			obj->isNew = true;
 			obj->pos = pos;

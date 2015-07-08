@@ -74,7 +74,7 @@ namespace Cobra {
 		ASTExpr* ParsePrimaryExpr();
 		ASTExpr* ParseOperand();
 		ASTIdent* ParseIdent();
-		void ParseFuncCall(ASTExpr* unary);
+		ASTExpr* ParseFuncCall(ASTExpr* unary);
 		ASTExpr* ParseArray(ASTExpr* expr);
 		ASTNode* ParseObject();
 		ASTIf* ParseIf();
