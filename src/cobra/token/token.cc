@@ -20,6 +20,7 @@ namespace Cobra {
 			case CLASS: return "kClass";
 
 			case INT: return "int";
+			case kNULL: return "null";
 			case FLOAT: return "float";
 			case DOUBLE: return "double";
 			case BOOLEAN: return "boolean";
@@ -121,6 +122,7 @@ namespace Cobra {
 	Token* Token::GetToken(std::string str){
 		if (str.empty()) return new Token(ILLEGAL);
 		else if (str == "var") return new Token(VAR);
+		else if (str == "null") return new Token(kNULL);
 		else if (str == "type") return new Token(TYPE);
 		else if (str == "switch") return new Token(SWITCH);
 		else if (str == "struct") return new Token(STRUCT);

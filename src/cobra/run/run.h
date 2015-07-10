@@ -14,20 +14,17 @@ namespace Cobra {
 	class Run
 	{
 	public:
-		Run(std::string source);
+		Run();
 		~Run();
 		Parser* parser;
 		Check* check;
 
-		void Start();
+		void Execute();
+		void Compile(std::string* source);
+		void Dispose();
 
 	private:
 		std::map<std::string, ASTFile*> files;
-		bool HasFunction(std::string name);
-		bool HasObjectInScope(std::string name, Scope* scope);
-		ASTNode* GetObject(std::string name);
-		void Init();
-		void CallFunction(ASTFunc* func);
 	};
 }
 

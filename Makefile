@@ -30,4 +30,7 @@ buildtest:
 	make all
 	make test
 
+mem: 
+	valgrind --tool=memcheck --leak-check=yes ./build/Cobra
+
 .PHONY: all clean test

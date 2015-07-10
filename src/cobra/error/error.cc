@@ -27,6 +27,7 @@ namespace Error {
 			case INTERNAL_SCOPE_ERROR: return "Internal scope error";
 			case UNDEFINED_FUNC: return "Undefined func";
 			case INVALID_ARGUMENT_TYPE: return "Invalid argument type";
+			case CANT_HAVE_NULL_FUNC_ARG: return "Can't have null func arg";
 			case SCANNER: {
 				if (tok != NULL){
 					return tok->raw;

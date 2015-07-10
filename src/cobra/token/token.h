@@ -21,6 +21,7 @@ namespace Cobra {
 
 		// Literals
 		LITERAL_BEGIN,
+		kNULL,
 		IDENT, // identifier
 		INT, // 1
 		FLOAT, // 1.0000000

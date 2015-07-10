@@ -2,16 +2,21 @@
 
 namespace Cobra {
 
-	Run::Run(std::string source){
-		parser = new Parser(source);
+	Run::Run(){
+		parser = NULL;
 		check = new Check;
 	}
 
 	Run::~Run(){
-		delete parser;
+
 	}
 
-	void Run::Start(){
+	void Run::Compile(std::string* source){
+		if (parser != NULL) delete parser;
+		parser = new Parser(source);
+	}
+
+	void Run::Execute(){
 		try {
 			files["main"] = parser->Parse();
 		}
@@ -23,7 +28,6 @@ namespace Cobra {
 		try {
 			check->SetOptions(parser->GetParserOptions());
 			check->CheckFile(files["main"]);
-			//Init();
 		}
 		catch (Error::ERROR e){
 			std::string msg = Error::String(e, NULL);
@@ -31,37 +35,18 @@ namespace Cobra {
 		}
 	}
 
-	void Run::Init(){
-		if (HasFunction("main")){
-			ASTFunc* func = (ASTFunc*) GetObject("main");
-			CallFunction(func);
+	void Run::Dispose(){
+		for (std::map<std::string, ASTFile*>::iterator it = files.begin(); it != files.end(); ++it){
+			delete it->second;
 		}
-	}
-
-	ASTNode* Run::GetObject(std::string name){
-		ASTFile* file = files["main"];
-		return file->scope->Lookup(name);
-	}
-
-	void Run::CallFunction(ASTFunc* func){
-		if (func->body == NULL){} // do nothing
-
-	}
-
-	bool Run::HasObjectInScope(std::string name, Scope* scope){
-		ASTNode* node = scope->Lookup(name);
-		return node != NULL;
-	}
-
-	bool Run::HasFunction(std::string name){
-		ASTFile* file = files["main"];
-		ASTNode* func = file->scope->Lookup(name);
-		return func != NULL && func->type == FUNC;
 	}
 
 } // namespace Cobra
 
-void Compile(std::string source){
-	Cobra::Run* run = new Cobra::Run(source);
-	run->Start();
+void Compile(std::string* source){
+	Cobra::Run* run = new Cobra::Run();
+	run->Compile(source);
+	run->Execute();
+	run->Dispose();
+	delete run;
 }

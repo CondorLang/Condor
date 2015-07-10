@@ -3,12 +3,13 @@
 namespace Cobra{
 	Scope::Scope(){
 		count = 1;
+		outer = NULL;
 	}
 
 	Scope::~Scope(){
-		delete outer;
+		if (outer != NULL) delete outer;
 		for (int i = 0; i < ordered.size(); i++){
-			delete ordered[0];
+			delete ordered[i];
 		}
 	}
 
@@ -19,7 +20,8 @@ namespace Cobra{
 	}
 
 	ASTNode* Scope::Lookup(std::string name){
-		auto obj = objects.find(name);
+		if (name.empty()) return NULL;
+		std::map<std::string, ASTNode*>::const_iterator obj = objects.find(name);
 		if (obj == objects.end()){
 			return NULL;
 		}
@@ -35,6 +37,12 @@ namespace Cobra{
 			}
 			ordered.push_back(node);
 			count++;
+		}
+	}
+
+	void Scope::InsertType(Type* type){
+		if (type != NULL){
+			runtime[type->name] = type;
 		}
 	}
 

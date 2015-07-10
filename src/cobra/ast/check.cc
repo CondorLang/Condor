@@ -8,10 +8,12 @@ namespace Cobra{
 		col = 0;
 		row = 0;
 		printIndent = 0;
+		file = NULL;
 	}
 
 	Check::~Check(){
-
+		delete file;
+		delete scope;
 	}
 
 	void Check::SetOptions(std::string option){
@@ -22,10 +24,14 @@ namespace Cobra{
 		file = f;
 		OpenBaseScope();
 		CountItemsInScope();
-		if (HasMain()){
-			ValidateFunc((ASTFunc*) scope->Lookup("main"));
-		}
 		ScanScope();
+	}
+
+	std::string Check::GetTokenString(TOKEN tok){
+		Token* token = new Token(tok);
+		std::string result = token->String();
+		delete token;
+		return result;
 	}
 
 	void Check::Trace(std::string msg1, std::string msg2){
@@ -40,25 +46,23 @@ namespace Cobra{
 	}
 
 	ASTNode* Check::GetObjectInScopeByString(std::string name, Scope* sc){
-		Scope* s = sc;
-		if (s == NULL){
+		if (sc == NULL){
 			return NULL;
 		}
-		ASTNode* node = s->Lookup(name);
+		ASTNode* node = sc->Lookup(name);
 		if (node == NULL){
-			node = GetObjectInScopeByString(name, s->outer);
+			node = GetObjectInScopeByString(name, sc->outer);
 		}
 		return node;
 	}
 
 	ASTNode* Check::GetObjectInScope(ASTIdent* ident, Scope* sc){
-		Scope* s = sc;
-		if (s == NULL){
+		if (sc == NULL || ident == NULL){
 			return NULL;
 		}
-		ASTNode* node = s->Lookup(ident->name);
-		if (node == NULL){
-			node = GetObjectInScope(ident, s->outer);
+		ASTNode* node = sc->Lookup(ident->name);
+		if (node == NULL && sc->outer != NULL){
+			node = GetObjectInScope(ident, sc->outer);
 		}
 		return node;
 	}
@@ -97,7 +101,7 @@ namespace Cobra{
 				}
 			}
 			else{
-				if (trace) Trace(ptr->name, "is a " + (new Token(ptr->type))->String());
+				if (trace) Trace(ptr->name, "is a " + GetTokenString(ptr->type));
 			}
 		}
 	}
@@ -157,7 +161,7 @@ namespace Cobra{
 				break;
 			}
 			default: {
-				Trace("Didn't process, but found", (new Token(expr->type))->String());
+				Trace("Didn't process, but found", GetTokenString(expr->type));
 			}
 		}
 	}
@@ -165,8 +169,10 @@ namespace Cobra{
 	void Check::ValidateVar(ASTNode* node){
 		if (node->type == VAR){
 			ASTVar* var = (ASTVar*) node;
-			if (trace) Trace("\nValidating " + (new Token(var->varType))->String(), node->name);
-			ValidateStmt((ASTExpr*)var->stmt);
+			if (var->varClass != NULL && trace) Trace("\nVar type", var->varClass->name);
+			else if (trace) Trace("\nValidating " + GetTokenString(var->type), node->name);
+			ASTNode* stmt = var->stmt;
+			ValidateStmt((ASTExpr*) stmt);
 		}
 	}
 
@@ -187,11 +193,12 @@ namespace Cobra{
 			int type = (int) node->type;
 			switch (type){
 				case FUNC_CALL: {
-
+					ValidateFuncCall((ASTFuncCallExpr*) node);
 					break;
 				}
 				case FUNC: {
-					ValidateFunc((ASTFunc*) scope->Lookup(node->name));
+					ASTNode* expr = scope->Lookup(node->name);
+					ValidateFunc((ASTFunc*) expr);
 					break;
 				}
 				case FOR: {
@@ -203,7 +210,7 @@ namespace Cobra{
 					break;
 				}
 				default: {
-					if (trace) Trace("Working on type...", (new Token(node->type))->String());
+					if (trace) Trace("Working on type...", GetTokenString(node->type));
 				}
 			}
 		}
@@ -230,10 +237,15 @@ namespace Cobra{
 	}
 
 	void Check::ValidateFunc(ASTFunc* func){
+		if (func == NULL) return;
 		if (trace) Trace("\nValidating func", func->name + "\n------------------------------");
 		if (trace) Trace(func->name + "() total args: ", std::to_string(func->ordered.size()));
 		ValidateFuncArgs(func);
-		if (func->body == NULL) throw Error::MISSING_FUNC_BODY;
+
+		Func* runtime = new Func;
+		runtime->SetAST(func);
+		scope->InsertType(runtime);
+		
 		OpenScope(func->body->scope);
 		CountItemsInScope();
 		if (trace) Trace("\nFunc Body", "\n------------------");

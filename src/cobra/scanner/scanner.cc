@@ -1,11 +1,12 @@
 #include "scanner.h"
 
 namespace Cobra{
-	Scanner::Scanner(std::string source){
+	Scanner::Scanner(std::string* source){
 		src = source;
 		offset = -1;
 		readOffset = 0;
 		row = 1;
+		col = 0;
 		ch = -1;
 	}
 
@@ -89,7 +90,7 @@ namespace Cobra{
 					return new Token(LARROW);
 				}
 				else if (p == '<') {
-					char p2 = src[readOffset + 1];
+					char p2 = src->at(readOffset + 1);
 					if (p2 == '=') {
 						Next(); 
 						Next(); 
@@ -111,7 +112,7 @@ namespace Cobra{
 					return new Token(GEQ);
 				}
 				if (p == '>') {
-					char p2 = src[readOffset + 1];
+					char p2 = src->at(readOffset + 1);
 					if (p2 == '=') {
 						Next(); 
 						Next(); 
@@ -137,7 +138,7 @@ namespace Cobra{
 					return new Token(LAND);
 				}
 				else if (p == '^') {
-					char p2 = src[readOffset + 1];
+					char p2 = src->at(readOffset + 1);
 					if (p2 == '=') {
 						Next(); 
 						return new Token(AND_NOT_ASSIGN);
@@ -183,7 +184,7 @@ namespace Cobra{
 			case ',': return new Token(COMMA);
 			case '.': {
 				char p = Peek();
-				char p2 = src[readOffset + 1];
+				char p2 = src->at(readOffset + 1);
 				if (p == '.' && p2 == '.') {
 					Next();
 					Next();
@@ -200,7 +201,7 @@ namespace Cobra{
 			case '#': return new Token(HASH);
 			case '\'': {
 				char p = Peek();
-				char p2 = src[readOffset + 1];
+				char p2 = src->at(readOffset + 1);
 				if (p2 == '\''){
 					Token* tok = new Token(CHAR);
 					tok->raw = p;
@@ -288,31 +289,31 @@ namespace Cobra{
 	}
 
 	void Scanner::Next(){
-		if (readOffset < src.length()){
+		if (readOffset < src->length()){
 			offset = readOffset;
 			if (ch == '\n') {
 				row++;
 				col = 1;
-				ch = src[offset];
+				ch = src->at(offset);
 				readOffset++;
 			}
 			else{
-				ch = src[offset];
+				ch = src->at(offset);
 				if (ch == 0) Error("Illegal null");
 				readOffset++;
 				col++;
 			}
 		}
 		else{
-			offset = src.length();
+			offset = src->length();
 			if (ch == '\n') row++;
 			ch = -1; // EOF
 		}
 	}
 
 	char Scanner::Peek(){
-		if (readOffset < src.length()){
-			return src[readOffset];
+		if (readOffset < src->length()){
+			return src->at(readOffset);
 		}
 		return -1; // EOF
 	}

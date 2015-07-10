@@ -2,14 +2,20 @@
 %printCheck;
 #mode "strict";
 
+object Person {
+	string name = "";
+}
+
 func add(int a, int b, int c, int d, int e, int g){
+	int t = null;
 	return a + b + c + d + e + g;
 }
 
 func get(int a){
+	Person p = new Person();
 	return a;
 }
 
 func main(string args[], int argv){
-	return add(get(1), get(get(get(2))), 3, 4, 5, 6);
+	return add(get(1), get(argv), 3, 4, 5, 6);
 }

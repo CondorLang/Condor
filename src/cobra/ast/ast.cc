@@ -1,7 +1,17 @@
 #include "ast.h"
 
 namespace Cobra {
+
 	ASTFile::~ASTFile(){
+		delete scope;
+	}
+	ASTFor::~ASTFor(){
+		delete var;
+		delete conditions;
+		delete iterator;
+		delete block;
+	}
+	ASTBlock::~ASTBlock(){
 		delete scope;
 	}
 	ASTFunc::~ASTFunc(){
@@ -9,6 +19,12 @@ namespace Cobra {
 		for (std::map<std::string, ASTNode*>::iterator it = args.begin(); it != args.end(); ++it){
 			delete it->second;
 		}
+		for (int i = 0; i < ordered.size(); i++){
+			delete ordered[i];
+		}
+	}
+	ASTIdent::~ASTIdent(){
+		delete value;
 	}
 	ASTExpr::~ASTExpr(){
 		delete value;
@@ -23,13 +39,20 @@ namespace Cobra {
 		delete op;
 	}
 	ASTFuncCallExpr::~ASTFuncCallExpr(){
+		delete func;
+		delete scope;
 		for (int i = 0; i < params.size(); i++){
-			delete params[0];
+			delete params[i];
 		}
 	}
 	ASTArrayMemberExpr::~ASTArrayMemberExpr(){
 		delete member;
 		delete value;
+	}
+	ASTArray::~ASTArray(){
+		for (int i = 0; i < value.size(); i++){
+			delete value[i];
+		}
 	}
 	ASTObject::~ASTObject(){
 		for (std::map<std::string, ASTNode*>::iterator it = members.begin(); it != members.end(); ++it){

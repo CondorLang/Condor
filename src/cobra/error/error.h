@@ -31,7 +31,8 @@ namespace Cobra {
 			EXPECTED_ARG_NAME,
 			MISSING_FUNC_BODY,
 			INTERNAL_SCOPE_ERROR,
-			INVALID_ARGUMENT_TYPE
+			INVALID_ARGUMENT_TYPE,
+			CANT_HAVE_NULL_FUNC_ARG
 		};
 
 		std::string String(ERROR e, Token* tok);

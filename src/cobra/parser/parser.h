@@ -27,7 +27,7 @@ namespace Cobra {
 		int col;
 		Token* expected;
 
-		Parser(std::string source);
+		Parser(std::string* source);
 		~Parser();
 		ASTFile* Parse();
 		std::string GetParserOptions();

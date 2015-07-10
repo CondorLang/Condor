@@ -8,6 +8,7 @@
 #include "../ast/ast.h"
 #include "../error/error.h"
 #include "../parser/parser.h"
+#include "../types/func.h"
 
 namespace Cobra {
 	class Check
@@ -19,6 +20,7 @@ namespace Cobra {
 		int printIndent;
 
 		void Trace(std::string msg1, std::string msg2);
+		std::string GetTokenString(TOKEN tok);
 		void OpenBaseScope();
 		void OpenScope(Scope* scope);
 		void CloseScope();

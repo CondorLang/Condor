@@ -23,18 +23,20 @@ namespace Cobra {
 	class ASTNode
 	{
 	public:
-		ASTNode(){type = ILLEGAL;visibility = vPUBLIC;scan = true;}
+		ASTNode(){type = ILLEGAL;visibility = vPUBLIC;scan = true;row = 0; col = 0;}
 		~ASTNode(){}
 		std::string name;
 		TOKEN type;
 		VISIBILITY visibility;
 		bool scan;
+		int row;
+		int col;
 	};
 
 	class ASTExpr : public ASTNode
 	{
 	public:
-		ASTExpr(){type = EXPR;}
+		ASTExpr(){type = EXPR; value = NULL;}
 		~ASTExpr();
 		ASTExpr* value;
 		TOKEN assignType;
@@ -43,8 +45,8 @@ namespace Cobra {
 	class ASTIdent : public ASTExpr
 	{
 	public:
-		ASTIdent(){type = IDENT;inc = false;dec = false;pre = false;post = false;}
-		~ASTIdent(){}
+		ASTIdent(){type = IDENT;value = NULL;inc = false;dec = false;pre = false;post = false;}
+		~ASTIdent();
 		int pos;
 		bool inc;
 		bool dec;
@@ -66,7 +68,7 @@ namespace Cobra {
 	class ASTUnaryExpr : public ASTExpr
 	{
 	public:
-		ASTUnaryExpr(){type = UNARY;}
+		ASTUnaryExpr(){type = UNARY;value = NULL; op = NULL;}
 		~ASTUnaryExpr();
 		ASTExpr* value;
 		Token* op;
@@ -76,7 +78,7 @@ namespace Cobra {
 	class ASTBinaryExpr : public ASTExpr
 	{
 	public:
-		ASTBinaryExpr(){type = BINARY;}
+		ASTBinaryExpr(){type = BINARY;Left = NULL; Right = NULL; op = NULL;}
 		~ASTBinaryExpr();
 		ASTExpr* Left;
 		ASTExpr* Right;
@@ -86,7 +88,7 @@ namespace Cobra {
 	class ASTArrayMemberExpr : public ASTExpr
 	{
 	public:
-		ASTArrayMemberExpr(){type = ARRAY_MEMBER;}
+		ASTArrayMemberExpr(){type = ARRAY_MEMBER;member = NULL; value = NULL;}
 		~ASTArrayMemberExpr();
 		ASTExpr* member;
 		ASTExpr* value;
@@ -95,7 +97,7 @@ namespace Cobra {
 	class ASTObjectMemberChainExpr : public ASTExpr
 	{
 	public:
-		ASTObjectMemberChainExpr(){type = OBJECT_MEMBER_CHAIN; isSetting = false;}
+		ASTObjectMemberChainExpr(){type = OBJECT_MEMBER_CHAIN; isSetting = false;member = NULL; object = NULL; value = NULL; isSetting = false;}
 		~ASTObjectMemberChainExpr();
 		ASTExpr* member;
 		ASTIdent* object;
@@ -106,7 +108,7 @@ namespace Cobra {
 	class ASTVar : public ASTNode
 	{
 	public:
-		ASTVar(){type = VAR;}
+		ASTVar(){type = VAR;stmt = NULL;varClass = NULL;}
 		~ASTVar();
 		ASTNode* stmt;
 		TOKEN varType;
@@ -118,7 +120,7 @@ namespace Cobra {
 	class ASTInt : public ASTNode
 	{
 	public:
-		ASTInt(){type = INT;}
+		ASTInt(){type = INT;value = 0;}
 		~ASTInt(){}
 		int value;
 	};
@@ -126,7 +128,7 @@ namespace Cobra {
 	class ASTFloat : public ASTNode
 	{
 	public:
-		ASTFloat(){type = FLOAT;}
+		ASTFloat(){type = FLOAT;value = 0.0;}
 		~ASTFloat(){}
 		float value;
 	};
@@ -134,7 +136,7 @@ namespace Cobra {
 	class ASTDouble : public ASTNode
 	{
 	public:
-		ASTDouble(){type = DOUBLE;}
+		ASTDouble(){type = DOUBLE;value = 0.0;}
 		~ASTDouble(){}
 		double value;
 	};
@@ -142,7 +144,7 @@ namespace Cobra {
 	class ASTBoolean : public ASTNode
 	{
 	public:
-		ASTBoolean(){type = BOOLEAN;}
+		ASTBoolean(){type = BOOLEAN;value = false;}
 		~ASTBoolean(){}
 		bool value;
 	};
@@ -150,7 +152,7 @@ namespace Cobra {
 	class ASTChar : public ASTNode
 	{
 	public:
-		ASTChar(){type = CHAR;}
+		ASTChar(){type = CHAR;value = '\0';}
 		~ASTChar(){}
 		char value;
 	};
@@ -166,15 +168,15 @@ namespace Cobra {
 	class ASTBlock : public ASTNode
 	{
 	public:
-		ASTBlock(){type = BLOCK;}
-		~ASTBlock(){}
+		ASTBlock(){type = BLOCK;scope = NULL;}
+		~ASTBlock();
 		Scope* scope;
 	};
 
 	class ASTFunc : public ASTNode
 	{
 	public:
-		ASTFunc(){type = FUNC;}
+		ASTFunc(){type = FUNC;body = NULL;}
 		~ASTFunc();
 		ASTBlock* body;
 		std::map<std::string, ASTNode*> args;
@@ -184,19 +186,20 @@ namespace Cobra {
 	class ASTFuncCallExpr : public ASTExpr
 	{
 	public:
-		ASTFuncCallExpr(){type = FUNC_CALL;isNew = false;}
+		ASTFuncCallExpr(){type = FUNC_CALL;isNew = false;pos = 0; func = NULL; scope = NULL;}
 		~ASTFuncCallExpr();
 		std::vector<ASTExpr*> params;
 		int pos;
 		bool isNew;
 		ASTFunc* func;
+		Scope* scope;
 	};
 
 	class ASTArray : public ASTNode
 	{
 	public:
 		ASTArray(TOKEN rType){type = ARRAY; arrayType = rType;}
-		~ASTArray(){}
+		~ASTArray();
 		std::vector<ASTNode*> value;
 		TOKEN arrayType;
 	};
@@ -212,7 +215,7 @@ namespace Cobra {
 	class ASTIf : public ASTNode
 	{
 	public:
-		ASTIf(){type = IF;}
+		ASTIf(){type = IF;conditions = NULL; block = NULL;}
 		~ASTIf();
 		ASTExpr* conditions;
 		ASTBlock* block;
@@ -221,7 +224,7 @@ namespace Cobra {
 	class ASTElse : public ASTNode
 	{
 	public:
-		ASTElse(){type = ELSE;ifStmt = NULL;}
+		ASTElse(){type = ELSE;ifStmt = NULL; conditions = NULL; block = NULL; ifStmt = NULL;}
 		~ASTElse();
 		ASTExpr* conditions;
 		ASTBlock* block;
@@ -231,7 +234,7 @@ namespace Cobra {
 	class ASTWhile : public ASTNode
 	{
 	public:
-		ASTWhile(){type = WHILE;}
+		ASTWhile(){type = WHILE;conditions = NULL; block = NULL;}
 		~ASTWhile();
 		ASTExpr* conditions;
 		ASTBlock* block;
@@ -240,7 +243,7 @@ namespace Cobra {
 	class ASTFor : public ASTNode
 	{
 	public:
-		ASTFor(){type = FOR;};
+		ASTFor(){type = FOR;var = NULL; conditions = NULL; iterator = NULL; block = NULL;};
 		~ASTFor();
 		ASTNode* var;
 		ASTExpr* conditions;
@@ -251,7 +254,7 @@ namespace Cobra {
 	class ASTFile : public ASTNode
 	{
 	public:
-		ASTFile(){type = FILE;}
+		ASTFile(){type = FILE;scope = NULL;}
 		~ASTFile();
 		Scope* scope;
 	};

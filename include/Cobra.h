@@ -3,6 +3,6 @@
 
 #include <string>
 
-void Compile(std::string);
+void Compile(std::string* source);
 
 #endif // COBRA_H_

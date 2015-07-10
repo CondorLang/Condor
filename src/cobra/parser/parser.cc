@@ -5,13 +5,15 @@
 
 namespace Cobra{
 
-	Parser::Parser(std::string source){
+	Parser::Parser(std::string* source){
 		scanner = new Scanner(source);
 		topScope = new Scope;
+		expected = NULL;
 		currentFunctionScope = NULL;
 		trace = false;
 		printVariables = false;
 		printCheck = false;
+		tok = NULL;
 	}
 
 	Parser::~Parser(){
@@ -19,6 +21,7 @@ namespace Cobra{
 		delete topScope;
 		delete currentFunctionScope;
 		delete expected;
+		delete tok;
 	}
 
 	std::string Parser::GetParserOptions(){
@@ -49,6 +52,7 @@ namespace Cobra{
 
 	void Parser::Next(){
 		try {
+			delete tok;
 			tok = scanner->NextToken();
 			row = scanner->row;
 			col = scanner->col;
@@ -222,18 +226,19 @@ namespace Cobra{
 		Next();
 		Expect(LBRACE);
 		Next();
+		ASTNode* node = NULL;
 		while (true){
 			if (tok->value == RBRACE) break; // empty object
 			if (mode == STRICT){
 				VISIBILITY v = GetVisibility();
-				ASTNode* node = ParseNodes();
+				node = ParseNodes();
 				node->visibility = v;
 				if (node == NULL) throw Error::EXPECTED_VARIABLE_TYPE;
 				obj->members[node->name] = node;
 			}
 			else{
 				VISIBILITY v = GetVisibility();
-				ASTNode* node = NULL;
+				node = NULL;
 				if (tok->value == FUNC) node = ParseFunc();
 				else node = ParseVar();
 				node->visibility = v;
@@ -254,6 +259,7 @@ namespace Cobra{
 			aryMem->member = ParseExpr();
 			Expect(RBRACK);
 			Next();
+			delete expr;
 			return aryMem;
 		}
 		return expr;
@@ -270,8 +276,9 @@ namespace Cobra{
 			call->pos = ident->pos;
 			Next();
 			bool expectExpr = false;
+			ASTExpr* ex = NULL;
 			while (true){
-				ASTExpr* ex = ParseExpr();
+				ex = ParseExpr();
 				if (ex != NULL) {
 					expectExpr = false;
 					call->params.push_back(ex);
@@ -324,10 +331,15 @@ namespace Cobra{
 				}
 				return first;
 			}
-			case BOOLEAN: case INT: case FLOAT: case DOUBLE: case CHAR: case STRING: {
+			case kNULL: case BOOLEAN: case INT: case FLOAT: case DOUBLE: case CHAR: case STRING: {
 				ASTLiterary* lit = new ASTLiterary;
 				lit->kind = tok->value;
-				lit->value = tok->raw;
+				if (tok->value == kNULL){
+					lit->value = "null";
+				}
+				else{
+					lit->value = tok->raw;
+				}
 				lit->pos = pos;
 				Next();
 				if (trace) Trace("Literal Value1", lit->value.c_str());
@@ -350,12 +362,12 @@ namespace Cobra{
 
 		// Will only loop once
 		while (true){
-			ASTBinaryExpr* binary = new ASTBinaryExpr;
 			expr = ParseFuncCall(expr);
 			expr = ParseArray(expr);
 			if (!IsOperator() && !IsBoolean())
 				break;
 			if (IsBoolean() && trace) Trace("Parsing", "Boolean statement");
+			ASTBinaryExpr* binary = new ASTBinaryExpr;
 			binary->op = new Token(tok->value);
 			binary->Left = expr;
 			Next(); // eat operator
@@ -380,6 +392,7 @@ namespace Cobra{
 				ASTUnaryExpr* unary = new ASTUnaryExpr;
 				unary->pos = pos;
 				unary->op = new Token(tok->value);
+				delete unary->value;
 				unary->value = ParseUnaryExpr();
 				return unary;
 			}
@@ -416,12 +429,12 @@ namespace Cobra{
 		if (tok->value == NEW){
 			if (trace) Trace("Parsing", "New Object");
 			Next(); // eat new
-			ASTExpr* expr = ParseIdent();
-			expr = ParseFuncCall(expr);
-			ASTFuncCallExpr* obj = (ASTFuncCallExpr*) expr;
+			ASTExpr* e = ParseIdent();
+			e = ParseFuncCall(e);
+			ASTFuncCallExpr* obj = (ASTFuncCallExpr*) e;
 			obj->isNew = true;
 			obj->pos = pos;
-			return expr;
+			return e;
 		}
 		else if (IsOperator() || IsBoolean()){
 			ASTBinaryExpr* binary = new ASTBinaryExpr;
@@ -560,6 +573,7 @@ namespace Cobra{
 					throw Error::VAR_NOT_ALLOWED_IN_STRICT_MODE;
 				return ParseVar();
 			}
+			case OBJECT: return ParseObject();
 			case INT: case BOOLEAN: case DOUBLE: case FLOAT: case CHAR: case STRING:{
 				if (mode == LAZY)
 					throw Error::EXPECTED_VAR;
@@ -605,11 +619,11 @@ namespace Cobra{
 		Next();
 		OpenScope();
 
-		ASTBlock* block = new ASTBlock;
 		ParseStmtList();
 		Expect(RBRACE);
 		Next();
 
+		ASTBlock* block = new ASTBlock;
 		block->scope = topScope;
 
 		if (printVariables) topScope->String();
@@ -620,6 +634,7 @@ namespace Cobra{
 
 	void Parser::ParseFuncParams(ASTFunc* func){
 		if (trace) Trace("Parsing", "Func Parameters");
+		ASTVar* var = NULL;
 		while (true){
 			if (mode == STRICT){
 				if (tok->value == RPAREN) return;
@@ -627,28 +642,28 @@ namespace Cobra{
 				TOKEN rType = tok->value;
 				Next();
 				Expect(IDENT);
-				ASTVar* node = new ASTVar;
+				var = new ASTVar;
 				std::string name = tok->raw;
-				node->varType = rType;
+				var->varType = rType;
 				Next();
 				if (tok->value == LBRACK){
 					Next(); // eat [
 					Expect(RBRACK);
 					Next(); // eat ]
-					node->arrayType = rType;
-					node->varType = ARRAY;
+					var->arrayType = rType;
+					var->varType = ARRAY;
 				}
-				if (node == NULL) throw Error::EXPECTED_VARIABLE_TYPE;
-				node->name = name;
+				if (var == NULL) throw Error::EXPECTED_VARIABLE_TYPE;
+				var->name = name;
 
 				if (tok->value == COMMA) {
-					func->args[name] = node;
-					func->ordered.push_back(node);
+					func->args[name] = var;
+					func->ordered.push_back(var);
 					Next();
 				}
 				else if (tok->value == RPAREN) {
-					func->args[name] = node;
-					func->ordered.push_back(node);
+					func->args[name] = var;
+					func->ordered.push_back(var);
 					break;
 				}
 				else Expect(RPAREN);
@@ -663,6 +678,7 @@ namespace Cobra{
 					Next();
 					Expect(RBRACK);
 					Next();
+					delete var;
 					var = new ASTArray(VAR);
 					var->name = name;
 				}

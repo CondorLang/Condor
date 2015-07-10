@@ -9,9 +9,9 @@
 namespace Cobra {
 	class Scanner {
 	public:
-		Scanner(std::string source);
-		~Scanner(){}
-		std::string src;
+		Scanner(std::string* source);
+		~Scanner(){delete src;}
+		std::string* src;
 		std::vector<std::string> errors;
 		std::string result;
 		char ch;
