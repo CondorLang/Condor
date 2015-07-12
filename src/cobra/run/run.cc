@@ -33,12 +33,22 @@ namespace Cobra {
 			std::string msg = Error::String(e, NULL);
 			printf("%d:%d - %s\n", check->row, check->col, msg.c_str());
 		}
+		Init();
 	}
 
 	void Run::Dispose(){
 		for (std::map<std::string, ASTFile*>::iterator it = files.begin(); it != files.end(); ++it){
 			delete it->second;
 		}
+	}
+
+	void Run::Init(){
+		Type* main = files["main"]->scope->LookupType("main");
+		if (main == NULL) return;
+		Func* func = (Func*) main;
+		FuncReturnValue* value = new FuncReturnValue;
+		func->Call(NULL, value);
+		
 	}
 
 } // namespace Cobra

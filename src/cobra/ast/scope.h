@@ -26,11 +26,13 @@ namespace Cobra {
 		Scope* NewScope();
 		ASTNode* Lookup(std::string name);
 		void Insert(ASTNode* node);
-		void InsertType(Type* type);
 		ASTNode* NewObject(std::string name);
 		void String();
 		ASTNode* Get(int index);
 		int Size();
+
+		void InsertType(Type* type);
+		Type* LookupType(std::string name);
 	};
 }
 

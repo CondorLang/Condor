@@ -101,6 +101,8 @@ namespace Cobra {
 			case VAR: return "var";
 			case OBJECT: return "object";
 			case WHILE: return "while";
+			case AS: return "as";
+			case EXPORT: return "export";
 
 			default: return "";
 		}
@@ -154,6 +156,8 @@ namespace Cobra {
 		else if (str == "private") return new Token(PRIVATE);
 		else if (str == "protected") return new Token(PROTECTED);
 		else if (str == "static") return new Token(STATIC);
+		else if (str == "as") return new Token(AS);
+		else if (str == "export") return new Token(EXPORT);
 		else return new Token(IDENT);
 	}
 } // namespace Cobra

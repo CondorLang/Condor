@@ -588,6 +588,13 @@ namespace Cobra{
 				//
 			}
 			case FUNC: return ParseFunc();
+			case EXPORT: {
+				Next(); // eat export;
+				ASTNode* expr = ParseStmt();
+				if (trace) Trace("export", expr->name.c_str());
+				exports.push_back(expr);
+				return expr;
+			}
 			case RETURN: return ParseReturn();
 			default: {
 				throw Error::INVALID_STMT;
@@ -781,7 +788,35 @@ namespace Cobra{
 				Next();
 				while (true){
 					Expect(STRING);
-					if (isImport) imports.push_back(tok->raw);
+					if (isImport) {
+						ASTImport* import = new ASTImport;
+						import->name = tok->raw;
+						Next();
+						if (tok->value == AS){
+							Next(); // eat as
+							Expect(IDENT);
+							import->alias = tok->raw;
+							Next();
+							Expect(SEMICOLON);
+						}
+						else{
+							Expect(SEMICOLON);
+						}
+						imports.push_back(import);
+					}
+					else {
+						ASTInclude* include = new ASTInclude;
+						include->name = tok->raw;
+						Next();
+						if (tok->value == AS){
+							Next();
+							Expect(IDENT);
+							include->alias = tok->raw;
+							Next();
+							Expect(SEMICOLON);
+						}
+						includes.push_back(include);
+					}
 					Next();
 					Expect(SEMICOLON);
 					Next();
@@ -790,9 +825,32 @@ namespace Cobra{
 			}
 			else{
 				Expect(STRING);
-				if (isImport) imports.push_back(tok->raw);
-				Next();
-				Expect(SEMICOLON);
+				if (isImport){
+					ASTImport* import = new ASTImport;
+					import->name = tok->raw;
+					Next();
+					if (tok->value == AS){
+						Next();
+						Expect(IDENT);
+						import->alias = tok->raw;
+						Next();
+						Expect(SEMICOLON);
+					}
+					imports.push_back(import);
+				}
+				else {
+					ASTInclude* include = new ASTInclude;
+					include->name = tok->raw;
+					Next();
+					if (tok->value == AS){
+						Next();
+						Expect(IDENT);
+						include->alias = tok->raw;
+						Next();
+						Expect(SEMICOLON);
+					}
+					includes.push_back(include);
+				}
 			}
 			ParseImportOrInclude();
 		}

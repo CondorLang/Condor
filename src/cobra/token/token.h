@@ -126,6 +126,8 @@ namespace Cobra {
 		TYPE,
 		VAR,
 		WHILE,
+		AS,
+		EXPORT,
 		KEYWORD_END
 	};	
 

@@ -258,6 +258,25 @@ namespace Cobra {
 		~ASTFile();
 		Scope* scope;
 	};
+
+	class ASTImport : public ASTNode
+	{
+	public:
+		ASTImport(){type = IMPORT;}
+		~ASTImport(){}
+		std::string name;
+		std::string alias;
+	};
+
+	class ASTInclude : public ASTNode
+	{
+	public:
+		ASTInclude(){file = NULL;type = INCLUDE;}
+		~ASTInclude(){delete file;}
+		std::string name;
+		std::string alias;
+		ASTFile* file;
+	};
 }
 
 #endif // AST_H_

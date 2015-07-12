@@ -8,6 +8,8 @@
 #include "../error/error.h"
 #include "../parser/parser.h"
 #include "../ast/check.h"
+#include "../types/type.h"
+#include "../types/func.h"
 
 namespace Cobra {
 
@@ -25,6 +27,7 @@ namespace Cobra {
 
 	private:
 		std::map<std::string, ASTFile*> files;
+		void Init();
 	};
 }
 

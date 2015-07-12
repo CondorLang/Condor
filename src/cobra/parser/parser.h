@@ -31,13 +31,15 @@ namespace Cobra {
 		~Parser();
 		ASTFile* Parse();
 		std::string GetParserOptions();
+		std::vector<ASTImport*> imports;
+		std::vector<ASTInclude*> includes;
+		std::vector<ASTNode*> exports;
 
 	private:
 		Scanner* scanner;
 		Token* tok;
 		Scope* topScope;
 		Scope* currentFunctionScope;
-		std::vector<std::string> imports;
 
 		// Parser options
 		bool trace;

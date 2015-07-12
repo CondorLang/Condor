@@ -66,4 +66,15 @@ namespace Cobra{
 			printf("Found: %s\n", it->first.c_str());
 		}
 	}
+
+	Type* Scope::LookupType(std::string name){
+		if (name.empty()) return NULL;
+		std::map<std::string, Type*>::const_iterator obj = runtime.find(name);
+		if (obj == runtime.end()){
+			return NULL;
+		}
+		else{
+			return obj->second;
+		}
+	}
 } // namespace Cobra	

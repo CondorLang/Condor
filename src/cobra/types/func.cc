@@ -31,8 +31,9 @@ namespace Cobra {
 		delete ast;
 	}
 
-	void Func::Call(std::vector<ASTNode*> callArgs){
-		
+	void Func::Call(std::vector<Type*>* callArgs, FuncReturnValue* val){
+		if (callArgs == NULL) {} // do nothing now	
+		printf("%s\n", "Calc");
 	}
 
 	void Func::SetAST(ASTFunc* node){

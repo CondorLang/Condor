@@ -9,6 +9,14 @@
 
 namespace Cobra {
 
+	class FuncReturnValue
+	{
+	public:
+		FuncReturnValue(){value = NULL;}
+		~FuncReturnValue(){delete value;}
+		ASTLiterary* value;
+	};
+
 	class FuncArg : public Type
 	{
 	private:
@@ -34,7 +42,7 @@ namespace Cobra {
 		Func();
 		~Func();
 		void SetAST(ASTFunc* node);
-		void Call(std::vector<ASTNode*> callArgs);
+		void Call(std::vector<Type*>* callArgs, FuncReturnValue* val);
 		bool IsPrivate(){return kPrivate;}
 		bool IsPublic(){return kPublic;}
 		bool IsStatic(){return kStatic;}
