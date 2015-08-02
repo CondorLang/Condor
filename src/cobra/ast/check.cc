@@ -25,6 +25,7 @@ namespace Cobra{
 		OpenBaseScope();
 		CountItemsInScope();
 		ScanScope();
+		SetScope();
 	}
 
 	std::string Check::GetTokenString(TOKEN tok){
@@ -270,6 +271,10 @@ namespace Cobra{
 
 	void Check::OpenScope(Scope* s){
 		scope = s;
+	}
+
+	void Check::SetScope(){
+		file->scope = scope;
 	}
 
 	void Check::OpenBaseScope(){

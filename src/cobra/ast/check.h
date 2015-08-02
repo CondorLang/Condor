@@ -25,7 +25,6 @@ namespace Cobra {
 		void OpenScope(Scope* scope);
 		void CloseScope();
 		void CountItemsInScope();
-		bool HasMain();
 		void ValidateFunc(ASTFunc* func);
 		void ValidateFuncArgs(ASTFunc* func);
 		void ScanScope();
@@ -40,6 +39,7 @@ namespace Cobra {
 		void ValidateFuncCall(ASTFuncCallExpr* call);
 		ASTNode* GetObjectInScope(ASTIdent* ident, Scope* sc);
 		ASTNode* GetObjectInScopeByString(std::string name, Scope* sc);
+		void SetScope();
 
 	public:
 		Check();
@@ -49,6 +49,7 @@ namespace Cobra {
 
 		void CheckFile(ASTFile* file);
 		void SetOptions(std::string option);
+		bool HasMain();
 	};
 }
 

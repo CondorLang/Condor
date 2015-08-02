@@ -1,4 +1,4 @@
-%trace;
+//%trace;
 //%printCheck;
 #mode "strict";
 
