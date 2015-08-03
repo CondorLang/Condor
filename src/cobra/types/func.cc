@@ -26,14 +26,26 @@ namespace Cobra {
 		kPublic = true;
 		kStatic = false;
 		kAlone = true;
+		walk = NULL;
 	}
 	Func::~Func(){
-		delete ast;
+		//delete ast;
+		if (walk != NULL) delete walk;
 	}
 
 	void Func::Call(std::vector<Type*>* callArgs, FuncReturnValue* val){
 		if (callArgs == NULL) {} // do nothing now	
-		printf("%s\n", "Calling function");
+		else{
+			for (int i = 0; i < callArgs->size(); i++){
+				ASTLiterary* lit = Type::ToASTLiterary(callArgs->at(i));
+				lit->name = args.at(i)->name;
+				ast->body->scope->InsertBefore(lit);
+			}
+		}
+		walk = new Walk();
+		walk->WalkFunc(ast);
+		ASTLiterary* lit = walk->GetValue();
+		val->value = lit;
 	}
 
 	void Func::SetAST(ASTFunc* node){

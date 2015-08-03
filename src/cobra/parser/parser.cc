@@ -727,6 +727,12 @@ namespace Cobra{
 		if (printVariables) printf("\n%s\n------------\n", func->name.c_str());
 
 		func->body = ParseBlock(true);
+
+		// add the parameters to the first func scope
+		// for (int i = 0; i < func->ordered.size(); i++){
+		// 	func->body->scope->InsertBefore(func->ordered[i]);
+		// }
+
 		return func;
 	}
 

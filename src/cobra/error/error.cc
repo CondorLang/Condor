@@ -28,6 +28,10 @@ namespace Error {
 			case UNDEFINED_FUNC: return "Undefined func";
 			case INVALID_ARGUMENT_TYPE: return "Invalid argument type";
 			case CANT_HAVE_NULL_FUNC_ARG: return "Can't have null func arg";
+			case CANNOT_CONCAT_TYPE: return "Cannot concatenate type";
+			case CANNOT_SUBTRACT: return "Cannot subtract type";
+			case CANNOT_MINUS_UNLIKE_VALUES: return "Cannot minus unlike values";
+			case CANNOT_ADD_UNLIKE_VALUES: return "Cannot add unlike values";
 			case SCANNER: {
 				if (tok != NULL){
 					return tok->raw;

@@ -28,12 +28,12 @@ namespace Cobra {
 		try {
 			check->SetOptions(parser->GetParserOptions());
 			check->CheckFile(files["main"]);
+			Init();
 		}
 		catch (Error::ERROR e){
 			std::string msg = Error::String(e, NULL);
 			printf("%d:%d - %s\n", check->row, check->col, msg.c_str());
 		}
-		Init();
 	}
 
 	void Run::Dispose(){
@@ -46,9 +46,17 @@ namespace Cobra {
 		Type* main = files["main"]->scope->LookupType("main");
 		if (main == NULL) return;
 		Func* func = (Func*) main;
-		FuncReturnValue* value = new FuncReturnValue;
-		func->Call(NULL, value);
-		
+		FuncReturnValue* returnValue = new FuncReturnValue;
+		func->Call(NULL, returnValue);
+
+		if (returnValue->value != NULL){
+			printf("Main Called, returned: %s\n", returnValue->value->value.c_str());
+		}
+		else{
+			printf("Working on\n");
+		}
+		//delete func;
+		//delete returnValue;
 	}
 
 } // namespace Cobra

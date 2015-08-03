@@ -2,12 +2,10 @@
 //%printCheck;
 #mode "strict";
 
-include "test2";
-
-export func get(int a){
-	return a;
+func add(int one, int two, int three){
+	return one + two + three;
 }
 
 func main(string args[], int argv){
-	return get(1);
+	return add(1, 2, 1);
 }

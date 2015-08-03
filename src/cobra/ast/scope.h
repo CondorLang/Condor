@@ -8,6 +8,7 @@
 
 namespace Cobra {
 	class ASTNode;
+	class Type;
 
 	class Scope
 	{
@@ -33,6 +34,7 @@ namespace Cobra {
 
 		void InsertType(Type* type);
 		Type* LookupType(std::string name);
+		void InsertBefore(ASTNode* node);
 	};
 }
 

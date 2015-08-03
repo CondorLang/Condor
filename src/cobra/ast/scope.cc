@@ -8,9 +8,8 @@ namespace Cobra{
 
 	Scope::~Scope(){
 		if (outer != NULL) delete outer;
-		for (int i = 0; i < ordered.size(); i++){
-			delete ordered[i];
-		}
+		ordered.erase(ordered.begin(), ordered.end());
+		//runtime.erase(runtime.begin(), runtime.end());
 	}
 
 	Scope* Scope::NewScope(){
@@ -75,6 +74,16 @@ namespace Cobra{
 		}
 		else{
 			return obj->second;
+		}
+	}
+
+	void Scope::InsertBefore(ASTNode* node){
+		if (node != NULL){
+			if (node->name.length() > 0 && node->name[0] != '%'){
+				objects[node->name] = node;
+			}
+			ordered.insert(ordered.begin(), node);
+			count++;
 		}
 	}
 } // namespace Cobra	

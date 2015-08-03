@@ -6,8 +6,12 @@
 #include "type.h"
 #include "../ast/ast.h"
 #include "../error/error.h"
+#include "../ast/walk.h"
 
 namespace Cobra {
+
+	class Walk;
+	class Type;
 
 	class FuncReturnValue
 	{
@@ -37,6 +41,7 @@ namespace Cobra {
 		bool kStatic;
 		bool kAlone;
 		std::vector<FuncArg*> args;
+		Walk* walk;
 
 	public:
 		Func();

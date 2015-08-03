@@ -1,14 +1,19 @@
 CFLAGS=-Wall
 FLAGS=-std=c++11 -stdlib=libc++
 SRC=$(wildcard src/cobra/*/*.cc) $(wildcard src/*/*.cc)
+OBJS = $(SRCS:.cc=.o)
+PROGRAM=./build/Cobra
 
 all: $(SRC)
 	g++ $(FLAGS) -c -Wall $^
 	make lib
 
+allNonOptimized: $(SRC)
+	g++ $(FLAGS) -c -O0 -Wall $^
+
 lib:
 	ar rvs build/libcobra.a $(wildcard *.o)
-	make cleano
+	# make cleano
 
 test:
 	g++ $(FLAGS) -I ./ test/main.cc -Iinclude build/libcobra.a -o build/Cobra 
@@ -30,7 +35,12 @@ buildtest:
 	make all
 	make test
 
+nonOptimized:
+	make clean
+	make allNonOptimized
+
 mem: 
-	valgrind --tool=memcheck --leak-check=yes ./build/Cobra
+	make nonOptimized
+	valgrind --tool=memcheck --leak-check=full ./build/Cobra
 
 .PHONY: all clean test
