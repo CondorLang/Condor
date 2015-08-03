@@ -1,46 +1,32 @@
-CFLAGS=-Wall
-FLAGS=-std=c++11 -stdlib=libc++
-SRC=$(wildcard src/cobra/*/*.cc) $(wildcard src/*/*.cc)
-OBJS = $(SRCS:.cc=.o)
-PROGRAM=./build/Cobra
+CC=g++
+CFLAGS=-c -Wall
+LDFLAGS=
+SOURCES= $(wildcard src/cobra/*/*.cc)
 
-all: $(SRC)
-	g++ $(FLAGS) -c -Wall $^
+OBJECTS=$(SOURCES:.cc=.o)
+EXECUTABLE=./build/Cobra
+
+all: 
+	make buildAll
 	make lib
 
-allNonOptimized: $(SRC)
-	g++ $(FLAGS) -c -O0 -Wall $^
+buildAll: $(SOURCES) $(EXECUTABLE)
+    
+$(EXECUTABLE): $(OBJECTS) 
+	$(CC) $(LDFLAGS) $(OBJECTS) -c
 
 lib:
-	ar rvs build/libcobra.a $(wildcard *.o)
-	# make cleano
+	ar rvs build/libcobra.a $(wildcard src/cobra/*/*.o)
+
+.cc.o:
+	$(CC) $(CFLAGS) $< -o $@
+
+clean:
+	rm -rf $(wildcard src/cobra/*/*.o)
+	rm -rf build/*.a
 
 test:
 	g++ $(FLAGS) -I ./ test/main.cc -Iinclude build/libcobra.a -o build/Cobra 
 	./build/Cobra ${ARGS}
-
-testall:
-	make all
-	make test
-
-cleano:
-	rm -rf *.o
-
-clean:
-	rm -rf *.o
-	rm -rf build/*.a
-
-buildtest:
-	make clean
-	make all
-	make test
-
-nonOptimized:
-	make clean
-	make allNonOptimized
-
-mem: 
-	make nonOptimized
-	valgrind --tool=memcheck --leak-check=full ./build/Cobra
 
 .PHONY: all clean test
