@@ -15,9 +15,9 @@ namespace internal{
 	class Isolate
 	{
 	private:
-		HeapStore heapstore;
+		HeapStore* heapstore;
 	public:
-		Isolate(){}
+		Isolate(){heapstore = new HeapStore();}
 		~Isolate();
 		void Enter();
 		void Exit();

@@ -42,4 +42,7 @@ mt:
 	make
 	make test
 
+nm:
+	nm -j src/api.o src/cobra/mem/isolate.o | sort | uniq -d
+
 .PHONY: all clean test

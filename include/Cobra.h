@@ -10,6 +10,12 @@ namespace Cobra {
 	public:
 		Isolate();
 		~Isolate();
+		// The isolate must be entered into before usage
+		void Enter();
+		void Exit();
+
+		void* operator new(size_t);
+
 		static Isolate* New();
 	};
 

@@ -11,6 +11,8 @@ void runTests1();
 
 int main(){
 	Cobra::Isolate* isolate = Cobra::Isolate::New();
+	isolate->Enter();
+	isolate->Exit();
 	//runFile();
 	//runTests1();
 }

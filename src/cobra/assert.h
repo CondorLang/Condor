@@ -15,7 +15,7 @@ namespace internal{
 	#define CHECK(condition) \
 		if (!condition){ \
 			FETAL("Fetal: %s", #condition); \
-		}
+		}		
 
 } // namespace internal
 } // namespace Cobra
