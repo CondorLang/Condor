@@ -4,6 +4,7 @@
 // Search remove to remove stmts
 
 namespace Cobra{
+namespace internal{
 
 	Parser::Parser(std::string* source){
 		scanner = new Scanner(source);
@@ -913,5 +914,5 @@ namespace Cobra{
 			Next(); // eat ;
 		}
 	}
-
+} // namespace internal
 }	// namespace Cobra

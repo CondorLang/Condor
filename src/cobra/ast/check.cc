@@ -1,6 +1,7 @@
 #include "check.h"
 
 namespace Cobra{
+namespace internal{
 
 	Check::Check(){
 		scope = NULL;
@@ -286,5 +287,5 @@ namespace Cobra{
 			if (trace) Trace("Base Scope", "Is Null");
 		}
 	}
-
+} // namespace internal
 } // namespace Cobra

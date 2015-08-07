@@ -1,6 +1,7 @@
 #include "run.h"
 
 namespace Cobra {
+namespace internal{
 
 	Run::Run(){
 		parser = NULL;
@@ -58,11 +59,11 @@ namespace Cobra {
 		//delete func;
 		//delete returnValue;
 	}
-
+} // namespace internal
 } // namespace Cobra
 
 void Compile(std::string* source){
-	Cobra::Run* run = new Cobra::Run();
+	Cobra::internal::Run* run = new Cobra::internal::Run();
 	run->Compile(source);
 	run->Execute();
 	run->Dispose();

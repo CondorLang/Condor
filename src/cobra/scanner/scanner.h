@@ -3,10 +3,11 @@
 
 #include <string>
 #include <vector>
-#include "../token/token.h"
-#include "../error/error.h"
+#include "cobra/token/token.h"
+#include "cobra/error/error.h"
 
 namespace Cobra {
+namespace internal{
 	class Scanner {
 	public:
 		Scanner(std::string* source);
@@ -29,6 +30,7 @@ namespace Cobra {
 		void ScanComments(bool star);
 		void ScanWhiteSpaces();
 	};
+} // namespace internal{
 }
 
 #endif // SCANNER_H_

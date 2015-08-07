@@ -10,7 +10,8 @@ void runFile();
 void runTests1();
 
 int main(){
-	runFile();
+	Cobra::Isolate* isolate = Cobra::Isolate::New();
+	//runFile();
 	//runTests1();
 }
 

@@ -4,6 +4,7 @@
 #include <string>
 
 namespace Cobra {
+namespace internal{
 	enum TOKEN{
 		// Internal
 		ILLEGAL = 255,
@@ -146,6 +147,7 @@ namespace Cobra {
 		bool IsOperator(){return value > OPERATOR_BEGIN && value < OPERATOR_END;}
 		static Token* GetToken(std::string str);
 	};
+} // namespace internal{
 }
 
 #endif // TOKEN_H_

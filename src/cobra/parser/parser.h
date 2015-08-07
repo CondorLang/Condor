@@ -2,13 +2,14 @@
 #define PARSER_H_
 
 #include <string>
-#include "../token/token.h"
-#include "../scanner/scanner.h"
-#include "../ast/scope.h"
-#include "../ast/ast.h"
-#include "../error/error.h"
+#include "cobra/token/token.h"
+#include "cobra/scanner/scanner.h"
+#include "cobra/ast/scope.h"
+#include "cobra/ast/ast.h"
+#include "cobra/error/error.h"
 
 namespace Cobra {
+namespace internal{
 	enum P_ERROR {
 		INVALID_MODE = 0
 	};
@@ -84,6 +85,7 @@ namespace Cobra {
 		ASTWhile* ParseWhile();
 		ASTFor* ParseFor();
 	};
+} // namespace internal
 }
 
 #endif // PARSER_H_

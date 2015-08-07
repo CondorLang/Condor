@@ -1,6 +1,7 @@
 #include "walk.h"
 
 namespace Cobra {
+namespace internal{
 
 	ASTLiterary* Walk::AddMinus(ASTExpr* left, ASTExpr* right, TOKEN op){
 		int lType = (int) left->type;
@@ -220,5 +221,5 @@ namespace Cobra {
 		if (scope != NULL) delete scope;
 		stack.erase(stack.begin(), stack.end());
 	}
-
+} // namespace internal
 } // namespace Cobra

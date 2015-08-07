@@ -1,6 +1,7 @@
 #include "func.h"
 
 namespace Cobra {
+namespace internal{
 
 	FuncArg::FuncArg(){
 
@@ -68,4 +69,5 @@ namespace Cobra {
 	bool Func::HasReturn(){
 		return ast->body->scope->Lookup("return") != NULL;
 	}
+} // namespace internal
 } // namespace Cobra

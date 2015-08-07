@@ -4,11 +4,12 @@
 #include <string>
 #include <map>
 #include <vector>
-#include "../token/token.h"
-#include "../scanner/scanner.h"
+#include "cobra/token/token.h"
+#include "cobra/scanner/scanner.h"
 #include "scope.h"
 
 namespace Cobra {
+namespace internal{
 
 	class Scope;
 
@@ -277,6 +278,7 @@ namespace Cobra {
 		std::string alias;
 		ASTFile* file;
 	};
+} // namespace internal
 }
 
 #endif // AST_H_

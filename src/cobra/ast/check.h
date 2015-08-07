@@ -3,14 +3,15 @@
 
 #include <string>
 #include <vector>
-#include "../token/token.h"
-#include "../ast/scope.h"
-#include "../ast/ast.h"
-#include "../error/error.h"
-#include "../parser/parser.h"
-#include "../types/func.h"
+#include "cobra/token/token.h"
+#include "cobra/ast/scope.h"
+#include "cobra/ast/ast.h"
+#include "cobra/error/error.h"
+#include "cobra/parser/parser.h"
+#include "cobra/types/func.h"
 
 namespace Cobra {
+namespace internal{
 	class Check
 	{
 	private:
@@ -51,6 +52,7 @@ namespace Cobra {
 		void SetOptions(std::string option);
 		bool HasMain();
 	};
+} // namespace internal{
 }
 
 #endif // CHECK_H_

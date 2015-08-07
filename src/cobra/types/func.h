@@ -4,11 +4,12 @@
 #include <string>
 #include <vector>
 #include "type.h"
-#include "../ast/ast.h"
-#include "../error/error.h"
-#include "../ast/walk.h"
+#include "cobra/ast/ast.h"
+#include "cobra/error/error.h"
+#include "cobra/ast/walk.h"
 
 namespace Cobra {
+namespace internal{
 
 	class Walk;
 	class Type;
@@ -58,6 +59,7 @@ namespace Cobra {
 		bool IsInsideObject(){return !kAlone;}
 		bool HasReturn();
 	};
+} // namespace internal{
 }
 
 #endif // FUNC_H_

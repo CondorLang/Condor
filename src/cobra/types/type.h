@@ -1,10 +1,11 @@
 #ifndef TYPE_H_
 #define TYPE_H_
 
-#include "../ast/ast.h"
-#include "../token/token.h"
+#include "cobra/ast/ast.h"
+#include "cobra/token/token.h"
 
 namespace Cobra {
+namespace internal{
 
 	class ASTLiterary;
 
@@ -35,6 +36,7 @@ namespace Cobra {
 		void SetAST(ASTLiterary* lit);
 		double value;
 	};
+} // namespace internal
 }
 
 #endif // TYPE_H_

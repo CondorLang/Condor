@@ -4,9 +4,10 @@
 #include <string>
 #include <map>
 #include "ast.h"
-#include "../types/type.h"
+#include "cobra/types/type.h"
 
 namespace Cobra {
+namespace internal{
 	class ASTNode;
 	class Type;
 
@@ -36,6 +37,7 @@ namespace Cobra {
 		Type* LookupType(std::string name);
 		void InsertBefore(ASTNode* node);
 	};
+} // namespace internal
 }
 
 #endif // SCOPE_H_

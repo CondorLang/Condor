@@ -1,6 +1,7 @@
 #include "scanner.h"
 
 namespace Cobra{
+namespace internal{
 	Scanner::Scanner(std::string* source){
 		src = source;
 		offset = -1;
@@ -349,5 +350,5 @@ namespace Cobra{
 			}
 		}
 	}
-
+} // namespace internal
 } // namespace Cobra

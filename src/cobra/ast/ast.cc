@@ -1,6 +1,7 @@
 #include "ast.h"
 
 namespace Cobra {
+namespace internal{
 
 	ASTFile::~ASTFile(){
 		delete scope;
@@ -81,4 +82,5 @@ namespace Cobra {
 		delete conditions;
 		delete block;
 	}
+} // namespace internal
 } // namespace Cobra

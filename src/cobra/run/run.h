@@ -2,16 +2,17 @@
 #define RUN_H_
 
 #include <string>
-#include "../token/token.h"
-#include "../ast/scope.h"
-#include "../ast/ast.h"
-#include "../error/error.h"
-#include "../parser/parser.h"
-#include "../ast/check.h"
-#include "../types/type.h"
-#include "../types/func.h"
+#include "cobra/token/token.h"
+#include "cobra/ast/scope.h"
+#include "cobra/ast/ast.h"
+#include "cobra/error/error.h"
+#include "cobra/parser/parser.h"
+#include "cobra/ast/check.h"
+#include "cobra/types/type.h"
+#include "cobra/types/func.h"
 
 namespace Cobra {
+namespace internal{
 
 	class Run
 	{
@@ -29,6 +30,7 @@ namespace Cobra {
 		std::map<std::string, ASTFile*> files;
 		void Init();
 	};
+} // namespace internal{
 }
 
 #endif // RUN_H_

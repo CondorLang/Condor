@@ -1,6 +1,7 @@
 #include "scope.h"
 
 namespace Cobra{
+namespace internal{
 	Scope::Scope(){
 		count = 1;
 		outer = NULL;
@@ -86,4 +87,5 @@ namespace Cobra{
 			count++;
 		}
 	}
+} // namespace internal
 } // namespace Cobra	

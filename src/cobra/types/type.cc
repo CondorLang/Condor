@@ -1,6 +1,7 @@
 #include "type.h"
 
 namespace Cobra{
+namespace internal{
 
 	ASTLiterary* Type::ToASTLiterary(Type* type){
 		int t = (int) type->typeOf;
@@ -27,5 +28,5 @@ namespace Cobra{
 			value = std::stod(lit->value); //
 		}
 	}
-
+} // namespace internal
 } // namespace Cobra

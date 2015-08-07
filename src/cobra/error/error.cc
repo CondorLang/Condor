@@ -1,6 +1,7 @@
 #include "error.h"
 
 namespace Cobra {
+namespace internal{
 namespace Error {
 	std::string String(ERROR e, Token* tok){
 		int err = (int) e;
@@ -50,4 +51,5 @@ namespace Error {
 		}
 	}
 } // namespace Error
+} // namespace internal{
 } // namespace Cobra

@@ -1,6 +1,7 @@
 #include "token.h"
 
 namespace Cobra {
+namespace internal{
 	
 	std::string Token::String(){
 		int t = (int)value;
@@ -160,4 +161,5 @@ namespace Cobra {
 		else if (str == "export") return new Token(EXPORT);
 		else return new Token(IDENT);
 	}
+} // namespace internal
 } // namespace Cobra

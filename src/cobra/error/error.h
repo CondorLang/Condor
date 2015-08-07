@@ -2,9 +2,10 @@
 #define ERROR_H_
 
 #include <string>
-#include "../token/token.h"
+#include "cobra/token/token.h"
 
 namespace Cobra {
+	namespace internal{
 	namespace Error {
 		enum ERROR {
 			INVALID_MODE,
@@ -41,6 +42,7 @@ namespace Cobra {
 
 		std::string String(ERROR e, Token* tok);
 	}
+} // namespace internal{
 }
 
 #endif // ERROR_H_

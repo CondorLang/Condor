@@ -1,9 +1,0 @@
-#mode "lazy";
-
-export func add(var a, var b){
-	return a + b;
-}
-
-export func minus(var a, var b){
-	return a - b;
-}

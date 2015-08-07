@@ -4,13 +4,14 @@
 #include <string>
 #include <map>
 #include <vector>
-#include "../token/token.h"
-#include "../ast/scope.h"
-#include "../ast/ast.h"
-#include "../error/error.h"
-#include "../types/func.h"
+#include "cobra/token/token.h"
+#include "cobra/ast/scope.h"
+#include "cobra/ast/ast.h"
+#include "cobra/error/error.h"
+#include "cobra/types/func.h"
 
 namespace Cobra {
+namespace internal{
 
 	struct WalkPair {
 		std::string name;
@@ -40,6 +41,7 @@ namespace Cobra {
 		void WalkFunc(ASTFunc* func);
 		ASTLiterary* GetValue();	
 	};
+} // namespace internal
 }
 
 #endif // WALK_H_
