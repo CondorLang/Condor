@@ -1,20 +1,19 @@
 #ifndef HANDLE_H_
 #define HANDLE_H_
 
-#include "cobra/mem/heap.h"
+#include "heap.h"
 
 namespace Cobra {
 namespace internal{
 
-	struct HeapObject;
-
 	class Handle
 	{
-	private: 
+	private:
 		HeapObject* obj;
 	public:
 		Handle(HeapObject* o) : obj(o){}
-		~Handle();
+		~Handle(){}
+		HeapObject* GetObject(){return obj;}
 	};
 
 } // namespace internal

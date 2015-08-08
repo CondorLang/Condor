@@ -7,7 +7,7 @@ namespace internal{
 
 	// TODO:
 	// 		dispose and abort of Cobra
-	void FETAL(const char* msg){
+	static void FETAL(const char* msg){
 		printf("%s\n", msg);
 	}
 

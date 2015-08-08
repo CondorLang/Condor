@@ -7,12 +7,12 @@ namespace internal{
 
 	}
 
-	void Isolate::Enter(){
-		printf("%s\n", "test");
+	void Isolate::_enter(){
+		_currentIsolate = this;
 	}
 
-	void Isolate::Exit(){
-		printf("%s\n", "test");
+	void Isolate::_exit(){
+		_currentIsolate = NULL;
 	}
 
 	HeapObject* Isolate::Insert(HeapObject obj){

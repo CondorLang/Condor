@@ -8,19 +8,27 @@
 
 #include "heap.h"
 #include "cobra/assert.h"
+#include "cobra/mem/factory.h"
+#include "cobra/globals.h"
 
 namespace Cobra {
 namespace internal{
+
+	class Factory;
 
 	class Isolate
 	{
 	private:
 		HeapStore* heapstore;
+		void _enter();
+		void _exit();
+
 	public:
-		Isolate(){heapstore = new HeapStore();}
+		Isolate(){heapstore = new HeapStore();factory = new Factory();}
 		~Isolate();
-		void Enter();
-		void Exit();
+		Factory* factory;
+		inline void Enter(){_enter();}
+		inline void Exit(){_exit();}
 		HeapObject* Insert(HeapObject obj);
 	};
 

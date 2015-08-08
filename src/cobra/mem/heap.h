@@ -5,19 +5,14 @@
 
 #include <vector>
 #include "cobra/globals.h"
-#include "cobra/mem/handle.h"
+#include "cobra/token/token.h"
 
 namespace Cobra {
 namespace internal{
 
-	enum ObjectType{
-		tILLEGAL,
-		tASTNODE
-	};
-
 	struct HeapObject {
 		Address address;
-		ObjectType type;
+		TOKEN type;
 	};
 
 	class Heap
@@ -45,10 +40,16 @@ namespace internal{
 			heaps.erase(heaps.begin(), heaps.end());
 		}
 		HeapObject* Insert(HeapObject val){
-			Heap* heap = &heaps.back();
-			if (heap->Size() > MAX_HEAP_SIZE){
+			if (heaps.empty()){
 				Heap newHeap;
 				heaps.push_back(newHeap);
+			}
+			else{
+				Heap* heap = &heaps.back();
+				if (heap == NULL || heap->Size() > MAX_HEAP_SIZE){
+					Heap newHeap;
+					heaps.push_back(newHeap);
+				}
 			}
 			return heaps[heaps.size() - 1].Insert(val);
 		}

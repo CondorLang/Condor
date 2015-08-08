@@ -2,21 +2,24 @@
 #define GLOBAL_H_
 
 #include <stdint.h>
+#include "cobra/mem/isolate.h"
 
 // see https://github.com/v8/v8/blob/master/src/globals.h
 
 namespace Cobra {
 namespace internal{
 
+	class Isolate;
+
 	#define BASE_ISOLATE_LOCATION 0x12345678
+	#define CAST(T, V) reinterpret_cast<T>(V);
 	
 	typedef uint8_t byte; // since byte doesn't exist
 	typedef byte* Address;
 
+	static Isolate* _currentIsolate = NULL;
 
 } // namespace internal
 } // namespace Cobra
-
-namespace i = Cobra::internal;
 
 #endif // GLOBAL_H_

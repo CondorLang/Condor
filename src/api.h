@@ -1,7 +1,7 @@
-#ifndef GLOBALS_H_
-#define GLOBALS_H_
+#ifndef API_H_
+#define API_H_
 
-#include "cobra/mem/isolate.h"
+#include "../include/Cobra.h"
 
 namespace Cobra {
 
@@ -13,4 +13,6 @@ namespace Cobra {
 
 } // namespace Cobra
 
-#endif // GLOBALS_H_
+namespace i = Cobra::internal;
+
+#endif // API_H_

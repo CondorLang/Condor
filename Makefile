@@ -13,18 +13,16 @@ all:
 buildAll: $(SOURCES) $(EXECUTABLE)
     
 $(EXECUTABLE): $(OBJECTS)
-	$(CC) $(LDFLAGS) $(OBJECTS) -c
 
 lib:
-	# ar rvs build/libcobra.a $(wildcard src/cobra/*/*.o)
 	@ar cr build/libcobra.a $(wildcard src/*/*/*.o) $(wildcard src/*/*.o) $(wildcard src/*.o)
 
 .cc.o:
-	$(CC) $(CFLAGS) $< -o $@
+	@$(CC) $(CFLAGS) $< -o $@
 
 clean:
 	rm -rf $(wildcard src/cobra/*/*.o)
-	rm -rf build/*.a
+	rm -rf build/*
 
 test:
 	g++ $(FLAGS) -I ./ test/main.cc -Iinclude build/libcobra.a -o build/Cobra
@@ -39,6 +37,11 @@ mem:
 	valgrind --tool=memcheck --leak-check=full --track-origins=yes ./build/Cobra
 
 mt:
+	make
+	make test
+
+cmt:
+	make clean
 	make
 	make test
 
