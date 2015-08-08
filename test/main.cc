@@ -1,7 +1,5 @@
 #include <stdio.h>
 #include <Cobra.h>
-#include <fstream>
-#include <streambuf>
 #include <string>
 
 using namespace Cobra;
@@ -14,11 +12,8 @@ using namespace Cobra;
 int main(){
 	Isolate* isolate = Isolate::New();
 	isolate->Enter();
-	
-	Handle* handle = String::New(isolate, "test");
-	if (handle->IsString()){
-		printf("String found: %s\n", handle->ToString());
-	}
+	Handle* handle = String::NewFromFile(isolate, "test/test.cb");
+	Handle* script = Script::Compile(isolate, handle);
 
 	isolate->Exit();
 	isolate->Dispose();

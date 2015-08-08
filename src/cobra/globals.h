@@ -2,7 +2,6 @@
 #define GLOBAL_H_
 
 #include <stdint.h>
-#include "cobra/mem/isolate.h"
 
 // see https://github.com/v8/v8/blob/master/src/globals.h
 

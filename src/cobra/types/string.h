@@ -8,11 +8,13 @@ namespace internal{
 	{
 	private:
 		const char* value;
+		const char* filePath;
 	public:
 		String(){}
 		~String(){}
 		void SetValue(const char* val){value = val;}
 		const char* GetValue(){return value;}
+		void SetPath(const char* path){filePath = path;}
 	};
 
 } // namespace internal

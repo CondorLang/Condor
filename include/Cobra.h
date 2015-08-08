@@ -5,6 +5,9 @@
 
 namespace Cobra {
 
+	/**
+	 * This creates an isolated instance of Cobra
+	 */
 	class Isolate
 	{
 	public:
@@ -19,18 +22,34 @@ namespace Cobra {
 		static Isolate* New();
 	};
 
+	/**
+	 * All objects are to be sent to the handler. Handles contain:
+	 * 	String
+	 * 	Script
+	 */
 	class Handle
 	{
 	public:
 		bool IsString();
+		bool IsScript();
 		const char* ToString();
 	};
 
 	class String
 	{
+	private:
+		const char* fileName;
 	public:
 		static Handle* New(Isolate* isolate);
 		static Handle* New(Isolate* isolate, const char* string);
+		static Handle* New(Isolate* isolate, const char* string, const char* path);
+		static Handle* NewFromFile(Isolate* isolate, const char* path);
+	};
+
+	class Script
+	{
+	public:
+		static Handle* Compile(Isolate* isolate, Handle* handle);
 	};
 
 }

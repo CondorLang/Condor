@@ -6,7 +6,7 @@
  * heaps, AST, and base code will be isolated.
  */
 
-#include "heap.h"
+#include "cobra/mem/heap.h"
 #include "cobra/assert.h"
 #include "cobra/mem/factory.h"
 #include "cobra/globals.h"
@@ -15,6 +15,8 @@ namespace Cobra {
 namespace internal{
 
 	class Factory;
+	class HeapStore;
+	struct HeapObject;
 
 	class Isolate
 	{

@@ -19,6 +19,7 @@ namespace internal{
 		ARRAY_MEMBER,
 		OBJECT_MEMBER_CHAIN,
 		CLASS,
+		SCRIPT,
 
 		// Literals
 		LITERAL_BEGIN,

@@ -11,5 +11,10 @@ namespace internal{
 		return string;
 	}
 
+	Script* Factory::NewScript(Handle* handle){
+		Script* script = new Script(handle);
+		return script;
+	}
+
 } // namespace internal
 } // namespace Cobra
