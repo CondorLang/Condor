@@ -5,6 +5,7 @@
 #include "cobra/ast/check.h"
 #include "cobra/mem/handle.h"
 #include "cobra/ast/ast.h"
+#include <vector>
 
 namespace Cobra {
 namespace internal{
@@ -17,11 +18,14 @@ namespace internal{
 		Handle* source;
 		Parser* parser;
 		Check* check;
+		bool hasErr;
+		std::vector<const char*> msgs;
 	public:
-		Script(Handle* handle) : source(handle){parser=NULL;check=NULL;}
+		Script(Handle* handle);
 		~Script(){}
 		void Compile();
 		Handle* GetSource(){return source;}
+		bool HasError(){return hasErr;}
 	};
 
 } // namespace internal

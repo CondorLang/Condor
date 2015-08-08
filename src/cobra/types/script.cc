@@ -4,6 +4,13 @@
 namespace Cobra {
 namespace internal{
 
+	Script::Script(Handle* handle){
+		source = handle;
+		parser = NULL;
+		check = NULL;
+		hasErr = false;
+	}
+
 	// TODO:
 	// 		Add TRY_CATCH
 	// 		Pass Isolate through
@@ -19,7 +26,9 @@ namespace internal{
 		}
 		catch (Error::ERROR e){
 			std::string msg = Error::String(e, parser->expected);
-			printf("%d:%d - %s\n", parser->row, parser->col, msg.c_str());
+			msg = std::to_string(parser->row) + ":" + std::to_string(parser->col) + " - " + msg;
+			msgs.push_back(msg.c_str());
+			hasErr = true;
 			return;
 		}
 
