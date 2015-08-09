@@ -8,6 +8,14 @@
 
 namespace Cobra {
 namespace internal{
+
+	/**
+	 * @brief Tokenize the program text
+	 * @details Converts each character to a token based
+	 * on the syntax of the language
+	 * 
+	 * @param source std::string
+	 */
 	class Scanner {
 	public:
 		Scanner(std::string* source);

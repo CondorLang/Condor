@@ -11,6 +11,7 @@ namespace internal{
 	class Isolate;
 
 	#define BASE_ISOLATE_LOCATION 0x12345678
+	#define VERSION 0.1
 	#define CAST(T, V) reinterpret_cast<T>(V);
 	
 	typedef uint8_t byte; // since byte doesn't exist

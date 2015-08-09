@@ -2,12 +2,14 @@
 #define HANDLE_H_
 
 #include "heap.h"
-#include "cobra/types/script.h"
+#include "cobra/types/script/script.h"
+#include "cobra/types/strings/string.h"
 
 namespace Cobra {
 namespace internal{
 
 	class Script;
+	class String;
 
 	class Handle
 	{
@@ -17,7 +19,8 @@ namespace internal{
 		Handle(HeapObject* o) : obj(o){}
 		~Handle(){}
 		HeapObject* GetObject(){return obj;}
-		const char* ToString();
+		String* ToString();
+		Script* ToScript();
 	};
 
 } // namespace internal

@@ -2,6 +2,12 @@
 
 namespace Cobra{
 namespace internal{
+
+	/**
+	 * @brief Scanner constructor
+	 * 
+	 * @param source std::string
+	 */
 	Scanner::Scanner(std::string* source){
 		src = source;
 		offset = -1;
@@ -11,6 +17,12 @@ namespace internal{
 		ch = -1;
 	}
 
+	/**
+	 * @brief Get the next token
+	 * @details Returns the next token. If it's the end of the file, 
+	 * Token(END) will be returned
+	 * @return Token*
+	 */
 	Token* Scanner::NextToken(){
 		Next();
 		
@@ -272,6 +284,13 @@ namespace internal{
 		}
 	}
 
+	/**
+	 * @brief Register an Error
+	 * @details If there are errors in the code,
+	 * an error will be stored here.
+	 * 
+	 * @param err std::string
+	 */
 	void Scanner::Error(std::string err){
 		err += row;
 		err += ":";
@@ -279,16 +298,35 @@ namespace internal{
 		errors.push_back(err);
 	}
 
+	/**
+	 * @brief Is Letter
+	 * @details Checks if the character is a letter
+	 * 
+	 * @param letter char
+	 * @return bool
+	 */
 	bool Scanner::IsLetter(char letter){
 		if (letter != -1) return isalpha(letter);
 		return isalpha(ch);
 	}
 
+	/**
+	 * @brief Is Number
+	 * @details Checks if the character is a number
+	 * 
+	 * @param letter char
+	 * @return bool
+	 */
 	bool Scanner::IsNumber(char letter){
 		if (letter != -1) return isdigit(letter);
 		return isdigit(ch);
 	}
 
+	/**
+	 * @brief Next character
+	 * @details Grabs the next character or eats whitespaces
+	 * and new lines
+	 */
 	void Scanner::Next(){
 		if (readOffset < src->length()){
 			offset = readOffset;
@@ -312,6 +350,12 @@ namespace internal{
 		}
 	}
 
+	/**
+	 * @brief Peek at next character
+	 * @details Peeks at the next character. Returns -1 if it's
+	 * the end of the file
+	 * @return char
+	 */
 	char Scanner::Peek(){
 		if (readOffset < src->length()){
 			return src->at(readOffset);
@@ -319,6 +363,11 @@ namespace internal{
 		return -1; // EOF
 	}
 
+	/**
+	 * @brief Eat comments
+	 * 
+	 * @param star true if / * or false if //
+	 */
 	void Scanner::ScanComments(bool star){
 		Next(); // eat the second comment char
 		char p = Peek();
@@ -338,6 +387,9 @@ namespace internal{
 		ScanWhiteSpaces();
 	}
 
+	/**
+	 * @brief Eat white spaces
+	 */
 	void Scanner::ScanWhiteSpaces(){
 		if (ch == ' ' || ch == '\t' || ch == '\n'){
 			char p = Peek();

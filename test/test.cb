@@ -1,8 +1,13 @@
 //%trace;
-//%printCheck;
+%printCheck;
 #mode "strict";
 
 func add(int one, int two, int three){
+	int {
+		a = 10;
+		b = 12;
+		c = 10;
+	}
 	return one + two + three;
 }
 

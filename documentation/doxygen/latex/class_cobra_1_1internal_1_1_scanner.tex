@@ -1,0 +1,216 @@
+\hypertarget{class_cobra_1_1internal_1_1_scanner}{\section{Cobra\+:\+:internal\+:\+:Scanner Class Reference}
+\label{class_cobra_1_1internal_1_1_scanner}\index{Cobra\+::internal\+::\+Scanner@{Cobra\+::internal\+::\+Scanner}}
+}
+
+
+Tokenize the program text.  
+
+
+
+
+{\ttfamily \#include $<$scanner.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_cobra_1_1internal_1_1_scanner_a2daf5f3b5ac2add3dc79550498f07fae}{Scanner} (std\+::string $\ast$source)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_cobra_1_1internal_1_1_scanner}{Scanner} constructor. \end{DoxyCompactList}\item 
+\hyperlink{class_cobra_1_1internal_1_1_token}{Token} $\ast$ \hyperlink{class_cobra_1_1internal_1_1_scanner_a6955998dffd994214f647d54b8ab7520}{Next\+Token} ()
+\begin{DoxyCompactList}\small\item\em Get the next token. \end{DoxyCompactList}\item 
+bool \hyperlink{class_cobra_1_1internal_1_1_scanner_ad7389381cf80cf16cfa899eb850cfba6}{Is\+Letter} (char letter)
+\begin{DoxyCompactList}\small\item\em Is Letter. \end{DoxyCompactList}\item 
+bool \hyperlink{class_cobra_1_1internal_1_1_scanner_a82a5e48b515f8654b4da655e383f9701}{Is\+Number} (char letter)
+\begin{DoxyCompactList}\small\item\em Is Number. \end{DoxyCompactList}\item 
+void \hyperlink{class_cobra_1_1internal_1_1_scanner_ad825a7aec4f91d9317ed24bcd2c30bcc}{Next} ()
+\begin{DoxyCompactList}\small\item\em Next character. \end{DoxyCompactList}\item 
+char \hyperlink{class_cobra_1_1internal_1_1_scanner_a88413c7cd3a38c7e5bb778c359226006}{Peek} ()
+\begin{DoxyCompactList}\small\item\em Peek at next character. \end{DoxyCompactList}\item 
+void \hyperlink{class_cobra_1_1internal_1_1_scanner_a9045c5fb2d33b152504dd5026bca5fa8}{Error} (std\+::string err)
+\begin{DoxyCompactList}\small\item\em Register an Error. \end{DoxyCompactList}\item 
+void \hyperlink{class_cobra_1_1internal_1_1_scanner_aba8d0ba29f8e9609f2f61c6466fb0e5d}{Scan\+Comments} (bool star)
+\begin{DoxyCompactList}\small\item\em Eat comments. \end{DoxyCompactList}\item 
+\hypertarget{class_cobra_1_1internal_1_1_scanner_ac05a201981599e01a69a1f411b555cb3}{void \hyperlink{class_cobra_1_1internal_1_1_scanner_ac05a201981599e01a69a1f411b555cb3}{Scan\+White\+Spaces} ()}\label{class_cobra_1_1internal_1_1_scanner_ac05a201981599e01a69a1f411b555cb3}
+
+\begin{DoxyCompactList}\small\item\em Eat white spaces. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_cobra_1_1internal_1_1_scanner_af609bbafc2a7c92e33f86fee28c6c798}{std\+::string $\ast$ {\bfseries src}}\label{class_cobra_1_1internal_1_1_scanner_af609bbafc2a7c92e33f86fee28c6c798}
+
+\item 
+\hypertarget{class_cobra_1_1internal_1_1_scanner_a5c6c96aae0fa26a83cbf9e34e857c465}{std\+::vector$<$ std\+::string $>$ {\bfseries errors}}\label{class_cobra_1_1internal_1_1_scanner_a5c6c96aae0fa26a83cbf9e34e857c465}
+
+\item 
+\hypertarget{class_cobra_1_1internal_1_1_scanner_aea4c60253a2fe9f00322d8f479a84592}{std\+::string {\bfseries result}}\label{class_cobra_1_1internal_1_1_scanner_aea4c60253a2fe9f00322d8f479a84592}
+
+\item 
+\hypertarget{class_cobra_1_1internal_1_1_scanner_a736aebb3cc14f3b42f23b108852c32d3}{char {\bfseries ch}}\label{class_cobra_1_1internal_1_1_scanner_a736aebb3cc14f3b42f23b108852c32d3}
+
+\item 
+\hypertarget{class_cobra_1_1internal_1_1_scanner_a7de8eceb74abd7e22ee98c779a3fa443}{int {\bfseries offset}}\label{class_cobra_1_1internal_1_1_scanner_a7de8eceb74abd7e22ee98c779a3fa443}
+
+\item 
+\hypertarget{class_cobra_1_1internal_1_1_scanner_a5afd6596d796ad9fa35bd1a89a8cf348}{int {\bfseries read\+Offset}}\label{class_cobra_1_1internal_1_1_scanner_a5afd6596d796ad9fa35bd1a89a8cf348}
+
+\item 
+\hypertarget{class_cobra_1_1internal_1_1_scanner_a954fa326063b9f2cee829480fb3764b8}{int {\bfseries row}}\label{class_cobra_1_1internal_1_1_scanner_a954fa326063b9f2cee829480fb3764b8}
+
+\item 
+\hypertarget{class_cobra_1_1internal_1_1_scanner_aecd0584c1908b485ac64fd223f8fc13e}{int {\bfseries col}}\label{class_cobra_1_1internal_1_1_scanner_aecd0584c1908b485ac64fd223f8fc13e}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Tokenize the program text. 
+
+Converts each character to a token based on the syntax of the language
+
+
+\begin{DoxyParams}{Parameters}
+{\em source} & std\+::string \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_cobra_1_1internal_1_1_scanner_a2daf5f3b5ac2add3dc79550498f07fae}{\index{Cobra\+::internal\+::\+Scanner@{Cobra\+::internal\+::\+Scanner}!Scanner@{Scanner}}
+\index{Scanner@{Scanner}!Cobra\+::internal\+::\+Scanner@{Cobra\+::internal\+::\+Scanner}}
+\subsubsection[{Scanner}]{\setlength{\rightskip}{0pt plus 5cm}Cobra\+::internal\+::\+Scanner\+::\+Scanner (
+\begin{DoxyParamCaption}
+\item[{std\+::string $\ast$}]{source}
+\end{DoxyParamCaption}
+)}}\label{class_cobra_1_1internal_1_1_scanner_a2daf5f3b5ac2add3dc79550498f07fae}
+
+
+\hyperlink{class_cobra_1_1internal_1_1_scanner}{Scanner} constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em source} & std\+::string \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_cobra_1_1internal_1_1_scanner_a9045c5fb2d33b152504dd5026bca5fa8}{\index{Cobra\+::internal\+::\+Scanner@{Cobra\+::internal\+::\+Scanner}!Error@{Error}}
+\index{Error@{Error}!Cobra\+::internal\+::\+Scanner@{Cobra\+::internal\+::\+Scanner}}
+\subsubsection[{Error}]{\setlength{\rightskip}{0pt plus 5cm}void Cobra\+::internal\+::\+Scanner\+::\+Error (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{err}
+\end{DoxyParamCaption}
+)}}\label{class_cobra_1_1internal_1_1_scanner_a9045c5fb2d33b152504dd5026bca5fa8}
+
+
+Register an Error. 
+
+If there are errors in the code, an error will be stored here.
+
+
+\begin{DoxyParams}{Parameters}
+{\em err} & std\+::string \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_cobra_1_1internal_1_1_scanner_ad7389381cf80cf16cfa899eb850cfba6}{\index{Cobra\+::internal\+::\+Scanner@{Cobra\+::internal\+::\+Scanner}!Is\+Letter@{Is\+Letter}}
+\index{Is\+Letter@{Is\+Letter}!Cobra\+::internal\+::\+Scanner@{Cobra\+::internal\+::\+Scanner}}
+\subsubsection[{Is\+Letter}]{\setlength{\rightskip}{0pt plus 5cm}bool Cobra\+::internal\+::\+Scanner\+::\+Is\+Letter (
+\begin{DoxyParamCaption}
+\item[{char}]{letter}
+\end{DoxyParamCaption}
+)}}\label{class_cobra_1_1internal_1_1_scanner_ad7389381cf80cf16cfa899eb850cfba6}
+
+
+Is Letter. 
+
+Checks if the character is a letter
+
+
+\begin{DoxyParams}{Parameters}
+{\em letter} & char \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+\hypertarget{class_cobra_1_1internal_1_1_scanner_a82a5e48b515f8654b4da655e383f9701}{\index{Cobra\+::internal\+::\+Scanner@{Cobra\+::internal\+::\+Scanner}!Is\+Number@{Is\+Number}}
+\index{Is\+Number@{Is\+Number}!Cobra\+::internal\+::\+Scanner@{Cobra\+::internal\+::\+Scanner}}
+\subsubsection[{Is\+Number}]{\setlength{\rightskip}{0pt plus 5cm}bool Cobra\+::internal\+::\+Scanner\+::\+Is\+Number (
+\begin{DoxyParamCaption}
+\item[{char}]{letter}
+\end{DoxyParamCaption}
+)}}\label{class_cobra_1_1internal_1_1_scanner_a82a5e48b515f8654b4da655e383f9701}
+
+
+Is Number. 
+
+Checks if the character is a number
+
+
+\begin{DoxyParams}{Parameters}
+{\em letter} & char \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+\hypertarget{class_cobra_1_1internal_1_1_scanner_ad825a7aec4f91d9317ed24bcd2c30bcc}{\index{Cobra\+::internal\+::\+Scanner@{Cobra\+::internal\+::\+Scanner}!Next@{Next}}
+\index{Next@{Next}!Cobra\+::internal\+::\+Scanner@{Cobra\+::internal\+::\+Scanner}}
+\subsubsection[{Next}]{\setlength{\rightskip}{0pt plus 5cm}void Cobra\+::internal\+::\+Scanner\+::\+Next (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_cobra_1_1internal_1_1_scanner_ad825a7aec4f91d9317ed24bcd2c30bcc}
+
+
+Next character. 
+
+Grabs the next character or eats whitespaces and new lines \hypertarget{class_cobra_1_1internal_1_1_scanner_a6955998dffd994214f647d54b8ab7520}{\index{Cobra\+::internal\+::\+Scanner@{Cobra\+::internal\+::\+Scanner}!Next\+Token@{Next\+Token}}
+\index{Next\+Token@{Next\+Token}!Cobra\+::internal\+::\+Scanner@{Cobra\+::internal\+::\+Scanner}}
+\subsubsection[{Next\+Token}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Token} $\ast$ Cobra\+::internal\+::\+Scanner\+::\+Next\+Token (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_cobra_1_1internal_1_1_scanner_a6955998dffd994214f647d54b8ab7520}
+
+
+Get the next token. 
+
+Returns the next token. If it's the end of the file, Token(\+E\+N\+D) will be returned \begin{DoxyReturn}{Returns}
+Token$\ast$ 
+\end{DoxyReturn}
+\hypertarget{class_cobra_1_1internal_1_1_scanner_a88413c7cd3a38c7e5bb778c359226006}{\index{Cobra\+::internal\+::\+Scanner@{Cobra\+::internal\+::\+Scanner}!Peek@{Peek}}
+\index{Peek@{Peek}!Cobra\+::internal\+::\+Scanner@{Cobra\+::internal\+::\+Scanner}}
+\subsubsection[{Peek}]{\setlength{\rightskip}{0pt plus 5cm}char Cobra\+::internal\+::\+Scanner\+::\+Peek (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_cobra_1_1internal_1_1_scanner_a88413c7cd3a38c7e5bb778c359226006}
+
+
+Peek at next character. 
+
+Peeks at the next character. Returns -\/1 if it's the end of the file \begin{DoxyReturn}{Returns}
+char 
+\end{DoxyReturn}
+\hypertarget{class_cobra_1_1internal_1_1_scanner_aba8d0ba29f8e9609f2f61c6466fb0e5d}{\index{Cobra\+::internal\+::\+Scanner@{Cobra\+::internal\+::\+Scanner}!Scan\+Comments@{Scan\+Comments}}
+\index{Scan\+Comments@{Scan\+Comments}!Cobra\+::internal\+::\+Scanner@{Cobra\+::internal\+::\+Scanner}}
+\subsubsection[{Scan\+Comments}]{\setlength{\rightskip}{0pt plus 5cm}void Cobra\+::internal\+::\+Scanner\+::\+Scan\+Comments (
+\begin{DoxyParamCaption}
+\item[{bool}]{star}
+\end{DoxyParamCaption}
+)}}\label{class_cobra_1_1internal_1_1_scanner_aba8d0ba29f8e9609f2f61c6466fb0e5d}
+
+
+Eat comments. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em star} & true if /$\ast$ or false if // \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/cobra/scanner/scanner.\+h\item 
+src/cobra/scanner/scanner.\+cc\end{DoxyCompactItemize}

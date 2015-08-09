@@ -5,6 +5,9 @@
 
 namespace Cobra {
 namespace internal{
+	/**
+	 * @brief The basic enum of all Tokens
+	 */
 	enum TOKEN{
 		// Internal
 		ILLEGAL = 255,
@@ -133,6 +136,13 @@ namespace internal{
 		KEYWORD_END
 	};	
 
+	/**
+	 * @brief The token wrapper
+	 * @details The token wrapper is used in many classes. This
+	 * is the base for all the tokens.
+	 * 
+	 * @param val TOKEN
+	 */
 	class Token
 	{
 	public:
@@ -147,6 +157,7 @@ namespace internal{
 		bool IsLiteral(){return value > LITERAL_BEGIN && value < LITERAL_END;}
 		bool IsOperator(){return value > OPERATOR_BEGIN && value < OPERATOR_END;}
 		static Token* GetToken(std::string str);
+		const char* ToString(TOKEN token);
 	};
 } // namespace internal{
 }

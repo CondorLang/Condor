@@ -4,16 +4,12 @@
 
 namespace Cobra {
 namespace internal{
-
-	// TODO:
-	// 		dispose and abort of Cobra
-	static void FETAL(const char* msg){
-		printf("%s\n", msg);
-	}
-
+	
+	#define FETAL(msg1, msg2) \
+		printf("%s%s\n", #msg1, #msg2);
 
 	#define CHECK(condition) \
-		if (!condition){ \
+		if (!(condition)){ \
 			FETAL("Fetal: %s", #condition); \
 		}		
 

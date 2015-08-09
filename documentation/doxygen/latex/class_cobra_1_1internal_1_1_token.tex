@@ -1,0 +1,115 @@
+\hypertarget{class_cobra_1_1internal_1_1_token}{\section{Cobra\+:\+:internal\+:\+:Token Class Reference}
+\label{class_cobra_1_1internal_1_1_token}\index{Cobra\+::internal\+::\+Token@{Cobra\+::internal\+::\+Token}}
+}
+
+
+The token wrapper.  
+
+
+
+
+{\ttfamily \#include $<$token.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_cobra_1_1internal_1_1_token_a1e990f5ae45f5c16bba6fa40915b8f85}{{\bfseries Token} (T\+O\+K\+E\+N val)}\label{class_cobra_1_1internal_1_1_token_a1e990f5ae45f5c16bba6fa40915b8f85}
+
+\item 
+std\+::string \hyperlink{class_cobra_1_1internal_1_1_token_a9b435c68c2bfc19212e2dc5f78d432e9}{String} ()
+\begin{DoxyCompactList}\small\item\em Converts a \hyperlink{class_cobra_1_1internal_1_1_token}{Token} to a string. \end{DoxyCompactList}\item 
+int \hyperlink{class_cobra_1_1internal_1_1_token_a7ecee93c532317ef454004e21acab296}{Precedence} ()
+\begin{DoxyCompactList}\small\item\em Get the tokens precedence. \end{DoxyCompactList}\item 
+\hypertarget{class_cobra_1_1internal_1_1_token_a8e785fd925b773ee2d53d62bcbb5a0c5}{bool {\bfseries Is\+Keyword} ()}\label{class_cobra_1_1internal_1_1_token_a8e785fd925b773ee2d53d62bcbb5a0c5}
+
+\item 
+\hypertarget{class_cobra_1_1internal_1_1_token_a8a89dbcd9e6df18c9141e4d3e3a86c93}{bool {\bfseries Is\+Literal} ()}\label{class_cobra_1_1internal_1_1_token_a8a89dbcd9e6df18c9141e4d3e3a86c93}
+
+\item 
+\hypertarget{class_cobra_1_1internal_1_1_token_a3d421adb48da3d0fd768e3b8448a1bd9}{bool {\bfseries Is\+Operator} ()}\label{class_cobra_1_1internal_1_1_token_a3d421adb48da3d0fd768e3b8448a1bd9}
+
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{class_cobra_1_1internal_1_1_token}{Token} $\ast$ \hyperlink{class_cobra_1_1internal_1_1_token_a724ca96f5ae2bd83331e6fc52dc5e3ef}{Get\+Token} (std\+::string str)
+\begin{DoxyCompactList}\small\item\em Get token by string. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_cobra_1_1internal_1_1_token_adcd2e429ed43b744ab9dd16450408570}{T\+O\+K\+E\+N {\bfseries value}}\label{class_cobra_1_1internal_1_1_token_adcd2e429ed43b744ab9dd16450408570}
+
+\item 
+\hypertarget{class_cobra_1_1internal_1_1_token_a7a9397cc323fa7f28fa49783977eb32b}{std\+::string {\bfseries raw}}\label{class_cobra_1_1internal_1_1_token_a7a9397cc323fa7f28fa49783977eb32b}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The token wrapper. 
+
+The token wrapper is used in many classes. This is the base for all the tokens.
+
+
+\begin{DoxyParams}{Parameters}
+{\em val} & T\+O\+K\+E\+N \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_cobra_1_1internal_1_1_token_a724ca96f5ae2bd83331e6fc52dc5e3ef}{\index{Cobra\+::internal\+::\+Token@{Cobra\+::internal\+::\+Token}!Get\+Token@{Get\+Token}}
+\index{Get\+Token@{Get\+Token}!Cobra\+::internal\+::\+Token@{Cobra\+::internal\+::\+Token}}
+\subsubsection[{Get\+Token}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Token} $\ast$ Cobra\+::internal\+::\+Token\+::\+Get\+Token (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{str}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{class_cobra_1_1internal_1_1_token_a724ca96f5ae2bd83331e6fc52dc5e3ef}
+
+
+Get token by string. 
+
+Returns the Token$\ast$ based on the inputed string
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & std\+::string \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{class_cobra_1_1internal_1_1_token}{Token} 
+\end{DoxyReturn}
+\hypertarget{class_cobra_1_1internal_1_1_token_a7ecee93c532317ef454004e21acab296}{\index{Cobra\+::internal\+::\+Token@{Cobra\+::internal\+::\+Token}!Precedence@{Precedence}}
+\index{Precedence@{Precedence}!Cobra\+::internal\+::\+Token@{Cobra\+::internal\+::\+Token}}
+\subsubsection[{Precedence}]{\setlength{\rightskip}{0pt plus 5cm}int Cobra\+::internal\+::\+Token\+::\+Precedence (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_cobra_1_1internal_1_1_token_a7ecee93c532317ef454004e21acab296}
+
+
+Get the tokens precedence. 
+
+This is used in the math portions. \begin{DoxyReturn}{Returns}
+int 0 -\/ 5 (0 being the lowest) 
+\end{DoxyReturn}
+\hypertarget{class_cobra_1_1internal_1_1_token_a9b435c68c2bfc19212e2dc5f78d432e9}{\index{Cobra\+::internal\+::\+Token@{Cobra\+::internal\+::\+Token}!String@{String}}
+\index{String@{String}!Cobra\+::internal\+::\+Token@{Cobra\+::internal\+::\+Token}}
+\subsubsection[{String}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string Cobra\+::internal\+::\+Token\+::\+String (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_cobra_1_1internal_1_1_token_a9b435c68c2bfc19212e2dc5f78d432e9}
+
+
+Converts a \hyperlink{class_cobra_1_1internal_1_1_token}{Token} to a string. 
+
+\begin{DoxyReturn}{Returns}
+std\+::string 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/cobra/token/token.\+h\item 
+src/cobra/token/token.\+cc\end{DoxyCompactItemize}

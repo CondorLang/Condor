@@ -1,0 +1,93 @@
+\hypertarget{class_cobra_1_1_handle}{\section{Cobra\+:\+:Handle Class Reference}
+\label{class_cobra_1_1_handle}\index{Cobra\+::\+Handle@{Cobra\+::\+Handle}}
+}
+
+
+All \hyperlink{namespace_cobra}{Cobra} scripts and objects will be wrapped in a handler.  
+
+
+
+
+{\ttfamily \#include $<$Cobra.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{class_cobra_1_1_handle_a1cd39727327efaaea04597acae87eca7}{Is\+String} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_cobra_1_1_handle}{Handle} is \hyperlink{class_cobra_1_1_string}{String}. \end{DoxyCompactList}\item 
+bool \hyperlink{class_cobra_1_1_handle_a4e641103844a622cec39b8e53f056112}{Is\+Script} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_cobra_1_1_handle}{Handle} is \hyperlink{class_cobra_1_1_script}{Script}. \end{DoxyCompactList}\item 
+const char $\ast$ \hyperlink{class_cobra_1_1_handle_a1cc4baae13a1fbf6d5d101b5fc5b11d5}{To\+String} ()
+\begin{DoxyCompactList}\small\item\em Stringify the \hyperlink{class_cobra_1_1_handle}{Handle} object. \end{DoxyCompactList}\item 
+const char $\ast$ \hyperlink{class_cobra_1_1_handle_a638691042734265cab9b15668fd72fc8}{Get\+Type} ()
+\begin{DoxyCompactList}\small\item\em Get the type of the \hyperlink{class_cobra_1_1_handle}{Handle}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+All \hyperlink{namespace_cobra}{Cobra} scripts and objects will be wrapped in a handler. 
+
+The handler is used to hold the memory location of the object. This allows for the garbage collector to track each object. 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_cobra_1_1_handle_a638691042734265cab9b15668fd72fc8}{\index{Cobra\+::\+Handle@{Cobra\+::\+Handle}!Get\+Type@{Get\+Type}}
+\index{Get\+Type@{Get\+Type}!Cobra\+::\+Handle@{Cobra\+::\+Handle}}
+\subsubsection[{Get\+Type}]{\setlength{\rightskip}{0pt plus 5cm}const char $\ast$ Cobra\+::\+Handle\+::\+Get\+Type (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_cobra_1_1_handle_a638691042734265cab9b15668fd72fc8}
+
+
+Get the type of the \hyperlink{class_cobra_1_1_handle}{Handle}. 
+
+\begin{DoxyReturn}{Returns}
+const char$\ast$ 
+\end{DoxyReturn}
+\hypertarget{class_cobra_1_1_handle_a4e641103844a622cec39b8e53f056112}{\index{Cobra\+::\+Handle@{Cobra\+::\+Handle}!Is\+Script@{Is\+Script}}
+\index{Is\+Script@{Is\+Script}!Cobra\+::\+Handle@{Cobra\+::\+Handle}}
+\subsubsection[{Is\+Script}]{\setlength{\rightskip}{0pt plus 5cm}bool Cobra\+::\+Handle\+::\+Is\+Script (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_cobra_1_1_handle_a4e641103844a622cec39b8e53f056112}
+
+
+\hyperlink{class_cobra_1_1_handle}{Handle} is \hyperlink{class_cobra_1_1_script}{Script}. 
+
+Checks if the contents of the \hyperlink{class_cobra_1_1_handle}{Handle} is a \hyperlink{class_cobra_1_1_script}{Cobra\+::\+Script} \begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+\hypertarget{class_cobra_1_1_handle_a1cd39727327efaaea04597acae87eca7}{\index{Cobra\+::\+Handle@{Cobra\+::\+Handle}!Is\+String@{Is\+String}}
+\index{Is\+String@{Is\+String}!Cobra\+::\+Handle@{Cobra\+::\+Handle}}
+\subsubsection[{Is\+String}]{\setlength{\rightskip}{0pt plus 5cm}bool Cobra\+::\+Handle\+::\+Is\+String (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_cobra_1_1_handle_a1cd39727327efaaea04597acae87eca7}
+
+
+\hyperlink{class_cobra_1_1_handle}{Handle} is \hyperlink{class_cobra_1_1_string}{String}. 
+
+Checks if the contents of the \hyperlink{class_cobra_1_1_handle}{Handle} is a \hyperlink{class_cobra_1_1_string}{Cobra\+::\+String}. \begin{DoxyReturn}{Returns}
+bool 
+\end{DoxyReturn}
+\hypertarget{class_cobra_1_1_handle_a1cc4baae13a1fbf6d5d101b5fc5b11d5}{\index{Cobra\+::\+Handle@{Cobra\+::\+Handle}!To\+String@{To\+String}}
+\index{To\+String@{To\+String}!Cobra\+::\+Handle@{Cobra\+::\+Handle}}
+\subsubsection[{To\+String}]{\setlength{\rightskip}{0pt plus 5cm}const char $\ast$ Cobra\+::\+Handle\+::\+To\+String (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_cobra_1_1_handle_a1cc4baae13a1fbf6d5d101b5fc5b11d5}
+
+
+Stringify the \hyperlink{class_cobra_1_1_handle}{Handle} object. 
+
+If the contents of the Hanle is a \hyperlink{class_cobra_1_1_string}{Cobra\+::\+String}, the const char$\ast$ value will be returned. \begin{DoxyReturn}{Returns}
+const char$\ast$ 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/Cobra.\+h\item 
+src/api.\+cc\end{DoxyCompactItemize}

@@ -5,8 +5,6 @@
 using namespace Cobra;
 
 // #include "tests/simple.h"
-
-// void runFile();
 // void runTests1();
 
 int main(){
@@ -17,8 +15,6 @@ int main(){
 
 	isolate->Exit();
 	isolate->Dispose();
-	//runFile();
-	//runTests1();
 }
 
 // void runFile(){

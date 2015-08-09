@@ -3,6 +3,10 @@
 namespace Cobra {
 namespace internal{
 	
+	/**
+	 * @brief Converts a Token to a string
+	 * @return std::string
+	 */
 	std::string Token::String(){
 		int t = (int)value;
 		switch (t){
@@ -109,6 +113,11 @@ namespace internal{
 		}
 	}
 
+	/**
+	 * @brief Get the tokens precedence
+	 * @details This is used in the math portions.
+	 * @return int 0 - 5 (0 being the lowest)
+	 */
 	int Token::Precedence(){
 		int t = (int) value;
 		switch (t){
@@ -122,6 +131,13 @@ namespace internal{
 		return 0;
 	}
 
+	/**
+	 * @brief Get token by string
+	 * @details Returns the Token* based on the inputed string
+	 * 
+	 * @param str std::string
+	 * @return Token
+	 */
 	Token* Token::GetToken(std::string str){
 		if (str.empty()) return new Token(ILLEGAL);
 		else if (str == "var") return new Token(VAR);
@@ -160,6 +176,13 @@ namespace internal{
 		else if (str == "as") return new Token(AS);
 		else if (str == "export") return new Token(EXPORT);
 		else return new Token(IDENT);
+	}
+
+	const char* Token::ToString(TOKEN token){
+		Token* tok = new Token(token);
+		const char* str = tok->String().c_str();
+		delete tok;
+		return str;
 	}
 } // namespace internal
 } // namespace Cobra

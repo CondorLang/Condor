@@ -1,7 +1,7 @@
 CC=g++
 CFLAGS=-c -I src/
 LDFLAGS=
-SOURCES=$(wildcard src/*/*/*.cc) $(wildcard src/*/*.cc) $(wildcard src/*.cc)
+SOURCES=$(wildcard src/*/*/*/*.cc) $(wildcard src/*/*/*.cc) $(wildcard src/*/*.cc) $(wildcard src/*.cc)
 
 OBJECTS=$(SOURCES:.cc=.o)
 EXECUTABLE=./build/Cobra
@@ -9,13 +9,14 @@ EXECUTABLE=./build/Cobra
 all: 
 	make buildAll
 	make lib
+	make test
 
 buildAll: $(SOURCES) $(EXECUTABLE)
     
 $(EXECUTABLE): $(OBJECTS)
 
 lib:
-	@ar cr build/libcobra.a $(wildcard src/*/*/*.o) $(wildcard src/*/*.o) $(wildcard src/*.o)
+	@ar cr build/libcobra.a $(wildcard src/*/*/*/*.o) $(wildcard src/*/*/*.o) $(wildcard src/*/*.o) $(wildcard src/*.o)
 
 .cc.o:
 	@$(CC) $(CFLAGS) $< -o $@
@@ -25,10 +26,12 @@ clean:
 	rm -rf build/*
 
 test:
+	rm ./build/Cobra
 	g++ $(FLAGS) -I ./ test/main.cc -Iinclude build/libcobra.a -o build/Cobra
 	./build/Cobra ${ARGS}
 
 tests:
+	rm ./build/Cobra
 	g++ $(FLAGS) -I ./ test/main.cc -Iinclude build/libcobra.a -o build/Cobra
 	./build/Cobra -tests
 
@@ -45,7 +48,10 @@ cmt:
 	make
 	make test
 
-nm:
-	nm -j src/api.o src/cobra/mem/isolate.o | sort | uniq -d
+docs:
+	doxygen documentation/doxygen.config
+
+open:
+	open documentation/doxygen/html/index.html
 
 .PHONY: all clean test

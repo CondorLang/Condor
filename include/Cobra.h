@@ -5,16 +5,19 @@
 
 namespace Cobra {
 
+	double Version();
+
+	
 	/**
-	 * This creates an isolated instance of Cobra
+	 * @brief Creates an isolated instance of Cobra
+	 * @details All scripts and objects need to be created through an isolate.
 	 */
 	class Isolate
 	{
 	public:
-		// The isolate must be entered into before usage
 		void Enter();
 		void Exit();
-		void Dispose();
+		void Dispose(); 
 		Isolate* GetCurrent();
 
 		void* operator new(size_t);
@@ -23,9 +26,9 @@ namespace Cobra {
 	};
 
 	/**
-	 * All objects are to be sent to the handler. Handles contain:
-	 * 	String
-	 * 	Script
+	 * @brief All Cobra scripts and objects will be wrapped in a handler.
+	 * @details The handler is used to hold the memory location of
+	 * the object. This allows for the garbage collector to track each object.
 	 */
 	class Handle
 	{
@@ -33,8 +36,13 @@ namespace Cobra {
 		bool IsString();
 		bool IsScript();
 		const char* ToString();
+		const char* GetType();
 	};
 
+	/**
+	 * @brief String class
+	 * @details All Cobra strings are stored in a String.
+	 */
 	class String
 	{
 	private:
@@ -44,8 +52,14 @@ namespace Cobra {
 		static Handle* New(Isolate* isolate, const char* string);
 		static Handle* New(Isolate* isolate, const char* string, const char* path);
 		static Handle* NewFromFile(Isolate* isolate, const char* path);
+		bool IsEmpty();
 	};
 
+	/**
+	 * @brief A compiled script
+	 * @details A script that has been compiled will be wrapped
+	 * is this Script class.
+	 */
 	class Script
 	{
 	public:
