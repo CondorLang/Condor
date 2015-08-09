@@ -6,7 +6,7 @@ namespace Cobra {
 namespace internal{
 	
 	#define FETAL(msg1, msg2) \
-		printf("%s%s\n", #msg1, #msg2);
+		printf("%s %s\n", #msg1, #msg2);
 
 	#define CHECK(condition) \
 		if (!(condition)){ \

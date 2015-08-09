@@ -1,27 +1,24 @@
 #include "parser.h"
-
-// Search for TODO
-// Search remove to remove stmts
+#include "cobra/mem/isolate.h"
 
 namespace Cobra{
 namespace internal{
 
-	Parser::Parser(std::string* source){
-		scanner = new Scanner(source);
-		topScope = new Scope;
+	Parser::Parser(std::string* src){
+		scanner = NULL;
+		source = src;
+		topScope = NULL;
 		expected = NULL;
 		currentFunctionScope = NULL;
 		trace = false;
 		printVariables = false;
 		printCheck = false;
 		tok = NULL;
+		isolate = NULL;
 	}
 
 	Parser::~Parser(){
-		delete scanner;
-		delete topScope;
-		delete currentFunctionScope;
-		delete expected;
+		if (expected != NULL) delete expected;
 		delete tok;
 	}
 
@@ -30,6 +27,28 @@ namespace internal{
 		else if (printVariables) return "printVariables";
 		else if (printCheck) return "printCheck";
 		else return "";
+	}
+
+	ASTFile* Parser::Parse(){
+		scanner = isolate->InsertToHeap(new Scanner(source), SCANNER);
+		topScope = isolate->InsertToHeap(new Scope, SCOPE);
+		if (trace) Trace("Parsing", "Started");
+		ASTFile* file = isolate->InsertToHeap(new ASTFile, ASTFILE);
+		//Compiler options
+		ParseOptions();
+
+		ParseMode(); // parse the file mode
+		ParseImportOrInclude();
+
+		ParseStmtList();
+
+		file->scope = topScope;
+
+		if (printVariables){
+			printf("\nGlobal\n------------\n");
+			file->scope->String();
+		}
+		return file;
 	}
 
 	void Parser::Trace(const char* name, const char* value){
@@ -96,34 +115,13 @@ namespace internal{
 					|| type == NEQ || type == LEQ || type == GEQ || type == NOT || type == XOR || type == AND;
 	}
 
-	ASTFile* Parser::Parse(){
-		if (trace) Trace("Parsing", "Started");
-		ASTFile* file = new ASTFile;
-
-		//Compiler options
-		ParseOptions();
-
-		ParseMode(); // parse the file mode
-		ParseImportOrInclude();
-
-		ParseStmtList();
-
-		file->scope = topScope;
-
-		if (printVariables){
-			printf("\nGlobal\n------------\n");
-			file->scope->String();
-		}
-		return file;
-	}
-
 	ASTFor* Parser::ParseFor(){
 		if (trace) Trace("Parsing", "For");
 		Expect(FOR);
 		Next();
 		Expect(LPAREN);
 		Next();
-		ASTFor* forStmt = new ASTFor;
+		ASTFor* forStmt = isolate->InsertToHeap(new ASTFor, ASTFOR);
 		forStmt->var = ParseVar();
 		forStmt->conditions = ParseUnaryExpr();
 		Expect(SEMICOLON);
@@ -139,7 +137,7 @@ namespace internal{
 		if (trace) Trace("Parsing", "While Statement");
 		Expect(WHILE);
 		Next();
-		ASTWhile* whileStmt = new ASTWhile;
+		ASTWhile* whileStmt = isolate->InsertToHeap(new ASTWhile, ASTWHILE);
 		whileStmt->conditions = ParseUnaryExpr();
 		whileStmt->block = ParseBlock(false);
 		return whileStmt;
@@ -149,7 +147,7 @@ namespace internal{
 		if (trace) Trace("Parsing", "Else Statement");
 		Expect(ELSE);
 		Next();
-		ASTElse* elseStmt = new ASTElse;
+		ASTElse* elseStmt = isolate->InsertToHeap(new ASTElse, ASTELSE);
 		if (tok->value == IF){
 			elseStmt->ifStmt = ParseIf();
 			elseStmt->conditions = NULL;
@@ -167,7 +165,7 @@ namespace internal{
 		Expect(IF);
 		Next();
 		ASTExpr* expr = ParseUnaryExpr();
-		ASTIf* ifStmt = new ASTIf;
+		ASTIf* ifStmt = isolate->InsertToHeap(new ASTIf, ASTIF);
 		ifStmt->conditions = expr;
 		ifStmt->block = ParseBlock(false);
 		return ifStmt;
@@ -222,7 +220,7 @@ namespace internal{
 			str = "Object - " + str;
 			Trace("Parsing", str.c_str());
 		}
-		ASTObject* obj = new ASTObject;
+		ASTObject* obj = isolate->InsertToHeap(new ASTObject, ASTOBJECT);
 		obj->name = tok->raw;
 		Next();
 		Expect(LBRACE);
@@ -255,7 +253,7 @@ namespace internal{
 		if (tok->value == LBRACK && expr->type == IDENT){
 			if (trace) Trace("Parsing", "Array");
 			Next();
-			ASTArrayMemberExpr* aryMem = new ASTArrayMemberExpr;
+			ASTArrayMemberExpr* aryMem = isolate->InsertToHeap(new ASTArrayMemberExpr, ASTARRAY_MEMBER_EXPR);
 			aryMem->name = expr->name;
 			aryMem->member = ParseExpr();
 			Expect(RBRACK);
@@ -271,7 +269,7 @@ namespace internal{
 		if (tok->value == LPAREN && expr->type == IDENT){
 			if (trace) Trace("Parsing", "Function call");
 
-			ASTFuncCallExpr* call = new ASTFuncCallExpr;
+			ASTFuncCallExpr* call = isolate->InsertToHeap(new ASTFuncCallExpr, ASTFUNC_CALL_EXPR);
 			ASTIdent* ident = (ASTIdent*) expr;
 			call->name = ident->name;
 			call->pos = ident->pos;
@@ -306,7 +304,7 @@ namespace internal{
 	ASTIdent* Parser::ParseIdent(){
 		Expect(IDENT);
 		if (trace) Trace("Identifier Value", tok->raw.c_str());
-		ASTIdent* ident = new ASTIdent;
+		ASTIdent* ident = isolate->InsertToHeap(new ASTIdent, ASTIDENT);
 		ident->pos = pos;
 		ident->name = tok->raw;
 		Next(); // eat identifier
@@ -324,7 +322,7 @@ namespace internal{
 					Next();
 					ASTExpr* second = ParseOperand();
 					if (second->type != IDENT) throw Error::INVALID_OBJECT_MEMBER;
-					ASTObjectMemberChainExpr* chain = new ASTObjectMemberChainExpr;
+					ASTObjectMemberChainExpr* chain = isolate->InsertToHeap(new ASTObjectMemberChainExpr, ASTOBJECT_MEMBER_CHAIN_EXPR);
 					chain->object = first;
 					chain->member = second;
 					chain->name = '%' + first->name; // signal to not include in map
@@ -368,7 +366,7 @@ namespace internal{
 			if (!IsOperator() && !IsBoolean())
 				break;
 			if (IsBoolean() && trace) Trace("Parsing", "Boolean statement");
-			ASTBinaryExpr* binary = new ASTBinaryExpr;
+			ASTBinaryExpr* binary = isolate->InsertToHeap(new ASTBinaryExpr, ASTBINARY_EXPR);
 			binary->op = new Token(tok->value);
 			binary->Left = expr;
 			Next(); // eat operator
@@ -405,7 +403,7 @@ namespace internal{
 				return expr;
 			}
 			case LBRACK: {
-				return new ASTArrayMemberExpr;
+				return isolate->InsertToHeap(new ASTArrayMemberExpr, ASTARRAY_MEMBER_EXPR);
 			}
 			default: {
 				return ParsePrimaryExpr();
@@ -438,7 +436,7 @@ namespace internal{
 			return e;
 		}
 		else if (IsOperator() || IsBoolean()){
-			ASTBinaryExpr* binary = new ASTBinaryExpr;
+			ASTBinaryExpr* binary = isolate->InsertToHeap(new ASTBinaryExpr, ASTBINARY_EXPR);
 			binary->op = new Token(tok->value);
 			Next(); // eat the operator
 			binary->Right = ParsePrimaryExpr();
@@ -478,7 +476,7 @@ namespace internal{
 			case MOD_ASSIGN: case AND_ASSIGN: case OR_ASSIGN: case XOR_ASSIGN: case SHL_ASSIGN: 
 			case SHR_ASSIGN: case AND_NOT_ASSIGN: {
 
-				ASTUnaryExpr* unary = new ASTUnaryExpr;
+				ASTUnaryExpr* unary = isolate->InsertToHeap(new ASTUnaryExpr, ASTUNARY_EXPR);
 				unary->op = new Token(tok->value);
 				unary->pos = pos;
 				Next();
@@ -499,7 +497,7 @@ namespace internal{
 	ASTNode* Parser::ParseReturn(){
 		if (trace) Trace("Parsing", "Return");
 		Expect(RETURN);
-		ASTVar* var = new ASTVar;
+		ASTVar* var = isolate->InsertToHeap(new ASTVar, ASTVAR);
 		var->name = "return";
 		var->stmt = ParseSimpleStmt();
 		Expect(SEMICOLON);
@@ -508,7 +506,7 @@ namespace internal{
 	}
 
 	ASTNode* Parser::ParseVar(){
-		ASTVar* var = new ASTVar;
+		ASTVar* var = isolate->InsertToHeap(new ASTVar, ASTVAR);
 		if (mode == STRICT){
 			if (trace) Trace("Parsing", ("Var: " + tok->String()).c_str());
 			var->varType = tok->value;
@@ -546,7 +544,7 @@ namespace internal{
 			return expr;
 		}
 		else if (expr->type == IDENT){
-			ASTVar* var = new ASTVar;
+			ASTVar* var = isolate->InsertToHeap(new ASTVar, ASTVAR);
 			var->varType = CLASS;
 			var->varClass = (ASTIdent*) expr;
 			var->stmt = ParseSimpleStmt();
@@ -631,7 +629,7 @@ namespace internal{
 		Expect(RBRACE);
 		Next();
 
-		ASTBlock* block = new ASTBlock;
+		ASTBlock* block = isolate->InsertToHeap(new ASTBlock, ASTBLOCK);
 		block->scope = topScope;
 
 		if (printVariables) topScope->String();
@@ -679,7 +677,7 @@ namespace internal{
 			else{
 				if (tok->value == RPAREN) return;
 				Expect(IDENT);
-				ASTNode* var = new ASTVar;
+				ASTNode* var = isolate->InsertToHeap(new ASTVar, ASTVAR);
 				std::string name = tok->raw;
 				Next();
 				if (tok->value == LBRACK){
@@ -712,7 +710,7 @@ namespace internal{
 	ASTFunc* Parser::ParseFunc(){
 		Next(); // eat func
 		Expect(IDENT);
-		ASTFunc* func = new ASTFunc;
+		ASTFunc* func = isolate->InsertToHeap(new ASTFunc, ASTFUNC);
 		func->name = tok->raw; // set the func name
 		if (trace) {
 			std::string str = "Func: ";
@@ -796,7 +794,7 @@ namespace internal{
 				while (true){
 					Expect(STRING);
 					if (isImport) {
-						ASTImport* import = new ASTImport;
+						ASTImport* import = isolate->InsertToHeap(new ASTImport, ASTIMPORT);
 						import->name = tok->raw;
 						Next();
 						if (tok->value == AS){
@@ -812,7 +810,7 @@ namespace internal{
 						imports.push_back(import);
 					}
 					else {
-						ASTInclude* include = new ASTInclude;
+						ASTInclude* include = isolate->InsertToHeap(new ASTInclude, ASTINCLUDE);
 						include->name = tok->raw;
 						Next();
 						if (tok->value == AS){
@@ -833,7 +831,7 @@ namespace internal{
 			else{
 				Expect(STRING);
 				if (isImport){
-					ASTImport* import = new ASTImport;
+					ASTImport* import = isolate->InsertToHeap(new ASTImport, ASTIMPORT);
 					import->name = tok->raw;
 					Next();
 					if (tok->value == AS){
@@ -846,7 +844,7 @@ namespace internal{
 					imports.push_back(import);
 				}
 				else {
-					ASTInclude* include = new ASTInclude;
+					ASTInclude* include = isolate->InsertToHeap(new ASTInclude, ASTINCLUDE);
 					include->name = tok->raw;
 					Next();
 					if (tok->value == AS){

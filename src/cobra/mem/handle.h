@@ -16,8 +16,9 @@ namespace internal{
 	private:
 		HeapObject* obj;
 	public:
-		Handle(HeapObject* o) : obj(o){}
+		Handle(HeapObject* o, Isolate* iso) : obj(o), isolate(iso){}
 		~Handle(){}
+		Isolate* isolate;
 		HeapObject* GetObject(){return obj;}
 		String* ToString();
 		Script* ToScript();

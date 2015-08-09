@@ -26,12 +26,21 @@ namespace internal{
 		void _exit();
 
 	public:
-		Isolate(){heapstore = new HeapStore();factory = new Factory();}
+		Isolate(){heapstore = new HeapStore();factory = new Factory(this);}
 		~Isolate();
 		Factory* factory;
 		inline void Enter(){_enter();}
 		inline void Exit(){_exit();}
 		HeapObject* Insert(HeapObject obj);
+
+		template<class T>
+		T* InsertToHeap(T* t, TOKEN type){
+			HeapObject obj;
+			obj.address = CAST(Address, t);
+			obj.type = type;
+			HeapObject* returnObj = Insert(obj);
+			return CAST(T*, returnObj->address);
+		}
 	};
 
 } // namespace internal

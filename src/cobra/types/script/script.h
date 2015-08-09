@@ -12,6 +12,8 @@ namespace Cobra {
 namespace internal{
 
 	class Handle;
+	class Parser;
+	class Check;
 
 	class Script
 	{

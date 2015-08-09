@@ -13,8 +13,10 @@ namespace internal{
 
 	class Factory
 		{
+		private:
+			Isolate* isolate;
 		public:
-			Factory(){}
+			Factory(Isolate* iso) : isolate(iso){}
 			~Factory();
 			
 			String* NewString(const char* str);

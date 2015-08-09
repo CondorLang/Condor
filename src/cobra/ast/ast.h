@@ -273,7 +273,7 @@ namespace internal{
 	{
 	public:
 		ASTInclude(){file = NULL;type = INCLUDE;}
-		~ASTInclude(){delete file;}
+		~ASTInclude(){}
 		std::string name;
 		std::string alias;
 		ASTFile* file;

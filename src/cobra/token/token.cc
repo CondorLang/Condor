@@ -23,6 +23,27 @@ namespace internal{
 			case ARRAY_MEMBER: return "karrayMember";
 			case OBJECT_MEMBER_CHAIN: return "kObjectMemberChain";
 			case CLASS: return "kClass";
+			case SCRIPT: return "kScript";
+			case ASTFILE: return "kAstFile";
+			case ASTFOR: return "kAstFor";
+			case ASTWHILE: return "kAstWhile";
+			case ASTELSE: return "kAstElse";
+			case ASTIF: return "kAstIf";
+			case ASTOBJECT: return "kAstObject";
+			case ASTARRAY_MEMBER_EXPR: return "kAstArrayMemberExpr";
+			case ASTFUNC_CALL_EXPR: return "kAstFuncCallExpr";
+			case ASTIDENT: return "kAstIdent";
+			case ASTOBJECT_MEMBER_CHAIN_EXPR: return "kAstObjectMemberChainExpr";
+			case ASTBINARY_EXPR: return "kBinaryExpr";
+			case ASTUNARY_EXPR: return "kUnaryExpr";
+			case ASTVAR: return "kAstVar";
+			case ASTBLOCK: return "kAstBlock";
+			case ASTFUNC: return "kAstFunc";
+			case ASTIMPORT: return "kAstImport";
+			case ASTINCLUDE: return "kAstInclude";
+			case SCANNER: return "kScanner";
+			case SCOPE: return "kScope";
+			case K_FUNC: return "kFunc";
 
 			case INT: return "int";
 			case kNULL: return "null";

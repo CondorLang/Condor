@@ -9,7 +9,6 @@ EXECUTABLE=./build/Cobra
 all: 
 	make buildAll
 	make lib
-	make test
 
 buildAll: $(SOURCES) $(EXECUTABLE)
     
@@ -26,12 +25,10 @@ clean:
 	rm -rf build/*
 
 test:
-	rm ./build/Cobra
 	g++ $(FLAGS) -I ./ test/main.cc -Iinclude build/libcobra.a -o build/Cobra
 	./build/Cobra ${ARGS}
 
-tests:
-	rm ./build/Cobra
+tests:	
 	g++ $(FLAGS) -I ./ test/main.cc -Iinclude build/libcobra.a -o build/Cobra
 	./build/Cobra -tests
 

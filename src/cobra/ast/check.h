@@ -17,6 +17,7 @@ namespace internal{
 	private:
 		Scope* scope;
 		ASTFile* file;
+		Isolate* isolate;
 		bool trace;
 		int printIndent;
 
@@ -51,6 +52,7 @@ namespace internal{
 		void CheckFile(ASTFile* file);
 		void SetOptions(std::string option);
 		bool HasMain();
+		void SetIsolate(Isolate* iso){isolate = iso;}
 	};
 } // namespace internal{
 }

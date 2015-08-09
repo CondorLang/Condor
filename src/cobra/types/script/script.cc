@@ -16,11 +16,14 @@ namespace internal{
 	// 		Pass Isolate through
 	void Script::Compile(){
 		std::string sourceCode = "";
-		CHECK(source->GetObject()->type == STRING);
 		String* string = source->ToString();
 		sourceCode += string->GetValue();
+		
 		parser = new Parser(&sourceCode);
+		parser->SetIsolate(source->isolate);
+
 		check = new Check();
+		check->SetIsolate(source->isolate);
 		ASTFile* file = NULL;
 
 		try {

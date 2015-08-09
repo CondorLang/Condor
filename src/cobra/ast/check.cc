@@ -1,4 +1,5 @@
 #include "check.h"
+#include "cobra/mem/isolate.h"
 
 namespace Cobra{
 namespace internal{
@@ -13,8 +14,8 @@ namespace internal{
 	}
 
 	Check::~Check(){
-		delete file;
-		delete scope;
+		//delete file;
+		//delete scope;
 	}
 
 	void Check::SetOptions(std::string option){
@@ -244,7 +245,7 @@ namespace internal{
 		if (trace) Trace(func->name + "() total args: ", std::to_string(func->ordered.size()));
 		ValidateFuncArgs(func);
 
-		Func* runtime = new Func;
+		Func* runtime = isolate->InsertToHeap(new Func, FUNC);
 		runtime->SetAST(func);
 		scope->InsertType(runtime);
 		

@@ -10,6 +10,9 @@
 
 namespace Cobra {
 namespace internal{
+
+	class Isolate;
+
 	enum P_ERROR {
 		INVALID_MODE = 0
 	};
@@ -28,19 +31,22 @@ namespace internal{
 		int col;
 		Token* expected;
 
-		Parser(std::string* source);
+		Parser(std::string* src);
 		~Parser();
 		ASTFile* Parse();
 		std::string GetParserOptions();
 		std::vector<ASTImport*> imports;
 		std::vector<ASTInclude*> includes;
 		std::vector<ASTNode*> exports;
+		void SetIsolate(Isolate* iso){isolate = iso;}
 
 	private:
 		Scanner* scanner;
 		Token* tok;
 		Scope* topScope;
 		Scope* currentFunctionScope;
+		Isolate* isolate;
+		std::string* source;
 
 		// Parser options
 		bool trace;
