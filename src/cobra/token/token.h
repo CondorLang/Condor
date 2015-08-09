@@ -177,7 +177,7 @@ namespace internal{
 		bool IsLiteral(){return value > LITERAL_BEGIN && value < LITERAL_END;}
 		bool IsOperator(){return value > OPERATOR_BEGIN && value < OPERATOR_END;}
 		static Token* GetToken(std::string str);
-		const char* ToString(TOKEN token);
+		static const char* ToString(TOKEN token);
 	};
 } // namespace internal{
 }

@@ -41,6 +41,8 @@ namespace internal{
 			HeapObject* returnObj = Insert(obj);
 			return CAST(T*, returnObj->address);
 		}
+
+		void FlushAST();
 	};
 
 } // namespace internal

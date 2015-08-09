@@ -19,5 +19,14 @@ namespace internal{
 		return heapstore->Insert(obj);
 	}
 
+	void Isolate::FlushAST(){
+
+		std::string flushing = "kAstFile kAstFor kFunc kScope kAstInclude kAstImport kAstFunc kAstBlock";
+		flushing += "kAstVar kAstUnaryExpr kAstBinaryExpr kAstObjectMemberChainExpr kAstIdent" + 
+		flushing += "kAstFuncCallExpr kAstArrayMemberExpr kAstObject kAstIf kAstElse kAstWhile" + 
+		flushing += "kAstFor kAstFile";
+		heapstore->FlushByTypeString(flushing);
+	}
+
 } // namespace internal
 } // namespace Cobra

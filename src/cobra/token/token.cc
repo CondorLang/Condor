@@ -34,8 +34,8 @@ namespace internal{
 			case ASTFUNC_CALL_EXPR: return "kAstFuncCallExpr";
 			case ASTIDENT: return "kAstIdent";
 			case ASTOBJECT_MEMBER_CHAIN_EXPR: return "kAstObjectMemberChainExpr";
-			case ASTBINARY_EXPR: return "kBinaryExpr";
-			case ASTUNARY_EXPR: return "kUnaryExpr";
+			case ASTBINARY_EXPR: return "kAstBinaryExpr";
+			case ASTUNARY_EXPR: return "kAstUnaryExpr";
 			case ASTVAR: return "kAstVar";
 			case ASTBLOCK: return "kAstBlock";
 			case ASTFUNC: return "kAstFunc";
