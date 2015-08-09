@@ -8,7 +8,7 @@ namespace internal{
 	}
 
 	FuncArg::~FuncArg(){
-		delete value;
+		//delete value;
 	}
 
 	void FuncArg::SetAST(ASTNode* node){
@@ -31,7 +31,7 @@ namespace internal{
 	}
 	Func::~Func(){
 		//delete ast;
-		if (walk != NULL) delete walk;
+		//if (walk != NULL) delete walk;
 	}
 
 	void Func::Call(std::vector<Type*>* callArgs, FuncReturnValue* val){

@@ -38,9 +38,9 @@ namespace internal{
 	}
 
 	void Run::Dispose(){
-		for (std::map<std::string, ASTFile*>::iterator it = files.begin(); it != files.end(); ++it){
-			delete it->second;
-		}
+		// for (std::map<std::string, ASTFile*>::iterator it = files.begin(); it != files.end(); ++it){
+		// 	delete it->second;
+		// }
 	}
 
 	void Run::Init(){

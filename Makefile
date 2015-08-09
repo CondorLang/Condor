@@ -33,7 +33,6 @@ tests:
 	./build/Cobra -tests
 
 mem:
-	make
 	valgrind --tool=memcheck --leak-check=full --track-origins=yes ./build/Cobra
 
 mt:

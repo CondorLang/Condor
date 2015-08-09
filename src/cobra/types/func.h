@@ -18,7 +18,7 @@ namespace internal{
 	{
 	public:
 		FuncReturnValue(){value = NULL;}
-		~FuncReturnValue(){delete value;}
+		~FuncReturnValue(){}
 		ASTLiterary* value;
 	};
 

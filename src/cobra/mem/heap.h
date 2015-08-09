@@ -34,7 +34,9 @@ namespace internal{
 		}
 		bool Delete(int idx){
 			HeapObject obj = items[idx];
-			delete obj.address;
+			if (obj.address != NULL){
+				delete obj.address;
+			}
 
 			for (int i = idx; i < size - 1; i++){
 				items[idx] = items[idx + 1];
@@ -69,11 +71,18 @@ namespace internal{
 		}
 		void FlushByTypeString(std::string types){
 			for (int i = 0; i < heaps.size(); i++){
-				for (int j = 0; j < heaps[i].Size(); j++){
+				for (int j = heaps[i].Size(); j != 0; j--){
 					HeapObject* obj = heaps[i].Get(j);
 					if (types.find(Token::ToString(obj->type)) != std::string::npos) {
-					  
+					  heaps[i].Delete(j - 1);
 					}
+				}
+			}
+		}
+		void FlushAll(){
+			for (int i = 0; i < heaps.size(); i++){
+				for (int j = heaps[i].Size(); j != 0; j--){
+					heaps[i].Delete(j - 1);
 				}
 			}
 		}

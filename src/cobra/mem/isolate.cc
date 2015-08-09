@@ -28,5 +28,9 @@ namespace internal{
 		heapstore->FlushByTypeString(flushing);
 	}
 
+	void Isolate::FlushAll(){
+		heapstore->FlushAll();
+	}
+
 } // namespace internal
 } // namespace Cobra

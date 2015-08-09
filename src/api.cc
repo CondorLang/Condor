@@ -28,6 +28,7 @@ namespace Cobra{
 	 */
 	void Isolate::Dispose(){
 		i::Isolate* isolate = CAST(i::Isolate*, this);
+		isolate->FlushAll();
 		delete isolate;
 	}
 

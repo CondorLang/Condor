@@ -43,6 +43,7 @@ namespace internal{
 		}
 
 		void FlushAST();
+		void FlushAll();
 	};
 
 } // namespace internal

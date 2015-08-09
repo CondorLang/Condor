@@ -218,8 +218,8 @@ namespace internal{
 	}
 
 	Walk::~Walk(){
-		if (scope != NULL) delete scope;
-		stack.erase(stack.begin(), stack.end());
+		// if (scope != NULL) delete scope;
+		// stack.erase(stack.begin(), stack.end());
 	}
 } // namespace internal
 } // namespace Cobra

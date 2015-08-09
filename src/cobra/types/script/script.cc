@@ -47,8 +47,6 @@ namespace internal{
 			std::string msg = Error::String(e, NULL);
 			printf("%d:%d - %s\n", check->row, check->col, msg.c_str());
 		}
-
-		source->isolate->FlushAST(); // just for kicks
 	}
 
 } // namespace internal

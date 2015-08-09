@@ -19,7 +19,7 @@ namespace internal{
 	class Scanner {
 	public:
 		Scanner(std::string* source);
-		~Scanner(){delete src;}
+		~Scanner(){}
 		std::string* src;
 		std::vector<std::string> errors;
 		std::string result;

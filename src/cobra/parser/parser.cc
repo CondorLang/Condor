@@ -258,7 +258,7 @@ namespace internal{
 			aryMem->member = ParseExpr();
 			Expect(RBRACK);
 			Next();
-			delete expr;
+			//delete expr;
 			return aryMem;
 		}
 		return expr;
@@ -391,7 +391,7 @@ namespace internal{
 				ASTUnaryExpr* unary = new ASTUnaryExpr;
 				unary->pos = pos;
 				unary->op = new Token(tok->value);
-				delete unary->value;
+				//delete unary->value;
 				unary->value = ParseUnaryExpr();
 				return unary;
 			}
@@ -684,7 +684,7 @@ namespace internal{
 					Next();
 					Expect(RBRACK);
 					Next();
-					delete var;
+					//delete var;
 					var = new ASTArray(VAR);
 					var->name = name;
 				}

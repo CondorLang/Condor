@@ -8,8 +8,8 @@ namespace internal{
 	}
 
 	Scope::~Scope(){
-		if (outer != NULL) delete outer;
-		ordered.erase(ordered.begin(), ordered.end());
+		// if (outer != NULL) delete outer;
+		// ordered.erase(ordered.begin(), ordered.end());
 		//runtime.erase(runtime.begin(), runtime.end());
 	}
 
