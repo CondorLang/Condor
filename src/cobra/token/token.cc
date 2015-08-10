@@ -44,6 +44,12 @@ namespace internal{
 			case SCANNER: return "kScanner";
 			case SCOPE: return "kScope";
 			case K_FUNC: return "kFunc";
+			case HANDLE: return "kHandle";
+			case ASTARRAY: return "kAstArray";
+			case ASTLITERARY: return "kAstLiterary";
+			case K_TOKEN: return "kToken";
+			case PARSER: return "kParser";
+			case CHECK: return "kCheck";
 
 			case INT: return "int";
 			case kNULL: return "null";

@@ -1,4 +1,5 @@
 #include "scope.h"
+#include "cobra/mem/isolate.h"
 
 namespace Cobra{
 namespace internal{
@@ -44,13 +45,6 @@ namespace internal{
 		if (type != NULL){
 			runtime[type->name] = type;
 		}
-	}
-
-	ASTNode* Scope::NewObject(std::string name){
-		ASTNode* obj = new ASTNode;
-		obj->name = name;
-		Insert(obj);
-		return obj;
 	}
 
 	ASTNode* Scope::Get(int index){

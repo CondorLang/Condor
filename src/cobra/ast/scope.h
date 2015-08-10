@@ -5,6 +5,7 @@
 #include <map>
 #include "ast.h"
 #include "cobra/types/type.h"
+#include "cobra/globals.h"
 
 namespace Cobra {
 namespace internal{
@@ -28,7 +29,6 @@ namespace internal{
 		Scope* NewScope();
 		ASTNode* Lookup(std::string name);
 		void Insert(ASTNode* node);
-		ASTNode* NewObject(std::string name);
 		void String();
 		ASTNode* Get(int index);
 		int Size();

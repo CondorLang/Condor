@@ -17,11 +17,18 @@ namespace internal{
 		INVALID_MODE = 0
 	};
 
+	/**
+	 * Parser mode is either lazy or strict
+	 */
 	enum P_MODE {
 		STRICT,
 		LAZY
 	};
 
+	/**
+	 * @brief The Parser class
+	 * @details This is where we create the AST
+	 */
 	class Parser
 	{
 	public:

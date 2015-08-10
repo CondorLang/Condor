@@ -43,6 +43,12 @@ namespace internal{
 		SCANNER,
 		SCOPE,
 		K_FUNC,
+		HANDLE,
+		ASTARRAY,
+		ASTLITERARY,
+		K_TOKEN,
+		PARSER,
+		CHECK,
 
 		// Literals
 		LITERAL_BEGIN,

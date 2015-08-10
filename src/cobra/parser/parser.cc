@@ -63,7 +63,7 @@ namespace internal{
 	}
 
 	void Parser::OpenScope(){
-		topScope = topScope->NewScope();
+		topScope = isolate->InsertToHeap(topScope->NewScope(), SCOPE);
 	}
 
 	void Parser::CloseScope(){
@@ -331,7 +331,7 @@ namespace internal{
 				return first;
 			}
 			case kNULL: case BOOLEAN: case INT: case FLOAT: case DOUBLE: case CHAR: case STRING: {
-				ASTLiterary* lit = new ASTLiterary;
+				ASTLiterary* lit = isolate->InsertToHeap(new ASTLiterary, ASTLITERARY);
 				lit->kind = tok->value;
 				if (tok->value == kNULL){
 					lit->value = "null";
@@ -367,7 +367,7 @@ namespace internal{
 				break;
 			if (IsBoolean() && trace) Trace("Parsing", "Boolean statement");
 			ASTBinaryExpr* binary = isolate->InsertToHeap(new ASTBinaryExpr, ASTBINARY_EXPR);
-			binary->op = new Token(tok->value);
+			binary->op = isolate->InsertToHeap(new Token(tok->value), K_TOKEN);
 			binary->Left = expr;
 			Next(); // eat operator
 			binary->Right = ParseExpr();
@@ -388,9 +388,9 @@ namespace internal{
 		int type = (int) tok->value;
 		switch (type){
 			case ADD: case SUB: case MUL: case DIV: case MOD: {
-				ASTUnaryExpr* unary = new ASTUnaryExpr;
+				ASTUnaryExpr* unary = isolate->InsertToHeap(new ASTUnaryExpr, ASTUNARY_EXPR);
 				unary->pos = pos;
-				unary->op = new Token(tok->value);
+				unary->op = isolate->InsertToHeap(new Token(tok->value), K_TOKEN);
 				//delete unary->value;
 				unary->value = ParseUnaryExpr();
 				return unary;
@@ -437,7 +437,7 @@ namespace internal{
 		}
 		else if (IsOperator() || IsBoolean()){
 			ASTBinaryExpr* binary = isolate->InsertToHeap(new ASTBinaryExpr, ASTBINARY_EXPR);
-			binary->op = new Token(tok->value);
+			binary->op = isolate->InsertToHeap(new Token(tok->value), K_TOKEN);
 			Next(); // eat the operator
 			binary->Right = ParsePrimaryExpr();
 			binary->Left = expr;
@@ -477,7 +477,7 @@ namespace internal{
 			case SHR_ASSIGN: case AND_NOT_ASSIGN: {
 
 				ASTUnaryExpr* unary = isolate->InsertToHeap(new ASTUnaryExpr, ASTUNARY_EXPR);
-				unary->op = new Token(tok->value);
+				unary->op = isolate->InsertToHeap(new Token(tok->value), K_TOKEN);
 				unary->pos = pos;
 				Next();
 				unary->value = ParseExpr();
@@ -648,7 +648,7 @@ namespace internal{
 				TOKEN rType = tok->value;
 				Next();
 				Expect(IDENT);
-				var = new ASTVar;
+				var = isolate->InsertToHeap(new ASTVar, ASTVAR);
 				std::string name = tok->raw;
 				var->varType = rType;
 				Next();
@@ -685,7 +685,7 @@ namespace internal{
 					Expect(RBRACK);
 					Next();
 					//delete var;
-					var = new ASTArray(VAR);
+					var = isolate->InsertToHeap(new ASTArray(VAR), ASTARRAY);
 					var->name = name;
 				}
 				else{

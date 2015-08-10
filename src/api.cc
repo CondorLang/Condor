@@ -130,7 +130,7 @@ namespace Cobra{
 		obj.address = CAST(i::Address, str);
 		obj.type = i::STRING;
 		i::HeapObject* newStr = cobra_isolate->Insert(obj);
-		i::Handle* handle = new i::Handle(newStr, cobra_isolate);
+		i::Handle* handle = cobra_isolate->InsertToHeap(new i::Handle(newStr, cobra_isolate), i::HANDLE);
 		return CAST(Handle*, handle);
 	}
 
@@ -227,7 +227,7 @@ namespace Cobra{
 		obj.address = CAST(i::Address, script);
 		obj.type = i::SCRIPT;
 		i::HeapObject* newScript = cobra_isolate->Insert(obj);
-		i::Handle* scriptHandle = new i::Handle(newScript, cobra_isolate);
+		i::Handle* scriptHandle = cobra_isolate->InsertToHeap(new i::Handle(newScript, cobra_isolate), i::HANDLE);
 		return CAST(Handle*, scriptHandle);
 	}
 

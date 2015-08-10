@@ -20,10 +20,10 @@ namespace internal{
 		String* string = source->ToString();
 		sourceCode += string->GetValue();
 		
-		parser = new Parser(&sourceCode);
+		parser = source->isolate->InsertToHeap(new Parser(&sourceCode), PARSER);
 		parser->SetIsolate(source->isolate);
 
-		check = new Check();
+		check = source->isolate->InsertToHeap(new Check(), CHECK);
 		check->SetIsolate(source->isolate);
 		ASTFile* file = NULL;
 
