@@ -1,11 +1,15 @@
-//%trace;
-//%printCheck;
 #mode "strict";
 
-func add(int one, int two, int three){
-	return one + two + three;
+func add(int a, int b){
+	int {
+		c;
+		d;
+		e;
+	};
+
+	return a + b;
 }
 
-func main(string args[], int argv){
-	return add(1, 2, 1);
+func main(string args[], int argc){
+	return add(1, 2);
 }

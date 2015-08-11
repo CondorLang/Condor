@@ -117,6 +117,14 @@ namespace internal{
 		ASTIdent* varClass;
 	};
 
+	class ASTVarList : public ASTNode
+	{
+	public:
+		ASTVarList(){type = VARLIST;}
+		~ASTVarList(){}
+		std::vector<ASTVar*> vars;
+	};
+
 	// Literals
 	class ASTInt : public ASTNode
 	{

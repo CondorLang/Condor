@@ -37,7 +37,8 @@ namespace Cobra {
 			CANNOT_CONCAT_TYPE,
 			CANNOT_SUBTRACT,
 			CANNOT_MINUS_UNLIKE_VALUES,
-			CANNOT_ADD_UNLIKE_VALUES
+			CANNOT_ADD_UNLIKE_VALUES,
+			PARSE_VAR_ERR
 		};
 
 		std::string String(ERROR e, Token* tok);

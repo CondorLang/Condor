@@ -49,6 +49,7 @@ namespace internal{
 		K_TOKEN,
 		PARSER,
 		CHECK,
+		VARLIST,
 
 		// Literals
 		LITERAL_BEGIN,

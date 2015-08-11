@@ -1,4 +1,4 @@
-#include "parser.h"
+ #include "parser.h"
 #include "cobra/mem/isolate.h"
 
 namespace Cobra{
@@ -505,6 +505,15 @@ namespace internal{
 		return var;
 	}
 
+	/**
+	 * int i = 0;
+	 * var i = 0;
+	 * int {
+	 *    a;
+	 *    b;
+	 *    c = 10;
+	 * }
+	 */
 	ASTNode* Parser::ParseVar(){
 		ASTVar* var = isolate->InsertToHeap(new ASTVar, ASTVAR);
 		if (mode == STRICT){
@@ -515,9 +524,34 @@ namespace internal{
 		else{
 			if (trace) Trace("Parsing", ("Var: " + tok->raw).c_str());
 		}
-		Expect(IDENT);		
-		var->name = tok->raw;		
-		var->stmt = ParseSimpleStmt();
+		if (tok->value == IDENT){	
+			var->name = tok->raw;		
+			var->stmt = ParseSimpleStmt();
+		}
+		else if (tok->value == LBRACE){
+			ASTVarList* list = isolate->InsertToHeap(new ASTVarList, VARLIST);
+			TOKEN type = var->varType;
+			Next(); // eat {
+			while (tok->value != RBRACE){
+				Expect(IDENT);
+				var->name = tok->raw;
+				var->stmt = ParseSimpleStmt();
+				Expect(SEMICOLON);
+				list->vars.push_back(var);
+				Next();
+				if (tok->value != RBRACE){
+					var = isolate->InsertToHeap(new ASTVar, VAR);
+					var->varType = type;
+				}
+			}
+			Next();
+			Expect(SEMICOLON);
+			Next();
+			return list;
+		}
+		else{
+			throw Error::PARSE_VAR_ERR;
+		}
 		return var;
 	}
 
@@ -561,7 +595,7 @@ namespace internal{
 
 	/**
 	 * TODO:
-	 * 	Complete all the different statmenet types
+	 * 	Complete all the different statement types
 	 */
 	ASTNode* Parser::ParseStmt(){
 		if (trace) Trace("Parsing", "Statement");
@@ -596,7 +630,7 @@ namespace internal{
 			}
 			case RETURN: return ParseReturn();
 			default: {
-				throw Error::INVALID_STMT;
+				return NULL;
 			}
 		}
 	}
@@ -612,11 +646,24 @@ namespace internal{
 			ASTNode* stmt = ParseStmt();
 			if (stmt == NULL) break;
 			if (topScope == NULL) throw Error::INTERNAL_SCOPE_ERROR;
-			topScope->Insert(stmt);
+			if (stmt->type == VARLIST){
+				ASTVarList* list = (ASTVarList*)stmt;
+				for (int i = 0; i < list->vars.size(); i++){
+					topScope->Insert(list->vars[i]);
+				}
+			}
+			else{
+				topScope->Insert(stmt);
+			}
 			if (tok->value == END || tok->value == RBRACE) break;
 		}
 	}
 
+	/**
+	 * {
+	 *    ** List of statements **
+	 * }
+	 */
 	ASTBlock* Parser::ParseBlock(bool initEat){
 		if (trace) Trace("Parsing", "Block");
 		if (initEat)
@@ -638,6 +685,10 @@ namespace internal{
 		return block;
 	}
 
+	/**
+	 * Lazy: func (param1, param2){}
+	 * Strict: func ([type] param1, [type] param2){}
+	 */
 	void Parser::ParseFuncParams(ASTFunc* func){
 		if (trace) Trace("Parsing", "Func Parameters");
 		ASTVar* var = NULL;
@@ -765,10 +816,16 @@ namespace internal{
 
 	/**
 	 * import "math";
+	 * include "math";
 	 *
 	 * or
 	 *
 	 * import {
+	 * 	"math";
+	 * 	"os";
+	 * }
+	 * 
+	 * include {
 	 * 	"math";
 	 * 	"os";
 	 * }
@@ -892,7 +949,7 @@ namespace internal{
 	}
 
 	/**
-	 * These options are internal
+	 * These options are internal, only one may be used
 	 *
 	 * %trace; - traces the parsing method by method
 	 * %printVariables; - prints all the variables in a given scope
@@ -909,7 +966,7 @@ namespace internal{
 			else if (tok->raw == "printCheck")
 				printCheck = true;
 			Next();
-			Next(); // eat ;
+			Next();
 		}
 	}
 } // namespace internal

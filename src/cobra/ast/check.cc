@@ -141,6 +141,7 @@ namespace internal{
 	}
 
 	void Check::ValidateStmt(ASTExpr* expr){
+		if (expr == NULL) return;
 		int type = (int) expr->type;
 		switch (type){
 			case UNARY: {

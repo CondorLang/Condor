@@ -33,6 +33,7 @@ namespace Error {
 			case CANNOT_SUBTRACT: return "Cannot subtract type";
 			case CANNOT_MINUS_UNLIKE_VALUES: return "Cannot minus unlike values";
 			case CANNOT_ADD_UNLIKE_VALUES: return "Cannot add unlike values";
+			case PARSE_VAR_ERR: return "Parser var error";
 			case SCANNER: {
 				if (tok != NULL){
 					return tok->raw;

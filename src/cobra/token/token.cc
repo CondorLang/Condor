@@ -50,6 +50,7 @@ namespace internal{
 			case K_TOKEN: return "kToken";
 			case PARSER: return "kParser";
 			case CHECK: return "kCheck";
+			case VARLIST: return "kVarList";
 
 			case INT: return "int";
 			case kNULL: return "null";
