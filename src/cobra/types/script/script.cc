@@ -25,10 +25,12 @@ namespace internal{
 
 		check = source->isolate->InsertToHeap(new Check(), CHECK);
 		check->SetIsolate(source->isolate);
+		std::map<std::string, int> includes;
 		ASTFile* file = NULL;
 
 		try {
 			file = parser->Parse();
+
 		}
 		catch (Error::ERROR e){
 			std::string msg = Error::String(e, parser->expected);

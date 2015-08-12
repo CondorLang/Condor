@@ -7,6 +7,9 @@
 #include "cobra/ast/ast.h"
 #include "cobra/assert.h"
 #include <vector>
+#include <map>
+#include <fstream>
+#include <streambuf>
 
 namespace Cobra {
 namespace internal{
@@ -23,6 +26,7 @@ namespace internal{
 		Check* check;
 		bool hasErr;
 		std::vector<const char*> msgs;
+		const char* basePath;
 	public:
 		Script(Handle* handle);
 		~Script(){}

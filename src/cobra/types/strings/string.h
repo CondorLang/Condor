@@ -10,14 +10,14 @@ namespace internal{
 	{
 	private:
 		std::string value;
-		const char* filePath;
+		std::string filePath;
 	public:
 		String(){value = "";}
 		~String(){}
 		void SetValue(const char* val){value = val;}
 		const char* GetValue(){return value.c_str();}
 		void SetPath(const char* path){filePath = path;}
-		const char* GetPath(){return filePath;}
+		const char* GetPath(){return filePath.c_str();}
 		int Length(){return value.length();}
 	};
 

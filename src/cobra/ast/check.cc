@@ -245,10 +245,6 @@ namespace internal{
 		if (trace) Trace("\nValidating func", func->name + "\n------------------------------");
 		if (trace) Trace(func->name + "() total args: ", std::to_string(func->ordered.size()));
 		ValidateFuncArgs(func);
-
-		Func* runtime = isolate->InsertToHeap(new Func, FUNC);
-		runtime->SetAST(func);
-		scope->InsertType(runtime);
 		
 		OpenScope(func->body->scope);
 		CountItemsInScope();

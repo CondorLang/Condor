@@ -11,7 +11,6 @@ namespace internal{
 	Scope::~Scope(){
 		// if (outer != NULL) delete outer;
 		// ordered.erase(ordered.begin(), ordered.end());
-		//runtime.erase(runtime.begin(), runtime.end());
 	}
 
 	Scope* Scope::NewScope(){
@@ -41,12 +40,6 @@ namespace internal{
 		}
 	}
 
-	void Scope::InsertType(Type* type){
-		if (type != NULL){
-			runtime[type->name] = type;
-		}
-	}
-
 	ASTNode* Scope::Get(int index){
 		return ordered[index];
 	}
@@ -58,17 +51,6 @@ namespace internal{
 	void Scope::String(){
 		for (std::map<std::string, ASTNode*>::iterator it = objects.begin(); it != objects.end(); ++it){
 			printf("Found: %s\n", it->first.c_str());
-		}
-	}
-
-	Type* Scope::LookupType(std::string name){
-		if (name.empty()) return NULL;
-		std::map<std::string, Type*>::const_iterator obj = runtime.find(name);
-		if (obj == runtime.end()){
-			return NULL;
-		}
-		else{
-			return obj->second;
 		}
 	}
 

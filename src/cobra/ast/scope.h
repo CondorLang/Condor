@@ -4,7 +4,6 @@
 #include <string>
 #include <map>
 #include "ast.h"
-#include "cobra/types/type.h"
 #include "cobra/globals.h"
 
 namespace Cobra {
@@ -18,8 +17,6 @@ namespace internal{
 		std::map<std::string, ASTNode*> objects;
 		std::vector<ASTNode*> ordered;
 
-		std::map<std::string, Type*> runtime;
-
 		int count;
 	public:
 		Scope();
@@ -32,9 +29,6 @@ namespace internal{
 		void String();
 		ASTNode* Get(int index);
 		int Size();
-
-		void InsertType(Type* type);
-		Type* LookupType(std::string name);
 		void InsertBefore(ASTNode* node);
 	};
 } // namespace internal

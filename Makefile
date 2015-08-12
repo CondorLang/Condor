@@ -17,8 +17,8 @@ $(EXECUTABLE): $(OBJECTS)
 lib:
 	@ar cr build/libcobra.a $(wildcard src/*/*/*/*.o) $(wildcard src/*/*/*.o) $(wildcard src/*/*.o) $(wildcard src/*.o)
 
-.cc.o:
-	@$(CC) $(CFLAGS) $< -o $@
+.cc.o: $(OBJS)
+	$(CC) $(CFLAGS) $< -o $@
 
 clean:
 	rm -rf $(wildcard src/cobra/*/*.o)

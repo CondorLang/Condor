@@ -8,7 +8,6 @@
 #include "cobra/ast/ast.h"
 #include "cobra/error/error.h"
 #include "cobra/parser/parser.h"
-#include "cobra/types/func.h"
 
 namespace Cobra {
 namespace internal{
