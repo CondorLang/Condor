@@ -6,7 +6,6 @@
 namespace Cobra {
 
 	double Version();
-
 	
 	/**
 	 * @brief Creates an isolated instance of Cobra
@@ -23,6 +22,18 @@ namespace Cobra {
 		void* operator new(size_t);
 
 		static Isolate* New();
+	};
+
+	/**
+	 * @brief Creates the context for the program. 
+	 * @details Global variables, functions, objects, etc... can't extend past the context.
+	 */
+	class Context
+	{
+	public:
+		static Context* New();
+		void* operator new(size_t);
+		void SetIsolate(Isolate* isolate);
 	};
 
 	/**

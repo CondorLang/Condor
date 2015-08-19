@@ -98,15 +98,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;cobra/ast/ast.h&quot;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;cobra/error/error.h&quot;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;cobra/parser/parser.h&quot;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;cobra/types/func.h&quot;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_cobra.html">Cobra</a> {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>internal{</div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="class_cobra_1_1internal_1_1_check.html">   15</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_cobra_1_1internal_1_1_check.html">Check</a></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <a class="code" href="class_cobra_1_1internal_1_1_scope.html">Scope</a>* scope;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <a class="code" href="class_cobra_1_1internal_1_1_a_s_t_file.html">ASTFile</a>* file;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_cobra.html">Cobra</a> {</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>internal{</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="class_cobra_1_1internal_1_1_check.html">   14</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_cobra_1_1internal_1_1_check.html">Check</a></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    {</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        <a class="code" href="class_cobra_1_1internal_1_1_scope.html">Scope</a>* scope;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <a class="code" href="class_cobra_1_1internal_1_1_a_s_t_file.html">ASTFile</a>* file;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <a class="code" href="class_cobra_1_1internal_1_1_isolate.html">Isolate</a>* isolate;</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <span class="keywordtype">bool</span> trace;</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        <span class="keywordtype">int</span> printIndent;</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
@@ -141,19 +141,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordtype">void</span> CheckFile(<a class="code" href="class_cobra_1_1internal_1_1_a_s_t_file.html">ASTFile</a>* file);</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordtype">void</span> SetOptions(std::string option);</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordtype">bool</span> HasMain();</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    };</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;} <span class="comment">// namespace internal{</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;}</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#endif // CHECK_H_</span></div>
-<div class="ttc" id="class_cobra_1_1internal_1_1_a_s_t_func_call_expr_html"><div class="ttname"><a href="class_cobra_1_1internal_1_1_a_s_t_func_call_expr.html">Cobra::internal::ASTFuncCallExpr</a></div><div class="ttdef"><b>Definition:</b> ast.h:187</div></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordtype">void</span> SetIsolate(<a class="code" href="class_cobra_1_1internal_1_1_isolate.html">Isolate</a>* iso){isolate = iso;}</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    };</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;} <span class="comment">// namespace internal{</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;}</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">#endif // CHECK_H_</span></div>
+<div class="ttc" id="class_cobra_1_1internal_1_1_a_s_t_func_call_expr_html"><div class="ttname"><a href="class_cobra_1_1internal_1_1_a_s_t_func_call_expr.html">Cobra::internal::ASTFuncCallExpr</a></div><div class="ttdef"><b>Definition:</b> ast.h:195</div></div>
 <div class="ttc" id="class_cobra_1_1internal_1_1_a_s_t_binary_expr_html"><div class="ttname"><a href="class_cobra_1_1internal_1_1_a_s_t_binary_expr.html">Cobra::internal::ASTBinaryExpr</a></div><div class="ttdef"><b>Definition:</b> ast.h:79</div></div>
 <div class="ttc" id="class_cobra_1_1internal_1_1_a_s_t_expr_html"><div class="ttname"><a href="class_cobra_1_1internal_1_1_a_s_t_expr.html">Cobra::internal::ASTExpr</a></div><div class="ttdef"><b>Definition:</b> ast.h:37</div></div>
-<div class="ttc" id="class_cobra_1_1internal_1_1_a_s_t_func_html"><div class="ttname"><a href="class_cobra_1_1internal_1_1_a_s_t_func.html">Cobra::internal::ASTFunc</a></div><div class="ttdef"><b>Definition:</b> ast.h:177</div></div>
-<div class="ttc" id="class_cobra_1_1internal_1_1_a_s_t_file_html"><div class="ttname"><a href="class_cobra_1_1internal_1_1_a_s_t_file.html">Cobra::internal::ASTFile</a></div><div class="ttdef"><b>Definition:</b> ast.h:255</div></div>
+<div class="ttc" id="class_cobra_1_1internal_1_1_a_s_t_func_html"><div class="ttname"><a href="class_cobra_1_1internal_1_1_a_s_t_func.html">Cobra::internal::ASTFunc</a></div><div class="ttdef"><b>Definition:</b> ast.h:185</div></div>
+<div class="ttc" id="class_cobra_1_1internal_1_1_isolate_html"><div class="ttname"><a href="class_cobra_1_1internal_1_1_isolate.html">Cobra::internal::Isolate</a></div><div class="ttdef"><b>Definition:</b> isolate.h:23</div></div>
+<div class="ttc" id="class_cobra_1_1internal_1_1_a_s_t_file_html"><div class="ttname"><a href="class_cobra_1_1internal_1_1_a_s_t_file.html">Cobra::internal::ASTFile</a></div><div class="ttdef"><b>Definition:</b> ast.h:263</div></div>
 <div class="ttc" id="class_cobra_1_1internal_1_1_a_s_t_unary_expr_html"><div class="ttname"><a href="class_cobra_1_1internal_1_1_a_s_t_unary_expr.html">Cobra::internal::ASTUnaryExpr</a></div><div class="ttdef"><b>Definition:</b> ast.h:69</div></div>
 <div class="ttc" id="namespace_cobra_html"><div class="ttname"><a href="namespace_cobra.html">Cobra</a></div><div class="ttdoc">The Isolate class is an isolated instance of Cobra. </div><div class="ttdef"><b>Definition:</b> Cobra.h:6</div></div>
-<div class="ttc" id="class_cobra_1_1internal_1_1_check_html"><div class="ttname"><a href="class_cobra_1_1internal_1_1_check.html">Cobra::internal::Check</a></div><div class="ttdef"><b>Definition:</b> check.h:15</div></div>
+<div class="ttc" id="class_cobra_1_1internal_1_1_check_html"><div class="ttname"><a href="class_cobra_1_1internal_1_1_check.html">Cobra::internal::Check</a></div><div class="ttdef"><b>Definition:</b> check.h:14</div></div>
 <div class="ttc" id="class_cobra_1_1internal_1_1_a_s_t_node_html"><div class="ttname"><a href="class_cobra_1_1internal_1_1_a_s_t_node.html">Cobra::internal::ASTNode</a></div><div class="ttdef"><b>Definition:</b> ast.h:24</div></div>
 <div class="ttc" id="class_cobra_1_1internal_1_1_a_s_t_ident_html"><div class="ttname"><a href="class_cobra_1_1internal_1_1_a_s_t_ident.html">Cobra::internal::ASTIdent</a></div><div class="ttdef"><b>Definition:</b> ast.h:46</div></div>
 <div class="ttc" id="class_cobra_1_1internal_1_1_a_s_t_literary_html"><div class="ttname"><a href="class_cobra_1_1internal_1_1_a_s_t_literary.html">Cobra::internal::ASTLiterary</a></div><div class="ttdef"><b>Definition:</b> ast.h:59</div></div>
@@ -161,7 +163,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Aug 8 2015 19:39:17 for CobraLang by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Aug 18 2015 22:50:42 for CobraLang by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

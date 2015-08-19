@@ -21,7 +21,8 @@ lib:
 	$(CC) $(CFLAGS) $< -o $@
 
 clean:
-	rm -rf $(wildcard src/cobra/*/*.o)
+	find . -name "*.o" -type f -delete
+	find . -name "*.d" -type f -delete
 	rm -rf build/*
 
 test:

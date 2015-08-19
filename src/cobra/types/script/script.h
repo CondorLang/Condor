@@ -27,6 +27,8 @@ namespace internal{
 		bool hasErr;
 		std::vector<const char*> msgs;
 		const char* basePath;
+		std::map<std::size_t, ASTFile*> includes;
+		void SetIncludes(std::vector<ASTInclude*> includes);
 	public:
 		Script(Handle* handle);
 		~Script(){}

@@ -19,6 +19,9 @@ namespace internal{
 		std::string sourceCode = "";
 		String* string = source->ToString();
 		sourceCode += string->GetValue();
+
+		std::hash<std::string> hash_fn;
+    std::size_t str_hash = hash_fn(sourceCode);
 		
 		parser = source->isolate->InsertToHeap(new Parser(&sourceCode), PARSER);
 		parser->SetIsolate(source->isolate);
@@ -26,11 +29,11 @@ namespace internal{
 		check = source->isolate->InsertToHeap(new Check(), CHECK);
 		check->SetIsolate(source->isolate);
 		std::map<std::string, int> includes;
-		ASTFile* file = NULL;
+		ASTFile* main = NULL;
 
 		try {
-			file = parser->Parse();
-
+			main = parser->Parse();
+			SetIncludes(parser->includes);
 		}
 		catch (Error::ERROR e){
 			std::string msg = Error::String(e, parser->expected);
@@ -43,11 +46,18 @@ namespace internal{
 
 		try {
 			check->SetOptions(parser->GetParserOptions());
-			check->CheckFile(file);
+			check->CheckFile(main);
 		}
-		catch (Error::ERROR e){
+		catch (Error::ERROR e){	
 			std::string msg = Error::String(e, NULL);
 			printf("%d:%d - %s\n", check->row, check->col, msg.c_str());
+		}
+	}
+
+	void Script::SetIncludes(std::vector<ASTInclude*> includes){
+		for (int i = 0; i < includes.size(); i++){
+			ASTInclude* include = includes[i];
+			std::string name = include->name;
 		}
 	}
 

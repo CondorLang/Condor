@@ -8,7 +8,10 @@ using namespace Cobra;
 // void runTests1();
 
 int main(){
+	Context* context = Context::New();
 	Isolate* isolate = Isolate::New();
+	context->SetIsolate(isolate);
+
 	isolate->Enter();
 	Handle* handle = String::NewFromFile(isolate, "test/test.cb");
 	Handle* script = Script::Compile(isolate, handle);

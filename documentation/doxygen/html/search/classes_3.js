@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['factory',['Factory',['../class_cobra_1_1internal_1_1_factory.html',1,'Cobra::internal']]],
-  ['func',['Func',['../class_cobra_1_1internal_1_1_func.html',1,'Cobra::internal']]],
-  ['funcarg',['FuncArg',['../class_cobra_1_1internal_1_1_func_arg.html',1,'Cobra::internal']]],
-  ['funcreturnvalue',['FuncReturnValue',['../class_cobra_1_1internal_1_1_func_return_value.html',1,'Cobra::internal']]]
+  ['handle',['Handle',['../class_cobra_1_1internal_1_1_handle.html',1,'Cobra::internal']]],
+  ['handle',['Handle',['../class_cobra_1_1_handle.html',1,'Cobra']]],
+  ['heap',['Heap',['../class_cobra_1_1internal_1_1_heap.html',1,'Cobra::internal']]],
+  ['heapobject',['HeapObject',['../struct_cobra_1_1internal_1_1_heap_object.html',1,'Cobra::internal']]],
+  ['heapstore',['HeapStore',['../class_cobra_1_1internal_1_1_heap_store.html',1,'Cobra::internal']]]
 ];

@@ -32,5 +32,9 @@ namespace internal{
 		heapstore->FlushAll();
 	}
 
+	void Isolate::SetContext(Context* context){
+		this->context = context;
+	}
+
 } // namespace internal
 } // namespace Cobra

@@ -26,5 +26,6 @@ var searchData=
   ['aststring',['ASTString',['../class_cobra_1_1internal_1_1_a_s_t_string.html',1,'Cobra::internal']]],
   ['astunaryexpr',['ASTUnaryExpr',['../class_cobra_1_1internal_1_1_a_s_t_unary_expr.html',1,'Cobra::internal']]],
   ['astvar',['ASTVar',['../class_cobra_1_1internal_1_1_a_s_t_var.html',1,'Cobra::internal']]],
+  ['astvarlist',['ASTVarList',['../class_cobra_1_1internal_1_1_a_s_t_var_list.html',1,'Cobra::internal']]],
   ['astwhile',['ASTWhile',['../class_cobra_1_1internal_1_1_a_s_t_while.html',1,'Cobra::internal']]]
 ];

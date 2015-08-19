@@ -9,6 +9,7 @@
 #include "cobra/token/token.h"
 #include "cobra/globals.h"
 #include "cobra/types/script/script.h"
+#include "cobra/ast/context.h"
 
 namespace Cobra{
 
@@ -18,6 +19,32 @@ namespace Cobra{
 	 */
 	double Version(){
 		return VERSION;
+	}
+
+	void Context::SetIsolate(Isolate* isolate){
+		i::Context* context = CAST(i::Context*, this);
+		i::Isolate* cobra_isolate = CAST(i::Isolate*, isolate);
+		context->SetIsolate(cobra_isolate);
+	}
+
+	/**
+	 * @brief Create a new Cobra::Context
+	 * @return Cobra::Context
+	 */
+	Context* Context::New(){
+		i::Context* context = new i::Context();
+		return CAST(Context*, context);
+	}
+
+	/**
+	 * @brief Create a new context
+	 * @details the "new" keyword calls Context::New();
+	 * 
+	 * @param size Unused but required
+	 * @return Cobra::Context
+	 */
+	void* Context::operator new(size_t size){
+		return Context::New();
 	}
 
 	/**

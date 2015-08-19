@@ -10,6 +10,7 @@
 #include "cobra/assert.h"
 #include "cobra/mem/factory.h"
 #include "cobra/globals.h"
+#include "cobra/ast/context.h"
 
 namespace Cobra {
 namespace internal{
@@ -17,6 +18,7 @@ namespace internal{
 	class Factory;
 	class HeapStore;
 	struct HeapObject;
+	class Context;
 
 	class Isolate
 	{
@@ -24,6 +26,7 @@ namespace internal{
 		HeapStore* heapstore;
 		void _enter();
 		void _exit();
+		Context* context;
 
 	public:
 		Isolate(){heapstore = new HeapStore();factory = new Factory(this);}
@@ -44,6 +47,7 @@ namespace internal{
 
 		void FlushAST();
 		void FlushAll();
+		void SetContext(Context* context);
 	};
 
 } // namespace internal
