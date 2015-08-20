@@ -5,11 +5,13 @@
 namespace Cobra {
 namespace internal{
 
-	Script::Script(Handle* handle){
+	Script::Script(Handle* handle, Isolate* isolate){
 		source = handle;
 		parser = NULL;
 		check = NULL;
 		hasErr = false;
+		this->isolate = isolate;
+		compiled = false;
 	}
 
 	// TODO:
@@ -19,9 +21,7 @@ namespace internal{
 		std::string sourceCode = "";
 		String* string = source->ToString();
 		sourceCode += string->GetValue();
-
-		std::hash<std::string> hash_fn;
-    std::size_t str_hash = hash_fn(sourceCode);
+		absolutePath = string->GetPath();
 		
 		parser = source->isolate->InsertToHeap(new Parser(&sourceCode), PARSER);
 		parser->SetIsolate(source->isolate);
@@ -47,18 +47,51 @@ namespace internal{
 		try {
 			check->SetOptions(parser->GetParserOptions());
 			check->CheckFile(main);
+			compiled = true;
 		}
 		catch (Error::ERROR e){	
 			std::string msg = Error::String(e, NULL);
 			printf("%d:%d - %s\n", check->row, check->col, msg.c_str());
 		}
+
+		if (compiled) isolate->GetContext()->AddScript(this);
 	}
 
 	void Script::SetIncludes(std::vector<ASTInclude*> includes){
 		for (int i = 0; i < includes.size(); i++){
 			ASTInclude* include = includes[i];
 			std::string name = include->name;
+			const char* importPath = GetPathOfImport(name);
+			printf("d: %s\n", importPath);
 		}
+	}
+
+	bool Script::Replace(std::string& str, const std::string& from, const std::string& to) {
+    size_t start_pos = str.find(from);
+    if(start_pos == std::string::npos)
+        return false;
+    str.replace(start_pos, from.length(), to);
+    return true;
+	}
+
+	std::string Script::GetFileName(){
+		std::size_t found = absolutePath.find_last_of("/\\");
+		std::string fileName = absolutePath.substr(found+1);
+		printf("");
+		return fileName;
+	}
+
+	/**
+	 * TODO:
+	 * 		windows support
+	 */
+	const char* Script::GetPathOfImport(std::string import){
+		if (import.find("/") == std::string::npos){ // test2.cb
+			std::string r = absolutePath;
+			Replace(r, GetFileName(), import);
+			return r.c_str();
+		}
+		return "";
 	}
 
 } // namespace internal

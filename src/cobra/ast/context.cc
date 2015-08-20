@@ -4,7 +4,6 @@ namespace Cobra {
 namespace internal{
 	
 	Context::Context(){
-		isolate = NULL;
 	}
 
 	Context::~Context(){
@@ -12,8 +11,23 @@ namespace internal{
 	}
 
 	void Context::SetIsolate(Isolate* isolate){
-		this->isolate = isolate;
+		scripts[isolate];
 		isolate->SetContext(this);
+	}
+
+	void Context::AddScript(Script* script){
+		String* string = script->GetSource()->ToString();
+		std::string sourceCode = string->GetValue();
+
+		std::hash<std::string> hash_fn;
+    std::size_t str_hash = hash_fn(sourceCode);
+    scripts[script->GetIsolate()][str_hash] = script;
+	}
+
+	Script* Context::GetScriptByString(Isolate* iso, std::string str){
+		std::hash<std::string> hash_fn;
+    std::size_t str_hash = hash_fn(str);
+    return scripts[iso][str_hash];
 	}
 
 } // namespace internal

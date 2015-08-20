@@ -12,7 +12,7 @@ namespace internal{
 	}
 
 	Script* Factory::NewScript(Handle* handle){
-		Script* script = new Script(handle);
+		Script* script = new Script(handle, isolate);
 		return script;
 	}
 

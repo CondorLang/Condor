@@ -2,6 +2,7 @@
 
 #include <fstream>
 #include <streambuf>
+#include <stdlib.h>
 
 #include "cobra/mem/isolate.h"
 #include "cobra/types/strings/string.h"
@@ -10,6 +11,7 @@
 #include "cobra/globals.h"
 #include "cobra/types/script/script.h"
 #include "cobra/ast/context.h"
+#include "cobra/mem/factory.h"
 
 namespace Cobra{
 
@@ -166,6 +168,8 @@ namespace Cobra{
 	 * @details Creates a String from the contents
 	 * of a file. If the file or directory doesn't exist,
 	 * the contents of the String will be empty
+	 * TODO:
+	 * 		realpath support for windows: GetFullPathName
 	 * 
 	 * @param isolate The current Isolate
 	 * @param path const char* path to the file
@@ -173,13 +177,14 @@ namespace Cobra{
 	 * @return Cobra::String
 	 */
 	Handle* String::NewFromFile(Isolate* isolate, const char* path){
-		std::ifstream in(path);
+		char* absolutePath = realpath(path, NULL);
+		std::ifstream in(absolutePath);
 		if (!in){
-			printf("File, %s, was empty\n", path);
+			printf("File, %s, was empty\n", absolutePath);
 			return String::New(isolate);
 		}
 		std::string fileStr((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
-		return String::New(isolate, fileStr.c_str(), path);
+		return String::New(isolate, fileStr.c_str(), absolutePath);
 	}
 
 	/**

@@ -1,7 +1,14 @@
 #include "isolate.h"
 
+#include "cobra/mem/factory.h"
+
 namespace Cobra {
 namespace internal{
+
+	Isolate::Isolate(){
+		heapstore = new HeapStore();
+		factory = new Factory(this);
+	}
 
 	Isolate::~Isolate(){
 

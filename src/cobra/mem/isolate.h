@@ -8,7 +8,6 @@
 
 #include "cobra/mem/heap.h"
 #include "cobra/assert.h"
-#include "cobra/mem/factory.h"
 #include "cobra/globals.h"
 #include "cobra/ast/context.h"
 
@@ -29,7 +28,7 @@ namespace internal{
 		Context* context;
 
 	public:
-		Isolate(){heapstore = new HeapStore();factory = new Factory(this);}
+		Isolate();
 		~Isolate();
 		Factory* factory;
 		inline void Enter(){_enter();}
@@ -48,6 +47,7 @@ namespace internal{
 		void FlushAST();
 		void FlushAll();
 		void SetContext(Context* context);
+		Context* GetContext(){return context;}
 	};
 
 } // namespace internal

@@ -38,7 +38,7 @@ namespace internal{
 	{
 	public:
 		ASTExpr(){type = EXPR; value = NULL;}
-		~ASTExpr();
+		~ASTExpr(){}
 		ASTExpr* value;
 		TOKEN assignType;
 	};
@@ -47,7 +47,7 @@ namespace internal{
 	{
 	public:
 		ASTIdent(){type = IDENT;value = NULL;inc = false;dec = false;pre = false;post = false;}
-		~ASTIdent();
+		~ASTIdent(){}
 		int pos;
 		bool inc;
 		bool dec;
@@ -70,7 +70,7 @@ namespace internal{
 	{
 	public:
 		ASTUnaryExpr(){type = UNARY;value = NULL; op = NULL;}
-		~ASTUnaryExpr();
+		~ASTUnaryExpr(){}
 		ASTExpr* value;
 		Token* op;
 		int pos;
@@ -80,7 +80,7 @@ namespace internal{
 	{
 	public:
 		ASTBinaryExpr(){type = BINARY;Left = NULL; Right = NULL; op = NULL;}
-		~ASTBinaryExpr();
+		~ASTBinaryExpr(){}
 		ASTExpr* Left;
 		ASTExpr* Right;
 		Token* op;
@@ -90,7 +90,7 @@ namespace internal{
 	{
 	public:
 		ASTArrayMemberExpr(){type = ARRAY_MEMBER;member = NULL; value = NULL;}
-		~ASTArrayMemberExpr();
+		~ASTArrayMemberExpr(){}
 		ASTExpr* member;
 		ASTExpr* value;
 	};
@@ -99,7 +99,7 @@ namespace internal{
 	{
 	public:
 		ASTObjectMemberChainExpr(){type = OBJECT_MEMBER_CHAIN; isSetting = false;member = NULL; object = NULL; value = NULL; isSetting = false;}
-		~ASTObjectMemberChainExpr();
+		~ASTObjectMemberChainExpr(){}
 		ASTExpr* member;
 		ASTIdent* object;
 		ASTExpr* value;
@@ -110,7 +110,7 @@ namespace internal{
 	{
 	public:
 		ASTVar(){type = VAR;stmt = NULL;varClass = NULL;}
-		~ASTVar();
+		~ASTVar(){}
 		ASTNode* stmt;
 		TOKEN varType;
 		TOKEN arrayType;
@@ -178,7 +178,7 @@ namespace internal{
 	{
 	public:
 		ASTBlock(){type = BLOCK;scope = NULL;}
-		~ASTBlock();
+		~ASTBlock(){}
 		Scope* scope;
 	};
 
@@ -186,7 +186,7 @@ namespace internal{
 	{
 	public:
 		ASTFunc(){type = FUNC;body = NULL;}
-		~ASTFunc();
+		~ASTFunc(){}
 		ASTBlock* body;
 		std::map<std::string, ASTNode*> args;
 		std::vector<ASTNode*> ordered;
@@ -196,7 +196,7 @@ namespace internal{
 	{
 	public:
 		ASTFuncCallExpr(){type = FUNC_CALL;isNew = false;pos = 0; func = NULL; scope = NULL;}
-		~ASTFuncCallExpr();
+		~ASTFuncCallExpr(){}
 		std::vector<ASTExpr*> params;
 		int pos;
 		bool isNew;
@@ -208,7 +208,7 @@ namespace internal{
 	{
 	public:
 		ASTArray(TOKEN rType){type = ARRAY; arrayType = rType;}
-		~ASTArray();
+		~ASTArray(){}
 		std::vector<ASTNode*> value;
 		TOKEN arrayType;
 	};
@@ -217,7 +217,7 @@ namespace internal{
 	{
 	public:
 		ASTObject(){}
-		~ASTObject();
+		~ASTObject(){}
 		std::map<std::string, ASTNode*> members;
 	};
 
@@ -225,7 +225,7 @@ namespace internal{
 	{
 	public:
 		ASTIf(){type = IF;conditions = NULL; block = NULL;}
-		~ASTIf();
+		~ASTIf(){}
 		ASTExpr* conditions;
 		ASTBlock* block;
 	};
@@ -234,7 +234,7 @@ namespace internal{
 	{
 	public:
 		ASTElse(){type = ELSE;ifStmt = NULL; conditions = NULL; block = NULL; ifStmt = NULL;}
-		~ASTElse();
+		~ASTElse(){}
 		ASTExpr* conditions;
 		ASTBlock* block;
 		ASTIf* ifStmt;
@@ -244,7 +244,7 @@ namespace internal{
 	{
 	public:
 		ASTWhile(){type = WHILE;conditions = NULL; block = NULL;}
-		~ASTWhile();
+		~ASTWhile(){}
 		ASTExpr* conditions;
 		ASTBlock* block;
 	};
@@ -253,7 +253,7 @@ namespace internal{
 	{
 	public:
 		ASTFor(){type = FOR;var = NULL; conditions = NULL; iterator = NULL; block = NULL;};
-		~ASTFor();
+		~ASTFor(){}
 		ASTNode* var;
 		ASTExpr* conditions;
 		ASTExpr* iterator;
@@ -264,7 +264,7 @@ namespace internal{
 	{
 	public:
 		ASTFile(){type = FILE;scope = NULL;}
-		~ASTFile();
+		~ASTFile(){}
 		Scope* scope;
 	};
 
