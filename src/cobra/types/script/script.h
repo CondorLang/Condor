@@ -34,8 +34,10 @@ namespace internal{
 		std::string absolutePath;
 		Isolate* isolate;
 		bool compiled;
-		const char* GetPathOfImport(std::string import);
-		bool Replace(std::string& str, const std::string& from, const std::string& to);
+		std::string GetPathOfImport(std::string import);
+		std::string ParseRelativePath(std::string absolute, std::string path);
+		std::string BackFolder(std::string path);
+		std::string StayInFolder(std::string path);		
 
 	public:
 		Script(Handle* handle, Isolate* isolate);

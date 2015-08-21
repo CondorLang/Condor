@@ -15,12 +15,16 @@ namespace internal{
 	{
 	private:
 		std::map<Isolate*, std::map<size_t, Script*> > scripts;
+		std::vector<std::string> inProgress;
 	public:
 		Context();
 		~Context();
 		void SetIsolate(Isolate* isolate);
 		void AddScript(Script* script);
 		Script* GetScriptByString(Isolate* iso, std::string code);
+		bool IsIncluded(Isolate* iso, const char* path);
+		void AddToInProgress(std::string str){inProgress.push_back(str);}
+		void RemoveFromInProgress(std::string str);
 	};
 
 } // namespace internal
