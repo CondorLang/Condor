@@ -34,6 +34,7 @@ namespace Error {
 			case CANNOT_MINUS_UNLIKE_VALUES: return "Cannot minus unlike values";
 			case CANNOT_ADD_UNLIKE_VALUES: return "Cannot add unlike values";
 			case PARSE_VAR_ERR: return "Parser var error";
+			case UNKNOWN_CAST_TYPE: return "Unknown cast type";
 			case SCANNER: {
 				if (tok != NULL){
 					return tok->raw;

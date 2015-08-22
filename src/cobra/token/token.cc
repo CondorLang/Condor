@@ -41,6 +41,7 @@ namespace internal{
 			case ASTFUNC: return "kAstFunc";
 			case ASTIMPORT: return "kAstImport";
 			case ASTINCLUDE: return "kAstInclude";
+			case ASTCAST_EXPR: return "kAstCastExpr";
 			case SCANNER: return "kScanner";
 			case SCOPE: return "kScope";
 			case K_FUNC: return "kFunc";
@@ -51,6 +52,7 @@ namespace internal{
 			case PARSER: return "kParser";
 			case CHECK: return "kCheck";
 			case VARLIST: return "kVarList";
+			case UNDEFINED: return "undefined";
 
 			case INT: return "int";
 			case kNULL: return "null";

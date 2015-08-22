@@ -48,6 +48,7 @@ namespace internal{
 		Isolate* GetIsolate(){return isolate;}
 		const char* GetAbsolutePath(){return absolutePath.c_str();}
 		std::string GetFileName();
+		void Run();
 	};
 
 } // namespace internal

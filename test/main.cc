@@ -7,7 +7,8 @@ using namespace Cobra;
 // #include "tests/simple.h"
 // void runTests1();
 
-int main(){
+int main(int argc, const char* argv[]){
+	SetCommandLineFlags(argc, argv);
 	Context* context = Context::New();
 	Isolate* isolate = Isolate::New();
 	context->SetIsolate(isolate);
@@ -15,6 +16,7 @@ int main(){
 	isolate->Enter();
 	Handle* handle = String::NewFromFile(isolate, "test/test.cb");
 	Handle* script = Script::Compile(isolate, handle);
+	script->Run();
 
 	isolate->Exit();
 	isolate->Dispose();

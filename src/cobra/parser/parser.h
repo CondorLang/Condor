@@ -38,10 +38,9 @@ namespace internal{
 		int col;
 		Token* expected;
 
-		Parser(std::string* src);
+		Parser(std::string* src, std::string* path);
 		~Parser();
 		ASTFile* Parse();
-		std::string GetParserOptions();
 		std::vector<ASTImport*> imports;
 		std::vector<ASTInclude*> includes;
 		std::vector<ASTNode*> exports;
@@ -54,11 +53,13 @@ namespace internal{
 		Scope* currentFunctionScope;
 		Isolate* isolate;
 		std::string* source;
+		std::string* filePath;
 
 		// Parser options
 		bool trace;
 		bool printVariables;
 		bool printCheck;
+		bool parsingTime;
 
 		void Trace(const char* name, const char* value);
 		void PrintTok();
@@ -71,7 +72,6 @@ namespace internal{
 		bool IsVarType();
 		bool IsBoolean();
 		VISIBILITY GetVisibility();
-		void ParseOptions();
 		void ParseMode();
 		void ParseImportOrInclude();
 		ASTNode* ParseNodes();

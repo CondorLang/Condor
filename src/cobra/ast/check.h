@@ -38,6 +38,7 @@ namespace internal{
 		void ValidateBinaryStmt(ASTBinaryExpr* binary);
 		void ValidateIdent(ASTIdent* ident);
 		void ValidateFuncCall(ASTFuncCallExpr* call);
+		void ValidateCast(ASTCastExpr* cast);
 		ASTNode* GetObjectInScope(ASTIdent* ident, Scope* sc);
 		ASTNode* GetObjectInScopeByString(std::string name, Scope* sc);
 		void SetScope();
@@ -49,7 +50,6 @@ namespace internal{
 		int row;
 
 		void CheckFile(ASTFile* file);
-		void SetOptions(std::string option);
 		bool HasMain();
 		void SetIsolate(Isolate* iso){isolate = iso;}
 	};

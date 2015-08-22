@@ -24,7 +24,7 @@ namespace internal{
 		sourceCode += string->GetValue();
 		absolutePath = string->GetPath();
 		
-		parser = source->isolate->InsertToHeap(new Parser(&sourceCode), PARSER);
+		parser = source->isolate->InsertToHeap(new Parser(&sourceCode, &absolutePath), PARSER);
 		parser->SetIsolate(source->isolate);
 
 		check = source->isolate->InsertToHeap(new Check(), CHECK);
@@ -47,7 +47,6 @@ namespace internal{
 		}
 
 		try {
-			check->SetOptions(parser->GetParserOptions());
 			check->CheckFile(main);
 			compiled = true;
 		}
@@ -59,6 +58,9 @@ namespace internal{
 		if (compiled){
 			isolate->GetContext()->AddScript(this);
 			isolate->GetContext()->RemoveFromInProgress(absolutePath.c_str());
+		}
+		else{
+			printf("Did not compile: %s\n", absolutePath.c_str());
 		}
 	}
 
@@ -144,6 +146,10 @@ namespace internal{
 	std::string Script::StayInFolder(std::string path){
 		std::size_t found = path.find_last_of("/\\");
 		return path.substr(0, found + 1);
+	}
+
+	void Script::Run(){
+		
 	}
 
 } // namespace internal

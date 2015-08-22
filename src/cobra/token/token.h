@@ -40,6 +40,7 @@ namespace internal{
 		ASTFUNC,
 		ASTIMPORT,
 		ASTINCLUDE,
+		ASTCAST_EXPR,
 		SCANNER,
 		SCOPE,
 		K_FUNC,
@@ -50,6 +51,7 @@ namespace internal{
 		PARSER,
 		CHECK,
 		VARLIST,
+		UNDEFINED,
 
 		// Literals
 		LITERAL_BEGIN,

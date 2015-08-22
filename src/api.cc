@@ -12,6 +12,7 @@
 #include "cobra/types/script/script.h"
 #include "cobra/ast/context.h"
 #include "cobra/mem/factory.h"
+#include "cobra/flags.h"
 
 namespace Cobra{
 
@@ -21,6 +22,17 @@ namespace Cobra{
 	 */
 	double Version(){
 		return VERSION;
+	}
+
+	/**
+	 * @brief Sets the command line flags
+	 * @details [long description]
+	 * 
+	 * @param argc int of arg count
+	 * @param argv const char* argv[]
+	 */
+	void SetCommandLineFlags(int argc, const char* argv[]){
+		i::Flags::SetCommandLineFlags(argc, argv);
 	}
 
 	void Context::SetIsolate(Isolate* isolate){
@@ -261,6 +273,18 @@ namespace Cobra{
 		i::HeapObject* newScript = cobra_isolate->Insert(obj);
 		i::Handle* scriptHandle = cobra_isolate->InsertToHeap(new i::Handle(newScript, cobra_isolate), i::HANDLE);
 		return CAST(Handle*, scriptHandle);
+	}
+
+	/**
+	 * @brief Runs the script
+	 * @details This executes the code, compiles and runs all the imports
+	 */
+	void Handle::Run(){
+		if (IsScript()){
+			i::Handle* cobra_handle = CAST(i::Handle*, this);
+			i::Script* cobra_script = cobra_handle->ToScript();
+			cobra_script->Run();
+		}
 	}
 
 }

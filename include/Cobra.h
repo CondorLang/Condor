@@ -6,6 +6,8 @@
 namespace Cobra {
 
 	double Version();
+
+	void SetCommandLineFlags(int argc, const char* argv[]);
 	
 	/**
 	 * @brief Creates an isolated instance of Cobra
@@ -48,6 +50,7 @@ namespace Cobra {
 		bool IsScript();
 		const char* ToString();
 		const char* GetType();
+		void Run();
 	};
 
 	/**

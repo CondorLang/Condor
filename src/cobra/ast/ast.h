@@ -43,6 +43,16 @@ namespace internal{
 		TOKEN assignType;
 	};
 
+	class ASTCastExpr : public ASTExpr
+	{
+	public:
+		ASTCastExpr(){type = ASTCAST_EXPR; castType = UNDEFINED;}
+		~ASTCastExpr(){}
+		TOKEN castType;
+		ASTExpr* to;
+		ASTExpr* value;
+	};
+
 	class ASTIdent : public ASTExpr
 	{
 	public:
@@ -109,12 +119,14 @@ namespace internal{
 	class ASTVar : public ASTNode
 	{
 	public:
-		ASTVar(){type = VAR;stmt = NULL;varClass = NULL;}
+		ASTVar(){type = VAR;stmt = NULL;varClass = NULL;cast = false; castType = UNDEFINED;}
 		~ASTVar(){}
 		ASTNode* stmt;
 		TOKEN varType;
 		TOKEN arrayType;
 		ASTIdent* varClass;
+		bool cast;
+		TOKEN castType;
 	};
 
 	class ASTVarList : public ASTNode

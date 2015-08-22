@@ -1,41 +1,41 @@
 #include "parser.h"
 #include "cobra/mem/isolate.h"
+#include "cobra/flags.h"
+#include "cobra/clock.h"
 
 namespace Cobra{
 namespace internal{
 
-	Parser::Parser(std::string* src){
+	Parser::Parser(std::string* src, std::string* path){
 		scanner = NULL;
 		source = src;
 		topScope = NULL;
 		expected = NULL;
 		currentFunctionScope = NULL;
-		trace = false;
-		printVariables = false;
+		trace = TRACE_PARSER;
+		printVariables = PRINT_VARIABLES;
 		printCheck = false;
 		tok = NULL;
 		isolate = NULL;
+		parsingTime = PARSING_TIME;
+		filePath = path;
 	}
 
 	Parser::~Parser(){
-		if (expected != NULL) delete expected;
 		delete tok;
 	}
 
-	std::string Parser::GetParserOptions(){
-		if (trace) return "trace";
-		else if (printVariables) return "printVariables";
-		else if (printCheck) return "printCheck";
-		else return "";
-	}
-
 	ASTFile* Parser::Parse(){
+		Clock* clock = NULL;
+		if (parsingTime) {
+			clock = new Clock;
+			clock->Start();
+		}
+
 		scanner = isolate->InsertToHeap(new Scanner(source), SCANNER);
 		topScope = isolate->InsertToHeap(new Scope, SCOPE);
 		if (trace) Trace("Parsing", "Started");
 		ASTFile* file = isolate->InsertToHeap(new ASTFile, ASTFILE);
-		//Compiler options
-		ParseOptions();
 
 		ParseMode(); // parse the file mode
 		ParseImportOrInclude();
@@ -43,6 +43,13 @@ namespace internal{
 		ParseStmtList();
 
 		file->scope = topScope;
+
+		if (parsingTime) {
+			clock->Stop();
+			printf("\n\nTime     | File\n======== | ==========\n");
+			printf("%f | %s\n", clock->GetDuration(), filePath->c_str());
+			delete clock;
+		}
 
 		if (printVariables){
 			printf("\nGlobal\n------------\n");
@@ -85,7 +92,7 @@ namespace internal{
 
 	void Parser::Expect(TOKEN val){
 		if (tok == NULL || tok->value != val) {
-			Token* t = new Token(val);
+			Token* t = isolate->InsertToHeap(new Token(val), K_TOKEN);
 			expected = t;
 			throw Error::EXPECTED;
 		}
@@ -400,6 +407,14 @@ namespace internal{
 				ASTExpr* expr = ParseExpr();
 				Expect(RPAREN);
 				Next();
+
+				if (tok->value == IDENT){ // CAST
+					ASTCastExpr* castExpr = isolate->InsertToHeap(new ASTCastExpr, ASTCAST_EXPR);
+					castExpr->value = ParseExpr();
+					castExpr->to = expr;
+					return castExpr;
+				}
+
 				return expr;
 			}
 			case LBRACK: {
@@ -516,6 +531,7 @@ namespace internal{
 	 */
 	ASTNode* Parser::ParseVar(){
 		ASTVar* var = isolate->InsertToHeap(new ASTVar, ASTVAR);
+
 		if (mode == STRICT){
 			if (trace) Trace("Parsing", ("Var: " + tok->String()).c_str());
 			var->varType = tok->value;
@@ -536,9 +552,11 @@ namespace internal{
 				Expect(IDENT);
 				var->name = tok->raw;
 				var->stmt = ParseSimpleStmt();
-				Expect(SEMICOLON);
+				if (tok->value != RBRACE){
+					Expect(SEMICOLON);
+					Next();
+				}
 				list->vars.push_back(var);
-				Next();
 				if (tok->value != RBRACE){
 					var = isolate->InsertToHeap(new ASTVar, VAR);
 					var->varType = type;
@@ -926,6 +944,7 @@ namespace internal{
 	 * #mode "lazy"
 	 */
 	void Parser::ParseMode(){
+		Next();
 		Expect(HASH);
 		Next();
 		Expect(IDENT);
@@ -946,28 +965,6 @@ namespace internal{
 
 		Next();
 		Expect(SEMICOLON);
-	}
-
-	/**
-	 * These options are internal, only one may be used
-	 *
-	 * %trace; - traces the parsing method by method
-	 * %printVariables; - prints all the variables in a given scope
-	 */
-	void Parser::ParseOptions(){
-		Next();
-		if (tok->value == MOD){
-			Next();
-			Expect(IDENT);
-			if (tok->raw == "trace")
-				trace = true;
-			else if (tok->raw == "printVariables")
-				printVariables = true;
-			else if (tok->raw == "printCheck")
-				printCheck = true;
-			Next();
-			Next();
-		}
 	}
 } // namespace internal
 }	// namespace Cobra

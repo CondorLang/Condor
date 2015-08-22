@@ -1,12 +1,13 @@
 #include "check.h"
 #include "cobra/mem/isolate.h"
+#include "cobra/flags.h"
 
 namespace Cobra{
 namespace internal{
 
 	Check::Check(){
 		scope = NULL;
-		trace = false; // debug
+		trace = TRACE_CHECK; // debug
 		col = 0;
 		row = 0;
 		printIndent = 0;
@@ -16,10 +17,6 @@ namespace internal{
 	Check::~Check(){
 		//delete file;
 		//delete scope;
-	}
-
-	void Check::SetOptions(std::string option){
-		if (option == "printCheck") trace = true;
 	}
 
 	void Check::CheckFile(ASTFile* f){
@@ -164,10 +161,26 @@ namespace internal{
 				ValidateFuncCall((ASTFuncCallExpr*) expr);
 				break;
 			}
+			case ASTCAST_EXPR: {
+				ValidateCast((ASTCastExpr*) expr);
+				break;
+			}
 			default: {
 				Trace("Didn't process, but found", GetTokenString(expr->type));
 			}
 		}
+	}
+
+	void Check::ValidateCast(ASTCastExpr* cast){
+		ASTExpr* to = cast->to;
+		if (to == NULL || to->type != LITERARY){
+			throw Error::UNKNOWN_CAST_TYPE;
+		}
+		else{
+			ASTLiterary* lit = (ASTLiterary*) to;
+			cast->castType = lit->kind;
+		}
+		ValidateStmt(cast->value);
 	}
 	
 	void Check::ValidateVar(ASTNode* node){

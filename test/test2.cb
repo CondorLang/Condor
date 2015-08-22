@@ -1,13 +1,57 @@
 #mode "strict";
 
 func add(int a, int b){
-	int {
-		c;
-		d;
-		e;
+	return a + b;
+}
+
+func divide(int a, int b){
+	float {
+		c = a / b;
 	};
 
-	return a + b;
+	return c;
+}
+func divide2(int a, int b){
+	float {
+		c = a / b;
+	};
+
+	return c;
+}
+func divide3(int a, int b){
+	float {
+		c = a / b;
+	};
+
+	return c;
+}
+func divide4(int a, int b){
+	float {
+		c = a / b;
+	};
+
+	return c;
+}
+func divide5(int a, int b){
+	float {
+		c = a / b;
+	};
+
+	return c;
+}
+func divide6(int a, int b){
+	float {
+		c = a / b;
+	};
+
+	return c;
+}
+
+func floor(float a, int dec){
+	if (dec){
+		//return ((int)(a * 100)) / 100;
+	}
+	return (int) a;
 }
 
 func main(string args[], int argc){
