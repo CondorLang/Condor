@@ -1,7 +1,6 @@
 #include "parser.h"
 #include "cobra/mem/isolate.h"
 #include "cobra/flags.h"
-#include "cobra/clock.h"
 
 namespace Cobra{
 namespace internal{
@@ -17,21 +16,14 @@ namespace internal{
 		printCheck = false;
 		tok = NULL;
 		isolate = NULL;
-		parsingTime = PARSING_TIME;
 		filePath = path;
 	}
 
 	Parser::~Parser(){
-		delete tok;
+		//delete tok;
 	}
 
 	ASTFile* Parser::Parse(){
-		Clock* clock = NULL;
-		if (parsingTime) {
-			clock = new Clock;
-			clock->Start();
-		}
-
 		scanner = isolate->InsertToHeap(new Scanner(source), SCANNER);
 		topScope = isolate->InsertToHeap(new Scope, SCOPE);
 		if (trace) Trace("Parsing", "Started");
@@ -42,14 +34,13 @@ namespace internal{
 
 		ParseStmtList();
 
-		file->scope = topScope;
-
-		if (parsingTime) {
-			clock->Stop();
-			printf("\n\nTime     | File\n======== | ==========\n");
-			printf("%f | %s\n", clock->GetDuration(), filePath->c_str());
-			delete clock;
+		// Set Includes
+		for (int i = 0; i < includes.size(); i++){
+			ASTInclude* include = includes[i];
+			file->includes[include->alias] = include;
 		}
+
+		file->scope = topScope;
 
 		if (printVariables){
 			printf("\nGlobal\n------------\n");
@@ -327,8 +318,9 @@ namespace internal{
 				if (tok->value == PERIOD){ // object.member
 					if (trace) Trace("Parsing", "Object member");
 					Next();
-					ASTExpr* second = ParseOperand();
-					if (second->type != IDENT) throw Error::INVALID_OBJECT_MEMBER;
+					//ASTExpr* second = ParseOperand();
+					ASTExpr* second = ParsePrimaryExpr();
+					if (second->type != IDENT && second->type != FUNC_CALL) throw Error::INVALID_OBJECT_MEMBER;
 					ASTObjectMemberChainExpr* chain = isolate->InsertToHeap(new ASTObjectMemberChainExpr, ASTOBJECT_MEMBER_CHAIN_EXPR);
 					chain->object = first;
 					chain->member = second;

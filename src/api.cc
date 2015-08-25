@@ -169,7 +169,7 @@ namespace Cobra{
 		str->SetPath(path);
 		i::HeapObject obj;
 		obj.address = CAST(i::Address, str);
-		obj.type = i::STRING;
+		obj.type = i::API_STRING;
 		i::HeapObject* newStr = cobra_isolate->Insert(obj);
 		i::Handle* handle = cobra_isolate->InsertToHeap(new i::Handle(newStr, cobra_isolate), i::HANDLE);
 		return CAST(Handle*, handle);

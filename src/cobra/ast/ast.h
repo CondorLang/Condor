@@ -272,14 +272,6 @@ namespace internal{
 		ASTBlock* block;
 	};
 
-	class ASTFile : public ASTNode
-	{
-	public:
-		ASTFile(){type = FILE;scope = NULL;}
-		~ASTFile(){}
-		Scope* scope;
-	};
-
 	class ASTImport : public ASTNode
 	{
 	public:
@@ -292,11 +284,19 @@ namespace internal{
 	class ASTInclude : public ASTNode
 	{
 	public:
-		ASTInclude(){file = NULL;type = INCLUDE;}
+		ASTInclude(){type = INCLUDE;}
 		~ASTInclude(){}
 		std::string name;
 		std::string alias;
-		ASTFile* file;
+	};
+
+	class ASTFile : public ASTNode
+	{
+	public:
+		ASTFile(){type = FILE;scope = NULL;}
+		~ASTFile(){}
+		Scope* scope; 
+		std::map<std::string, ASTInclude*> includes;
 	};
 } // namespace internal
 }

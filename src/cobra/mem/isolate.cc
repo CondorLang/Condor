@@ -23,7 +23,14 @@ namespace internal{
 	}
 
 	HeapObject* Isolate::Insert(HeapObject obj){
-		return heapstore->Insert(obj);
+		HeapObject* o = heapstore->Insert(obj);
+		bool heapInsertFlag = HEAP_INSERT;
+		if (heapInsertFlag){
+			Token* tok = new Token(obj.type);
+			printf("\t%s\n", tok->String().c_str());
+			delete tok;
+		}
+		return o;
 	}
 
 	void Isolate::FlushAST(){

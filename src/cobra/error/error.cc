@@ -35,6 +35,8 @@ namespace Error {
 			case CANNOT_ADD_UNLIKE_VALUES: return "Cannot add unlike values";
 			case PARSE_VAR_ERR: return "Parser var error";
 			case UNKNOWN_CAST_TYPE: return "Unknown cast type";
+			case UNIDENTIFIED_OBJECT_MEMBER: return "Unidentfied object member";
+			case INVALID_FUNC_CALL: return "Invalid function call";
 			case SCANNER: {
 				if (tok != NULL){
 					return tok->raw;

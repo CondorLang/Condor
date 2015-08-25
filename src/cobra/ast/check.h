@@ -39,6 +39,7 @@ namespace internal{
 		void ValidateIdent(ASTIdent* ident);
 		void ValidateFuncCall(ASTFuncCallExpr* call);
 		void ValidateCast(ASTCastExpr* cast);
+		bool ValidateObjectChainMember(ASTObjectMemberChainExpr* member);
 		ASTNode* GetObjectInScope(ASTIdent* ident, Scope* sc);
 		ASTNode* GetObjectInScopeByString(std::string name, Scope* sc);
 		void SetScope();

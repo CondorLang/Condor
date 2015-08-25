@@ -7,6 +7,7 @@
 #include <string>
 #include "cobra/globals.h"
 #include "cobra/token/token.h"
+#include "cobra/flags.h"
 
 namespace Cobra {
 namespace internal{
@@ -29,12 +30,20 @@ namespace internal{
 		}
 		int Size(){return size;}
 		HeapObject* Insert(HeapObject val){
+			bool heapInsertFlag = HEAP_INSERT;
+			if (heapInsertFlag) printf("\tInserting: %d\t", size + 1);
 			items[size] = val;
 			return &items[size++];
 		}
 		bool Delete(int idx){
 			HeapObject obj = items[idx];
 			if (obj.address != NULL){
+				bool heapInsertFlag = HEAP_DELETE;
+				if (heapInsertFlag){
+					Token* tok = new Token(obj.type);
+					printf("\tdeleting:  %d\t\t%s\n", size, tok->String().c_str());
+					delete tok;
+				}
 				delete obj.address;
 			}
 
@@ -56,15 +65,22 @@ namespace internal{
 			heaps.erase(heaps.begin(), heaps.end());
 		}
 		HeapObject* Insert(HeapObject val){
+			bool heapInsertFlag = HEAP_INSERT;
 			if (heaps.empty()){
 				Heap newHeap;
 				heaps.push_back(newHeap);
+				if (heapInsertFlag){
+					printf("Heap #%lu", heaps.size());
+				}
 			}
 			else{
 				Heap* heap = &heaps.back();
 				if (heap == NULL || heap->Size() > MAX_HEAP_SIZE){
 					Heap newHeap;
 					heaps.push_back(newHeap);
+					if (heapInsertFlag){
+						printf("Heap #%lu", heaps.size());
+					}
 				}
 			}
 			return heaps[heaps.size() - 1].Insert(val);

@@ -52,6 +52,8 @@ namespace internal{
 		CHECK,
 		VARLIST,
 		UNDEFINED,
+		API_STRING,
+		API_SCRIPT,
 
 		// Literals
 		LITERAL_BEGIN,

@@ -53,6 +53,8 @@ namespace internal{
 			case CHECK: return "kCheck";
 			case VARLIST: return "kVarList";
 			case UNDEFINED: return "undefined";
+			case API_STRING: return "kApiString";
+			case API_SCRIPT: return "kApiScript";
 
 			case INT: return "int";
 			case kNULL: return "null";

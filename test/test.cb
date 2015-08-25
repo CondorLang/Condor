@@ -1,26 +1,15 @@
 #mode "strict";
 
-include "test2.cb";
+include "test2.cb" as test;
 
-func add(int a, int b){
-	return a + b;
+func multipleParans(){
+	return (((((((1))) + 1))));
 }
 
-func divide(int a, int b){
-	float {
-		c = a / b;
-	};
-
-	return c;
-}
-
-func floor(float a, int dec){
-	if (dec){
-		//return ((int)(a * 100)) / 100;
-	}
-	return (int) a;
+func toInt(int a){
+	return ((int) a + multipleParans());
 }
 
 func main(string args[], int argc){
-	return add(1, 2);
+	return test.add(toInt(1), 2);
 }

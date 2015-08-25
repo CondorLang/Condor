@@ -12,6 +12,7 @@
 #include <fstream>
 #include <streambuf>
 #include <stdlib.h>
+#include "cobra/clock.h"
 
 namespace Cobra {
 namespace internal{
@@ -23,6 +24,10 @@ namespace internal{
 	class Script
 	{
 	private:
+
+		//flags
+		bool parsingTime;
+
 		Handle* source;
 		Parser* parser;
 		Check* check;
@@ -30,7 +35,7 @@ namespace internal{
 		std::vector<const char*> msgs;
 		const char* basePath;
 		std::map<std::size_t, ASTFile*> includes;
-		void SetIncludes(std::vector<ASTInclude*> includes);
+		void SetIncludes();
 		std::string absolutePath;
 		Isolate* isolate;
 		bool compiled;
@@ -49,6 +54,7 @@ namespace internal{
 		const char* GetAbsolutePath(){return absolutePath.c_str();}
 		std::string GetFileName();
 		void Run();
+		ASTNode* GetExportedObject(std::string name);
 	};
 
 } // namespace internal

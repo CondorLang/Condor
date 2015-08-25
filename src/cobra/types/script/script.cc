@@ -2,6 +2,7 @@
 #include <stdio.h> // printf doesn't work without this
 #include "cobra/mem/isolate.h"
 #include "../include/Cobra.h"
+#include "cobra/flags.h"
 
 namespace Cobra {
 namespace internal{
@@ -13,6 +14,7 @@ namespace internal{
 		hasErr = false;
 		this->isolate = isolate;
 		compiled = false;
+		parsingTime = PARSING_TIME;
 	}
 
 	// TODO:
@@ -31,11 +33,23 @@ namespace internal{
 		check->SetIsolate(source->isolate);
 		std::map<std::string, int> includes;
 		ASTFile* main = NULL;
+		Clock* clock = NULL;
 
 		try {
+			if (parsingTime) {
+				clock = new Clock;
+				clock->Start();
+			}
+
 			main = parser->Parse();
+
+			if (parsingTime) {
+				clock->Stop();
+				printf("Parsing:  %f sec | %s\n", clock->GetDuration(), parser->filePath->c_str());
+			}
+
 			isolate->GetContext()->AddToInProgress(absolutePath);
-			SetIncludes(parser->includes);
+			SetIncludes();
 		}
 		catch (Error::ERROR e){
 			std::string msg = Error::String(e, parser->expected);
@@ -47,7 +61,17 @@ namespace internal{
 		}
 
 		try {
+			if (parsingTime) {
+				clock->Reset();
+				clock->Start();
+			}
 			check->CheckFile(main);
+			if (parsingTime) {
+				clock->Stop();
+				printf("Checking: %f sec | %s\n", clock->GetDuration(), parser->filePath->c_str());
+				delete clock;
+			}
+
 			compiled = true;
 		}
 		catch (Error::ERROR e){	
@@ -64,11 +88,12 @@ namespace internal{
 		}
 	}
 
-	void Script::SetIncludes(std::vector<ASTInclude*> includes){
-		for (int i = 0; i < includes.size(); i++){
-			ASTInclude* include = includes[i];
+	void Script::SetIncludes(){
+		for (int i = 0; i < parser->includes.size(); i++){
+			ASTInclude* include = parser->includes[i];
 			std::string name = include->name;
 			std::string importPath = GetPathOfImport(name);
+			include->name = importPath;
 			if (!isolate->GetContext()->IsIncluded(isolate, importPath.c_str())){
 				Cobra::Isolate* iso = CAST(Cobra::Isolate*, isolate);
 				Cobra::Handle* includeStr = Cobra::String::NewFromFile(iso, importPath.c_str());
@@ -146,6 +171,15 @@ namespace internal{
 	std::string Script::StayInFolder(std::string path){
 		std::size_t found = path.find_last_of("/\\");
 		return path.substr(0, found + 1);
+	}
+
+	ASTNode* Script::GetExportedObject(std::string name){
+		for (int i = 0; i < parser->exports.size(); i++){
+			if (parser->exports[i]->name == name){
+				return parser->exports[i];
+			}
+		}
+		return NULL;
 	}
 
 	void Script::Run(){

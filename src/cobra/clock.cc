@@ -8,10 +8,11 @@ namespace internal{
 	}
 
 	void Clock::Stop(){
-		duration = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;
+		duration = (double)(std::clock() - start) / CLOCKS_PER_SEC;
 	}
 	void Clock::Reset(){
 		start = NULL;
+		duration = 0;
 	}
 
 } // namespace internal

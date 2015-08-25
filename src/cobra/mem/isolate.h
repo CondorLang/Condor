@@ -10,6 +10,7 @@
 #include "cobra/assert.h"
 #include "cobra/globals.h"
 #include "cobra/ast/context.h"
+#include "cobra/flags.h"
 
 namespace Cobra {
 namespace internal{

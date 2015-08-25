@@ -5,8 +5,8 @@
 #include "cobra/token/token.h"
 #include "cobra/scanner/scanner.h"
 #include "cobra/ast/scope.h"
-#include "cobra/ast/ast.h"
 #include "cobra/error/error.h"
+#include "cobra/ast/ast.h"
 
 namespace Cobra {
 namespace internal{
@@ -45,6 +45,7 @@ namespace internal{
 		std::vector<ASTInclude*> includes;
 		std::vector<ASTNode*> exports;
 		void SetIsolate(Isolate* iso){isolate = iso;}
+		std::string* filePath;
 
 	private:
 		Scanner* scanner;
@@ -53,13 +54,11 @@ namespace internal{
 		Scope* currentFunctionScope;
 		Isolate* isolate;
 		std::string* source;
-		std::string* filePath;
 
 		// Parser options
 		bool trace;
 		bool printVariables;
 		bool printCheck;
-		bool parsingTime;
 
 		void Trace(const char* name, const char* value);
 		void PrintTok();

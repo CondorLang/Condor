@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <string>
+#include <cstdlib>
 
 namespace Cobra {
 namespace internal{
@@ -11,6 +12,8 @@ namespace internal{
 	#define TRACE_CHECK Flags::traceCheck
 	#define PRINT_VARIABLES Flags::printVariables;
 	#define PARSING_TIME Flags::parsingTime;
+	#define HEAP_INSERT Flags::heapInsert;
+	#define HEAP_DELETE Flags::heapDelete;
 
 	class Flags
 	 {
@@ -19,6 +22,8 @@ namespace internal{
 	 		static bool traceCheck;
 	 		static bool printVariables;
 	 		static bool parsingTime;
+	 		static bool heapInsert;
+	 		static bool heapDelete;
 	 		static void SetCommandLineFlags(int argc, const char* argv[]);
 	 }; 
 

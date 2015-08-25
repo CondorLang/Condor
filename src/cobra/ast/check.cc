@@ -165,10 +165,41 @@ namespace internal{
 				ValidateCast((ASTCastExpr*) expr);
 				break;
 			}
+			case OBJECT_MEMBER_CHAIN: {
+				if (!ValidateObjectChainMember((ASTObjectMemberChainExpr*) expr)){
+					throw Error::UNIDENTIFIED_OBJECT_MEMBER;
+				}
+				break;
+			}
 			default: {
 				Trace("Didn't process, but found", GetTokenString(expr->type));
 			}
 		}
+	}
+
+	/**
+	 * TODO: 
+	 * 		FuncCall and func should have the same type
+	 */
+	bool Check::ValidateObjectChainMember(ASTObjectMemberChainExpr* member){
+		std::map<std::string, ASTInclude*>::const_iterator it = file->includes.find(member->object->name);
+		if (it != file->includes.end()){
+			Script* script = isolate->GetContext()->GetScriptByString(isolate, it->second->name);
+			ASTNode* exported = script->GetExportedObject(member->member->name);
+			if (member->member->type == FUNC_CALL && exported->type == FUNC){
+				ASTFuncCallExpr* funcCall = (ASTFuncCallExpr*) member->member;
+				ASTFunc* func = (ASTFunc*) exported;
+
+				if (funcCall->params.size() != func->args.size()){
+					throw Error::INVALID_FUNC_CALL;
+				}
+				return true;
+			}
+			else if (member->member->type == IDENT && exported->type == IDENT){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	void Check::ValidateCast(ASTCastExpr* cast){
