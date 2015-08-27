@@ -12,6 +12,7 @@ namespace Cobra {
 namespace internal{
 
 	class Isolate;
+	class Scanner;
 
 	enum P_ERROR {
 		INVALID_MODE = 0
@@ -71,6 +72,7 @@ namespace internal{
 		bool IsVarType();
 		bool IsBoolean();
 		VISIBILITY GetVisibility();
+		void AddRowCol(ASTNode* node);
 		void ParseMode();
 		void ParseImportOrInclude();
 		ASTNode* ParseNodes();

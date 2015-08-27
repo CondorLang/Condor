@@ -1,7 +1,0 @@
-#mode "strict";
-
-include "test4.cb";
-
-func add(int a, int b){
-	return a + b;
-}

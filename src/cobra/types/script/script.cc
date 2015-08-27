@@ -53,7 +53,7 @@ namespace internal{
 		}
 		catch (Error::ERROR e){
 			std::string msg = Error::String(e, parser->expected);
-			msg = std::to_string(parser->row) + ":" + std::to_string(parser->col) + " - " + msg;
+			msg = std::to_string(parser->row) + ":" + std::to_string(parser->col) + " - " + msg + " - \n\t" + absolutePath.c_str();
 			msgs.push_back(msg.c_str());
 			printf("%s\n", msg.c_str());
 			hasErr = true;
@@ -76,7 +76,7 @@ namespace internal{
 		}
 		catch (Error::ERROR e){	
 			std::string msg = Error::String(e, NULL);
-			printf("%d:%d - %s\n", check->row, check->col, msg.c_str());
+			printf("%d:%d - %s - \n\t%s\n", check->row, check->col, msg.c_str(), absolutePath.c_str());
 		}
 
 		if (compiled){

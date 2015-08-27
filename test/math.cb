@@ -1,0 +1,9 @@
+#mode "strict";
+
+export object Math{
+	double pi = 3.1415926535897932;
+
+	func floor(double val){
+		return (int) val;
+	}
+}

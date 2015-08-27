@@ -29,9 +29,9 @@ test:
 	g++ $(FLAGS) -I ./ test/main.cc -Iinclude build/libcobra.a -o build/Cobra
 	./build/Cobra ${ARGS}
 
-tests:	
-	g++ $(FLAGS) -I ./ test/main.cc -Iinclude build/libcobra.a -o build/Cobra
-	./build/Cobra -tests
+shell:
+	g++ $(FLAGS) -I ./ test/shell.cc -Iinclude build/libcobra.a -o build/Cobra
+	./build/Cobra ${ARGS}
 
 mem:
 	valgrind --tool=memcheck --leak-check=full --track-origins=yes ./build/Cobra

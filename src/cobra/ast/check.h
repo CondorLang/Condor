@@ -25,6 +25,7 @@ namespace internal{
 		void OpenBaseScope();
 		void OpenScope(Scope* scope);
 		void CloseScope();
+		void SetRowCol(ASTNode* node);
 		void CountItemsInScope();
 		void ValidateFunc(ASTFunc* func);
 		void ValidateFuncArgs(ASTFunc* func);
@@ -40,6 +41,7 @@ namespace internal{
 		void ValidateFuncCall(ASTFuncCallExpr* call);
 		void ValidateCast(ASTCastExpr* cast);
 		bool ValidateObjectChainMember(ASTObjectMemberChainExpr* member);
+		bool ValidateMemberFuncCall(ASTFunc* func, ASTFuncCallExpr* call);
 		ASTNode* GetObjectInScope(ASTIdent* ident, Scope* sc);
 		ASTNode* GetObjectInScopeByString(std::string name, Scope* sc);
 		void SetScope();

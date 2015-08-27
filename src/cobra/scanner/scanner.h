@@ -9,6 +9,8 @@
 namespace Cobra {
 namespace internal{
 
+	class Isolate;
+
 	/**
 	 * @brief Tokenize the program text
 	 * @details Converts each character to a token based
@@ -18,11 +20,12 @@ namespace internal{
 	 */
 	class Scanner {
 	public:
-		Scanner(std::string* source);
+		Scanner(Isolate* iso, std::string* source);
 		~Scanner(){}
 		std::string* src;
 		std::vector<std::string> errors;
 		std::string result;
+		Isolate* isolate;
 		char ch;
 		int offset;
 		int readOffset;

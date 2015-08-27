@@ -54,6 +54,7 @@ namespace internal{
 		UNDEFINED,
 		API_STRING,
 		API_SCRIPT,
+		INTERNAL_TOKEN,
 
 		// Literals
 		LITERAL_BEGIN,

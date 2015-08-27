@@ -34,6 +34,13 @@ namespace internal{
 		return result;
 	}
 
+	void Check::SetRowCol(ASTNode* node){
+		if (node != NULL){
+			row = node->row;
+			col = node->col;
+		}
+	}
+
 	void Check::Trace(std::string msg1, std::string msg2){
 		std::string ident = "";
 		for (int i = 0; i < printIndent; i++){
@@ -50,6 +57,7 @@ namespace internal{
 			return NULL;
 		}
 		ASTNode* node = sc->Lookup(name);
+		SetRowCol(node);
 		if (node == NULL){
 			node = GetObjectInScopeByString(name, sc->outer);
 		}
@@ -57,10 +65,12 @@ namespace internal{
 	}
 
 	ASTNode* Check::GetObjectInScope(ASTIdent* ident, Scope* sc){
+		SetRowCol(ident);
 		if (sc == NULL || ident == NULL){
 			return NULL;
 		}
 		ASTNode* node = sc->Lookup(ident->name);
+		SetRowCol(node);
 		if (node == NULL && sc->outer != NULL){
 			node = GetObjectInScope(ident, sc->outer);
 		}
@@ -68,8 +78,10 @@ namespace internal{
 	}
 
 	void Check::ValidateFuncCall(ASTFuncCallExpr* call){
+		SetRowCol(call);
 		if (trace) Trace("Calling func", call->name);
 		ASTFunc* func = (ASTFunc*) GetObjectInScopeByString(call->name, scope);
+		SetRowCol(func);
 		if (func == NULL) throw Error::UNDEFINED_FUNC;
 		call->func = func;
 		printIndent++;
@@ -80,7 +92,9 @@ namespace internal{
 	}
 
 	void Check::ValidateIdent(ASTIdent* ident){
+		SetRowCol(ident);
 		ASTNode* ptr = GetObjectInScope(ident, scope);
+		SetRowCol(ptr);
 		if (ptr == NULL) throw Error::UNDEFINED_VARIABLE;
 		else{
 			ident->value = ptr;
@@ -107,6 +121,7 @@ namespace internal{
 	}
 
 	void Check::ValidateBinaryStmt(ASTBinaryExpr* binary){
+		SetRowCol(binary);
 		if (binary == NULL){
 			if (trace) Trace("Binary", "is NULL");
 		}
@@ -121,10 +136,12 @@ namespace internal{
 	}
 
 	void Check::ValidateLiterary(ASTLiterary* lit){
+		SetRowCol(lit);
 		if (trace) Trace("Lit value", lit->value);
 	}
 
 	void Check::ValidateUnaryStmt(ASTUnaryExpr* unary){
+		SetRowCol(unary);
 		if (unary == NULL){
 			if (trace) Trace("Unary", "is NULL");
 		}
@@ -138,6 +155,7 @@ namespace internal{
 	}
 
 	void Check::ValidateStmt(ASTExpr* expr){
+		SetRowCol(expr);
 		if (expr == NULL) return;
 		int type = (int) expr->type;
 		switch (type){
@@ -179,17 +197,31 @@ namespace internal{
 
 	/**
 	 * TODO: 
-	 * 		FuncCall and func should have the same type
+	 * 		- FuncCall and func parameters should have the same type
 	 */
 	bool Check::ValidateObjectChainMember(ASTObjectMemberChainExpr* member){
+		SetRowCol(member);
 		std::map<std::string, ASTInclude*>::const_iterator it = file->includes.find(member->object->name);
-		if (it != file->includes.end()){
+		if (it != file->includes.end()){ // alias is faster
 			Script* script = isolate->GetContext()->GetScriptByString(isolate, it->second->name);
 			ASTNode* exported = script->GetExportedObject(member->member->name);
+			SetRowCol(exported);
+			if (exported == NULL){
+				exported = script->GetExportedObject(member->object->name);
+				if (exported->type != OBJECT) throw Error::UNDEFINED_OBJECT;
+				
+				ASTObject* obj = (ASTObject*) exported;
+				SetRowCol(obj);
+				std::map<std::string, ASTNode*>::const_iterator it = obj->members.find(member->member->name);
+				if (it != obj->members.end()){
+					if (it->second->visibility != vPRIVATE) return true;
+				}
+			}
+			if (exported->visibility == vPRIVATE) return false;
 			if (member->member->type == FUNC_CALL && exported->type == FUNC){
 				ASTFuncCallExpr* funcCall = (ASTFuncCallExpr*) member->member;
+				SetRowCol(funcCall);
 				ASTFunc* func = (ASTFunc*) exported;
-
 				if (funcCall->params.size() != func->args.size()){
 					throw Error::INVALID_FUNC_CALL;
 				}
@@ -199,27 +231,61 @@ namespace internal{
 				return true;
 			}
 		}
-		return false;
+		else{ // non alias
+			for (int i = 0; i < file->includesList.size(); i++){
+				ASTInclude* include = file->includesList[i];
+				Script* script = isolate->GetContext()->GetScriptByString(isolate, include->name);
+				ASTNode* exported = script->GetExportedObject(member->member->name);
+				SetRowCol(exported);
+				if (exported != NULL && exported->visibility != vPRIVATE) return true;
+				exported = script->GetExportedObject(member->object->name);
+				SetRowCol(exported);
+				if (exported == NULL || exported->type != OBJECT) throw Error::UNDEFINED_OBJECT;
+				ASTObject* obj = (ASTObject*) exported;
+				SetRowCol(obj);
+				std::map<std::string, ASTNode*>::const_iterator it = obj->members.find(member->member->name);
+				if (it != obj->members.end()){
+					if (it->second->visibility == vPRIVATE) throw Error::UNABLE_TO_ACCESS_PRIVATE_MEMBER;
+					if (it->second->type == FUNC) return ValidateMemberFuncCall((ASTFunc*) it->second, (ASTFuncCallExpr*) member->member);
+					else if (it->second->type == IDENT || it->second->type == VAR) return true;
+					else return false;
+				}
+			}
+		}
+		throw Error::UNDEFINED_OBJECT;
+	}
+
+	bool Check::ValidateMemberFuncCall(ASTFunc* func, ASTFuncCallExpr* call){
+		SetRowCol(call);
+		if (call->params.size() != func->ordered.size()) return false;
+		for (int i = 0; i < call->params.size(); i++){
+			ValidateStmt(call->params[i]);
+		}
+		return true;
 	}
 
 	void Check::ValidateCast(ASTCastExpr* cast){
+		SetRowCol(cast);
 		ASTExpr* to = cast->to;
 		if (to == NULL || to->type != LITERARY){
 			throw Error::UNKNOWN_CAST_TYPE;
 		}
 		else{
 			ASTLiterary* lit = (ASTLiterary*) to;
+			SetRowCol(lit);
 			cast->castType = lit->kind;
 		}
 		ValidateStmt(cast->value);
 	}
 	
 	void Check::ValidateVar(ASTNode* node){
+		SetRowCol(node);
 		if (node->type == VAR){
 			ASTVar* var = (ASTVar*) node;
 			if (var->varClass != NULL && trace) Trace("\nVar type", var->varClass->name);
 			else if (trace) Trace("\nValidating " + GetTokenString(var->type), node->name);
 			ASTNode* stmt = var->stmt;
+			SetRowCol(stmt);
 			ValidateStmt((ASTExpr*) stmt);
 		}
 	}
@@ -227,6 +293,7 @@ namespace internal{
 	void Check::ValidateFor(ASTNode* node){
 		if (trace) Trace("Validating", "For loop");
 		ASTFor* forStmt = (ASTFor*) node;
+		SetRowCol(forStmt);
 		OpenScope(forStmt->block->scope);
 		ValidateVar(forStmt->var);
 		scope->Insert(forStmt->var);
@@ -237,6 +304,7 @@ namespace internal{
 	}
 
 	void Check::CheckScopeLevelNode(ASTNode* node){
+		SetRowCol(node);
 		if (node->scan){
 			int type = (int) node->type;
 			switch (type){
@@ -273,9 +341,11 @@ namespace internal{
 	}
 
 	void Check::ValidateFuncArgs(ASTFunc* func){
+		SetRowCol(func);
 		if (func->ordered.size() > 0){
 			for (int i = 0; i < func->ordered.size(); i++){
 				ASTNode* node = func->ordered[i];
+				SetRowCol(node);
 				if (node->name.length() < 1) throw Error::EXPECTED_ARG_NAME;
 				if (trace) Trace("arg[" + std::to_string(i) + "]", node->name);
 				node->scan = false;
@@ -285,6 +355,7 @@ namespace internal{
 	}
 
 	void Check::ValidateFunc(ASTFunc* func){
+		SetRowCol(func);
 		if (func == NULL) return;
 		if (trace) Trace("\nValidating func", func->name + "\n------------------------------");
 		if (trace) Trace(func->name + "() total args: ", std::to_string(func->ordered.size()));

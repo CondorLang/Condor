@@ -228,7 +228,7 @@ namespace internal{
 	class ASTObject : public ASTNode
 	{
 	public:
-		ASTObject(){}
+		ASTObject(){type = OBJECT;}
 		~ASTObject(){}
 		std::map<std::string, ASTNode*> members;
 	};
@@ -297,6 +297,7 @@ namespace internal{
 		~ASTFile(){}
 		Scope* scope; 
 		std::map<std::string, ASTInclude*> includes;
+		std::vector<ASTInclude*> includesList;
 	};
 } // namespace internal
 }

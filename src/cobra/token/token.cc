@@ -55,6 +55,7 @@ namespace internal{
 			case UNDEFINED: return "undefined";
 			case API_STRING: return "kApiString";
 			case API_SCRIPT: return "kApiScript";
+			case INTERNAL_TOKEN: return "kInternalToken";
 
 			case INT: return "int";
 			case kNULL: return "null";

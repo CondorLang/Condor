@@ -1,15 +1,7 @@
 #mode "strict";
 
-include "test2.cb" as test;
-
-func multipleParans(){
-	return (((((((1))) + 1))));
-}
-
-func toInt(int a){
-	return ((int) a + multipleParans());
-}
+include "math.cb";
 
 func main(string args[], int argc){
-	return test.add(toInt(1), 2);
+	return Math.floor(Math.pi);
 }

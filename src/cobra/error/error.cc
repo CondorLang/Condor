@@ -33,10 +33,12 @@ namespace Error {
 			case CANNOT_SUBTRACT: return "Cannot subtract type";
 			case CANNOT_MINUS_UNLIKE_VALUES: return "Cannot minus unlike values";
 			case CANNOT_ADD_UNLIKE_VALUES: return "Cannot add unlike values";
-			case PARSE_VAR_ERR: return "Parser var error";
+			case PARSE_VAR_ERR: return "Parse var error";
 			case UNKNOWN_CAST_TYPE: return "Unknown cast type";
 			case UNIDENTIFIED_OBJECT_MEMBER: return "Unidentfied object member";
 			case INVALID_FUNC_CALL: return "Invalid function call";
+			case UNDEFINED_OBJECT: return "Undefined object";
+			case UNABLE_TO_ACCESS_PRIVATE_MEMBER: return "Unable to access private member";
 			case SCANNER: {
 				if (tok != NULL){
 					return tok->raw;
