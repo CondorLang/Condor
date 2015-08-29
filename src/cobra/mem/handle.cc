@@ -11,5 +11,9 @@ namespace internal{
 		return CAST(Script*, obj->address);
 	}
 
+	bool Handle::IsAddressValid(Isolate* iso, Address addr){
+		return iso->IsAddressValid(addr);
+	}
+
 } // namespace internal
 } // namespace Cobra

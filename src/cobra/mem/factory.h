@@ -3,6 +3,8 @@
 
 #include "cobra/types/strings/string.h"
 #include "cobra/types/script/script.h"
+#include "cobra/ast/ast.h"
+#include "cobra/token/token.h"
 
 namespace Cobra {
 namespace internal{

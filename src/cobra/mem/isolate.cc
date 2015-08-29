@@ -1,7 +1,5 @@
 #include "isolate.h"
 
-#include "cobra/mem/factory.h"
-
 namespace Cobra {
 namespace internal{
 
@@ -48,6 +46,10 @@ namespace internal{
 
 	void Isolate::SetContext(Context* context){
 		this->context = context;
+	}
+
+	bool Isolate::IsAddressValid(Address addr){
+		return heapstore->IsValidAddress(addr);
 	}
 
 } // namespace internal

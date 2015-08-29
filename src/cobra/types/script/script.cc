@@ -3,6 +3,7 @@
 #include "cobra/mem/isolate.h"
 #include "../include/Cobra.h"
 #include "cobra/flags.h"
+#include "cobra/error/error.h"
 
 namespace Cobra {
 namespace internal{
@@ -49,14 +50,20 @@ namespace internal{
 			}
 
 			isolate->GetContext()->AddToInProgress(absolutePath);
-			SetIncludes();
 		}
 		catch (Error::ERROR e){
 			std::string msg = Error::String(e, parser->expected);
-			msg = std::to_string(parser->row) + ":" + std::to_string(parser->col) + " - " + msg + " - \n\t" + absolutePath.c_str();
+			msg = std::to_string(parser->Row) + ":" + std::to_string(parser->Col) + " - " + msg + " - \n\t" + absolutePath.c_str() + "\n\n" + GetSourceRow(parser->Row, parser->Col);
 			msgs.push_back(msg.c_str());
 			printf("%s\n", msg.c_str());
 			hasErr = true;
+			return;
+		}
+
+		try {
+			SetIncludes();
+		}
+		catch (Error::ERROR e){
 			return;
 		}
 
@@ -76,7 +83,7 @@ namespace internal{
 		}
 		catch (Error::ERROR e){	
 			std::string msg = Error::String(e, NULL);
-			printf("%d:%d - %s - \n\t%s\n", check->row, check->col, msg.c_str(), absolutePath.c_str());
+			printf("%d:%d - %s - \n\t%s\nCode:\n\n%s\n", check->row, check->col, msg.c_str(), absolutePath.c_str(), GetSourceRow(check->row, check->col).c_str());
 		}
 
 		if (compiled){
@@ -98,6 +105,7 @@ namespace internal{
 				Cobra::Isolate* iso = CAST(Cobra::Isolate*, isolate);
 				Cobra::Handle* includeStr = Cobra::String::NewFromFile(iso, importPath.c_str());
 				Cobra::Handle* scr = Cobra::Script::Compile(iso, includeStr);
+				if (scr->IsCompiled()){throw Error::COMPILATION_ERROR;}
 			}		
 		}
 	}
@@ -180,6 +188,56 @@ namespace internal{
 			}
 		}
 		return NULL;
+	}
+
+	std::string Script::GetSourceRow(int row, int col){
+		std::string sourceCode = "";
+		String* string = source->ToString();
+		sourceCode += string->GetValue();
+		std::string result = "";
+		std::string u = UNDERLINE_START;
+		std::string u2 = UNDERLINE_STOP;
+		int r = 0;
+		int c = 0;
+		bool carot = false;
+		for (int i = 0; i < sourceCode.length(); i++){
+			if (sourceCode[i] == '\t'){
+				sourceCode[i] = ' ';
+			}
+			if (r == row - 1){
+				result += sourceCode[i];
+			}
+			else if (r == row){
+				if (!carot){
+					for (int j = 0; j < col + 1; j++){
+						if (j == col){
+							result += "^\n";
+						}
+						else{
+							result += " ";
+						}
+					}
+					carot = true;
+				}
+				result += sourceCode[i];
+			}
+			else if (r > row) break;
+			if (sourceCode[i] == '\n'){
+				r++;
+				c = 0;
+			}
+			c++;
+		}
+		return result;
+	}
+
+	int Script::CharsToNewLine(std::string code, int start){
+		int count = 0;
+		for (int i = start; i < code.length(); i++){
+			if (code[i] == '\n') break;
+			count++;
+		}	
+		return count;
 	}
 
 	void Script::Run(){

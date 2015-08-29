@@ -1,5 +1,4 @@
 #include "parser.h"
-#include "cobra/mem/isolate.h"
 #include "cobra/flags.h"
 
 namespace Cobra{
@@ -17,6 +16,12 @@ namespace internal{
 		tok = NULL;
 		isolate = NULL;
 		filePath = path;
+		Pos = -1;
+		Col = -1;
+		Row = -1;
+		col = -1;
+		row = -1;
+		pos = -1;
 	}
 
 	Parser::~Parser(){
@@ -75,6 +80,9 @@ namespace internal{
 
 	void Parser::Next(){
 		try {
+			Row = row;
+			Col = col;
+			Pos = pos;
 			tok = scanner->NextToken();
 			row = scanner->row;
 			col = scanner->col;
@@ -125,11 +133,14 @@ namespace internal{
 	ASTFor* Parser::ParseFor(){
 		if (trace) Trace("Parsing", "For");
 		Expect(FOR);
+		int r = row;
+		int c = col;
 		Next();
 		Expect(LPAREN);
 		Next();
 		ASTFor* forStmt = isolate->InsertToHeap(new ASTFor, ASTFOR);
-		AddRowCol(forStmt);
+		forStmt->row = r;
+		forStmt->col = c;
 		forStmt->var = ParseVar();
 		forStmt->conditions = ParseUnaryExpr();
 		Expect(SEMICOLON);
@@ -144,9 +155,12 @@ namespace internal{
 	ASTWhile* Parser::ParseWhile(){
 		if (trace) Trace("Parsing", "While Statement");
 		Expect(WHILE);
+		int r = row;
+		int c = col;
 		Next();
 		ASTWhile* whileStmt = isolate->InsertToHeap(new ASTWhile, ASTWHILE);
-		AddRowCol(whileStmt);
+		whileStmt->row = r;
+		whileStmt->col = c;
 		whileStmt->conditions = ParseUnaryExpr();
 		whileStmt->block = ParseBlock(false);
 		return whileStmt;
@@ -155,9 +169,12 @@ namespace internal{
 	ASTElse* Parser::ParseElse(){
 		if (trace) Trace("Parsing", "Else Statement");
 		Expect(ELSE);
+		int r = row;
+		int c = col;
 		Next();
 		ASTElse* elseStmt = isolate->InsertToHeap(new ASTElse, ASTELSE);
-		AddRowCol(elseStmt);
+		elseStmt->row = r;
+		elseStmt->col = c;
 		if (tok->value == IF){
 			elseStmt->ifStmt = ParseIf();
 			elseStmt->conditions = NULL;
@@ -173,8 +190,12 @@ namespace internal{
 	ASTIf* Parser::ParseIf(){
 		if (trace) Trace("Parsing", "If Statement");
 		Expect(IF);
+		int r = row;
+		int c = col;
 		Next();
 		ASTExpr* expr = ParseUnaryExpr();
+		expr->row = r;
+		expr->col = c;
 		ASTIf* ifStmt = isolate->InsertToHeap(new ASTIf, ASTIF);
 		AddRowCol(ifStmt);
 		ifStmt->conditions = expr;
@@ -219,6 +240,8 @@ namespace internal{
 
 	ASTNode* Parser::ParseObject(){
 		Expect(OBJECT);
+		int r = row;
+		int c = col;
 		Next();
 		TOKEN varType;
 		if (mode == STRICT && IsVarType()){
@@ -232,7 +255,8 @@ namespace internal{
 			Trace("Parsing", str.c_str());
 		}
 		ASTObject* obj = isolate->InsertToHeap(new ASTObject, ASTOBJECT);
-		AddRowCol(obj);
+		obj->row = r;
+		obj->col = c;
 		obj->name = tok->raw;
 		Next();
 		Expect(LBRACE);
@@ -264,9 +288,12 @@ namespace internal{
 	ASTExpr* Parser::ParseArray(ASTExpr* expr){
 		if (tok->value == LBRACK && expr->type == IDENT){
 			if (trace) Trace("Parsing", "Array");
+			int r = row;
+			int c = col;
 			Next();
 			ASTArrayMemberExpr* aryMem = isolate->InsertToHeap(new ASTArrayMemberExpr, ASTARRAY_MEMBER_EXPR);
-			AddRowCol(aryMem);
+			aryMem->row = r;
+			aryMem->col = c;
 			aryMem->name = expr->name;
 			aryMem->member = ParseExpr();
 			Expect(RBRACK);
@@ -349,6 +376,7 @@ namespace internal{
 			}
 			case kNULL: case BOOLEAN: case INT: case FLOAT: case DOUBLE: case CHAR: case STRING: {
 				ASTLiterary* lit = isolate->InsertToHeap(new ASTLiterary, ASTLITERARY);
+				AddRowCol(lit);
 				lit->kind = tok->value;
 				if (tok->value == kNULL){
 					lit->value = "null";

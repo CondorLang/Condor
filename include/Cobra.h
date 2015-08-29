@@ -50,6 +50,7 @@ namespace Cobra {
 		bool IsScript();
 		const char* ToString();
 		const char* GetType();
+		bool IsCompiled();
 		void Run();
 	};
 

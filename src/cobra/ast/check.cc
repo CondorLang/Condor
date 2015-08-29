@@ -201,6 +201,21 @@ namespace internal{
 	 */
 	bool Check::ValidateObjectChainMember(ASTObjectMemberChainExpr* member){
 		SetRowCol(member);
+
+		ASTNode* node = GetObjectInScopeByString(member->object->name, scope);
+		if (node != NULL){
+			SetRowCol(node);
+			if (node->type != OBJECT) throw Error::DIFFERENT_TYPE_ALREADY_DEFINED_IN_SCOPE;
+			ASTObject* obj = (ASTObject*) node;
+			std::map<std::string, ASTNode*>::const_iterator it = obj->members.find(member->member->name);
+			if (it != obj->members.end()){
+				SetRowCol(it->second);
+				if (it->second->visibility == vPRIVATE) throw Error::UNABLE_TO_ACCESS_PRIVATE_MEMBER;
+				if (it->second->type == FUNC) return ValidateMemberFuncCall((ASTFunc*) it->second, (ASTFuncCallExpr*) member->member);
+				else if (it->second->type == IDENT || it->second->type == VAR) return true;
+			}
+		}
+
 		std::map<std::string, ASTInclude*>::const_iterator it = file->includes.find(member->object->name);
 		if (it != file->includes.end()){ // alias is faster
 			Script* script = isolate->GetContext()->GetScriptByString(isolate, it->second->name);
@@ -214,7 +229,8 @@ namespace internal{
 				SetRowCol(obj);
 				std::map<std::string, ASTNode*>::const_iterator it = obj->members.find(member->member->name);
 				if (it != obj->members.end()){
-					if (it->second->visibility != vPRIVATE) return true;
+					SetRowCol(it->second);
+					if (it->second->visibility != vPRIVATE || it->second->visibility != vPROTECTED) return true;
 				}
 			}
 			if (exported->visibility == vPRIVATE) return false;
@@ -245,7 +261,7 @@ namespace internal{
 				SetRowCol(obj);
 				std::map<std::string, ASTNode*>::const_iterator it = obj->members.find(member->member->name);
 				if (it != obj->members.end()){
-					if (it->second->visibility == vPRIVATE) throw Error::UNABLE_TO_ACCESS_PRIVATE_MEMBER;
+					if (it->second->visibility == vPRIVATE || it->second->visibility == vPROTECTED) throw Error::UNABLE_TO_ACCESS_PRIVATE_MEMBER;
 					if (it->second->type == FUNC) return ValidateMemberFuncCall((ASTFunc*) it->second, (ASTFuncCallExpr*) member->member);
 					else if (it->second->type == IDENT || it->second->type == VAR) return true;
 					else return false;

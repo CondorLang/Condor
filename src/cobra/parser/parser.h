@@ -7,6 +7,7 @@
 #include "cobra/ast/scope.h"
 #include "cobra/error/error.h"
 #include "cobra/ast/ast.h"
+#include "cobra/mem/isolate.h"
 
 namespace Cobra {
 namespace internal{
@@ -34,10 +35,10 @@ namespace internal{
 	{
 	public:
 		P_MODE mode;
-		int pos;
-		int row;
-		int col;
 		Token* expected;
+		int Pos;
+		int Row;
+		int Col;
 
 		Parser(std::string* src, std::string* path);
 		~Parser();
@@ -51,10 +52,14 @@ namespace internal{
 	private:
 		Scanner* scanner;
 		Token* tok;
+		int pos;
+		int row;
+		int col;
 		Scope* topScope;
 		Scope* currentFunctionScope;
 		Isolate* isolate;
 		std::string* source;
+		void Flush();
 
 		// Parser options
 		bool trace;

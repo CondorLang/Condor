@@ -35,6 +35,12 @@ namespace internal{
 			items[size] = val;
 			return &items[size++];
 		}
+		bool IsValidAddress(Address addr){
+			for (int i = 0; i < size - 1; i++){
+				if (items[i].address == addr){return true;}
+			}
+			return false;
+		}
 		bool Delete(int idx){
 			HeapObject obj = items[idx];
 			if (obj.address != NULL){
@@ -63,6 +69,12 @@ namespace internal{
 		HeapStore(){}
 		~HeapStore(){
 			heaps.erase(heaps.begin(), heaps.end());
+		}
+		bool IsValidAddress(Address addr){
+			for (int i = 0; i < heaps.size(); i++){
+				if (heaps[i].IsValidAddress(addr)){return true;}
+			}
+			return false;
 		}
 		HeapObject* Insert(HeapObject val){
 			bool heapInsertFlag = HEAP_INSERT;

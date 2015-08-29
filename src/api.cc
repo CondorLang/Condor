@@ -275,6 +275,12 @@ namespace Cobra{
 		return CAST(Handle*, scriptHandle);
 	}
 
+	bool Handle::IsCompiled(){
+		i::Handle* handle = CAST(i::Handle*, this);
+		i::Script* script = handle->ToScript();
+		return script->HasError();
+	}
+
 	/**
 	 * @brief Runs the script
 	 * @details This executes the code, compiles and runs all the imports

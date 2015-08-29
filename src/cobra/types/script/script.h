@@ -13,6 +13,7 @@
 #include <streambuf>
 #include <stdlib.h>
 #include "cobra/clock.h"
+#include "cobra/shell.h"
 
 namespace Cobra {
 namespace internal{
@@ -43,6 +44,8 @@ namespace internal{
 		std::string ParseRelativePath(std::string absolute, std::string path);
 		std::string BackFolder(std::string path);
 		std::string StayInFolder(std::string path);		
+		std::string GetSourceRow(int row, int col);
+		int CharsToNewLine(std::string code, int start);
 
 	public:
 		Script(Handle* handle, Isolate* isolate);

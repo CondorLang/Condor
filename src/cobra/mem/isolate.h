@@ -11,6 +11,7 @@
 #include "cobra/globals.h"
 #include "cobra/ast/context.h"
 #include "cobra/flags.h"
+#include "cobra/mem/factory.h"
 
 namespace Cobra {
 namespace internal{
@@ -19,6 +20,7 @@ namespace internal{
 	class HeapStore;
 	struct HeapObject;
 	class Context;
+	template<class T> class iHandle;
 
 	class Isolate
 	{
@@ -45,10 +47,21 @@ namespace internal{
 			return CAST(T*, returnObj->address);
 		}
 
+		template<class T>
+		iHandle<T> NewHandle(T* t, TOKEN type){
+			HeapObject obj;
+			obj.address = CAST(Address, t);
+			obj.type = type;
+			HeapObject* o = Insert(obj);
+			iHandle<T> handle(this, o);
+			return handle;
+		}
+
 		void FlushAST();
 		void FlushAll();
 		void SetContext(Context* context);
 		Context* GetContext(){return context;}
+		bool IsAddressValid(Address addr);
 	};
 
 } // namespace internal

@@ -39,6 +39,8 @@ namespace Error {
 			case INVALID_FUNC_CALL: return "Invalid function call";
 			case UNDEFINED_OBJECT: return "Undefined object";
 			case UNABLE_TO_ACCESS_PRIVATE_MEMBER: return "Unable to access private member";
+			case DIFFERENT_TYPE_ALREADY_DEFINED_IN_SCOPE: return "Different type already defined in scope";
+			case COMPILATION_ERROR: return "Compilation error";
 			case SCANNER: {
 				if (tok != NULL){
 					return tok->raw;
