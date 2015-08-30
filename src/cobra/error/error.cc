@@ -41,6 +41,7 @@ namespace Error {
 			case UNABLE_TO_ACCESS_PRIVATE_MEMBER: return "Unable to access private member";
 			case DIFFERENT_TYPE_ALREADY_DEFINED_IN_SCOPE: return "Different type already defined in scope";
 			case COMPILATION_ERROR: return "Compilation error";
+			case MULTIPLE_DECL_OF_OBJECT: return "Can't have multiple declarations of an object";
 			case SCANNER: {
 				if (tok != NULL){
 					return tok->raw;

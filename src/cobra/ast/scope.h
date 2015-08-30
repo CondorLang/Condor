@@ -14,7 +14,6 @@ namespace internal{
 	class Scope
 	{
 	private:
-		std::map<std::string, ASTNode*> objects;
 		std::vector<ASTNode*> ordered;
 
 		int count;
@@ -24,7 +23,7 @@ namespace internal{
 		Scope* outer;
 
 		Scope* NewScope();
-		ASTNode* Lookup(std::string name);
+		std::vector<ASTNode*> Lookup(std::string name);
 		void Insert(ASTNode* node);
 		void String();
 		ASTNode* Get(int index);

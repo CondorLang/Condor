@@ -56,23 +56,62 @@ namespace internal{
 		if (sc == NULL){
 			return NULL;
 		}
-		ASTNode* node = sc->Lookup(name);
-		SetRowCol(node);
-		if (node == NULL){
+		std::vector<ASTNode*> nodes = sc->Lookup(name);
+		ASTNode* node = NULL;
+		if (nodes.empty()){
 			node = GetObjectInScopeByString(name, sc->outer);
+		}
+		else{
+			node = nodes[0];
 		}
 		return node;
 	}
 
-	ASTNode* Check::GetObjectInScope(ASTIdent* ident, Scope* sc){
+	ASTNode* Check::GetObjectInScope(ASTNode* ident, Scope* sc){
 		SetRowCol(ident);
 		if (sc == NULL || ident == NULL){
 			return NULL;
 		}
-		ASTNode* node = sc->Lookup(ident->name);
-		SetRowCol(node);
-		if (node == NULL && sc->outer != NULL){
+		std::vector<ASTNode*> nodes = sc->Lookup(ident->name);
+		ASTNode* node = NULL;
+		if (nodes.empty() && sc->outer != NULL){
 			node = GetObjectInScope(ident, sc->outer);
+		}
+		else{
+			if (ident->type == FUNC || ident->type == FUNC_CALL){
+				ASTFuncCallExpr* funcCall = (ASTFuncCallExpr*) ident;
+				for (int i = 0; i < nodes.size(); i++){
+					if (nodes[i]->type != FUNC) continue;
+					ASTFunc* func = (ASTFunc*) nodes[i];
+					if (func->ordered.size() != funcCall->params.size()) continue;
+					bool found = true;
+					// for (int j = 0; j < func->ordered.size(); j++){
+					// 	if (func->ordered[i]->type != funcCall->params[i]->type){
+					// 		found = false;
+					// 		break;
+					// 	}
+					// }
+					if (found){
+						node = func;
+						break;
+					}
+				}
+			}
+			else if (ident->type == IDENT){
+				if (nodes.size() > 1){
+					for (int i = 0; i < nodes.size(); i++){
+						if (nodes[i]->type == VAR || nodes[i]->type == ASTPARAM_VAR){
+							return nodes[i];
+						}
+					}
+				}
+				else if (nodes.empty()) throw Error::UNDEFINED_VARIABLE;
+				node = nodes[0];
+				if (node->name == ident->name) return node;
+			}
+			else{
+				throw Error::MULTIPLE_DECL_OF_OBJECT;
+			}
 		}
 		return node;
 	}
@@ -80,7 +119,7 @@ namespace internal{
 	void Check::ValidateFuncCall(ASTFuncCallExpr* call){
 		SetRowCol(call);
 		if (trace) Trace("Calling func", call->name);
-		ASTFunc* func = (ASTFunc*) GetObjectInScopeByString(call->name, scope);
+		ASTFunc* func = (ASTFunc*) GetObjectInScope(call, scope);
 		SetRowCol(func);
 		if (func == NULL) throw Error::UNDEFINED_FUNC;
 		call->func = func;
@@ -128,7 +167,7 @@ namespace internal{
 		else if (binary->op == NULL){
 
 		}
-		else{
+		else{;
 			if (binary->Right != NULL) ValidateStmt(binary->Right);
 			if (trace) Trace("Operator found", binary->op->String());
 			if (binary->Left != NULL) ValidateStmt(binary->Left);
@@ -238,7 +277,7 @@ namespace internal{
 				ASTFuncCallExpr* funcCall = (ASTFuncCallExpr*) member->member;
 				SetRowCol(funcCall);
 				ASTFunc* func = (ASTFunc*) exported;
-				if (funcCall->params.size() != func->args.size()){
+				if (funcCall->params.size() != func->ordered.size()){
 					throw Error::INVALID_FUNC_CALL;
 				}
 				return true;
@@ -319,6 +358,8 @@ namespace internal{
 		CloseScope();
 	}
 
+	// TODO:
+	// 		Do not assum the func returned is in slot 0
 	void Check::CheckScopeLevelNode(ASTNode* node){
 		SetRowCol(node);
 		if (node->scan){
@@ -329,8 +370,9 @@ namespace internal{
 					break;
 				}
 				case FUNC: {
-					ASTNode* expr = scope->Lookup(node->name);
-					ValidateFunc((ASTFunc*) expr);
+					std::vector<ASTNode*> exprs = scope->Lookup(node->name);
+					if (exprs.empty()) throw Error::UNDEFINED_FUNC;
+					ValidateFunc((ASTFunc*) exprs[0]);
 					break;
 				}
 				case FOR: {
@@ -385,7 +427,8 @@ namespace internal{
 	}
 
 	bool Check::HasMain(){
-		bool hasMain = scope->Lookup("main") != NULL;
+		std::vector<ASTNode*> mains = scope->Lookup("main");
+		bool hasMain = mains.size() == 1;
 		if (trace && hasMain) Trace("Base Scope", "Has main");
 		else if (trace) Trace("Base Scope", "Does not have main");
 		return hasMain;

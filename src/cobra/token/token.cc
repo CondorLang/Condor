@@ -56,6 +56,7 @@ namespace internal{
 			case API_STRING: return "kApiString";
 			case API_SCRIPT: return "kApiScript";
 			case INTERNAL_TOKEN: return "kInternalToken";
+			case ASTPARAM_VAR: return "kASTParamVar";
 
 			case INT: return "int";
 			case kNULL: return "null";

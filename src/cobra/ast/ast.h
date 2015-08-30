@@ -129,6 +129,13 @@ namespace internal{
 		TOKEN castType;
 	};
 
+	class ASTParamVar : public ASTVar
+	{
+	public:
+		ASTParamVar(){type = ASTPARAM_VAR;}
+		~ASTParamVar(){}		
+	};
+
 	class ASTVarList : public ASTNode
 	{
 	public:
@@ -200,7 +207,6 @@ namespace internal{
 		ASTFunc(){type = FUNC;body = NULL;}
 		~ASTFunc(){}
 		ASTBlock* body;
-		std::map<std::string, ASTNode*> args;
 		std::vector<ASTNode*> ordered;
 	};
 

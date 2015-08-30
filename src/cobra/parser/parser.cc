@@ -769,7 +769,7 @@ namespace internal{
 				TOKEN rType = tok->value;
 				Next();
 				Expect(IDENT);
-				var = isolate->InsertToHeap(new ASTVar, ASTVAR);
+				var = isolate->InsertToHeap(new ASTParamVar, ASTPARAM_VAR);
 				AddRowCol(var);
 				std::string name = tok->raw;
 				var->varType = rType;
@@ -785,12 +785,10 @@ namespace internal{
 				var->name = name;
 
 				if (tok->value == COMMA) {
-					func->args[name] = var;
 					func->ordered.push_back(var);
 					Next();
 				}
 				else if (tok->value == RPAREN) {
-					func->args[name] = var;
 					func->ordered.push_back(var);
 					break;
 				}
@@ -799,7 +797,7 @@ namespace internal{
 			else{
 				if (tok->value == RPAREN) return;
 				Expect(IDENT);
-				ASTNode* var = isolate->InsertToHeap(new ASTVar, ASTVAR);
+				ASTNode* var = isolate->InsertToHeap(new ASTParamVar, ASTPARAM_VAR);
 				AddRowCol(var);
 				std::string name = tok->raw;
 				Next();
@@ -817,12 +815,10 @@ namespace internal{
 				}
 
 				if (tok->value == COMMA) {
-					func->args[name] = var;
 					func->ordered.push_back(var);
 					Next();
 				}
 				else if (tok->value == RPAREN) {
-					func->args[name] = var;
 					func->ordered.push_back(var);
 					break;
 				}
@@ -851,11 +847,6 @@ namespace internal{
 		if (printVariables) printf("\n%s\n------------\n", func->name.c_str());
 
 		func->body = ParseBlock(true);
-
-		// add the parameters to the first func scope
-		// for (int i = 0; i < func->ordered.size(); i++){
-		// 	func->body->scope->InsertBefore(func->ordered[i]);
-		// }
 
 		return func;
 	}

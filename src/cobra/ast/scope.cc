@@ -19,22 +19,16 @@ namespace internal{
 		return scope;
 	}
 
-	ASTNode* Scope::Lookup(std::string name){
-		if (name.empty()) return NULL;
-		std::map<std::string, ASTNode*>::const_iterator obj = objects.find(name);
-		if (obj == objects.end()){
-			return NULL;
+	std::vector<ASTNode*> Scope::Lookup(std::string name){
+		std::vector<ASTNode*> objs;
+		for (int i = 0; i < ordered.size(); i++){
+			if (ordered[i]->name == name) objs.push_back(ordered[i]);
 		}
-		else{
-			return obj->second;
-		}
+		return objs;
 	}
 
 	void Scope::Insert(ASTNode* node){
 		if (node != NULL){
-			if (node->name.length() > 0 && node->name[0] != '%'){
-				objects[node->name] = node;
-			}
 			ordered.push_back(node);
 			count++;
 		}
@@ -49,16 +43,13 @@ namespace internal{
 	}
 
 	void Scope::String(){
-		for (std::map<std::string, ASTNode*>::iterator it = objects.begin(); it != objects.end(); ++it){
-			printf("Found: %s\n", it->first.c_str());
+		for (int i = 0; i < ordered.size(); i++){
+			printf("Found: %s\n", ordered[i]->name.c_str());
 		}
 	}
 
 	void Scope::InsertBefore(ASTNode* node){
 		if (node != NULL){
-			if (node->name.length() > 0 && node->name[0] != '%'){
-				objects[node->name] = node;
-			}
 			ordered.insert(ordered.begin(), node);
 			count++;
 		}

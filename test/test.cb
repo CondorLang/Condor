@@ -2,7 +2,17 @@
 
 include "math.cb";
 
+func test(int a, int b){
+	return a + b;
+}
+
+func test(int a){
+	return a + 1;
+}
+
 func main(string args[], int argc){
+	int d = test(1 + 1);
+	int b = test(1);
 	return Math.floor(Math.pi);
 	//return Math.floor(Math.pi);
 }

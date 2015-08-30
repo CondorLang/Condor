@@ -55,6 +55,7 @@ namespace internal{
 		API_STRING,
 		API_SCRIPT,
 		INTERNAL_TOKEN,
+		ASTPARAM_VAR,
 
 		// Literals
 		LITERAL_BEGIN,

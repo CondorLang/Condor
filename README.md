@@ -3,5 +3,5 @@ CobraLang
 
 Todo's:
 -------
- - Check 169 - add a validateObjectMemberChain() - Almost completed
+  -- Check.cc 88 - add type check for params and args
  		
