@@ -8,16 +8,13 @@
 #include "cobra/error/error.h"
 #include "cobra/ast/ast.h"
 #include "cobra/mem/isolate.h"
+#include "cobra/mem/handle.h"
 
 namespace Cobra {
 namespace internal{
 
 	class Isolate;
 	class Scanner;
-
-	enum P_ERROR {
-		INVALID_MODE = 0
-	};
 
 	/**
 	 * Parser mode is either lazy or strict
@@ -51,10 +48,12 @@ namespace internal{
 
 	private:
 		Scanner* scanner;
+		//iHandle<Scanner>* scanner;
 		Token* tok;
 		int pos;
 		int row;
 		int col;
+		bool reset;
 		Scope* topScope;
 		Scope* currentFunctionScope;
 		Isolate* isolate;

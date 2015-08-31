@@ -41,7 +41,7 @@ namespace internal{
 		Address Location(){return obj->address;}
 		bool IsNull(){return destroyed;}
 		T* operator->(){
-			return CAST(T*, Location());
+			return CAST(T*, obj->address);
 		}
 	};
 

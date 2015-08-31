@@ -22,6 +22,7 @@ namespace internal{
 		col = -1;
 		row = -1;
 		pos = -1;
+		reset = false;
 	}
 
 	Parser::~Parser(){
@@ -30,11 +31,19 @@ namespace internal{
 
 	ASTFile* Parser::Parse(){
 		scanner = isolate->InsertToHeap(new Scanner(isolate, source), SCANNER);
+		//iHandle<Scanner> scan = isolate->NewHandle(new Scanner(isolate, source), SCANNER);
+		//scan->NextToken();
+		//scanner = &scan;
 		topScope = isolate->InsertToHeap(new Scope, SCOPE);
 		if (trace) Trace("Parsing", "Started");
 		ASTFile* file = isolate->InsertToHeap(new ASTFile, ASTFILE);
 
 		ParseMode(); // parse the file mode
+		if (reset){
+			//scan = isolate->NewHandle(new Scanner(isolate, source), SCANNER);
+			//scanner = &scan;
+			scanner = isolate->InsertToHeap(new Scanner(isolate, source), SCANNER); // reset the scanner.
+		}
 		ParseImportOrInclude();
 
 		ParseStmtList();
@@ -1019,7 +1028,7 @@ namespace internal{
 		}
 		else{ // if there isn't a #mode, default will be lazy
 			mode = LAZY;
-			scanner = isolate->InsertToHeap(new Scanner(isolate, source), SCANNER); // reset the scanner.
+			reset = true;
 		}
 	}
 } // namespace internal

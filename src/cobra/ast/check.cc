@@ -14,10 +14,7 @@ namespace internal{
 		file = NULL;
 	}
 
-	Check::~Check(){
-		//delete file;
-		//delete scope;
-	}
+	Check::~Check(){}
 
 	void Check::CheckFile(ASTFile* f){
 		file = f;
