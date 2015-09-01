@@ -17,14 +17,6 @@ namespace internal{
 	class Scanner;
 
 	/**
-	 * Parser mode is either lazy or strict
-	 */
-	enum P_MODE {
-		STRICT,
-		LAZY
-	};
-
-	/**
 	 * @brief The Parser class
 	 * @details This is where we create the AST
 	 */

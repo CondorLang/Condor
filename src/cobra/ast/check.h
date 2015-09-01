@@ -11,6 +11,7 @@
 
 namespace Cobra {
 namespace internal{
+
 	class Check
 	{
 	private:

@@ -117,8 +117,9 @@ namespace internal{
 		SetRowCol(call);
 		if (trace) Trace("Calling func", call->name);
 		ASTFunc* func = (ASTFunc*) GetObjectInScope(call, scope);
-		SetRowCol(func);
 		if (func == NULL) throw Error::UNDEFINED_FUNC;
+		func->used = true;
+		SetRowCol(func);
 		call->func = func;
 		printIndent++;
 		for (int i = 0; i < call->params.size(); i++){

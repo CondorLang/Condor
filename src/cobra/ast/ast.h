@@ -21,6 +21,14 @@ namespace internal{
 		vCONSTRUCTOR
 	};
 
+	/**
+	 * Parser mode is either lazy or strict
+	 */
+	enum P_MODE {
+		STRICT,
+		LAZY
+	};
+
 	class ASTNode
 	{
 	public:
@@ -205,10 +213,11 @@ namespace internal{
 	class ASTFunc : public ASTNode
 	{
 	public:
-		ASTFunc(){type = FUNC;body = NULL;}
+		ASTFunc(){type = FUNC;body = NULL; used = false;}
 		~ASTFunc(){}
 		ASTBlock* body;
 		std::vector<ASTNode*> args;
+		bool used;
 	};
 
 	class ASTFuncCallExpr : public ASTExpr
