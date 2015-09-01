@@ -38,6 +38,10 @@ namespace internal{
 		iHandle(){valid = false;}
 		iHandle(Isolate* iso, HeapObject* o){isolate = iso; obj = o; destroyed = false;valid = true;}
 		~iHandle(){}
+		iHandle<T> Localize(){
+			iHandle<T> handle(isolate, obj);
+			return handle;
+		}
 		Address Location(){return obj->address;}
 		bool IsNull(){return destroyed;}
 		T* operator->(){

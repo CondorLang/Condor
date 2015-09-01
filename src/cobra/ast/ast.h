@@ -24,7 +24,7 @@ namespace internal{
 	class ASTNode
 	{
 	public:
-		ASTNode(){type = ILLEGAL;visibility = vPUBLIC;scan = true;row = 0; col = 0;}
+		ASTNode(){type = ILLEGAL;visibility = vPUBLIC;scan = true;row = 0; col = 0;used = false;}
 		~ASTNode(){}
 		std::string name;
 		TOKEN type;
@@ -32,6 +32,7 @@ namespace internal{
 		bool scan;
 		int row;
 		int col;
+		bool used;
 	};
 
 	class ASTExpr : public ASTNode
@@ -207,7 +208,7 @@ namespace internal{
 		ASTFunc(){type = FUNC;body = NULL;}
 		~ASTFunc(){}
 		ASTBlock* body;
-		std::vector<ASTNode*> ordered;
+		std::vector<ASTNode*> args;
 	};
 
 	class ASTFuncCallExpr : public ASTExpr

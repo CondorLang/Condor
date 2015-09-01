@@ -47,8 +47,7 @@ namespace internal{
 		std::string* filePath;
 
 	private:
-		Scanner* scanner;
-		//iHandle<Scanner>* scanner;
+		iHandle<Scanner>* scanner;
 		Token* tok;
 		int pos;
 		int row;

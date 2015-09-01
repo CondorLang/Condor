@@ -42,6 +42,34 @@ namespace Error {
 			case DIFFERENT_TYPE_ALREADY_DEFINED_IN_SCOPE: return "Different type already defined in scope";
 			case COMPILATION_ERROR: return "Compilation error";
 			case MULTIPLE_DECL_OF_OBJECT: return "Can't have multiple declarations of an object";
+			case CANNOT_ADD_TO_ARRAY: return "Cannot add to array";
+			case INVALID_ADD_EXPR: return "Invalid add expression";
+			case CANNOT_SUB_CHAR_FROM_TYPE: return "Cannot subtract char from type";
+			case CANNOT_SUB_STRING_FROM_TYPE: return "Cannot subtract string from type";
+			case INVALID_SUB_EXPR: return "Invalid subtraction expression";
+			case CANNOT_SUB_FROM_ARRAY: return "Cannot subtract from array";
+			case CANNOT_DIV_CHAR_FROM_TYPE: return "Cannot divide char from type";
+			case CANNOT_DIV_STRING_FROM_TYPE: return "Cannot divide string from type";
+			case CANNOT_DIV_FROM_ARRAY: return "Cannot divide from array";
+			case CANNOT_MULT_CHAR_FROM_TYPE: return "Cannot multiply char from type";
+			case CANNOT_MULT_STRING_FROM_TYPE: return "Cannot multiply string from type";
+			case CANNOT_MULT_FROM_ARRAY: return "Cannot multiply from array";
+			case CANNOT_MOD_CHAR_FROM_TYPE: return "Cannot mod char from type";
+			case CANNOT_MOD_STRING_FROM_TYPE: return "Cannot mod string from type";
+			case CANNOT_MOD_FROM_ARRAY: return "Cannot mod from array";
+			case CANNOT_DIV_INT_FROM_TYPE: return "Cannot divide int from type";
+			case CANNOT_DIV_DOUBLE_FROM_TYPE: return "Cannot divide double from type";
+			case CANNOT_DIV_FLOAT_FROM_TYPE: return "Cannot divide float from type";
+			case CANNOT_MULT_INT_FROM_TYPE: return "Cannot multiply int from type";
+			case CANNOT_MULT_DOUBLE_FROM_TYPE: return "Cannot multiply double from type";
+			case CANNOT_MULT_FLOAT_FROM_TYPE: return "Cannot multiply float from type";
+			case CANNOT_MOD_INT_FROM_TYPE: return "Cannot mod int from type";
+			case CANNOT_MOD_DOUBLE_FROM_TYPE: return "Cannot mod double from type";
+			case CANNOT_MOD_FLOAT_FROM_TYPE: return "Cannot mod float from type";
+			case INVALID_MOD_EXPR: return "Invalid mod expression";
+			case INVALID_DIV_EXPR: return "Invalid divide expression";
+			case INVALID_MULT_EXPR: return "Invalid multiply expression";
+			case INVALID_ASSIGNMENT_TO_TYPE: return "Invalid assignment to type";
 			case SCANNER: {
 				if (tok != NULL){
 					return tok->raw;

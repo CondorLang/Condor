@@ -72,6 +72,7 @@ namespace internal{
 				clock->Reset();
 				clock->Start();
 			}
+			check->SetMode(parser->mode);
 			check->CheckFile(main);
 			if (parsingTime) {
 				clock->Stop();

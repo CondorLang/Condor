@@ -51,10 +51,12 @@ namespace internal{
 		~Check();
 		int col;
 		int row;
+		P_MODE mode;
 
 		void CheckFile(ASTFile* file);
 		bool HasMain();
 		void SetIsolate(Isolate* iso){isolate = iso;}
+		void SetMode(P_MODE m){mode = m;}
 	};
 } // namespace internal{
 }

@@ -30,19 +30,16 @@ namespace internal{
 	}
 
 	ASTFile* Parser::Parse(){
-		scanner = isolate->InsertToHeap(new Scanner(isolate, source), SCANNER);
-		//iHandle<Scanner> scan = isolate->NewHandle(new Scanner(isolate, source), SCANNER);
-		//scan->NextToken();
-		//scanner = &scan;
+		iHandle<Scanner> scan = isolate->NewHandle(new Scanner(isolate, source), SCANNER);
+		scanner = &scan;
 		topScope = isolate->InsertToHeap(new Scope, SCOPE);
 		if (trace) Trace("Parsing", "Started");
 		ASTFile* file = isolate->InsertToHeap(new ASTFile, ASTFILE);
 
 		ParseMode(); // parse the file mode
 		if (reset){
-			//scan = isolate->NewHandle(new Scanner(isolate, source), SCANNER);
-			//scanner = &scan;
-			scanner = isolate->InsertToHeap(new Scanner(isolate, source), SCANNER); // reset the scanner.
+			scan = isolate->NewHandle(new Scanner(isolate, source), SCANNER);
+			scanner = &scan;
 		}
 		ParseImportOrInclude();
 
@@ -89,13 +86,14 @@ namespace internal{
 
 	void Parser::Next(){
 		try {
+			iHandle<Scanner> scan = scanner->Localize();
 			Row = row;
 			Col = col;
 			Pos = pos;
-			tok = scanner->NextToken();
-			row = scanner->row;
-			col = scanner->col;
-			pos = scanner->offset;
+			tok = scan->NextToken();
+			row = scan->row;
+			col = scan->col;
+			pos = scan->offset;
 		}
 		catch (Error::ERROR e){
 			throw e;
@@ -794,11 +792,11 @@ namespace internal{
 				var->name = name;
 
 				if (tok->value == COMMA) {
-					func->ordered.push_back(var);
+					func->args.push_back(var);
 					Next();
 				}
 				else if (tok->value == RPAREN) {
-					func->ordered.push_back(var);
+					func->args.push_back(var);
 					break;
 				}
 				else Expect(RPAREN);
@@ -824,11 +822,11 @@ namespace internal{
 				}
 
 				if (tok->value == COMMA) {
-					func->ordered.push_back(var);
+					func->args.push_back(var);
 					Next();
 				}
 				else if (tok->value == RPAREN) {
-					func->ordered.push_back(var);
+					func->args.push_back(var);
 					break;
 				}
 				else Expect(RPAREN);

@@ -1,12 +1,12 @@
 #mode "strict";
 
-include "math.cb";
+// include "math.cb";
 
-func test(int a, int b){
-	return a + b;
-}
+// func test(int a, int b){
+// 	return a + b;
+// }
 
 func main(string args[], int argc){
-	int d = test(1, 1);
-	return Math.floor(Math.pi);
+	int a = 10;
+	int b = 10;
 }

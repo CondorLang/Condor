@@ -80,10 +80,10 @@ namespace internal{
 				for (int i = 0; i < nodes.size(); i++){
 					if (nodes[i]->type != FUNC) continue;
 					ASTFunc* func = (ASTFunc*) nodes[i];
-					if (func->ordered.size() != funcCall->params.size()) continue;
+					if (func->args.size() != funcCall->params.size()) continue;
 					bool found = true;
-					// for (int j = 0; j < func->ordered.size(); j++){
-					// 	if (func->ordered[i]->type != funcCall->params[i]->type){
+					// for (int j = 0; j < func->args.size(); j++){
+					// 	if (func->args[i]->type != funcCall->params[i]->type){
 					// 		found = false;
 					// 		break;
 					// 	}
@@ -130,7 +130,11 @@ namespace internal{
 	void Check::ValidateIdent(ASTIdent* ident){
 		SetRowCol(ident);
 		ASTNode* ptr = GetObjectInScope(ident, scope);
-		SetRowCol(ptr);
+		if (ptr->type == VAR) {
+			ASTVar* var = (ASTVar*) ptr;
+			ident->assignType = var->varType;
+			ptr->used = true;
+		}
 		if (ptr == NULL) throw Error::UNDEFINED_VARIABLE;
 		else{
 			ident->value = ptr;
@@ -165,14 +169,354 @@ namespace internal{
 
 		}
 		else{;
-			if (binary->Right != NULL) ValidateStmt(binary->Right);
-			if (trace) Trace("Operator found", binary->op->String());
 			if (binary->Left != NULL) ValidateStmt(binary->Left);
+			if (trace) Trace("Operator found", binary->op->String());
+			if (binary->Right != NULL) ValidateStmt(binary->Right);
+			int type = (int) binary->Left->assignType;
+			std::string op = binary->op->String();
+			switch (type){
+				case INT: case BOOLEAN: {
+					if (op == "+"){
+						if (binary->Right->assignType == INT) binary->assignType = INT;
+						else if (binary->Right->assignType == DOUBLE) binary->assignType = DOUBLE;
+						else if (binary->Right->assignType == FLOAT) binary->assignType = FLOAT;
+						else if (binary->Right->assignType == BOOLEAN) binary->assignType = INT;
+						else if (binary->Right->assignType == CHAR) binary->assignType = INT;
+						else if (binary->Right->assignType == STRING) binary->assignType = STRING;
+						else if (binary->Right->assignType == ARRAY) throw Error::CANNOT_ADD_TO_ARRAY;
+						else {
+							throw Error::INVALID_ADD_EXPR;
+						}
+						break;
+					}
+					else if (op == "-"){
+						if (binary->Right->assignType == INT) binary->assignType = INT;
+						else if (binary->Right->assignType == DOUBLE) binary->assignType = DOUBLE;
+						else if (binary->Right->assignType == FLOAT) binary->assignType = FLOAT;
+						else if (binary->Right->assignType == BOOLEAN) binary->assignType = INT;
+						else if (binary->Right->assignType == CHAR) throw Error::CANNOT_SUB_CHAR_FROM_TYPE;
+						else if (binary->Right->assignType == STRING) throw Error::CANNOT_SUB_STRING_FROM_TYPE;
+						else if (binary->Right->assignType == ARRAY) throw Error::CANNOT_SUB_FROM_ARRAY;
+						else {
+							throw Error::INVALID_SUB_EXPR;
+						}
+						break;
+					}
+					else if (op == "/"){
+						if (binary->Right->assignType == INT) binary->assignType = INT;
+						else if (binary->Right->assignType == DOUBLE) binary->assignType = DOUBLE;
+						else if (binary->Right->assignType == FLOAT) binary->assignType = FLOAT;
+						else if (binary->Right->assignType == BOOLEAN) binary->assignType = INT;
+						else if (binary->Right->assignType == CHAR) throw Error::CANNOT_DIV_CHAR_FROM_TYPE;
+						else if (binary->Right->assignType == STRING) throw Error::CANNOT_DIV_STRING_FROM_TYPE;
+						else if (binary->Right->assignType == ARRAY) throw Error::CANNOT_DIV_FROM_ARRAY;
+						else {
+							throw Error::INVALID_DIV_EXPR;
+						}
+						break;
+					}
+					else if (op == "*"){
+						if (binary->Right->assignType == INT) binary->assignType = INT;
+						else if (binary->Right->assignType == DOUBLE) binary->assignType = DOUBLE;
+						else if (binary->Right->assignType == FLOAT) binary->assignType = FLOAT;
+						else if (binary->Right->assignType == BOOLEAN) binary->assignType = INT;
+						else if (binary->Right->assignType == CHAR) throw Error::CANNOT_MULT_CHAR_FROM_TYPE;
+						else if (binary->Right->assignType == STRING) throw Error::CANNOT_MULT_STRING_FROM_TYPE;
+						else if (binary->Right->assignType == ARRAY) throw Error::CANNOT_MULT_FROM_ARRAY;
+						else {
+							throw Error::INVALID_MULT_EXPR;
+						}
+						break;
+					}
+					else if (op == "%"){
+						if (binary->Right->assignType == INT) binary->assignType = INT;
+						else if (binary->Right->assignType == DOUBLE) binary->assignType = DOUBLE;
+						else if (binary->Right->assignType == FLOAT) binary->assignType = FLOAT;
+						else if (binary->Right->assignType == BOOLEAN) binary->assignType = INT;
+						else if (binary->Right->assignType == CHAR) throw Error::CANNOT_MOD_CHAR_FROM_TYPE;
+						else if (binary->Right->assignType == STRING) throw Error::CANNOT_MOD_STRING_FROM_TYPE;
+						else if (binary->Right->assignType == ARRAY) throw Error::CANNOT_MOD_FROM_ARRAY;
+						else {
+							throw Error::INVALID_MOD_EXPR;
+						}
+						break;
+					}
+				}
+				case DOUBLE: {
+					if (op == "+"){
+						if (binary->Right->assignType == INT) binary->assignType = DOUBLE;
+						else if (binary->Right->assignType == DOUBLE) binary->assignType = DOUBLE;
+						else if (binary->Right->assignType == FLOAT) binary->assignType = FLOAT;
+						else if (binary->Right->assignType == BOOLEAN) binary->assignType = DOUBLE;
+						else if (binary->Right->assignType == CHAR) binary->assignType = DOUBLE;
+						else if (binary->Right->assignType == STRING) binary->assignType = STRING;
+						else if (binary->Right->assignType == ARRAY) throw Error::CANNOT_ADD_TO_ARRAY;
+						else {
+							throw Error::INVALID_ADD_EXPR;
+						}
+						break;
+					}
+					else if (op == "-"){
+						if (binary->Right->assignType == INT) binary->assignType = DOUBLE;
+						else if (binary->Right->assignType == DOUBLE) binary->assignType = DOUBLE;
+						else if (binary->Right->assignType == FLOAT) binary->assignType = FLOAT;
+						else if (binary->Right->assignType == BOOLEAN) binary->assignType = DOUBLE;
+						else if (binary->Right->assignType == CHAR) throw Error::CANNOT_SUB_CHAR_FROM_TYPE;
+						else if (binary->Right->assignType == STRING) throw Error::CANNOT_SUB_STRING_FROM_TYPE;
+						else if (binary->Right->assignType == ARRAY) throw Error::CANNOT_SUB_FROM_ARRAY;
+						else {
+							throw Error::INVALID_SUB_EXPR;
+						}
+						break;
+					}
+					else if (op == "/"){
+						if (binary->Right->assignType == INT) binary->assignType = DOUBLE;
+						else if (binary->Right->assignType == DOUBLE) binary->assignType = DOUBLE;
+						else if (binary->Right->assignType == FLOAT) binary->assignType = FLOAT;
+						else if (binary->Right->assignType == BOOLEAN) binary->assignType = DOUBLE;
+						else if (binary->Right->assignType == CHAR) throw Error::CANNOT_DIV_CHAR_FROM_TYPE;
+						else if (binary->Right->assignType == STRING) throw Error::CANNOT_DIV_STRING_FROM_TYPE;
+						else if (binary->Right->assignType == ARRAY) throw Error::CANNOT_DIV_FROM_ARRAY;
+						else {
+							throw Error::INVALID_DIV_EXPR;
+						}
+						break;
+					}
+					else if (op == "*"){
+						if (binary->Right->assignType == INT) binary->assignType = DOUBLE;
+						else if (binary->Right->assignType == DOUBLE) binary->assignType = DOUBLE;
+						else if (binary->Right->assignType == FLOAT) binary->assignType = FLOAT;
+						else if (binary->Right->assignType == BOOLEAN) binary->assignType = DOUBLE;
+						else if (binary->Right->assignType == CHAR) throw Error::CANNOT_MULT_CHAR_FROM_TYPE;
+						else if (binary->Right->assignType == STRING) throw Error::CANNOT_MULT_STRING_FROM_TYPE;
+						else if (binary->Right->assignType == ARRAY) throw Error::CANNOT_MULT_FROM_ARRAY;
+						else {
+							throw Error::INVALID_MULT_EXPR;
+						}
+						break;
+					}
+					else if (op == "%"){
+						if (binary->Right->assignType == INT) binary->assignType = DOUBLE;
+						else if (binary->Right->assignType == DOUBLE) binary->assignType = DOUBLE;
+						else if (binary->Right->assignType == FLOAT) binary->assignType = FLOAT;
+						else if (binary->Right->assignType == BOOLEAN) binary->assignType = DOUBLE;
+						else if (binary->Right->assignType == CHAR) throw Error::CANNOT_MOD_CHAR_FROM_TYPE;
+						else if (binary->Right->assignType == STRING) throw Error::CANNOT_MOD_STRING_FROM_TYPE;
+						else if (binary->Right->assignType == ARRAY) throw Error::CANNOT_MOD_FROM_ARRAY;
+						else {
+							throw Error::INVALID_MOD_EXPR;
+						}
+						break;
+					}
+				}
+				case FLOAT: {
+					if (op == "+"){
+						if (binary->Right->assignType == INT) binary->assignType = FLOAT;
+						else if (binary->Right->assignType == DOUBLE) binary->assignType = FLOAT;
+						else if (binary->Right->assignType == FLOAT) binary->assignType = FLOAT;
+						else if (binary->Right->assignType == BOOLEAN) binary->assignType = FLOAT;
+						else if (binary->Right->assignType == CHAR) binary->assignType = FLOAT;
+						else if (binary->Right->assignType == STRING) binary->assignType = STRING;
+						else if (binary->Right->assignType == ARRAY) throw Error::CANNOT_ADD_TO_ARRAY;
+						else {
+							throw Error::INVALID_ADD_EXPR;
+						}
+						break;
+					}
+					else if (op == "-"){
+						if (binary->Right->assignType == INT) binary->assignType = FLOAT;
+						else if (binary->Right->assignType == DOUBLE) binary->assignType = FLOAT;
+						else if (binary->Right->assignType == FLOAT) binary->assignType = FLOAT;
+						else if (binary->Right->assignType == BOOLEAN) binary->assignType = FLOAT;
+						else if (binary->Right->assignType == CHAR) throw Error::CANNOT_SUB_CHAR_FROM_TYPE;
+						else if (binary->Right->assignType == STRING) throw Error::CANNOT_SUB_STRING_FROM_TYPE;
+						else if (binary->Right->assignType == ARRAY) throw Error::CANNOT_SUB_FROM_ARRAY;
+						else {
+							throw Error::INVALID_SUB_EXPR;
+						}
+						break;
+					}
+					else if (op == "/"){
+						if (binary->Right->assignType == INT) binary->assignType = FLOAT;
+						else if (binary->Right->assignType == DOUBLE) binary->assignType = FLOAT;
+						else if (binary->Right->assignType == FLOAT) binary->assignType = FLOAT;
+						else if (binary->Right->assignType == BOOLEAN) binary->assignType = FLOAT;
+						else if (binary->Right->assignType == CHAR) throw Error::CANNOT_DIV_CHAR_FROM_TYPE;
+						else if (binary->Right->assignType == STRING) throw Error::CANNOT_DIV_STRING_FROM_TYPE;
+						else if (binary->Right->assignType == ARRAY) throw Error::CANNOT_DIV_FROM_ARRAY;
+						else {
+							throw Error::INVALID_DIV_EXPR;
+						}
+						break;
+					}
+					else if (op == "*"){
+						if (binary->Right->assignType == INT) binary->assignType = FLOAT;
+						else if (binary->Right->assignType == DOUBLE) binary->assignType = FLOAT;
+						else if (binary->Right->assignType == FLOAT) binary->assignType = FLOAT;
+						else if (binary->Right->assignType == BOOLEAN) binary->assignType = FLOAT;
+						else if (binary->Right->assignType == CHAR) throw Error::CANNOT_MULT_CHAR_FROM_TYPE;
+						else if (binary->Right->assignType == STRING) throw Error::CANNOT_MULT_STRING_FROM_TYPE;
+						else if (binary->Right->assignType == ARRAY) throw Error::CANNOT_MULT_FROM_ARRAY;
+						else {
+							throw Error::INVALID_MULT_EXPR;
+						}
+						break;
+					}
+					else if (op == "%"){
+						if (binary->Right->assignType == INT) binary->assignType = FLOAT;
+						else if (binary->Right->assignType == DOUBLE) binary->assignType = FLOAT;
+						else if (binary->Right->assignType == FLOAT) binary->assignType = FLOAT;
+						else if (binary->Right->assignType == BOOLEAN) binary->assignType = FLOAT;
+						else if (binary->Right->assignType == CHAR) throw Error::CANNOT_MOD_CHAR_FROM_TYPE;
+						else if (binary->Right->assignType == STRING) throw Error::CANNOT_MOD_STRING_FROM_TYPE;
+						else if (binary->Right->assignType == ARRAY) throw Error::CANNOT_MOD_FROM_ARRAY;
+						else {
+							throw Error::INVALID_MOD_EXPR;
+						}
+						break;
+					}
+				}
+				case CHAR: {
+					if (op == "+"){
+						if (binary->Right->assignType == INT) binary->assignType = INT;
+						else if (binary->Right->assignType == DOUBLE) binary->assignType = DOUBLE;
+						else if (binary->Right->assignType == FLOAT) binary->assignType = FLOAT;
+						else if (binary->Right->assignType == BOOLEAN) binary->assignType = INT;
+						else if (binary->Right->assignType == CHAR) binary->assignType = STRING;
+						else if (binary->Right->assignType == STRING) binary->assignType = STRING;
+						else if (binary->Right->assignType == ARRAY) throw Error::CANNOT_ADD_TO_ARRAY;
+						else {
+							throw Error::INVALID_ADD_EXPR;
+						}
+						break;
+					}
+					else if (op == "-"){
+						if (binary->Right->assignType == INT) binary->assignType = INT;
+						else if (binary->Right->assignType == DOUBLE) binary->assignType = DOUBLE;
+						else if (binary->Right->assignType == FLOAT) binary->assignType = FLOAT;
+						else if (binary->Right->assignType == BOOLEAN) binary->assignType = INT;
+						else if (binary->Right->assignType == CHAR) throw Error::CANNOT_SUB_CHAR_FROM_TYPE;
+						else if (binary->Right->assignType == STRING) throw Error::CANNOT_SUB_STRING_FROM_TYPE;
+						else if (binary->Right->assignType == ARRAY) throw Error::CANNOT_SUB_FROM_ARRAY;
+						else {
+							throw Error::INVALID_SUB_EXPR;
+						}
+						break;
+					}
+					else if (op == "/"){
+						if (binary->Right->assignType == INT) binary->assignType = INT;
+						else if (binary->Right->assignType == DOUBLE) binary->assignType = DOUBLE;
+						else if (binary->Right->assignType == FLOAT) binary->assignType = FLOAT;
+						else if (binary->Right->assignType == BOOLEAN) binary->assignType = INT;
+						else if (binary->Right->assignType == CHAR) throw Error::CANNOT_DIV_CHAR_FROM_TYPE;
+						else if (binary->Right->assignType == STRING) throw Error::CANNOT_DIV_STRING_FROM_TYPE;
+						else if (binary->Right->assignType == ARRAY) throw Error::CANNOT_DIV_FROM_ARRAY;
+						else {
+							throw Error::INVALID_DIV_EXPR;
+						}
+						break;
+					}
+					else if (op == "*"){
+						if (binary->Right->assignType == INT) binary->assignType = INT;
+						else if (binary->Right->assignType == DOUBLE) binary->assignType = DOUBLE;
+						else if (binary->Right->assignType == FLOAT) binary->assignType = FLOAT;
+						else if (binary->Right->assignType == BOOLEAN) binary->assignType = INT;
+						else if (binary->Right->assignType == CHAR) throw Error::CANNOT_MULT_CHAR_FROM_TYPE;
+						else if (binary->Right->assignType == STRING) throw Error::CANNOT_MULT_STRING_FROM_TYPE;
+						else if (binary->Right->assignType == ARRAY) throw Error::CANNOT_MULT_FROM_ARRAY;
+						else {
+							throw Error::INVALID_MULT_EXPR;
+						}
+						break;
+					}
+					else if (op == "%"){
+						if (binary->Right->assignType == INT) binary->assignType = INT;
+						else if (binary->Right->assignType == DOUBLE) binary->assignType = DOUBLE;
+						else if (binary->Right->assignType == FLOAT) binary->assignType = FLOAT;
+						else if (binary->Right->assignType == BOOLEAN) binary->assignType = INT;
+						else if (binary->Right->assignType == CHAR) throw Error::CANNOT_MOD_CHAR_FROM_TYPE;
+						else if (binary->Right->assignType == STRING) throw Error::CANNOT_MOD_STRING_FROM_TYPE;
+						else if (binary->Right->assignType == ARRAY) throw Error::CANNOT_MOD_FROM_ARRAY;
+						else {
+							throw Error::INVALID_MOD_EXPR;
+						}
+						break;
+					}
+				}
+				case STRING: {
+					if (op == "+"){
+						if (binary->Right->assignType == INT) binary->assignType = STRING;
+						else if (binary->Right->assignType == DOUBLE) binary->assignType = STRING;
+						else if (binary->Right->assignType == FLOAT) binary->assignType = STRING;
+						else if (binary->Right->assignType == BOOLEAN) binary->assignType = STRING;
+						else if (binary->Right->assignType == CHAR) binary->assignType = STRING;
+						else if (binary->Right->assignType == STRING) binary->assignType = STRING;
+						else if (binary->Right->assignType == ARRAY) throw Error::CANNOT_ADD_TO_ARRAY;
+						else {
+							throw Error::INVALID_ADD_EXPR;
+						}
+						break;
+					}
+					else if (op == "-"){
+						if (binary->Right->assignType == INT) throw Error::CANNOT_SUB_STRING_FROM_TYPE;
+						else if (binary->Right->assignType == DOUBLE) throw Error::CANNOT_SUB_STRING_FROM_TYPE;
+						else if (binary->Right->assignType == FLOAT) throw Error::CANNOT_SUB_STRING_FROM_TYPE;
+						else if (binary->Right->assignType == BOOLEAN) throw Error::CANNOT_SUB_STRING_FROM_TYPE;
+						else if (binary->Right->assignType == CHAR) binary->assignType = STRING;
+						else if (binary->Right->assignType == STRING) binary->assignType = STRING;
+						else if (binary->Right->assignType == ARRAY) throw Error::CANNOT_SUB_FROM_ARRAY;
+						else {
+							throw Error::INVALID_SUB_EXPR;
+						}
+						break;
+					}
+					else if (op == "/"){
+						if (binary->Right->assignType == INT) throw Error::CANNOT_DIV_INT_FROM_TYPE;
+						else if (binary->Right->assignType == DOUBLE) throw Error::CANNOT_DIV_DOUBLE_FROM_TYPE;
+						else if (binary->Right->assignType == FLOAT) throw Error::CANNOT_DIV_FLOAT_FROM_TYPE;
+						else if (binary->Right->assignType == BOOLEAN) throw Error::CANNOT_DIV_INT_FROM_TYPE;
+						else if (binary->Right->assignType == CHAR) throw Error::CANNOT_DIV_CHAR_FROM_TYPE;
+						else if (binary->Right->assignType == STRING) throw Error::CANNOT_DIV_STRING_FROM_TYPE;
+						else if (binary->Right->assignType == ARRAY) throw Error::CANNOT_DIV_FROM_ARRAY;
+						else {
+							throw Error::INVALID_DIV_EXPR;
+						}
+						break;
+					}
+					else if (op == "*"){
+						if (binary->Right->assignType == INT) throw Error::CANNOT_MULT_INT_FROM_TYPE;
+						else if (binary->Right->assignType == DOUBLE) throw Error::CANNOT_MULT_DOUBLE_FROM_TYPE;
+						else if (binary->Right->assignType == FLOAT) throw Error::CANNOT_MULT_FLOAT_FROM_TYPE;
+						else if (binary->Right->assignType == BOOLEAN) throw Error::CANNOT_MULT_INT_FROM_TYPE;
+						else if (binary->Right->assignType == CHAR) throw Error::CANNOT_MULT_CHAR_FROM_TYPE;
+						else if (binary->Right->assignType == STRING) throw Error::CANNOT_MULT_STRING_FROM_TYPE;
+						else if (binary->Right->assignType == ARRAY) throw Error::CANNOT_MULT_FROM_ARRAY;
+						else {
+							throw Error::INVALID_MULT_EXPR;
+						}
+						break;
+					}
+					else if (op == "%"){
+						if (binary->Right->assignType == INT) throw Error::CANNOT_MOD_INT_FROM_TYPE;
+						else if (binary->Right->assignType == DOUBLE) throw Error::CANNOT_MOD_DOUBLE_FROM_TYPE;
+						else if (binary->Right->assignType == FLOAT) throw Error::CANNOT_MOD_FLOAT_FROM_TYPE;
+						else if (binary->Right->assignType == BOOLEAN) throw Error::CANNOT_MOD_INT_FROM_TYPE;
+						else if (binary->Right->assignType == CHAR) throw Error::CANNOT_MOD_CHAR_FROM_TYPE;
+						else if (binary->Right->assignType == STRING) throw Error::CANNOT_MOD_STRING_FROM_TYPE;
+						else if (binary->Right->assignType == ARRAY) throw Error::CANNOT_MOD_FROM_ARRAY;
+						else {
+							throw Error::INVALID_MOD_EXPR;
+						}
+						break;
+					}
+				}
+			}
 		}
 	}
 
 	void Check::ValidateLiterary(ASTLiterary* lit){
 		SetRowCol(lit);
+		lit->assignType = lit->kind;
 		if (trace) Trace("Lit value", lit->value);
 	}
 
@@ -181,12 +525,10 @@ namespace internal{
 		if (unary == NULL){
 			if (trace) Trace("Unary", "is NULL");
 		}
-		else if (unary->op == NULL){
-			
-		}
 		else{
 			if (trace) Trace("Operator found", unary->op->String());
 			ValidateStmt(unary->value);
+			unary->assignType = unary->value->assignType;
 		}
 	}
 
@@ -274,7 +616,7 @@ namespace internal{
 				ASTFuncCallExpr* funcCall = (ASTFuncCallExpr*) member->member;
 				SetRowCol(funcCall);
 				ASTFunc* func = (ASTFunc*) exported;
-				if (funcCall->params.size() != func->ordered.size()){
+				if (funcCall->params.size() != func->args.size()){
 					throw Error::INVALID_FUNC_CALL;
 				}
 				return true;
@@ -309,7 +651,7 @@ namespace internal{
 
 	bool Check::ValidateMemberFuncCall(ASTFunc* func, ASTFuncCallExpr* call){
 		SetRowCol(call);
-		if (call->params.size() != func->ordered.size()) return false;
+		if (call->params.size() != func->args.size()) return false;
 		for (int i = 0; i < call->params.size(); i++){
 			ValidateStmt(call->params[i]);
 		}
@@ -336,9 +678,15 @@ namespace internal{
 			ASTVar* var = (ASTVar*) node;
 			if (var->varClass != NULL && trace) Trace("\nVar type", var->varClass->name);
 			else if (trace) Trace("\nValidating " + GetTokenString(var->type), node->name);
-			ASTNode* stmt = var->stmt;
+			ASTExpr* stmt = (ASTExpr*) var->stmt;
 			SetRowCol(stmt);
-			ValidateStmt((ASTExpr*) stmt);
+			ValidateStmt(stmt);
+			if (mode == STRICT){
+				if (var->varType != stmt->assignType) throw Error::INVALID_ASSIGNMENT_TO_TYPE;
+			}
+			else{
+				var->varType = stmt->assignType;
+			}
 		}
 	}
 
@@ -397,9 +745,9 @@ namespace internal{
 
 	void Check::ValidateFuncArgs(ASTFunc* func){
 		SetRowCol(func);
-		if (func->ordered.size() > 0){
-			for (int i = 0; i < func->ordered.size(); i++){
-				ASTNode* node = func->ordered[i];
+		if (func->args.size() > 0){
+			for (int i = 0; i < func->args.size(); i++){
+				ASTNode* node = func->args[i];
 				SetRowCol(node);
 				if (node->name.length() < 1) throw Error::EXPECTED_ARG_NAME;
 				if (trace) Trace("arg[" + std::to_string(i) + "]", node->name);
@@ -413,7 +761,7 @@ namespace internal{
 		SetRowCol(func);
 		if (func == NULL) return;
 		if (trace) Trace("\nValidating func", func->name + "\n------------------------------");
-		if (trace) Trace(func->name + "() total args: ", std::to_string(func->ordered.size()));
+		if (trace) Trace(func->name + "() total args: ", std::to_string(func->args.size()));
 		ValidateFuncArgs(func);
 		
 		OpenScope(func->body->scope);
