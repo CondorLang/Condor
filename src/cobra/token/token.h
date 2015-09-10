@@ -17,6 +17,7 @@ namespace internal{
 		UNARY,
 		BINARY,
 		FUNC_CALL,
+		OBJECT_INIT,
 		FILE,
 		BLOCK,
 		ARRAY_MEMBER,
@@ -84,6 +85,7 @@ namespace internal{
 		DIV, // /
 		MOD, // %,
 		HASH, // #
+		TICK, // `
 
 		AND, // &
 		OR, // |
@@ -105,22 +107,25 @@ namespace internal{
 		SHR_ASSIGN, // >>=
 		AND_NOT_ASSIGN, // &^=
 
+		BOOLEAN_COMPARISON_START,
+
 		LAND, // &&
 		LOR, // ||
+		EQL, // ==
+		NEQ, // !=
+		LEQ, // <=
+		GEQ, // >=
+		NOT, // !
+		LSS, // <
+		GTR, // >
+
+		BOOLEAN_COMPARISON_END,
+
 		LARROW, // <-
 		RARROW, // ->
 		INC, // ++
 		DEC, // --
-
-		EQL, // ==
-		LSS, // <
-		GTR, // >
 		ASSIGN, // =
-		NOT, // !
-
-		NEQ,      // !=
-		LEQ,      // <=
-		GEQ,      // >=
 		ELLIPSIS, // ...
 
 		LPAREN, // (
@@ -158,6 +163,8 @@ namespace internal{
 		NEW,
 		OBJECT,
 		RETURN,
+		TRUE_LITERAL,
+		FALSE_LITERAL,
 
 		STRUCT,
 		SWITCH,
@@ -189,6 +196,7 @@ namespace internal{
 		bool IsKeyword(){return value > KEYWORD_BEGIN && value < KEYWORD_END;}
 		bool IsLiteral(){return value > LITERAL_BEGIN && value < LITERAL_END;}
 		bool IsOperator(){return value > OPERATOR_BEGIN && value < OPERATOR_END;}
+		bool IsBinaryComparison(){return value > BOOLEAN_COMPARISON_START && BOOLEAN_COMPARISON_START < BOOLEAN_COMPARISON_END;}
 		static Token* GetToken(std::string str);
 		static const char* ToString(TOKEN token);
 	};

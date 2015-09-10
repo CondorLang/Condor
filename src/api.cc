@@ -275,6 +275,12 @@ namespace Cobra{
 		return CAST(Handle*, scriptHandle);
 	}
 
+	const char* Handle::GetErrorMessage(){
+		i::Handle* handle = CAST(i::Handle*, this);
+		i::Script* script = handle->ToScript();
+		return script->GetErrorMsg();
+	}
+
 	bool Handle::IsCompiled(){
 		i::Handle* handle = CAST(i::Handle*, this);
 		i::Script* script = handle->ToScript();

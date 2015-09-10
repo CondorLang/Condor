@@ -70,6 +70,15 @@ namespace Error {
 			case INVALID_DIV_EXPR: return "Invalid divide expression";
 			case INVALID_MULT_EXPR: return "Invalid multiply expression";
 			case INVALID_ASSIGNMENT_TO_TYPE: return "Invalid assignment to type";
+			case INVALID_ARRAY_TYPE: return "Invalid array type";
+			case INVALID_BOOLEAN_COMPARISON: return "Invalid boolean comparison";
+			case INVALID_CONDITION_FOR_IF_STMT: return "Invalid condition for if statement";
+			case UNEXPECTED_TICK: return "Unexpected tick";
+			case UNEXPECTED_OPERATOR: return "Unexpected operator";
+			case TOO_MANY_OBJECT_DEFINITIONS: return "Too many object definitions";
+			case EXPECTED_OBJECT: return "Expected object";
+			case OBJECT_CONSTRUCTOR_INVALID: return "Object constructor invalid";
+			case UNABLE_TO_ACCESS_NON_STATIC_FUNCTION: return "Unable to access non static function";
 			case SCANNER: {
 				if (tok != NULL){
 					return tok->raw;

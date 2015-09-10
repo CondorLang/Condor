@@ -55,6 +55,9 @@ namespace internal{
 			case '@': {
 				return isolate->InsertToHeap(new Token(CONSTRUCTOR), INTERNAL_TOKEN);
 			}
+			case '`': {
+				return isolate->InsertToHeap(new Token(TICK), INTERNAL_TOKEN);
+			}
 			case '*': {
 				char p = Peek();
 				if (p == '=') {

@@ -9,6 +9,7 @@
 #include "cobra/ast/ast.h"
 #include "cobra/mem/isolate.h"
 #include "cobra/mem/handle.h"
+#include "internal.h"
 
 namespace Cobra {
 namespace internal{
@@ -36,6 +37,7 @@ namespace internal{
 		std::vector<ASTInclude*> includes;
 		std::vector<ASTNode*> exports;
 		void SetIsolate(Isolate* iso){isolate = iso;}
+		void SetInteral(bool i){internal = i;}
 		std::string* filePath;
 
 	private:
@@ -45,10 +47,12 @@ namespace internal{
 		int row;
 		int col;
 		bool reset;
+		bool nonOp;
 		Scope* topScope;
 		Scope* currentFunctionScope;
 		Isolate* isolate;
 		std::string* source;
+		bool internal;
 		void Flush();
 
 		// Parser options
@@ -88,6 +92,7 @@ namespace internal{
 		ASTIdent* ParseIdent();
 		ASTExpr* ParseFuncCall(ASTExpr* unary);
 		ASTExpr* ParseArray(ASTExpr* expr);
+		ASTExpr* ParseObjectInit();
 		ASTNode* ParseObject();
 		ASTIf* ParseIf();
 		ASTElse* ParseElse();

@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include "cobra/clock.h"
 #include "cobra/shell.h"
+#include <string>
 
 namespace Cobra {
 namespace internal{
@@ -28,12 +29,13 @@ namespace internal{
 
 		//flags
 		bool parsingTime;
+		bool internal;
 
 		Handle* source;
-		Parser* parser;
-		Check* check;
+		iHandle<Parser>* parser;
+		iHandle<Check>* check;
 		bool hasErr;
-		std::vector<const char*> msgs;
+		std::vector<std::string> msgs;
 		const char* basePath;
 		std::map<std::size_t, ASTFile*> includes;
 		void SetIncludes();
@@ -58,6 +60,7 @@ namespace internal{
 		std::string GetFileName();
 		void Run();
 		ASTNode* GetExportedObject(std::string name);
+		const char* GetErrorMsg(){if (msgs.size() > 0) return msgs[0].c_str(); else return "";}
 	};
 
 } // namespace internal

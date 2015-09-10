@@ -1,12 +1,12 @@
 #mode "strict";
 
-// include "math.cb";
-
-// func test(int a, int b){
-// 	return a + b;
-// }
+include "tests/string.cb";
+include "tests/int.cb";
 
 func main(string args[], int argc){
-	int a = 10;
-	int b = 10;
+	string a = "apple";
+	String s = new String();
+	String s2 = new String("Apple");
+	int c = Int.Parse("1");
+	bool isInt = Int.IsInt(1);
 }

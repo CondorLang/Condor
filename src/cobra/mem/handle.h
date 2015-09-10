@@ -42,6 +42,8 @@ namespace internal{
 			iHandle<T> handle(isolate, obj);
 			return handle;
 		}
+		TOKEN GetType(){return obj->type;}
+		HeapObject* GetHeapObject(){return obj;}
 		Address Location(){return obj->address;}
 		bool IsNull(){return destroyed;}
 		T* operator->(){

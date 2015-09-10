@@ -51,7 +51,7 @@ namespace internal{
 
 	ASTNode* Check::GetObjectInScopeByString(std::string name, Scope* sc){
 		if (sc == NULL){
-			return NULL;
+			return isolate->GetContext()->GetExportedNode(isolate, name);
 		}
 		std::vector<ASTNode*> nodes = sc->Lookup(name);
 		ASTNode* node = NULL;
@@ -67,7 +67,7 @@ namespace internal{
 	ASTNode* Check::GetObjectInScope(ASTNode* ident, Scope* sc){
 		SetRowCol(ident);
 		if (sc == NULL || ident == NULL){
-			return NULL;
+			return isolate->GetContext()->GetExportedNode(isolate, ident->name);
 		}
 		std::vector<ASTNode*> nodes = sc->Lookup(ident->name);
 		ASTNode* node = NULL;
@@ -81,16 +81,21 @@ namespace internal{
 					if (nodes[i]->type != FUNC) continue;
 					ASTFunc* func = (ASTFunc*) nodes[i];
 					if (func->args.size() != funcCall->params.size()) continue;
-					bool found = true;
-					// for (int j = 0; j < func->args.size(); j++){
-					// 	if (func->args[i]->type != funcCall->params[i]->type){
-					// 		found = false;
-					// 		break;
-					// 	}
-					// }
-					if (found){
-						node = func;
-						break;
+					if (mode == STRICT){
+						bool notIt = false;
+						for (int j = 0; j < func->args.size(); j++){
+							ASTParamVar* pv = (ASTParamVar*) func->args[j];
+							ASTExpr* aExpr = (ASTExpr*) funcCall->params[j];
+							if (pv->varType != aExpr->assignType){
+								notIt = true;
+								break;
+							}
+						}
+						if (notIt) continue;
+						else{
+							node = func;
+							break;
+						}
 					}
 				}
 			}
@@ -116,15 +121,15 @@ namespace internal{
 	void Check::ValidateFuncCall(ASTFuncCallExpr* call){
 		SetRowCol(call);
 		if (trace) Trace("Calling func", call->name);
-		ASTFunc* func = (ASTFunc*) GetObjectInScope(call, scope);
-		if (func == NULL) throw Error::UNDEFINED_FUNC;
-		func->used = true;
-		SetRowCol(func);
-		call->func = func;
 		printIndent++;
 		for (int i = 0; i < call->params.size(); i++){
 			ValidateStmt(call->params[i]);
 		}
+		ASTFunc* func = (ASTFunc*) GetObjectInScope(call, scope);
+		if (func == NULL) throw Error::UNDEFINED_FUNC;
+		call->assignType = func->returnType;
+
+		call->func = func;
 		printIndent--;
 	}
 
@@ -133,6 +138,11 @@ namespace internal{
 		ASTNode* ptr = GetObjectInScope(ident, scope);
 		if (ptr->type == VAR) {
 			ASTVar* var = (ASTVar*) ptr;
+			ident->assignType = var->varType;
+			ptr->used = true;
+		}
+		else if (ptr->type == ASTPARAM_VAR){
+			ASTParamVar* var = (ASTParamVar*) ptr;
 			ident->assignType = var->varType;
 			ptr->used = true;
 		}
@@ -161,7 +171,7 @@ namespace internal{
 		}
 	}
 
-	void Check::ValidateBinaryStmt(ASTBinaryExpr* binary){
+	void Check::ValidateBinaryStmt(ASTBinaryExpr* binary, bool boolean){
 		SetRowCol(binary);
 		if (binary == NULL){
 			if (trace) Trace("Binary", "is NULL");
@@ -175,6 +185,10 @@ namespace internal{
 			if (binary->Right != NULL) ValidateStmt(binary->Right);
 			int type = (int) binary->Left->assignType;
 			std::string op = binary->op->String();
+			if (boolean) {
+				if (!binary->op->IsBinaryComparison()) throw Error::INVALID_BOOLEAN_COMPARISON;
+			}
+			SetRowCol(binary->Right);
 			switch (type){
 				case INT: case BOOLEAN: {
 					if (op == "+"){
@@ -530,6 +544,7 @@ namespace internal{
 			if (trace) Trace("Operator found", unary->op->String());
 			ValidateStmt(unary->value);
 			unary->assignType = unary->value->assignType;
+			if (unary->value->type == OBJECT_INIT) unary->assignType = OBJECT_INIT;
 		}
 	}
 
@@ -543,7 +558,7 @@ namespace internal{
 				break;
 			}
 			case BINARY: {
-				ValidateBinaryStmt((ASTBinaryExpr*) expr);
+				ValidateBinaryStmt((ASTBinaryExpr*) expr, false);
 				break;
 			}
 			case LITERARY: {
@@ -568,10 +583,77 @@ namespace internal{
 				}
 				break;
 			}
+			case ARRAY_MEMBER: {
+				ValidateArrayMember((ASTArrayMemberExpr*) expr);
+				break;
+			}
+			case OBJECT_INIT: {
+				ValidateObjectInit((ASTObjectInit*) expr);
+				break;
+			}
 			default: {
 				Trace("Didn't process, but found", GetTokenString(expr->type));
 			}
 		}
+	}
+
+	void Check::ValidateObjectInit(ASTObjectInit* init){
+		if (trace) Trace("Validating new object", init->name.c_str());
+		SetRowCol(init);
+		ASTNode* nodeObj = GetObjectInScopeByString(init->name, scope->outer);
+		if (nodeObj == NULL) throw Error::UNDEFINED_OBJECT;
+		else if (nodeObj->type != OBJECT) throw Error::EXPECTED_OBJECT;
+		ASTObject* obj = (ASTObject*) nodeObj;
+
+		// Check constructor
+		bool foundConstructor = false;
+		for (int i = 0; i < obj->members.size(); i++){
+			ASTNode* mem = obj->members[i];
+			if (mem->type == FUNC && mem->name == init->name){
+				ASTFunc* func = (ASTFunc*) mem;
+				if (init->params.size() == func->args.size()){
+					if (init->params.size() == 0){
+						foundConstructor = true;
+						break;
+					}
+					bool found = false;
+					for (int j = 0; j < init->params.size(); j++){
+						ValidateStmt(init->params[j]);
+						if (init->params[j]->assignType != func->args[j]->varType){
+							found = false;
+							break;
+						}
+						found = true;
+					}
+					foundConstructor = found;
+				}
+			}
+		}
+		if (!foundConstructor) throw Error::OBJECT_CONSTRUCTOR_INVALID;
+		init->assignType = OBJECT_INIT;
+	}
+
+	void Check::ValidateArrayMember(ASTArrayMemberExpr* expr){
+		if (trace) Trace("Validating array member", expr->value->name.c_str());
+		if (expr->value->type == IDENT) ValidateIdent((ASTIdent*) expr->value);
+		ValidateIsArrayType((ASTIdent*) expr->value);
+		ValidateStmt(expr->member);
+	}
+
+	/**
+	* TODO:
+  * 	There are more array types than a string
+	**/
+	void Check::ValidateIsArrayType(ASTIdent* ident){
+		if (ident->value->type == STRING){}
+		else if (ident->value->type == VAR || ident->value->type == ASTPARAM_VAR){
+			ASTVar* var = (ASTVar*) ident->value;
+			if (var->varType == STRING){
+				ident->assignType = CHAR;
+			}
+			else throw Error::INVALID_ARRAY_TYPE;
+		}
+		else throw Error::INVALID_ARRAY_TYPE;
 	}
 
 	/**
@@ -586,12 +668,23 @@ namespace internal{
 			SetRowCol(node);
 			if (node->type != OBJECT) throw Error::DIFFERENT_TYPE_ALREADY_DEFINED_IN_SCOPE;
 			ASTObject* obj = (ASTObject*) node;
-			std::map<std::string, ASTNode*>::const_iterator it = obj->members.find(member->member->name);
-			if (it != obj->members.end()){
-				SetRowCol(it->second);
-				if (it->second->visibility == vPRIVATE) throw Error::UNABLE_TO_ACCESS_PRIVATE_MEMBER;
-				if (it->second->type == FUNC) return ValidateMemberFuncCall((ASTFunc*) it->second, (ASTFuncCallExpr*) member->member);
-				else if (it->second->type == IDENT || it->second->type == VAR) return true;
+			for (int i = 0; i < obj->members.size(); i++){
+				if (obj->members[i]->name == member->member->name){
+					SetRowCol(obj->members[i]);
+					if (obj->members[i]->visibility == vPRIVATE) throw Error::UNABLE_TO_ACCESS_PRIVATE_MEMBER;
+					if (obj->members[i]->type == FUNC) {
+						ASTFunc* f = (ASTFunc*) obj->members[i];
+						ASTFuncCallExpr* fc = (ASTFuncCallExpr*) member->member;
+						if (ValidateMemberFuncCall(f, fc)){
+							member->assignType = f->returnType;
+							if (member->name.find('%') != std::string::npos){
+								if (f->visibility != vSTATIC) throw Error::UNABLE_TO_ACCESS_NON_STATIC_FUNCTION;
+							}
+							return true;
+						}
+					}
+					else if (obj->members[i]->type == IDENT || obj->members[i]->type == VAR) return true;
+				}
 			}
 		}
 
@@ -601,15 +694,19 @@ namespace internal{
 			ASTNode* exported = script->GetExportedObject(member->member->name);
 			SetRowCol(exported);
 			if (exported == NULL){
-				exported = script->GetExportedObject(member->object->name);
-				if (exported->type != OBJECT) throw Error::UNDEFINED_OBJECT;
+				//printf("d %s\n", member->object->name.c_str());
+				exported = script->GetExportedObject(member->name);
+				if (exported == NULL || exported->type != OBJECT) throw Error::UNDEFINED_OBJECT;
 				
 				ASTObject* obj = (ASTObject*) exported;
 				SetRowCol(obj);
-				std::map<std::string, ASTNode*>::const_iterator it = obj->members.find(member->member->name);
-				if (it != obj->members.end()){
-					SetRowCol(it->second);
-					if (it->second->visibility != vPRIVATE || it->second->visibility != vPROTECTED) return true;
+				for (int i = 0; i < obj->members.size(); i++){
+					if (obj->members[i]->name == member->member->name){
+						SetRowCol(obj->members[i]);
+						if (obj->members[i]->visibility == vPRIVATE) throw Error::UNABLE_TO_ACCESS_PRIVATE_MEMBER;
+						if (obj->members[i]->type == FUNC) return ValidateMemberFuncCall((ASTFunc*) obj->members[i], (ASTFuncCallExpr*) member->member);
+						else if (obj->members[i]->type == IDENT || obj->members[i]->type == VAR) return true;
+					}
 				}
 			}
 			if (exported->visibility == vPRIVATE) return false;
@@ -638,12 +735,13 @@ namespace internal{
 				if (exported == NULL || exported->type != OBJECT) throw Error::UNDEFINED_OBJECT;
 				ASTObject* obj = (ASTObject*) exported;
 				SetRowCol(obj);
-				std::map<std::string, ASTNode*>::const_iterator it = obj->members.find(member->member->name);
-				if (it != obj->members.end()){
-					if (it->second->visibility == vPRIVATE || it->second->visibility == vPROTECTED) throw Error::UNABLE_TO_ACCESS_PRIVATE_MEMBER;
-					if (it->second->type == FUNC) return ValidateMemberFuncCall((ASTFunc*) it->second, (ASTFuncCallExpr*) member->member);
-					else if (it->second->type == IDENT || it->second->type == VAR) return true;
-					else return false;
+				for (int i = 0; i < obj->members.size(); i++){
+					if (obj->members[i]->name == member->member->name){
+						SetRowCol(obj->members[i]);
+						if (obj->members[i]->visibility == vPRIVATE) throw Error::UNABLE_TO_ACCESS_PRIVATE_MEMBER;
+						if (obj->members[i]->type == FUNC) return ValidateMemberFuncCall((ASTFunc*) obj->members[i], (ASTFuncCallExpr*) member->member);
+						else if (obj->members[i]->type == IDENT || obj->members[i]->type == VAR) return true;
+					}
 				}
 			}
 		}
@@ -652,6 +750,7 @@ namespace internal{
 
 	bool Check::ValidateMemberFuncCall(ASTFunc* func, ASTFuncCallExpr* call){
 		SetRowCol(call);
+		if (func->returnType == ILLEGAL) ValidateFunc(func);
 		if (call->params.size() != func->args.size()) return false;
 		for (int i = 0; i < call->params.size(); i++){
 			ValidateStmt(call->params[i]);
@@ -669,6 +768,7 @@ namespace internal{
 			ASTLiterary* lit = (ASTLiterary*) to;
 			SetRowCol(lit);
 			cast->castType = lit->kind;
+			cast->assignType = cast->castType;
 		}
 		ValidateStmt(cast->value);
 	}
@@ -679,11 +779,17 @@ namespace internal{
 			ASTVar* var = (ASTVar*) node;
 			if (var->varClass != NULL && trace) Trace("\nVar type", var->varClass->name);
 			else if (trace) Trace("\nValidating " + GetTokenString(var->type), node->name);
-			ASTExpr* stmt = (ASTExpr*) var->stmt;
+			ASTExpr* stmt = var->stmt;
 			SetRowCol(stmt);
 			ValidateStmt(stmt);
 			if (mode == STRICT){
-				if (var->varType != stmt->assignType) throw Error::INVALID_ASSIGNMENT_TO_TYPE;
+				if (var->varClass != NULL && stmt->assignType == OBJECT_INIT){
+					var->varType = OBJECT_INIT;
+				}
+				else if (var->varType != stmt->assignType && var->name != "return") {
+					SetRowCol(var);
+					throw Error::INVALID_ASSIGNMENT_TO_TYPE;
+				}
 			}
 			else{
 				var->varType = stmt->assignType;
@@ -704,8 +810,15 @@ namespace internal{
 		CloseScope();
 	}
 
-	// TODO:
-	// 		Do not assum the func returned is in slot 0
+	void Check::ValidateObject(ASTObject* obj){
+		if (trace) Trace("Validating object", obj->name);
+		SetRowCol(obj);
+		for (int i = 0; i < obj->members.size(); i++){
+			ASTNode* mem = obj->members[i];
+			if (mem != NULL) CheckScopeLevelNode(mem);
+		}
+	}
+
 	void Check::CheckScopeLevelNode(ASTNode* node){
 		SetRowCol(node);
 		if (node->scan){
@@ -716,9 +829,16 @@ namespace internal{
 					break;
 				}
 				case FUNC: {
-					std::vector<ASTNode*> exprs = scope->Lookup(node->name);
-					if (exprs.empty()) throw Error::UNDEFINED_FUNC;
-					ValidateFunc((ASTFunc*) exprs[0]);
+					// std::vector<ASTNode*> exprs = scope->Lookup(node->name);
+					// if (exprs.empty()) throw Error::UNDEFINED_FUNC;
+					// for (int i = 0; i < exprs.size(); i++){
+					// 	ValidateFunc((ASTFunc*) exprs[i]);
+					// }
+					ValidateFunc((ASTFunc*) node);
+					break;
+				}
+				case OBJECT: {
+					ValidateObject((ASTObject*) node);
 					break;
 				}
 				case FOR: {
@@ -729,11 +849,26 @@ namespace internal{
 					ValidateVar(node);
 					break;
 				}
+				case IF: {
+					ValidateIf((ASTIf*) node);
+					break;
+				}
 				default: {
 					if (trace) Trace("Working on type...", GetTokenString(node->type));
 				}
 			}
 		}
+	}
+
+	void Check::ValidateIf(ASTIf* ifStmt){
+		SetRowCol(ifStmt);
+		if (trace) Trace("Validating", "if statement");
+		if (ifStmt->conditions->type == BINARY) ValidateBinaryStmt((ASTBinaryExpr*) ifStmt->conditions, true);
+		else throw Error::INVALID_CONDITION_FOR_IF_STMT;
+
+		OpenScope(ifStmt->block->scope);
+		ScanScope();
+		CloseScope();
 	}
 
 	void Check::ScanScope(){
@@ -765,10 +900,25 @@ namespace internal{
 		if (trace) Trace(func->name + "() total args: ", std::to_string(func->args.size()));
 		ValidateFuncArgs(func);
 		
+		if (func->body->scope == NULL) return;
 		OpenScope(func->body->scope);
 		CountItemsInScope();
 		if (trace) Trace("\nFunc Body", "\n------------------");
 		ScanScope();
+		std::vector<ASTNode*> returnVars = func->body->scope->Lookup("return");
+		if (returnVars.size() > 0){
+			ASTVar* returnVar = (ASTVar*) returnVars[0];
+			if (returnVar->stmt->type == ASTCAST_EXPR){
+				ASTCastExpr* cast = (ASTCastExpr*) returnVar->stmt;
+				func->returnType = cast->castType;
+			}
+			else if (returnVar->stmt->type == BINARY){
+				func->returnType = BOOLEAN;
+			}
+			else{
+				func->returnType = returnVar->stmt->assignType;
+			}
+		}
 		CloseScope();
 	}
 

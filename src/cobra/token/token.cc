@@ -17,6 +17,7 @@ namespace internal{
 			case UNARY: return "kUnary";
 			case BINARY: return "kBinary";
 			case FUNC_CALL: return "kFuncCall";
+			case OBJECT_INIT: return "kObjectInit";
 			case FILE: return "kFile";
 			case BLOCK: return "kBlock";
 			case IDENT: return "ident";
@@ -142,6 +143,8 @@ namespace internal{
 			case WHILE: return "while";
 			case AS: return "as";
 			case EXPORT: return "export";
+			case TRUE_LITERAL: return "true";
+			case FALSE_LITERAL: return "false";
 
 			default: return "";
 		}
@@ -209,6 +212,8 @@ namespace internal{
 		else if (str == "static") return new Token(STATIC);
 		else if (str == "as") return new Token(AS);
 		else if (str == "export") return new Token(EXPORT);
+		else if (str == "true") return new Token(TRUE_LITERAL);
+		else if (str == "false") return new Token(FALSE_LITERAL);
 		else return new Token(IDENT);
 	}
 

@@ -37,12 +37,17 @@ namespace internal{
 		void ValidateStmt(ASTExpr* expr);
 		void ValidateUnaryStmt(ASTUnaryExpr* unary);
 		void ValidateLiterary(ASTLiterary* lit);
-		void ValidateBinaryStmt(ASTBinaryExpr* binary);
+		void ValidateBinaryStmt(ASTBinaryExpr* binary, bool boolean);
 		void ValidateIdent(ASTIdent* ident);
 		void ValidateFuncCall(ASTFuncCallExpr* call);
 		void ValidateCast(ASTCastExpr* cast);
 		bool ValidateObjectChainMember(ASTObjectMemberChainExpr* member);
 		bool ValidateMemberFuncCall(ASTFunc* func, ASTFuncCallExpr* call);
+		void ValidateArrayMember(ASTArrayMemberExpr* expr);
+		void ValidateIsArrayType(ASTIdent* ident);
+		void ValidateIf(ASTIf* ifStmt);
+		void ValidateObjectInit(ASTObjectInit* init);
+		void ValidateObject(ASTObject* obj);
 		ASTNode* GetObjectInScope(ASTNode* ident, Scope* sc);
 		ASTNode* GetObjectInScopeByString(std::string name, Scope* sc);
 		void SetScope();

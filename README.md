@@ -3,5 +3,5 @@ CobraLang
 
 Todo's:
 -------
-  -- Check.cc 88 - add type check for params and args
+  -- Check.cc 698 -- alias file access to object
  		

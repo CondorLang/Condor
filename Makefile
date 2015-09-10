@@ -10,6 +10,9 @@ all:
 	make buildAll
 	make lib
 
+cb: 
+	./configure.py -f
+
 buildAll: $(SOURCES) $(EXECUTABLE)
     
 $(EXECUTABLE): $(OBJECTS)

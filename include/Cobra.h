@@ -52,6 +52,7 @@ namespace Cobra {
 		const char* GetType();
 		bool IsCompiled();
 		void Run();
+		const char* GetErrorMessage();
 	};
 
 	/**

@@ -23,6 +23,8 @@ namespace internal{
 		row = -1;
 		pos = -1;
 		reset = false;
+		internal = false;
+		nonOp = false;
 	}
 
 	Parser::~Parser(){
@@ -245,6 +247,44 @@ namespace internal{
 		return v;
 	}
 
+	ASTExpr* Parser::ParseObjectInit(){
+		Expect(NEW);
+		Next();
+		if (trace) Trace("Parsing", "New Object");
+		Expect(IDENT);
+
+		ASTObjectInit* call = isolate->InsertToHeap(new ASTObjectInit, OBJECT_INIT);
+		AddRowCol(call);
+		call->name = tok->raw;
+		call->pos = pos;
+		Next();
+		Expect(LPAREN);
+		Next();
+		bool expectExpr = false;
+		ASTExpr* ex = NULL;
+		while (true){
+			ex = ParseExpr();
+			if (ex != NULL) {
+				expectExpr = false;
+				call->params.push_back(ex);
+			}
+			if (tok->value == COMMA){
+				Next();
+				expectExpr = true;
+				continue;
+			}
+			else if (tok->value == RPAREN){
+				if (expectExpr) throw Error::EXPECTED_PARAMETER;
+				Next();
+				break;
+			}
+			else{
+				throw Error::INVALID_FUNCTION_CALL;
+			}
+		}
+		return call;
+	}
+
 	ASTNode* Parser::ParseObject(){
 		Expect(OBJECT);
 		int r = row;
@@ -276,7 +316,7 @@ namespace internal{
 				node = ParseNodes();
 				node->visibility = v;
 				if (node == NULL) throw Error::EXPECTED_VARIABLE_TYPE;
-				obj->members[node->name] = node;
+				obj->members.push_back(node);
 			}
 			else{
 				VISIBILITY v = GetVisibility();
@@ -284,7 +324,7 @@ namespace internal{
 				if (tok->value == FUNC) node = ParseFunc();
 				else node = ParseVar();
 				node->visibility = v;
-				obj->members[node->name] = node;
+				obj->members.push_back(node);
 			}
 		}
 		Expect(RBRACE);
@@ -303,9 +343,9 @@ namespace internal{
 			aryMem->col = c;
 			aryMem->name = expr->name;
 			aryMem->member = ParseExpr();
+			aryMem->value = expr;
 			Expect(RBRACK);
 			Next();
-			//delete expr;
 			return aryMem;
 		}
 		return expr;
@@ -381,11 +421,15 @@ namespace internal{
 				}
 				return first;
 			}
-			case kNULL: case BOOLEAN: case INT: case FLOAT: case DOUBLE: case CHAR: case STRING: {
+			case kNULL: case BOOLEAN: case INT: case FLOAT: case DOUBLE: case CHAR: case STRING: case TRUE_LITERAL: case FALSE_LITERAL: {
 				ASTLiterary* lit = isolate->InsertToHeap(new ASTLiterary, ASTLITERARY);
 				AddRowCol(lit);
 				lit->kind = tok->value;
-				if (tok->value == kNULL){
+				if (tok->value == FALSE_LITERAL || tok->value == TRUE_LITERAL) {
+					lit->kind = BOOLEAN;
+					lit->value = FALSE_LITERAL ? "false" : "true";
+				}
+				else if (tok->value == kNULL){
 					lit->value = "null";
 				}
 				else{
@@ -441,11 +485,25 @@ namespace internal{
 		int type = (int) tok->value;
 		switch (type){
 			case ADD: case SUB: case MUL: case DIV: case MOD: {
+				if (nonOp && !internal) throw Error::UNEXPECTED_OPERATOR;
+				else if (nonOp && internal){
+					Expect(MOD);
+					Next();
+					Expect(IDENT);
+					std::string name = tok->raw;
+					Next();
+					Expect(LPAREN);
+					Next();
+					ASTExpr* expr = ParseExpr();
+					Expect(RPAREN);
+					Next();
+					Expect(SEMICOLON);
+					return Internal::ParseCall(expr, name, topScope);
+				}
 				ASTUnaryExpr* unary = isolate->InsertToHeap(new ASTUnaryExpr, ASTUNARY_EXPR);
 				AddRowCol(unary);
 				unary->pos = pos;
 				unary->op = isolate->InsertToHeap(new Token(tok->value), K_TOKEN);
-				//delete unary->value;
 				unary->value = ParseUnaryExpr();
 				return unary;
 			}
@@ -469,6 +527,9 @@ namespace internal{
 				ASTArrayMemberExpr* ary = isolate->InsertToHeap(new ASTArrayMemberExpr, ASTARRAY_MEMBER_EXPR);
 				AddRowCol(ary);
 				return ary;
+			}
+			case NEW: {
+				return ParseObjectInit();
 			}
 			default: {
 				return ParsePrimaryExpr();
@@ -547,6 +608,7 @@ namespace internal{
 				unary->op = isolate->InsertToHeap(new Token(tok->value), K_TOKEN);
 				unary->pos = pos;
 				Next();
+				nonOp = true;
 				unary->value = ParseExpr();
 				Expect(SEMICOLON);
 				Next(); // eat semi
@@ -633,11 +695,14 @@ namespace internal{
 	ASTNode* Parser::ParseIdentStart(){
 		if (trace) Trace("Parsing", "ident start");
 		Expect(IDENT);
-		ASTNode* expr = ParseExpr(); // here
+		ASTNode* expr = ParseExpr();
 		if (IsAssignment()){
 			if (expr->type == ARRAY_MEMBER){ // for arrays
 				ASTArrayMemberExpr* aryMem = (ASTArrayMemberExpr*) expr;
 				aryMem->value = ParseSimpleStmt();
+				Expect(SEMICOLON);
+				Next();
+				return aryMem;
 			}
 			else if (expr->type == OBJECT_MEMBER_CHAIN){
 				ASTObjectMemberChainExpr* chain = (ASTObjectMemberChainExpr*) expr;
@@ -768,7 +833,7 @@ namespace internal{
 	 */
 	void Parser::ParseFuncParams(ASTFunc* func){
 		if (trace) Trace("Parsing", "Func Parameters");
-		ASTVar* var = NULL;
+		ASTParamVar* var = NULL;
 		while (true){
 			if (mode == STRICT){
 				if (tok->value == RPAREN) return;
@@ -804,7 +869,7 @@ namespace internal{
 			else{
 				if (tok->value == RPAREN) return;
 				Expect(IDENT);
-				ASTNode* var = isolate->InsertToHeap(new ASTParamVar, ASTPARAM_VAR);
+				ASTVar* var = isolate->InsertToHeap(new ASTParamVar, ASTPARAM_VAR);
 				AddRowCol(var);
 				std::string name = tok->raw;
 				Next();
@@ -812,7 +877,6 @@ namespace internal{
 					Next();
 					Expect(RBRACK);
 					Next();
-					//delete var;
 					var = isolate->InsertToHeap(new ASTArray(VAR), ASTARRAY);
 					AddRowCol(var);
 					var->name = name;

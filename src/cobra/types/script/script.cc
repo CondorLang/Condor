@@ -16,22 +16,27 @@ namespace internal{
 		this->isolate = isolate;
 		compiled = false;
 		parsingTime = PARSING_TIME;
+		internal = false;
 	}
 
 	// TODO:
 	// 		Add TRY_CATCH
-	// 		Pass Isolate through
 	void Script::Compile(){
 		std::string sourceCode = "";
 		String* string = source->ToString();
+		internal = string->IsInternal();
 		sourceCode += string->GetValue();
 		absolutePath = string->GetPath();
 		
-		parser = source->isolate->InsertToHeap(new Parser(&sourceCode, &absolutePath), PARSER);
-		parser->SetIsolate(source->isolate);
+		iHandle<Parser> localParser = source->isolate->NewHandle(new Parser(&sourceCode, &absolutePath), PARSER);
+		parser = new iHandle<Parser>(isolate, localParser.GetHeapObject());
 
-		check = source->isolate->InsertToHeap(new Check(), CHECK);
-		check->SetIsolate(source->isolate);
+		localParser->SetIsolate(source->isolate);
+		localParser->SetInteral(internal);
+
+		iHandle<Check> localCheck = source->isolate->NewHandle(new Check(), CHECK);
+		check = &localCheck;
+		localCheck->SetIsolate(source->isolate);
 		std::map<std::string, int> includes;
 		ASTFile* main = NULL;
 		Clock* clock = NULL;
@@ -42,19 +47,20 @@ namespace internal{
 				clock->Start();
 			}
 
-			main = parser->Parse();
+			main = localParser->Parse();
 
 			if (parsingTime) {
 				clock->Stop();
-				printf("Parsing:  %f sec | %s\n", clock->GetDuration(), parser->filePath->c_str());
+				if (strncmp(localParser->filePath->c_str(), "inline", 6)) 
+					printf("Parsing:  %f sec | %s\n", clock->GetDuration(), localParser->filePath->c_str());
 			}
 
 			isolate->GetContext()->AddToInProgress(absolutePath);
 		}
 		catch (Error::ERROR e){
-			std::string msg = Error::String(e, parser->expected);
-			msg = std::to_string(parser->Row) + ":" + std::to_string(parser->Col) + " - " + msg + " - \n\t" + absolutePath.c_str() + "\n\n" + GetSourceRow(parser->Row, parser->Col);
-			msgs.push_back(msg.c_str());
+			std::string msg = Error::String(e, localParser->expected);
+			msg = std::to_string(localParser->Row) + ":" + std::to_string(localParser->Col) + " - " + msg + " - \n\t" + absolutePath.c_str() + "\n\n" + GetSourceRow(localParser->Row, localParser->Col);
+			msgs.push_back(msg);
 			printf("%s\n", msg.c_str());
 			hasErr = true;
 			return;
@@ -72,11 +78,12 @@ namespace internal{
 				clock->Reset();
 				clock->Start();
 			}
-			check->SetMode(parser->mode);
-			check->CheckFile(main);
+			localCheck->SetMode(localParser->mode);
+			localCheck->CheckFile(main);
 			if (parsingTime) {
 				clock->Stop();
-				printf("Checking: %f sec | %s\n", clock->GetDuration(), parser->filePath->c_str());
+				if (strncmp(localParser->filePath->c_str(), "inline", 6)) 
+					printf("Checking: %f sec | %s\n", clock->GetDuration(), localParser->filePath->c_str());
 				delete clock;
 			}
 
@@ -84,7 +91,8 @@ namespace internal{
 		}
 		catch (Error::ERROR e){	
 			std::string msg = Error::String(e, NULL);
-			printf("%d:%d - %s - \n\t%s\nCode:\n\n%s\n", check->row, check->col, msg.c_str(), absolutePath.c_str(), GetSourceRow(check->row, check->col).c_str());
+			printf("%d:%d - %s - \n\t%s\nCode:\n\n%s\n", localCheck->row, localCheck->col, msg.c_str(), absolutePath.c_str(), GetSourceRow(localCheck->row, localCheck->col).c_str());
+			hasErr = true;
 		}
 
 		if (compiled){
@@ -97,8 +105,9 @@ namespace internal{
 	}
 
 	void Script::SetIncludes(){
-		for (int i = 0; i < parser->includes.size(); i++){
-			ASTInclude* include = parser->includes[i];
+		iHandle<Parser> localParser = parser->Localize();
+		for (int i = 0; i < localParser->includes.size(); i++){
+			ASTInclude* include = localParser->includes[i];
 			std::string name = include->name;
 			std::string importPath = GetPathOfImport(name);
 			include->name = importPath;
@@ -183,9 +192,11 @@ namespace internal{
 	}
 
 	ASTNode* Script::GetExportedObject(std::string name){
-		for (int i = 0; i < parser->exports.size(); i++){
-			if (parser->exports[i]->name == name){
-				return parser->exports[i];
+		iHandle<Parser> localParser = parser->Localize();
+		Token* tok = new Token(parser->GetType());
+		for (int i = 0; i < localParser->exports.size(); i++){
+			if (localParser->exports[i]->name == name){
+				return localParser->exports[i];
 			}
 		}
 		return NULL;

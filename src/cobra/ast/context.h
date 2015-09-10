@@ -4,6 +4,7 @@
 #include <map>
 #include "cobra/mem/isolate.h"
 #include "cobra/types/script/script.h"
+#include "cobra/types/strings/string.h"
 
 namespace Cobra {
 namespace internal{
@@ -25,6 +26,7 @@ namespace internal{
 		bool IsIncluded(Isolate* iso, const char* path);
 		void AddToInProgress(std::string str){inProgress.push_back(str);}
 		void RemoveFromInProgress(std::string str);
+		ASTNode* GetExportedNode(Isolate* iso, std::string name);
 	};
 
 } // namespace internal

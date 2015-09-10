@@ -130,7 +130,7 @@ namespace internal{
 	public:
 		ASTVar(){type = VAR;stmt = NULL;varClass = NULL;cast = false; castType = UNDEFINED;}
 		~ASTVar(){}
-		ASTNode* stmt;
+		ASTExpr* stmt;
 		TOKEN varType;
 		TOKEN arrayType;
 		ASTIdent* varClass;
@@ -213,26 +213,35 @@ namespace internal{
 	class ASTFunc : public ASTNode
 	{
 	public:
-		ASTFunc(){type = FUNC;body = NULL; used = false;}
+		ASTFunc(){type = FUNC;body = NULL; used = false;returnType = ILLEGAL;}
 		~ASTFunc(){}
 		ASTBlock* body;
-		std::vector<ASTNode*> args;
+		std::vector<ASTVar*> args;
+		TOKEN returnType;
 		bool used;
 	};
 
 	class ASTFuncCallExpr : public ASTExpr
 	{
 	public:
-		ASTFuncCallExpr(){type = FUNC_CALL;isNew = false;pos = 0; func = NULL; scope = NULL;}
+		ASTFuncCallExpr(){type = FUNC_CALL;isNew = false;pos = 0; func = NULL; scope = NULL; assignType = ILLEGAL;}
 		~ASTFuncCallExpr(){}
 		std::vector<ASTExpr*> params;
 		int pos;
 		bool isNew;
 		ASTFunc* func;
 		Scope* scope;
+		TOKEN assignType;
 	};
 
-	class ASTArray : public ASTNode
+	class ASTObjectInit : public ASTFuncCallExpr
+	{
+	public:
+		ASTObjectInit(){type = OBJECT_INIT;}
+		~ASTObjectInit(){}		
+	};
+
+	class ASTArray : public ASTVar
 	{
 	public:
 		ASTArray(TOKEN rType){type = ARRAY; arrayType = rType;}
@@ -246,7 +255,7 @@ namespace internal{
 	public:
 		ASTObject(){type = OBJECT;}
 		~ASTObject(){}
-		std::map<std::string, ASTNode*> members;
+		std::vector<ASTNode*> members;
 	};
 
 	class ASTIf : public ASTNode

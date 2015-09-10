@@ -13,6 +13,8 @@ namespace internal{
 	void Context::SetIsolate(Isolate* isolate){
 		scripts[isolate];
 		isolate->SetContext(this);
+
+		String::CB(isolate);
 	}
 
 	void Context::AddScript(Script* script){
@@ -38,6 +40,16 @@ namespace internal{
 	void Context::RemoveFromInProgress(std::string str){
 		std::string pth = str;
 		inProgress.erase(std::find(inProgress.begin(), inProgress.end(), pth));
+	}
+
+	ASTNode* Context::GetExportedNode(Isolate* iso, std::string name){
+		std::map<size_t, Script*> scrs = scripts[iso];
+		for (std::map<size_t, Script*>::const_iterator it = scrs.begin(); it != scrs.end(); it++){
+			Script* s = it->second;
+			ASTNode* node = s->GetExportedObject(name);
+			if (node != NULL) return node;
+		}
+		return NULL;
 	}
 
 } // namespace internal
