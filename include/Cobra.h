@@ -36,6 +36,7 @@ namespace Cobra {
 		static Context* New();
 		void* operator new(size_t);
 		void SetIsolate(Isolate* isolate);
+		void Dispose();
 	};
 
 	/**

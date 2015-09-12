@@ -1,0 +1,13 @@
+{
+	"folders":
+	[
+		{
+			"path": "."
+		}
+	],
+	"settings":
+	{
+		"sublimegdb_commandline": "gdb -nx -readnow -fullname --interpreter=mi -args ./build/Cobra",
+		"sublimegdb_workingdir": "${folder:${project_path:build/Cobra}}"
+	}
+}

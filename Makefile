@@ -37,7 +37,7 @@ shell:
 	./build/Cobra ${ARGS}
 
 mem:
-	valgrind --tool=memcheck --leak-check=full --track-origins=yes ./build/Cobra
+	valgrind --tool=memcheck --leak-check=full --track-origins=yes --dsymutil=yes ./build/Cobra
 
 mt:
 	make
@@ -45,6 +45,7 @@ mt:
 
 cmt:
 	make clean
+	make cb
 	make
 	make test
 

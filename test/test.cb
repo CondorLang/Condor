@@ -7,6 +7,13 @@ func main(string args[], int argc){
 	string a = "apple";
 	String s = new String();
 	String s2 = new String("Apple");
-	int c = Int.Parse("1");
+	int c;
+
+	try {
+		c = Int.Parse("1");
+	}
+	catch (Exception e){
+		throw e;
+	}
 	bool isInt = Int.IsInt(1);
 }

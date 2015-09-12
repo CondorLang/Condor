@@ -69,4 +69,5 @@ def start(name, className):
 if __name__ == "__main__":
     if options.internalFiles:
         start('src/cobra/types/strings/string.cb', 'String')
+        start('src/cobra/types/try_catch/exception.cb', 'Exception')
 

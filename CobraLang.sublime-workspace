@@ -1,0 +1,559 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"INT",
+				"INTERNAL_TOKEN"
+			],
+			[
+				"Pars",
+				"parseFloat"
+			],
+			[
+				"parse",
+				"parseFloat"
+			],
+			[
+				"str",
+				"str2ab"
+			],
+			[
+				"surv",
+				"surveys"
+			],
+			[
+				"revi",
+				"reviewed"
+			],
+			[
+				"ava",
+				"availableSurveys"
+			],
+			[
+				"Clo",
+				"closeOverlay"
+			],
+			[
+				"sel",
+				"selected"
+			],
+			[
+				"sug",
+				"suggestions"
+			],
+			[
+				"remov",
+				"removeClass"
+			],
+			[
+				"show",
+				"showSemesterMenu"
+			],
+			[
+				"semest",
+				"semesters"
+			],
+			[
+				"getSem",
+				"getCurrentSemester"
+			],
+			[
+				"getSm",
+				"getCurrentSemester"
+			],
+			[
+				"revie",
+				"reviewSurveys"
+			],
+			[
+				"Open",
+				"OpenScope"
+			],
+			[
+				"Valid",
+				"ValidateStmt"
+			],
+			[
+				"VAL",
+				"ValidateIdent"
+			],
+			[
+				"ini",
+				"initEmail"
+			],
+			[
+				"tgl",
+				"tglEmails"
+			],
+			[
+				"survye",
+				"survey"
+			],
+			[
+				"ASTP",
+				"ASTParamVar"
+			],
+			[
+				"var",
+				"varType"
+			],
+			[
+				"Get",
+				"GetTokenString"
+			],
+			[
+				"retu",
+				"returnType"
+			],
+			[
+				"re",
+				"returnVars"
+			],
+			[
+				"ret",
+				"returnVar"
+			],
+			[
+				"sur",
+				"surveys"
+			],
+			[
+				"instruc",
+				"instructors"
+			],
+			[
+				"ent",
+				"enterEmail-input"
+			],
+			[
+				"ass",
+				"assignType"
+			],
+			[
+				"as",
+				"assignType"
+			],
+			[
+				"set",
+				"SetRowCol"
+			],
+			[
+				"Set",
+				"SetRowCol"
+			],
+			[
+				"back",
+				"background-color"
+			],
+			[
+				"survey",
+				"openSurveyData"
+			],
+			[
+				"enc",
+				"encrypt"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "test/main.cc",
+			"settings":
+			{
+				"buffer_size": 472,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "Packages/Makefile/Make.sublime-build",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/Makefile/Make.sublime-build",
+					""
+				],
+				[
+					"Packages/Makefile/Make.sublime-build",
+					"Clean"
+				]
+			],
+			[
+				"Packages/Makefile/Make.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 267.0,
+		"last_filter": "SublimeGDB",
+		"selected_items":
+		[
+			[
+				"SublimeGDB",
+				"SublimeGDB: Show Input Field"
+			],
+			[
+				"gdb",
+				"SublimeGDB: Start Debugging"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"i",
+				"Indent XML"
+			],
+			[
+				"xml",
+				"Set Syntax: XML"
+			],
+			[
+				"iden",
+				"Indent XML"
+			],
+			[
+				"instl",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = 'eb2297e1a458f27d836c04bb0cbaf282' + 'd0e7a3098092775ccb37ca9d6b2e4b7d'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/willdech/Documents/dev/CobraLang",
+		"/Users/willdech/Documents/dev/CobraLang/src",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/script",
+		"/Users/willdech/Documents/dev/CobraLang/test"
+	],
+	"file_history":
+	[
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/parser.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/parser.cc",
+		"/Users/willdech/Documents/dev/CobraLang/CobraLang.sublime-project",
+		"/Users/willdech/Library/Application Support/Sublime Text 3/Packages/User/SublimeGDB.sublime-settings",
+		"/Users/willdech/Documents/dev/CobraLang/Makefile",
+		"/Users/willdech/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/heap.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/scanner/scanner.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/script/script.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/token/token.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/token/token.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/api.cc",
+		"/Users/willdech/Documents/dev/CobraLang/include/Cobra.h",
+		"/Users/willdech/Documents/dev/CobraLang/test/main.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/isolate.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/clock.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/handle.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/script/script.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/context.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/check.cc",
+		"/Users/willdech/Downloads/allenjam (2).xml",
+		"/Users/willdech/Downloads/allenjam.xml",
+		"/Users/willdech/Downloads/allenjam (1).xml",
+		"/Users/willdech/Desktop/ier/src/js/aes.js",
+		"/Users/willdech/Desktop/ier/src/js/url.js",
+		"/Users/willdech/Desktop/ier/src/js/current.js",
+		"/Users/willdech/Desktop/ier/src/js/graph.js",
+		"/Users/willdech/Desktop/ier/src/js/ier.js",
+		"/Users/willdech/Desktop/ier/src/js/last.js",
+		"/Users/willdech/Desktop/ier/src/js/ctrl.js",
+		"/Users/willdech/Desktop/ier/src/js/data.js",
+		"/Users/willdech/Desktop/ier/src/js/sharepoint.js",
+		"/Users/willdech/Downloads/Master/aasej.xml",
+		"/Users/willdech/Desktop/ier/src/js/crypto.js",
+		"/Users/willdech/Desktop/ier/build/crypto.js",
+		"/Users/willdech/Documents/dev/CobraLang/test/tests/string.cb",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/error/error.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/error/error.h",
+		"/Users/willdech/Documents/dev/CobraLang/test/test.cb",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/check.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/ast.h",
+		"/Users/willdech/Desktop/ier/build/ier.js",
+		"/Users/willdech/Downloads/James Allen (3).csv",
+		"/Users/willdech/Downloads/James Allen (2).csv",
+		"/Users/willdech/Downloads/map (3).xml",
+		"/Users/willdech/Downloads/map (1).xml",
+		"/Users/willdech/Desktop/ier/index.html",
+		"/Users/willdech/Downloads/aasej (1).xml",
+		"/Users/willdech/Desktop/ier/src/js/error.js",
+		"/Users/willdech/Desktop/ier/Gruntfile.js",
+		"/Users/willdech/Desktop/ier/css/style.css",
+		"/Users/willdech/Downloads/map (2).xml",
+		"/Applications/XAMPP/xamppfiles/htdocs/ier/dashboard/tgl.html",
+		"/Users/willdech/Desktop/ier/css/loading.css",
+		"/Users/willdech/Library/Application Support/Sublime Text 3/Packages/Default/Preferences.sublime-settings"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			"/Users/willdech/Documents/dev/CobraLang/src"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"GetToken",
+			"realpath",
+			"newfromf",
+			"GetObjectInScopeByString",
+			"symbol:",
+			"ier.aes.key",
+			".hexDecode()",
+			"ier.aes.key",
+			"srcElement",
+			"instructor",
+			".hidden",
+			"overlay",
+			"buildi",
+			"building fait",
+			"getPersonSemesterList",
+			"getsemesterconfig",
+			"InstructorList",
+			"prev",
+			"();\n",
+			"land",
+			"&&",
+			"validateBinar",
+			"true",
+			"\"true",
+			"true",
+			"TRUE",
+			"validateliter",
+			"ValidateStmt",
+			"undefined_varia",
+			"parsearray",
+			"array",
+			"here",
+			"args",
+			"ASTArrayMemberExpr",
+			"GetObjectInScope",
+			"undefined_func",
+			"recent",
+			"weekly hours",
+			"download",
+			"undefined_f",
+			"validatefunccall",
+			"paramvar* ",
+			"ValidateIdent",
+			"operator fou",
+			"validatefunc(",
+			"returnType",
+			"ValidateFuncCall",
+			"ValidateStmt(",
+			"ValidateStmt",
+			"astfunccall",
+			"validateVar",
+			"funccall(",
+			"validateFunc(",
+			"ier.globals.instr",
+			"aim",
+			"aasej",
+			"aase",
+			"talbotam",
+			"ej",
+			"aasej",
+			"getxml",
+			"TGLInstructorStandards",
+			"adkinsr",
+			"abelj",
+			"bartholomewr",
+			"robersona",
+			"jacksons",
+			"pattersonj",
+			"finchd",
+			"brownme",
+			"adamsa",
+			"brownre",
+			"brunnerm",
+			"meltong",
+			"buckj",
+			"brownre",
+			"getPerson",
+			"getPerson().fir",
+			"18278",
+			"fa15",
+			"'",
+			"validateFuncC",
+			"validateFunc",
+			"funcCall(",
+			"TODO",
+			"parser",
+			"all",
+			"backgrou",
+			"url"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"target",
+			"\\'"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "test/main.cc",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 472,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								472,
+								472
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 100.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "CobraLang.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

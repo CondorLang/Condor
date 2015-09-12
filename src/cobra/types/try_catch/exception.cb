@@ -1,0 +1,8 @@
+#mode "strict";
+
+export object Exception{
+	func Exception(string msg){
+		//this.message = msg;
+	}
+	string message = "";
+}
