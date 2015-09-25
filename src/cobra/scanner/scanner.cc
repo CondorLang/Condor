@@ -11,6 +11,7 @@ namespace internal{
 	 * @param source std::string
 	 */
 	Scanner::Scanner(Isolate* iso, std::string* source){
+		if (source == NULL) throw Error::EMPTY_FILE;
 		src = source;
 		offset = -1;
 		readOffset = 0;
@@ -33,8 +34,8 @@ namespace internal{
 			ScanWhiteSpaces();
 
 		switch (ch){
-			case -1: return isolate->InsertToHeap(new Token(END), INTERNAL_TOKEN);
-			case '\0': return isolate->InsertToHeap(new Token(END), INTERNAL_TOKEN);
+			case -1: return Token::New(isolate, END);
+			case '\0': return Token::New(isolate, END);
 			case '/': {
 				char p = Peek();
 				if (p == '*'){
@@ -46,183 +47,183 @@ namespace internal{
 					return NextToken();
 				}
 				else if (p == '='){
-					Next(); return isolate->InsertToHeap(new Token(DIV_ASSIGN), INTERNAL_TOKEN);
+					Next(); return Token::New(isolate, DIV_ASSIGN);
 				}
 				else {
-					Next(); return isolate->InsertToHeap(new Token(DIV), INTERNAL_TOKEN);
+					Next(); return Token::New(isolate, DIV);
 				}
 			}
 			case '@': {
-				return isolate->InsertToHeap(new Token(CONSTRUCTOR), INTERNAL_TOKEN);
+				return Token::New(isolate, CONSTRUCTOR);
 			}
 			case '`': {
-				return isolate->InsertToHeap(new Token(TICK), INTERNAL_TOKEN);
+				return Token::New(isolate, TICK);
 			}
 			case '*': {
 				char p = Peek();
 				if (p == '=') {
 					Next(); 
-					return isolate->InsertToHeap(new Token(MUL_ASSIGN), INTERNAL_TOKEN);
+					return Token::New(isolate, MUL_ASSIGN);
 				}
-				return isolate->InsertToHeap(new Token(MUL), INTERNAL_TOKEN);
+				return Token::New(isolate, MUL);
 			}
 			case '+': {
 				char p = Peek();
 				if (p == '+') {
 					Next(); 
-					return isolate->InsertToHeap(new Token(INC), INTERNAL_TOKEN);
+					return Token::New(isolate, INC);
 				}
 				else if (p == '=') {
 					Next(); 
-					return isolate->InsertToHeap(new Token(ADD_ASSIGN), INTERNAL_TOKEN);
+					return Token::New(isolate, ADD_ASSIGN);
 				}
-				else return isolate->InsertToHeap(new Token(ADD), INTERNAL_TOKEN);
+				else return Token::New(isolate, ADD);
 			}
 			case '-': {
 				char p = Peek();
 				if (p == '=') {
 					Next(); 
-					return isolate->InsertToHeap(new Token(SUB_ASSIGN), INTERNAL_TOKEN);
+					return Token::New(isolate, SUB_ASSIGN);
 				}
 				else if (p == '-') {
 					Next(); 
-					return isolate->InsertToHeap(new Token(DEC), INTERNAL_TOKEN);
+					return Token::New(isolate, DEC);
 				}
 				else if (p == '>') {
 					Next(); 
-					return isolate->InsertToHeap(new Token(RARROW), INTERNAL_TOKEN);
+					return Token::New(isolate, RARROW);
 				}
-				else return isolate->InsertToHeap(new Token(SUB), INTERNAL_TOKEN);
+				else return Token::New(isolate, SUB);
 			}
 			case '%': {
 				char p = Peek();
 				if (p == '=') {
 					Next(); 
-					return isolate->InsertToHeap(new Token(MOD_ASSIGN), INTERNAL_TOKEN);
+					return Token::New(isolate, MOD_ASSIGN);
 				}
-				return isolate->InsertToHeap(new Token(MOD), INTERNAL_TOKEN);
+				return Token::New(isolate, MOD);
 			}
 			case '<': {
 				char p = Peek();
 				if (p == '-') {
 					Next(); 
-					return isolate->InsertToHeap(new Token(LARROW), INTERNAL_TOKEN);
+					return Token::New(isolate, LARROW);
 				}
 				else if (p == '<') {
 					char p2 = src->at(readOffset + 1);
 					if (p2 == '=') {
 						Next(); 
 						Next(); 
-						return isolate->InsertToHeap(new Token(SHL_ASSIGN), INTERNAL_TOKEN);
+						return Token::New(isolate, SHL_ASSIGN);
 					}
 					Next();
-					return isolate->InsertToHeap(new Token(SHL), INTERNAL_TOKEN);
+					return Token::New(isolate, SHL);
 				}
 				else if (p == '=') {
 					Next(); 
-					return isolate->InsertToHeap(new Token(LEQ), INTERNAL_TOKEN);
+					return Token::New(isolate, LEQ);
 				}
-				else return isolate->InsertToHeap(new Token(LSS), INTERNAL_TOKEN);
+				else return Token::New(isolate, LSS);
 			}
 			case '>': {
 				char p = Peek();
 				if (p == '=') {
 					Next(); 
-					return isolate->InsertToHeap(new Token(GEQ), INTERNAL_TOKEN);
+					return Token::New(isolate, GEQ);
 				}
 				if (p == '>') {
 					char p2 = src->at(readOffset + 1);
 					if (p2 == '=') {
 						Next(); 
 						Next(); 
-						return isolate->InsertToHeap(new Token(SHR_ASSIGN), INTERNAL_TOKEN);
+						return Token::New(isolate, SHR_ASSIGN);
 					}
 					Next();
-					return isolate->InsertToHeap(new Token(SHR), INTERNAL_TOKEN);
+					return Token::New(isolate, SHR);
 				}
-				else return isolate->InsertToHeap(new Token(GTR), INTERNAL_TOKEN);
+				else return Token::New(isolate, GTR);
 			}
 			case '!': {
 				char p = Peek();
 				if (p == '='){
 					Next();
-					return isolate->InsertToHeap(new Token(NEQ), INTERNAL_TOKEN);
+					return Token::New(isolate, NEQ);
 				}
-				return isolate->InsertToHeap(new Token(NOT), INTERNAL_TOKEN);
+				return Token::New(isolate, NOT);
 			}
 			case '&': {
 				char p = Peek();
 				if (p == '&') {
 					Next(); 
-					return isolate->InsertToHeap(new Token(LAND), INTERNAL_TOKEN);
+					return Token::New(isolate, LAND);
 				}
 				else if (p == '^') {
 					char p2 = src->at(readOffset + 1);
 					if (p2 == '=') {
 						Next(); 
-						return isolate->InsertToHeap(new Token(AND_NOT_ASSIGN), INTERNAL_TOKEN);
+						return Token::New(isolate, AND_NOT_ASSIGN);
 					}
 					Next();
-					return isolate->InsertToHeap(new Token(AND_NOT), INTERNAL_TOKEN);
+					return Token::New(isolate, AND_NOT);
 				}
 				else if (p == '=') {
 					Next();
-					return isolate->InsertToHeap(new Token(AND_ASSIGN), INTERNAL_TOKEN);
+					return Token::New(isolate, AND_ASSIGN);
 				}
-				return isolate->InsertToHeap(new Token(AND), INTERNAL_TOKEN);
+				return Token::New(isolate, AND);
 			}
 			case '|': {
 				char p = Peek();
 				if (p == '|') {
 					Next(); 
-					return isolate->InsertToHeap(new Token(LOR), INTERNAL_TOKEN);
+					return Token::New(isolate, LOR);
 				}
 				else if (p == '=') {
 					Next(); 
-					return isolate->InsertToHeap(new Token(OR_ASSIGN), INTERNAL_TOKEN);
+					return Token::New(isolate, OR_ASSIGN);
 				}
-				return isolate->InsertToHeap(new Token(OR), INTERNAL_TOKEN);
+				return Token::New(isolate, OR);
 			}
 			case '^': {
 				char p = Peek();
 				if (p == '=') {
 					Next(); 
-					return isolate->InsertToHeap(new Token(XOR_ASSIGN), INTERNAL_TOKEN);
+					return Token::New(isolate, XOR_ASSIGN);
 				}
 			}
 			case '=': {
 				char p = Peek();
 				if (p == '=') {
 					Next(); 
-					return isolate->InsertToHeap(new Token(EQL), INTERNAL_TOKEN);
+					return Token::New(isolate, EQL);
 				}
-				return isolate->InsertToHeap(new Token(ASSIGN), INTERNAL_TOKEN);
+				return Token::New(isolate, ASSIGN);
 			}
-			case ';': return isolate->InsertToHeap(new Token(SEMICOLON), INTERNAL_TOKEN);
-			case ':': return isolate->InsertToHeap(new Token(COLON), INTERNAL_TOKEN);
-			case ',': return isolate->InsertToHeap(new Token(COMMA), INTERNAL_TOKEN);
+			case ';': return Token::New(isolate, SEMICOLON);
+			case ':': return Token::New(isolate, COLON);
+			case ',': return Token::New(isolate, COMMA);
 			case '.': {
 				char p = Peek();
 				char p2 = src->at(readOffset + 1);
 				if (p == '.' && p2 == '.') {
 					Next();
 					Next();
-					return isolate->InsertToHeap(new Token(ELLIPSIS), INTERNAL_TOKEN);
+					return Token::New(isolate, ELLIPSIS);
 				}
-				return isolate->InsertToHeap(new Token(PERIOD), INTERNAL_TOKEN);
+				return Token::New(isolate, PERIOD);
 			}
-			case '(': return isolate->InsertToHeap(new Token(LPAREN), INTERNAL_TOKEN);
-			case ')': return isolate->InsertToHeap(new Token(RPAREN), INTERNAL_TOKEN);;
-			case '[': return isolate->InsertToHeap(new Token(LBRACK), INTERNAL_TOKEN);
-			case ']': return isolate->InsertToHeap(new Token(RBRACK), INTERNAL_TOKEN);
-			case '{': return isolate->InsertToHeap(new Token(LBRACE), INTERNAL_TOKEN);
-			case '}': return isolate->InsertToHeap(new Token(RBRACE), INTERNAL_TOKEN);
-			case '#': return isolate->InsertToHeap(new Token(HASH), INTERNAL_TOKEN);
+			case '(': return Token::New(isolate, LPAREN);
+			case ')': return Token::New(isolate, RPAREN);;
+			case '[': return Token::New(isolate, LBRACK);
+			case ']': return Token::New(isolate, RBRACK);
+			case '{': return Token::New(isolate, LBRACE);
+			case '}': return Token::New(isolate, RBRACE);
+			case '#': return Token::New(isolate, HASH);
 			case '\'': {
 				char p = Peek();
 				char p2 = src->at(readOffset + 1);
 				if (p2 == '\''){
-					Token* tok = isolate->InsertToHeap(new Token(CHAR), INTERNAL_TOKEN);
+					Token* tok = Token::New(isolate, CHAR);
 					tok->raw = p;
 					Next();
 					Next();
@@ -230,7 +231,7 @@ namespace internal{
 				}
 				else if (p == '\''){
 					Next();
-					return isolate->InsertToHeap(new Token(CHAR), INTERNAL_TOKEN);
+					return Token::New(isolate, CHAR);
 				}
 				throw Error::INVALID_CHAR_VALUE;
 			}
@@ -245,7 +246,7 @@ namespace internal{
 						result += ch;
 					}
 				}
-				Token* tok = isolate->InsertToHeap(new Token(STRING), INTERNAL_TOKEN);
+				Token* tok = Token::New(isolate, STRING);
 				tok->raw = result;
 				return tok;
 			}
@@ -258,7 +259,7 @@ namespace internal{
 						result += ch;
 						p = Peek();
 					}
-					Token* tok = isolate->InsertToHeap(Token::GetToken(result), INTERNAL_TOKEN);
+					Token* tok = Token::GetToken(isolate, result);
 					if (tok->value == IDENT){
 						tok->raw = result;
 					}
@@ -278,9 +279,9 @@ namespace internal{
 						p = Peek();
 					}
 					Token* tok = NULL;
-					if (isInt) tok = isolate->InsertToHeap(new Token(INT), INTERNAL_TOKEN);
-					else if (count < 7) tok = isolate->InsertToHeap(new Token(FLOAT), INTERNAL_TOKEN);
-					else tok = isolate->InsertToHeap(new Token(DOUBLE), INTERNAL_TOKEN);
+					if (isInt) tok = Token::New(isolate, INT);
+					else if (count < 7) tok = Token::New(isolate, FLOAT);
+					else tok = Token::New(isolate, DOUBLE);
 					tok->raw = result;
 					return tok;
 				}

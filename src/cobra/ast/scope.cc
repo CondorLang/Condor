@@ -8,13 +8,18 @@ namespace internal{
 		outer = NULL;
 	}
 
-	Scope::~Scope(){
-		// if (outer != NULL) delete outer;
-		// ordered.erase(ordered.begin(), ordered.end());
+	Scope::~Scope(){}
+
+	Scope* Scope::New(Isolate* iso){
+		Scope* s = (Scope*) iso->GetMemory(sizeof(Scope));
+		s->count = 1;
+		s->outer = NULL;
+		s->ordered.SetIsolate(iso);
+		return s;
 	}
 
-	Scope* Scope::NewScope(){
-		Scope* scope = new Scope;
+	Scope* Scope::NewScope(Isolate* isolate){
+		Scope* scope = Scope::New(isolate);
 		scope->outer = this;
 		return scope;
 	}

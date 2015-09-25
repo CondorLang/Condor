@@ -5,6 +5,7 @@
 #include <map>
 #include "ast.h"
 #include "cobra/globals.h"
+#include "cobra/types/vector/vector.h"
 
 namespace Cobra {
 namespace internal{
@@ -14,15 +15,16 @@ namespace internal{
 	class Scope
 	{
 	private:
-		std::vector<ASTNode*> ordered;
+		Vector<ASTNode*> ordered;
 
 		int count;
 	public:
 		Scope();
 		~Scope();
+		static Scope* New(Isolate* iso);
 		Scope* outer;
 
-		Scope* NewScope();
+		Scope* NewScope(Isolate* isolate);
 		std::vector<ASTNode*> Lookup(std::string name);
 		void Insert(ASTNode* node);
 		void String();

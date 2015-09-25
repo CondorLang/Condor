@@ -13,6 +13,7 @@ namespace internal{
 		printIndent = 0;
 		file = NULL;
 		IsInline = false;
+		kThis = NULL;
 	}
 
 	Check::~Check(){}
@@ -139,6 +140,7 @@ namespace internal{
 	void Check::ValidateIdent(ASTIdent* ident){
 		SetRowCol(ident);
 		ASTNode* ptr = GetObjectInScopeByString(ident->name, scope);
+		if (ptr == NULL) throw Error::UNDEFINED_VARIABLE;
 		if (ptr->type == VAR) {
 			ASTVar* var = (ASTVar*) ptr;
 			ident->assignType = var->varType;
@@ -149,28 +151,26 @@ namespace internal{
 			ident->assignType = var->varType;
 			ptr->used = true;
 		}
-		if (ptr == NULL) throw Error::UNDEFINED_VARIABLE;
+		
+		ident->value = ptr;
+		if (ident->inc){
+			if (ident->post){
+				if (trace) Trace("inc", ident->name + "++");
+			}
+			else if (ident->pre){
+				if (trace) Trace("inc", "++" + ident->name);
+			}
+		}
+		else if (ident->dec){
+			if (ident->post){
+				if (trace) Trace("inc", ident->name + "--");
+			}
+			else if (ident->pre){
+				if (trace) Trace("inc", "--" + ident->name);
+			}
+		}
 		else{
-			ident->value = ptr;
-			if (ident->inc){
-				if (ident->post){
-					if (trace) Trace("inc", ident->name + "++");
-				}
-				else if (ident->pre){
-					if (trace) Trace("inc", "++" + ident->name);
-				}
-			}
-			else if (ident->dec){
-				if (ident->post){
-					if (trace) Trace("inc", ident->name + "--");
-				}
-				else if (ident->pre){
-					if (trace) Trace("inc", "--" + ident->name);
-				}
-			}
-			else{
-				if (trace) Trace(ptr->name, "is a " + GetTokenString(ptr->type));
-			}
+			if (trace) Trace(ptr->name, "is a " + GetTokenString(ptr->type));
 		}
 	}
 
@@ -659,13 +659,39 @@ namespace internal{
 		else throw Error::INVALID_ARRAY_TYPE;
 	}
 
+	bool Check::ValidateThis(ASTObjectMemberChainExpr* member){
+		ASTNode* n = kThis;
+		if (n == NULL) return false;
+		if (n->type == OBJECT){
+			ASTObject* o = (ASTObject*) n;
+			member->object->value = n;
+			for (int i = 0; i < o->members.size(); i++){
+				if (o->members[i]->name == member->member->name){
+					if (mode == STRICT){
+						if (o->members[i]->type == VAR){ 
+							ASTVar* v = (ASTVar*) o->members[i];
+							member->member->assignType = v->varType;
+							ValidateStmt(member->value);
+							SetRowCol(member->value);
+							return member->value->assignType == member->member->assignType;
+						}
+					}
+				}
+			}
+		}
+		return false;
+	}
+
 	/**
 	 * TODO: 
 	 * 		- FuncCall and func parameters should have the same type
 	 */
 	bool Check::ValidateObjectChainMember(ASTObjectMemberChainExpr* member){
 		SetRowCol(member);
-
+		if (member->name == "%this" && member->object->name == "this"){
+			if (!ValidateThis(member)) throw Error::INVALID_OBJECT_MEMBER;
+			return true;
+		}
 		ASTNode* node = GetObjectInScopeByString(member->object->name, scope);
 		if (node != NULL){
 			SetRowCol(node);
@@ -800,7 +826,7 @@ namespace internal{
 				}
 			}
 			else{
-				stmt = isolate->InsertToHeap(new ASTNull, kNULL);
+				stmt = ASTNull::New(isolate);
 			}
 		}
 	}
@@ -821,6 +847,7 @@ namespace internal{
 	void Check::ValidateObject(ASTObject* obj){
 		if (trace) Trace("Validating object", obj->name);
 		SetRowCol(obj);
+		kThis = obj;
 		for (int i = 0; i < obj->members.size(); i++){
 			ASTNode* mem = obj->members[i];
 			if (mem != NULL) CheckScopeLevelNode(mem);
@@ -837,11 +864,6 @@ namespace internal{
 					break;
 				}
 				case FUNC: {
-					// std::vector<ASTNode*> exprs = scope->Lookup(node->name);
-					// if (exprs.empty()) throw Error::UNDEFINED_FUNC;
-					// for (int i = 0; i < exprs.size(); i++){
-					// 	ValidateFunc((ASTFunc*) exprs[i]);
-					// }
 					ValidateFunc((ASTFunc*) node);
 					break;
 				}

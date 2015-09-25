@@ -8,8 +8,8 @@
 namespace Cobra {
 namespace internal{
 
-	Script::Script(Handle* handle, Isolate* isolate){
-		source = handle;
+	Script::Script(Handle* string, Isolate* isolate){
+		source = string;
 		parser = NULL;
 		check = NULL;
 		hasErr = false;
@@ -17,28 +17,26 @@ namespace internal{
 		compiled = false;
 		parsingTime = PARSING_TIME;
 		internal = false;
+		sourceCode = "";
+		String* str = source->ToString();
+		internal = str->IsInternal();
+		sourceCode += str->GetValue();
+		absolutePath = str->GetPath();
+		msgs.SetIsolate(isolate);
 	}
 
 	// TODO:
 	// 		Add TRY_CATCH
 	void Script::Compile(){
-		std::string sourceCode = "";
-		String* string = source->ToString();
-		internal = string->IsInternal();
-		sourceCode += string->GetValue();
-		absolutePath = string->GetPath();
+		parser = new Parser(&sourceCode, &absolutePath);
+		bool isInline = strncmp(parser->filePath->c_str(), "inline", 6);
 		
-		iHandle<Parser> localParser = source->isolate->NewHandle(new Parser(&sourceCode, &absolutePath), PARSER);
-		parser = isolate->InsertToHeap(new iHandle<Parser>(isolate, localParser.GetHeapObject()), HANDLE);
-		bool isInline = strncmp(localParser->filePath->c_str(), "inline", 6);
-		
-		localParser->SetIsolate(source->isolate);
-		localParser->SetInteral(internal);
-		localParser->SetInline(isInline);
+		parser->SetIsolate(source->isolate);
+		parser->SetInteral(internal);
+		parser->SetInline(isInline);
 
-		iHandle<Check> localCheck = source->isolate->NewHandle(new Check(), CHECK);
-		check = &localCheck;
-		localCheck->SetIsolate(source->isolate);
+		check = new Check();
+		check->SetIsolate(source->isolate);
 		std::map<std::string, int> includes;
 		ASTFile* main = NULL;
 		Clock* clock = NULL;
@@ -49,19 +47,19 @@ namespace internal{
 				clock->Start();
 			}
 
-			main = localParser->Parse();
+			main = parser->Parse();
 
 			if (parsingTime) {
 				clock->Stop();
 				if (isInline) 
-					printf("Parsing:  %f sec | %s\n", clock->GetDuration(), localParser->filePath->c_str());
+					printf("Parsing:  %f sec | %s\n", clock->GetDuration(), parser->filePath->c_str());
 			}
 
 			isolate->GetContext()->AddToInProgress(absolutePath);
 		}
 		catch (Error::ERROR e){
-			std::string msg = Error::String(e, localParser->expected);
-			msg = std::to_string(localParser->Row) + ":" + std::to_string(localParser->Col) + " - " + msg + " - \n\t" + absolutePath.c_str() + "\n\n" + GetSourceRow(localParser->Row, localParser->Col);
+			std::string msg = Error::String(e, parser->expected);
+			msg = std::to_string(parser->Row) + ":" + std::to_string(parser->Col) + " - " + msg + " - \n\t" + absolutePath.c_str() + "\n\n" + GetSourceRow(parser->Row, parser->Col);
 			msgs.push_back(msg);
 			printf("%s\n", msg.c_str());
 			hasErr = true;
@@ -80,13 +78,13 @@ namespace internal{
 				clock->Reset();
 				clock->Start();
 			}
-			localCheck->SetInline(isInline);
-			localCheck->SetMode(localParser->mode);
-			localCheck->CheckFile(main);
+			check->SetInline(isInline);
+			check->SetMode(parser->mode);
+			check->CheckFile(main);
 			if (parsingTime) {
 				clock->Stop();
 				if (isInline) 
-					printf("Checking: %f sec | %s\n", clock->GetDuration(), localParser->filePath->c_str());
+					printf("Checking: %f sec | %s\n", clock->GetDuration(), parser->filePath->c_str());
 				delete clock;
 			}
 
@@ -94,7 +92,7 @@ namespace internal{
 		}
 		catch (Error::ERROR e){	
 			std::string msg = Error::String(e, NULL);
-			printf("%d:%d - %s - \n\t%s\nCode:\n\n%s\n", localCheck->row, localCheck->col, msg.c_str(), absolutePath.c_str(), GetSourceRow(localCheck->row, localCheck->col).c_str());
+			printf("%d:%d - %s - \n\t%s\nCode:\n\n%s\n", check->row, check->col, msg.c_str(), absolutePath.c_str(), GetSourceRow(check->row, check->col).c_str());
 			hasErr = true;
 		}
 
@@ -108,9 +106,8 @@ namespace internal{
 	}
 
 	void Script::SetIncludes(){
-		iHandle<Parser> localParser = parser->Localize();
-		for (int i = 0; i < localParser->includes.size(); i++){
-			ASTInclude* include = localParser->includes[i];
+		for (int i = 0; i < parser->includes.size(); i++){
+			ASTInclude* include = parser->includes[i];
 			std::string name = include->name;
 			std::string importPath = GetPathOfImport(name);
 			include->name = importPath;
@@ -195,32 +192,30 @@ namespace internal{
 	}
 
 	ASTNode* Script::GetExportedObject(std::string name){
-		iHandle<Parser> localParser = parser->Localize();
-		if (!localParser.IsValid()) return NULL;
-		for (int i = 0; i < localParser->exports.size(); i++){
-			if (localParser->exports[i]->name == name){
-				return localParser->exports[i];
+		for (int i = 0; i < parser->exports.size(); i++){
+			if (parser->exports[i]->name == name){
+				return parser->exports[i];
 			}
 		}
 		return NULL;
 	}
 
 	std::string Script::GetSourceRow(int row, int col){
-		std::string sourceCode = "";
+		std::string src = "";
 		String* string = source->ToString();
-		sourceCode += string->GetValue();
+		src += string->GetValue();
 		std::string result = "";
 		std::string u = UNDERLINE_START;
 		std::string u2 = UNDERLINE_STOP;
 		int r = 0;
 		int c = 0;
 		bool carot = false;
-		for (int i = 0; i < sourceCode.length(); i++){
-			if (sourceCode[i] == '\t'){
-				sourceCode[i] = ' ';
+		for (int i = 0; i < src.length(); i++){
+			if (src[i] == '\t'){
+				src[i] = ' ';
 			}
 			if (r == row - 1){
-				result += sourceCode[i];
+				result += src[i];
 			}
 			else if (r == row){
 				if (!carot){
@@ -234,10 +229,10 @@ namespace internal{
 					}
 					carot = true;
 				}
-				result += sourceCode[i];
+				result += src[i];
 			}
 			else if (r > row) break;
-			if (sourceCode[i] == '\n'){
+			if (src[i] == '\n'){
 				r++;
 				c = 0;
 			}
@@ -275,10 +270,13 @@ namespace internal{
 	}
 
 	std::string Script::GetSourceCode(){
-		std::string sourceCode = "";
-		String* string = source->ToString();
-		sourceCode += string->GetValue();
 		return sourceCode;
+	}
+
+	void Script::PrintExported(){
+		for (int i = 0; i < parser->exports.size(); i++){
+			printf("%s - %s\n", absolutePath.c_str(), parser->exports[i]->name.c_str());
+		}
 	}
 
 	void Script::Run(){

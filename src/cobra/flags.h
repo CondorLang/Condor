@@ -14,6 +14,8 @@ namespace internal{
 	#define PARSING_TIME Flags::parsingTime;
 	#define HEAP_INSERT Flags::heapInsert;
 	#define HEAP_DELETE Flags::heapDelete;
+	#define EXPORTED_NODES Flags::exportedNodes;
+	#define MAX_MEMORY_SIZE Flags::maxMemorySize;
 
 	class Flags
 	 {
@@ -24,6 +26,8 @@ namespace internal{
 	 		static bool parsingTime;
 	 		static bool heapInsert;
 	 		static bool heapDelete;
+	 		static bool exportedNodes;
+	 		static int maxMemorySize;
 	 		static void SetCommandLineFlags(int argc, const char* argv[]);
 	 }; 
 

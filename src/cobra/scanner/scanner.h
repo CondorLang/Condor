@@ -5,6 +5,7 @@
 #include <vector>
 #include "cobra/token/token.h"
 #include "cobra/error/error.h"
+#include "cobra/types/vector/vector.h"
 
 namespace Cobra {
 namespace internal{
@@ -23,7 +24,7 @@ namespace internal{
 		Scanner(Isolate* iso, std::string* source);
 		~Scanner(){}
 		std::string* src;
-		std::vector<std::string> errors;
+		Vector<std::string> errors;
 		std::string result;
 		Isolate* isolate;
 		char ch;

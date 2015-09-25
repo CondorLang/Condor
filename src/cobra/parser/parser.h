@@ -9,6 +9,7 @@
 #include "cobra/ast/ast.h"
 #include "cobra/mem/isolate.h"
 #include "cobra/mem/handle.h"
+#include "cobra/types/vector/vector.h"
 #include "internal.h"
 
 namespace Cobra {
@@ -33,16 +34,16 @@ namespace internal{
 		Parser(std::string* src, std::string* path);
 		~Parser();
 		ASTFile* Parse();
-		std::vector<ASTImport*> imports;
-		std::vector<ASTInclude*> includes;
-		std::vector<ASTNode*> exports;
+		Vector<ASTImport*> imports;
+		Vector<ASTInclude*> includes;
+		Vector<ASTNode*> exports;
 		void SetIsolate(Isolate* iso){isolate = iso;}
 		void SetInteral(bool i){internal = i;}
 		void SetInline(bool isInline){IsInline = isInline;}
 		std::string* filePath;
 
 	private:
-		iHandle<Scanner>* scanner;
+		Scanner* scanner;
 		Token* tok;
 		int pos;
 		int row;
@@ -103,6 +104,10 @@ namespace internal{
 		ASTFor* ParseFor();
 		ASTNode* ParseThrow();
 	};
+
+	namespace Sizes{
+		const int kParser = sizeof(Parser);
+	}
 } // namespace internal
 }
 

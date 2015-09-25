@@ -3,7 +3,7 @@
 
 #include <string>
 #include <map>
-#include <vector>
+#include "cobra/types/vector/vector.h"
 #include "cobra/token/token.h"
 #include "cobra/scanner/scanner.h"
 #include "scope.h"
@@ -32,7 +32,6 @@ namespace internal{
 	class ASTNode
 	{
 	public:
-		ASTNode(){type = ILLEGAL;visibility = vPUBLIC;scan = true;row = 0; col = 0;used = false;}
 		~ASTNode(){}
 		std::string name;
 		TOKEN type;
@@ -41,38 +40,38 @@ namespace internal{
 		int row;
 		int col;
 		bool used;
+		static ASTNode* New(Isolate* iso);
 	};
 
 	class ASTExpr : public ASTNode
 	{
 	public:
-		ASTExpr(){type = EXPR; value = NULL;}
 		~ASTExpr(){}
 		ASTExpr* value;
 		TOKEN assignType;
+		static ASTExpr* New(Isolate* iso);
 	};
 
 	class ASTNull : public ASTExpr
 	{
 	public:
-		ASTNull(){type = kNULL; value = NULL; assignType = kNULL;}
 		~ASTNull(){}		
+		static ASTNull* New(Isolate* iso);
 	};
 
 	class ASTCastExpr : public ASTExpr
 	{
 	public:
-		ASTCastExpr(){type = ASTCAST_EXPR; castType = UNDEFINED;}
 		~ASTCastExpr(){}
 		TOKEN castType;
 		ASTExpr* to;
 		ASTExpr* value;
+		static ASTCastExpr* New(Isolate* iso);
 	};
 
 	class ASTIdent : public ASTExpr
 	{
 	public:
-		ASTIdent(){type = IDENT;value = NULL;inc = false;dec = false;pre = false;post = false;}
 		~ASTIdent(){}
 		int pos;
 		bool inc;
@@ -80,62 +79,62 @@ namespace internal{
 		bool pre;
 		bool post;
 		ASTNode* value;
+		static ASTIdent* New(Isolate* iso);
 	};
 
 	class ASTLiterary : public ASTExpr
 	{
 	public:
-		ASTLiterary(){type = LITERARY;}
 		~ASTLiterary(){}
 		int pos;
 		std::string value;
 		TOKEN kind;
+		static ASTLiterary* New(Isolate* iso);
 	};
 
 	class ASTUnaryExpr : public ASTExpr
 	{
 	public:
-		ASTUnaryExpr(){type = UNARY;value = NULL; op = NULL;}
 		~ASTUnaryExpr(){}
 		ASTExpr* value;
 		Token* op;
 		int pos;
+		static ASTUnaryExpr* New(Isolate* iso);
 	};
 
 	class ASTBinaryExpr : public ASTExpr
 	{
 	public:
-		ASTBinaryExpr(){type = BINARY;Left = NULL; Right = NULL; op = NULL;}
 		~ASTBinaryExpr(){}
 		ASTExpr* Left;
 		ASTExpr* Right;
 		Token* op;
+		static ASTBinaryExpr* New(Isolate* iso);
 	};
 
 	class ASTArrayMemberExpr : public ASTExpr
 	{
 	public:
-		ASTArrayMemberExpr(){type = ARRAY_MEMBER;member = NULL; value = NULL;}
 		~ASTArrayMemberExpr(){}
 		ASTExpr* member;
 		ASTExpr* value;
+		static ASTArrayMemberExpr* New(Isolate* iso);
 	};
 
 	class ASTObjectMemberChainExpr : public ASTExpr
 	{
 	public:
-		ASTObjectMemberChainExpr(){type = OBJECT_MEMBER_CHAIN; isSetting = false;member = NULL; object = NULL; value = NULL; isSetting = false;}
 		~ASTObjectMemberChainExpr(){}
 		ASTExpr* member;
 		ASTIdent* object;
 		ASTExpr* value;
 		bool isSetting;
+		static ASTObjectMemberChainExpr* New(Isolate* iso);
 	};
 
 	class ASTVar : public ASTNode
 	{
 	public:
-		ASTVar(){type = VAR;stmt = NULL;varClass = NULL;cast = false; castType = UNDEFINED;}
 		~ASTVar(){}
 		ASTExpr* stmt;
 		TOKEN varType;
@@ -143,210 +142,211 @@ namespace internal{
 		ASTIdent* varClass;
 		bool cast;
 		TOKEN castType;
+		static ASTVar* New(Isolate* iso);
 	};
 
 	class ASTParamVar : public ASTVar
 	{
 	public:
-		ASTParamVar(){type = ASTPARAM_VAR;}
-		~ASTParamVar(){}		
+		~ASTParamVar(){}	
+		static ASTParamVar* New(Isolate* iso);	
 	};
 
 	class ASTVarList : public ASTNode
 	{
 	public:
-		ASTVarList(){type = VARLIST;}
 		~ASTVarList(){}
-		std::vector<ASTVar*> vars;
+		Vector<ASTVar*> vars;
+		static ASTVarList* New(Isolate* iso);
 	};
 
 	// Literals
 	class ASTInt : public ASTNode
 	{
 	public:
-		ASTInt(){type = INT;value = 0;}
 		~ASTInt(){}
 		int value;
+		static ASTInt* New(Isolate* iso);
 	};
 
 	class ASTFloat : public ASTNode
 	{
 	public:
-		ASTFloat(){type = FLOAT;value = 0.0;}
 		~ASTFloat(){}
 		float value;
+		static ASTFloat* New(Isolate* iso);
 	};
 
 	class ASTDouble : public ASTNode
 	{
 	public:
-		ASTDouble(){type = DOUBLE;value = 0.0;}
 		~ASTDouble(){}
 		double value;
+		static ASTDouble* New(Isolate* iso);
 	};
 
 	class ASTBoolean : public ASTNode
 	{
 	public:
-		ASTBoolean(){type = BOOLEAN;value = false;}
 		~ASTBoolean(){}
 		bool value;
+		static ASTBoolean* New(Isolate* iso);
 	};
 
 	class ASTChar : public ASTNode
 	{
 	public:
-		ASTChar(){type = CHAR;value = '\0';}
 		~ASTChar(){}
 		char value;
+		static ASTChar* New(Isolate* iso);
 	};
 
 	class ASTString : public ASTNode
 	{
 	public:
-		ASTString(){type = STRING;}
 		~ASTString(){}
 		std::string value;
+		static ASTString* New(Isolate* iso);
 	};
 
 	class ASTBlock : public ASTNode
 	{
 	public:
-		ASTBlock(){type = BLOCK;scope = NULL;}
 		~ASTBlock(){}
 		Scope* scope;
+		static ASTBlock* New(Isolate* iso);
 	};
 
 	class ASTFunc : public ASTNode
 	{
 	public:
-		ASTFunc(){type = FUNC;body = NULL; used = false;returnType = ILLEGAL;}
 		~ASTFunc(){}
 		ASTBlock* body;
-		std::vector<ASTParamVar*> args;
+		Vector<ASTParamVar*> args;
 		TOKEN returnType;
 		bool used;
+		static ASTFunc* New(Isolate* iso);
 	};
 
 	class ASTFuncCallExpr : public ASTExpr
 	{
 	public:
-		ASTFuncCallExpr(){type = FUNC_CALL;isNew = false;pos = 0; func = NULL; scope = NULL; assignType = ILLEGAL;}
 		~ASTFuncCallExpr(){}
-		std::vector<ASTExpr*> params;
+		Vector<ASTExpr*> params;
 		int pos;
 		bool isNew;
 		ASTFunc* func;
 		Scope* scope;
 		TOKEN assignType;
+		static ASTFuncCallExpr* New(Isolate* iso);
 	};
 
 	class ASTObjectInit : public ASTFuncCallExpr
 	{
 	public:
-		ASTObjectInit(){type = OBJECT_INIT;}
-		~ASTObjectInit(){}		
+		~ASTObjectInit(){}	
+		static ASTObjectInit* New(Isolate* iso);	
 	};
 
 	class ASTArray : public ASTParamVar
 	{
 	public:
-		ASTArray(TOKEN rType){type = ARRAY; arrayType = rType;}
 		~ASTArray(){}
-		std::vector<ASTNode*> value;
+		Vector<ASTNode*> value;
 		TOKEN arrayType;
+		static ASTArray* New(Isolate* iso, TOKEN rType);	
 	};
 
 	class ASTObject : public ASTNode
 	{
 	public:
-		ASTObject(){type = OBJECT;}
 		~ASTObject(){}
-		std::vector<ASTNode*> members;
+		Vector<ASTNode*> members;
+		static ASTObject* New(Isolate* iso);	
 	};
 
 	class ASTIf : public ASTNode
 	{
 	public:
-		ASTIf(){type = IF;conditions = NULL; block = NULL;}
 		~ASTIf(){}
 		ASTExpr* conditions;
 		ASTBlock* block;
+		static ASTIf* New(Isolate* iso);	
 	};
 
 	class ASTElse : public ASTNode
 	{
 	public:
-		ASTElse(){type = ELSE;ifStmt = NULL; conditions = NULL; block = NULL; ifStmt = NULL;}
 		~ASTElse(){}
 		ASTExpr* conditions;
 		ASTBlock* block;
 		ASTIf* ifStmt;
+		static ASTElse* New(Isolate* iso);	
 	};
 
 	class ASTWhile : public ASTNode
 	{
 	public:
-		ASTWhile(){type = WHILE;conditions = NULL; block = NULL;}
 		~ASTWhile(){}
 		ASTExpr* conditions;
 		ASTBlock* block;
+		static ASTWhile* New(Isolate* iso);
 	};
 
 	class ASTFor : public ASTNode
 	{
 	public:
-		ASTFor(){type = FOR;var = NULL; conditions = NULL; iterator = NULL; block = NULL;};
 		~ASTFor(){}
 		ASTNode* var;
 		ASTExpr* conditions;
 		ASTExpr* iterator;
 		ASTBlock* block;
+		static ASTFor* New(Isolate* iso);
 	};
 
 	class ASTTryCatch : public ASTNode
 	{
 	public:
-		ASTTryCatch(){type = TRY_CATCH; tryBlock = NULL; catchFunc = NULL;}
 		~ASTTryCatch(){}
 		ASTBlock* tryBlock;
 		ASTFunc* catchFunc;
+		static ASTTryCatch* New(Isolate* iso);
 	};
 
 	class ASTThrow : public ASTNode
 	{
 	public:
-		ASTThrow(){type = THROW; obj = NULL;}
 		~ASTThrow();
 		ASTExpr* obj;
+		static ASTThrow* New(Isolate* iso);
 	};
 
 	class ASTImport : public ASTNode
 	{
 	public:
-		ASTImport(){type = IMPORT;}
 		~ASTImport(){}
 		std::string name;
 		std::string alias;
+		static ASTImport* New(Isolate* iso);
 	};
 
 	class ASTInclude : public ASTNode
 	{
 	public:
-		ASTInclude(){type = INCLUDE;}
 		~ASTInclude(){}
 		std::string name;
 		std::string alias;
+		static ASTInclude* New(Isolate* iso);
 	};
 
 	class ASTFile : public ASTNode
 	{
 	public:
-		ASTFile(){type = FILE;scope = NULL;}
 		~ASTFile(){}
 		Scope* scope; 
 		std::map<std::string, ASTInclude*> includes;
-		std::vector<ASTInclude*> includesList;
+		Vector<ASTInclude*> includesList;
+		static ASTFile* New(Isolate* iso);
 	};
 } // namespace internal
 }

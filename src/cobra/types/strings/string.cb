@@ -3,7 +3,7 @@
 export object String{
 	func String(){}
 	func String(string str){
-		//this.base = str;
+		this.base = str;
 	}
 	string base = "";
 	int length = 0;

@@ -21,6 +21,7 @@ namespace internal{
 		bool trace;
 		int printIndent;
 		bool IsInline;
+		ASTNode* kThis;
 
 		void Trace(std::string msg1, std::string msg2);
 		std::string GetTokenString(TOKEN tok);
@@ -44,6 +45,7 @@ namespace internal{
 		void ValidateCast(ASTCastExpr* cast);
 		bool ValidateObjectChainMember(ASTObjectMemberChainExpr* member);
 		bool ValidateMemberFuncCall(ASTFunc* func, ASTFuncCallExpr* call);
+		bool ValidateThis(ASTObjectMemberChainExpr* member);
 		void ValidateArrayMember(ASTArrayMemberExpr* expr);
 		void ValidateIsArrayType(ASTIdent* ident);
 		void ValidateIf(ASTIf* ifStmt);
@@ -68,6 +70,10 @@ namespace internal{
 		void SetMode(P_MODE m){mode = m;}
 		void SetInline(bool isInline){IsInline = isInline;}
 	};
+
+	namespace Sizes{
+		const int kCheck = sizeof(Check);
+	}
 } // namespace internal{
 }
 

@@ -240,7 +240,7 @@ namespace Cobra{
 			i::Handle* handle = CAST(i::Handle*, this);
 			i::HeapObject* obj = handle->GetObject();
 			i::String* str = CAST(i::String*, obj->address);
-			return str->GetValue();
+			return str->GetValue().c_str();
 		}
 		return NULL;
 	}

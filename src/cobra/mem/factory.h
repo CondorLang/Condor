@@ -25,6 +25,10 @@ namespace internal{
 			Script* NewScript(Handle* handle);
 		};	
 
+		namespace Sizes{
+		const int kFactory = sizeof(Factory);
+	}
+
 } // namespace internal
 } // namespace Cobra
 

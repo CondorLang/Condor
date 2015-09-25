@@ -6,6 +6,7 @@
 #include "cobra/types/script/script.h"
 #include "cobra/types/strings/string.h"
 #include "cobra/types/try_catch/exception.h"
+#include "cobra/types/vector/vector.h"
 
 namespace Cobra {
 namespace internal{
@@ -17,7 +18,7 @@ namespace internal{
 	{
 	private:
 		std::map<Isolate*, std::map<size_t, Script*> > scripts;
-		std::vector<std::string> inProgress;
+		Vector<std::string> inProgress;
 	public:
 		Context();
 		~Context();
@@ -28,6 +29,7 @@ namespace internal{
 		void AddToInProgress(std::string str){inProgress.push_back(str);}
 		void RemoveFromInProgress(std::string str);
 		ASTNode* GetExportedNode(Isolate* iso, std::string name);
+		void PrintExported(Isolate* iso);
 	};
 
 } // namespace internal

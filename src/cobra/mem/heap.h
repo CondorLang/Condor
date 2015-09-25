@@ -12,6 +12,8 @@
 namespace Cobra {
 namespace internal{
 
+	class Allocate;
+
 	struct HeapObject {
 		Address address;
 		TOKEN type;

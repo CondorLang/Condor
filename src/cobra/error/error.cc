@@ -81,6 +81,8 @@ namespace Error {
 			case UNABLE_TO_ACCESS_NON_STATIC_FUNCTION: return "Unable to access non static function";
 			case INVALID_CATCH: return "Invalid catch";
 			case INVALID_THROW: return "Invalid throw";
+			case EMPTY_FILE: return "Empty file";
+			case EMPTY_FILE_PARSER: return "Empty file in parser";
 			case SCANNER: {
 				if (tok != NULL){
 					return tok->raw;

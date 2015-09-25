@@ -7,7 +7,7 @@
 #include "cobra/ast/ast.h"
 #include "cobra/assert.h"
 #include "cobra/ast/context.h"
-#include <vector>
+#include "cobra/types/vector/vector.h"
 #include <map>
 #include <fstream>
 #include <streambuf>
@@ -22,6 +22,7 @@ namespace internal{
 	class Handle;
 	class Parser;
 	class Check;
+	template<class T> class Pointer;
 
 	class Script
 	{
@@ -32,14 +33,15 @@ namespace internal{
 		bool internal;
 
 		Handle* source;
-		iHandle<Parser>* parser;
-		iHandle<Check>* check;
+		Parser* parser;
+		Check* check;
 		bool hasErr;
-		std::vector<std::string> msgs;
+		Vector<std::string> msgs;
 		const char* basePath;
 		std::map<std::size_t, ASTFile*> includes;
 		void SetIncludes();
 		std::string absolutePath;
+		std::string sourceCode;
 		Isolate* isolate;
 		bool compiled;
 		std::string GetPathOfImport(std::string import);
@@ -50,7 +52,7 @@ namespace internal{
 		int CharsToNewLine(std::string code, int start);
 
 	public:
-		Script(Handle* handle, Isolate* isolate);
+		Script(Handle* string, Isolate* isolate);
 		~Script(){}
 		void Compile();
 		Handle* GetSource(){return source;}
@@ -63,7 +65,12 @@ namespace internal{
 		ASTNode* GetExportedObject(std::string name);
 		const char* GetErrorMsg(){if (msgs.size() > 0) return msgs[0].c_str(); else return "";}
 		static void RunInternalScript(Isolate* isolate, std::string hex);
+		void PrintExported();
 	};
+
+	namespace Sizes{
+		const int kScript = sizeof(Script);
+	}
 
 } // namespace internal
 }

@@ -4,6 +4,30 @@
 		"selected_items":
 		[
 			[
+				"Heap",
+				"HeapObject"
+			],
+			[
+				"Hea",
+				"HeapObject"
+			],
+			[
+				"ASTOB",
+				"ASTObjectInit"
+			],
+			[
+				"Val",
+				"ValidateStmt"
+			],
+			[
+				"mem",
+				"members"
+			],
+			[
+				"ASTOb",
+				"ASTObject"
+			],
+			[
 				"INT",
 				"INTERNAL_TOKEN"
 			],
@@ -160,10 +184,18 @@
 	"buffers":
 	[
 		{
-			"file": "test/main.cc",
+			"file": "src/cobra/types/script/script.cc",
 			"settings":
 			{
-				"buffer_size": 472,
+				"buffer_size": 7382,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/cobra/mem/heap.h",
+			"settings":
+			{
+				"buffer_size": 2843,
 				"line_ending": "Unix"
 			}
 		}
@@ -191,10 +223,14 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 267.0,
-		"last_filter": "SublimeGDB",
+		"height": 107.0,
+		"last_filter": "remove",
 		"selected_items":
 		[
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
 			[
 				"SublimeGDB",
 				"SublimeGDB: Show Input Field"
@@ -248,32 +284,42 @@
 		"/Users/willdech/Documents/dev/CobraLang",
 		"/Users/willdech/Documents/dev/CobraLang/src",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/script",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem",
 		"/Users/willdech/Documents/dev/CobraLang/test"
 	],
 	"file_history":
 	[
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/parser.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/parser.cc",
-		"/Users/willdech/Documents/dev/CobraLang/CobraLang.sublime-project",
-		"/Users/willdech/Library/Application Support/Sublime Text 3/Packages/User/SublimeGDB.sublime-settings",
 		"/Users/willdech/Documents/dev/CobraLang/Makefile",
-		"/Users/willdech/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/heap.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/scanner/scanner.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/script/script.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/handle.cc",
+		"/Users/willdech/Documents/dev/CobraLang/log.txt",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/check.h",
+		"/Users/willdech/Documents/dev/CobraLang/test/tests/int.cb",
+		"/Users/willdech/Documents/dev/CobraLang/test/test.cb",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/parser.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/check.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/handle.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/isolate.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/isolate.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/error/error.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/error/error.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/strings/string.cb",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/parser.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/script/script.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/token/token.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/token/token.h",
+		"/Users/willdech/Documents/dev/CobraLang/README.md",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/ast.h",
+		"/Users/willdech/Documents/dev/CobraLang/test/main.cc",
+		"/Users/willdech/Documents/dev/CobraLang/CobraLang.sublime-project",
+		"/Users/willdech/Library/Application Support/Sublime Text 3/Packages/User/SublimeGDB.sublime-settings",
+		"/Users/willdech/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/scanner/scanner.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/api.cc",
 		"/Users/willdech/Documents/dev/CobraLang/include/Cobra.h",
-		"/Users/willdech/Documents/dev/CobraLang/test/main.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/isolate.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/clock.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/handle.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/script/script.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/context.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/check.cc",
 		"/Users/willdech/Downloads/allenjam (2).xml",
 		"/Users/willdech/Downloads/allenjam.xml",
 		"/Users/willdech/Downloads/allenjam (1).xml",
@@ -290,11 +336,6 @@
 		"/Users/willdech/Desktop/ier/src/js/crypto.js",
 		"/Users/willdech/Desktop/ier/build/crypto.js",
 		"/Users/willdech/Documents/dev/CobraLang/test/tests/string.cb",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/error/error.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/error/error.h",
-		"/Users/willdech/Documents/dev/CobraLang/test/test.cb",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/check.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/ast.h",
 		"/Users/willdech/Desktop/ier/build/ier.js",
 		"/Users/willdech/Downloads/James Allen (3).csv",
 		"/Users/willdech/Downloads/James Allen (2).csv",
@@ -327,6 +368,12 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"items.size",
+			"here",
+			"validateobject(",
+			"newHandle(",
+			"ihand",
+			"imports.",
 			"GetToken",
 			"realpath",
 			"newfromf",
@@ -423,6 +470,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"NewPointer(",
 			"target",
 			"\\'"
 		],
@@ -435,24 +483,53 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "test/main.cc",
-					"semi_transient": true,
+					"file": "src/cobra/types/script/script.cc",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 472,
+						"buffer_size": 7382,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								472,
-								472
+								974,
+								974
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 76.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/cobra/mem/heap.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2843,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								58,
+								58
 							]
 						],
 						"settings":

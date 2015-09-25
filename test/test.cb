@@ -4,16 +4,17 @@ include "tests/string.cb";
 include "tests/int.cb";
 
 func main(string args[], int argc){
-	string a = "apple";
-	String s = new String();
-	String s2 = new String("Apple");
-	int c;
+	int a = 10;
+	string b = "apple";
+	char c = 'a';
+	//int d = a + b;
 
-	try {
-		c = Int.Parse("1");
-	}
-	catch (Exception e){
-		throw e;
-	}
+	// try {
+	// 	c = Int.Parse("1");
+	// }
+	// catch (Exception e){
+	// 	throw e;
+	// }
 	bool isInt = Int.IsInt(1);
+	// Int q = new Int(1);
 }

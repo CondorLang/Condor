@@ -27,20 +27,20 @@ namespace internal{
 	};
 
 	template<class T>
-	class iHandle
+	class Pointer
 	{
 	private:
 		Isolate* isolate;
 		HeapObject* obj;
 		bool destroyed;
 		bool valid;
-		bool IsValidDeep(){return valid && Handle::IsAddressValid(Location());}
+		bool IsValidDeep(){return valid && Handle::IsAddressValid(isolate, Location());}
 	public:
-		iHandle(){valid = false;obj = NULL; isolate = NULL;}
-		iHandle(Isolate* iso, HeapObject* o){isolate = iso; obj = o; destroyed = false;valid = true;}
-		~iHandle(){}
-		iHandle<T> Localize(){
-			iHandle<T> handle(isolate, obj);
+		Pointer(){valid = false;obj = NULL; isolate = NULL;}
+		Pointer(Isolate* iso, HeapObject* o){isolate = iso; obj = o; destroyed = false;valid = true;}
+		~Pointer(){}
+		Pointer<T> Localize(){
+			Pointer<T> handle(isolate, obj);
 			return handle;
 		}
 		TOKEN GetType(){return obj->type;}
@@ -48,11 +48,14 @@ namespace internal{
 		Address Location(){return obj->address;}
 		bool IsNull(){return destroyed;}
 		bool IsValid(){
-			T* t = CAST(T*, obj->address);
-			return obj != NULL && !obj->deleted && t != NULL;
+			return IsValidDeep();
 		}
 		T* operator->(){
-			return CAST(T*, obj->address);
+			if (IsValid()) {
+				T* t = CAST(T*, obj->address);
+				return t;
+			}
+			return NULL;
 		}
 	};
 

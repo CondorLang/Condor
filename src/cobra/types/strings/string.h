@@ -17,12 +17,13 @@ namespace internal{
 		std::string filePath;
 		bool internal;
 	public:
-		String(){value = "";internal = false;}
+		String(Isolate* isolate){value = "";internal = false;}
 		~String(){}
+		Isolate* isolate;
 		static void CB(Isolate* isolate);
 		static std::string Code;
 		void SetValue(const char* val){value = val;}
-		const char* GetValue(){return value.c_str();}
+		std::string GetValue(){return value;}
 		void SetPath(const char* path){filePath = path;}
 		const char* GetPath(){return filePath.c_str();}
 		int Length(){return value.length();}
@@ -31,6 +32,10 @@ namespace internal{
 		void SetInternal(){internal = true;}
 		bool IsInternal(){return internal;}
 	};
+
+	namespace Sizes{
+		const int kString = sizeof(String);
+	}
 
 } // namespace internal
 }

@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS=-c -I src/
+CFLAGS=-c -I src/ -g -MD -MP
 LDFLAGS=
 SOURCES=$(wildcard src/*/*/*/*.cc) $(wildcard src/*/*/*.cc) $(wildcard src/*/*.cc) $(wildcard src/*.cc)
 
@@ -16,6 +16,9 @@ cb:
 buildAll: $(SOURCES) $(EXECUTABLE)
     
 $(EXECUTABLE): $(OBJECTS)
+
+# http://stackoverflow.com/questions/19726649/how-to-recompile-when-modified-c-header
+-include $(OBJECTS:.o=.d)
 
 lib:
 	@ar cr build/libcobra.a $(wildcard src/*/*/*/*.o) $(wildcard src/*/*/*.o) $(wildcard src/*/*.o) $(wildcard src/*.o)
@@ -37,7 +40,7 @@ shell:
 	./build/Cobra ${ARGS}
 
 mem:
-	valgrind --tool=memcheck --leak-check=full --track-origins=yes --dsymutil=yes ./build/Cobra
+	valgrind --tool=memcheck --leak-check=full --track-origins=yes --dsymutil=yes ./build/Cobra > log.txt 2>&1
 
 mt:
 	make

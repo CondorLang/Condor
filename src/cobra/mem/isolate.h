@@ -12,6 +12,7 @@
 #include "cobra/ast/context.h"
 #include "cobra/flags.h"
 #include "cobra/mem/factory.h"
+#include "allocate.h"
 
 namespace Cobra {
 namespace internal{
@@ -20,15 +21,17 @@ namespace internal{
 	class HeapStore;
 	struct HeapObject;
 	class Context;
-	template<class T> class iHandle;
+	template<class T> class Pointer;
+	class MemoryPool;
 
 	class Isolate
 	{
 	private:
-		HeapStore* heapstore;
+		HeapStore heapstore;
 		void _enter();
 		void _exit();
 		Context* context;
+		MemoryPool* mp;
 
 	public:
 		Isolate();
@@ -36,6 +39,10 @@ namespace internal{
 		Factory* factory;
 		inline void Enter(){_enter();}
 		inline void Exit(){_exit();}
+		void* GetMemory(const size_t size);
+
+
+		// Garbage
 		HeapObject* Insert(HeapObject obj);
 
 		template<class T>
@@ -48,12 +55,12 @@ namespace internal{
 		}
 
 		template<class T>
-		iHandle<T> NewHandle(T* t, TOKEN type){
+		Pointer<T> NewPointer(T* t, TOKEN type){
 			HeapObject obj;
 			obj.address = CAST(Address, t);
 			obj.type = type;
 			HeapObject* o = Insert(obj);
-			iHandle<T> handle(this, o);
+			Pointer<T> handle(this, o);
 			return handle;
 		}
 

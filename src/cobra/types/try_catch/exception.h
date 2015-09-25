@@ -17,6 +17,10 @@ namespace internal{
 		static void CB(Isolate* isolate);
 	};
 
+	namespace Sizes{
+		const int kException = sizeof(Exception);
+	}
+
 } // namespace internal
 }
 

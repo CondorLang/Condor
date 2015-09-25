@@ -1,4 +1,5 @@
 #include "token.h"
+#include "cobra/mem/isolate.h"
 
 namespace Cobra {
 namespace internal{
@@ -59,6 +60,7 @@ namespace internal{
 			case INTERNAL_TOKEN: return "kInternalToken";
 			case ASTPARAM_VAR: return "kASTParamVar";
 			case TRY_CATCH: return "kTryCatch";
+			case POINTER: return "kPointer";
 
 			case INT: return "int";
 			case kNULL: return "null";
@@ -178,48 +180,48 @@ namespace internal{
 	 * @param str std::string
 	 * @return Token
 	 */
-	Token* Token::GetToken(std::string str){
-		if (str.empty()) return new Token(ILLEGAL);
-		else if (str == "var") return new Token(VAR);
-		else if (str == "null") return new Token(kNULL);
-		else if (str == "type") return new Token(TYPE);
-		else if (str == "switch") return new Token(SWITCH);
-		else if (str == "struct") return new Token(STRUCT);
-		else if (str == "return") return new Token(RETURN);
-		else if (str == "map") return new Token(MAP);
-		else if (str == "include") return new Token(INCLUDE);
-		else if (str == "import") return new Token(IMPORT);
-		else if (str == "if") return new Token(IF);
-		else if (str == "goto") return new Token(GOTO);
-		else if (str == "go") return new Token(GO);
-		else if (str == "func") return new Token(FUNC);
-		else if (str == "for") return new Token(FOR);
-		else if (str == "else") return new Token(ELSE);
-		else if (str == "default") return new Token(DEFAULT);
-		else if (str == "continue") return new Token(CONTINUE);
-		else if (str == "const") return new Token(CONST);
-		else if (str == "case") return new Token(CASE);
-		else if (str == "break") return new Token(BREAK);
-		else if (str == "int") return new Token(INT);
-		else if (str == "bool") return new Token(BOOLEAN);
-		else if (str == "float") return new Token(FLOAT);
-		else if (str == "double") return new Token(DOUBLE);
-		else if (str == "char") return new Token(CHAR);
-		else if (str == "string") return new Token(STRING);
-		else if (str == "object") return new Token(OBJECT);
-		else if (str == "new") return new Token(NEW);
-		else if (str == "while") return new Token(WHILE);
-		else if (str == "public") return new Token(PUBLIC);
-		else if (str == "private") return new Token(PRIVATE);
-		else if (str == "protected") return new Token(PROTECTED);
-		else if (str == "static") return new Token(STATIC);
-		else if (str == "as") return new Token(AS);
-		else if (str == "export") return new Token(EXPORT);
-		else if (str == "true") return new Token(TRUE_LITERAL);
-		else if (str == "false") return new Token(FALSE_LITERAL);
-		else if (str == "try") return new Token(TRY);
-		else if (str == "throw") return new Token(THROW);
-		else return new Token(IDENT);
+	Token* Token::GetToken(Isolate* iso, std::string str){
+		if (str.empty()) return Token::New(iso, ILLEGAL);
+		else if (str == "var") return Token::New(iso, VAR);
+		else if (str == "null") return Token::New(iso, kNULL);
+		else if (str == "type") return Token::New(iso, TYPE);
+		else if (str == "switch") return Token::New(iso, SWITCH);
+		else if (str == "struct") return Token::New(iso, STRUCT);
+		else if (str == "return") return Token::New(iso, RETURN);
+		else if (str == "map") return Token::New(iso, MAP);
+		else if (str == "include") return Token::New(iso, INCLUDE);
+		else if (str == "import") return Token::New(iso, IMPORT);
+		else if (str == "if") return Token::New(iso, IF);
+		else if (str == "goto") return Token::New(iso, GOTO);
+		else if (str == "go") return Token::New(iso, GO);
+		else if (str == "func") return Token::New(iso, FUNC);
+		else if (str == "for") return Token::New(iso, FOR);
+		else if (str == "else") return Token::New(iso, ELSE);
+		else if (str == "default") return Token::New(iso, DEFAULT);
+		else if (str == "continue") return Token::New(iso, CONTINUE);
+		else if (str == "const") return Token::New(iso, CONST);
+		else if (str == "case") return Token::New(iso, CASE);
+		else if (str == "break") return Token::New(iso, BREAK);
+		else if (str == "int") return Token::New(iso, INT);
+		else if (str == "bool") return Token::New(iso, BOOLEAN);
+		else if (str == "float") return Token::New(iso, FLOAT);
+		else if (str == "double") return Token::New(iso, DOUBLE);
+		else if (str == "char") return Token::New(iso, CHAR);
+		else if (str == "string") return Token::New(iso, STRING);
+		else if (str == "object") return Token::New(iso, OBJECT);
+		else if (str == "new") return Token::New(iso, NEW);
+		else if (str == "while") return Token::New(iso, WHILE);
+		else if (str == "public") return Token::New(iso, PUBLIC);
+		else if (str == "private") return Token::New(iso, PRIVATE);
+		else if (str == "protected") return Token::New(iso, PROTECTED);
+		else if (str == "static") return Token::New(iso, STATIC);
+		else if (str == "as") return Token::New(iso, AS);
+		else if (str == "export") return Token::New(iso, EXPORT);
+		else if (str == "true") return Token::New(iso, TRUE_LITERAL);
+		else if (str == "false") return Token::New(iso, FALSE_LITERAL);
+		else if (str == "try") return Token::New(iso, TRY);
+		else if (str == "throw") return Token::New(iso, THROW);
+		else return Token::New(iso, IDENT);
 	}
 
 	const char* Token::ToString(TOKEN token){
@@ -227,6 +229,12 @@ namespace internal{
 		const char* str = tok->String().c_str();
 		delete tok;
 		return str;
+	}
+
+	Token* Token::New(Isolate* iso, TOKEN val){
+		Token* t = (Token*) iso->GetMemory(sizeof(Token));
+		t->value = val;
+		return t;
 	}
 } // namespace internal
 } // namespace Cobra

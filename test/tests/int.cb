@@ -6,4 +6,8 @@ export object Int{
 	static func IsInt(float a){return false;}
 	static func IsInt(double a){return false;}
 	static func IsInt(string a){return false;}
+	func Int(int a){
+		this.base = a;
+	}
+	private int base = 0;
 }

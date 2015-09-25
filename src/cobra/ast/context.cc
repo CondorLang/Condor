@@ -4,6 +4,7 @@ namespace Cobra {
 namespace internal{
 	
 	Context::Context(){
+
 	}
 
 	Context::~Context(){
@@ -13,9 +14,10 @@ namespace internal{
 	void Context::SetIsolate(Isolate* isolate){
 		scripts[isolate];
 		isolate->SetContext(this);
+		inProgress.SetIsolate(isolate);
 
-		String::CB(isolate);
 		Exception::CB(isolate);
+		String::CB(isolate);
 	}
 
 	void Context::AddScript(Script* script){
@@ -32,7 +34,9 @@ namespace internal{
 
 	bool Context::IsIncluded(Isolate* iso, const char* path){
 		std::string pth = path;
-		if (std::find(inProgress.begin(), inProgress.end(), pth) != inProgress.end()) return true;
+		for (int i = 0; i < inProgress.size(); i++){
+			if (pth == inProgress[i]) return true;
+		}
 		std::hash<std::string> hash_fn;
     std::size_t str_hash = hash_fn(path);
     return scripts[iso].find(str_hash) != scripts[iso].end();
@@ -40,7 +44,8 @@ namespace internal{
 
 	void Context::RemoveFromInProgress(std::string str){
 		std::string pth = str;
-		inProgress.erase(std::find(inProgress.begin(), inProgress.end(), pth));
+		int idx = inProgress.find(pth);
+		inProgress.erase(idx);
 	}
 
 	ASTNode* Context::GetExportedNode(Isolate* iso, std::string name){
@@ -52,6 +57,15 @@ namespace internal{
 			if (node != NULL) return node;
 		}
 		return NULL;
+	}
+
+	void Context::PrintExported(Isolate* iso){
+		std::map<size_t, Script*> scrs = scripts[iso];
+		for (std::map<size_t, Script*>::const_iterator it = scrs.begin(); it != scrs.end(); it++){
+			Script* s = it->second;
+			CHECK(s != NULL);
+			if (s != NULL) s->PrintExported();
+		}
 	}
 
 } // namespace internal

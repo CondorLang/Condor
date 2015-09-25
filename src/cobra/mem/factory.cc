@@ -6,7 +6,7 @@ namespace internal{
 	Factory::~Factory(){}
 
 	String* Factory::NewString(const char* str){
-		String* string = new String(); // Do not insert into heap, this is controlled in the API
+		String* string = new String(isolate); // Do not insert into heap, this is controlled in the API
 		string->SetValue(str);
 		return string;
 	}

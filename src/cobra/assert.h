@@ -10,7 +10,7 @@ namespace internal{
 
 	#define CHECK(condition) \
 		if (!(condition)){ \
-			FETAL("Fetal: %s", #condition); \
+			FETAL("Fetal:", #condition); \
 		}		
 
 } // namespace internal

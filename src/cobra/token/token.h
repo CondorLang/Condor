@@ -6,6 +6,8 @@
 namespace Cobra {
 namespace internal{
 
+	class Isolate;
+
 	/**
 	 * @brief The basic enum of all Tokens
 	 */
@@ -59,6 +61,7 @@ namespace internal{
 		INTERNAL_TOKEN,
 		ASTPARAM_VAR,
 		TRY_CATCH,
+		POINTER,
 
 		// Literals
 		LITERAL_BEGIN,
@@ -191,6 +194,8 @@ namespace internal{
 	{
 	public:
 		Token(TOKEN val){value = val;}
+		Token(){}
+		static Token* New(Isolate* iso, TOKEN val);
 		~Token(){}
 		TOKEN value;
 		std::string raw;
@@ -201,7 +206,7 @@ namespace internal{
 		bool IsLiteral(){return value > LITERAL_BEGIN && value < LITERAL_END;}
 		bool IsOperator(){return value > OPERATOR_BEGIN && value < OPERATOR_END;}
 		bool IsBinaryComparison(){return value > BOOLEAN_COMPARISON_START && BOOLEAN_COMPARISON_START < BOOLEAN_COMPARISON_END;}
-		static Token* GetToken(std::string str);
+		static Token* GetToken(Isolate* iso, std::string str);
 		static const char* ToString(TOKEN token);
 	};
 } // namespace internal{
