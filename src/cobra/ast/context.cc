@@ -15,9 +15,7 @@ namespace internal{
 		scripts[isolate];
 		isolate->SetContext(this);
 		inProgress.SetIsolate(isolate);
-
-		Exception::CB(isolate);
-		String::CB(isolate);
+		imported.SetIsolate(isolate);
 	}
 
 	void Context::AddScript(Script* script){
@@ -40,6 +38,14 @@ namespace internal{
 		std::hash<std::string> hash_fn;
     std::size_t str_hash = hash_fn(path);
     return scripts[iso].find(str_hash) != scripts[iso].end();
+	}
+
+	bool Context::IsImported(Isolate* iso, std::string name){
+		return imported.find(name) != -1;
+	}
+
+	void Context::SetImport(std::string name){
+		imported.push_back(name);
 	}
 
 	void Context::RemoveFromInProgress(std::string str){

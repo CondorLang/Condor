@@ -8,6 +8,8 @@
 #include "cobra/assert.h"
 #include "cobra/ast/context.h"
 #include "cobra/types/vector/vector.h"
+#include "cobra/types/script/script.h"
+#include "cobra/types/strings/string.h"
 #include <map>
 #include <fstream>
 #include <streambuf>
@@ -40,6 +42,7 @@ namespace internal{
 		const char* basePath;
 		std::map<std::size_t, ASTFile*> includes;
 		void SetIncludes();
+		void SetImports();
 		std::string absolutePath;
 		std::string sourceCode;
 		Isolate* isolate;

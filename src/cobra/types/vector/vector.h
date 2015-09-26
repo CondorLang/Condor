@@ -2,6 +2,7 @@
 #define VECTOR_H_
 
 #include <stddef.h>
+#include <stdio.h>
 
 namespace Cobra {
 namespace internal{
@@ -9,6 +10,8 @@ namespace internal{
 	class Isolate;
 
 	void* NewVectorItem(Isolate* isolate, size_t size);
+	void OutOfMemory();
+	static int kCount = 0;
 
 	template<class T>
 	class VectorItem
@@ -44,17 +47,20 @@ namespace internal{
 				kFirst = (VectorItem<T>*) NewVectorItem(isolate, sizeof(VectorItem<T>));
 				kFirst->data = t;
 				kCursor = kFirst;
+				kLast = kFirst;
 				kCount++;
 			}
 			else{
-				kCursor->next = (VectorItem<T>*) NewVectorItem(isolate, sizeof(VectorItem<T>));
-				kCursor->next->prev = kCursor;
-				kCursor = kCursor->next;
-				kCursor->data = t;
+				kLast->next = (VectorItem<T>*) NewVectorItem(isolate, sizeof(VectorItem<T>));
+				if (kLast == NULL || kLast->next == NULL) OutOfMemory();
+				kLast->next->prev = kLast;
+				kLast = kLast->next;
+				kLast->data = t;
 				kCount++;
 			}
 		}
 		VectorItem<T>* begin(){return kFirst;}
+		VectorItem<T>* end(){return kLast;}
 		int find(T t){
 			kCursor = kFirst;
 			for (int i = 0; i < size(); i++){

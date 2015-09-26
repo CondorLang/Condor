@@ -5,18 +5,18 @@
 namespace Cobra{
 namespace internal{
 
-	Check::Check(){
-		scope = NULL;
-		trace = TRACE_CHECK; // debug
-		col = 0;
-		row = 0;
-		printIndent = 0;
-		file = NULL;
-		IsInline = false;
-		kThis = NULL;
+	Check* Check::New(Isolate* iso){
+		Check* c = (Check*) iso->GetMemory(sizeof(Check));
+		c->scope = NULL;
+		c->trace = TRACE_CHECK; // debug
+		c->col = 0;
+		c->row = 0;
+		c->printIndent = 0;
+		c->file = NULL;
+		c->IsInline = false;
+		c->kThis = NULL;
+		return c;
 	}
-
-	Check::~Check(){}
 
 	void Check::CheckFile(ASTFile* f){
 		file = f;

@@ -87,7 +87,8 @@ namespace Cobra {
 			INVALID_CATCH,
 			INVALID_THROW,
 			EMPTY_FILE,
-			EMPTY_FILE_PARSER
+			EMPTY_FILE_PARSER,
+			UNIDENTIFIED_BOOLEAN_OPERATOR
 		};
 
 		std::string String(ERROR e, Token* tok);

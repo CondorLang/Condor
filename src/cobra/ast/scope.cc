@@ -12,7 +12,7 @@ namespace internal{
 
 	Scope* Scope::New(Isolate* iso){
 		Scope* s = (Scope*) iso->GetMemory(sizeof(Scope));
-		s->count = 1;
+		s->count = 0;
 		s->outer = NULL;
 		s->ordered.SetIsolate(iso);
 		return s;

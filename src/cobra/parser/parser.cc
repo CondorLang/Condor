@@ -4,33 +4,31 @@
 namespace Cobra{
 namespace internal{
 
-	Parser::Parser(std::string* src, std::string* path){
+	Parser* Parser::New(Isolate* iso, std::string* src, std::string* path){
 		if (src == NULL) throw Error::EMPTY_FILE_PARSER;
-		scanner = NULL;
-		source = src;
-		topScope = NULL;
-		expected = NULL;
-		currentFunctionScope = NULL;
-		trace = TRACE_PARSER;
-		printVariables = PRINT_VARIABLES;
-		printCheck = false;
-		tok = NULL;
-		isolate = NULL;
-		filePath = path;
-		Pos = -1;
-		Col = -1;
-		Row = -1;
-		col = -1;
-		row = -1;
-		pos = -1;
-		reset = false;
-		internal = false;
-		nonOp = false;
-		IsInline = false;
-	}
-
-	Parser::~Parser(){
-		
+		Parser* p = (Parser*) iso->GetMemory(sizeof(Parser));
+		p->scanner = NULL;
+		p->source = src;
+		p->topScope = NULL;
+		p->expected = NULL;
+		p->currentFunctionScope = NULL;
+		p->trace = TRACE_PARSER;
+		p->printVariables = PRINT_VARIABLES;
+		p->printCheck = false;
+		p->tok = NULL;
+		p->isolate = iso;
+		p->filePath = path;
+		p->Pos = -1;
+		p->Col = -1;
+		p->Row = -1;
+		p->col = -1;
+		p->row = -1;
+		p->pos = -1;
+		p->reset = false;
+		p->internal = false;
+		p->nonOp = false;
+		p->IsInline = false;
+		return p;
 	}
 
 	ASTFile* Parser::Parse(){
@@ -43,14 +41,14 @@ namespace internal{
 			includes.SetIsolate(isolate);
 			exports.SetIsolate(isolate);
 
-			scanner = new Scanner(isolate, source);
+			scanner = Scanner::New(isolate, source);
 			topScope = Scope::New(isolate);
 			if (trace) Trace("\n\nParsing", "Started");
 			ASTFile* file = ASTFile::New(isolate);
 
 			ParseMode(); // parse the file mode
 			if (reset){
-				scanner = new Scanner(isolate, source);
+				scanner = Scanner::New(isolate, source);
 			}
 			ParseImportOrInclude();
 
@@ -462,6 +460,7 @@ namespace internal{
 	/**
 	 * TODO:
 	 * 	Work on operand precidence
+	 *  // here
 	 */
 	ASTExpr* Parser::ParsePrimaryExpr(){
 		if (trace) Trace("Parsing", "Primary Expression");
@@ -476,6 +475,7 @@ namespace internal{
 			if (IsBoolean() && trace) Trace("Parsing", "Boolean statement");
 			ASTBinaryExpr* binary = ASTBinaryExpr::New(isolate);
 			AddRowCol(binary);
+			if (tok->String().empty()) throw Error::UNIDENTIFIED_BOOLEAN_OPERATOR;
 			binary->op = Token::New(isolate, tok->value);
 			binary->Left = expr;
 			Next(); // eat operator
@@ -742,7 +742,7 @@ namespace internal{
 		else if (expr->type == IDENT){
 			ASTVar* var = ASTVar::New(isolate);
 			AddRowCol(var);
-			var->varType = CLASS;
+			var->varType = OBJECT;
 			var->varClass = (ASTIdent*) expr;
 			var->name = tok->raw;
 			var->stmt = ParseSimpleStmt();

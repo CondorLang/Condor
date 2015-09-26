@@ -28,15 +28,14 @@ namespace internal{
 	// TODO:
 	// 		Add TRY_CATCH
 	void Script::Compile(){
-		parser = new Parser(&sourceCode, &absolutePath);
+		parser = Parser::New(isolate, &sourceCode, &absolutePath);
 		bool isInline = strncmp(parser->filePath->c_str(), "inline", 6);
-		
-		parser->SetIsolate(source->isolate);
+
 		parser->SetInteral(internal);
 		parser->SetInline(isInline);
 
-		check = new Check();
-		check->SetIsolate(source->isolate);
+		check = Check::New(isolate);
+		check->SetIsolate(isolate);
 		std::map<std::string, int> includes;
 		ASTFile* main = NULL;
 		Clock* clock = NULL;
@@ -68,6 +67,7 @@ namespace internal{
 
 		try {
 			SetIncludes();
+			SetImports();
 		}
 		catch (Error::ERROR e){
 			return;
@@ -116,6 +116,18 @@ namespace internal{
 				Cobra::Handle* includeStr = Cobra::String::NewFromFile(iso, importPath.c_str());
 				Cobra::Handle* scr = Cobra::Script::Compile(iso, includeStr);
 				if (scr->IsCompiled()){throw Error::COMPILATION_ERROR;}
+			}		
+		}
+	}
+
+	void Script::SetImports(){
+		for (int i = 0; i < parser->imports.size(); i++){
+			ASTImport* import = parser->imports[i];
+			std::string name = import->name;
+			if (!isolate->GetContext()->IsImported(isolate, name)){
+				isolate->GetContext()->SetImport(name);
+				if (name == "exception") Exception::CB(isolate);
+				else if (name == "string") String::CB(isolate);
 			}		
 		}
 	}

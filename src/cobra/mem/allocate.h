@@ -18,7 +18,7 @@ namespace internal{
 	const static size_t KB = 1024;
 
 	const static size_t DEFAULT_MEMORY_POOL_SIZE = KB * 8; // 8kb
-	const static size_t DEFAULT_MEMORY_CHUNK_SIZE = 110;
+	const static size_t DEFAULT_MEMORY_CHUNK_SIZE = 235;
 	const static size_t DEFAULT_MEMORY_SIZE_TO_ALLOCATE = DEFAULT_MEMORY_CHUNK_SIZE * 2;
 
 	typedef struct Chunk {

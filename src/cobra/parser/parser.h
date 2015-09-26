@@ -31,8 +31,7 @@ namespace internal{
 		int Row;
 		int Col;
 
-		Parser(std::string* src, std::string* path);
-		~Parser();
+		static Parser* New(Isolate* iso, std::string* src, std::string* path);
 		ASTFile* Parse();
 		Vector<ASTImport*> imports;
 		Vector<ASTInclude*> includes;

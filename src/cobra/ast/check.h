@@ -58,8 +58,7 @@ namespace internal{
 		void SetScope();
 
 	public:
-		Check();
-		~Check();
+		static Check* New(Isolate* iso);
 		int col;
 		int row;
 		P_MODE mode;

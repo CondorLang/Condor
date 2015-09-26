@@ -15,6 +15,7 @@ namespace internal{
 		std::vector<ASTNode*> values = scope->Lookup("String");
 		printf("%lu\n", values.size());
 		ASTLiterary* lit = (ASTLiterary*) values[0];
+		return lit;
 	}
 
 } // namespace internal

@@ -3,10 +3,14 @@
 include "tests/string.cb";
 include "tests/int.cb";
 
+import "string";
+
 func main(string args[], int argc){
 	int a = 10;
 	string b = "apple";
 	char c = 'a';
+	//bool t = 10 <= 10;
+	String str = new String();
 	//int d = a + b;
 
 	// try {

@@ -5,20 +5,18 @@
 namespace Cobra{
 namespace internal{
 
-	/**
-	 * @brief Scanner constructor
-	 * 
-	 * @param source std::string
-	 */
-	Scanner::Scanner(Isolate* iso, std::string* source){
+	Scanner* Scanner::New(Isolate* iso, std::string* source){
 		if (source == NULL) throw Error::EMPTY_FILE;
-		src = source;
-		offset = -1;
-		readOffset = 0;
-		row = 1;
-		col = 0;
-		ch = -1;
-		isolate = iso;
+		Scanner* s = (Scanner*) iso->GetMemory(sizeof(Scanner));
+		s->src = source;
+		s->offset = -1;
+		s->readOffset = 0;
+		s->row = 1;
+		s->col = 0;
+		s->ch = -1;
+		s->isolate = iso;
+		s->isolate = iso;
+		return s;
 	}
 
 	/**
