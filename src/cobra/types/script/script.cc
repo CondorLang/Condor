@@ -204,6 +204,8 @@ namespace internal{
 	}
 
 	ASTNode* Script::GetExportedObject(std::string name){
+		Script* s = (Script*) this; // needed for random bug, I don't understand this one
+		if (s == NULL) return NULL;
 		for (int i = 0; i < parser->exports.size(); i++){
 			if (parser->exports[i]->name == name){
 				return parser->exports[i];

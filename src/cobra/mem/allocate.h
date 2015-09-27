@@ -67,6 +67,8 @@ namespace internal{
 		void FreeMemory(void* ptr, const size_t size);
 		Chunk* FindChunkHoldingPointerTo(void* ptr);
 		void FreeChunks(Chunk* chunk);
+		bool debug;
+		std::string name;
 	};
 
 	class Allocate
@@ -75,7 +77,6 @@ namespace internal{
 		static void* New(size_t size);
 		static void Delete(void* ptr);
 		static void OutOfMemory();
-		static void Test();
 	};
 
 } // namespace internal

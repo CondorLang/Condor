@@ -5,16 +5,44 @@ namespace internal{
 
 	Isolate::Isolate(){
 		factory = new Factory(this);
-		mp = new MemoryPool();
+		const static size_t poolSize = KB * 8; // 8kb
+		const static size_t chunkSize2 = 35;
+		const static size_t sizeToAllocate2 = DEFAULT_MEMORY_CHUNK_SIZE * 2;
+		small = new MemoryPool(poolSize, chunkSize2, sizeToAllocate2);
+		small->name = "small";
+
+		const static size_t chunkSize = 121;
+		const static size_t sizeToAllocate = DEFAULT_MEMORY_CHUNK_SIZE * 2;
+		medium = new MemoryPool(poolSize, chunkSize, sizeToAllocate);
+		medium->name = "medium";
+
+		large = new MemoryPool();
+		large->name = "large";
 	}
 
 	Isolate::~Isolate(){
-		delete mp;
+		delete small;
+		delete medium;
+		delete large;
 		delete factory;
 	}
 
+	void* Isolate::GetMemorySmall(const size_t size){
+		return small->GetMemory(size);
+	}
+
 	void* Isolate::GetMemory(const size_t size){
-		return mp->GetMemory(size);
+		return medium->GetMemory(size);
+	}
+
+	void* Isolate::GetMemoryLarge(const size_t size){
+		return large->GetMemory(size);
+	}
+
+	void Isolate::FreeMemory(void* ptr, const size_t size, std::string whichOne){
+		if (whichOne == "small") small->FreeMemory(ptr, size);
+		if (whichOne == "medium") medium->FreeMemory(ptr, size);
+		if (whichOne == "large") large->FreeMemory(ptr, size);
 	}
 
 	void Isolate::_enter(){

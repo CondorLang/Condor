@@ -31,7 +31,9 @@ namespace internal{
 		void _enter();
 		void _exit();
 		Context* context;
-		MemoryPool* mp;
+		MemoryPool* medium;
+		MemoryPool* large;
+		MemoryPool* small;
 
 	public:
 		Isolate();
@@ -40,6 +42,9 @@ namespace internal{
 		inline void Enter(){_enter();}
 		inline void Exit(){_exit();}
 		void* GetMemory(const size_t size);
+		void* GetMemoryLarge(const size_t size);
+		void* GetMemorySmall(const size_t size);
+		void FreeMemory(void* ptr, const size_t size, std::string whichOne);
 
 
 		// Garbage

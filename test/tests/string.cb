@@ -1,19 +1,23 @@
 #mode "strict";
 
-func getCharFromString(string str, int pos){
-	return (int) str[pos];
-}
+import "string";
 
-func isLetter(char letter){
-	int l = (int) letter;
-	return (l >= 65 && l <= 90) || (l >= 97 && l <= 122);
-}
+object $String {
+	static func getCharFromString(string str, int pos){
+		return (int) str[pos];
+	}
 
-func isNumber(char number){
-	int n = (int) number;
-	return n >= 48 && n <= 57;
-}
+	static func isLetter(char letter){
+		int l = (int) letter;
+		return (l >= 65 && l <= 90) || (l >= 97 && l <= 122);
+	}
 
-func isAllLetters(string str){
-	//int len = str.length;
+	static func isNumber(char number){
+		int n = (int) number;
+		return n >= 48 && n <= 57;
+	}
+
+	static func isAllLetters(string str){
+		//int len = str.length;
+	}
 }

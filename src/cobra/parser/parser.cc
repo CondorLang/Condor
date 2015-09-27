@@ -6,7 +6,7 @@ namespace internal{
 
 	Parser* Parser::New(Isolate* iso, std::string* src, std::string* path){
 		if (src == NULL) throw Error::EMPTY_FILE_PARSER;
-		Parser* p = (Parser*) iso->GetMemory(sizeof(Parser));
+		Parser* p = (Parser*) iso->GetMemoryLarge(sizeof(Parser));
 		p->scanner = NULL;
 		p->source = src;
 		p->topScope = NULL;
@@ -102,6 +102,7 @@ namespace internal{
 			Row = row;
 			Col = col;
 			Pos = pos;
+			if (tok != NULL) isolate->FreeMemory(tok, sizeof(Token), "small");
 			tok = scanner->NextToken();
 			row = scanner->row;
 			col = scanner->col;
@@ -421,7 +422,9 @@ namespace internal{
 					if (trace) Trace("Parsing", "Object member");
 					Next();
 					ASTExpr* second = ParsePrimaryExpr();
-					if (second->type != IDENT && second->type != FUNC_CALL) throw Error::INVALID_OBJECT_MEMBER;
+					if (second->type != IDENT && 
+						  second->type != FUNC_CALL && 
+						  second->type != ARRAY_MEMBER) throw Error::INVALID_OBJECT_MEMBER;
 					ASTObjectMemberChainExpr* chain = ASTObjectMemberChainExpr::New(isolate);
 					AddRowCol(chain);
 					chain->object = first;
@@ -460,30 +463,26 @@ namespace internal{
 	/**
 	 * TODO:
 	 * 	Work on operand precidence
-	 *  // here
 	 */
 	ASTExpr* Parser::ParsePrimaryExpr(){
 		if (trace) Trace("Parsing", "Primary Expression");
 		ASTExpr* expr = ParseOperand();
 
-		// Will only loop once
-		while (true){
-			expr = ParseFuncCall(expr);
-			expr = ParseArray(expr);
-			if (!IsOperator() && !IsBoolean())
-				break;
-			if (IsBoolean() && trace) Trace("Parsing", "Boolean statement");
-			ASTBinaryExpr* binary = ASTBinaryExpr::New(isolate);
-			AddRowCol(binary);
-			if (tok->String().empty()) throw Error::UNIDENTIFIED_BOOLEAN_OPERATOR;
-			binary->op = Token::New(isolate, tok->value);
-			binary->Left = expr;
-			Next(); // eat operator
-			binary->Right = ParseExpr();
-			if (binary->Right == NULL)
-				throw Error::MISSING_EXPR;
-			return binary;
-		}
+		expr = ParseFuncCall(expr);
+		expr = ParseArray(expr);
+		if (!IsOperator() && !IsBoolean())
+			return expr;
+		if (IsBoolean() && trace) Trace("Parsing", "Boolean statement");
+		ASTBinaryExpr* binary = ASTBinaryExpr::New(isolate);
+		AddRowCol(binary);
+		if (tok->String().empty()) throw Error::UNIDENTIFIED_BOOLEAN_OPERATOR;
+		binary->op = Token::New(isolate, tok->value);
+		binary->Left = expr;
+		Next(); // eat operator
+		binary->Right = ParseExpr();
+		if (binary->Right == NULL)
+			throw Error::MISSING_EXPR;
+		return binary;
 
 		return expr;
 	}
@@ -583,18 +582,42 @@ namespace internal{
 			return binary;
 		}
 		else if (tok->value == DEC){
-			ASTIdent* ident = (ASTIdent*) expr;
-			ident->dec = true;
-			ident->post = true;
-			Next();
-			return ident;
+			if (expr == NULL){
+				ASTIdent* ident = ASTIdent::New(isolate);
+				ident->dec = true;
+				ident->pre = true;
+				Next();
+				Expect(IDENT);
+				ident->name = tok->raw;
+				Next();
+				return ident;
+			}
+			else{
+				ASTIdent* ident = (ASTIdent*) expr;
+				ident->dec = true;
+				ident->post = true;
+				Next();
+				return ident;
+			}
 		}
 		else if (tok->value == INC){
-			ASTIdent* ident = (ASTIdent*) expr;
-			ident->inc = true;
-			ident->post = true;
-			Next();
-			return ident;
+			if (expr == NULL){
+				ASTIdent* ident = ASTIdent::New(isolate);
+				ident->inc = true;
+				ident->pre = true;
+				Next();
+				Expect(IDENT);
+				ident->name = tok->raw;
+				Next();
+				return ident;
+			}
+			else{
+				ASTIdent* ident = (ASTIdent*) expr;
+				ident->inc = true;
+				ident->post = true;
+				Next();
+				return ident;
+			}
 		}
 		else {
 			return expr;
@@ -795,6 +818,7 @@ namespace internal{
 	 */
 	ASTNode* Parser::ParseStmt(){
 		if (trace) Trace("Parsing", "Statement");
+		nonOp = false;
 		int type = (int) tok->value;
 		switch (type){
 			case VAR: {

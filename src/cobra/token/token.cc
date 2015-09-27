@@ -232,7 +232,8 @@ namespace internal{
 	}
 
 	Token* Token::New(Isolate* iso, TOKEN val){
-		Token* t = (Token*) iso->GetMemory(sizeof(Token));
+		Token* t = (Token*) iso->GetMemorySmall(sizeof(Token));
+		t->raw = "";
 		t->value = val;
 		return t;
 	}

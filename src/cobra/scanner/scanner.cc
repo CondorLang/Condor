@@ -7,7 +7,7 @@ namespace internal{
 
 	Scanner* Scanner::New(Isolate* iso, std::string* source){
 		if (source == NULL) throw Error::EMPTY_FILE;
-		Scanner* s = (Scanner*) iso->GetMemory(sizeof(Scanner));
+		Scanner* s = (Scanner*) iso->GetMemoryLarge(sizeof(Scanner));
 		s->src = source;
 		s->offset = -1;
 		s->readOffset = 0;
@@ -22,7 +22,7 @@ namespace internal{
 	/**
 	 * @brief Get the next token
 	 * @details Returns the next token. If it's the end of the file, 
-	 * Token(END) will be returned
+	 * Token(END) will	 be returned
 	 * @return Token*
 	 */
 	Token* Scanner::NextToken(){
@@ -90,6 +90,25 @@ namespace internal{
 				else if (p == '>') {
 					Next(); 
 					return Token::New(isolate, RARROW);
+				}
+				else if (IsNumber(p)){
+					result = ch;
+					char p = Peek();
+					bool isInt = true;
+					int count = 0;
+					while (IsNumber(p) || p == '.'){
+						if (!isInt) count++;
+						if (ch == '.') isInt = false;
+						Next();
+						result += ch;
+						p = Peek();
+					}
+					Token* tok = NULL;
+					if (isInt) tok = Token::New(isolate, INT);
+					else if (count < 7) tok = Token::New(isolate, FLOAT);
+					else tok = Token::New(isolate, DOUBLE);
+					tok->raw = result;
+					return tok;
 				}
 				else return Token::New(isolate, SUB);
 			}

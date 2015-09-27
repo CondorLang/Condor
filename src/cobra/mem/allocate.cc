@@ -18,17 +18,6 @@ namespace internal{
 		exit(1);
 	}
 
-	void Allocate::Test(){
-		MemoryPool* p = new MemoryPool(DEFAULT_MEMORY_POOL_SIZE, sizeof(Token), sizeof(Token) * 2);
-		for (int i = 0; i < 10; i++){
-			void* t = p->GetMemory(sizeof(Token));
-			p->FreeMemory(t, sizeof(t));
-		}
-		printf("d: Total Size: %lu\n", p->GetTotalSize());
-		printf("d: Used Size: %lu\n", p->GetUsedSize());
-		delete p;
-	}
-
 	MemoryPool::MemoryPool(const size_t poolSize, const size_t chunkSize, const size_t memorySize){
 		kChunkSize = chunkSize;
 		kFirstChunk = NULL;
@@ -39,10 +28,22 @@ namespace internal{
 		kFreeSize = 0;
 		kMinSize = memorySize;
 		kChunkCount = 0;
+		name = "Default";
+		debug = false;
 		AllocateMemory(poolSize);
 	}
 
 	MemoryPool::~MemoryPool(){
+		bool memoryAudit = MEMORY_AUDIT;
+		if (memoryAudit){
+			printf("\nCobraLang (c)\n-----------------------------\n");
+			printf("Name: %s\n", name.c_str());
+			printf("Total Memory Used: \t%lukb\n", (kUsedSize / KB));
+			printf("Total Memory Unused: \t%lukb\n", (kFreeSize / KB));
+			printf("Total Memory Size: \t%lukb\n", (kTotalSize / KB));
+			printf("Total Chunks Used: \t%d\n", kChunkCount);
+			printf("Chunk Size: \t\t%lu bytes\n", kChunkSize);
+		}
 		FreeAllAllocatedMemory();
 		DeallocateAllChunks();
 	}
@@ -84,7 +85,9 @@ namespace internal{
 		for (unsigned int i = 0; i < kChunkCount; i++){
 			if (chunk != NULL){
 				chunk->used = 0;
+				chunk->isAllocationChunk = false;
 				kUsedSize -= kChunkSize;
+				kFreeSize += kChunkSize;
 				chunk = chunk->next;
 			}
 		}
@@ -133,6 +136,9 @@ namespace internal{
 	}
 
 	void* MemoryPool::GetMemory(const size_t size){
+		if (debug){
+			printf("d: %lu\n", size);
+		}
 		size_t bestBlockSize = CalculateBestMemoryBlockSize(size);
 		Chunk* chunk = NULL;
 		int c = 0;

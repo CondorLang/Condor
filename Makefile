@@ -52,6 +52,9 @@ cmt:
 	make
 	make test
 
+d:
+	gdb ./build/Cobra
+
 docs:
 	doxygen documentation/doxygen.config
 

@@ -16,6 +16,7 @@ namespace internal{
 	#define HEAP_DELETE Flags::heapDelete;
 	#define EXPORTED_NODES Flags::exportedNodes;
 	#define MAX_MEMORY_SIZE Flags::maxMemorySize;
+	#define MEMORY_AUDIT Flags::memoryAudit;
 
 	class Flags
 	 {
@@ -27,7 +28,7 @@ namespace internal{
 	 		static bool heapInsert;
 	 		static bool heapDelete;
 	 		static bool exportedNodes;
-	 		static int maxMemorySize;
+	 		static bool memoryAudit;
 	 		static void SetCommandLineFlags(int argc, const char* argv[]);
 	 }; 
 

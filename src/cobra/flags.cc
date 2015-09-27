@@ -13,16 +13,7 @@ namespace internal{
 			else if (arg == "--parsing-time") Flags::parsingTime = true;
 			else if (arg == "--heap-insert") Flags::heapInsert = true;
 			else if (arg == "--heap-delete") Flags::heapDelete = true;
-			else if (arg == "--mem-size"){
-				if (argc >= i + 1){
-					Flags::maxMemorySize = atoi(argv[i + 1]);
-					i++;
-				}
-				else{
-					printf("Unidentified value\nExiting...\n");
-					exit(0);
-				}
-			}
+			else if (arg == "--memory-audit") Flags::memoryAudit = true;
 			else if (arg == "-h"){
 				printf("\n\nCobraLang\n=========\n(C) 2015 Cobra Authors\n\n");
 				printf("--trace-parser\t\t%s\n", "Trace the path of the parser");
@@ -32,7 +23,7 @@ namespace internal{
 				printf("--parsing-time\t\t%s\n", "Prints the time it took to parse");
 				printf("--heap-insert\t\t%s\n", "Tracks what is being inserted into the heap");
 				printf("--heap-delete\t\t%s\n", "Tracks what is being deleted out of the heap");
-				printf("--mem-size\t%s\n", "Define the max memory size");
+				printf("--memory-audit\t%s\n", "Audits the memory used and whats free");
 			}
 			else if (arg.find("-") != std::string::npos || arg.find("-") != std::string::npos){
 				printf("Unidentified flag\nExiting...\n");
@@ -48,7 +39,7 @@ namespace internal{
 	bool Flags::heapInsert = false;
 	bool Flags::heapDelete = false;
 	bool Flags::exportedNodes = false;
-	int Flags::maxMemorySize = 500;
+	bool Flags::memoryAudit = false;
 
 } // namespace internal
 } // namespace Cobra

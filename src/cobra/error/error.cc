@@ -84,6 +84,7 @@ namespace Error {
 			case EMPTY_FILE: return "Empty file";
 			case EMPTY_FILE_PARSER: return "Empty file in parser";
 			case UNIDENTIFIED_BOOLEAN_OPERATOR: return "Unidentfied boolean operator";
+			case INVALID_OBJECT_EXTENSION: return "Invalid object extension";
 			case SCANNER: {
 				if (tok != NULL){
 					return tok->raw;

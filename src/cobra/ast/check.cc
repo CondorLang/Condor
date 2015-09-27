@@ -6,7 +6,7 @@ namespace Cobra{
 namespace internal{
 
 	Check* Check::New(Isolate* iso){
-		Check* c = (Check*) iso->GetMemory(sizeof(Check));
+		Check* c = (Check*) iso->GetMemoryLarge(sizeof(Check));
 		c->scope = NULL;
 		c->trace = TRACE_CHECK; // debug
 		c->col = 0;
@@ -629,6 +629,7 @@ namespace internal{
 						found = true;
 					}
 					foundConstructor = found;
+					break;
 				}
 			}
 		}
@@ -695,8 +696,24 @@ namespace internal{
 		ASTNode* node = GetObjectInScopeByString(member->object->name, scope);
 		if (node != NULL){
 			SetRowCol(node);
-			if (node->type != OBJECT) throw Error::DIFFERENT_TYPE_ALREADY_DEFINED_IN_SCOPE;
 			ASTObject* obj = (ASTObject*) node;
+			if (node->type != OBJECT){
+				if (node->type == VAR){
+					ASTVar* var = (ASTVar*) node;
+					ASTIdent* ident = var->varClass;
+					ASTNode* n = GetObjectInScopeByString(ident->name, scope);
+					if (n == NULL) throw Error::UNDEFINED_OBJECT;
+					if (n->type == OBJECT){
+						obj = (ASTObject*) n;
+					}
+					else{
+						throw Error::UNDEFINED_OBJECT;
+					}
+				}
+				else{
+					throw Error::DIFFERENT_TYPE_ALREADY_DEFINED_IN_SCOPE;
+				}
+			}
 			for (int i = 0; i < obj->members.size(); i++){
 				if (obj->members[i]->name == member->member->name){
 					SetRowCol(obj->members[i]);
@@ -712,7 +729,16 @@ namespace internal{
 							return true;
 						}
 					}
-					else if (obj->members[i]->type == IDENT || obj->members[i]->type == VAR) return true;
+					else if (obj->members[i]->type == IDENT){
+						ASTIdent* ident = (ASTIdent*) obj->members[i];
+						printf("d: %s\n", "Check Ident fix type");
+						return true;
+					}
+					else if (obj->members[i]->type == VAR){
+						ASTVar* var = (ASTVar*) obj->members[i];
+						member->assignType = var->varType;
+						return true;
+					}
 				}
 			}
 		}
@@ -818,7 +844,8 @@ namespace internal{
 					}
 					else if (var->varType != stmt->assignType && var->name != "return") {
 						SetRowCol(var);
-						throw Error::INVALID_ASSIGNMENT_TO_TYPE;
+						ASTObjectInit* init = CallDefaultConstructor(var, stmt);
+						if (init != NULL) var->stmt = init;
 					}
 				}
 				else{
@@ -829,6 +856,17 @@ namespace internal{
 				stmt = ASTNull::New(isolate);
 			}
 		}
+	}
+
+	ASTObjectInit* Check::CallDefaultConstructor(ASTVar* var, ASTExpr* stmt){
+		if (var->varClass == NULL) return NULL;
+		ASTObjectInit* call = ASTObjectInit::New(isolate);
+		call->name = var->varClass->name;
+		call->row = var->row;
+		call->col = var->col;
+		call->params.push_back(stmt);
+		ValidateObjectInit(call);
+		return call;
 	}
 
 	void Check::ValidateFor(ASTNode* node){
@@ -847,6 +885,19 @@ namespace internal{
 	void Check::ValidateObject(ASTObject* obj){
 		if (trace) Trace("Validating object", obj->name);
 		SetRowCol(obj);
+		if (obj->name[0] == '$'){
+			if (trace) Trace("Extending object", obj->name.substr(1).c_str());
+			ASTNode* ext = GetObjectInScopeByString(obj->name.substr(1), scope);
+			if (ext == NULL) throw Error::INVALID_OBJECT_EXTENSION;
+			if (ext->type == OBJECT){
+				ASTObject* objToAddTo = (ASTObject*) ext;
+				for (int i = 0; i < obj->members.size(); i++){
+					objToAddTo->members.push_back(obj->members[i]);
+				}
+				isolate->FreeMemory(obj, sizeof(ASTObject), "medium"); // destroy the extended object
+				obj = objToAddTo;
+			}
+		}
 		kThis = obj;
 		for (int i = 0; i < obj->members.size(); i++){
 			ASTNode* mem = obj->members[i];

@@ -202,7 +202,13 @@ namespace internal{
 	ASTObjectInit* ASTObjectInit::New(Isolate* iso){
 		ASTObjectInit* n = (ASTObjectInit*) iso->GetMemory(sizeof(ASTObjectInit));
 		ASTNode::SetDefaults(n);
+		n->params.SetIsolate(iso);
 		n->type = OBJECT_INIT;
+		n->isNew = false;
+		n->pos = 0;
+		n->func = NULL;
+		n->scope = NULL;
+		n->assignType = ILLEGAL;
     return n;
 	}
 
