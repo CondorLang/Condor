@@ -11,8 +11,9 @@ namespace internal{
 	Scope::~Scope(){}
 
 	Scope* Scope::New(Isolate* iso){
-		Scope* s = (Scope*) iso->GetMemory(sizeof(Scope));
-		s->count = 0;
+		void* p = iso->GetMemory(sizeof(Scope));
+		Scope* s = new(p) Scope();
+		s->count = 1;
 		s->outer = NULL;
 		s->ordered.SetIsolate(iso);
 		return s;

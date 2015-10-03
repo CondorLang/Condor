@@ -7,7 +7,8 @@ namespace internal{
 
 	Scanner* Scanner::New(Isolate* iso, std::string* source){
 		if (source == NULL) throw Error::EMPTY_FILE;
-		Scanner* s = (Scanner*) iso->GetMemoryLarge(sizeof(Scanner));
+		void* p = iso->GetMemory(sizeof(Scanner));
+		Scanner* s = new(p) Scanner();
 		s->src = source;
 		s->offset = -1;
 		s->readOffset = 0;

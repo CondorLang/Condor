@@ -3,6 +3,13 @@
 namespace Cobra {
 namespace internal{
 
+	String* String::New(Isolate* isolate){
+		void* p = (String*) isolate->GetMemory(sizeof(String));
+		String* str = new(p) String();
+		str->SetDefaults();
+		return str;
+	}
+
 	void String::CB(Isolate* isolate){
 		Script::RunInternalScript(isolate, StringBytes);
 	}

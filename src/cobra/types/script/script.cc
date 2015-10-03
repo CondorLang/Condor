@@ -8,7 +8,14 @@
 namespace Cobra {
 namespace internal{
 
-	Script::Script(Handle* string, Isolate* isolate){
+	Script* Script::New(Handle* string, Isolate* isolate){
+		void* p = (Script*) isolate->GetMemory(sizeof(Script));
+		Script* script = new(p) Script();
+		script->SetDefualts(string, isolate);
+		return script;
+	}
+
+	void Script::SetDefualts(Handle* string, Isolate* isolate){
 		source = string;
 		parser = NULL;
 		check = NULL;
@@ -98,7 +105,7 @@ namespace internal{
 
 		if (compiled){
 			isolate->GetContext()->AddScript(this);
-			isolate->GetContext()->RemoveFromInProgress(absolutePath.c_str());
+			isolate->GetContext()->RemoveFromInProgress(absolutePath);
 		}
 		else{
 			printf("Did not compile: %s\n", absolutePath.c_str());
@@ -106,17 +113,24 @@ namespace internal{
 	}
 
 	void Script::SetIncludes(){
+		Vector<std::string> tmpIncludes;
+		tmpIncludes.SetIsolate(isolate);
 		for (int i = 0; i < parser->includes.size(); i++){
 			ASTInclude* include = parser->includes[i];
 			std::string name = include->name;
 			std::string importPath = GetPathOfImport(name);
 			include->name = importPath;
 			if (!isolate->GetContext()->IsIncluded(isolate, importPath.c_str())){
-				Cobra::Isolate* iso = CAST(Cobra::Isolate*, isolate);
-				Cobra::Handle* includeStr = Cobra::String::NewFromFile(iso, importPath.c_str());
-				Cobra::Handle* scr = Cobra::Script::Compile(iso, includeStr);
-				if (scr->IsCompiled()){throw Error::COMPILATION_ERROR;}
+				tmpIncludes.push_back(importPath);
 			}		
+		}
+		
+		for (int i = 0; i < tmpIncludes.size(); i++){
+			std::string importPath = tmpIncludes[i];
+			Cobra::Isolate* iso = CAST(Cobra::Isolate*, isolate);
+			Cobra::Handle* includeStr = Cobra::String::NewFromFile(iso, importPath.c_str());
+			Cobra::Handle* scr = Cobra::Script::Compile(iso, includeStr);
+			if (scr->IsCompiled()){throw Error::COMPILATION_ERROR;}
 		}
 	}
 

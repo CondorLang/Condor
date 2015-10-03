@@ -6,7 +6,8 @@ namespace internal{
 
 	Parser* Parser::New(Isolate* iso, std::string* src, std::string* path){
 		if (src == NULL) throw Error::EMPTY_FILE_PARSER;
-		Parser* p = (Parser*) iso->GetMemoryLarge(sizeof(Parser));
+		void* pt = iso->GetMemory(sizeof(Parser));
+		Parser* p = new(pt) Parser();
 		p->scanner = NULL;
 		p->source = src;
 		p->topScope = NULL;
@@ -102,7 +103,7 @@ namespace internal{
 			Row = row;
 			Col = col;
 			Pos = pos;
-			if (tok != NULL) isolate->FreeMemory(tok, sizeof(Token), "small");
+			if (tok != NULL) isolate->FreeMemory(tok, sizeof(Token));
 			tok = scanner->NextToken();
 			row = scanner->row;
 			col = scanner->col;
@@ -424,7 +425,10 @@ namespace internal{
 					ASTExpr* second = ParsePrimaryExpr();
 					if (second->type != IDENT && 
 						  second->type != FUNC_CALL && 
-						  second->type != ARRAY_MEMBER) throw Error::INVALID_OBJECT_MEMBER;
+						  second->type != ARRAY_MEMBER &&
+						  second->type != BINARY) {
+						throw Error::INVALID_OBJECT_MEMBER;
+					}
 					ASTObjectMemberChainExpr* chain = ASTObjectMemberChainExpr::New(isolate);
 					AddRowCol(chain);
 					chain->object = first;
@@ -797,10 +801,13 @@ namespace internal{
 
 	ASTNode* Parser::ParseThrow(){
 		if (tok->value == THROW){
+			if (trace) Trace("Parsing", "Throw");
 			Next();
 			ASTThrow* astThrow = ASTThrow::New(isolate);
 			if (tok->value == NEW){
 				ASTExpr* init = ParseObjectInit();
+				Expect(SEMICOLON);
+				Next();
 				astThrow->obj = init;
 			}
 			else if (tok->value == IDENT){

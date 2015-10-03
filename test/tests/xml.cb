@@ -1,0 +1,11 @@
+#mode "strict";
+
+export object xml{
+	func xml(){
+		this.outerXml = "";
+	}
+	static func parse(string str){
+
+	}
+	string outerXml;
+}

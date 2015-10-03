@@ -6,7 +6,8 @@ namespace Cobra{
 namespace internal{
 
 	Check* Check::New(Isolate* iso){
-		Check* c = (Check*) iso->GetMemoryLarge(sizeof(Check));
+		void* p = iso->GetMemory(sizeof(Check));
+		Check* c = new(p) Check();
 		c->scope = NULL;
 		c->trace = TRACE_CHECK; // debug
 		c->col = 0;
@@ -174,18 +175,34 @@ namespace internal{
 		}
 	}
 
+	/**
+	 * Maybe we don't do anything during the check
+	 */
+	void Check::ValidateNot(ASTBinaryExpr* binary){
+
+	}
+
 	void Check::ValidateBinaryStmt(ASTBinaryExpr* binary, bool boolean){
 		SetRowCol(binary);
 		if (binary == NULL){
 			if (trace) Trace("Binary", "is NULL");
 		}
 		else if (binary->op == NULL){
-
+			throw Error::INVALID_OPERATOR;
 		}
-		else{;
+		else{
 			if (binary->Left != NULL) ValidateStmt(binary->Left);
 			if (trace) Trace("Operator found", binary->op->String());
 			if (binary->Right != NULL) ValidateStmt(binary->Right);
+			else throw Error::INVALID_BOOLEAN_COMPARISON;
+			if (binary->Left == NULL){
+				if (binary->op->value == NOT){
+					return ValidateNot(binary);
+				}
+				else{
+					throw Error::INVALID_BOOLEAN_COMPARISON;
+				}
+			}
 			int type = (int) binary->Left->assignType;
 			std::string op = binary->op->String();
 			if (boolean) {
@@ -547,7 +564,23 @@ namespace internal{
 			if (trace) Trace("Operator found", unary->op->String());
 			ValidateStmt(unary->value);
 			unary->assignType = unary->value->assignType;
-			if (unary->value->type == OBJECT_INIT) unary->assignType = OBJECT_INIT;
+			int type = (int) unary->value->type;
+			switch (type){
+				case OBJECT_INIT: {
+					unary->assignType = OBJECT_INIT;
+					break;
+				}
+				case OBJECT_MEMBER_CHAIN: {
+					ASTObjectMemberChainExpr* mem = (ASTObjectMemberChainExpr*) unary->value;
+					unary->assignType = mem->member->assignType;
+					break;
+				}
+				case ASTCAST_EXPR: {
+					ASTCastExpr* cast = (ASTCastExpr*) unary->value;
+					unary->assignType = cast->castType;
+					break;
+				}
+			}
 		}
 	}
 
@@ -635,6 +668,7 @@ namespace internal{
 		}
 		if (!foundConstructor) throw Error::OBJECT_CONSTRUCTOR_INVALID;
 		init->assignType = OBJECT_INIT;
+		init->base = obj;
 	}
 
 	void Check::ValidateArrayMember(ASTArrayMemberExpr* expr){
@@ -669,12 +703,25 @@ namespace internal{
 			for (int i = 0; i < o->members.size(); i++){
 				if (o->members[i]->name == member->member->name){
 					if (mode == STRICT){
-						if (o->members[i]->type == VAR){ 
-							ASTVar* v = (ASTVar*) o->members[i];
-							member->member->assignType = v->varType;
-							ValidateStmt(member->value);
-							SetRowCol(member->value);
-							return member->value->assignType == member->member->assignType;
+						int type = (int) o->members[i]->type;
+						switch (type){
+							case VAR: {
+								ASTVar* v = (ASTVar*) o->members[i];
+								member->member->assignType = v->varType;
+								ValidateStmt(member->value);
+								SetRowCol(member->value);
+								// if the member value does't have a value
+								// then the value is the value of the variable from this
+								if (member->value == NULL){ 
+									member->value = v->stmt;
+								}
+								return member->value->assignType == member->member->assignType;
+							}
+							case FUNC: {
+								ASTFunc* f = (ASTFunc*) o->members[i];
+								member->member->assignType = f->returnType;
+								return true;							
+							}
 						}
 					}
 				}
@@ -685,15 +732,61 @@ namespace internal{
 
 	/**
 	 * TODO: 
-	 * 		- FuncCall and func parameters should have the same type
+	 * 		- 
 	 */
 	bool Check::ValidateObjectChainMember(ASTObjectMemberChainExpr* member){
 		SetRowCol(member);
+		ASTNode* node = NULL;
 		if (member->name == "%this" && member->object->name == "this"){
 			if (!ValidateThis(member)) throw Error::INVALID_OBJECT_MEMBER;
 			return true;
 		}
-		ASTNode* node = GetObjectInScopeByString(member->object->name, scope);
+		else if (member->name[0] == '%'){
+			node = GetObjectInScopeByString(member->name.substr(1), scope);
+			if (node->type == VAR){
+				ASTVar* var = (ASTVar*) node;
+				if (var->stmt->type == OBJECT_INIT){
+					ASTObjectInit* init = (ASTObjectInit*) var->stmt;
+					ASTObject* obj = (ASTObject*) init->base;
+					for (int i = 0; i < obj->members.size(); i++){
+						if (obj->members[i]->name == member->member->name){
+							SetRowCol(obj->members[i]);
+							if (obj->members[i]->visibility == vPRIVATE) throw Error::UNABLE_TO_ACCESS_PRIVATE_MEMBER;
+							if (obj->members[i]->type == FUNC) {
+								ASTFunc* f = (ASTFunc*) obj->members[i];
+								ASTFuncCallExpr* fc = (ASTFuncCallExpr*) member->member;
+								if (ValidateMemberFuncCall(f, fc)){
+									member->member->assignType = f->returnType;
+									if (member->name.find('%') != std::string::npos){
+										if (f->visibility == vSTATIC) throw Error::UNABLE_TO_ACCESS_STATIC_MEMBER;
+										if (f->visibility == vPRIVATE) throw Error::UNABLE_TO_ACCESS_PRIVATE_MEMBER;
+									}
+									return true;
+								}
+							}
+							else if (obj->members[i]->type == IDENT){
+								ASTIdent* ident = (ASTIdent*) obj->members[i];
+								printf("d: %s\n", "Check Ident fix type");
+								return true;
+							}
+							else if (obj->members[i]->type == VAR){
+								ASTVar* var = (ASTVar*) obj->members[i];
+								member->assignType = var->varType;
+								return true;
+							}
+						}
+					}
+
+					return true;
+				}
+				else{
+					return false;
+				}
+			}
+		}
+		else{
+			node = GetObjectInScopeByString(member->object->name, scope);
+		}
 		if (node != NULL){
 			SetRowCol(node);
 			ASTObject* obj = (ASTObject*) node;
@@ -701,7 +794,13 @@ namespace internal{
 				if (node->type == VAR){
 					ASTVar* var = (ASTVar*) node;
 					ASTIdent* ident = var->varClass;
-					ASTNode* n = GetObjectInScopeByString(ident->name, scope);
+					ASTNode* n = NULL;
+					if (ident == NULL){
+						throw Error::UNDEFINED_OBJECT;
+					}
+					else{
+						n = GetObjectInScopeByString(ident->name, scope);
+					}
 					if (n == NULL) throw Error::UNDEFINED_OBJECT;
 					if (n->type == OBJECT){
 						obj = (ASTObject*) n;
@@ -722,7 +821,7 @@ namespace internal{
 						ASTFunc* f = (ASTFunc*) obj->members[i];
 						ASTFuncCallExpr* fc = (ASTFuncCallExpr*) member->member;
 						if (ValidateMemberFuncCall(f, fc)){
-							member->assignType = f->returnType;
+							member->member->assignType = f->returnType;
 							if (member->name.find('%') != std::string::npos){
 								if (f->visibility != vSTATIC) throw Error::UNABLE_TO_ACCESS_NON_STATIC_FUNCTION;
 							}
@@ -846,6 +945,9 @@ namespace internal{
 						SetRowCol(var);
 						ASTObjectInit* init = CallDefaultConstructor(var, stmt);
 						if (init != NULL) var->stmt = init;
+						else {
+							throw Error::INVALID_ASSIGNMENT_TO_TYPE;
+						}
 					}
 				}
 				else{
@@ -894,7 +996,7 @@ namespace internal{
 				for (int i = 0; i < obj->members.size(); i++){
 					objToAddTo->members.push_back(obj->members[i]);
 				}
-				isolate->FreeMemory(obj, sizeof(ASTObject), "medium"); // destroy the extended object
+				isolate->FreeMemory(obj, sizeof(ASTObject)); // destroy the extended object
 				obj = objToAddTo;
 			}
 		}

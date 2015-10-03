@@ -24,6 +24,7 @@ namespace internal{
 		String* ToString();
 		Script* ToScript();
 		static bool IsAddressValid(Isolate* iso, Address addr);
+		static Handle* New(HeapObject* o = NULL, Isolate* iso = NULL);
 	};
 
 	template<class T>

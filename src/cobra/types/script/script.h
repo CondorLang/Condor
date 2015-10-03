@@ -55,9 +55,10 @@ namespace internal{
 		int CharsToNewLine(std::string code, int start);
 
 	public:
-		Script(Handle* string, Isolate* isolate);
-		~Script(){}
+		Script(){}
+		static Script* New(Handle* string, Isolate* isolate);
 		void Compile();
+		void SetDefualts(Handle* string, Isolate* isolate);
 		Handle* GetSource(){return source;}
 		std::string GetSourceCode();
 		bool HasError(){return hasErr;}

@@ -108,23 +108,23 @@ namespace internal{
 			return heaps[heaps.size() - 1].Insert(val);
 		}
 		void FlushByTypeString(std::string types){
-			printf("d: %lu\n", heaps.size());
-			for (int i = 0; i < heaps.size(); i++){
-				for (int j = heaps[i].Size(); j != 0; j--){
-					HeapObject* obj = heaps[i].Get(j);
-					if (types.find(Token::ToString(obj->type)) != std::string::npos) {
-					  heaps[i].Delete(j - 1);
-					}
-				}
-			}
+			// printf("d: %lu\n", heaps.size());
+			// for (int i = 0; i < heaps.size(); i++){
+			// 	for (int j = heaps[i].Size(); j != 0; j--){
+			// 		HeapObject* obj = heaps[i].Get(j);
+			// 		if (types.find(Token::ToString(obj->type)) != std::string::npos) {
+			// 		  heaps[i].Delete(j - 1);
+			// 		}
+			// 	}
+			// }
 		}
 		void FlushAll(){
-			for (int i = heaps.size() - 1; i != -1; i--){
-				for (int j = heaps[i].Size() - 1; j != -1; j = heaps[i].Size() - 1){
-					heaps[i].Delete(j);
-				}
-				heaps.pop_back();
-			}
+			// for (int i = heaps.size() - 1; i != -1; i--){
+			// 	for (int j = heaps[i].Size() - 1; j != -1; j = heaps[i].Size() - 1){
+			// 		heaps[i].Delete(j);
+			// 	}
+			// 	heaps.pop_back();
+			// }
 		}
 	};
 

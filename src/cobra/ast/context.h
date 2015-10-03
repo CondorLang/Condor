@@ -28,7 +28,7 @@ namespace internal{
 		bool IsIncluded(Isolate* iso, const char* path);
 		bool IsImported(Isolate* iso, std::string name);
 		void SetImport(std::string name);
-		void AddToInProgress(std::string str){inProgress.push_back(str);}
+		void AddToInProgress(std::string str);
 		void RemoveFromInProgress(std::string str);
 		ASTNode* GetExportedNode(Isolate* iso, std::string name);
 		void PrintExported(Isolate* iso);

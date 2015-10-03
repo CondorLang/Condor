@@ -18,6 +18,10 @@ namespace internal{
 		imported.SetIsolate(isolate);
 	}
 
+	void Context::AddToInProgress(std::string str){
+		inProgress.push_back(str);
+	}
+
 	void Context::AddScript(Script* script){
 		std::hash<std::string> hash_fn;
     std::size_t str_hash = hash_fn(script->GetSourceCode());

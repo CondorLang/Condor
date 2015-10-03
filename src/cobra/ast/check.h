@@ -53,12 +53,14 @@ namespace internal{
 		void ValidateObject(ASTObject* obj);
 		void ValidateTryCatch(ASTTryCatch* try_catch);
 		void ValidateThrow(ASTThrow* expr);
+		void ValidateNot(ASTBinaryExpr* binary);
 		ASTObjectInit* CallDefaultConstructor(ASTVar* var, ASTExpr* stmt);
 		ASTNode* GetObjectInScope(ASTNode* ident, Scope* sc);
 		ASTNode* GetObjectInScopeByString(std::string name, Scope* sc);
 		void SetScope();
 
 	public:
+		Check(){}
 		static Check* New(Isolate* iso);
 		int col;
 		int row;

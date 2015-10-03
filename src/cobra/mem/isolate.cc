@@ -11,38 +11,56 @@ namespace internal{
 		small = new MemoryPool(poolSize, chunkSize2, sizeToAllocate2);
 		small->name = "small";
 
-		const static size_t chunkSize = 121;
+		const static size_t chunkSize = 80;
 		const static size_t sizeToAllocate = DEFAULT_MEMORY_CHUNK_SIZE * 2;
 		medium = new MemoryPool(poolSize, chunkSize, sizeToAllocate);
 		medium->name = "medium";
 
-		large = new MemoryPool();
+		const static size_t chunkSize3 = 130;
+		const static size_t sizeToAllocate3 = DEFAULT_MEMORY_CHUNK_SIZE * 2;
+		large = new MemoryPool(poolSize, chunkSize3, sizeToAllocate3);
 		large->name = "large";
+
+		xl = new MemoryPool();
+		xl->name = "xl";
+
+		bool requested = MEMORY_REQUEST;
+		if (requested){
+			small->debug = true;
+			medium->debug = true;
+			large->debug = true;
+			xl->debug = true;
+		}
 	}
 
 	Isolate::~Isolate(){
 		delete small;
 		delete medium;
 		delete large;
+		delete xl;
 		delete factory;
 	}
 
-	void* Isolate::GetMemorySmall(const size_t size){
-		return small->GetMemory(size);
-	}
-
 	void* Isolate::GetMemory(const size_t size){
-		return medium->GetMemory(size);
+		if (size < 35){
+			return small->GetMemory(size);
+		}
+		else if (size < 80){
+			return medium->GetMemory(size);
+		}
+		else if (size < 130){
+			return large->GetMemory(size);
+		}
+		else{
+			return xl->GetMemory(size);
+		}
 	}
 
-	void* Isolate::GetMemoryLarge(const size_t size){
-		return large->GetMemory(size);
-	}
-
-	void Isolate::FreeMemory(void* ptr, const size_t size, std::string whichOne){
-		if (whichOne == "small") small->FreeMemory(ptr, size);
-		if (whichOne == "medium") medium->FreeMemory(ptr, size);
-		if (whichOne == "large") large->FreeMemory(ptr, size);
+	void Isolate::FreeMemory(void* ptr, const size_t size){
+		if (size < 35) small->FreeMemory(ptr, size);
+		else if (size < 80) medium->FreeMemory(ptr, size);
+		else if (size < 130) large->FreeMemory(ptr, size);
+		else xl->FreeMemory(ptr, size);
 	}
 
 	void Isolate::_enter(){

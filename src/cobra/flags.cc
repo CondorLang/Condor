@@ -14,6 +14,7 @@ namespace internal{
 			else if (arg == "--heap-insert") Flags::heapInsert = true;
 			else if (arg == "--heap-delete") Flags::heapDelete = true;
 			else if (arg == "--memory-audit") Flags::memoryAudit = true;
+			else if (arg == "--memory-request") Flags::memoryRequest = true;
 			else if (arg == "-h"){
 				printf("\n\nCobraLang\n=========\n(C) 2015 Cobra Authors\n\n");
 				printf("--trace-parser\t\t%s\n", "Trace the path of the parser");
@@ -24,6 +25,7 @@ namespace internal{
 				printf("--heap-insert\t\t%s\n", "Tracks what is being inserted into the heap");
 				printf("--heap-delete\t\t%s\n", "Tracks what is being deleted out of the heap");
 				printf("--memory-audit\t%s\n", "Audits the memory used and whats free");
+				printf("--memory-request\t%s\n", "Tracks the memory requested");
 			}
 			else if (arg.find("-") != std::string::npos || arg.find("-") != std::string::npos){
 				printf("Unidentified flag\nExiting...\n");
@@ -40,6 +42,7 @@ namespace internal{
 	bool Flags::heapDelete = false;
 	bool Flags::exportedNodes = false;
 	bool Flags::memoryAudit = false;
+	bool Flags::memoryRequest = false;
 
 } // namespace internal
 } // namespace Cobra

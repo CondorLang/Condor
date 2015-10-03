@@ -176,7 +176,7 @@ namespace Cobra{
 		obj.address = CAST(i::Address, str);
 		obj.type = i::API_STRING;
 		i::HeapObject* newStr = cobra_isolate->Insert(obj);
-		i::Handle* handle = cobra_isolate->InsertToHeap(new i::Handle(newStr, cobra_isolate), i::HANDLE);
+		i::Handle* handle = i::Handle::New(newStr, cobra_isolate);
 		return CAST(Handle*, handle);
 	}
 
@@ -251,7 +251,7 @@ namespace Cobra{
 	 */
 	const char* Handle::GetType(){
 		i::Handle* handle = CAST(i::Handle*, this);
-		i::Token* tok = new i::Token(handle->GetObject()->type);
+		i::Token* tok = i::Token::New(handle->isolate, handle->GetObject()->type);
 		const char* type = tok->String().c_str();
 		delete tok;
 		return type;
@@ -278,7 +278,7 @@ namespace Cobra{
 		obj.address = CAST(i::Address, script);
 		obj.type = i::SCRIPT;
 		i::HeapObject* newScript = cobra_isolate->Insert(obj);
-		i::Handle* scriptHandle = cobra_isolate->InsertToHeap(new i::Handle(newScript, cobra_isolate), i::HANDLE);
+		i::Handle* scriptHandle = i::Handle::New(newScript, cobra_isolate);
 		return CAST(Handle*, scriptHandle);
 	}
 

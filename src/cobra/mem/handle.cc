@@ -15,5 +15,11 @@ namespace internal{
 		return iso->IsAddressValid(addr);
 	}
 
+	Handle* Handle::New(HeapObject* o, Isolate* iso){
+		void* p = iso->GetMemory(sizeof(Handle));
+		Handle* h = new(p) Handle(o, iso);
+		return h;
+	}
+
 } // namespace internal
 } // namespace Cobra

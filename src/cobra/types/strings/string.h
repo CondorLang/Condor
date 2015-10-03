@@ -17,8 +17,9 @@ namespace internal{
 		std::string filePath;
 		bool internal;
 	public:
-		String(Isolate* isolate){value = "";internal = false;}
-		~String(){}
+		String(){}
+		static String* New(Isolate* isolate);
+		void SetDefaults(){internal = false;}
 		Isolate* isolate;
 		static void CB(Isolate* isolate);
 		static std::string Code;

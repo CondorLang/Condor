@@ -65,7 +65,7 @@ namespace internal{
 	void MemoryPool::FreeAllAllocatedMemory(){
 		Chunk* chunk = kFirstChunk;
 		while (chunk != NULL){
-			if (chunk->isAllocationChunk){
+			if (chunk->isAllocationChunk && chunk->data != NULL){
 				free((void*) chunk->data);
 			}
 			chunk = chunk->next;
@@ -85,7 +85,6 @@ namespace internal{
 		for (unsigned int i = 0; i < kChunkCount; i++){
 			if (chunk != NULL){
 				chunk->used = 0;
-				chunk->isAllocationChunk = false;
 				kUsedSize -= kChunkSize;
 				kFreeSize += kChunkSize;
 				chunk = chunk->next;
@@ -137,7 +136,7 @@ namespace internal{
 
 	void* MemoryPool::GetMemory(const size_t size){
 		if (debug){
-			printf("d: %lu\n", size);
+			printf("%s - %lu\n", name.c_str(), size);
 		}
 		size_t bestBlockSize = CalculateBestMemoryBlockSize(size);
 		Chunk* chunk = NULL;

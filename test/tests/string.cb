@@ -4,7 +4,11 @@ import "string";
 
 object $String {
 	static func getCharFromString(string str, int pos){
-		return (int) str[pos];
+		return (char) str[pos];
+	}
+
+	func getCharFromString(int pos){
+		return (char) this.base[pos]; 
 	}
 
 	static func isLetter(char letter){
@@ -12,12 +16,38 @@ object $String {
 		return (l >= 65 && l <= 90) || (l >= 97 && l <= 122);
 	}
 
+	func isLetter(int pos){
+		char l = (char) this.base[pos];
+		return String.isLetter(l);
+	}
+
 	static func isNumber(char number){
 		int n = (int) number;
 		return n >= 48 && n <= 57;
 	}
 
-	static func isAllLetters(string str){
-		//int len = str.length;
+	func isNumber(int pos){
+		char l = (char) this.base[pos];
+		return String.isNumber(l);
+	}
+
+	func allLetters(){
+		int len = this.length;
+		for (int i = 0; i < len; i++){
+			if (!this.isLetter(this.base[i])){
+				return false;
+			}
+		}
+		return true;
+	}
+
+	func allNumbers(){
+		int len = this.length;
+		for (int i = 0; i < len; i++){
+			if (!this.isNumber(this.base[i])){
+				return false;
+			}
+		}
+		return true;
 	}
 }

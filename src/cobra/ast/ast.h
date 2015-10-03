@@ -32,6 +32,7 @@ namespace internal{
 	class ASTNode
 	{
 	public:
+		ASTNode(){}
 		~ASTNode(){}
 		std::string name;
 		TOKEN type;
@@ -47,6 +48,7 @@ namespace internal{
 	class ASTExpr : public ASTNode
 	{
 	public:
+		ASTExpr(){}
 		~ASTExpr(){}
 		ASTExpr* value;
 		TOKEN assignType;
@@ -56,6 +58,7 @@ namespace internal{
 	class ASTNull : public ASTExpr
 	{
 	public:
+		ASTNull(){}
 		~ASTNull(){}		
 		static ASTNull* New(Isolate* iso);
 	};
@@ -63,6 +66,7 @@ namespace internal{
 	class ASTCastExpr : public ASTExpr
 	{
 	public:
+		ASTCastExpr(){}
 		~ASTCastExpr(){}
 		TOKEN castType;
 		ASTExpr* to;
@@ -73,6 +77,7 @@ namespace internal{
 	class ASTIdent : public ASTExpr
 	{
 	public:
+		ASTIdent(){}
 		~ASTIdent(){}
 		int pos;
 		bool inc;
@@ -86,6 +91,7 @@ namespace internal{
 	class ASTLiterary : public ASTExpr
 	{
 	public:
+		ASTLiterary(){}
 		~ASTLiterary(){}
 		int pos;
 		std::string value;
@@ -96,6 +102,7 @@ namespace internal{
 	class ASTUnaryExpr : public ASTExpr
 	{
 	public:
+		ASTUnaryExpr(){}
 		~ASTUnaryExpr(){}
 		ASTExpr* value;
 		Token* op;
@@ -106,6 +113,7 @@ namespace internal{
 	class ASTBinaryExpr : public ASTExpr
 	{
 	public:
+		ASTBinaryExpr(){}
 		~ASTBinaryExpr(){}
 		ASTExpr* Left;
 		ASTExpr* Right;
@@ -116,6 +124,7 @@ namespace internal{
 	class ASTArrayMemberExpr : public ASTExpr
 	{
 	public:
+		ASTArrayMemberExpr(){}
 		~ASTArrayMemberExpr(){}
 		ASTExpr* member;
 		ASTExpr* value;
@@ -125,6 +134,7 @@ namespace internal{
 	class ASTObjectMemberChainExpr : public ASTExpr
 	{
 	public:
+		ASTObjectMemberChainExpr(){}
 		~ASTObjectMemberChainExpr(){}
 		ASTExpr* member;
 		ASTIdent* object;
@@ -136,6 +146,7 @@ namespace internal{
 	class ASTVar : public ASTNode
 	{
 	public:
+		ASTVar(){}
 		~ASTVar(){}
 		ASTExpr* stmt;
 		TOKEN varType;
@@ -149,6 +160,7 @@ namespace internal{
 	class ASTParamVar : public ASTVar
 	{
 	public:
+		ASTParamVar(){}
 		~ASTParamVar(){}	
 		static ASTParamVar* New(Isolate* iso);	
 	};
@@ -156,6 +168,7 @@ namespace internal{
 	class ASTVarList : public ASTNode
 	{
 	public:
+		ASTVarList(){}
 		~ASTVarList(){}
 		Vector<ASTVar*> vars;
 		static ASTVarList* New(Isolate* iso);
@@ -165,6 +178,7 @@ namespace internal{
 	class ASTInt : public ASTNode
 	{
 	public:
+		ASTInt(){}
 		~ASTInt(){}
 		int value;
 		static ASTInt* New(Isolate* iso);
@@ -173,6 +187,7 @@ namespace internal{
 	class ASTFloat : public ASTNode
 	{
 	public:
+		ASTFloat(){}
 		~ASTFloat(){}
 		float value;
 		static ASTFloat* New(Isolate* iso);
@@ -181,6 +196,7 @@ namespace internal{
 	class ASTDouble : public ASTNode
 	{
 	public:
+		ASTDouble(){}
 		~ASTDouble(){}
 		double value;
 		static ASTDouble* New(Isolate* iso);
@@ -189,6 +205,7 @@ namespace internal{
 	class ASTBoolean : public ASTNode
 	{
 	public:
+		ASTBoolean(){}
 		~ASTBoolean(){}
 		bool value;
 		static ASTBoolean* New(Isolate* iso);
@@ -197,6 +214,7 @@ namespace internal{
 	class ASTChar : public ASTNode
 	{
 	public:
+		ASTChar(){}
 		~ASTChar(){}
 		char value;
 		static ASTChar* New(Isolate* iso);
@@ -205,6 +223,7 @@ namespace internal{
 	class ASTString : public ASTNode
 	{
 	public:
+		ASTString(){}
 		~ASTString(){}
 		std::string value;
 		static ASTString* New(Isolate* iso);
@@ -213,6 +232,7 @@ namespace internal{
 	class ASTBlock : public ASTNode
 	{
 	public:
+		ASTBlock(){}
 		~ASTBlock(){}
 		Scope* scope;
 		static ASTBlock* New(Isolate* iso);
@@ -221,6 +241,7 @@ namespace internal{
 	class ASTFunc : public ASTNode
 	{
 	public:
+		ASTFunc(){}
 		~ASTFunc(){}
 		ASTBlock* body;
 		Vector<ASTParamVar*> args;
@@ -229,9 +250,19 @@ namespace internal{
 		static ASTFunc* New(Isolate* iso);
 	};
 
+	class ASTObject : public ASTNode
+	{
+	public:
+		ASTObject(){}
+		~ASTObject(){}
+		Vector<ASTNode*> members;
+		static ASTObject* New(Isolate* iso);	
+	};
+
 	class ASTFuncCallExpr : public ASTExpr
 	{
 	public:
+		ASTFuncCallExpr(){}
 		~ASTFuncCallExpr(){}
 		Vector<ASTExpr*> params;
 		int pos;
@@ -245,30 +276,27 @@ namespace internal{
 	class ASTObjectInit : public ASTFuncCallExpr
 	{
 	public:
+		ASTObjectInit(){}
 		~ASTObjectInit(){}	
+		ASTObject* base;
+		Vector<ASTNode*> members;
 		static ASTObjectInit* New(Isolate* iso);	
 	};
 
 	class ASTArray : public ASTParamVar
 	{
 	public:
+		ASTArray(){}
 		~ASTArray(){}
 		Vector<ASTNode*> value;
 		TOKEN arrayType;
 		static ASTArray* New(Isolate* iso, TOKEN rType);	
 	};
 
-	class ASTObject : public ASTNode
-	{
-	public:
-		~ASTObject(){}
-		Vector<ASTNode*> members;
-		static ASTObject* New(Isolate* iso);	
-	};
-
 	class ASTIf : public ASTNode
 	{
 	public:
+		ASTIf(){}
 		~ASTIf(){}
 		ASTExpr* conditions;
 		ASTBlock* block;
@@ -278,6 +306,7 @@ namespace internal{
 	class ASTElse : public ASTNode
 	{
 	public:
+		ASTElse(){}
 		~ASTElse(){}
 		ASTExpr* conditions;
 		ASTBlock* block;
@@ -288,6 +317,7 @@ namespace internal{
 	class ASTWhile : public ASTNode
 	{
 	public:
+		ASTWhile(){}
 		~ASTWhile(){}
 		ASTExpr* conditions;
 		ASTBlock* block;
@@ -297,6 +327,7 @@ namespace internal{
 	class ASTFor : public ASTNode
 	{
 	public:
+		ASTFor(){}
 		~ASTFor(){}
 		ASTNode* var;
 		ASTExpr* conditions;
@@ -308,6 +339,7 @@ namespace internal{
 	class ASTTryCatch : public ASTNode
 	{
 	public:
+		ASTTryCatch(){}
 		~ASTTryCatch(){}
 		ASTBlock* tryBlock;
 		ASTFunc* catchFunc;
@@ -317,6 +349,7 @@ namespace internal{
 	class ASTThrow : public ASTNode
 	{
 	public:
+		ASTThrow(){}
 		~ASTThrow();
 		ASTExpr* obj;
 		static ASTThrow* New(Isolate* iso);
@@ -325,6 +358,7 @@ namespace internal{
 	class ASTImport : public ASTNode
 	{
 	public:
+		ASTImport(){}
 		~ASTImport(){}
 		std::string name;
 		std::string alias;
@@ -334,6 +368,7 @@ namespace internal{
 	class ASTInclude : public ASTNode
 	{
 	public:
+		ASTInclude(){}
 		~ASTInclude(){}
 		std::string name;
 		std::string alias;
@@ -343,6 +378,7 @@ namespace internal{
 	class ASTFile : public ASTNode
 	{
 	public:
+		ASTFile(){}
 		~ASTFile(){}
 		Scope* scope; 
 		std::map<std::string, ASTInclude*> includes;
