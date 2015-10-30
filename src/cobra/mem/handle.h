@@ -23,6 +23,7 @@ namespace internal{
 		HeapObject* GetObject(){return obj;}
 		String* ToString();
 		Script* ToScript();
+		std::string name;
 		static bool IsAddressValid(Isolate* iso, Address addr);
 		static Handle* New(HeapObject* o = NULL, Isolate* iso = NULL);
 	};

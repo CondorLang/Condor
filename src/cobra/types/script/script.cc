@@ -11,6 +11,7 @@ namespace internal{
 	Script* Script::New(Handle* string, Isolate* isolate){
 		void* p = (Script*) isolate->GetMemory(sizeof(Script));
 		Script* script = new(p) Script();
+		if (script == NULL) return NULL;
 		script->SetDefualts(string, isolate);
 		return script;
 	}
@@ -30,6 +31,7 @@ namespace internal{
 		sourceCode += str->GetValue();
 		absolutePath = str->GetPath();
 		msgs.SetIsolate(isolate);
+		name = string->name;
 	}
 
 	// TODO:
@@ -60,8 +62,12 @@ namespace internal{
 				if (isInline) 
 					printf("Parsing:  %f sec | %s\n", clock->GetDuration(), parser->filePath->c_str());
 			}
-
-			isolate->GetContext()->AddToInProgress(absolutePath);
+			if (absolutePath != "inline"){
+				isolate->GetContext()->AddToInProgress(absolutePath);
+			}
+			else{
+				isolate->GetContext()->AddToInProgress(name);
+			}
 		}
 		catch (Error::ERROR e){
 			std::string msg = Error::String(e, parser->expected);
@@ -105,7 +111,12 @@ namespace internal{
 
 		if (compiled){
 			isolate->GetContext()->AddScript(this);
-			isolate->GetContext()->RemoveFromInProgress(absolutePath);
+			if (absolutePath == "inline"){
+				isolate->GetContext()->RemoveFromInProgress(name);
+			}
+			else{
+				isolate->GetContext()->RemoveFromInProgress(absolutePath);
+			}
 		}
 		else{
 			printf("Did not compile: %s\n", absolutePath.c_str());
@@ -278,7 +289,7 @@ namespace internal{
 		return count;
 	}
 
-	void Script::RunInternalScript(Isolate* isolate, std::string hex){
+	void Script::RunInternalScript(Isolate* isolate, std::string hex, std::string _name){
 		Cobra::Isolate* iso = CAST(Cobra::Isolate*, isolate);
 		int len = hex.length();
 		std::string newString;
@@ -290,6 +301,7 @@ namespace internal{
 		}
 		Cobra::Handle* str = Cobra::String::New(iso, newString.c_str());
 		Handle* iHandle = CAST(Handle*, str);
+		iHandle->name = _name;
 		String* iStr = iHandle->ToString();
 		iStr->SetInternal();
 		

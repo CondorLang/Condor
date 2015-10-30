@@ -20,11 +20,40 @@ namespace internal{
 		node->type = ILLEGAL;
 	}
 
+	ASTUndefined* ASTUndefined::New(Isolate* iso){
+		void* p = iso->GetMemory(sizeof(ASTUndefined));
+		ASTUndefined* n = new(p) ASTUndefined();
+		ASTNode::SetDefaults(n);
+		n->type = UNDEFINED;
+		n->name = "undefined";
+		n->assignType = UNDEFINED;
+		return n;
+	}
+
+	ASTExpr* ASTExpr::New(Isolate* iso){
+		void* p = iso->GetMemory(sizeof(ASTExpr));
+		ASTExpr* n = new(p) ASTExpr();
+		ASTNode::SetDefaults(n);
+		n->type = EXPR;
+		n->value = NULL;
+		return n;
+	}
+
+	ASTNot* ASTNot::New(Isolate* iso){
+		void* p = iso->GetMemory(sizeof(ASTNot));
+		ASTNot* n = new(p) ASTNot();
+		ASTNode::SetDefaults(n);
+		n->type = AST_NOT;
+		n->value = NULL;
+		n->assignType = BOOLEAN;
+		return n;
+	}
+
 	ASTNull* ASTNull::New(Isolate* iso){
 		void* p = iso->GetMemory(sizeof(ASTNull));
 		ASTNull* n = new(p) ASTNull();
 		ASTNode::SetDefaults(n);
-		n->type = EXPR;
+		n->type = ASTNULL;
 		n->value = NULL;
     return n;
 	}
@@ -112,14 +141,7 @@ namespace internal{
 		n->varClass = NULL;
 		n->cast = false;
 		n->castType = UNDEFINED;
-    return n;
-	}
-
-	ASTParamVar* ASTParamVar::New(Isolate* iso){
-		void* p = iso->GetMemory(sizeof(ASTParamVar));
-		ASTParamVar* n = new(p) ASTParamVar();
-		ASTNode::SetDefaults(n);
-		n->type = ASTPARAM_VAR;
+		n->array = false;
     return n;
 	}
 
@@ -128,7 +150,6 @@ namespace internal{
 		ASTVarList* n = new(p) ASTVarList();
 		ASTNode::SetDefaults(n);
 		n->type = VARLIST;
-		n->vars.SetIsolate(iso);
     return n;
 	}
 
@@ -202,7 +223,6 @@ namespace internal{
 		n->body = NULL;
 		n->used = false;
 		n->returnType = ILLEGAL;
-		n->args.SetIsolate(iso);
     return n;
 	}
 
@@ -216,7 +236,6 @@ namespace internal{
 		n->func = NULL;
 		n->scope = NULL;
 		n->assignType = ILLEGAL;
-		n->params.SetIsolate(iso);
     return n;
 	}
 
@@ -224,7 +243,6 @@ namespace internal{
 		void* p = iso->GetMemory(sizeof(ASTObjectInit));
 		ASTObjectInit* n = new(p) ASTObjectInit();
 		ASTNode::SetDefaults(n);
-		n->params.SetIsolate(iso);
 		n->type = OBJECT_INIT;
 		n->isNew = false;
 		n->pos = 0;
@@ -232,7 +250,6 @@ namespace internal{
 		n->scope = NULL;
 		n->assignType = ILLEGAL;
 		n->base = NULL;
-		n->members.SetIsolate(iso);
     return n;
 	}
 
@@ -242,7 +259,7 @@ namespace internal{
 		ASTNode::SetDefaults(n);
 		n->type = ARRAY;
 		n->arrayType = rType;
-		n->value.SetIsolate(iso);
+		n->varClass = NULL;
     return n;
 	}
 
@@ -251,7 +268,6 @@ namespace internal{
 		ASTObject* n = new(p) ASTObject();
 		ASTNode::SetDefaults(n);
 		n->type = OBJECT;
-		n->members.SetIsolate(iso);
     return n;
 	}
 
@@ -340,7 +356,6 @@ namespace internal{
 		ASTNode::SetDefaults(n);
 		n->type = FILE;
 		n->scope = NULL;
-		n->includesList.SetIsolate(iso);
     return n;
 	}
 

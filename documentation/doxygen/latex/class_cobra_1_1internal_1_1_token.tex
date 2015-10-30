@@ -28,11 +28,17 @@ int \hyperlink{class_cobra_1_1internal_1_1_token_a7ecee93c532317ef454004e21acab2
 \item 
 \hypertarget{class_cobra_1_1internal_1_1_token_a3d421adb48da3d0fd768e3b8448a1bd9}{bool {\bfseries Is\+Operator} ()}\label{class_cobra_1_1internal_1_1_token_a3d421adb48da3d0fd768e3b8448a1bd9}
 
+\item 
+\hypertarget{class_cobra_1_1internal_1_1_token_a70a15870b5bb24e8d162b09622a5884e}{bool {\bfseries Is\+Binary\+Comparison} ()}\label{class_cobra_1_1internal_1_1_token_a70a15870b5bb24e8d162b09622a5884e}
+
 \end{DoxyCompactItemize}
 \subsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static \hyperlink{class_cobra_1_1internal_1_1_token}{Token} $\ast$ \hyperlink{class_cobra_1_1internal_1_1_token_a724ca96f5ae2bd83331e6fc52dc5e3ef}{Get\+Token} (std\+::string str)
+\hypertarget{class_cobra_1_1internal_1_1_token_a96e7ba54ee8d045d13fafb2699e41f38}{static \hyperlink{class_cobra_1_1internal_1_1_token}{Token} $\ast$ {\bfseries New} (\hyperlink{class_cobra_1_1internal_1_1_isolate}{Isolate} $\ast$iso, T\+O\+K\+E\+N val)}\label{class_cobra_1_1internal_1_1_token_a96e7ba54ee8d045d13fafb2699e41f38}
+
+\item 
+static \hyperlink{class_cobra_1_1internal_1_1_token}{Token} $\ast$ \hyperlink{class_cobra_1_1internal_1_1_token_acbbd70767107fe6116b1670bfcda1328}{Get\+Token} (\hyperlink{class_cobra_1_1internal_1_1_isolate}{Isolate} $\ast$iso, std\+::string str)
 \begin{DoxyCompactList}\small\item\em Get token by string. \end{DoxyCompactList}\item 
 \hypertarget{class_cobra_1_1internal_1_1_token_a6d0c35c7163cf921aadae357263b449f}{static const char $\ast$ {\bfseries To\+String} (T\+O\+K\+E\+N token)}\label{class_cobra_1_1internal_1_1_token_a6d0c35c7163cf921aadae357263b449f}
 
@@ -61,13 +67,14 @@ The token wrapper is used in many classes. This is the base for all the tokens.
 
 
 \subsection{Member Function Documentation}
-\hypertarget{class_cobra_1_1internal_1_1_token_a724ca96f5ae2bd83331e6fc52dc5e3ef}{\index{Cobra\+::internal\+::\+Token@{Cobra\+::internal\+::\+Token}!Get\+Token@{Get\+Token}}
+\hypertarget{class_cobra_1_1internal_1_1_token_acbbd70767107fe6116b1670bfcda1328}{\index{Cobra\+::internal\+::\+Token@{Cobra\+::internal\+::\+Token}!Get\+Token@{Get\+Token}}
 \index{Get\+Token@{Get\+Token}!Cobra\+::internal\+::\+Token@{Cobra\+::internal\+::\+Token}}
 \subsubsection[{Get\+Token}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Token} $\ast$ Cobra\+::internal\+::\+Token\+::\+Get\+Token (
 \begin{DoxyParamCaption}
+\item[{{\bf Isolate} $\ast$}]{iso, }
 \item[{std\+::string}]{str}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [static]}}}\label{class_cobra_1_1internal_1_1_token_a724ca96f5ae2bd83331e6fc52dc5e3ef}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{class_cobra_1_1internal_1_1_token_acbbd70767107fe6116b1670bfcda1328}
 
 
 Get token by string. 

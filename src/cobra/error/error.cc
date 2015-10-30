@@ -87,6 +87,10 @@ namespace Error {
 			case INVALID_OBJECT_EXTENSION: return "Invalid object extension";
 			case INVALID_OPERATOR: return "Invalid operator";
 			case UNABLE_TO_ACCESS_STATIC_MEMBER: return "Unable to access static member";
+			case EXPECTED_IDENTIFIER: return "Expected identifier";
+			case EXPECTED_ARRAY_TYPE: return "Expected array type";
+			case CORRUPT_OBJECT: return "Corrupt object";
+			case EXPECTED_OBJECT_MEMBER_NAME: return "Expected object member name";
 			case SCANNER: {
 				if (tok != NULL){
 					return tok->raw;

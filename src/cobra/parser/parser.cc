@@ -38,9 +38,6 @@ namespace internal{
 			trace = false;
 		}
 		try{
-			imports.SetIsolate(isolate);
-			includes.SetIsolate(isolate);
-			exports.SetIsolate(isolate);
 
 			scanner = Scanner::New(isolate, source);
 			topScope = Scope::New(isolate);
@@ -326,8 +323,8 @@ namespace internal{
 			if (mode == STRICT){
 				VISIBILITY v = GetVisibility();
 				node = ParseNodes();
+				if (node == NULL) continue;
 				node->visibility = v;
-				if (node == NULL) throw Error::EXPECTED_VARIABLE_TYPE;
 				obj->members.push_back(node);
 			}
 			else{
@@ -355,9 +352,20 @@ namespace internal{
 			aryMem->col = c;
 			aryMem->name = expr->name;
 			aryMem->member = ParseExpr();
+			if (aryMem->member == NULL){
+				aryMem->member = ASTUndefined::New(isolate);
+			}
 			aryMem->value = expr;
 			Expect(RBRACK);
 			Next();
+			if (tok->value == IDENT){ // array init
+				ASTArray* array = ASTArray::New(isolate, expr->type);
+				if (expr->type != IDENT) throw Error::EXPECTED_IDENTIFIER;
+				array->varClass = (ASTIdent*) expr;
+				array->name = tok->raw;
+				AddRowCol(array);
+				return (ASTExpr*) array; // hack
+			}
 			return aryMem;
 		}
 		return expr;
@@ -426,14 +434,15 @@ namespace internal{
 					if (second->type != IDENT && 
 						  second->type != FUNC_CALL && 
 						  second->type != ARRAY_MEMBER &&
-						  second->type != BINARY) {
+						  second->type != BINARY &&
+						  second->type != OBJECT_MEMBER_CHAIN) {
 						throw Error::INVALID_OBJECT_MEMBER;
 					}
 					ASTObjectMemberChainExpr* chain = ASTObjectMemberChainExpr::New(isolate);
 					AddRowCol(chain);
 					chain->object = first;
 					chain->member = second;
-					chain->name = '%' + first->name; // signal to not include in map
+					chain->name = first->name;
 					return chain;
 				}
 				return first;
@@ -484,17 +493,22 @@ namespace internal{
 		binary->Left = expr;
 		Next(); // eat operator
 		binary->Right = ParseExpr();
+
+		// Check for not expressions:
+		//   !str || !str.isValid()
+		if (binary->op->value == NOT && expr == NULL && binary->Right != NULL){
+			expr = binary->Right;
+			ASTNot* astNot = ASTNot::New(isolate);
+			astNot->value = expr;
+			isolate->FreeMemory(binary, sizeof(ASTBinaryExpr));
+			return (ASTExpr*) astNot;
+		}
+
 		if (binary->Right == NULL)
 			throw Error::MISSING_EXPR;
 		return binary;
-
-		return expr;
 	}
 
-	/**
-	 * TODO:
-	 * 	Check to see if done
-	 */
 	ASTExpr* Parser::ParseUnaryExpr(){
 		if (trace) Trace("Parsing", "Unary Expression");
 		int type = (int) tok->value;
@@ -775,12 +789,35 @@ namespace internal{
 			var->stmt = ParseSimpleStmt();
 			return var;
 		}
+		else if (expr->type == ARRAY){
+			ASTVar* var = ParseArrayInit((ASTArray*) expr);
+			Expect(SEMICOLON);
+			return var;
+		}
 		else{
 			Expect(SEMICOLON);
 			Next();
 			return expr;
 		}
 		return expr;
+	}
+
+	ASTVar* Parser::ParseArrayInit(ASTArray* array){
+		if (trace) Trace("Parsing", "Array Init");
+		Expect(IDENT);
+		array->name = tok->raw;
+		array->varType = ARRAY;
+		array->varClass = array->varClass;
+		array->array = true;
+		AddRowCol(array);
+
+		ASTObject* base = (ASTObject*) isolate->GetContext()->GetExportedNode(isolate, "Array");
+		ASTObjectInit* init = ASTObjectInit::New(isolate);
+		init->base = base;
+		array->base = init;
+
+		Next(); // here
+		return array;
 	}
 
 	ASTNode* Parser::ParseTryCatch(){
@@ -817,6 +854,36 @@ namespace internal{
 			return astThrow;
 		}
 		return NULL;
+	}
+
+	ASTNode* Parser::GetObjectInScopeByString(std::string name, Scope* sc){
+		if (sc == NULL){
+			return isolate->GetContext()->GetExportedNode(isolate, name);
+		}
+		std::vector<ASTNode*> nodes = sc->Lookup(name);
+		ASTNode* node = NULL;
+		if (nodes.empty()){
+			node = GetObjectInScopeByString(name, sc->outer);
+		}
+		else{
+			node = nodes[0];
+		}
+		return node;
+	}
+
+	ASTNode* Parser::ParseDelete(){
+		Expect(DELETE);
+		Next();
+		Expect(IDENT);
+		ASTNode* node = GetObjectInScopeByString(tok->raw, topScope);
+		if (node == NULL) throw Error::UNDEFINED_VARIABLE;
+		isolate->FreeMemory(node, sizeof(Sizes::GetSize(node->type)));
+		ASTNode* n = ASTNode::New(isolate);
+		n->type = DELETE;
+		Next();
+		Expect(SEMICOLON);
+		Next();
+		return n;
 	}
 
 	/**
@@ -857,6 +924,7 @@ namespace internal{
 				return expr;
 			}
 			case RETURN: return ParseReturn();
+			case DELETE: return ParseDelete();
 			default: {
 				return NULL;
 			}
@@ -879,6 +947,9 @@ namespace internal{
 				for (int i = 0; i < list->vars.size(); i++){
 					topScope->Insert(list->vars[i]);
 				}
+			}
+			else if (stmt->type == DELETE){
+				isolate->FreeMemory(stmt, sizeof(ASTNode));
 			}
 			else{
 				topScope->Insert(stmt);
@@ -919,13 +990,13 @@ namespace internal{
 	 */
 	void Parser::ParseFuncParams(ASTFunc* func){
 		if (trace) Trace("Parsing", "Func Parameters");
-		ASTParamVar* var = NULL;
+		ASTVar* var = NULL;
 		while (true){
 			if (mode == STRICT){
 				if (tok->value == RPAREN) return;
 				if (!IsVarType()) throw Error::EXPECTED_VARIABLE_TYPE;
 				TOKEN rType = tok->value;
-				var = ASTParamVar::New(isolate);
+				var = ASTVar::New(isolate);
 				if (rType == IDENT) var->varClass = ParseIdent(false);
 
 				Next();
@@ -957,7 +1028,7 @@ namespace internal{
 			else{
 				if (tok->value == RPAREN) return;
 				Expect(IDENT);
-				ASTParamVar* var = ASTParamVar::New(isolate);
+				ASTVar* var = ASTVar::New(isolate);
 				AddRowCol(var);
 				std::string name = tok->raw;
 				Next();
@@ -1032,6 +1103,10 @@ namespace internal{
 			case WHILE: return ParseWhile();
 			case FOR: return ParseFor();
 			case RETURN: throw Error::UNEXPECTED_RETURN;
+			case SEMICOLON: {
+				Next(); // eat ;
+				return NULL;
+			}
 		}
 		Next();
 		return NULL;

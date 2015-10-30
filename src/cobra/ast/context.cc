@@ -14,8 +14,8 @@ namespace internal{
 	void Context::SetIsolate(Isolate* isolate){
 		scripts[isolate];
 		isolate->SetContext(this);
-		inProgress.SetIsolate(isolate);
-		imported.SetIsolate(isolate);
+
+		Array::CB(isolate);
 	}
 
 	void Context::AddToInProgress(std::string str){
@@ -45,7 +45,7 @@ namespace internal{
 	}
 
 	bool Context::IsImported(Isolate* iso, std::string name){
-		return imported.find(name) != -1;
+		return std::find(imported.begin(), imported.end(), name) != imported.end();
 	}
 
 	void Context::SetImport(std::string name){
@@ -53,9 +53,12 @@ namespace internal{
 	}
 
 	void Context::RemoveFromInProgress(std::string str){
-		std::string pth = str;
-		int idx = inProgress.find(pth);
-		inProgress.erase(idx);
+		int idx = -1;
+		for (int i = 0; i < inProgress.size(); i++){
+			std::string s = inProgress[i];
+			if (s == str) idx = i;
+		}
+		inProgress.erase(inProgress.begin() + idx);
 	}
 
 	ASTNode* Context::GetExportedNode(Isolate* iso, std::string name){

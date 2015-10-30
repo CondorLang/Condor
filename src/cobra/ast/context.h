@@ -5,7 +5,9 @@
 #include "cobra/mem/isolate.h"
 #include "cobra/ast/ast.h"
 #include "cobra/types/try_catch/exception.h"
-#include "cobra/types/vector/vector.h"
+#include <vector>
+#include <algorithm>
+#include "cobra/types/array/array.h"
 
 namespace Cobra {
 namespace internal{
@@ -17,8 +19,8 @@ namespace internal{
 	{
 	private:
 		std::map<Isolate*, std::map<size_t, Script*> > scripts;
-		Vector<std::string> inProgress;
-		Vector<std::string> imported;
+		std::vector<std::string> inProgress;
+		std::vector<std::string> imported;
 	public:
 		Context();
 		~Context();

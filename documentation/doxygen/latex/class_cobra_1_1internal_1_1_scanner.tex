@@ -13,8 +13,6 @@ Tokenize the program text.
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{class_cobra_1_1internal_1_1_scanner_a2daf5f3b5ac2add3dc79550498f07fae}{Scanner} (std\+::string $\ast$source)
-\begin{DoxyCompactList}\small\item\em \hyperlink{class_cobra_1_1internal_1_1_scanner}{Scanner} constructor. \end{DoxyCompactList}\item 
 \hyperlink{class_cobra_1_1internal_1_1_token}{Token} $\ast$ \hyperlink{class_cobra_1_1internal_1_1_scanner_a6955998dffd994214f647d54b8ab7520}{Next\+Token} ()
 \begin{DoxyCompactList}\small\item\em Get the next token. \end{DoxyCompactList}\item 
 bool \hyperlink{class_cobra_1_1internal_1_1_scanner_ad7389381cf80cf16cfa899eb850cfba6}{Is\+Letter} (char letter)
@@ -32,16 +30,25 @@ void \hyperlink{class_cobra_1_1internal_1_1_scanner_aba8d0ba29f8e9609f2f61c6466f
 \hypertarget{class_cobra_1_1internal_1_1_scanner_ac05a201981599e01a69a1f411b555cb3}{void \hyperlink{class_cobra_1_1internal_1_1_scanner_ac05a201981599e01a69a1f411b555cb3}{Scan\+White\+Spaces} ()}\label{class_cobra_1_1internal_1_1_scanner_ac05a201981599e01a69a1f411b555cb3}
 
 \begin{DoxyCompactList}\small\item\em Eat white spaces. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_cobra_1_1internal_1_1_scanner_ad9f8da9f077c4b710d09ce906e3f2d0a}{static \hyperlink{class_cobra_1_1internal_1_1_scanner}{Scanner} $\ast$ {\bfseries New} (\hyperlink{class_cobra_1_1internal_1_1_isolate}{Isolate} $\ast$iso, std\+::string $\ast$source)}\label{class_cobra_1_1internal_1_1_scanner_ad9f8da9f077c4b710d09ce906e3f2d0a}
+
+\end{DoxyCompactItemize}
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \hypertarget{class_cobra_1_1internal_1_1_scanner_af609bbafc2a7c92e33f86fee28c6c798}{std\+::string $\ast$ {\bfseries src}}\label{class_cobra_1_1internal_1_1_scanner_af609bbafc2a7c92e33f86fee28c6c798}
 
 \item 
-\hypertarget{class_cobra_1_1internal_1_1_scanner_a5c6c96aae0fa26a83cbf9e34e857c465}{std\+::vector$<$ std\+::string $>$ {\bfseries errors}}\label{class_cobra_1_1internal_1_1_scanner_a5c6c96aae0fa26a83cbf9e34e857c465}
+\hypertarget{class_cobra_1_1internal_1_1_scanner_ace1defb19a8d8a52512d772d87f14e42}{\hyperlink{class_cobra_1_1internal_1_1_vector}{Vector}$<$ std\+::string $>$ {\bfseries errors}}\label{class_cobra_1_1internal_1_1_scanner_ace1defb19a8d8a52512d772d87f14e42}
 
 \item 
 \hypertarget{class_cobra_1_1internal_1_1_scanner_aea4c60253a2fe9f00322d8f479a84592}{std\+::string {\bfseries result}}\label{class_cobra_1_1internal_1_1_scanner_aea4c60253a2fe9f00322d8f479a84592}
+
+\item 
+\hypertarget{class_cobra_1_1internal_1_1_scanner_aa232ebf52b381ac2192a1f294f431277}{\hyperlink{class_cobra_1_1internal_1_1_isolate}{Isolate} $\ast$ {\bfseries isolate}}\label{class_cobra_1_1internal_1_1_scanner_aa232ebf52b381ac2192a1f294f431277}
 
 \item 
 \hypertarget{class_cobra_1_1internal_1_1_scanner_a736aebb3cc14f3b42f23b108852c32d3}{char {\bfseries ch}}\label{class_cobra_1_1internal_1_1_scanner_a736aebb3cc14f3b42f23b108852c32d3}
@@ -65,25 +72,6 @@ void \hyperlink{class_cobra_1_1internal_1_1_scanner_aba8d0ba29f8e9609f2f61c6466f
 Tokenize the program text. 
 
 Converts each character to a token based on the syntax of the language
-
-
-\begin{DoxyParams}{Parameters}
-{\em source} & std\+::string \\
-\hline
-\end{DoxyParams}
-
-
-\subsection{Constructor \& Destructor Documentation}
-\hypertarget{class_cobra_1_1internal_1_1_scanner_a2daf5f3b5ac2add3dc79550498f07fae}{\index{Cobra\+::internal\+::\+Scanner@{Cobra\+::internal\+::\+Scanner}!Scanner@{Scanner}}
-\index{Scanner@{Scanner}!Cobra\+::internal\+::\+Scanner@{Cobra\+::internal\+::\+Scanner}}
-\subsubsection[{Scanner}]{\setlength{\rightskip}{0pt plus 5cm}Cobra\+::internal\+::\+Scanner\+::\+Scanner (
-\begin{DoxyParamCaption}
-\item[{std\+::string $\ast$}]{source}
-\end{DoxyParamCaption}
-)}}\label{class_cobra_1_1internal_1_1_scanner_a2daf5f3b5ac2add3dc79550498f07fae}
-
-
-\hyperlink{class_cobra_1_1internal_1_1_scanner}{Scanner} constructor. 
 
 
 \begin{DoxyParams}{Parameters}

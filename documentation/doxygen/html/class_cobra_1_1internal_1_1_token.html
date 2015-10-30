@@ -122,12 +122,18 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsLiteral</b> ()</td>
 <tr class="memitem:a3d421adb48da3d0fd768e3b8448a1bd9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3d421adb48da3d0fd768e3b8448a1bd9"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsOperator</b> ()</td></tr>
 <tr class="separator:a3d421adb48da3d0fd768e3b8448a1bd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70a15870b5bb24e8d162b09622a5884e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a70a15870b5bb24e8d162b09622a5884e"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsBinaryComparison</b> ()</td></tr>
+<tr class="separator:a70a15870b5bb24e8d162b09622a5884e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a724ca96f5ae2bd83331e6fc52dc5e3ef"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_cobra_1_1internal_1_1_token.html">Token</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cobra_1_1internal_1_1_token.html#a724ca96f5ae2bd83331e6fc52dc5e3ef">GetToken</a> (std::string str)</td></tr>
-<tr class="memdesc:a724ca96f5ae2bd83331e6fc52dc5e3ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get token by string.  <a href="#a724ca96f5ae2bd83331e6fc52dc5e3ef">More...</a><br /></td></tr>
-<tr class="separator:a724ca96f5ae2bd83331e6fc52dc5e3ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96e7ba54ee8d045d13fafb2699e41f38"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a96e7ba54ee8d045d13fafb2699e41f38"></a>
+static <a class="el" href="class_cobra_1_1internal_1_1_token.html">Token</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>New</b> (<a class="el" href="class_cobra_1_1internal_1_1_isolate.html">Isolate</a> *iso, TOKEN val)</td></tr>
+<tr class="separator:a96e7ba54ee8d045d13fafb2699e41f38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbbd70767107fe6116b1670bfcda1328"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_cobra_1_1internal_1_1_token.html">Token</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cobra_1_1internal_1_1_token.html#acbbd70767107fe6116b1670bfcda1328">GetToken</a> (<a class="el" href="class_cobra_1_1internal_1_1_isolate.html">Isolate</a> *iso, std::string str)</td></tr>
+<tr class="memdesc:acbbd70767107fe6116b1670bfcda1328"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get token by string.  <a href="#acbbd70767107fe6116b1670bfcda1328">More...</a><br /></td></tr>
+<tr class="separator:acbbd70767107fe6116b1670bfcda1328"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6d0c35c7163cf921aadae357263b449f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6d0c35c7163cf921aadae357263b449f"></a>
 static const char *&#160;</td><td class="memItemRight" valign="bottom"><b>ToString</b> (TOKEN token)</td></tr>
 <tr class="separator:a6d0c35c7163cf921aadae357263b449f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -151,7 +157,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>raw</b></td></
   </dd>
 </dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a724ca96f5ae2bd83331e6fc52dc5e3ef"></a>
+<a class="anchor" id="acbbd70767107fe6116b1670bfcda1328"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -161,9 +167,19 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>raw</b></td></
         <tr>
           <td class="memname"><a class="el" href="class_cobra_1_1internal_1_1_token.html">Token</a> * Cobra::internal::Token::GetToken </td>
           <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>str</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="class_cobra_1_1internal_1_1_isolate.html">Isolate</a> *&#160;</td>
+          <td class="paramname"><em>iso</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>str</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -228,7 +244,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>raw</b></td></
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Aug 22 2015 14:51:28 for CobraLang by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Oct 5 2015 11:39:42 for CobraLang by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

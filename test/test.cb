@@ -2,6 +2,7 @@
 
 include "tests/string.cb";
 include "tests/int.cb";
+include "tests/college.cb";
 include "tests/xml.cb";
 
 import "string";
@@ -12,11 +13,14 @@ func main(string args[], int argc){
 		int parsed = Int.Parse('1');
 		string str = "this is a test";
 		String str2 = str;
-		if (!str2.allLetters() && !str2.allNumbers()){
-			throw new Exception("Unexpected Character");
-		}
+		//bool testBool = !str2.allLetters();
+		// if (!str2.allLetters() && !str2.allNumbers()){
+		// 	throw new Exception("Unexpected Character");
+		// }
+		delete str2;
 	}
 	catch (Exception e){
-
+		double b = 10.0;
+		int a = 1 + 1 + (2 + 2 + 3 + (3 + 22 / 10) / 2);
 	}
 }

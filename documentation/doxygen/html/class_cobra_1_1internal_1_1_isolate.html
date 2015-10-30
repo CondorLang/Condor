@@ -104,6 +104,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Enter</b> ()</td></tr
 <tr class="memitem:aa966378a720680a07228f9a373ede884"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa966378a720680a07228f9a373ede884"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Exit</b> ()</td></tr>
 <tr class="separator:aa966378a720680a07228f9a373ede884"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5703b9baedfd0f6933a509b8d01e6ade"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5703b9baedfd0f6933a509b8d01e6ade"></a>
+void *&#160;</td><td class="memItemRight" valign="bottom"><b>GetMemory</b> (const size_t size)</td></tr>
+<tr class="separator:a5703b9baedfd0f6933a509b8d01e6ade"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7601647b5c4a635c851f5a7358278b44"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7601647b5c4a635c851f5a7358278b44"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>FreeMemory</b> (void *ptr, const size_t size)</td></tr>
+<tr class="separator:a7601647b5c4a635c851f5a7358278b44"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9dce7bc569dfe1265e0bf4bb0eabc8b6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9dce7bc569dfe1265e0bf4bb0eabc8b6"></a>
 <a class="el" href="struct_cobra_1_1internal_1_1_heap_object.html">HeapObject</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>Insert</b> (<a class="el" href="struct_cobra_1_1internal_1_1_heap_object.html">HeapObject</a> obj)</td></tr>
 <tr class="separator:a9dce7bc569dfe1265e0bf4bb0eabc8b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -111,6 +117,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Exit</b> ()</td></tr>
 template&lt;class T &gt; </td></tr>
 <tr class="memitem:a10d48684b74fcdefaaddb264e2c1d121"><td class="memTemplItemLeft" align="right" valign="top">T *&#160;</td><td class="memTemplItemRight" valign="bottom"><b>InsertToHeap</b> (T *t, TOKEN type)</td></tr>
 <tr class="separator:a10d48684b74fcdefaaddb264e2c1d121"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae38756c7f9f23c6167556ce2894a30f6"><td class="memTemplParams" colspan="2"><a class="anchor" id="ae38756c7f9f23c6167556ce2894a30f6"></a>
+template&lt;class T &gt; </td></tr>
+<tr class="memitem:ae38756c7f9f23c6167556ce2894a30f6"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="class_cobra_1_1internal_1_1_pointer.html">Pointer</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>NewPointer</b> (T *t, TOKEN type)</td></tr>
+<tr class="separator:ae38756c7f9f23c6167556ce2894a30f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a87b1ff838a1ae533c775a601ab7dafb2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a87b1ff838a1ae533c775a601ab7dafb2"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>FlushAST</b> ()</td></tr>
 <tr class="separator:a87b1ff838a1ae533c775a601ab7dafb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -123,6 +133,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>SetContext</b> (<a cl
 <tr class="memitem:a63d249ac4df7862ca1ac84c4f8df4ea3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a63d249ac4df7862ca1ac84c4f8df4ea3"></a>
 <a class="el" href="class_cobra_1_1internal_1_1_context.html">Context</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>GetContext</b> ()</td></tr>
 <tr class="separator:a63d249ac4df7862ca1ac84c4f8df4ea3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf2f01b66107a1b9cfb0e2381732d965"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adf2f01b66107a1b9cfb0e2381732d965"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsAddressValid</b> (Address addr)</td></tr>
+<tr class="separator:adf2f01b66107a1b9cfb0e2381732d965"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -137,7 +150,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Aug 22 2015 14:51:28 for CobraLang by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Oct 5 2015 11:39:41 for CobraLang by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

@@ -1,9 +1,5 @@
 var searchData=
 [
-  ['scanner',['Scanner',['../class_cobra_1_1internal_1_1_scanner.html',1,'Cobra::internal']]],
-  ['scope',['Scope',['../class_cobra_1_1internal_1_1_scope.html',1,'Cobra::internal']]],
-  ['script',['Script',['../class_cobra_1_1_script.html',1,'Cobra']]],
-  ['script',['Script',['../class_cobra_1_1internal_1_1_script.html',1,'Cobra::internal']]],
-  ['string',['String',['../class_cobra_1_1internal_1_1_string.html',1,'Cobra::internal']]],
-  ['string',['String',['../class_cobra_1_1_string.html',1,'Cobra']]]
+  ['parser',['Parser',['../class_cobra_1_1internal_1_1_parser.html',1,'Cobra::internal']]],
+  ['pointer',['Pointer',['../class_cobra_1_1internal_1_1_pointer.html',1,'Cobra::internal']]]
 ];

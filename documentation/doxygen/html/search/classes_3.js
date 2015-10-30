@@ -1,8 +1,5 @@
 var searchData=
 [
-  ['handle',['Handle',['../class_cobra_1_1internal_1_1_handle.html',1,'Cobra::internal']]],
-  ['handle',['Handle',['../class_cobra_1_1_handle.html',1,'Cobra']]],
-  ['heap',['Heap',['../class_cobra_1_1internal_1_1_heap.html',1,'Cobra::internal']]],
-  ['heapobject',['HeapObject',['../struct_cobra_1_1internal_1_1_heap_object.html',1,'Cobra::internal']]],
-  ['heapstore',['HeapStore',['../class_cobra_1_1internal_1_1_heap_store.html',1,'Cobra::internal']]]
+  ['factory',['Factory',['../class_cobra_1_1internal_1_1_factory.html',1,'Cobra::internal']]],
+  ['flags',['Flags',['../class_cobra_1_1internal_1_1_flags.html',1,'Cobra::internal']]]
 ];

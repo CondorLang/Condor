@@ -7,7 +7,6 @@ namespace Cobra {
 namespace internal{
 
 	void* NewVectorItem(Isolate* isolate, size_t size){
-		kCount++;
 		if (isolate == NULL) P("Missing Isolate in vector");
 		void* v = isolate->GetMemory(size);
 		if (v == NULL) OutOfMemory();

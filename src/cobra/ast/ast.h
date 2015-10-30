@@ -3,7 +3,7 @@
 
 #include <string>
 #include <map>
-#include "cobra/types/vector/vector.h"
+#include <vector>
 #include "cobra/token/token.h"
 #include "cobra/scanner/scanner.h"
 #include "scope.h"
@@ -53,6 +53,23 @@ namespace internal{
 		ASTExpr* value;
 		TOKEN assignType;
 		static ASTExpr* New(Isolate* iso);
+	};
+
+	class ASTNot : public ASTExpr
+	{
+	public:
+		ASTNot(){}
+		~ASTNot(){}
+		ASTExpr* value;
+		static ASTNot* New(Isolate* iso);
+	};
+
+	class ASTUndefined : public ASTExpr
+	{
+	public:
+		ASTUndefined(){}
+		~ASTUndefined(){}
+		static ASTUndefined* New(Isolate* iso);
 	};
 
 	class ASTNull : public ASTExpr
@@ -137,7 +154,7 @@ namespace internal{
 		ASTObjectMemberChainExpr(){}
 		~ASTObjectMemberChainExpr(){}
 		ASTExpr* member;
-		ASTIdent* object;
+		ASTNode* object;
 		ASTExpr* value;
 		bool isSetting;
 		static ASTObjectMemberChainExpr* New(Isolate* iso);
@@ -151,18 +168,11 @@ namespace internal{
 		ASTExpr* stmt;
 		TOKEN varType;
 		TOKEN arrayType;
-		ASTIdent* varClass;
+		bool array;
+		ASTNode* varClass;
 		bool cast;
 		TOKEN castType;
 		static ASTVar* New(Isolate* iso);
-	};
-
-	class ASTParamVar : public ASTVar
-	{
-	public:
-		ASTParamVar(){}
-		~ASTParamVar(){}	
-		static ASTParamVar* New(Isolate* iso);	
 	};
 
 	class ASTVarList : public ASTNode
@@ -170,7 +180,7 @@ namespace internal{
 	public:
 		ASTVarList(){}
 		~ASTVarList(){}
-		Vector<ASTVar*> vars;
+		std::vector<ASTVar*> vars;
 		static ASTVarList* New(Isolate* iso);
 	};
 
@@ -244,7 +254,7 @@ namespace internal{
 		ASTFunc(){}
 		~ASTFunc(){}
 		ASTBlock* body;
-		Vector<ASTParamVar*> args;
+		std::vector<ASTVar*> args;
 		TOKEN returnType;
 		bool used;
 		static ASTFunc* New(Isolate* iso);
@@ -255,7 +265,7 @@ namespace internal{
 	public:
 		ASTObject(){}
 		~ASTObject(){}
-		Vector<ASTNode*> members;
+		std::vector<ASTNode*> members;
 		static ASTObject* New(Isolate* iso);	
 	};
 
@@ -264,7 +274,7 @@ namespace internal{
 	public:
 		ASTFuncCallExpr(){}
 		~ASTFuncCallExpr(){}
-		Vector<ASTExpr*> params;
+		std::vector<ASTExpr*> params;
 		int pos;
 		bool isNew;
 		ASTFunc* func;
@@ -279,17 +289,18 @@ namespace internal{
 		ASTObjectInit(){}
 		~ASTObjectInit(){}	
 		ASTObject* base;
-		Vector<ASTNode*> members;
+		std::vector<ASTNode*> members;
 		static ASTObjectInit* New(Isolate* iso);	
 	};
 
-	class ASTArray : public ASTParamVar
+	class ASTArray : public ASTVar
 	{
 	public:
 		ASTArray(){}
 		~ASTArray(){}
-		Vector<ASTNode*> value;
+		std::vector<ASTNode*> value;
 		TOKEN arrayType;
+		ASTObjectInit* base;
 		static ASTArray* New(Isolate* iso, TOKEN rType);	
 	};
 
@@ -382,7 +393,7 @@ namespace internal{
 		~ASTFile(){}
 		Scope* scope; 
 		std::map<std::string, ASTInclude*> includes;
-		Vector<ASTInclude*> includesList;
+		std::vector<ASTInclude*> includesList;
 		static ASTFile* New(Isolate* iso);
 	};
 } // namespace internal

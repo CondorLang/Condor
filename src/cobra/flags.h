@@ -18,6 +18,7 @@ namespace internal{
 	#define MAX_MEMORY_SIZE Flags::maxMemorySize;
 	#define MEMORY_AUDIT Flags::memoryAudit;
 	#define MEMORY_REQUEST Flags::memoryRequest;
+	#define EXPAND_AST Flags::expandAST;
 
 	class Flags
 	 {
@@ -31,6 +32,7 @@ namespace internal{
 	 		static bool exportedNodes;
 	 		static bool memoryAudit;
 	 		static bool memoryRequest;
+	 		static bool expandAST;
 	 		static void SetCommandLineFlags(int argc, const char* argv[]);
 	 }; 
 

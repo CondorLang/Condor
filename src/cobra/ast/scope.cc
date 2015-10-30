@@ -15,7 +15,6 @@ namespace internal{
 		Scope* s = new(p) Scope();
 		s->count = 1;
 		s->outer = NULL;
-		s->ordered.SetIsolate(iso);
 		return s;
 	}
 

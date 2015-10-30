@@ -90,6 +90,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="class_cobra_1_1internal_1_1_string-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Cobra::internal::String Class Reference</div>  </div>
@@ -98,12 +100,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:aa15375397ad0c4285825ec4c7b43e292"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa15375397ad0c4285825ec4c7b43e292"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetDefaults</b> ()</td></tr>
+<tr class="separator:aa15375397ad0c4285825ec4c7b43e292"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3b71e1d8e3fa402e5b5f9c003438ca22"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3b71e1d8e3fa402e5b5f9c003438ca22"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SetValue</b> (const char *val)</td></tr>
 <tr class="separator:a3b71e1d8e3fa402e5b5f9c003438ca22"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a728f1e162a43a7b3c7261b477de7d197"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a728f1e162a43a7b3c7261b477de7d197"></a>
-const char *&#160;</td><td class="memItemRight" valign="bottom"><b>GetValue</b> ()</td></tr>
-<tr class="separator:a728f1e162a43a7b3c7261b477de7d197"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9a49934e2693f5245c79739025c4897"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae9a49934e2693f5245c79739025c4897"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>GetValue</b> ()</td></tr>
+<tr class="separator:ae9a49934e2693f5245c79739025c4897"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af051b388ccb8fbd0816062bbce072507"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af051b388ccb8fbd0816062bbce072507"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SetPath</b> (const char *path)</td></tr>
 <tr class="separator:af051b388ccb8fbd0816062bbce072507"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -113,23 +118,48 @@ const char *&#160;</td><td class="memItemRight" valign="bottom"><b>GetPath</b> (
 <tr class="memitem:ad2f8be7ec1cff02df6982b734c5f5c57"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad2f8be7ec1cff02df6982b734c5f5c57"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>Length</b> ()</td></tr>
 <tr class="separator:ad2f8be7ec1cff02df6982b734c5f5c57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a135533cb9ea817121c4ff17e617b8b6f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a135533cb9ea817121c4ff17e617b8b6f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetInternal</b> ()</td></tr>
+<tr class="separator:a135533cb9ea817121c4ff17e617b8b6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22835ce420c9176d2a1ba03dae6bc61e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a22835ce420c9176d2a1ba03dae6bc61e"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsInternal</b> ()</td></tr>
+<tr class="separator:a22835ce420c9176d2a1ba03dae6bc61e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a62d4dad8e651db9182256022626c4f6f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a62d4dad8e651db9182256022626c4f6f"></a>
+<tr class="memitem:a28d6c61f4968dfad01db2090396698b8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a28d6c61f4968dfad01db2090396698b8"></a>
+static <a class="el" href="class_cobra_1_1internal_1_1_string.html">String</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>New</b> (<a class="el" href="class_cobra_1_1internal_1_1_isolate.html">Isolate</a> *isolate)</td></tr>
+<tr class="separator:a28d6c61f4968dfad01db2090396698b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ae90062b201970f08e47c3d0ff02bb3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8ae90062b201970f08e47c3d0ff02bb3"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>CB</b> (<a class="el" href="class_cobra_1_1internal_1_1_isolate.html">Isolate</a> *isolate)</td></tr>
+<tr class="separator:a8ae90062b201970f08e47c3d0ff02bb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f3c807dc47802de2f3d279d9211d33b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0f3c807dc47802de2f3d279d9211d33b"></a>
 static bool&#160;</td><td class="memItemRight" valign="bottom"><b>Replace</b> (std::string &amp;str, const std::string &amp;from, const std::string &amp;to)</td></tr>
-<tr class="separator:a62d4dad8e651db9182256022626c4f6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaf3372d25e7229f40a6b7473616dff62"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaf3372d25e7229f40a6b7473616dff62"></a>
+<tr class="separator:a0f3c807dc47802de2f3d279d9211d33b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41218029ef549a386024d221c6fb35d4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a41218029ef549a386024d221c6fb35d4"></a>
 static int&#160;</td><td class="memItemRight" valign="bottom"><b>NthSubStr</b> (int n, const std::string &amp;s, const std::string &amp;p)</td></tr>
-<tr class="separator:aaf3372d25e7229f40a6b7473616dff62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a41218029ef549a386024d221c6fb35d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a28e94994ccde2b2a3f07fe7d97752cf4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a28e94994ccde2b2a3f07fe7d97752cf4"></a>
+<a class="el" href="class_cobra_1_1internal_1_1_isolate.html">Isolate</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>isolate</b></td></tr>
+<tr class="separator:a28e94994ccde2b2a3f07fe7d97752cf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a59dd1e3e92219c5a0e2d929912139e32"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a59dd1e3e92219c5a0e2d929912139e32"></a>
+static std::string&#160;</td><td class="memItemRight" valign="bottom"><b>Code</b></td></tr>
+<tr class="separator:a59dd1e3e92219c5a0e2d929912139e32"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following file:<ul>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/cobra/types/strings/<a class="el" href="string_8h_source.html">string.h</a></li>
+<li>src/cobra/types/strings/string.cc</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Aug 22 2015 14:51:28 for CobraLang by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Oct 5 2015 11:39:42 for CobraLang by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

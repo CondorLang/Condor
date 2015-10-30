@@ -92,53 +92,53 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define STRING_H_</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_cobra.html">Cobra</a> {</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>internal{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="class_cobra_1_1internal_1_1_string.html">    9</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_cobra_1_1internal_1_1_string.html">String</a></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    {</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;        std::string value;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        std::string filePath;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        <a class="code" href="class_cobra_1_1internal_1_1_string.html">String</a>(){value = <span class="stringliteral">&quot;&quot;</span>;}</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        ~<a class="code" href="class_cobra_1_1internal_1_1_string.html">String</a>(){}</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        <span class="keywordtype">void</span> SetValue(<span class="keyword">const</span> <span class="keywordtype">char</span>* val){value = val;}</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">char</span>* GetValue(){<span class="keywordflow">return</span> value.c_str();}</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <span class="keywordtype">void</span> SetPath(<span class="keyword">const</span> <span class="keywordtype">char</span>* path){filePath = path;}</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">char</span>* GetPath(){<span class="keywordflow">return</span> filePath.c_str();}</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        <span class="keywordtype">int</span> Length(){<span class="keywordflow">return</span> value.length();}</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">bool</span> Replace(std::string&amp; str, <span class="keyword">const</span> std::string&amp; from, <span class="keyword">const</span> std::string&amp; to) {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <span class="keywordtype">size_t</span> start_pos = str.find(from);</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keywordflow">if</span>(start_pos == std::string::npos)</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        str.replace(start_pos, from.length(), to);</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        }</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">int</span> NthSubStr(<span class="keywordtype">int</span> n, <span class="keyword">const</span> std::string&amp; s, <span class="keyword">const</span> std::string&amp; p){</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;           std::string::size_type <a class="code" href="namespace_cobra_1_1internal.html">i</a> = s.find(p);</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;           <span class="keywordtype">int</span> j;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;           <span class="keywordflow">for</span> (j = 1; j &lt; n &amp;&amp; i != std::string::npos; ++j)</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;              i = s.find(p, i+1); </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;           <span class="keywordflow">if</span> (j == n)</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;             <span class="keywordflow">return</span>(i);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;           <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;             <span class="keywordflow">return</span>(-1);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        }</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    };</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;../include/Cobra.h&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;cobra/mem/isolate.h&quot;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;string-bytes.h&quot;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;cobra/types/script/script.h&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_cobra.html">Cobra</a> {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>internal{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="class_cobra_1_1internal_1_1_string.html">   13</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_cobra_1_1internal_1_1_string.html">String</a></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    {</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        std::string value;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        std::string filePath;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <span class="keywordtype">bool</span> <span class="keyword">internal</span>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <a class="code" href="class_cobra_1_1internal_1_1_string.html">String</a>(){}</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        <span class="keyword">static</span> <a class="code" href="class_cobra_1_1internal_1_1_string.html">String</a>* New(<a class="code" href="class_cobra_1_1internal_1_1_isolate.html">Isolate</a>* isolate);</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        <span class="keywordtype">void</span> SetDefaults(){<span class="keyword">internal</span> = <span class="keyword">false</span>;}</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <a class="code" href="class_cobra_1_1internal_1_1_isolate.html">Isolate</a>* isolate;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">void</span> CB(<a class="code" href="class_cobra_1_1internal_1_1_isolate.html">Isolate</a>* isolate);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keyword">static</span> std::string Code;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <span class="keywordtype">void</span> SetValue(<span class="keyword">const</span> <span class="keywordtype">char</span>* val){value = val;}</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        std::string GetValue(){<span class="keywordflow">return</span> value;}</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="keywordtype">void</span> SetPath(<span class="keyword">const</span> <span class="keywordtype">char</span>* path){filePath = path;}</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">char</span>* GetPath(){<span class="keywordflow">return</span> filePath.c_str();}</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keywordtype">int</span> Length(){<span class="keywordflow">return</span> value.length();}</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">bool</span> Replace(std::string&amp; str, <span class="keyword">const</span> std::string&amp; from, <span class="keyword">const</span> std::string&amp; to);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">int</span> NthSubStr(<span class="keywordtype">int</span> n, <span class="keyword">const</span> std::string&amp; s, <span class="keyword">const</span> std::string&amp; p);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordtype">void</span> SetInternal(){<span class="keyword">internal</span> = <span class="keyword">true</span>;}</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordtype">bool</span> IsInternal(){<span class="keywordflow">return</span> <span class="keyword">internal</span>;}</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    };</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">namespace </span>Sizes{</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">int</span> kString = <span class="keyword">sizeof</span>(<a class="code" href="class_cobra_1_1internal_1_1_string.html">String</a>);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    }</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;} <span class="comment">// namespace internal</span></div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;}</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#endif // STRING_H_</span></div>
-<div class="ttc" id="class_cobra_1_1internal_1_1_string_html"><div class="ttname"><a href="class_cobra_1_1internal_1_1_string.html">Cobra::internal::String</a></div><div class="ttdef"><b>Definition:</b> string.h:9</div></div>
+<div class="ttc" id="class_cobra_1_1internal_1_1_string_html"><div class="ttname"><a href="class_cobra_1_1internal_1_1_string.html">Cobra::internal::String</a></div><div class="ttdef"><b>Definition:</b> string.h:13</div></div>
+<div class="ttc" id="class_cobra_1_1internal_1_1_isolate_html"><div class="ttname"><a href="class_cobra_1_1internal_1_1_isolate.html">Cobra::internal::Isolate</a></div><div class="ttdef"><b>Definition:</b> isolate.h:27</div></div>
 <div class="ttc" id="namespace_cobra_html"><div class="ttname"><a href="namespace_cobra.html">Cobra</a></div><div class="ttdoc">The Isolate class is an isolated instance of Cobra. </div><div class="ttdef"><b>Definition:</b> Cobra.h:6</div></div>
-<div class="ttc" id="namespace_cobra_1_1internal_html"><div class="ttname"><a href="namespace_cobra_1_1internal.html">Cobra::internal</a></div><div class="ttdef"><b>Definition:</b> api.h:8</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Aug 22 2015 14:51:28 for CobraLang by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Oct 5 2015 11:39:41 for CobraLang by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

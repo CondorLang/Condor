@@ -19,10 +19,14 @@ namespace internal{
 		ASTFile* file;
 		Isolate* isolate;
 		bool trace;
+		bool expand;
 		int printIndent;
+		int expandIndent;
 		bool IsInline;
 		ASTNode* kThis;
+		ASTNode* kPreviousObject;
 
+		void Expand(std::string msg1, std::string msg2);
 		void Trace(std::string msg1, std::string msg2);
 		std::string GetTokenString(TOKEN tok);
 		void OpenBaseScope();
@@ -43,9 +47,8 @@ namespace internal{
 		void ValidateIdent(ASTIdent* ident);
 		void ValidateFuncCall(ASTFuncCallExpr* call);
 		void ValidateCast(ASTCastExpr* cast);
-		bool ValidateObjectChainMember(ASTObjectMemberChainExpr* member);
+		void ValidateObjectChainMember(ASTObjectMemberChainExpr* member);
 		bool ValidateMemberFuncCall(ASTFunc* func, ASTFuncCallExpr* call);
-		bool ValidateThis(ASTObjectMemberChainExpr* member);
 		void ValidateArrayMember(ASTArrayMemberExpr* expr);
 		void ValidateIsArrayType(ASTIdent* ident);
 		void ValidateIf(ASTIf* ifStmt);
@@ -54,10 +57,14 @@ namespace internal{
 		void ValidateTryCatch(ASTTryCatch* try_catch);
 		void ValidateThrow(ASTThrow* expr);
 		void ValidateNot(ASTBinaryExpr* binary);
+		void ValidateArray(ASTArray* array);
 		ASTObjectInit* CallDefaultConstructor(ASTVar* var, ASTExpr* stmt);
 		ASTNode* GetObjectInScope(ASTNode* ident, Scope* sc);
 		ASTNode* GetObjectInScopeByString(std::string name, Scope* sc);
 		void SetScope();
+		void SetVarClass(ASTVar* var, bool force);
+		void ValidateAstNot(ASTNot* astNot);
+		void VerifyTypeConversion(ASTVar* var);
 
 	public:
 		Check(){}

@@ -44,6 +44,8 @@ namespace internal{
 			case ASTIMPORT: return "kAstImport";
 			case ASTINCLUDE: return "kAstInclude";
 			case ASTCAST_EXPR: return "kAstCastExpr";
+			case ASTNULL: return "kAstNull";
+			case AST_NOT: return "kAstNot";
 			case SCANNER: return "kScanner";
 			case SCOPE: return "kScope";
 			case K_FUNC: return "kFunc";
@@ -150,6 +152,7 @@ namespace internal{
 			case FALSE_LITERAL: return "false";
 			case TRY: return "try";
 			case THROW: return "throw";
+			case DELETE: return "delete";
 
 			default: return "";
 		}
@@ -221,6 +224,7 @@ namespace internal{
 		else if (str == "false") return Token::New(iso, FALSE_LITERAL);
 		else if (str == "try") return Token::New(iso, TRY);
 		else if (str == "throw") return Token::New(iso, THROW);
+		else if (str == "delete") return Token::New(iso, DELETE);
 		else return Token::New(iso, IDENT);
 	}
 

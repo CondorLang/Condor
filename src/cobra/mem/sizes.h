@@ -2,16 +2,16 @@
 #define SIZES_H_
 
 #include "cobra/ast/ast.h"
-#include "cobra/ast/check.h"
-#include "cobra/ast/scope.h"
-#include "cobra/ast/context.h"
-#include "cobra/mem/factory.h"
-#include "cobra/parser/parser.h"
-#include "cobra/scanner/scanner.h"
+// #include "cobra/ast/check.h"
+// #include "cobra/ast/scope.h"
+// #include "cobra/ast/context.h"
+// #include "cobra/mem/factory.h"
+// #include "cobra/parser/parser.h"
+// #include "cobra/scanner/scanner.h"
 #include "cobra/token/token.h"
-#include "cobra/types/try_catch/exception.h"
-#include "cobra/types/script/script.h"
-#include "cobra/types/strings/string.h"
+// #include "cobra/types/try_catch/exception.h"
+// #include "cobra/types/script/script.h"
+// #include "cobra/types/strings/string.h"
 
 namespace Cobra {
 namespace internal{
@@ -29,7 +29,6 @@ namespace internal{
 		const int kASTArrayMemberExpr = sizeof(ASTArrayMemberExpr);
 		const int kASTObjectMemberChainExpr = sizeof(ASTObjectMemberChainExpr);
 		const int kASTVar = sizeof(ASTVar);
-		const int kASTParamVar = sizeof(ASTParamVar);
 		const int kASTVarList = sizeof(ASTVarList);
 		const int kASTInt = sizeof(ASTInt);
 		const int kASTFloat = sizeof(ASTFloat);
@@ -52,10 +51,11 @@ namespace internal{
 		const int kASTImport = sizeof(ASTImport);
 		const int kASTInclude = sizeof(ASTInclude);
 		const int kASTFile = sizeof(ASTFile);
-		const int kContext = sizeof(Context);
-		const int kScope = sizeof(Scope);
-		const int kScanner = sizeof(Scanner);
-		const int kToken = sizeof(Token);
+		const int GetSize(TOKEN type);
+		// const int kContext = sizeof(Context);
+		// const int kScope = sizeof(Scope);
+		// const int kScanner = sizeof(Scanner);
+		// const int kToken = sizeof(Token);
 	}
 
 } // namespace internal

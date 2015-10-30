@@ -11,7 +11,7 @@ namespace internal{
 	}
 
 	void String::CB(Isolate* isolate){
-		Script::RunInternalScript(isolate, StringBytes);
+		Script::RunInternalScript(isolate, StringBytes, "string");
 	}
 
 	bool String::Replace(std::string& str, const std::string& from, const std::string& to){

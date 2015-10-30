@@ -45,6 +45,8 @@ namespace internal{
 		ASTIMPORT,
 		ASTINCLUDE,
 		ASTCAST_EXPR,
+		ASTNULL,
+		AST_NOT,
 		SCANNER,
 		SCOPE,
 		K_FUNC,
@@ -67,12 +69,21 @@ namespace internal{
 		LITERAL_BEGIN,
 		kNULL,
 		IDENT, // identifier
+
+		BEGIN_NUMBER,
 		INT, // 1
 		FLOAT, // 1.0000000
 		DOUBLE, // 1.0000000000000000
 		BOOLEAN, // 1 or 0
+
+		BEGIN_STRING,
 		CHAR, // 'a'
+		END_NUMBER,
+
 		STRING, // "apple"
+		END_STRING,
+
+
 		ARRAY, // []
 		LITERAL_END,
 
@@ -180,6 +191,7 @@ namespace internal{
 		WHILE,
 		AS,
 		EXPORT,
+		DELETE,
 		KEYWORD_END
 	};	
 
@@ -205,7 +217,9 @@ namespace internal{
 		bool IsKeyword(){return value > KEYWORD_BEGIN && value < KEYWORD_END;}
 		bool IsLiteral(){return value > LITERAL_BEGIN && value < LITERAL_END;}
 		bool IsOperator(){return value > OPERATOR_BEGIN && value < OPERATOR_END;}
-		bool IsBinaryComparison(){return value > BOOLEAN_COMPARISON_START && BOOLEAN_COMPARISON_START < BOOLEAN_COMPARISON_END;}
+		bool IsBinaryComparison(){return value > BOOLEAN_COMPARISON_START && value < BOOLEAN_COMPARISON_END;}
+		bool IsNumber(){return value > BEGIN_NUMBER && value < END_NUMBER;}
+		bool IsString(){return value > BEGIN_STRING && value < END_STRING;}
 		static Token* GetToken(Isolate* iso, std::string str);
 		static const char* ToString(TOKEN token);
 	};

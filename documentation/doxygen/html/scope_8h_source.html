@@ -95,44 +95,47 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;map&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;ast.h&quot;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;cobra/globals.h&quot;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_cobra.html">Cobra</a> {</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>internal{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="keyword">class </span>ASTNode;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">class </span>Type;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="class_cobra_1_1internal_1_1_scope.html">   14</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_cobra_1_1internal_1_1_scope.html">Scope</a></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    {</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        std::map&lt;std::string, ASTNode*&gt; objects;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        std::vector&lt;ASTNode*&gt; ordered;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;cobra/types/vector/vector.h&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_cobra.html">Cobra</a> {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>internal{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">class </span>ASTNode;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keyword">class </span>Type;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="class_cobra_1_1internal_1_1_scope.html">   15</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_cobra_1_1internal_1_1_scope.html">Scope</a></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <a class="code" href="class_cobra_1_1internal_1_1_vector.html">Vector&lt;ASTNode*&gt;</a> ordered;</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <span class="keywordtype">int</span> count;</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        <a class="code" href="class_cobra_1_1internal_1_1_scope.html">Scope</a>();</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        ~<a class="code" href="class_cobra_1_1internal_1_1_scope.html">Scope</a>();</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <a class="code" href="class_cobra_1_1internal_1_1_scope.html">Scope</a>* outer;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <a class="code" href="class_cobra_1_1internal_1_1_scope.html">Scope</a>* NewScope();</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <a class="code" href="class_cobra_1_1internal_1_1_a_s_t_node.html">ASTNode</a>* Lookup(std::string name);</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="keywordtype">void</span> Insert(<a class="code" href="class_cobra_1_1internal_1_1_a_s_t_node.html">ASTNode</a>* node);</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_cobra_1_1internal_1_1_string.html">String</a>();</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <a class="code" href="class_cobra_1_1internal_1_1_a_s_t_node.html">ASTNode</a>* Get(<span class="keywordtype">int</span> index);</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keywordtype">int</span> Size();</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keywordtype">void</span> InsertBefore(<a class="code" href="class_cobra_1_1internal_1_1_a_s_t_node.html">ASTNode</a>* node);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    };</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <span class="comment">// namespace internal</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;}</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#endif // SCOPE_H_</span></div>
-<div class="ttc" id="class_cobra_1_1internal_1_1_string_html"><div class="ttname"><a href="class_cobra_1_1internal_1_1_string.html">Cobra::internal::String</a></div><div class="ttdef"><b>Definition:</b> string.h:9</div></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keyword">static</span> <a class="code" href="class_cobra_1_1internal_1_1_scope.html">Scope</a>* New(<a class="code" href="class_cobra_1_1internal_1_1_isolate.html">Isolate</a>* iso);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <a class="code" href="class_cobra_1_1internal_1_1_scope.html">Scope</a>* outer;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <a class="code" href="class_cobra_1_1internal_1_1_scope.html">Scope</a>* NewScope(<a class="code" href="class_cobra_1_1internal_1_1_isolate.html">Isolate</a>* isolate);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        std::vector&lt;ASTNode*&gt; Lookup(std::string name);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keywordtype">void</span> Insert(<a class="code" href="class_cobra_1_1internal_1_1_a_s_t_node.html">ASTNode</a>* node);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_cobra_1_1internal_1_1_string.html">String</a>();</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <a class="code" href="class_cobra_1_1internal_1_1_a_s_t_node.html">ASTNode</a>* Get(<span class="keywordtype">int</span> index);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keywordtype">int</span> Size();</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordtype">void</span> InsertBefore(<a class="code" href="class_cobra_1_1internal_1_1_a_s_t_node.html">ASTNode</a>* node);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    };</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;} <span class="comment">// namespace internal</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;}</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#endif // SCOPE_H_</span></div>
+<div class="ttc" id="class_cobra_1_1internal_1_1_string_html"><div class="ttname"><a href="class_cobra_1_1internal_1_1_string.html">Cobra::internal::String</a></div><div class="ttdef"><b>Definition:</b> string.h:13</div></div>
+<div class="ttc" id="class_cobra_1_1internal_1_1_isolate_html"><div class="ttname"><a href="class_cobra_1_1internal_1_1_isolate.html">Cobra::internal::Isolate</a></div><div class="ttdef"><b>Definition:</b> isolate.h:27</div></div>
+<div class="ttc" id="class_cobra_1_1internal_1_1_vector_html"><div class="ttname"><a href="class_cobra_1_1internal_1_1_vector.html">Cobra::internal::Vector</a></div><div class="ttdef"><b>Definition:</b> vector.h:36</div></div>
 <div class="ttc" id="namespace_cobra_html"><div class="ttname"><a href="namespace_cobra.html">Cobra</a></div><div class="ttdoc">The Isolate class is an isolated instance of Cobra. </div><div class="ttdef"><b>Definition:</b> Cobra.h:6</div></div>
-<div class="ttc" id="class_cobra_1_1internal_1_1_a_s_t_node_html"><div class="ttname"><a href="class_cobra_1_1internal_1_1_a_s_t_node.html">Cobra::internal::ASTNode</a></div><div class="ttdef"><b>Definition:</b> ast.h:24</div></div>
-<div class="ttc" id="class_cobra_1_1internal_1_1_scope_html"><div class="ttname"><a href="class_cobra_1_1internal_1_1_scope.html">Cobra::internal::Scope</a></div><div class="ttdef"><b>Definition:</b> scope.h:14</div></div>
+<div class="ttc" id="class_cobra_1_1internal_1_1_a_s_t_node_html"><div class="ttname"><a href="class_cobra_1_1internal_1_1_a_s_t_node.html">Cobra::internal::ASTNode</a></div><div class="ttdef"><b>Definition:</b> ast.h:32</div></div>
+<div class="ttc" id="class_cobra_1_1internal_1_1_scope_html"><div class="ttname"><a href="class_cobra_1_1internal_1_1_scope.html">Cobra::internal::Scope</a></div><div class="ttdef"><b>Definition:</b> scope.h:15</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Aug 22 2015 14:51:28 for CobraLang by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Oct 5 2015 11:39:41 for CobraLang by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

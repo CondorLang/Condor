@@ -9,7 +9,6 @@
 #include <math.h>
 #include "cobra/flags.h"
 #include "cobra/globals.h"
-#include "sizes.h"
 #include "list.h"
 
 namespace Cobra {

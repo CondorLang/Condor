@@ -89,6 +89,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="class_cobra_1_1internal_1_1_parser-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -103,42 +104,54 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a43abc03c8352fd332cfedee33f26acfc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a43abc03c8352fd332cfedee33f26acfc"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Parser</b> (std::string *src, std::string *path)</td></tr>
-<tr class="separator:a43abc03c8352fd332cfedee33f26acfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8051b75a9ac8860f4bed94e15a59058b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8051b75a9ac8860f4bed94e15a59058b"></a>
 <a class="el" href="class_cobra_1_1internal_1_1_a_s_t_file.html">ASTFile</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>Parse</b> ()</td></tr>
 <tr class="separator:a8051b75a9ac8860f4bed94e15a59058b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a91dbe127c7b13d0a81af987b65da3730"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a91dbe127c7b13d0a81af987b65da3730"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SetIsolate</b> (<a class="el" href="class_cobra_1_1internal_1_1_isolate.html">Isolate</a> *iso)</td></tr>
 <tr class="separator:a91dbe127c7b13d0a81af987b65da3730"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47b2c0bb11cb3833a5633fe53a14c121"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a47b2c0bb11cb3833a5633fe53a14c121"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetInteral</b> (bool i)</td></tr>
+<tr class="separator:a47b2c0bb11cb3833a5633fe53a14c121"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae82eea2bf641ebc5a83d2fca9bb54cf9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae82eea2bf641ebc5a83d2fca9bb54cf9"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetInline</b> (bool isInline)</td></tr>
+<tr class="separator:ae82eea2bf641ebc5a83d2fca9bb54cf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:aba8b950c2cf05a7e68b40d6bdfb27da6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aba8b950c2cf05a7e68b40d6bdfb27da6"></a>
+static <a class="el" href="class_cobra_1_1internal_1_1_parser.html">Parser</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>New</b> (<a class="el" href="class_cobra_1_1internal_1_1_isolate.html">Isolate</a> *iso, std::string *src, std::string *path)</td></tr>
+<tr class="separator:aba8b950c2cf05a7e68b40d6bdfb27da6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a29c4066c4128e94b440cbcd953cf82a3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a29c4066c4128e94b440cbcd953cf82a3"></a>
 P_MODE&#160;</td><td class="memItemRight" valign="bottom"><b>mode</b></td></tr>
 <tr class="separator:a29c4066c4128e94b440cbcd953cf82a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a98758ad312cc65395cf606ddcdf7b185"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a98758ad312cc65395cf606ddcdf7b185"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>pos</b></td></tr>
-<tr class="separator:a98758ad312cc65395cf606ddcdf7b185"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a390383ae8d2b07faa20189fd59f5738b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a390383ae8d2b07faa20189fd59f5738b"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>row</b></td></tr>
-<tr class="separator:a390383ae8d2b07faa20189fd59f5738b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a25ce49b0936d342cdd73df23056278"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4a25ce49b0936d342cdd73df23056278"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>col</b></td></tr>
-<tr class="separator:a4a25ce49b0936d342cdd73df23056278"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a56a117059a9a64d4d5d5fef9abdf97"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0a56a117059a9a64d4d5d5fef9abdf97"></a>
 <a class="el" href="class_cobra_1_1internal_1_1_token.html">Token</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>expected</b></td></tr>
 <tr class="separator:a0a56a117059a9a64d4d5d5fef9abdf97"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abbf6e632b65c68396187239efdc3d1b8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abbf6e632b65c68396187239efdc3d1b8"></a>
-std::vector&lt; <a class="el" href="class_cobra_1_1internal_1_1_a_s_t_import.html">ASTImport</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>imports</b></td></tr>
-<tr class="separator:abbf6e632b65c68396187239efdc3d1b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a29a37559d85035b4bf8e92b665878018"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a29a37559d85035b4bf8e92b665878018"></a>
-std::vector&lt; <a class="el" href="class_cobra_1_1internal_1_1_a_s_t_include.html">ASTInclude</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>includes</b></td></tr>
-<tr class="separator:a29a37559d85035b4bf8e92b665878018"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a73f868c361c5e24d1dc6d33a3457a3be"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a73f868c361c5e24d1dc6d33a3457a3be"></a>
-std::vector&lt; <a class="el" href="class_cobra_1_1internal_1_1_a_s_t_node.html">ASTNode</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>exports</b></td></tr>
-<tr class="separator:a73f868c361c5e24d1dc6d33a3457a3be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aebf59696c1313983180278ee07985c36"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aebf59696c1313983180278ee07985c36"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>Pos</b></td></tr>
+<tr class="separator:aebf59696c1313983180278ee07985c36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad76310608722ef229f66ea9ca8ae157f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad76310608722ef229f66ea9ca8ae157f"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>Row</b></td></tr>
+<tr class="separator:ad76310608722ef229f66ea9ca8ae157f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5522dd425cce6f8bb5ea577e6fcd0cc3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5522dd425cce6f8bb5ea577e6fcd0cc3"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>Col</b></td></tr>
+<tr class="separator:a5522dd425cce6f8bb5ea577e6fcd0cc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af77b21ea62b4ca511e6f0149b49113df"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af77b21ea62b4ca511e6f0149b49113df"></a>
+<a class="el" href="class_cobra_1_1internal_1_1_vector.html">Vector</a>&lt; <a class="el" href="class_cobra_1_1internal_1_1_a_s_t_import.html">ASTImport</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>imports</b></td></tr>
+<tr class="separator:af77b21ea62b4ca511e6f0149b49113df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a439bac2fdb09e8ff3b70b69d63964770"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a439bac2fdb09e8ff3b70b69d63964770"></a>
+<a class="el" href="class_cobra_1_1internal_1_1_vector.html">Vector</a>&lt; <a class="el" href="class_cobra_1_1internal_1_1_a_s_t_include.html">ASTInclude</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>includes</b></td></tr>
+<tr class="separator:a439bac2fdb09e8ff3b70b69d63964770"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d6abc4ff6dd6e4325831c462f052f19"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4d6abc4ff6dd6e4325831c462f052f19"></a>
+<a class="el" href="class_cobra_1_1internal_1_1_vector.html">Vector</a>&lt; <a class="el" href="class_cobra_1_1internal_1_1_a_s_t_node.html">ASTNode</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>exports</b></td></tr>
+<tr class="separator:a4d6abc4ff6dd6e4325831c462f052f19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c4605b4bf2add691080c117aeaf2d48"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5c4605b4bf2add691080c117aeaf2d48"></a>
+std::string *&#160;</td><td class="memItemRight" valign="bottom"><b>filePath</b></td></tr>
+<tr class="separator:a5c4605b4bf2add691080c117aeaf2d48"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="class_cobra_1_1internal_1_1_parser.html" title="The Parser class. ">Parser</a> class. </p>
@@ -150,7 +163,7 @@ std::vector&lt; <a class="el" href="class_cobra_1_1internal_1_1_a_s_t_node.html"
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Aug 22 2015 14:51:28 for CobraLang by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Oct 5 2015 11:39:41 for CobraLang by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

@@ -5,7 +5,7 @@
 %%For: 
 %Magnification: 1.00
 %%Orientation: Portrait
-%%BoundingBox: 0 0 500 1173.184358
+%%BoundingBox: 0 0 500 1189.189189
 %%Pages: 0
 %%BeginSetup
 %%EndSetup
@@ -19,12 +19,12 @@
 /marginwidth 10 def
 /distx 20 def
 /disty 40 def
-/boundaspect 0.426190 def  % aspect ratio of the BoundingBox (width/height)
+/boundaspect 0.420455 def  % aspect ratio of the BoundingBox (width/height)
 /boundx 500 def
 /boundy boundx boundaspect div def
 /xspacing 0 def
 /yspacing 0 def
-/rows 21 def
+/rows 22 def
 /cols 2 def
 /scalefactor 0 def
 /boxfont /Times-Roman findfont fontheight scalefont def
@@ -174,7 +174,6 @@
 boxfont setfont
 1 boundaspect scale
 (Cobra::internal::ASTNode) cw
-(Cobra::internal::ASTArray) cw
 (Cobra::internal::ASTBlock) cw
 (Cobra::internal::ASTBoolean) cw
 (Cobra::internal::ASTChar) cw
@@ -191,6 +190,8 @@ boxfont setfont
 (Cobra::internal::ASTInt) cw
 (Cobra::internal::ASTObject) cw
 (Cobra::internal::ASTString) cw
+(Cobra::internal::ASTThrow) cw
+(Cobra::internal::ASTTryCatch) cw
 (Cobra::internal::ASTVar) cw
 (Cobra::internal::ASTVarList) cw
 (Cobra::internal::ASTWhile) cw
@@ -205,33 +206,37 @@ boundx scalefactor div boundy scalefactor div scale
 
 % ----- classes -----
 
- (Cobra::internal::ASTNode) 0.000000 20.000000 box
- (Cobra::internal::ASTArray) 1.000000 19.000000 box
- (Cobra::internal::ASTBlock) 1.000000 18.000000 box
- (Cobra::internal::ASTBoolean) 1.000000 17.000000 box
- (Cobra::internal::ASTChar) 1.000000 16.000000 box
- (Cobra::internal::ASTDouble) 1.000000 15.000000 box
- (Cobra::internal::ASTElse) 1.000000 14.000000 box
- (Cobra::internal::ASTExpr) 1.000000 13.000000 box
-1.000000 13.000000 mark
- (Cobra::internal::ASTFile) 1.000000 12.000000 box
- (Cobra::internal::ASTFloat) 1.000000 11.000000 box
- (Cobra::internal::ASTFor) 1.000000 10.000000 box
- (Cobra::internal::ASTFunc) 1.000000 9.000000 box
- (Cobra::internal::ASTIf) 1.000000 8.000000 box
- (Cobra::internal::ASTImport) 1.000000 7.000000 box
- (Cobra::internal::ASTInclude) 1.000000 6.000000 box
- (Cobra::internal::ASTInt) 1.000000 5.000000 box
- (Cobra::internal::ASTObject) 1.000000 4.000000 box
- (Cobra::internal::ASTString) 1.000000 3.000000 box
+ (Cobra::internal::ASTNode) 0.000000 21.000000 box
+ (Cobra::internal::ASTBlock) 1.000000 20.000000 box
+ (Cobra::internal::ASTBoolean) 1.000000 19.000000 box
+ (Cobra::internal::ASTChar) 1.000000 18.000000 box
+ (Cobra::internal::ASTDouble) 1.000000 17.000000 box
+ (Cobra::internal::ASTElse) 1.000000 16.000000 box
+ (Cobra::internal::ASTExpr) 1.000000 15.000000 box
+1.000000 15.000000 mark
+ (Cobra::internal::ASTFile) 1.000000 14.000000 box
+ (Cobra::internal::ASTFloat) 1.000000 13.000000 box
+ (Cobra::internal::ASTFor) 1.000000 12.000000 box
+ (Cobra::internal::ASTFunc) 1.000000 11.000000 box
+ (Cobra::internal::ASTIf) 1.000000 10.000000 box
+ (Cobra::internal::ASTImport) 1.000000 9.000000 box
+ (Cobra::internal::ASTInclude) 1.000000 8.000000 box
+ (Cobra::internal::ASTInt) 1.000000 7.000000 box
+ (Cobra::internal::ASTObject) 1.000000 6.000000 box
+ (Cobra::internal::ASTString) 1.000000 5.000000 box
+ (Cobra::internal::ASTThrow) 1.000000 4.000000 box
+ (Cobra::internal::ASTTryCatch) 1.000000 3.000000 box
  (Cobra::internal::ASTVar) 1.000000 2.000000 box
+1.000000 2.000000 mark
  (Cobra::internal::ASTVarList) 1.000000 1.000000 box
  (Cobra::internal::ASTWhile) 1.000000 0.000000 box
 
 % ----- relations -----
 
 solid
-1 0.000000 19.250000 out
+1 0.000000 20.250000 out
+solid
+0 0.000000 20.500000 hedge
 solid
 0 0.000000 19.500000 hedge
 solid
@@ -273,4 +278,4 @@ solid
 solid
 0 0.000000 0.500000 hedge
 solid
-0.000000 20.000000 0.500000 vedge
+0.000000 21.000000 0.500000 vedge

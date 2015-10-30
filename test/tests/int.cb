@@ -2,6 +2,7 @@
 
 export object Int{
 	static func Parse(string num){return (int)num;}
+	static func Parse(char num){return (int)num;}
 	static func IsInt(int a){return true;}
 	static func IsInt(float a){return false;}
 	static func IsInt(double a){return false;}

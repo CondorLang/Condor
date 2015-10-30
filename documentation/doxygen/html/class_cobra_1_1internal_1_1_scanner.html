@@ -89,6 +89,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="class_cobra_1_1internal_1_1_scanner-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -103,9 +104,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a2daf5f3b5ac2add3dc79550498f07fae"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cobra_1_1internal_1_1_scanner.html#a2daf5f3b5ac2add3dc79550498f07fae">Scanner</a> (std::string *source)</td></tr>
-<tr class="memdesc:a2daf5f3b5ac2add3dc79550498f07fae"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_cobra_1_1internal_1_1_scanner.html" title="Tokenize the program text. ">Scanner</a> constructor.  <a href="#a2daf5f3b5ac2add3dc79550498f07fae">More...</a><br /></td></tr>
-<tr class="separator:a2daf5f3b5ac2add3dc79550498f07fae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6955998dffd994214f647d54b8ab7520"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_cobra_1_1internal_1_1_token.html">Token</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_cobra_1_1internal_1_1_scanner.html#a6955998dffd994214f647d54b8ab7520">NextToken</a> ()</td></tr>
 <tr class="memdesc:a6955998dffd994214f647d54b8ab7520"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the next token.  <a href="#a6955998dffd994214f647d54b8ab7520">More...</a><br /></td></tr>
 <tr class="separator:a6955998dffd994214f647d54b8ab7520"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -132,17 +130,26 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memdesc:ac05a201981599e01a69a1f411b555cb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Eat white spaces. <br /></td></tr>
 <tr class="separator:ac05a201981599e01a69a1f411b555cb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:ad9f8da9f077c4b710d09ce906e3f2d0a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad9f8da9f077c4b710d09ce906e3f2d0a"></a>
+static <a class="el" href="class_cobra_1_1internal_1_1_scanner.html">Scanner</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>New</b> (<a class="el" href="class_cobra_1_1internal_1_1_isolate.html">Isolate</a> *iso, std::string *source)</td></tr>
+<tr class="separator:ad9f8da9f077c4b710d09ce906e3f2d0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:af609bbafc2a7c92e33f86fee28c6c798"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af609bbafc2a7c92e33f86fee28c6c798"></a>
 std::string *&#160;</td><td class="memItemRight" valign="bottom"><b>src</b></td></tr>
 <tr class="separator:af609bbafc2a7c92e33f86fee28c6c798"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5c6c96aae0fa26a83cbf9e34e857c465"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5c6c96aae0fa26a83cbf9e34e857c465"></a>
-std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>errors</b></td></tr>
-<tr class="separator:a5c6c96aae0fa26a83cbf9e34e857c465"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace1defb19a8d8a52512d772d87f14e42"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ace1defb19a8d8a52512d772d87f14e42"></a>
+<a class="el" href="class_cobra_1_1internal_1_1_vector.html">Vector</a>&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>errors</b></td></tr>
+<tr class="separator:ace1defb19a8d8a52512d772d87f14e42"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aea4c60253a2fe9f00322d8f479a84592"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aea4c60253a2fe9f00322d8f479a84592"></a>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><b>result</b></td></tr>
 <tr class="separator:aea4c60253a2fe9f00322d8f479a84592"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa232ebf52b381ac2192a1f294f431277"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa232ebf52b381ac2192a1f294f431277"></a>
+<a class="el" href="class_cobra_1_1internal_1_1_isolate.html">Isolate</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>isolate</b></td></tr>
+<tr class="separator:aa232ebf52b381ac2192a1f294f431277"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a736aebb3cc14f3b42f23b108852c32d3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a736aebb3cc14f3b42f23b108852c32d3"></a>
 char&#160;</td><td class="memItemRight" valign="bottom"><b>ch</b></td></tr>
 <tr class="separator:a736aebb3cc14f3b42f23b108852c32d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -168,32 +175,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>col</b></td></tr>
   </table>
   </dd>
 </dl>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a2daf5f3b5ac2add3dc79550498f07fae"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Cobra::internal::Scanner::Scanner </td>
-          <td>(</td>
-          <td class="paramtype">std::string *&#160;</td>
-          <td class="paramname"><em>source</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><a class="el" href="class_cobra_1_1internal_1_1_scanner.html" title="Tokenize the program text. ">Scanner</a> constructor. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">source</td><td>std::string </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a9045c5fb2d33b152504dd5026bca5fa8"></a>
 <div class="memitem">
 <div class="memproto">
@@ -356,7 +338,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>col</b></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Aug 22 2015 14:51:28 for CobraLang by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Oct 5 2015 11:39:41 for CobraLang by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

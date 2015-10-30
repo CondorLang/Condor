@@ -39,6 +39,7 @@ namespace internal{
 		Check* check;
 		bool hasErr;
 		Vector<std::string> msgs;
+		std::string name;
 		const char* basePath;
 		std::map<std::size_t, ASTFile*> includes;
 		void SetIncludes();
@@ -68,7 +69,7 @@ namespace internal{
 		void Run();
 		ASTNode* GetExportedObject(std::string name);
 		const char* GetErrorMsg(){if (msgs.size() > 0) return msgs[0].c_str(); else return "";}
-		static void RunInternalScript(Isolate* isolate, std::string hex);
+		static void RunInternalScript(Isolate* isolate, std::string hex, std::string _name);
 		void PrintExported();
 	};
 

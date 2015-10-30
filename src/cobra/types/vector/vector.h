@@ -18,7 +18,6 @@ namespace internal{
 	void InternalVectorError(int idx, int size);
 	void P(const char* msg);
 	void P(int i);
-	static int kCount = 0;
 
 	template<class T>
 	class VectorItem
@@ -45,14 +44,10 @@ namespace internal{
 		Isolate* isolate;
 	public:
 		Vector(){isolate = NULL; kFirst = NULL; kLast = NULL; kCursor = NULL; kCount = 0; kCursorLoc = 0;}
-		~Vector(){
-			// while (size() > 0){
-			// 	erase(0);
-			// }
-		}
+		~Vector(){}
 		void SetIsolate(Isolate* iso){isolate = iso;}
 		int size(){return kCount;}
-		bool empty(){return kCount == 0;}
+		bool empty(){return kCount == 0 && kFirst == NULL;}
 		void push_back(T t){
 			if (kFirst == NULL){
 				void* pt = NewVectorItem(isolate, sizeof(VectorItem<T>));
@@ -62,7 +57,7 @@ namespace internal{
 				kFirst->data = t;
 				kCursor = kFirst;
 				kLast = kFirst;
-				kCount++;
+				kCount = 1;
 			}
 			else{
 				if (kLast == NULL) OutOfMemory();
@@ -88,11 +83,14 @@ namespace internal{
 			return -1;
 		}
 		void erase(int idx){
-			if (idx >= kCount){
+			if (idx >= size()){
 				InvalidVectorAccess(idx, size());
 				return;
 			}
-			else if (idx == -1) return;
+			else if (idx == -1) {
+				P("Cannot erase idx -1");
+				return;
+			}
 			kCursor = kFirst;
 			kCursorLoc = 0;
 			while (kCursorLoc < idx){
@@ -101,8 +99,20 @@ namespace internal{
 				kCursorLoc++;
 			}
 			VectorItem<T>* item = kCursor;
-			if (kCursor->prev != NULL) kCursor->prev->next = kCursor->next;
-			if (kCursor->next != NULL) kCursor->next->prev = kCursor->prev;
+
+			if (kCursorLoc == 0 || kFirst == kCursor){
+				if (kFirst->next != NULL){
+					kFirst = kFirst->next;
+					kFirst->prev = NULL;
+					kCursor = kFirst;
+				}
+				else{
+					kFirst = NULL;
+					kCursor = NULL;
+				}
+			}
+			if (kCursor && kCursor->next) kCursor->next->prev = kCursor->prev;
+			if (kCursor && kCursor->prev) kCursor->prev->next = kCursor->next;
 			kCount--;
 			EraseVectorItem(isolate, sizeof(VectorItem<T>), item);
 		}
@@ -117,7 +127,7 @@ namespace internal{
 			}
 		}
 		T get(int idx){
-			if (idx >= kCount){
+			if (idx >= size()){
 				InvalidVectorAccess(idx, size());
 				return NULL;
 			}
