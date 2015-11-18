@@ -4,7 +4,7 @@
 #include <string>
 #include "../include/Cobra.h"
 #include "cobra/mem/isolate.h"
-#include "Exception-bytes.h"
+#include "exception-bytes.h"
 
 namespace Cobra {
 namespace internal{
