@@ -756,8 +756,11 @@ namespace internal{
 		}
 		std::string lookupValue = member->member->name;
 
+		if (member->member->type == BINARY){
+			ASTBinaryExpr* binary = (ASTBinaryExpr*) member->member;
+			lookupValue = 	binary->Left->name;
+		}
 		if (lookupValue.empty()){
-			ASTBinaryExpr* b = (ASTBinaryExpr*) member->member;
 			throw Error::EXPECTED_OBJECT_MEMBER_NAME;
 		}
 		ASTObject* obj = NULL;
@@ -841,6 +844,10 @@ namespace internal{
 					}
 					case FUNC: {
 						ASTFuncCallExpr* call = (ASTFuncCallExpr*) member->member;
+						if (call->type == BINARY) { // bug fixing the !str2.isSomething()
+							ASTBinaryExpr* binary = (ASTBinaryExpr*) call;
+							call = (ASTFuncCallExpr*) binary->Left;
+						}
 						ASTFunc* func = (ASTFunc*) obj->members[i];
 						if (func->args.size() == call->params.size()){
 							bool foundFunc = false;

@@ -15,9 +15,13 @@ func main(string args[], int argc){
 		String str2 = str;
 		int len = str2.length;
 		bool testBool = !str2.allLetters();
-		// if (!str2.allLetters() && !str2.allNumbers()){
-		// 	throw new Exception("Unexpected Character");
-		// }
+		bool testBool2 = !str2.allNumbers();
+		if (testBool && testBool2){
+			throw new Exception("Unexpected Character");
+		}
+		if (!str2.allLetters() && !str2.allNumbers()){
+			throw new Exception("Unexpected Character");
+		}
 		delete str2;
 	}
 	catch (Exception e){

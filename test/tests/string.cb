@@ -42,6 +42,14 @@ object $String {
 		return true;
 	}
 
+	func substr(int pos, int len){
+		String result = "";
+		for (int i = pos; i < (pos + len); i++){
+			result += this.base[i];
+		}
+		return result;
+	}
+
 	func allNumbers(){
 		int len = this.length;
 		for (int i = 0; i < len; i++){
