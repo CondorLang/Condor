@@ -25,9 +25,9 @@ namespace internal{
 				printf("--parsing-time\t\t%s\n", "Prints the time it took to parse");
 				printf("--heap-insert\t\t%s\n", "Tracks what is being inserted into the heap");
 				printf("--heap-delete\t\t%s\n", "Tracks what is being deleted out of the heap");
-				printf("--memory-audit\t%s\n", "Audits the memory used and whats free");
+				printf("--memory-audit\t\t%s\n", "Audits the memory used and whats free");
 				printf("--memory-request\t%s\n", "Tracks the memory requested");
-				printf("--expand-ast\t%s\n", "Expand the abstract syntax tree");
+				printf("--expand-ast\t\t%s\n", "Expand the abstract syntax tree");
 			}
 			else if (arg.find("-") != std::string::npos || arg.find("-") != std::string::npos){
 				printf("Unidentified flag\nExiting...\n");

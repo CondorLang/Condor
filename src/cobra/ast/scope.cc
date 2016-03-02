@@ -27,7 +27,7 @@ namespace internal{
 	std::vector<ASTNode*> Scope::Lookup(std::string name){
 		std::vector<ASTNode*> objs;
 		for (int i = 0; i < ordered.size(); i++){
-			if (ordered[i]->name == name) objs.push_back(ordered[i]);
+			if (ordered[i]->name == name && ordered[i]->type != FUNC_CALL) objs.push_back(ordered[i]);
 		}
 		return objs;
 	}

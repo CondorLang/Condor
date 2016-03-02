@@ -91,6 +91,7 @@ namespace Error {
 			case EXPECTED_ARRAY_TYPE: return "Expected array type";
 			case CORRUPT_OBJECT: return "Corrupt object";
 			case EXPECTED_OBJECT_MEMBER_NAME: return "Expected object member name";
+			case UNMATCHED_FUNCTION_PARAMETERS: return "Unmatched function parameter";
 			case SCANNER: {
 				if (tok != NULL){
 					return tok->raw;

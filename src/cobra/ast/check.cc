@@ -101,12 +101,15 @@ namespace internal{
 					if (func->args.size() != funcCall->params.size()) continue;
 					if (mode == STRICT){
 						bool notIt = false;
-						for (int j = 0; j < func->args.size(); j++){
-							ASTVar* pv = (ASTVar*) func->args[j];
-							ASTExpr* aExpr = (ASTExpr*) funcCall->params[j];
-							if (pv->varType != aExpr->assignType){
-								notIt = true;
-								break;
+						if (func->args.size() == 0) notIt = false;
+						else{
+							for (int j = 0; j < func->args.size(); j++){
+								ASTVar* pv = (ASTVar*) func->args[j];
+								ASTExpr* aExpr = (ASTExpr*) funcCall->params[j];
+								if (pv->varType != aExpr->assignType){
+									notIt = true;
+									break;
+								}
 							}
 						}
 						if (notIt) continue;
@@ -133,6 +136,7 @@ namespace internal{
 				throw Error::MULTIPLE_DECL_OF_OBJECT;
 			}
 		}
+		if (node == NULL) return GetObjectInScope(ident, sc->outer); // one last check
 		return node;
 	}
 
@@ -148,7 +152,16 @@ namespace internal{
 			ValidateStmt(call->params[i]);
 		}
 		ASTFunc* func = (ASTFunc*) GetObjectInScope(call, scope);
-		if (func == NULL) throw Error::UNDEFINED_FUNC;
+		for (int i = 0; i < func->args.size(); i++){
+			ASTVar* pv = (ASTVar*) func->args[i];
+			ASTExpr* aExpr = (ASTExpr*) call->params[i];
+			if (pv->varType != aExpr->assignType){
+				throw Error::UNMATCHED_FUNCTION_PARAMETERS;
+			}
+		}
+		if (func == NULL) {
+			throw Error::UNDEFINED_FUNC;
+		}
 		call->assignType = func->returnType;
 
 		call->func = func;

@@ -4,28 +4,24 @@ include "tests/string.cb";
 include "tests/int.cb";
 include "tests/college.cb";
 include "tests/xml.cb";
+include "tests/console.cb";
 
 import "string";
 import "exception";
 
+func test(char c){
+
+}
+
 func main(string args[], int argc){
-	try{
-		int parsed = Int.Parse('1');
-		string str = "this is a test";
-		String str2 = str;
-		int len = str2.length;
-		bool testBool = !str2.allLetters();
-		bool testBool2 = !str2.allNumbers();
-		if (testBool && testBool2){
-			throw new Exception("Unexpected Character");
+	String testCase = "Brigham Young University–Idaho (BYU–Idaho or BYU–I) is a private university located in Rexburg, Idaho. Founded in 1888, the university is owned and operated by The Church of Jesus Christ of Latter-day Saints (LDS Church), transitioned from a junior college to a four-year institution in 2001, and was known for the greater part of its history as Ricks College.";
+	int len = testCase.length;
+	for (int i = 0; i < len; i++){
+		char c = (char) testCase.base[i];
+		print(c);
+		test(c);
+		for (int j = 0; j < len + 100; j++){
+			print((char) j);
 		}
-		if (!str2.allLetters() && !str2.allNumbers()){
-			throw new Exception("Unexpected Character");
-		}
-		delete str2;
-	}
-	catch (Exception e){
-		double b = 10.0;
-		int a = 1 + 1 + (2 + 2 + 3 + (3 + 22 / 10) / 2);
 	}
 }
