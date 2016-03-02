@@ -14,7 +14,7 @@ func main(string args[], int argc){
 		string str = "this is a test";
 		String str2 = str;
 		int len = str2.length;
-		//bool testBool = !str2.allLetters();
+		bool testBool = !str2.allLetters();
 		// if (!str2.allLetters() && !str2.allNumbers()){
 		// 	throw new Exception("Unexpected Character");
 		// }

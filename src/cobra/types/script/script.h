@@ -17,6 +17,7 @@
 #include "cobra/clock.h"
 #include "cobra/shell.h"
 #include <string>
+#include <cstring>
 
 namespace Cobra {
 namespace internal{

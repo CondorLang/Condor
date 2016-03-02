@@ -11,7 +11,7 @@ namespace internal{
 		duration = (double)(std::clock() - start) / CLOCKS_PER_SEC;
 	}
 	void Clock::Reset(){
-		start = NULL;
+		start = 0;
 		duration = 0;
 	}
 

@@ -161,7 +161,6 @@ namespace internal{
 	std::string Script::GetFileName(){
 		std::size_t found = absolutePath.find_last_of("/\\");
 		std::string fileName = absolutePath.substr(found+1);
-		printf("");
 		return fileName;
 	}
 

@@ -844,15 +844,18 @@ namespace internal{
 						ASTFunc* func = (ASTFunc*) obj->members[i];
 						if (func->args.size() == call->params.size()){
 							bool foundFunc = false;
-							for (int j = 0; j < func->args.size(); j++){
-								ValidateStmt(call->params[j]);
-								if (func->args[j]->varType == call->params[j]->assignType){
-									foundFunc = true;
-								}
-								else{
-									foundFunc = false;
-									cont = true;
-									break;
+							if (func->args.size() == 0) foundFunc = true;
+							else{
+								for (int j = 0; j < func->args.size(); j++){
+									ValidateStmt(call->params[j]);
+									if (func->args[j]->varType == call->params[j]->assignType){
+										foundFunc = true;
+									}
+									else{
+										foundFunc = false;
+										cont = true;
+										break;
+									}
 								}
 							}
 							if (foundFunc){
@@ -881,7 +884,7 @@ namespace internal{
 			}
 			if (found) break;
 		}
-		if (!found) throw Error::INVALID_OBJECT_MEMBER;
+		if (!found)	throw Error::INVALID_OBJECT_MEMBER;
 	}
 
 	bool Check::ValidateMemberFuncCall(ASTFunc* func, ASTFuncCallExpr* call){
