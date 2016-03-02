@@ -1,27 +1,16 @@
 #mode "strict";
 
-include "tests/string.cb";
-include "tests/int.cb";
-include "tests/college.cb";
-include "tests/xml.cb";
-include "tests/console.cb";
+// include "tests/string.cb";
+// include "tests/int.cb";
+// include "tests/college.cb";
+// include "tests/xml.cb";
+// include "tests/console.cb";
 
 import "string";
-import "exception";
-
-func test(char c){
-
-}
+//import "exception";
 
 func main(string args[], int argc){
-	String testCase = "Brigham Young University–Idaho (BYU–Idaho or BYU–I) is a private university located in Rexburg, Idaho. Founded in 1888, the university is owned and operated by The Church of Jesus Christ of Latter-day Saints (LDS Church), transitioned from a junior college to a four-year institution in 2001, and was known for the greater part of its history as Ricks College.";
-	int len = testCase.length;
-	for (int i = 0; i < len; i++){
-		char c = (char) testCase.base[i];
-		print(c);
-		test(c);
-		for (int j = 0; j < len + 100; j++){
-			print((char) j);
-		}
-	}
+	string test = "test";
+	String str = test;
+	int len = str.length;
 }

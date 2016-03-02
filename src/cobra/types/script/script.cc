@@ -83,6 +83,8 @@ namespace internal{
 			SetImports();
 		}
 		catch (Error::ERROR e){
+			std::string msg = Error::String(e, NULL);
+			printf("%d:%d - %s - \n\t%s\nCode:\n\n%s\n", check->row, check->col, msg.c_str(), absolutePath.c_str(), GetSourceRow(check->row, check->col).c_str());
 			return;
 		}
 
@@ -154,6 +156,8 @@ namespace internal{
 				isolate->GetContext()->SetImport(name);
 				if (name == "exception") Exception::CB(isolate);
 				else if (name == "string") String::CB(isolate);
+				else if (name == "array") Array::CB(isolate);
+				else throw Error::INVALID_IMPORT;
 			}		
 		}
 	}

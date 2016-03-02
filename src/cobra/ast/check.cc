@@ -815,9 +815,6 @@ namespace internal{
 					case VAR: case ARRAY:{
 						ASTVar* var = (ASTVar*) obj->members[i];
 						if (var->varClass == NULL || type == ARRAY) SetVarClass(var, true);
-						if (type == ARRAY){
-							int a = 10;
-						}
 						if (member->member->type == OBJECT_MEMBER_CHAIN){
 							ASTObjectMemberChainExpr* mem = (ASTObjectMemberChainExpr*) member->member;
 							mem->object = var->varClass;

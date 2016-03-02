@@ -14,8 +14,6 @@ namespace internal{
 	void Context::SetIsolate(Isolate* isolate){
 		scripts[isolate];
 		isolate->SetContext(this);
-
-		Array::CB(isolate);
 	}
 
 	void Context::AddToInProgress(std::string str){

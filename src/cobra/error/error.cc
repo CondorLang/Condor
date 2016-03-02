@@ -92,6 +92,8 @@ namespace Error {
 			case CORRUPT_OBJECT: return "Corrupt object";
 			case EXPECTED_OBJECT_MEMBER_NAME: return "Expected object member name";
 			case UNMATCHED_FUNCTION_PARAMETERS: return "Unmatched function parameter";
+			case INVALID_IMPORT: return "Invalid import";
+			case UNDEFINED_VARIABLE_TYPE: return "Undefined variable type";
 			case SCANNER: {
 				if (tok != NULL){
 					return tok->raw;
