@@ -1,5 +1,0 @@
-object String {}
-
-$String {
-	length;
-}

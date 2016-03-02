@@ -13,6 +13,7 @@
 #include "cobra/flags.h"
 #include "cobra/mem/factory.h"
 #include "allocate.h"
+#include "gc.h"
 
 namespace Cobra {
 namespace internal{
@@ -35,6 +36,7 @@ namespace internal{
 		MemoryPool* large;
 		MemoryPool* small;
 		MemoryPool* xl;
+		GC* gc;
 
 	public:
 		Isolate();
@@ -44,6 +46,7 @@ namespace internal{
 		inline void Exit(){_exit();}
 		void* GetMemory(const size_t size);
 		void FreeMemory(void* ptr, const size_t size);
+		void RunGC();
 
 
 		// Garbage

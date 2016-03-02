@@ -242,5 +242,13 @@ namespace internal{
 		return b;
 	}
 
+	// TODO:
+	// 		Release unused memory
+	void MemoryPool::FreeUnnecessaryMemory(){
+		if (kFreeSize >= kMinSize){
+			// TODO
+		}
+	}
+
 } // namespace internal
 } // namespace Cobra

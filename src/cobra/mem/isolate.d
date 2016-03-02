@@ -29,7 +29,7 @@ src/cobra/mem/isolate.o: src/cobra/mem/isolate.cc src/cobra/mem/isolate.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/algorithm \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/initializer_list \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/cstddef \
-  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.0.0/include/stddef.h \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.0.2/include/stddef.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/type_traits \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/cstring \
   /usr/include/string.h /usr/include/sys/_types/_rsize_t.h \
@@ -41,7 +41,7 @@ src/cobra/mem/isolate.o: src/cobra/mem/isolate.cc src/cobra/mem/isolate.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/typeinfo \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/exception \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/cstdint \
-  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.0.0/include/stdint.h \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.0.2/include/stdint.h \
   /usr/include/stdint.h /usr/include/sys/_types/_int8_t.h \
   /usr/include/sys/_types/_int16_t.h /usr/include/sys/_types/_int32_t.h \
   /usr/include/sys/_types/_int64_t.h /usr/include/_types/_uint8_t.h \
@@ -58,7 +58,7 @@ src/cobra/mem/isolate.o: src/cobra/mem/isolate.cc src/cobra/mem/isolate.h \
   /usr/include/wchar.h /usr/include/sys/_types/_mbstate_t.h \
   /usr/include/sys/_types/_ct_rune_t.h /usr/include/sys/_types/_rune_t.h \
   /usr/include/sys/_types/_wchar_t.h \
-  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.0.0/include/stdarg.h \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.0.2/include/stdarg.h \
   /usr/include/stdio.h /usr/include/sys/_types/_va_list.h \
   /usr/include/sys/stdio.h /usr/include/time.h \
   /usr/include/sys/_types/_clock_t.h /usr/include/_wctype.h \
@@ -67,7 +67,7 @@ src/cobra/mem/isolate.o: src/cobra/mem/isolate.cc src/cobra/mem/isolate.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__debug \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/tuple \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/climits \
-  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.0.0/include/limits.h \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.0.2/include/limits.h \
   /usr/include/limits.h /usr/include/machine/limits.h \
   /usr/include/i386/limits.h /usr/include/i386/_limits.h \
   /usr/include/sys/syslimits.h \
@@ -151,7 +151,8 @@ src/cobra/mem/isolate.o: src/cobra/mem/isolate.cc src/cobra/mem/isolate.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/istream \
   src/cobra/clock.h src/cobra/shell.h \
   src/cobra/types/array/array-bytes.h src/cobra/mem/factory.h \
-  src/cobra/mem/allocate.h /usr/include/math.h src/cobra/mem/list.h
+  src/cobra/mem/allocate.h /usr/include/math.h src/cobra/mem/list.h \
+  src/cobra/mem/gc.h
 
 src/cobra/mem/isolate.h:
 
@@ -255,7 +256,7 @@ src/cobra/mem/heap.h:
 
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/cstddef:
 
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.0.0/include/stddef.h:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.0.2/include/stddef.h:
 
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/type_traits:
 
@@ -283,7 +284,7 @@ src/cobra/mem/heap.h:
 
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/cstdint:
 
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.0.0/include/stdint.h:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.0.2/include/stdint.h:
 
 /usr/include/stdint.h:
 
@@ -331,7 +332,7 @@ src/cobra/mem/heap.h:
 
 /usr/include/sys/_types/_wchar_t.h:
 
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.0.0/include/stdarg.h:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.0.2/include/stdarg.h:
 
 /usr/include/stdio.h:
 
@@ -359,7 +360,7 @@ src/cobra/mem/heap.h:
 
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/climits:
 
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.0.0/include/limits.h:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.0.2/include/limits.h:
 
 /usr/include/limits.h:
 
@@ -612,3 +613,5 @@ src/cobra/mem/allocate.h:
 /usr/include/math.h:
 
 src/cobra/mem/list.h:
+
+src/cobra/mem/gc.h:

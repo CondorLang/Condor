@@ -121,6 +121,7 @@ namespace internal{
 		else{
 			printf("Did not compile: %s\n", absolutePath.c_str());
 		}
+		isolate->RunGC();
 	}
 
 	void Script::SetIncludes(){

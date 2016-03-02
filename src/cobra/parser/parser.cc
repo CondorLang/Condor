@@ -962,6 +962,8 @@ namespace internal{
 	 * {
 	 *    ** List of statements **
 	 * }
+	 *
+	 * Tmp Fix, Lazy Parsing
 	 */
 	ASTBlock* Parser::ParseBlock(bool initEat){
 		if (trace) Trace("Parsing", "Block");
@@ -972,11 +974,13 @@ namespace internal{
 		OpenScope();
 
 		ParseStmtList();
+
 		Expect(RBRACE);
 		Next();
 
 		ASTBlock* block = ASTBlock::New(isolate);
 		AddRowCol(block);
+
 		block->scope = topScope;
 
 		if (printVariables) topScope->String();

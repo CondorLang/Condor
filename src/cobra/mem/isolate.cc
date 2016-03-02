@@ -31,6 +31,7 @@ namespace internal{
 			large->debug = true;
 			xl->debug = true;
 		}
+		gc = new GC();
 	}
 
 	Isolate::~Isolate(){
@@ -73,6 +74,13 @@ namespace internal{
 			this->context->PrintExported(this);
 		}
 		_currentIsolate = NULL;
+	}
+
+	void Isolate::RunGC(){
+		gc->Run(small);
+		gc->Run(medium);
+		gc->Run(large);
+		gc->Run(xl);
 	}
 
 	HeapObject* Isolate::Insert(HeapObject obj){

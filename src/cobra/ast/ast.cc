@@ -212,6 +212,7 @@ namespace internal{
 		ASTNode::SetDefaults(n);
 		n->type = BLOCK;
 		n->scope = NULL;
+		n->isUncompiled = true;
     return n;
 	}
 

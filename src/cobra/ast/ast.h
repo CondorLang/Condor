@@ -245,6 +245,8 @@ namespace internal{
 		ASTBlock(){}
 		~ASTBlock(){}
 		Scope* scope;
+		std::string code;
+		bool isUncompiled;
 		static ASTBlock* New(Isolate* iso);
 	};
 

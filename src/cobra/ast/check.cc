@@ -783,6 +783,10 @@ namespace internal{
 			}
 		}
 		if (obj == NULL) throw Error::UNDEFINED_OBJECT;
+		if (obj->type == IDENT){
+			ASTNode* n = GetObjectInScopeByString(obj->name, scope);
+			if (n->type == OBJECT) obj = (ASTObject*) n;	
+		}
 		bool found = false;
 		bool cont = false;
 		if (obj->members.empty()) throw Error::INVALID_OBJECT_MEMBER;
