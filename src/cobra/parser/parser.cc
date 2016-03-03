@@ -430,7 +430,8 @@ namespace internal{
 				if (tok->value == PERIOD){ // object.member
 					if (trace) Trace("Parsing", "Object member");
 					Next();
-					ASTExpr* second = ParsePrimaryExpr();
+					ASTExpr* second = ParseOperand();
+					second = ParseFuncCall(second); // here
 					if (second->type != IDENT && 
 						  second->type != FUNC_CALL && 
 						  second->type != ARRAY_MEMBER &&
@@ -827,6 +828,7 @@ namespace internal{
 			var->varClass = (ASTIdent*) expr;
 			var->name = tok->raw;
 			var->stmt = ParseSimpleStmt();
+			if (tok->value == SEMICOLON) Next();
 			return var;
 		}
 		else if (expr->type == ARRAY){
@@ -992,7 +994,11 @@ namespace internal{
 				isolate->FreeMemory(stmt, sizeof(ASTNode));
 			}
 			else{
-				topScope->Insert(stmt);
+				switch ((int) stmt->type){
+					case VAR:	case OBJECT: case FUNC:	case ARRAY: {
+						topScope->Insert(stmt);
+					}
+				}
 			}
 			if (tok->value == END || tok->value == RBRACE) break;
 		}
@@ -1014,7 +1020,6 @@ namespace internal{
 		OpenScope();
 
 		ParseStmtList();
-
 		Expect(RBRACE);
 		Next();
 

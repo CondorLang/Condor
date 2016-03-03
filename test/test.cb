@@ -1,16 +1,22 @@
 #mode "strict";
 
-// include "tests/string.cb";
+//include "tests/string.cb";
 // include "tests/int.cb";
 // include "tests/college.cb";
 // include "tests/xml.cb";
 // include "tests/console.cb";
+// include "tests/array.cb";
 
 // import "string";
 // import "exception";
-import "array";
+
+object Fruit {
+	string name;
+	func Fruit(string name){
+		this.name = name;
+	}
+}
 
 func main(string args[], int argc){
-	//int[] a = [];
-	int[] a = [1, 2, 3];
+	Fruit apple = new Fruit("Apple");
 }

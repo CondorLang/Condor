@@ -1,0 +1,10 @@
+#mode "lazy";
+
+object $Array{
+	func push(item){
+
+	}
+	func splice(idx, len){
+		
+	}
+}

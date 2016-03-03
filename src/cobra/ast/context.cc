@@ -14,6 +14,7 @@ namespace internal{
 	void Context::SetIsolate(Isolate* isolate){
 		scripts[isolate];
 		isolate->SetContext(this);
+		Array::CB(isolate); // base array object will be imported in automatically
 	}
 
 	void Context::AddToInProgress(std::string str){

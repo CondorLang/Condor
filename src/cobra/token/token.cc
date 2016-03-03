@@ -23,6 +23,7 @@ namespace internal{
 			case BLOCK: return "kBlock";
 			case IDENT: return "ident";
 			case ARRAY_MEMBER: return "karrayMember";
+			case ARRAY: return "array";
 			case OBJECT_MEMBER_CHAIN: return "kObjectMemberChain";
 			case CLASS: return "kClass";
 			case SCRIPT: return "kScript";

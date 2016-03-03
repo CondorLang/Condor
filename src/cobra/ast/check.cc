@@ -172,7 +172,7 @@ namespace internal{
 
 	void Check::ValidateIdent(ASTIdent* ident){
 		SetRowCol(ident);
-		ASTNode* ptr = GetObjectInScopeByString(ident->name, scope);
+		ASTNode* ptr = GetObjectInScope(ident, scope);
 		if (ptr == NULL){
 			// double check kThis
 			if (kThis != NULL && kThis->type == OBJECT){
@@ -251,6 +251,7 @@ namespace internal{
 			if (boolean) {
 				if (!binary->op->IsBinaryComparison()) throw Error::INVALID_BOOLEAN_COMPARISON;
 			}
+			binary->assignType = BOOLEAN;
 			SetRowCol(binary->Right);
 			switch (type){
 				case INT: case BOOLEAN: {
@@ -731,10 +732,6 @@ namespace internal{
 	}
 
 	void Check::ValidateArrayMember(ASTArrayMemberExpr* expr, ASTArray* array){
-		if (trace) Trace("Validating array member", expr->value->name.c_str());
-		// if (expr->value->type == IDENT) ValidateIdent((ASTIdent*) expr->value);
-		// ValidateIsArrayType((ASTIdent*) expr->value);
-		// ValidateStmt(expr->member);
 		if (expr->values.size() > 0){
 			for (int i = 0; i < expr->values.size(); i++){
 				ValidateStmt(expr->values[i]);
@@ -767,12 +764,8 @@ namespace internal{
 	 */
 	void Check::ValidateObjectChainMember(ASTObjectMemberChainExpr* member){
 		SetRowCol(member);
-		ASTNode* node = NULL;
 		if (member->name == "this"){
 			member->object = kThis;
-		}
-		else{
-			node = member->object;
 		}
 		std::string lookupValue = member->member->name;
 
@@ -783,6 +776,7 @@ namespace internal{
 		if (lookupValue.empty()){
 			throw Error::EXPECTED_OBJECT_MEMBER_NAME;
 		}
+
 		ASTObject* obj = NULL;
 		if (member->object == NULL){ // check this
 			throw Error::CHECK_IMPORTS;
@@ -790,7 +784,7 @@ namespace internal{
 		if (member->object->type == IDENT){
 			ASTIdent* ident = (ASTIdent*) member->object;
 			if (ident->value == NULL){
-				ASTNode* value = GetObjectInScopeByString(ident->name, scope);
+				ASTNode* value = GetObjectInScope(ident, scope);
 				if (value == NULL) {	
 					throw Error::UNDEFINED_OBJECT;
 				}
@@ -799,16 +793,18 @@ namespace internal{
 			}
 		}
 		if (obj == NULL){
+			ASTIdent* ident = (ASTIdent*) member->object;
 			if (member->object->type == OBJECT) obj = (ASTObject*) member->object;
-			else if (member->object->type == IDENT){
-				ASTIdent* ident = (ASTIdent*) member->object;
-				if (ident->value->type == VAR){
-					ASTVar* var = (ASTVar*) ident->value;
-					obj = (ASTObject*) var->varClass;
-				}
+			else if (member->object->type == IDENT && ident->value->type == VAR){
+				ASTVar* var = (ASTVar*) ident->value;
+				obj = (ASTObject*) var->varClass;
 			}
+			else if (ident->value->type == ARRAY){
+				ASTArray* ary = (ASTArray*) ident->value;
+				if (ary->base != NULL) obj = ary->base->base;
+			}
+			else throw Error::UNDEFINED_OBJECT;
 		}
-		if (obj == NULL) throw Error::UNDEFINED_OBJECT;
 		if (obj->type == IDENT){
 			ASTNode* n = GetObjectInScopeByString(obj->name, scope);
 			if (n->type == OBJECT) obj = (ASTObject*) n;	
@@ -920,6 +916,7 @@ namespace internal{
 		if (call->params.size() != func->args.size()) return false;
 		for (int i = 0; i < call->params.size(); i++){
 			ValidateStmt(call->params[i]);
+			if (mode == STRICT && call->params[i]->assignType != func->args[i]->type) throw Error::UNDEFINED_FUNC;
 		}
 		return true;
 	}
@@ -961,9 +958,7 @@ namespace internal{
 						VerifyTypeConversion(var);
 						if (init != NULL) var->stmt = init;
 						else if (var->varType == var->stmt->assignType){}
-						else {
-							throw Error::INVALID_ASSIGNMENT_TO_TYPE;
-						}
+						else throw Error::INVALID_ASSIGNMENT_TO_TYPE;
 					}
 				}
 				else{
@@ -984,6 +979,8 @@ namespace internal{
 			if ((vt->IsNumber() && st->IsNumber()) || (vt->IsString() && st->IsString())){
 				var->stmt->assignType = var->varType;
 			}
+			isolate->FreeMemory(vt, sizeof(Token));
+			isolate->FreeMemory(st, sizeof(Token));
 		}
 	}
 
@@ -1176,7 +1173,6 @@ namespace internal{
 	void Check::ValidateAstNot(ASTNot* astNot){
 		if (trace) Trace("Validating", "not statement");
 		ValidateStmt(astNot->value);
-		// here
 	}
 
 	void Check::ValidateIf(ASTIf* ifStmt){
