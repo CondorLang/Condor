@@ -6,11 +6,11 @@
 // include "tests/xml.cb";
 // include "tests/console.cb";
 
-import "string";
-//import "exception";
+// import "string";
+// import "exception";
+import "array";
 
 func main(string args[], int argc){
-	string test = "test";
-	String str = test;
-	int len = str.length;
+	//int[] a = [];
+	int[] a = [1, 2, 3];
 }

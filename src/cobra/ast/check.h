@@ -49,7 +49,7 @@ namespace internal{
 		void ValidateCast(ASTCastExpr* cast);
 		void ValidateObjectChainMember(ASTObjectMemberChainExpr* member);
 		bool ValidateMemberFuncCall(ASTFunc* func, ASTFuncCallExpr* call);
-		void ValidateArrayMember(ASTArrayMemberExpr* expr);
+		void ValidateArrayMember(ASTArrayMemberExpr* expr, ASTArray* array);
 		void ValidateIsArrayType(ASTIdent* ident);
 		void ValidateIf(ASTIf* ifStmt);
 		void ValidateObjectInit(ASTObjectInit* init);

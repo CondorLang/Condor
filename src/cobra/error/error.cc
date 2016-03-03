@@ -94,6 +94,9 @@ namespace Error {
 			case UNMATCHED_FUNCTION_PARAMETERS: return "Unmatched function parameter";
 			case INVALID_IMPORT: return "Invalid import";
 			case UNDEFINED_VARIABLE_TYPE: return "Undefined variable type";
+			case CHECK_IMPORTS: return "Check imports";
+			case UNEXPECTED_CHARACTER: return "Unexpected character";
+			case INVALID_ARRAY_MEMBER: return "Invalid array member";
 			case SCANNER: {
 				if (tok != NULL){
 					return tok->raw;

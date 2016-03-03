@@ -145,6 +145,7 @@ namespace internal{
 		~ASTArrayMemberExpr(){}
 		ASTExpr* member;
 		ASTExpr* value;
+		std::vector<ASTExpr*> values;
 		static ASTArrayMemberExpr* New(Isolate* iso);
 	};
 
@@ -300,7 +301,7 @@ namespace internal{
 	public:
 		ASTArray(){}
 		~ASTArray(){}
-		std::vector<ASTNode*> value;
+		ASTArrayMemberExpr* values;
 		TOKEN arrayType;
 		ASTObjectInit* base;
 		static ASTArray* New(Isolate* iso, TOKEN rType);	

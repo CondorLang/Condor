@@ -261,6 +261,7 @@ namespace internal{
 		n->type = ARRAY;
 		n->arrayType = rType;
 		n->varClass = NULL;
+		n->values = NULL;
     return n;
 	}
 

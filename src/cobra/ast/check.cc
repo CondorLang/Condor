@@ -666,7 +666,7 @@ namespace internal{
 				break;
 			}
 			case ARRAY_MEMBER: {
-				ValidateArrayMember((ASTArrayMemberExpr*) expr);
+				ValidateArrayMember((ASTArrayMemberExpr*) expr, NULL);
 				break;
 			}
 			case OBJECT_INIT: {
@@ -730,11 +730,18 @@ namespace internal{
 		}
 	}
 
-	void Check::ValidateArrayMember(ASTArrayMemberExpr* expr){
+	void Check::ValidateArrayMember(ASTArrayMemberExpr* expr, ASTArray* array){
 		if (trace) Trace("Validating array member", expr->value->name.c_str());
-		if (expr->value->type == IDENT) ValidateIdent((ASTIdent*) expr->value);
-		ValidateIsArrayType((ASTIdent*) expr->value);
-		ValidateStmt(expr->member);
+		// if (expr->value->type == IDENT) ValidateIdent((ASTIdent*) expr->value);
+		// ValidateIsArrayType((ASTIdent*) expr->value);
+		// ValidateStmt(expr->member);
+		if (expr->values.size() > 0){
+			for (int i = 0; i < expr->values.size(); i++){
+				ValidateStmt(expr->values[i]);
+				ASTExpr* inner = expr->values[i];
+				if (array != NULL && array->arrayType != inner->assignType) throw Error::INVALID_ARRAY_MEMBER;
+			}
+		}
 	}
 
 	/**
@@ -771,12 +778,15 @@ namespace internal{
 
 		if (member->member->type == BINARY){
 			ASTBinaryExpr* binary = (ASTBinaryExpr*) member->member;
-			lookupValue = 	binary->Left->name;
+			lookupValue = binary->Left->name;
 		}
 		if (lookupValue.empty()){
 			throw Error::EXPECTED_OBJECT_MEMBER_NAME;
 		}
 		ASTObject* obj = NULL;
+		if (member->object == NULL){ // check this
+			throw Error::CHECK_IMPORTS;
+		}
 		if (member->object->type == IDENT){
 			ASTIdent* ident = (ASTIdent*) member->object;
 			if (ident->value == NULL){
@@ -1080,8 +1090,11 @@ namespace internal{
 		if (array->arrayType == IDENT){
 			if (array->varClass == NULL) throw Error::EXPECTED_ARRAY_TYPE;
 		}
+		if (array->values != NULL){
+			ValidateArrayMember((ASTArrayMemberExpr*) array->values, array);
+		}
 	}
-	//here
+
 	void Check::CheckScopeLevelNode(ASTNode* node){
 		SetRowCol(node);
 		if (node == NULL) return;

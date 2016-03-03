@@ -555,6 +555,36 @@ namespace internal{
 			case LBRACK: {
 				ASTArrayMemberExpr* ary = ASTArrayMemberExpr::New(isolate);
 				AddRowCol(ary);
+				Next();
+				if (tok->value == RBRACK){
+					Next();
+					Expect(SEMICOLON);
+					Next();
+					return ary;
+				}
+				else{
+					ASTExpr* value = ParseExpr();
+					if (tok->value == COMMA){
+						Next();
+						ary->values.push_back(value);
+						while (tok->value != RBRACK){
+							ary->values.push_back(ParseExpr());
+							if (tok->value == RBRACK) break;
+							else if (tok->value == COMMA) Next();
+							else throw Error::UNEXPECTED_CHARACTER;
+						}
+						Next();
+						Expect(SEMICOLON);
+						Next();
+					}
+					else{
+						ary->value = value;
+						Expect(RBRACK);
+						Next();
+						Expect(SEMICOLON);
+						Next();
+					}
+				}
 				return ary;
 			}
 			case NEW: {
@@ -743,6 +773,16 @@ namespace internal{
 			Next();
 			return list;
 		}
+		else if (tok->value == LBRACK){
+			ASTArray* array = ASTArray::New(isolate, var->varType);
+			Next();
+			Expect(RBRACK);
+			Next();
+			ASTVar* var = ParseArrayInit(array);
+			var->stmt = ParseSimpleStmt();
+			array->values = (ASTArrayMemberExpr*) var->stmt;
+			return var;
+		}
 		else{
 			throw Error::PARSE_VAR_ERR;
 		}
@@ -816,7 +856,7 @@ namespace internal{
 		init->base = base;
 		array->base = init;
 
-		Next(); // here
+		Next();
 		return array;
 	}
 
