@@ -18,7 +18,7 @@ namespace internal{
 			else if (arg == "--expand-ast") Flags::expandAST = true;
 			else if (arg == "--allow-native") Flags::allowNative = true;
 			else if (arg == "--print-asm") Flags::printAsm = true;
-			else if (arg == "-h"){
+			else if (arg == "-h" || arg == "--help"){
 				printf("\n\nCobraLang\n=========\n(C) 2015 Cobra Authors\n\n");
 				printf("--trace-parser\t\t%s\n", "Trace the path of the parser");
 				printf("--trace-check\t\t%s\n", "Trace the path of the ast checker");

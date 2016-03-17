@@ -89,7 +89,7 @@ namespace internal{
 		ASTNode* ParseReturn();
 		ASTNode* ParseIdentStart();
 		ASTNode* ParseTryCatch();
-		ASTExpr* ParseSimpleStmt();
+		ASTExpr* ParseSimpleStmt(bool callNext);
 		ASTExpr* ParseExpr();
 		ASTExpr* ParseBinaryExpr();
 		ASTExpr* ParseUnaryExpr();

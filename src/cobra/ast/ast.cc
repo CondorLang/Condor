@@ -7,23 +7,24 @@ namespace internal{
 	ASTNode* ASTNode::New(Isolate* iso){
 		void* p = iso->GetMemory(sizeof(ASTNode));
 		ASTNode* n = new(p) ASTNode();
-		ASTNode::SetDefaults(n);
+		ASTNode::SetDefaults(n, iso);
     return n; 
 	}
 
-	void ASTNode::SetDefaults(ASTNode* node){
+	void ASTNode::SetDefaults(ASTNode* node, Isolate* iso){
 		node->visibility = vPUBLIC;
 		node->scan = true;
 		node->row = 0;
 		node->col = 0;
 		node->used = false;
 		node->type = ILLEGAL;
+		node->id = iso->GetContext()->GetNextAstId();
 	}
 
 	ASTUndefined* ASTUndefined::New(Isolate* iso){
 		void* p = iso->GetMemory(sizeof(ASTUndefined));
 		ASTUndefined* n = new(p) ASTUndefined();
-		ASTNode::SetDefaults(n);
+		ASTNode::SetDefaults(n, iso);
 		n->type = UNDEFINED;
 		n->name = "undefined";
 		n->assignType = UNDEFINED;
@@ -33,7 +34,7 @@ namespace internal{
 	ASTExpr* ASTExpr::New(Isolate* iso){
 		void* p = iso->GetMemory(sizeof(ASTExpr));
 		ASTExpr* n = new(p) ASTExpr();
-		ASTNode::SetDefaults(n);
+		ASTNode::SetDefaults(n, iso);
 		n->type = EXPR;
 		n->value = NULL;
 		return n;
@@ -42,7 +43,7 @@ namespace internal{
 	ASTNot* ASTNot::New(Isolate* iso){
 		void* p = iso->GetMemory(sizeof(ASTNot));
 		ASTNot* n = new(p) ASTNot();
-		ASTNode::SetDefaults(n);
+		ASTNode::SetDefaults(n, iso);
 		n->type = AST_NOT;
 		n->value = NULL;
 		n->assignType = BOOLEAN;
@@ -52,7 +53,7 @@ namespace internal{
 	ASTNull* ASTNull::New(Isolate* iso){
 		void* p = iso->GetMemory(sizeof(ASTNull));
 		ASTNull* n = new(p) ASTNull();
-		ASTNode::SetDefaults(n);
+		ASTNode::SetDefaults(n, iso);
 		n->type = ASTNULL;
 		n->value = NULL;
     return n;
@@ -61,7 +62,7 @@ namespace internal{
 	ASTCastExpr* ASTCastExpr::New(Isolate* iso){
 		void* p = iso->GetMemory(sizeof(ASTCastExpr));
 		ASTCastExpr* n = new(p) ASTCastExpr();
-		ASTNode::SetDefaults(n);
+		ASTNode::SetDefaults(n, iso);
 		n->type = ASTCAST_EXPR;
 		n->value = NULL;
 		n->assignType = kNULL;
@@ -71,7 +72,7 @@ namespace internal{
 	ASTIdent* ASTIdent::New(Isolate* iso){
 		void* p = iso->GetMemory(sizeof(ASTIdent));
 		ASTIdent* n = new(p) ASTIdent();
-		ASTNode::SetDefaults(n);
+		ASTNode::SetDefaults(n, iso);
 		n->type = IDENT;
 		n->value = NULL;
 		n->inc = false;
@@ -84,7 +85,7 @@ namespace internal{
 	ASTLiterary* ASTLiterary::New(Isolate* iso){
 		void* p = iso->GetMemory(sizeof(ASTLiterary));
 		ASTLiterary* n = new(p) ASTLiterary();
-		ASTNode::SetDefaults(n);
+		ASTNode::SetDefaults(n, iso);
 		n->type = LITERARY;
     return n;
 	}
@@ -92,7 +93,7 @@ namespace internal{
 	ASTUnaryExpr* ASTUnaryExpr::New(Isolate* iso){
 		void* p = iso->GetMemory(sizeof(ASTUnaryExpr));
 		ASTUnaryExpr* n = new(p) ASTUnaryExpr();
-		ASTNode::SetDefaults(n);
+		ASTNode::SetDefaults(n, iso);
 		n->type = UNARY;
 		n->value = NULL;
 		n->op = NULL;
@@ -102,7 +103,7 @@ namespace internal{
 	ASTBinaryExpr* ASTBinaryExpr::New(Isolate* iso){
 		void* p = iso->GetMemory(sizeof(ASTBinaryExpr));
 		ASTBinaryExpr* n = new(p) ASTBinaryExpr();
-		ASTNode::SetDefaults(n);
+		ASTNode::SetDefaults(n, iso);
 		n->type = BINARY;
 		n->Left = NULL;
 		n->Right = NULL;
@@ -113,7 +114,7 @@ namespace internal{
 	ASTArrayMemberExpr* ASTArrayMemberExpr::New(Isolate* iso){
 		void* p = iso->GetMemory(sizeof(ASTArrayMemberExpr));
 		ASTArrayMemberExpr* n = new(p) ASTArrayMemberExpr();
-		ASTNode::SetDefaults(n);
+		ASTNode::SetDefaults(n, iso);
 		n->type = ARRAY_MEMBER;
 		n->member = NULL;
 		n->value = NULL;
@@ -123,7 +124,7 @@ namespace internal{
 	ASTObjectMemberChainExpr* ASTObjectMemberChainExpr::New(Isolate* iso){
 		void* p = iso->GetMemory(sizeof(ASTObjectMemberChainExpr));
 		ASTObjectMemberChainExpr* n = new(p) ASTObjectMemberChainExpr();
-		ASTNode::SetDefaults(n);
+		ASTNode::SetDefaults(n, iso);
 		n->type = OBJECT_MEMBER_CHAIN;
 		n->isSetting = false;
 		n->member = NULL;
@@ -135,7 +136,7 @@ namespace internal{
 	ASTVar* ASTVar::New(Isolate* iso){
 		void* p = iso->GetMemory(sizeof(ASTVar));
 		ASTVar* n = new(p) ASTVar();
-		ASTNode::SetDefaults(n);
+		ASTNode::SetDefaults(n, iso);
 		n->type = VAR;
 		n->stmt = NULL;
 		n->varClass = NULL;
@@ -148,7 +149,7 @@ namespace internal{
 	ASTVarList* ASTVarList::New(Isolate* iso){
 		void* p = iso->GetMemory(sizeof(ASTVarList));
 		ASTVarList* n = new(p) ASTVarList();
-		ASTNode::SetDefaults(n);
+		ASTNode::SetDefaults(n, iso);
 		n->type = VARLIST;
     return n;
 	}
@@ -156,7 +157,7 @@ namespace internal{
 	ASTInt* ASTInt::New(Isolate* iso){
 		void* p = iso->GetMemory(sizeof(ASTInt));
 		ASTInt* n = new(p) ASTInt();
-		ASTNode::SetDefaults(n);
+		ASTNode::SetDefaults(n, iso);
 		n->type = INT;
 		n->value = 0;
     return n;
@@ -165,7 +166,7 @@ namespace internal{
 	ASTFloat* ASTFloat::New(Isolate* iso){
 		void* p = iso->GetMemory(sizeof(ASTFloat));
 		ASTFloat* n = new(p) ASTFloat();
-		ASTNode::SetDefaults(n);
+		ASTNode::SetDefaults(n, iso);
 		n->type = FLOAT;
 		n->value = 0.0;
     return n;
@@ -174,7 +175,7 @@ namespace internal{
 	ASTDouble* ASTDouble::New(Isolate* iso){
 		void* p = iso->GetMemory(sizeof(ASTDouble));
 		ASTDouble* n = new(p) ASTDouble();
-		ASTNode::SetDefaults(n);
+		ASTNode::SetDefaults(n, iso);
 		n->type = DOUBLE;
 		n->value = 0.0;
     return n;
@@ -183,7 +184,7 @@ namespace internal{
 	ASTBoolean* ASTBoolean::New(Isolate* iso){
 		void* p = iso->GetMemory(sizeof(ASTBoolean));
 		ASTBoolean* n = new(p) ASTBoolean();
-		ASTNode::SetDefaults(n);
+		ASTNode::SetDefaults(n, iso);
 		n->type = BOOLEAN;
 		n->value = false;
     return n;
@@ -192,7 +193,7 @@ namespace internal{
 	ASTChar* ASTChar::New(Isolate* iso){
 		void* p = iso->GetMemory(sizeof(ASTChar));
 		ASTChar* n = new(p) ASTChar();
-		ASTNode::SetDefaults(n);
+		ASTNode::SetDefaults(n, iso);
 		n->type = CHAR;
 		n->value = '\0';
     return n;
@@ -201,7 +202,7 @@ namespace internal{
 	ASTString* ASTString::New(Isolate* iso){
 		void* p = iso->GetMemory(sizeof(ASTString));
 		ASTString* n = new(p) ASTString();
-		ASTNode::SetDefaults(n);
+		ASTNode::SetDefaults(n, iso);
 		n->type = STRING;
     return n;
 	}
@@ -209,7 +210,7 @@ namespace internal{
 	ASTBlock* ASTBlock::New(Isolate* iso){
 		void* p = iso->GetMemory(sizeof(ASTBlock));
 		ASTBlock* n = new(p) ASTBlock();
-		ASTNode::SetDefaults(n);
+		ASTNode::SetDefaults(n, iso);
 		n->type = BLOCK;
 		n->scope = NULL;
 		n->isUncompiled = true;
@@ -219,7 +220,7 @@ namespace internal{
 	ASTFunc* ASTFunc::New(Isolate* iso){
 		void* p = iso->GetMemory(sizeof(ASTFunc));
 		ASTFunc* n = new(p) ASTFunc();
-		ASTNode::SetDefaults(n);
+		ASTNode::SetDefaults(n, iso);
 		n->type = FUNC;
 		n->body = NULL;
 		n->used = false;
@@ -230,7 +231,7 @@ namespace internal{
 	ASTFuncCallExpr* ASTFuncCallExpr::New(Isolate* iso){
 		void* p = iso->GetMemory(sizeof(ASTFuncCallExpr));
 		ASTFuncCallExpr* n = new(p) ASTFuncCallExpr();
-		ASTNode::SetDefaults(n);
+		ASTNode::SetDefaults(n, iso);
 		n->type = FUNC_CALL;
 		n->isNew = false;
 		n->pos = 0;
@@ -244,7 +245,7 @@ namespace internal{
 	ASTObjectInit* ASTObjectInit::New(Isolate* iso){
 		void* p = iso->GetMemory(sizeof(ASTObjectInit));
 		ASTObjectInit* n = new(p) ASTObjectInit();
-		ASTNode::SetDefaults(n);
+		ASTNode::SetDefaults(n, iso);
 		n->type = OBJECT_INIT;
 		n->isNew = false;
 		n->pos = 0;
@@ -258,7 +259,7 @@ namespace internal{
 	ASTArray* ASTArray::New(Isolate* iso, TOKEN rType){
 		void* p = iso->GetMemory(sizeof(ASTArray));
 		ASTArray* n = new(p) ASTArray();
-		ASTNode::SetDefaults(n);
+		ASTNode::SetDefaults(n, iso);
 		n->type = ARRAY;
 		n->arrayType = rType;
 		n->varClass = NULL;
@@ -269,7 +270,7 @@ namespace internal{
 	ASTObject* ASTObject::New(Isolate* iso){
 		void* p = iso->GetMemory(sizeof(ASTObject));
 		ASTObject* n = new(p) ASTObject();
-		ASTNode::SetDefaults(n);
+		ASTNode::SetDefaults(n, iso);
 		n->type = OBJECT;
     return n;
 	}
@@ -277,7 +278,7 @@ namespace internal{
 	ASTIf* ASTIf::New(Isolate* iso){
 		void* p = iso->GetMemory(sizeof(ASTIf));
 		ASTIf* n = new(p) ASTIf();
-		ASTNode::SetDefaults(n);
+		ASTNode::SetDefaults(n, iso);
 		n->type = IF;
 		n->conditions = NULL;
 		n->block = NULL;
@@ -287,7 +288,7 @@ namespace internal{
 	ASTElse* ASTElse::New(Isolate* iso){
 		void* p = iso->GetMemory(sizeof(ASTElse));
 		ASTElse* n = new(p) ASTElse();
-		ASTNode::SetDefaults(n);
+		ASTNode::SetDefaults(n, iso);
 		n->type = ELSE;
 		n->ifStmt = NULL;
 		n->conditions = NULL;
@@ -299,7 +300,7 @@ namespace internal{
 	ASTWhile* ASTWhile::New(Isolate* iso){
 		void* p = iso->GetMemory(sizeof(ASTWhile));
 		ASTWhile* n = new(p) ASTWhile();
-		ASTNode::SetDefaults(n);
+		ASTNode::SetDefaults(n, iso);
 		n->type = WHILE;
 		n->conditions = NULL;
 		n->block = NULL;
@@ -309,7 +310,7 @@ namespace internal{
 	ASTFor* ASTFor::New(Isolate* iso){
 		void* p = iso->GetMemory(sizeof(ASTFor));
 		ASTFor* n = new(p) ASTFor();
-		ASTNode::SetDefaults(n);
+		ASTNode::SetDefaults(n, iso);
 		n->type = FOR;
 		n->var = NULL;
 		n->conditions = NULL;
@@ -321,7 +322,7 @@ namespace internal{
 	ASTTryCatch* ASTTryCatch::New(Isolate* iso){
 		void* p = iso->GetMemory(sizeof(ASTTryCatch));
 		ASTTryCatch* n = new(p) ASTTryCatch();
-		ASTNode::SetDefaults(n);
+		ASTNode::SetDefaults(n, iso);
 		n->type = TRY_CATCH;
 		n->tryBlock = NULL;
 		n->catchFunc = NULL;
@@ -331,7 +332,7 @@ namespace internal{
 	ASTThrow* ASTThrow::New(Isolate* iso){
 		void* p = iso->GetMemory(sizeof(ASTThrow));
 		ASTThrow* n = new(p) ASTThrow();
-		ASTNode::SetDefaults(n);
+		ASTNode::SetDefaults(n, iso);
 		n->type = THROW;
 		n->obj = NULL;
     return n;
@@ -340,7 +341,7 @@ namespace internal{
 	ASTImport* ASTImport::New(Isolate* iso){
 		void* p = iso->GetMemory(sizeof(ASTImport));
 		ASTImport* n = new(p) ASTImport();
-		ASTNode::SetDefaults(n);
+		ASTNode::SetDefaults(n, iso);
 		n->type = IMPORT;
     return n;
 	}
@@ -348,7 +349,7 @@ namespace internal{
 	ASTInclude* ASTInclude::New(Isolate* iso){
 		void* p = iso->GetMemory(sizeof(ASTInclude));
 		ASTInclude* n = new(p) ASTInclude();
-		ASTNode::SetDefaults(n);
+		ASTNode::SetDefaults(n, iso);
 		n->type = INCLUDE;
     return n;
 	}
@@ -356,7 +357,7 @@ namespace internal{
 	ASTFile* ASTFile::New(Isolate* iso){
 		void* p = iso->GetMemory(sizeof(ASTFile));
 		ASTFile* n = new(p) ASTFile();
-		ASTNode::SetDefaults(n);
+		ASTNode::SetDefaults(n, iso);
 		n->type = FILE;
 		n->scope = NULL;
     return n;

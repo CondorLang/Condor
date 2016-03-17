@@ -21,6 +21,7 @@ namespace internal{
 		std::map<Isolate*, std::map<size_t, Script*> > scripts;
 		std::vector<std::string> inProgress;
 		std::vector<std::string> imported;
+		int nextAstId;
 	public:
 		Context();
 		~Context();
@@ -34,6 +35,7 @@ namespace internal{
 		void RemoveFromInProgress(std::string str);
 		ASTNode* GetExportedNode(Isolate* iso, std::string name);
 		void PrintExported(Isolate* iso);
+		int GetNextAstId();
 	};
 
 } // namespace internal

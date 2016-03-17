@@ -25,7 +25,7 @@ $(EXECUTABLE): $(OBJECTS)
 -include $(OBJECTS:.o=.d)
 
 lib:
-	ar cr ./build/libcobra.a $(wildcard src/*/*/*/*.o) $(wildcard src/*/*/*.o) $(wildcard src/*/*.o) $(wildcard src/*.o)
+	@ar cr ./build/libcobra.a $(wildcard src/*/*/*/*.o) $(wildcard src/*/*/*.o) $(wildcard src/*/*.o) $(wildcard src/*.o)
 
 .cc.o: $(OBJS)
 	$(CC) $(CFLAGS) $< -o $@

@@ -166,6 +166,7 @@ namespace internal{
 		else{
 			func = (ASTFunc*) GetObjectInScope(call, scope);
 		}
+		if (func == NULL) throw Error::UNDEFINED_FUNC;
 		for (int i = 0; i < func->args.size(); i++){
 			ASTVar* pv = (ASTVar*) func->args[i];
 			ASTExpr* aExpr = (ASTExpr*) call->params[i];
@@ -643,6 +644,11 @@ namespace internal{
 					unary->assignType = funcCall->func->returnType;
 					break;
 				}
+				case LITERARY: {
+					ASTLiterary* lit = (ASTLiterary*) unary->value;
+					unary->assignType = lit->kind;
+					break;
+				}
 			}
 		}
 	}
@@ -782,7 +788,6 @@ namespace internal{
 			member->object = kThis;
 		}
 		std::string lookupValue = member->member->name;
-
 		if (member->member->type == BINARY){
 			ASTBinaryExpr* binary = (ASTBinaryExpr*) member->member;
 			lookupValue = binary->Left->name;
@@ -799,10 +804,16 @@ namespace internal{
 			ASTIdent* ident = (ASTIdent*) member->object;
 			if (ident->value == NULL){
 				ASTNode* value = GetObjectInScope(ident, scope);
+				if (member->id == value->id){
+					value = GetObjectInScope(ident, scope->outer);
+					obj = GetObjectInNode(value);
+					if (value->type == VAR) ((ASTVar*) value)->varType = OBJECT;
+					ident->value = obj;
+				}
+				else ident->value = value;
 				if (value == NULL) {	
 					throw Error::UNDEFINED_OBJECT;
 				}
-				ident->value = value;
 				if (value->type == OBJECT) obj = (ASTObject*) value;
 			}
 		}
@@ -817,7 +828,9 @@ namespace internal{
 				ASTArray* ary = (ASTArray*) ident->value;
 				if (ary->base != NULL) obj = ary->base->base;
 			}
-			else throw Error::UNDEFINED_OBJECT;
+			else {
+				throw Error::UNDEFINED_OBJECT;
+			}
 		}
 		if (obj->type == IDENT){
 			ASTNode* n = GetObjectInScopeByString(obj->name, scope);
@@ -827,6 +840,7 @@ namespace internal{
 		bool cont = false;
 		if (obj->members.empty()) throw Error::INVALID_OBJECT_MEMBER;
 		for (int i = 0; i < obj->members.size(); i++){
+			if (member->name != "this" && obj->members[i]->visibility == vPRIVATE) continue; // TODO: apply protected also
 			if (obj->members[i] == NULL) throw Error::CORRUPT_OBJECT;
 			if (obj->members[i]->name == lookupValue){
 				ASTNode* target = obj->members[i];
@@ -1266,6 +1280,23 @@ namespace internal{
 		}
 		CloseScope();
 		expandIndent--;
+	}
+
+	ASTObject* Check::GetObjectInNode(ASTNode* node){
+		if (node == NULL) return NULL;
+		int type = (int) node->type;
+		switch (type){
+			case VAR: {
+				ASTVar* var = (ASTVar*) node;
+				return GetObjectInNode(var->varClass);
+			}
+			case IDENT: {
+				ASTIdent* ident = (ASTIdent*) node;
+				return GetObjectInNode(ident->value);
+			}
+			case OBJECT: return (ASTObject*) node;
+			default: return NULL;
+		}
 	}
 
 	bool Check::HasMain(){

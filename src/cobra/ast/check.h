@@ -68,6 +68,7 @@ namespace internal{
 		void ValidateAstNot(ASTNot* astNot);
 		void VerifyTypeConversion(ASTVar* var);
 		bool ValidateParamsAndArgTypes(ASTNode* callp, ASTNode* funcp);
+		ASTObject* GetObjectInNode(ASTNode* node);
 
 	public:
 		Check(){}

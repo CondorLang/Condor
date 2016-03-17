@@ -432,7 +432,7 @@ namespace internal{
 					if (trace) Trace("Parsing", "Object member");
 					Next();
 					ASTExpr* second = ParseOperand();
-					second = ParseFuncCall(second); // here
+					second = ParseFuncCall(second);
 					if (second->type != IDENT && 
 						  second->type != FUNC_CALL && 
 						  second->type != ARRAY_MEMBER &&
@@ -554,7 +554,7 @@ namespace internal{
 
 				return expr;
 			}
-			case LBRACK: {
+			case LBRACK: { // here
 				ASTArrayMemberExpr* ary = ASTArrayMemberExpr::New(isolate);
 				AddRowCol(ary);
 				Next();
@@ -576,8 +576,7 @@ namespace internal{
 							else throw Error::UNEXPECTED_CHARACTER;
 						}
 						Next();
-						Expect(SEMICOLON);
-						Next();
+						if (tok->value == SEMICOLON) Next();
 					}
 					else{
 						ary->value = value;
@@ -678,11 +677,10 @@ namespace internal{
 	 * TODO:
 	 * 	Complete
 	 */
-	ASTExpr* Parser::ParseSimpleStmt(){
+	ASTExpr* Parser::ParseSimpleStmt(bool callNext = true){
 		if (trace) Trace("Parsing", "Simple Statement");
-		Next();
+		if (callNext) Next();
 		int type = (int) tok->value;
-
 		switch (type){
 			case ASSIGN: case ADD_ASSIGN: case SUB_ASSIGN: case MUL_ASSIGN: case DIV_ASSIGN: 
 			case MOD_ASSIGN: case AND_ASSIGN: case OR_ASSIGN: case XOR_ASSIGN: case SHL_ASSIGN: 
@@ -795,6 +793,10 @@ namespace internal{
 		if (trace) Trace("Parsing", "ident start");
 		Expect(IDENT);
 		ASTNode* expr = ParseExpr();
+		/**
+		 * Here
+		 * Issue: This should return a binaryexpr because its an assignment
+		 */
 		if (IsAssignment()){
 			if (expr->type == ARRAY_MEMBER){ // for arrays
 				ASTArrayMemberExpr* aryMem = (ASTArrayMemberExpr*) expr;
@@ -805,10 +807,9 @@ namespace internal{
 			}
 			else if (expr->type == OBJECT_MEMBER_CHAIN){
 				ASTObjectMemberChainExpr* chain = (ASTObjectMemberChainExpr*) expr;
-				chain->value = ParseSimpleStmt();
+				chain->value = ParseSimpleStmt(false);
 				chain->isSetting = true;
-				Expect(SEMICOLON);
-				Next();
+				if (tok->value == SEMICOLON) Next();
 				return chain;
 			}
 			else{
@@ -1058,7 +1059,6 @@ namespace internal{
 				TOKEN rType = tok->value;
 				var = ASTVar::New(isolate);
 				if (rType == IDENT) var->varClass = ParseIdent(false);
-
 				Next();
 				Expect(IDENT);
 				AddRowCol(var);
@@ -1074,7 +1074,6 @@ namespace internal{
 				}
 				if (var == NULL) throw Error::EXPECTED_VARIABLE_TYPE;
 				var->name = name;
-
 				if (tok->value == COMMA) {
 					func->args.push_back(var);
 					Next();

@@ -80,5 +80,9 @@ namespace internal{
 		}
 	}
 
+	int Context::GetNextAstId(){
+		return this->nextAstId++;
+	}
+
 } // namespace internal
 }

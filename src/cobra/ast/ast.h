@@ -41,8 +41,9 @@ namespace internal{
 		int row;
 		int col;
 		bool used;
+		int id;
 		static ASTNode* New(Isolate* iso);
-		static void SetDefaults(ASTNode* node);
+		static void SetDefaults(ASTNode* node, Isolate* iso);
 	};
 
 	class ASTExpr : public ASTNode
