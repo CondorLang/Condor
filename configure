@@ -67,7 +67,8 @@ def start(name, className):
     toFile(bytesname, out)
 
 if __name__ == "__main__":
-    if options.internalFiles:
+    # if options.internalFiles:
+    if True:
         start('src/cobra/types/strings/string.cb', 'String')
         start('src/cobra/types/try_catch/exception.cb', 'Exception')
         start('src/cobra/types/array/array.cb', 'Array')

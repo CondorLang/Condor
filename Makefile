@@ -15,7 +15,7 @@ all:
 	make lib
 
 cb: 
-	./configure.py -f
+	./configure -f
 
 buildAll: $(SOURCES) $(EXECUTABLE)
     
