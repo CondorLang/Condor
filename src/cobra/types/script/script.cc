@@ -125,8 +125,8 @@ namespace internal{
 			printf("Did not compile: %s\n", absolutePath.c_str());
 		}
 		isolate->RunGC();
-		codegen = Codegen::New(isolate);
-		codegen->Process(main);
+		// codegen = Codegen::New(isolate);
+		// codegen->Process(main);
 	}
 
 	void Script::SetIncludes(){

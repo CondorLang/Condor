@@ -1,9 +1,7 @@
 #mode "strict";
 
-func Add(int a, int b){
-	return a + b;
-}
+include "tests/array.cb";
 
 func main(){
-	return Add(1, 1);
+
 }
