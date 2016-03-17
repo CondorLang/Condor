@@ -1,22 +1,9 @@
 #mode "strict";
 
-//include "tests/string.cb";
-// include "tests/int.cb";
-// include "tests/college.cb";
-// include "tests/xml.cb";
-// include "tests/console.cb";
-// include "tests/array.cb";
-
-// import "string";
-// import "exception";
-
-object Fruit {
-	string name;
-	func Fruit(string name){
-		this.name = name;
-	}
+func Add(int a, int b){
+	return a + b;
 }
 
-func main(string args[], int argc){
-	Fruit apple = new Fruit("Apple");
+func main(){
+	return Add(1, 1);
 }

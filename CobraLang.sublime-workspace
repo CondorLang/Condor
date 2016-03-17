@@ -4,205 +4,549 @@
 		"selected_items":
 		[
 			[
-				"Heap",
-				"HeapObject"
+				"all",
+				"allowNative"
 			],
 			[
-				"Hea",
-				"HeapObject"
+				"INVAL",
+				"INVALID_FUNCTION_CALL"
 			],
 			[
-				"ASTOB",
-				"ASTObjectInit"
+				"ASTFU",
+				"ASTFuncCallExpr"
 			],
 			[
-				"Val",
-				"ValidateStmt"
+				"PareFun",
+				"ParseFuncCall"
 			],
 			[
-				"mem",
-				"members"
+				"UN",
+				"UNDEFINED_FUNC"
 			],
 			[
-				"ASTOb",
-				"ASTObject"
+				"GetObj",
+				"GetObjectInScope"
 			],
 			[
-				"INT",
-				"INTERNAL_TOKEN"
+				"OBJ",
+				"OBJECT"
 			],
 			[
-				"Pars",
-				"parseFloat"
+				"GetOb",
+				"GetObjectInScope"
 			],
 			[
-				"parse",
-				"parseFloat"
+				"obj",
+				"object"
 			],
 			[
-				"str",
-				"str2ab"
+				"ASTO",
+				"ASTObjectMemberChainExpr"
 			],
 			[
-				"surv",
-				"surveys"
+				"OBJE",
+				"OBJECT_MEMBER_CHAIN"
 			],
 			[
-				"revi",
-				"reviewed"
+				"FUNC",
+				"FUNC_CALL"
 			],
 			[
-				"ava",
-				"availableSurveys"
+				"ASTUn",
+				"ASTUnaryExpr"
 			],
 			[
-				"Clo",
-				"closeOverlay"
+				"arra",
+				"arrayType"
 			],
 			[
-				"sel",
-				"selected"
+				"AST",
+				"ASTObjectMemberChainExpr"
 			],
 			[
-				"sug",
-				"suggestions"
+				"RBR",
+				"RBRACE"
 			],
 			[
-				"remov",
-				"removeClass"
-			],
-			[
-				"show",
-				"showSemesterMenu"
-			],
-			[
-				"semest",
-				"semesters"
-			],
-			[
-				"getSem",
-				"getCurrentSemester"
-			],
-			[
-				"getSm",
-				"getCurrentSemester"
-			],
-			[
-				"revie",
-				"reviewSurveys"
-			],
-			[
-				"Open",
-				"OpenScope"
-			],
-			[
-				"Valid",
-				"ValidateStmt"
-			],
-			[
-				"VAL",
-				"ValidateIdent"
-			],
-			[
-				"ini",
-				"initEmail"
-			],
-			[
-				"tgl",
-				"tglEmails"
-			],
-			[
-				"survye",
-				"survey"
-			],
-			[
-				"ASTP",
-				"ASTParamVar"
-			],
-			[
-				"var",
-				"varType"
-			],
-			[
-				"Get",
-				"GetTokenString"
-			],
-			[
-				"retu",
-				"returnType"
-			],
-			[
-				"re",
-				"returnVars"
-			],
-			[
-				"ret",
-				"returnVar"
-			],
-			[
-				"sur",
-				"surveys"
-			],
-			[
-				"instruc",
-				"instructors"
-			],
-			[
-				"ent",
-				"enterEmail-input"
-			],
-			[
-				"ass",
-				"assignType"
-			],
-			[
-				"as",
-				"assignType"
-			],
-			[
-				"set",
-				"SetRowCol"
+				"LB",
+				"LBRACE"
 			],
 			[
 				"Set",
 				"SetRowCol"
 			],
 			[
-				"back",
-				"background-color"
+				"ASTArr",
+				"ASTArray"
+			],
+			[
+				"ASTAR",
+				"ASTArrayMemberExpr"
+			],
+			[
+				"ValidateArr",
+				"ValidateArrayMember"
+			],
+			[
+				"ARRAY",
+				"ARRAY_MEMBER"
+			],
+			[
+				"Strin",
+				"GetTokenString"
+			],
+			[
+				"Val",
+				"ValidateStmt"
+			],
+			[
+				"ParseArr",
+				"ParseArrayInit"
+			],
+			[
+				"memb",
+				"members"
+			],
+			[
+				"te",
+				"testCase"
+			],
+			[
+				"ASTFun",
+				"ASTFuncCallExpr"
+			],
+			[
+				"testb",
+				"testBool2"
+			],
+			[
+				"test",
+				"testBool"
+			],
+			[
+				"found",
+				"foundFunc"
+			],
+			[
+				"loo",
+				"lookupValue"
+			],
+			[
+				"cole",
+				"college"
+			],
+			[
+				"colleg",
+				"colleges"
+			],
+			[
+				"sec",
+				"sections"
+			],
+			[
+				"pr",
+				"proximity"
+			],
+			[
+				"proto",
+				"prototype"
+			],
+			[
+				"build",
+				"buildAll"
+			],
+			[
+				"sub",
+				"subs"
+			],
+			[
+				"resu",
+				"resultTxt"
+			],
+			[
+				"group",
+				"group"
+			],
+			[
+				"out",
+				"outputSubs"
+			],
+			[
+				"input",
+				"inputSubs"
+			],
+			[
+				"outp",
+				"outputSubs"
+			],
+			[
+				"folder",
+				"folderId"
+			],
+			[
+				"share",
+				"shareFolderEmail"
+			],
+			[
+				"surve",
+				"surveys"
+			],
+			[
+				"surv",
+				"surveyId"
 			],
 			[
 				"survey",
-				"openSurveyData"
+				"surveyId"
 			],
 			[
-				"enc",
-				"encrypt"
+				"sur",
+				"surveyEndDate"
+			],
+			[
+				"fold",
+				"folder"
+			],
+			[
+				"mod",
+				"modal"
+			],
+			[
+				"par",
+				"params"
+			],
+			[
+				"fol",
+				"folderId"
+			],
+			[
+				"pare",
+				"parents"
+			],
+			[
+				"parent",
+				"parentId"
+			],
+			[
+				"pri",
+				"print_r"
+			],
+			[
+				"sharedW",
+				"sharedWith"
+			],
+			[
+				"sharedWi",
+				"sharedWithId"
+			],
+			[
+				"Genera",
+				"GeneratePassword"
+			],
+			[
+				"border",
+				"border-top-right-radius"
+			],
+			[
+				"border-ra",
+				"border-top-left-radius"
+			],
+			[
+				"in",
+				"inline-block"
+			],
+			[
+				"border-rad",
+				"border-radius"
+			],
+			[
+				"pos",
+				"position"
+			],
+			[
+				"wid",
+				"width"
+			],
+			[
+				"border-bot",
+				"border-bottom-right-radius"
+			],
+			[
+				"border-radi",
+				"border-top-right-radius"
+			],
+			[
+				"border-to",
+				"border-top-right-radius"
+			],
+			[
+				"pat",
+				"patterns"
+			],
+			[
+				"case",
+				"caseCollect"
+			],
+			[
+				"cho",
+				"chosen"
+			],
+			[
+				"chos",
+				"chosenSize"
+			],
+			[
+				"pro",
+				"processPair"
+			],
+			[
+				"sen",
+				"sentences"
+			],
+			[
+				"word",
+				"wordTotals"
+			],
+			[
+				"txt",
+				"txtWords"
+			],
+			[
+				"ob",
+				"observation"
+			],
+			[
+				"high",
+				"highestItem"
+			],
+			[
+				"conte",
+				"contextId"
+			],
+			[
+				"note",
+				"noteId"
+			],
+			[
+				"cont",
+				"contextId"
+			],
+			[
+				"close",
+				"closeContext"
+			],
+			[
+				"pal",
+				"player"
+			],
+			[
+				"pla",
+				"player1"
+			],
+			[
+				"setP",
+				"setPathsRecursive"
+			],
+			[
+				"Mod",
+				"ModuleId"
+			],
+			[
+				"Pos",
+				"PostEndDate"
+			],
+			[
+				"getDi",
+				"getDiscussionTopics"
+			],
+			[
+				"isCo",
+				"isContentItem"
+			],
+			[
+				"isC",
+				"isContentType"
+			],
+			[
+				"getM",
+				"getModulesAndTopicsRecursive"
+			],
+			[
+				"loop",
+				"loopThroughTopics"
+			],
+			[
+				"rep",
+				"replaceText"
+			],
+			[
+				"term",
+				"termGlobal"
+			],
+			[
+				"getSe",
+				"getSelectionText"
+			],
+			[
+				"creat",
+				"creationDate"
+			],
+			[
+				"isol",
+				"isolateId"
+			],
+			[
+				"iso",
+				"isolateId"
+			],
+			[
+				"rou",
+				"routeParams"
+			],
+			[
+				"create",
+				"createIsolateCtrl"
+			],
+			[
+				"crea",
+				"createIsolate"
+			],
+			[
+				"contex",
+				"contextsById"
+			],
+			[
+				"is",
+				"isolatesById"
+			],
+			[
+				"isoalte",
+				"isolateId"
+			],
+			[
+				"getCurr",
+				"getCurrentCode"
+			],
+			[
+				"wee",
+				"weekAsInt"
+			],
+			[
+				"str_rep",
+				"str_replace"
+			],
+			[
+				"time",
+				"timestamp"
+			],
+			[
+				"json",
+				"json_decode"
+			],
+			[
+				"isolat",
+				"isolateId"
+			],
+			[
+				"isola",
+				"isolateId"
+			],
+			[
+				"resl",
+				"relationships"
+			],
+			[
+				"que",
+				"queryTemplate"
+			],
+			[
+				"ce",
+				"checkKeys"
+			],
+			[
+				"check",
+				"checkKeys"
+			],
+			[
+				"aud",
+				"audit"
+			],
+			[
+				"che",
+				"checkKeys"
+			],
+			[
+				"pars",
+				"parsed"
+			],
+			[
+				"sel",
+				"selectedDay"
+			],
+			[
+				"_err",
+				"_error_in_progress"
+			],
+			[
+				"hea",
+				"headers"
+			],
+			[
+				"ut",
+				"utf-8"
+			],
+			[
+				"Get",
+				"GetFolderByServerRelativeUrl"
+			],
+			[
+				"error",
+				"errors"
+			],
+			[
+				"err",
+				"errXml"
+			],
+			[
+				"XMLHT",
+				"XMLHttpRequest"
+			],
+			[
+				"sele",
+				"selectedSurvey"
 			]
 		]
 	},
 	"buffers":
 	[
-		{
-			"file": "src/cobra/types/script/script.cc",
-			"settings":
-			{
-				"buffer_size": 7382,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/cobra/mem/heap.h",
-			"settings":
-			{
-				"buffer_size": 2843,
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "Packages/Makefile/Make.sublime-build",
 	"build_system_choices":
 	[
+		[
+			[
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					""
+				],
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					"Run"
+				],
+				[
+					"Packages/Makefile/Make.sublime-build",
+					""
+				],
+				[
+					"Packages/Makefile/Make.sublime-build",
+					"Clean"
+				]
+			],
+			[
+				"Packages/Makefile/Make.sublime-build",
+				""
+			]
+		],
 		[
 			[
 				[
@@ -223,13 +567,129 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 107.0,
-		"last_filter": "remove",
+		"height": 27.0,
+		"last_filter": "",
 		"selected_items":
 		[
 			[
+				"auto",
+				"Auto indent"
+			],
+			[
+				"beau",
+				"HTMLBeautify"
+			],
+			[
+				"html",
+				"Set Syntax: HTML"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"java",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"xml",
+				"Set Syntax: XML"
+			],
+			[
+				"jav",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"jac",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"set syntax: ja",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"python",
+				"Set Syntax: Python"
+			],
+			[
+				"remov",
+				"Package Control: Remove Package"
+			],
+			[
+				"js",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
 				"remove",
 				"Package Control: Remove Package"
+			],
+			[
+				"",
+				"Auto indent"
+			],
+			[
+				"aut",
+				"Auto indent"
+			],
+			[
+				"xpath",
+				"XPath: Goto close tag"
+			],
+			[
+				"inde",
+				"Indent XML"
+			],
+			[
+				"git add",
+				"Git: Add..."
+			],
+			[
+				"json",
+				"Indent JSON"
+			],
+			[
+				"ind",
+				"Indent XML"
+			],
+			[
+				"index",
+				"Indent XML"
+			],
+			[
+				"sql",
+				"Set Syntax: SQL"
+			],
+			[
+				"inden",
+				"Auto indent"
+			],
+			[
+				"instl",
+				"Package Control: Install Package"
+			],
+			[
+				"enable",
+				"Package Control: Enable Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"iden",
+				"Indent XML"
 			],
 			[
 				"SublimeGDB",
@@ -240,24 +700,8 @@
 				"SublimeGDB: Start Debugging"
 			],
 			[
-				"instal",
-				"Package Control: Install Package"
-			],
-			[
 				"i",
 				"Indent XML"
-			],
-			[
-				"xml",
-				"Set Syntax: XML"
-			],
-			[
-				"iden",
-				"Indent XML"
-			],
-			[
-				"instl",
-				"Package Control: Install Package"
 			]
 		],
 		"width": 449.0
@@ -267,6 +711,8 @@
 		"height": 126.0,
 		"history":
 		[
+			"make",
+			"clear",
 			"import urllib.request,os,hashlib; h = 'eb2297e1a458f27d836c04bb0cbaf282' + 'd0e7a3098092775ccb37ca9d6b2e4b7d'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
 		]
 	},
@@ -279,77 +725,136 @@
 		"side_bar_visible": false,
 		"status_bar_visible": false
 	},
-	"expanded_folders":
-	[
-		"/Users/willdech/Documents/dev/CobraLang",
-		"/Users/willdech/Documents/dev/CobraLang/src",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem",
-		"/Users/willdech/Documents/dev/CobraLang/test"
-	],
 	"file_history":
 	[
-		"/Users/willdech/Documents/dev/CobraLang/Makefile",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/heap.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/script/script.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/handle.cc",
-		"/Users/willdech/Documents/dev/CobraLang/log.txt",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/check.h",
-		"/Users/willdech/Documents/dev/CobraLang/test/tests/int.cb",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/codegen/codegen.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/codegen/symbols.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/codegen/tmp.asm",
 		"/Users/willdech/Documents/dev/CobraLang/test/test.cb",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/codegen/codegen.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/codegen/hello.asm",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/parser.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/parser.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/check.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/handle.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/isolate.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/isolate.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/internal.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/ast.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/internal.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/scope.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/scope.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/check.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/ast.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/flags.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/flags.h",
+		"/Users/willdech/Documents/dev/CobraLang/Makefile",
+		"/Users/willdech/Documents/dev/CobraLang/CobraLang.sublime-project",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/allocate.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/allocate.h",
+		"/Users/willdech/Documents/dev/Systems/moe/projects/byui.js/test/index.html",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/api/index.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/api/geo/block.csv",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/api/geo/loc.csv",
+		"/Users/willdech/Downloads/GeoLiteCity_20160301/GeoLiteCity-Blocks.csv",
+		"/Users/willdech/Downloads/GeoLiteCity_20160301/GeoLiteCity-Location.csv",
+		"/Users/willdech/Documents/dev/Systems/moe/projects/byui.js/src/csv.js",
+		"/Users/willdech/Documents/dev/CobraLang/test/tests/array.cb",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/array/array.cb",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/context.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/token/token.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/error/error.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/error/error.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/strings/string.cb",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/parser.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/script/script.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/token/token.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/token/token.h",
-		"/Users/willdech/Documents/dev/CobraLang/README.md",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/ast.h",
+		"/Users/willdech/Documents/dev/CobraLang/test/tests/college.cb",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/script/script.cc",
 		"/Users/willdech/Documents/dev/CobraLang/test/main.cc",
-		"/Users/willdech/Documents/dev/CobraLang/CobraLang.sublime-project",
-		"/Users/willdech/Library/Application Support/Sublime Text 3/Packages/User/SublimeGDB.sublime-settings",
-		"/Users/willdech/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/scanner/scanner.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/api.cc",
-		"/Users/willdech/Documents/dev/CobraLang/include/Cobra.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/clock.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/context.cc",
-		"/Users/willdech/Downloads/allenjam (2).xml",
-		"/Users/willdech/Downloads/allenjam.xml",
-		"/Users/willdech/Downloads/allenjam (1).xml",
-		"/Users/willdech/Desktop/ier/src/js/aes.js",
-		"/Users/willdech/Desktop/ier/src/js/url.js",
-		"/Users/willdech/Desktop/ier/src/js/current.js",
-		"/Users/willdech/Desktop/ier/src/js/graph.js",
-		"/Users/willdech/Desktop/ier/src/js/ier.js",
-		"/Users/willdech/Desktop/ier/src/js/last.js",
-		"/Users/willdech/Desktop/ier/src/js/ctrl.js",
-		"/Users/willdech/Desktop/ier/src/js/data.js",
-		"/Users/willdech/Desktop/ier/src/js/sharepoint.js",
-		"/Users/willdech/Downloads/Master/aasej.xml",
-		"/Users/willdech/Desktop/ier/src/js/crypto.js",
-		"/Users/willdech/Desktop/ier/build/crypto.js",
+		"/Users/willdech/Documents/dev/CobraLang/test/tests/console.cb",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/strings/string.cb",
 		"/Users/willdech/Documents/dev/CobraLang/test/tests/string.cb",
-		"/Users/willdech/Desktop/ier/build/ier.js",
-		"/Users/willdech/Downloads/James Allen (3).csv",
-		"/Users/willdech/Downloads/James Allen (2).csv",
-		"/Users/willdech/Downloads/map (3).xml",
-		"/Users/willdech/Downloads/map (1).xml",
-		"/Users/willdech/Desktop/ier/index.html",
-		"/Users/willdech/Downloads/aasej (1).xml",
-		"/Users/willdech/Desktop/ier/src/js/error.js",
-		"/Users/willdech/Desktop/ier/Gruntfile.js",
-		"/Users/willdech/Desktop/ier/css/style.css",
-		"/Users/willdech/Downloads/map (2).xml",
-		"/Applications/XAMPP/xamppfiles/htdocs/ier/dashboard/tgl.html",
-		"/Users/willdech/Desktop/ier/css/loading.css",
-		"/Users/willdech/Library/Application Support/Sublime Text 3/Packages/Default/Preferences.sublime-settings"
+		"/Users/willdech/Desktop/Dashboard/css/style.css",
+		"/Users/willdech/Desktop/Dashboard/index.html",
+		"/Users/willdech/Downloads/script.js",
+		"/Users/willdech/Desktop/Dashboard/sort.js",
+		"/Users/willdech/Documents/dev/Systems/moe/projects/byui.js/Gruntfile.js",
+		"/Users/willdech/Documents/dev/Systems/moe/projects/ims/Gruntfile.js",
+		"/Users/willdech/Documents/dev/Systems/moe/projects/byui.js/src/thread.js",
+		"/Users/willdech/Documents/dev/Systems/moe/projects/duedateadjustment/new/lib/byui.js",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/test.php",
+		"/Users/willdech/Documents/dev/Systems/moe/projects/duedateadjustment/new/valence.js",
+		"/Users/willdech/Documents/dev/Systems/moe/projects/duedateadjustment/new/item.js",
+		"/Users/willdech/Desktop/word.js",
+		"/Users/willdech/Documents/dev/Systems/Data Suite/src/csv/csv.h",
+		"/Users/willdech/Documents/dev/Systems/Data Suite/src/main.cc",
+		"/Users/willdech/Documents/dev/Systems/Data Suite/src/api.cc",
+		"/Users/willdech/Documents/dev/Systems/Data Suite/src/csv/csv.cc",
+		"/Users/willdech/Documents/dev/Systems/Data Suite/src/api.h",
+		"/Users/willdech/Documents/dev/osprey/Connected/src/node.h",
+		"/Users/willdech/Documents/dev/Systems/moe/projects/PatternRecognitionApplication/build/pra2.js",
+		"/Users/willdech/Documents/dev/Systems/Data Suite/Makefile",
+		"/Users/willdech/Documents/dev/osprey/Connected/Makefile",
+		"/Users/willdech/Documents/dev/Systems/moe/projects/PatternRecognitionApplication/test/csv_test.js",
+		"/Users/willdech/Documents/dev/Systems/moe/projects/PatternRecognitionApplication/src/string/substringAppend.js",
+		"/Users/willdech/Documents/dev/Systems/moe/projects/PatternRecognitionApplication/src/string/case.js",
+		"/Users/willdech/Documents/dev/Systems/moe/projects/PatternRecognitionApplication/test/index.html",
+		"/Users/willdech/Documents/dev/Systems/moe/projects/PatternRecognitionApplication/build/test.js",
+		"/Users/willdech/Documents/dev/Systems/moe/projects/PatternRecognitionApplication/build/pra.js",
+		"/Users/willdech/Documents/dev/v8/src/js/messages.js",
+		"/Users/willdech/Documents/dev/Systems/moe/projects/PatternRecognitionApplication/src/string/init.js",
+		"/Users/willdech/Desktop/views.html",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/views/surveys.html",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/css/src/button/button.css",
+		"/Applications/XAMPP/xamppfiles/htdocs/Old/dashboard/index.html",
+		"/Applications/XAMPP/xamppfiles/htdocs/Old/dashboard/js/ctrl.js",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/lib/folder.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/lib/survey.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/js/build/ctrl.js",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/api/lib/survey.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/lib/user.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/api/lib/folder.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/js/src/modal/modal.js",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/css/src/modal/modal.css",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/index.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/login.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/css/src/login/login.css",
+		"/Users/willdech/Documents/dev/Systems/moe/projects/HTML-Query/Gruntfile.js",
+		"/Users/willdech/Documents/dev/Systems/moe/projects/HTML-Query/index.html",
+		"/Users/willdech/Documents/dev/Systems/moe/projects/HTML-Query/src/ctrl.js",
+		"/Users/willdech/Documents/dev/Systems/moe/.gitmodules",
+		"/Users/willdech/Documents/dev/Systems/moe/projects/HTML-Query/src/unzip.js",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/css/src/list/list.css",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/css/src/typeography/header.css",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/include/menu.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/css/src/breadcrum/breadcrum.css",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/css/src/sidebar/left.css",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/index.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/css/src/form/form.css",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/.htaccess",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/css/src/form/search.css",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/css/src/containers/container.css",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/Gruntfile.js",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/css/build/lms.css",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/vendor/slim/slim/tests/Middleware/SessionCookieTest.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/lib/db.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/api/lib/user.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/lib/cookie.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/UltraNotes/lib/note.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/UltraNotes/api/lib/isolate.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/tacit/api/v1/class/user.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/tacit/api/v1/class/cookie.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/api/lib/result.php",
+		"/Users/willdech/Documents/dev/Systems/moe/projects/PatternRecognitionApplication/src/string/trim.js",
+		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/include/menu.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/index.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/todo.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/profile.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/index.html",
+		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/css/src/card/card.css",
+		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/profile.html",
+		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/todo.html",
+		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/css/src/tiles/tiles.css",
+		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/css/src/sidebar/left.css",
+		"/Applications/XAMPP/xamppfiles/htdocs/lms/attempt1/api/index.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/lms/attempt1/index.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/css/src/notification/notification.css",
+		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/js/src/window/window.js",
+		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/js/src/sidebar/item.js"
 	],
 	"find":
 	{
@@ -360,6 +865,62 @@
 		"height": 93.0,
 		"where_history":
 		[
+			"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser",
+			"/Users/willdech/Documents/dev/CobraLang/src/cobra/token",
+			"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser",
+			"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast",
+			"/Users/willdech/Documents/dev/CobraLang/src/cobra",
+			"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast",
+			"/Users/willdech/Documents/dev/CobraLang/src/cobra",
+			"/Users/willdech/Documents/dev/Systems/moe/projects",
+			"/Applications/XAMPP/xamppfiles/htdocs/studim",
+			"/Users/willdech/Documents/dev/Systems/moe/projects/ims/src",
+			"/Users/willdech/Documents/dev/Systems/moe/projects/ims/src/admin",
+			"/Users/willdech/Documents/dev/Systems/moe/projects/duedateadjustment/src",
+			"/Users/willdech/Documents/dev/osjs/OS.js-v2/src/client/javascript",
+			"/Users/willdech/Documents/dev/Systems/moe/projects/ims",
+			"/Users/willdech/Documents/dev/Systems/moe/projects/ims/src/admin",
+			"/Users/willdech/Documents/dev/Systems/moe/projects/ims/src",
+			"/Users/willdech/Documents/dev/Systems/moe/projects/ims/src/admin",
+			"/Users/willdech/Documents/dev/Systems/moe/projects/ims/src",
+			"/Users/willdech/Documents/dev/Systems/moe/projects/duedateadjustment/src",
+			"/Users/willdech/Documents/dev/nwjs/src/content/nw/src",
+			"/Users/willdech/Documents/dev/nwjs/src/content/nw",
+			"/Users/willdech/Documents/dev/nwjs/src/content/nw/src",
+			"/Users/willdech/Documents/dev/nwjs/src/content/nw",
+			"/Users/willdech/Documents/dev/nwjs/src/chrome",
+			"/Users/willdech/Documents/dev/nwjs/src/components/gcm_driver",
+			"/Users/willdech/Documents/dev/Systems/ims/src",
+			"/Users/willdech/Documents/dev/Systems/ims/src/admin",
+			"/Users/willdech/Documents/dev/Systems/ims/src",
+			"/Users/willdech/Documents/dev/Systems/ims/src/admin",
+			"/Users/willdech/Documents/dev/Systems/ims/src",
+			"/Users/willdech/Documents/dev/Systems/ims/src/admin",
+			"/Users/willdech/Desktop/ier/src/ims",
+			"/Users/willdech/Documents/dev/Systems/IMS/src",
+			"/Users/willdech/Desktop/ier/src",
+			"/Users/willdech/Documents/dev/Systems/IMS/src",
+			"/Users/willdech/Desktop/ier/src/ims/data",
+			"/Users/willdech/Downloads/a",
+			"/Applications/XAMPP/xamppfiles/htdocs/is",
+			"/Users/willdech/Documents/dev/words",
+			"/Users/willdech/Desktop/ier/src/ims",
+			"/Users/willdech/Documents/dev/words",
+			"/Users/willdech/Desktop/ier/src/ims/data",
+			"/Users/willdech/Desktop/ier/src/ims",
+			"/Users/willdech/Desktop/ier/src",
+			"/Users/willdech/Desktop/ier/src/ims",
+			"/Users/willdech/Desktop/ier/src",
+			"/Users/willdech/Desktop/ier",
+			"/Users/willdech/Desktop/ier/src/js",
+			"/Users/willdech/Desktop/ier/src",
+			"/Users/willdech/Documents/dev/V8",
+			"/Users/willdech/Documents/dev/CobraLang/src",
+			"/Applications/XAMPP/xamppfiles/htdocs/neo/vendor",
+			"/Users/willdech/Documents/dev/CobraLang/src",
+			"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast",
+			"/Users/willdech/Documents/dev/CobraLang/src/cobra",
+			"/Users/willdech/Documents/dev/V8/v8/src",
 			"/Users/willdech/Documents/dev/CobraLang/src"
 		]
 	},
@@ -368,101 +929,134 @@
 		"case_sensitive": false,
 		"find_history":
 		[
-			"items.size",
+			"parsenative",
+			"ASTIdent",
+			"parseint",
+			"parseintn",
+			"// here",
+			"expect(rbrace",
+			"objectinit",
+			"memberchain",
+			"FreeUnnecessaryMemory",
+			"\",\"",
+			"assignment()",
+			"assign",
+			"validatefunc",
+			"kthis",
+			"// GetObjectInScope",
+			"// here",
 			"here",
-			"validateobject(",
-			"newHandle(",
-			"ihand",
-			"imports.",
-			"GetToken",
-			"realpath",
-			"newfromf",
-			"GetObjectInScopeByString",
-			"symbol:",
-			"ier.aes.key",
-			".hexDecode()",
-			"ier.aes.key",
-			"srcElement",
-			"instructor",
-			".hidden",
-			"overlay",
-			"buildi",
-			"building fait",
-			"getPersonSemesterList",
-			"getsemesterconfig",
-			"InstructorList",
-			"prev",
-			"();\n",
-			"land",
-			"&&",
-			"validateBinar",
-			"true",
-			"\"true",
-			"true",
-			"TRUE",
-			"validateliter",
-			"ValidateStmt",
-			"undefined_varia",
-			"parsearray",
-			"array",
-			"here",
-			"args",
-			"ASTArrayMemberExpr",
+			"here ",
 			"GetObjectInScope",
-			"undefined_func",
-			"recent",
-			"weekly hours",
-			"download",
-			"undefined_f",
-			"validatefunccall",
-			"paramvar* ",
-			"ValidateIdent",
-			"operator fou",
-			"validatefunc(",
-			"returnType",
-			"ValidateFuncCall",
-			"ValidateStmt(",
-			"ValidateStmt",
-			"astfunccall",
-			"validateVar",
-			"funccall(",
-			"validateFunc(",
-			"ier.globals.instr",
-			"aim",
-			"aasej",
-			"aase",
-			"talbotam",
-			"ej",
-			"aasej",
-			"getxml",
-			"TGLInstructorStandards",
-			"adkinsr",
-			"abelj",
-			"bartholomewr",
-			"robersona",
-			"jacksons",
-			"pattersonj",
-			"finchd",
-			"brownme",
-			"adamsa",
-			"brownre",
-			"brunnerm",
-			"meltong",
-			"buckj",
-			"brownre",
-			"getPerson",
-			"getPerson().fir",
-			"18278",
-			"fa15",
-			"'",
-			"validateFuncC",
-			"validateFunc",
-			"funcCall(",
-			"TODO",
-			"parser",
-			"all",
-			"backgrou",
-			"url"
+			"array",
+			"->object = ",
+			"member->object = ",
+			"ParseFuncCall(expr);",
+			"array",
+			"astarray*",
+			"astarray",
+			"undefined_ob",
+			"IsBoolean",
+			"lt",
+			"INVALID_CONDITION_FOR_IF_STMT",
+			"ParseStmtList",
+			"parseblock",
+			"validateastn",
+			"astnot",
+			"not",
+			"validatenot",
+			"// here",
+			"here",
+			"ValidateArrayMember",
+			"arrayini",
+			"d: ",
+			"d:",
+			"== COMMA",
+			"while \\(true",
+			"parsearray",
+			"astarray",
+			"parsearray",
+			"parsearray(",
+			"while \\(true\\)",
+			"astarray",
+			"validating ",
+			"// here",
+			"ValidateArrayMember",
+			"ASTArrayMemberExpr",
+			"astarray",
+			"arraymember",
+			":ParseExpr",
+			"parsesimplestmt",
+			" ParseExpr",
+			"ParseExpr(){",
+			"ParseExpr",
+			"astobject",
+			"this",
+			"memberchain",
+			"ValidateObjectChainMember",
+			"operator found",
+			"kthis = ",
+			"member",
+			"gc",
+			"type:",
+			"Var:",
+			"varclass",
+			"varclass = ",
+			"varclass =",
+			"setimports",
+			":cb",
+			"array",
+			"PrintExported",
+			"array",
+			"import",
+			"varClass",
+			"parser->export",
+			"array",
+			"length",
+			"varclass = ",
+			"varclass =",
+			"varclass",
+			"printf",
+			"(STRING){1,}",
+			"string",
+			"param",
+			"GetObjectInScope",
+			"GetObjectInScope(",
+			"array",
+			"INVALID_OBJECT_MEMBER",
+			"invalid_object_member",
+			"varclass = ",
+			"varclass =",
+			"type",
+			"print",
+			"astobject",
+			"members",
+			"validateobjectchainmember",
+			"college",
+			"program",
+			"papa",
+			"window",
+			"HoursStandard",
+			"3.5",
+			"* 3.5",
+			"props",
+			"API_H_",
+			"NODE_H_",
+			"ary",
+			"prototype",
+			" in ",
+			");",
+			"console.log(",
+			".c",
+			"c",
+			"{\n						exit = true;\n					}",
+			"zip",
+			"div",
+			"lms",
+			"time",
+			"GetCurrent",
+			"exists",
+			")'\n"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -470,6 +1064,57 @@
 		"regex": false,
 		"replace_history":
 		[
+			"studim",
+			"",
+			"errAlert",
+			"",
+			"console.log",
+			"gcm_enabled()",
+			"nw13",
+			"Robert Oboso",
+			"Jimmy Stewart",
+			"Billy Ramus",
+			"Jill Smith",
+			"Steve Boxer",
+			"Robert Smith",
+			"Jane Smith",
+			"John Smith",
+			"hex",
+			"o",
+			"osprey",
+			"role.",
+			"name",
+			":",
+			"\"",
+			"elliot.jpg",
+			"img",
+			"parents(",
+			"'Apppple'",
+			"ims.semesters.getCurrentCode();",
+			"S17",
+			"S16",
+			"$_SERVER[\"DOCUMENT_ROOT\"]",
+			"$ROOT",
+			"Maybe",
+			"mysqli_",
+			"$scope['suggestions']",
+			"ims",
+			"email",
+			"ASTNode::SetDefaults(n);\n    return n;",
+			"ASTNode::SetDefaults(n);\nreturn n;",
+			"Token::New(iso, ",
+			"src->",
+			"src.",
+			"",
+			"Token::New(isolate, ",
+			"src.",
+			"",
+			"*) iso",
+			") iso",
+			".text()",
+			"#767676",
+			"",
+			"\\'",
 			"NewPointer(",
 			"target",
 			"\\'"
@@ -483,73 +1128,14 @@
 	"groups":
 	[
 		{
-			"selected": 1,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "src/cobra/types/script/script.cc",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 7382,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								974,
-								974
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 76.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "src/cobra/mem/heap.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2843,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								58,
-								58
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				}
 			]
 		}
 	],
 	"incremental_find":
 	{
-		"height": 23.0
+		"height": 22.0
 	},
 	"input":
 	{
@@ -580,17 +1166,21 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 100.0
+		"height": 120.0
 	},
 	"output.find_results":
 	{
 		"height": 0.0
 	},
+	"output.unsaved_changes":
+	{
+		"height": 728.0
+	},
 	"pinned_build_system": "",
 	"project": "CobraLang.sublime-project",
 	"replace":
 	{
-		"height": 42.0
+		"height": 40.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -599,26 +1189,30 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"messages.js",
+				"v8/src/js/messages.js"
+			]
 		],
 		"width": 0.0
 	},
 	"select_project":
 	{
-		"height": 0.0,
+		"height": 500.0,
 		"last_filter": "",
 		"selected_items":
 		[
 		],
-		"width": 0.0
+		"width": 380.0
 	},
 	"select_symbol":
 	{
-		"height": 0.0,
+		"height": 392.0,
 		"last_filter": "",
 		"selected_items":
 		[
 		],
-		"width": 0.0
+		"width": 701.0
 	},
 	"selected_group": 0,
 	"settings":

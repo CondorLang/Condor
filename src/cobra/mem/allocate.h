@@ -25,6 +25,7 @@ namespace internal{
 		size_t used;
 		size_t size;
 		bool isAllocationChunk;
+		bool isLastChunk;
 		Chunk* next;
 	} Chunk;	
 

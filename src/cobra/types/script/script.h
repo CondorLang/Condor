@@ -10,6 +10,7 @@
 #include "cobra/types/vector/vector.h"
 #include "cobra/types/script/script.h"
 #include "cobra/types/strings/string.h"
+#include "cobra/codegen/codegen.h"
 #include <map>
 #include <fstream>
 #include <streambuf>
@@ -25,6 +26,7 @@ namespace internal{
 	class Handle;
 	class Parser;
 	class Check;
+	class Codegen;
 	template<class T> class Pointer;
 
 	class Script
@@ -49,6 +51,7 @@ namespace internal{
 		std::string sourceCode;
 		Isolate* isolate;
 		bool compiled;
+		Codegen* codegen;
 		std::string GetPathOfImport(std::string import);
 		std::string ParseRelativePath(std::string absolute, std::string path);
 		std::string BackFolder(std::string path);

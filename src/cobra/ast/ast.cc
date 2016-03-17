@@ -236,6 +236,7 @@ namespace internal{
 		n->pos = 0;
 		n->func = NULL;
 		n->scope = NULL;
+		n->isInternal = false;
 		n->assignType = ILLEGAL;
     return n;
 	}

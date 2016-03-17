@@ -19,6 +19,8 @@ namespace internal{
 	#define MEMORY_AUDIT Flags::memoryAudit;
 	#define MEMORY_REQUEST Flags::memoryRequest;
 	#define EXPAND_AST Flags::expandAST;
+	#define ALLOW_NATIVE Flags::allowNative;
+	#define PRINT_ASM Flags::printAsm;
 
 	class Flags
 	 {
@@ -33,6 +35,8 @@ namespace internal{
 	 		static bool memoryAudit;
 	 		static bool memoryRequest;
 	 		static bool expandAST;
+	 		static bool allowNative;
+	 		static bool printAsm;
 	 		static void SetCommandLineFlags(int argc, const char* argv[]);
 	 }; 
 

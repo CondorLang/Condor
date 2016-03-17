@@ -32,6 +32,7 @@ namespace internal{
 		absolutePath = str->GetPath();
 		msgs.SetIsolate(isolate);
 		name = string->name;
+		codegen = NULL;
 	}
 
 	// TODO:
@@ -124,6 +125,8 @@ namespace internal{
 			printf("Did not compile: %s\n", absolutePath.c_str());
 		}
 		isolate->RunGC();
+		codegen = Codegen::New(isolate);
+		codegen->Process(main);
 	}
 
 	void Script::SetIncludes(){

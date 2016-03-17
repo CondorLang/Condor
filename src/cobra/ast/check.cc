@@ -1,4 +1,4 @@
-	#include "check.h"
+#include "check.h"
 #include "cobra/mem/isolate.h"
 #include "cobra/flags.h"
 
@@ -140,6 +140,14 @@ namespace internal{
 		return node;
 	}
 
+	void Check::CallInternal(ASTFuncCallExpr* call){
+		ASTNode* expr = Internal::ParseCall(call->params, call->name, scope);
+		if (expr->type == STRING){
+			ASTString* str = (ASTString*) expr;
+			printf("Type: %s\n", str->value.c_str());
+		}
+	}
+
 	void Check::ValidateFuncCall(ASTFuncCallExpr* call){
 		SetRowCol(call);
 		if (trace) Trace("Calling func", call->name);
@@ -151,7 +159,13 @@ namespace internal{
 		for (int i = 0; i < call->params.size(); i++){
 			ValidateStmt(call->params[i]);
 		}
-		ASTFunc* func = (ASTFunc*) GetObjectInScope(call, scope);
+		ASTFunc* func = NULL;
+		if (call->isInternal){
+			return CallInternal(call);
+		}
+		else{
+			func = (ASTFunc*) GetObjectInScope(call, scope);
+		}
 		for (int i = 0; i < func->args.size(); i++){
 			ASTVar* pv = (ASTVar*) func->args[i];
 			ASTExpr* aExpr = (ASTExpr*) call->params[i];

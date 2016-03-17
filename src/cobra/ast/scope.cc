@@ -6,6 +6,7 @@ namespace internal{
 	Scope::Scope(){
 		count = 1;
 		outer = NULL;
+		isolate = NULL;
 	}
 
 	Scope::~Scope(){}
@@ -15,6 +16,7 @@ namespace internal{
 		Scope* s = new(p) Scope();
 		s->count = 1;
 		s->outer = NULL;
+		s->isolate = iso;
 		return s;
 	}
 

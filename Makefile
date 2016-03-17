@@ -6,6 +6,10 @@ SOURCES=$(wildcard src/*/*/*/*.cc) $(wildcard src/*/*/*.cc) $(wildcard src/*/*.c
 OBJECTS=$(SOURCES:.cc=.o)
 EXECUTABLE=./build/Cobra
 
+mt:
+	make all
+	make test
+
 all: 
 	make buildAll
 	make lib
@@ -42,15 +46,17 @@ shell:
 mem:
 	valgrind --tool=memcheck --leak-check=full --track-origins=yes --dsymutil=yes ./build/Cobra > log.txt 2>&1
 
-mt:
-	make
-	make test
-
 cmt:
 	make clean
 	make cb
 	make
 	make test
+
+asm:
+	# as src/cobra/codegen/test.asm -o src/cobra/codegen/test.o
+	# ld src/cobra/codegen/test.o -e main -o src/cobra/codegen/test
+	# src/cobra/codegen/test
+	/usr/local/bin/nasm -f macho64 src/cobra/codegen/test.asm && ld -macosx_version_min 10.7.0 -e main -lSystem -o src/cobra/codegen/test src/cobra/codegen/test.o && ./src/cobra/codegen/test
 
 d:
 	gdb ./build/Cobra

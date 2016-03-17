@@ -146,10 +146,11 @@ src/api.o: src/api.cc src/api.h src/../include/Cobra.h \
   src/cobra/parser/parser.h src/cobra/mem/handle.h \
   src/cobra/types/strings/string.h \
   src/cobra/types/strings/string-bytes.h src/cobra/parser/internal.h \
-  src/cobra/mem/sizes.h src/cobra/ast/check.h src/cobra/clock.h \
-  src/cobra/shell.h src/cobra/types/array/array-bytes.h \
-  src/cobra/mem/factory.h src/cobra/mem/allocate.h /usr/include/math.h \
-  src/cobra/mem/list.h src/cobra/mem/gc.h
+  src/cobra/mem/sizes.h src/cobra/ast/check.h \
+  src/cobra/codegen/codegen.h src/cobra/clock.h src/cobra/shell.h \
+  src/cobra/types/array/array-bytes.h src/cobra/mem/factory.h \
+  src/cobra/mem/allocate.h /usr/include/math.h src/cobra/mem/list.h \
+  src/cobra/mem/gc.h
 
 src/api.h:
 
@@ -596,6 +597,8 @@ src/cobra/parser/internal.h:
 src/cobra/mem/sizes.h:
 
 src/cobra/ast/check.h:
+
+src/cobra/codegen/codegen.h:
 
 src/cobra/clock.h:
 

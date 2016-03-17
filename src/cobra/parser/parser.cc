@@ -15,6 +15,7 @@ namespace internal{
 		p->currentFunctionScope = NULL;
 		p->trace = TRACE_PARSER;
 		p->printVariables = PRINT_VARIABLES;
+		p->allowNative = ALLOW_NATIVE;
 		p->printCheck = false;
 		p->tok = NULL;
 		p->isolate = iso;
@@ -516,20 +517,20 @@ namespace internal{
 		switch (type){
 			case ADD: case SUB: case MUL: case DIV: case MOD: {
 				if (nonOp && !internal) throw Error::UNEXPECTED_OPERATOR;
-				else if (nonOp && internal){
-					Expect(MOD);
-					Next();
-					Expect(IDENT);
-					std::string name = tok->raw;
-					Next();
-					Expect(LPAREN);
-					Next();
-					ASTExpr* expr = ParseExpr();
-					Expect(RPAREN);
-					Next();
-					Expect(SEMICOLON);
-					return Internal::ParseCall(expr, name, topScope);
-				}
+				// else if (nonOp && internal){
+				// 	Expect(MOD);
+				// 	Next();
+				// 	Expect(IDENT);
+				// 	std::string name = tok->raw;
+				// 	Next();
+				// 	Expect(LPAREN);
+				// 	Next();
+				// 	ASTExpr* expr = ParseExpr();
+				// 	Expect(RPAREN);
+				// 	Next();
+				// 	Expect(SEMICOLON);
+				// 	return Internal::ParseCall(expr, name, topScope);
+				// }
 				ASTUnaryExpr* unary = ASTUnaryExpr::New(isolate);
 				AddRowCol(unary);
 				unary->pos = pos;
@@ -947,6 +948,7 @@ namespace internal{
 					throw Error::EXPECTED_VAR;
 				return ParseVar();
 			}
+			case MOD: return ParseNative();
 			case IDENT: return ParseIdentStart();
 			case IF: return ParseIf();
 			case ELSE: return ParseElse();
@@ -994,14 +996,23 @@ namespace internal{
 				isolate->FreeMemory(stmt, sizeof(ASTNode));
 			}
 			else{
-				switch ((int) stmt->type){
-					case VAR:	case OBJECT: case FUNC:	case ARRAY: {
-						topScope->Insert(stmt);
-					}
-				}
+				topScope->Insert(stmt);
 			}
 			if (tok->value == END || tok->value == RBRACE) break;
 		}
+	}
+
+	ASTExpr* Parser::ParseNative(){
+		if (tok->value == MOD && allowNative){
+			Next();
+			ASTExpr* expr = ParseExpr();
+			if (expr->type != FUNC_CALL) throw Error::INVALID_FUNCTION_CALL;
+			((ASTFuncCallExpr*) expr)->isInternal = true;
+			Expect(SEMICOLON);
+			Next();
+			return expr;
+		}
+		throw Error::INVALID_FUNCTION_CALL;
 	}
 
 	/**

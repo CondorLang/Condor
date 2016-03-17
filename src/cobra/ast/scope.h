@@ -23,6 +23,7 @@ namespace internal{
 		~Scope();
 		static Scope* New(Isolate* iso);
 		Scope* outer;
+		Isolate* isolate;
 
 		Scope* NewScope(Isolate* isolate);
 		std::vector<ASTNode*> Lookup(std::string name);

@@ -8,6 +8,7 @@
 #include "cobra/ast/ast.h"
 #include "cobra/error/error.h"
 #include "cobra/parser/parser.h"
+#include "cobra/parser/internal.h"
 
 namespace Cobra {
 namespace internal{
@@ -61,6 +62,7 @@ namespace internal{
 		ASTObjectInit* CallDefaultConstructor(ASTVar* var, ASTExpr* stmt);
 		ASTNode* GetObjectInScope(ASTNode* ident, Scope* sc);
 		ASTNode* GetObjectInScopeByString(std::string name, Scope* sc);
+		void CallInternal(ASTFuncCallExpr* call);
 		void SetScope();
 		void SetVarClass(ASTVar* var, bool force);
 		void ValidateAstNot(ASTNot* astNot);

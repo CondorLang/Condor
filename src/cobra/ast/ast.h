@@ -280,6 +280,7 @@ namespace internal{
 		std::vector<ASTExpr*> params;
 		int pos;
 		bool isNew;
+		bool isInternal;
 		ASTFunc* func;
 		Scope* scope;
 		TOKEN assignType;

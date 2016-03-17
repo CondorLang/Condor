@@ -102,7 +102,7 @@ src/cobra/ast/context.o: src/cobra/ast/context.cc src/cobra/ast/context.h \
   src/cobra/error/error.h src/cobra/types/vector/vector.h \
   src/cobra/ast/scope.h src/cobra/ast/ast.h src/cobra/mem/handle.h \
   src/cobra/parser/internal.h src/cobra/mem/sizes.h \
-  src/cobra/ast/check.h \
+  src/cobra/ast/check.h src/cobra/codegen/codegen.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/fstream \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/ostream \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/ios \
@@ -473,6 +473,8 @@ src/cobra/parser/internal.h:
 src/cobra/mem/sizes.h:
 
 src/cobra/ast/check.h:
+
+src/cobra/codegen/codegen.h:
 
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/fstream:
 

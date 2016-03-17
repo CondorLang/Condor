@@ -103,9 +103,9 @@ src/cobra/parser/parser.o: src/cobra/parser/parser.cc \
   src/cobra/types/try_catch/exception.h src/../include/Cobra.h \
   src/cobra/types/try_catch/exception-bytes.h \
   src/cobra/types/array/array.h src/cobra/types/script/script.h \
-  src/cobra/ast/check.h src/cobra/mem/handle.h \
-  src/cobra/types/strings/string.h \
-  src/cobra/types/strings/string-bytes.h \
+  src/cobra/ast/check.h src/cobra/parser/internal.h \
+  src/cobra/mem/handle.h src/cobra/types/strings/string.h \
+  src/cobra/types/strings/string-bytes.h src/cobra/codegen/codegen.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/fstream \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/ostream \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/ios \
@@ -152,7 +152,7 @@ src/cobra/parser/parser.o: src/cobra/parser/parser.cc \
   src/cobra/clock.h src/cobra/shell.h \
   src/cobra/types/array/array-bytes.h src/cobra/mem/factory.h \
   src/cobra/mem/allocate.h /usr/include/math.h src/cobra/mem/list.h \
-  src/cobra/mem/gc.h src/cobra/parser/internal.h src/cobra/mem/sizes.h
+  src/cobra/mem/gc.h src/cobra/mem/sizes.h
 
 src/cobra/parser/parser.h:
 
@@ -470,11 +470,15 @@ src/cobra/types/script/script.h:
 
 src/cobra/ast/check.h:
 
+src/cobra/parser/internal.h:
+
 src/cobra/mem/handle.h:
 
 src/cobra/types/strings/string.h:
 
 src/cobra/types/strings/string-bytes.h:
+
+src/cobra/codegen/codegen.h:
 
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/fstream:
 
@@ -609,7 +613,5 @@ src/cobra/mem/allocate.h:
 src/cobra/mem/list.h:
 
 src/cobra/mem/gc.h:
-
-src/cobra/parser/internal.h:
 
 src/cobra/mem/sizes.h:

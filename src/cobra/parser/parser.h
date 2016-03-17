@@ -63,6 +63,7 @@ namespace internal{
 		bool trace;
 		bool printVariables;
 		bool printCheck;
+		bool allowNative;
 
 		void Trace(const char* name, const char* value);
 		void PrintTok();
@@ -107,6 +108,7 @@ namespace internal{
 		ASTVar* ParseArrayInit(ASTArray* array);
 		ASTNode* ParseDelete(); 
 		ASTNode* GetObjectInScopeByString(std::string name, Scope* sc);
+		ASTExpr* ParseNative();
 	};
 
 	namespace Sizes{

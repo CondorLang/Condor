@@ -103,7 +103,7 @@ src/cobra/ast/check.o: src/cobra/ast/check.cc src/cobra/ast/check.h \
   src/cobra/types/try_catch/exception-bytes.h \
   src/cobra/types/array/array.h src/cobra/types/script/script.h \
   src/cobra/mem/handle.h src/cobra/types/strings/string.h \
-  src/cobra/types/strings/string-bytes.h \
+  src/cobra/types/strings/string-bytes.h src/cobra/codegen/codegen.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/fstream \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/ostream \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/ios \
@@ -473,6 +473,8 @@ src/cobra/mem/handle.h:
 src/cobra/types/strings/string.h:
 
 src/cobra/types/strings/string-bytes.h:
+
+src/cobra/codegen/codegen.h:
 
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/fstream:
 

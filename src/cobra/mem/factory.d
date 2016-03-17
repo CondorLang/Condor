@@ -104,7 +104,7 @@ src/cobra/mem/factory.o: src/cobra/mem/factory.cc src/cobra/mem/factory.h \
   src/cobra/types/array/array.h src/cobra/types/script/script.h \
   src/cobra/parser/parser.h src/cobra/mem/handle.h \
   src/cobra/parser/internal.h src/cobra/mem/sizes.h \
-  src/cobra/ast/check.h \
+  src/cobra/ast/check.h src/cobra/codegen/codegen.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/fstream \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/ostream \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/ios \
@@ -478,6 +478,8 @@ src/cobra/parser/internal.h:
 src/cobra/mem/sizes.h:
 
 src/cobra/ast/check.h:
+
+src/cobra/codegen/codegen.h:
 
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/fstream:
 

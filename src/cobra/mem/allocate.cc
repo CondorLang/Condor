@@ -39,7 +39,7 @@ namespace internal{
 			printf("\nCobraLang (c)\n-----------------------------\n");
 			printf("Name: %s\n", name.c_str());
 			printf("Total Memory Used: \t%lukb\n", (kUsedSize / KB));
-			printf("Total Memory Unused: \t%lukb\n", (kFreeSize / KB));
+			printf("Total Memory Unused: \t%lukb\n",  (kFreeSize / KB));
 			printf("Total Memory Size: \t%lukb\n", (kTotalSize / KB));
 			printf("Total Chunks Used: \t%d\n", kChunkCount);
 			printf("Chunk Size: \t\t%lu bytes\n", kChunkSize);
@@ -205,6 +205,7 @@ namespace internal{
 				kLastChunk->isAllocationChunk = true;
 				allocationChunkAssigned = true;
 			}
+			if (i == chunkCount - 1) kLastChunk->isLastChunk = true;
 		}
 		return RecalcChunkMemorySize(kFirstChunk, kChunkCount);
 	}
@@ -216,6 +217,7 @@ namespace internal{
 	    chunk->used = 0;
 			chunk->isAllocationChunk = false;
 	    chunk->next = NULL;
+	    chunk->isLastChunk = false;
 		}
 		return chunk;
 	}
@@ -236,10 +238,7 @@ namespace internal{
 	}
 
 	size_t MemoryPool::MaxValue(const size_t a, const size_t b){
-		if (a > b){
-			return a;
-		}
-		return b;
+		return a > b ? a : b;
 	}
 
 	// TODO:

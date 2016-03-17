@@ -13,8 +13,9 @@ namespace internal{
 	class Internal
 	{
 	public:
-		static ASTExpr* ParseCall(ASTNode* arg, std::string name, Scope* scope);
-		static ASTExpr* GetStringlength(ASTNode* arg, Scope* scope);
+		static ASTNode* ParseCall(std::vector<ASTExpr*> params, std::string name, Scope* scope);
+		static ASTNode* GetStringlength(ASTNode* arg, Scope* scope);
+		static ASTNode* GetType(std::vector<ASTExpr*> params, Scope* scope);
 	};
 
 } // namespace internal
