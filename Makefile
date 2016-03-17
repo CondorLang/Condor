@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS=-c -I src/ -g -MD -MP
+CFLAGS=-std=c++11 -c -I src/ -g -MD -MP
 LDFLAGS=
 SOURCES=$(wildcard src/*/*/*/*.cc) $(wildcard src/*/*/*.cc) $(wildcard src/*/*.cc) $(wildcard src/*.cc)
 
