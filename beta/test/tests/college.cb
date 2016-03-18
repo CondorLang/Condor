@@ -1,0 +1,34 @@
+#mode "strict";
+
+export object Term {
+	func Term(){}
+	string name;
+	string code;
+}
+
+export object User {
+	func User(){}
+	string first;
+	string last;
+	int id;
+}
+
+export object Enrollment {
+
+	func Enrollment(User u){
+		this.user = u;
+	}
+	
+	User user;
+}
+
+export object Course {
+	func Course(){}
+	func enrollUser(User u){
+		int size = this.users.length;
+	}
+	string name;
+	string code;
+	Term term;
+	User[] users;
+}

@@ -1,0 +1,63 @@
+#mode "strict";
+
+import "string";
+
+object $String {
+	static func getCharFromString(string str, int pos){
+		return (char) str[pos];
+	}
+
+	func getCharFromString(int pos){
+		return (char) this.base[pos]; 
+	}
+
+	static func isLetter(char letter){
+		int l = (int) letter;
+		return (l >= 65 && l <= 90) || (l >= 97 && l <= 122);
+	}
+
+	func isLetter(int pos){
+		char l = (char) this.base[pos];
+		return String.isLetter(l);
+	}
+
+	static func isNumber(char number){
+		int n = (int) number;
+		return n >= 48 && n <= 57;
+	}
+
+	func isNumber(int pos){
+		char l = (char) this.base[pos];
+		return String.isNumber(l);
+	}
+
+	func allLetters(){
+		int len = this.length;
+		for (int i = 0; i < len; i++){
+			char l = (char) this.base[i];
+			if (!this.isLetter(l)){
+				return false;
+			}
+		}
+		return true;
+	}
+
+	func substr(int pos, int len){
+		String result = "";
+		for (int i = pos; i < (pos + len); i++){
+			result += this.base[i];
+		}
+		return result;
+	}
+
+	func allNumbers(){
+		int len = this.length;
+		for (int i = 0; i < len; i++){
+			char l = (char) this.base[i];
+			if (!this.isNumber(l)){
+				return false;
+			}
+		}
+		return true;
+	}
+}

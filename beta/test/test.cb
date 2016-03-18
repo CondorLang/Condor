@@ -1,0 +1,11 @@
+import {
+	"exception" as "e",
+	"string",
+	"array"
+}
+
+func add(a, b){
+	return a + b;
+}
+
+add(1, 1);
