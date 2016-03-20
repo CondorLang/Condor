@@ -1,9 +1,12 @@
 #include "context.h"
+#include "scope.h"
 
 namespace Cobra {
 namespace internal{
 	
 	Context::Context(){
+		isolate = NULL;
+		root = NULL;
 	}
 
 	Context::~Context(){

@@ -427,5 +427,13 @@ namespace internal{
 			}
 		}
 	}
+
+	std::string Scanner::Substr(int start, int end){
+		return src->substr(start, end - start);
+	}
+
+	std::string Scanner::LookAhead(int len){
+		return Substr(offset, offset + len);
+	}
 } // namespace internal
 } // namespace Cobra

@@ -6,6 +6,9 @@ SOURCES=$(wildcard src/*/*/*/*.cc) $(wildcard src/*/*/*.cc) $(wildcard src/*/*.c
 OBJECTS=$(SOURCES:.cc=.o)
 EXECUTABLE=./build/Cobra
 
+tmp:
+	cd beta && make
+
 mt:
 	make all
 	make test

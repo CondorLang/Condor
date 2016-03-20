@@ -22,6 +22,8 @@ namespace internal{
 		int row;
 		int col;
 		int id;
+		bool isExport;
+		std::vector<TOKEN> visibility;
 		static ASTNode* New(Isolate* iso);
 		static void SetDefaults(ASTNode* node, Isolate* iso);
 	};
@@ -43,6 +45,10 @@ namespace internal{
 	class ASTVar : public ASTNode
 	{
 	public:
+		std::string baseName;
+		TOKEN baseType;
+		ASTNode* value;
+		TOKEN assignmentType;
 		static ASTVar* New(Isolate* iso);
 		
 	};
@@ -53,6 +59,88 @@ namespace internal{
 		Scope* scope;
 		std::vector<ASTVar*> args;
 		static ASTFunc* New(Isolate* iso);
+	};
+
+	class ASTExpr : public ASTNode
+	{
+	public:
+		static ASTExpr* New(Isolate* iso);
+	};
+
+	class ASTBinaryExpr : public ASTExpr
+	{
+	public:
+		static ASTBinaryExpr* New(Isolate* iso);
+		ASTExpr* left;
+		ASTExpr* right;
+		TOKEN op;
+		bool isBoolean;
+	};
+
+	class ASTLiteral : public ASTExpr
+	{
+	public:
+		static ASTLiteral* New(Isolate* iso);
+		std::string value;
+		TOKEN litType;
+		TOKEN unary;
+		int isPost;
+	};
+
+	class ASTFuncCall : public ASTExpr
+	{
+	public:
+		static ASTFuncCall* New(Isolate* iso);
+		std::vector<ASTExpr*> params;
+		
+	};
+
+	class ASTForExpr : public ASTExpr
+	{
+	public:
+		static ASTForExpr* New(Isolate* iso);
+		ASTNode* var;
+		ASTExpr* condition;
+		ASTExpr* tick;
+		Scope* scope; 
+		
+	};
+
+	class ASTWhileExpr : public ASTExpr
+	{
+	public:
+		static ASTWhileExpr* New(Isolate* iso);
+		ASTExpr* condition;
+		Scope* scope;
+		
+	};
+
+	class ASTTryCatchExpr : public ASTExpr
+	{
+	public:
+		static ASTTryCatchExpr* New(Isolate* iso);
+		Scope* tryScope;
+		Scope* catchScope;
+		std::vector<ASTVar*> catchParams;
+		
+	};
+
+	class ASTThrow : public ASTExpr
+	{
+	public:
+		static ASTThrow* New(Isolate* iso);
+		ASTExpr* expr;
+		
+	};
+
+	class ASTIf : public ASTExpr
+	{
+	public:
+		static ASTIf* New(Isolate* iso);
+		ASTExpr* condition;
+		Scope* scope;
+		std::vector<ASTIf*> elseIfs;
+		
 	};
 
 } // namespace internal

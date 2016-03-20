@@ -23,6 +23,8 @@ namespace internal{
 		nonOp = false;
 		isInline = false;
 		isInternal = false;
+		rootScope = Scope::New(isolate);
+		scope = rootScope;
 		printVariables = PRINT_VARIABLES;
 		trace = TRACE_PARSER;
 	}
@@ -86,6 +88,25 @@ namespace internal{
     return isInList;
 	}
 
+	bool Parser::IsOperator(){
+		return Is(7, ADD, SUB, MOD, DIV, MUL, SHL, SHR);
+	}
+
+	bool Parser::IsAssignment(){
+		return Is(12, ASSIGN, ADD_ASSIGN, SUB_ASSIGN, MUL_ASSIGN
+								, DIV_ASSIGN, MOD_ASSIGN, AND_ASSIGN
+								, OR_ASSIGN, XOR_ASSIGN, SHL_ASSIGN
+								, SHR_ASSIGN, AND_NOT_ASSIGN);
+	}
+
+	bool Parser::IsVarType(){
+		return Is(9, INT, BOOLEAN, FLOAT, DOUBLE, CHAR, STRING, IDENT, TRUE_LITERAL, FALSE_LITERAL);
+	}
+
+	bool Parser::IsBoolean(){
+		return Is(11, LAND, LOR, EQL, LSS, GTR, NEQ, LEQ, GEQ, NOT, XOR, AND);
+	}
+
 	/**
 	 * Allowed syntax for include || import:
 	 * 
@@ -100,6 +121,8 @@ namespace internal{
 		Next(); // first token
 		bool isImport = false;
 		bool group = false;
+		if (!Is(2, IMPORT, INCLUDE)) return;
+		Trace("Parsing", "Imports");
 		while (true){
 			isImport = Is(1, IMPORT);
 			if (Is(2, IMPORT, INCLUDE)) {
@@ -146,13 +169,77 @@ namespace internal{
 	}
 
 	void Parser::ParseShallowStmtList(){
-		int type = tok->Int();
-		switch (type){
-			case FUNC: ParseFunc(); break;
+		ASTNode* node = NULL;
+		while (tok->value != END){
+			int type = tok->Int();
+			bool isExport = false;
+			std::vector<TOKEN> visibility;
+			switch (type){
+				case EXPORT: {
+					isExport = true;
+					Next();
+				}
+				case PUBLIC: case STATIC: case PRIVATE: case PROTECTED: {
+					if (isExport) throw Error::INVALID_USE_OF_EXPORT;
+					while (Is(4, PUBLIC, STATIC, PRIVATE, PROTECTED)) {
+						visibility.push_back(tok->value);
+						Next();
+					}
+				}
+				case FUNC: {
+					node = ParseFunc(); 
+					break;
+				}
+				case IDENT: {
+					node = ParseIdentStart();
+					break;
+				}
+				case INT: case STRING: case VAR: {
+					std::vector<ASTVar*> list = ParseVarList();
+					for (int i = 0; i < list.size() - 1; i++){
+						scope->Insert(list[i]);
+					}
+					node = scope->Get(scope->Size() - 1);
+					break;
+				}
+				case FOR: {
+					node = ParseForExpr();
+					break;
+				}
+				case WHILE: {
+					node = ParseWhile();
+					break;
+				}
+				case TRY: {
+					node = ParseTryCatch();
+					break;
+				}
+				case THROW: {
+					node = ParseThrow();
+					break;
+				}
+				case IF: {
+					node = ParseIf();
+					break;
+				}
+				default: {
+					throw Error::UNEXPECTED_CHARACTER;
+				}
+			}
+			node->isExport = isExport;
+			node->visibility.insert(node->visibility.end(), visibility.begin(), visibility.end());
+			scope->Insert(node);
 		}
 	}
 
-	void Parser::ParseFunc(){
+	/** 
+	 * Allowed syntax:
+	 *
+	 * func name([type] ident, name){
+	 * 		...
+	 * }
+	 */
+	ASTFunc* Parser::ParseFunc(){
 		Trace("Parsing", "Func");
 		Expect(FUNC);
 		Next();
@@ -160,9 +247,198 @@ namespace internal{
 		ASTFunc* func = ASTFunc::New(isolate);
 		func->name = tok->raw;
 		Next();
-		Expect(LPAREN);
+		std::vector<ASTVar*> vars = ParseFuncArgs();
+		func->args.insert(func->args.end(), vars.begin(), vars.end());
+		func->scope = LazyParseBody();
+		return func;
+	}
+
+	Scope* Parser::LazyParseBody(){
+		Trace("Storing", "Body for later");
+		Expect(LBRACE);
+		Next();
+		int braceDepth = 1;
+		int start = pos - tok->Length();
 		while (true){
-			if (!Is(3, IDENT, RPAREN)) throw Error::INVALID_ARGUMENT_TYPE;
+			if (Is(1, LBRACE)) braceDepth++;
+			if (Is(1, RBRACE)) braceDepth--;
+			if (braceDepth == 0) break;
+			if (Is(1, END)) throw Error::UNEXPECTED_END_OF_FILE;
+			Next(); // eat all tokens
+		}
+		int end = pos;
+		std::string body = scanner->Substr(start, end);
+		Scope* scope = Scope::New(isolate);
+		Next(); // eat }
+		return scope;
+	}
+
+	// TODO
+	ASTNode* Parser::ParseIdentStart(){
+		Trace("Parsing", "Ident Start");
+		PrintTok();
+		return NULL;
+	}
+
+	/**
+	 * Allowed syntax:
+	 *
+	 * var a = 10;
+	 * int a = 10;
+	 * var {
+	 * 		a = 10;
+	 * 		b = 20;
+	 * }
+	 */
+	std::vector<ASTVar*> Parser::ParseVarList(){
+		std::vector<ASTVar*> vars;
+		ASTVar* var = ASTVar::New(isolate);
+		var->baseType = tok->value;
+		Next();
+		bool isBrace = Is(1, LBRACE);
+		if (Is(1, LBRACE)) Next();
+		bool breakOut = false;
+		while (true){
+			if (Is(1, RBRACE)) {
+				breakOut = true;
+				break;
+			}
+			Expect(IDENT);
+			var->name = tok->raw;
+			Next();
+			Trace("Parsing Var", var->name.c_str());
+			var->assignmentType = tok->value;
+			if (!IsAssignment() && !Is(1, SEMICOLON)) throw Error::INVALID_OPERATOR;
+			Next();
+			var->value = ParseExpr();
+			vars.push_back(var);
+			if (!isBrace) return vars;
+		}
+		if (breakOut) Next();
+		return vars;
+	}
+
+	ASTExpr* Parser::ParseExpr(){
+		Trace("Parsing", "Expression");
+		ASTExpr* expr = ParseBinaryExpr();
+		if (Is(1, SEMICOLON)) Next(); // loose semicolon
+		return expr;
+	}
+
+	ASTExpr* Parser::ParseBinaryExpr(){
+		Trace("Parsing", "Binary Expression");
+		ASTExpr* expr = NULL;
+		bool pre = true;
+		TOKEN unary = UNDEFINED;
+		bool incdec = Is(2, INC, DEC);
+		if (incdec) {
+			unary = tok->value;
+			Next();
+		}
+		if (IsVarType()) expr = ParseVarType();
+		if (Is(1, LPAREN)) expr = ParseFuncCall(expr);
+		if (Is(2, INC, DEC) || incdec){
+			ASTLiteral* lit = (ASTLiteral*) expr;
+			if (!incdec) {
+				lit->unary = tok->value;
+				Next();
+			}
+			else {
+				lit->unary = unary;
+				lit->isPost = false;
+			}
+		}
+		if (IsOperator() || IsBoolean()) { // needs to be last to catch all lingering operators
+			ASTBinaryExpr* binary = ASTBinaryExpr::New(isolate);
+			binary->left = expr;
+			binary->op = tok->value;
+			Trace("Parsing Operator", Token::ToString(tok->value));
+			Next();
+			binary->right = ParseExpr();
+			return binary;
+		}
+		return expr;
+	}
+
+	ASTExpr* Parser::ParseVarType(){
+		ASTLiteral* lit = ASTLiteral::New(isolate);
+		lit->value = tok->raw;
+		if (tok->raw.length() > 0) Trace("Parsing Literal", tok->raw.c_str());
+		else Trace("Parsing Literal", tok->String().c_str());
+		lit->litType = tok->value;
+		Next();
+		return lit;
+	}
+
+	ASTExpr* Parser::ParseFuncCall(ASTExpr* expr){
+		if (expr == NULL) throw Error::INVALID_FUNCTION_CALL;
+		Next();
+		ASTFuncCall* call = ASTFuncCall::New(isolate);
+		call->name = expr->name;
+		isolate->FreeMemory(expr, sizeof(ASTExpr));
+		while (true){
+			call->params.push_back(ParseExpr());
+			if (Is(1, RPAREN)) break;
+			if (!Is(1, COMMA)) throw Error::EXPECTED_PARAMETER;
+			Next();
+		}
+		Next(); // eat )
+		return call;
+	}
+
+	ASTExpr* Parser::ParseForExpr(){
+		ASTForExpr* expr = ASTForExpr::New(isolate);
+		Next();
+		Expect(LPAREN);
+		Next();
+		expr->var = ParseVarList()[0];
+		expr->condition = ParseBoolean();
+		expr->tick = ParseExpr();
+		Expect(RPAREN);
+		Next();
+		expr->scope = LazyParseBody();
+		return expr;
+	}
+
+	ASTExpr* Parser::ParseBoolean(){
+		Trace("Parsing", "Boolean");
+		ASTBinaryExpr* binary = (ASTBinaryExpr*) ParseBinaryExpr();
+		binary->isBoolean = true;
+		return binary;
+	}
+
+	ASTExpr* Parser::ParseWhile(){
+		Trace("Parsing", "While");
+		ASTWhileExpr* expr = ASTWhileExpr::New(isolate);
+		Next();
+		Expect(LPAREN);
+		Next();
+		expr->condition = ParseBoolean();
+		Expect(RPAREN);
+		Next();
+		expr->scope = LazyParseBody();
+		return expr;
+	}
+
+	ASTExpr* Parser::ParseTryCatch(){
+		Trace("Parsing", "Try Catch");
+		ASTTryCatchExpr* expr = ASTTryCatchExpr::New(isolate);
+		Next();
+		expr->tryScope = LazyParseBody();
+		Expect(CATCH);
+		Next();
+		std::vector<ASTVar*> vars = ParseFuncArgs();
+		expr->catchParams.insert(expr->catchParams.end(), vars.begin(), vars.end());
+		expr->catchScope = LazyParseBody();
+		return expr;
+	}
+
+	std::vector<ASTVar*> Parser::ParseFuncArgs(){
+		Expect(LPAREN);
+		Next();
+		std::vector<ASTVar*> vars;
+		while (true){
+			if (!Is(2, IDENT, RPAREN)) throw Error::INVALID_ARGUMENT_TYPE;
 			if (Is(1, IDENT)){
 				std::string first = tok->raw;
 				Next();
@@ -173,13 +449,54 @@ namespace internal{
 				}
 				ASTVar* var = ASTVar::New(isolate);
 				var->name = first;
-				func->args.push_back(var);
+				var->baseName = second;
+				vars.push_back(var);
 			}
 			if (Is(1, RPAREN)) break;
 			Expect(COMMA);
 			Next();
 		}
-		Next(); // eat )
+		Next();
+		return vars;
+	}
+
+	ASTExpr* Parser::ParseThrow(){
+		Trace("Parsing", "Throw");
+		Next();
+		ASTThrow* stmt = ASTThrow::New(isolate);
+		stmt->expr = ParseExpr();
+		return stmt;
+	}
+
+	ASTExpr* Parser::ParseIf(){
+		Trace("Parsing", "If");
+		ASTIf* stmt = ASTIf::New(isolate);
+		if (Is(1, ELSE)){
+			Next();
+			if (Is(1, LBRACE)){
+				ASTLiteral* lit = ASTLiteral::New(isolate);
+				lit->value = "true";
+				lit->litType = TRUE_LITERAL;
+				stmt->condition = lit;
+				stmt->scope = LazyParseBody();
+			}
+		}
+		if (Is(1, IF)){
+			Next();
+			Expect(LPAREN);
+			Next();
+			stmt->condition = ParseBoolean();
+			Expect(RPAREN);
+			Next();
+			stmt->scope = LazyParseBody();
+			while (Is(2, ELSE, IF)){
+				ASTIf* ifs = (ASTIf*) ParseIf();
+				stmt->elseIfs.push_back(ifs);
+			}
+			return stmt;
+		}
+		isolate->FreeMemory(stmt, sizeof(ASTIf));
+		return NULL;
 	}
 } // namespace internal
 }	// namespace Cobra

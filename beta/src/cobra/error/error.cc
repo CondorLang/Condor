@@ -98,6 +98,8 @@ namespace Error {
 			case UNEXPECTED_CHARACTER: return "Unexpected character";
 			case INVALID_ARRAY_MEMBER: return "Invalid array member";
 			case INVALID_INCLUDE_IMPORT: return "Invalid include or import";
+			case UNEXPECTED_END_OF_FILE: return "Unexpected end of file";
+			case INVALID_USE_OF_EXPORT: return "Invalid use of export";
 			case SCANNER: {
 				if (tok != NULL){
 					return tok->raw;

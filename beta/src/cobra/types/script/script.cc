@@ -44,7 +44,7 @@ namespace internal{
 
 			if (parsingTime) {
 				clock->Stop();
-				if (isInline) 
+				if (!parser->IsInternal()) 
 					printf("Parsing:  %f sec | %s\n", clock->GetDuration(), absolutePath.c_str());
 			}
 			if (absolutePath != "inline"){

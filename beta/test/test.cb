@@ -1,11 +1,41 @@
-import {
-	"exception" as "e",
-	"string",
-	"array"
-}
+// import {
+// 	"exception" as "e",
+// 	"string",
+// 	"array"
+// }
 
 func add(a, b){
 	return a + b;
 }
 
-add(1, 1);
+var {
+	a = 10;
+	b = 10;
+	c = a + b;
+}
+
+for (int i = 0; i < a; i++){
+	var d = c;
+}
+
+while (true || false){
+	var d = c;
+	break;
+}
+
+try {
+	int i = 0;
+}
+catch (e){
+	throw e;
+}
+
+if (true){
+
+}
+else if (true){
+
+}
+else {
+	
+}

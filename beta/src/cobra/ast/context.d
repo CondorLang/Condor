@@ -91,7 +91,12 @@ src/cobra/ast/context.o: src/cobra/ast/context.cc src/cobra/ast/context.h \
   /usr/include/machine/types.h /usr/include/i386/types.h \
   /usr/include/math.h src/cobra/flags.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/cstdlib \
-  src/cobra/global.h src/cobra/mem/list.h src/cobra/mem/gc.h
+  src/cobra/global.h src/cobra/mem/list.h src/cobra/mem/gc.h \
+  src/cobra/ast/scope.h \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/map \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__tree \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/functional \
+  src/cobra/ast/node.h src/cobra/token/token.h
 
 src/cobra/ast/context.h:
 
@@ -380,3 +385,15 @@ src/cobra/global.h:
 src/cobra/mem/list.h:
 
 src/cobra/mem/gc.h:
+
+src/cobra/ast/scope.h:
+
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/map:
+
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__tree:
+
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/functional:
+
+src/cobra/ast/node.h:
+
+src/cobra/token/token.h:

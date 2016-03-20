@@ -10,12 +10,14 @@ namespace Cobra {
 namespace internal{
 
 	class Isolate;
+	class Scope;
 	
 	class Context
 	{
 	private:
 		Isolate* isolate;
 		std::vector<std::string> inProgress;
+		Scope* root;
 		int nextAstId;
 
 	public:

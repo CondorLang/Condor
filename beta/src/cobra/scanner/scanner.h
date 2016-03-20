@@ -41,6 +41,8 @@ namespace internal{
 		void Error(std::string err);
 		void ScanComments(bool star);
 		void ScanWhiteSpaces();
+		std::string LookAhead(int len);
+		std::string Substr(int start, int end);
 	};
 } // namespace internal{
 }
