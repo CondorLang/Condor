@@ -1,41 +1,11 @@
-// import {
-// 	"exception" as "e",
-// 	"string",
-// 	"array"
-// }
-
-func add(a, b){
-	return a + b;
-}
-
 var {
 	a = 10;
 	b = 10;
-	c = a + b;
 }
 
-for (int i = 0; i < a; i++){
-	var d = c;
-}
+var x;
+var c = a + b;
 
-while (true || false){
-	var d = c;
-	break;
-}
-
-try {
-	int i = 0;
-}
-catch (e){
-	throw e;
-}
-
-if (true){
-
-}
-else if (true){
-
-}
-else {
-	
+for (int i = 0; i < 10; i++){
+	var j = 10;
 }

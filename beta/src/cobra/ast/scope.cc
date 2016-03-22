@@ -5,7 +5,7 @@ namespace Cobra{
 namespace internal{
 	Scope::Scope(){
 		isParsed = false;
-		raw = NULL;
+		outer = NULL;
 	}
 
 	Scope::~Scope(){}
@@ -26,6 +26,10 @@ namespace internal{
 
 	ASTNode* Scope::Get(int idx){
 		return nodes.at(idx);
+	}
+
+	void Scope::InsertBefore(ASTNode* node){
+		nodes.insert(nodes.begin(), node);
 	}
 } // namespace internal
 } // namespace Cobra	

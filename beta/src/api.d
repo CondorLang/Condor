@@ -143,7 +143,7 @@ src/api.o: src/api.cc src/api.h src/../include/Cobra.h \
   src/cobra/clock.h src/cobra/shell.h src/cobra/error/error.h \
   src/cobra/token/token.h src/cobra/parser/parser.h src/cobra/ast/node.h \
   src/cobra/ast/scope.h src/cobra/scanner/scanner.h \
-  src/cobra/types/vector/vector.h
+  src/cobra/types/vector/vector.h src/cobra/semantics/semantics.h
 
 src/api.h:
 
@@ -584,3 +584,5 @@ src/cobra/ast/scope.h:
 src/cobra/scanner/scanner.h:
 
 src/cobra/types/vector/vector.h:
+
+src/cobra/semantics/semantics.h:

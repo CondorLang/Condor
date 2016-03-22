@@ -93,6 +93,7 @@ namespace internal{
 		ASTFuncCall* n = new(pt) ASTFuncCall();
 		ASTNode::SetDefaults(n, iso);
 		n->type = FUNC_CALL;
+		n->isInternal = false;
 		return n;
 	}
 
@@ -143,6 +144,52 @@ namespace internal{
 		n->type = IF;
 		n->condition = NULL;
 		n->scope = NULL;
+		return n;
+	}
+
+	ASTDelete* ASTDelete::New(Isolate* iso){
+		void* pt = iso->GetMemory(sizeof(ASTDelete));
+		ASTDelete* n = new(pt) ASTDelete();
+		ASTNode::SetDefaults(n, iso);
+		n->type = DELETE;
+		n->node = NULL;
+		return n;
+	}
+
+	ASTCase* ASTCase::New(Isolate* iso){
+		void* pt = iso->GetMemory(sizeof(ASTCase));
+		ASTCase* n = new(pt) ASTCase();
+		ASTNode::SetDefaults(n, iso);
+		n->type = CASE;
+		n->condition = NULL;
+		n->scope = NULL;
+		n->isDefault = false;
+		return n;
+	}
+
+	ASTSwitch* ASTSwitch::New(Isolate* iso){
+		void* pt = iso->GetMemory(sizeof(ASTSwitch));
+		ASTSwitch* n = new(pt) ASTSwitch();
+		ASTNode::SetDefaults(n, iso);
+		n->type = SWITCH;
+		n->value = NULL;
+		return n;
+	}
+
+	ASTObject* ASTObject::New(Isolate* iso){
+		void* pt = iso->GetMemory(sizeof(ASTObject));
+		ASTObject* n = new(pt) ASTObject();
+		ASTNode::SetDefaults(n, iso);
+		n->type = OBJECT;
+		n->scope = NULL;
+		return n;
+	}
+
+	ASTUndefined* ASTUndefined::New(Isolate* iso){
+		void* pt = iso->GetMemory(sizeof(ASTUndefined));
+		ASTUndefined* n = new(pt) ASTUndefined();
+		ASTNode::SetDefaults(n, iso);
+		n->type = UNDEFINED;
 		return n;
 	}
 

@@ -155,6 +155,7 @@ namespace internal{
 			case THROW: return "throw";
 			case DELETE: return "delete";
 			case CATCH: return "catch";
+			case INTERNAL: return "internal";
 
 			default: return "";
 		}
@@ -228,6 +229,7 @@ namespace internal{
 		else if (str == "throw") return Token::New(iso, THROW);
 		else if (str == "delete") return Token::New(iso, DELETE);
 		else if (str == "catch") return Token::New(iso, CATCH);
+		else if (str == "undefined") return Token::New(iso, UNDEFINED);
 		else return Token::New(iso, IDENT);
 	}
 

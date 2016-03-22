@@ -9,7 +9,7 @@ namespace Cobra {
 namespace internal{
 
 	#define TRACE_PARSER Flags::traceParser
-	#define TRACE_CHECK Flags::traceCheck
+	#define TRACE_SEMANTIC Flags::traceSemantic
 	#define PRINT_VARIABLES Flags::printVariables;
 	#define PARSING_TIME Flags::parsingTime;
 	#define EXPORTED_NODES Flags::exportedNodes;
@@ -24,7 +24,7 @@ namespace internal{
 	 {
 	 public:
 	 		static bool traceParser;
-	 		static bool traceCheck;
+	 		static bool traceSemantic;
 	 		static bool printVariables;
 	 		static bool parsingTime;
 	 		static bool exportedNodes;

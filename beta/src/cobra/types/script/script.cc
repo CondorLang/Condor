@@ -22,6 +22,7 @@ namespace internal{
 		sourceCode += str->GetValue();
 		absolutePath = str->GetPath();
 		name = absolutePath;
+		semantics = NULL;
 	}
 
 	void Script::RunInternalScript(Isolate* isolate, std::string hex, std::string _name){
@@ -62,6 +63,17 @@ namespace internal{
 			hasErr = true;
 			return;
 		}
+		semantics = Semantics::New(isolate, parser);
+
+		try {
+			semantics->Evaluate(parser->GetBaseScope());
+		}
+		catch (Error::ERROR e){
+			std::string msg = Error::String(e, NULL);
+			printf("%d:%d - %s - \n\t%s\nCode:\n\n%s\n", semantics->row, semantics->col, msg.c_str(), absolutePath.c_str(), GetSourceRow(semantics->row, semantics->col).c_str());
+			hasErr = true;
+		}
+
 	}
 
 	void Script::Run(){

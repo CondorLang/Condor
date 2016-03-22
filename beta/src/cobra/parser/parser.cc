@@ -22,7 +22,7 @@ namespace internal{
 		reset = false;
 		nonOp = false;
 		isInline = false;
-		isInternal = false;
+		isInternal = ALLOW_NATIVE;
 		rootScope = Scope::New(isolate);
 		scope = rootScope;
 		printVariables = PRINT_VARIABLES;
@@ -43,6 +43,15 @@ namespace internal{
 		catch (Error::ERROR e){
 			throw e;
 		}
+	}
+
+	Scope* Parser::Parse(Isolate* iso, Scope* sc){
+		if (sc == NULL) throw Error::INTERNAL_SCOPE_ERROR;
+		if (sc->IsParsed()) return sc;
+		Parser* p = Parser::New(iso, &sc->raw);
+		p->Parse();
+		iso->FreeMemory(sc, sizeof(Scope));
+		return p->GetBaseScope();
 	}
 
 	void Parser::Trace(const char* name, const char* value){
@@ -168,9 +177,9 @@ namespace internal{
 		return "";
 	}
 
-	void Parser::ParseShallowStmtList(){
+	void Parser::ParseShallowStmtList(TOKEN terminator){
 		ASTNode* node = NULL;
-		while (tok->value != END){
+		while (tok->value != terminator){
 			int type = tok->Int();
 			bool isExport = false;
 			std::vector<TOKEN> visibility;
@@ -196,10 +205,9 @@ namespace internal{
 				}
 				case INT: case STRING: case VAR: {
 					std::vector<ASTVar*> list = ParseVarList();
-					for (int i = 0; i < list.size() - 1; i++){
+					for (int i = 0; i < list.size(); i++){
 						scope->Insert(list[i]);
 					}
-					node = scope->Get(scope->Size() - 1);
 					break;
 				}
 				case FOR: {
@@ -222,13 +230,31 @@ namespace internal{
 					node = ParseIf();
 					break;
 				}
+				case DELETE: {
+					node = ParseDelete();
+					break;
+				}
+				case SWITCH: {
+					node = ParseSwitch();
+					break;
+				}
+				case OBJECT: {
+					node = ParseObject();
+					break;
+				}
+				case INTERNAL: {
+					node = ParseInternal();
+					break;
+				}
 				default: {
 					throw Error::UNEXPECTED_CHARACTER;
 				}
 			}
-			node->isExport = isExport;
-			node->visibility.insert(node->visibility.end(), visibility.begin(), visibility.end());
-			scope->Insert(node);
+			if (node != NULL){
+				node->isExport = isExport;
+				node->visibility.insert(node->visibility.end(), visibility.begin(), visibility.end());
+				scope->Insert(node);
+			}
 		}
 	}
 
@@ -267,8 +293,8 @@ namespace internal{
 			Next(); // eat all tokens
 		}
 		int end = pos;
-		std::string body = scanner->Substr(start, end);
 		Scope* scope = Scope::New(isolate);
+		scope->raw = scanner->Substr(start, end);
 		Next(); // eat }
 		return scope;
 	}
@@ -292,8 +318,7 @@ namespace internal{
 	 */
 	std::vector<ASTVar*> Parser::ParseVarList(){
 		std::vector<ASTVar*> vars;
-		ASTVar* var = ASTVar::New(isolate);
-		var->baseType = tok->value;
+		TOKEN base = tok->value;
 		Next();
 		bool isBrace = Is(1, LBRACE);
 		if (Is(1, LBRACE)) Next();
@@ -304,6 +329,8 @@ namespace internal{
 				break;
 			}
 			Expect(IDENT);
+			ASTVar* var = ASTVar::New(isolate);
+			var->baseType = tok->value;
 			var->name = tok->raw;
 			Next();
 			Trace("Parsing Var", var->name.c_str());
@@ -311,6 +338,7 @@ namespace internal{
 			if (!IsAssignment() && !Is(1, SEMICOLON)) throw Error::INVALID_OPERATOR;
 			Next();
 			var->value = ParseExpr();
+			if (var->value == NULL) var->value = ASTUndefined::New(isolate);
 			vars.push_back(var);
 			if (!isBrace) return vars;
 		}
@@ -497,6 +525,97 @@ namespace internal{
 		}
 		isolate->FreeMemory(stmt, sizeof(ASTIf));
 		return NULL;
+	}
+
+	ASTNode* Parser::ParseDelete(){
+		Trace("Parsing", "Delete");
+		Next();
+		Expect(IDENT);
+		ASTDelete* del = ASTDelete::New(isolate);
+		del->node = ParseVarType();
+		Expect(SEMICOLON);
+		Next();
+		return del;
+	}
+
+	ASTExpr* Parser::ParseSwitch(){
+		Trace("Parsing", "Switch");
+		Next();
+		ASTSwitch* expr = ASTSwitch::New(isolate);
+		Expect(LPAREN);
+		Next();
+		expr->value = ParseExpr();
+		Expect(RPAREN);
+		Next();
+		Expect(LBRACE);
+		Next();
+		while (true){
+			ASTCase* e = (ASTCase*) ParseCase();
+			if (e == NULL) break;
+			expr->cases.push_back(e);
+		}
+		Expect(RBRACE);
+		Next();
+		return expr;
+	}
+
+	ASTExpr* Parser::ParseCase(){
+		ASTCase* expr = ASTCase::New(isolate);
+		if (Is(1, CASE)){
+			Trace("Parsing", "Case");
+			Next();
+			expr->condition = ParseVarType();
+		}
+		else if (Is(1, DEFAULT)){
+			Trace("Parsing", "Default");
+			Next();
+		}
+		else {
+			isolate->FreeMemory(expr, sizeof(ASTCase));
+			return NULL;
+		}
+		Expect(COLON);
+		Next();
+		expr->scope = LazyParseBody();
+		return expr;
+	}
+
+	ASTNode* Parser::ParseObject(){
+		Next();
+		Expect(IDENT);
+		Trace("Parsing Object", tok->raw.c_str());
+		ASTObject* obj = ASTObject::New(isolate);
+		Next();
+		Expect(LBRACE);
+		Next();
+		obj->scope = Scope::New(isolate);
+		OpenScope(obj->scope);
+		ParseShallowStmtList(RBRACE);
+		CloseScope();
+		Expect(RBRACE);
+		Next();
+		return obj;
+	}
+
+	void Parser::OpenScope(Scope* sc){
+		sc->outer = scope;
+		scope = sc;
+	}
+
+	void Parser::CloseScope(){
+		if (scope == NULL) throw Error::INTERNAL_SCOPE_ERROR;
+		scope = scope->outer;
+	}
+
+	ASTNode* Parser::ParseInternal(){
+		Trace("Parsing Internal Func Call", tok->raw.c_str());
+		ASTExpr* expr = ASTExpr::New(isolate);
+		expr->name = tok->raw;
+		ASTFuncCall* call = (ASTFuncCall* ) ParseFuncCall(expr);
+		if (Is(1, SEMICOLON)) Next();
+		if (isInternal) call->isInternal = true;
+		else throw Error::UNEXPECTED_CHARACTER;
+		return call;
 	}
 } // namespace internal
 }	// namespace Cobra

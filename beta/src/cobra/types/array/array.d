@@ -104,7 +104,7 @@ src/cobra/types/array/array.o: src/cobra/types/array/array.cc \
   src/cobra/ast/scope.h src/cobra/scanner/scanner.h \
   src/cobra/types/vector/vector.h src/cobra/types/strings/string.h \
   src/../include/Cobra.h src/cobra/types/strings/string-bytes.h \
-  src/cobra/types/array/array-bytes.h
+  src/cobra/semantics/semantics.h src/cobra/types/array/array-bytes.h
 
 src/cobra/types/array/array.h:
 
@@ -429,5 +429,7 @@ src/cobra/types/strings/string.h:
 src/../include/Cobra.h:
 
 src/cobra/types/strings/string-bytes.h:
+
+src/cobra/semantics/semantics.h:
 
 src/cobra/types/array/array-bytes.h:

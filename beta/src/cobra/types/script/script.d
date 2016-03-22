@@ -103,7 +103,8 @@ src/cobra/types/script/script.o: src/cobra/types/script/script.cc \
   src/cobra/token/token.h src/cobra/parser/parser.h src/cobra/ast/node.h \
   src/cobra/ast/scope.h src/cobra/scanner/scanner.h \
   src/cobra/types/vector/vector.h src/cobra/types/strings/string.h \
-  src/../include/Cobra.h src/cobra/types/strings/string-bytes.h
+  src/../include/Cobra.h src/cobra/types/strings/string-bytes.h \
+  src/cobra/semantics/semantics.h
 
 src/cobra/types/script/script.h:
 
@@ -426,3 +427,5 @@ src/cobra/types/strings/string.h:
 src/../include/Cobra.h:
 
 src/cobra/types/strings/string-bytes.h:
+
+src/cobra/semantics/semantics.h:

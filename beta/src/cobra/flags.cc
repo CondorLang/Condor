@@ -7,7 +7,7 @@ namespace internal{
 		for (int i = 0; i < argc; i++){
 			std::string arg = argv[i];
 			if (arg == "--trace-parser") Flags::traceParser = true;
-			else if (arg == "--trace-check") Flags::traceCheck = true;
+			else if (arg == "--trace-semantic") Flags::traceSemantic = true;
 			else if (arg == "--print-variables") Flags::printVariables = true;
 			else if (arg == "--print-exported") Flags::exportedNodes = true;
 			else if (arg == "--parsing-time") Flags::parsingTime = true;
@@ -19,7 +19,7 @@ namespace internal{
 			else if (arg == "-h" || arg == "--help"){
 				printf("\n\nCobraLang\n=========\n(C) 2015 Cobra Authors\n\n");
 				printf("--trace-parser\t\t%s\n", "Trace the path of the parser");
-				printf("--trace-check\t\t%s\n", "Trace the path of the ast checker");
+				printf("--trace-semantic\t\t%s\n", "Trace the path of the ast semantic checker");
 				printf("--print-variables\t%s\n", "Prints the variables inside each scope");
 				printf("--print-exported\t%s\n", "Prints the exported nodes in the context");
 				printf("--parsing-time\t\t%s\n", "Prints the time it took to parse");
@@ -37,7 +37,7 @@ namespace internal{
 	}
 
 	bool Flags::traceParser = false;
-	bool Flags::traceCheck = false;
+	bool Flags::traceSemantic = false;
 	bool Flags::printVariables = false;
 	bool Flags::parsingTime = false;
 	bool Flags::exportedNodes = false;

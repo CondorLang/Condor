@@ -100,6 +100,8 @@ namespace Error {
 			case INVALID_INCLUDE_IMPORT: return "Invalid include or import";
 			case UNEXPECTED_END_OF_FILE: return "Unexpected end of file";
 			case INVALID_USE_OF_EXPORT: return "Invalid use of export";
+			case INVALID_CASE_STMT: return "Invalid case statement";
+			case NOT_IMPLEMENTED: return "Not implemented";
 			case SCANNER: {
 				if (tok != NULL){
 					return tok->raw;

@@ -103,7 +103,7 @@ src/cobra/parser/parser.o: src/cobra/parser/parser.cc \
   src/../include/Cobra.h src/cobra/types/strings/string-bytes.h \
   src/cobra/types/script/script.h src/cobra/clock.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/ctime \
-  src/cobra/shell.h
+  src/cobra/shell.h src/cobra/semantics/semantics.h
 
 src/cobra/parser/parser.h:
 
@@ -426,3 +426,5 @@ src/cobra/clock.h:
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/ctime:
 
 src/cobra/shell.h:
+
+src/cobra/semantics/semantics.h:

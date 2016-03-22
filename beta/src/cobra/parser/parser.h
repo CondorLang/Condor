@@ -43,7 +43,7 @@ namespace internal{
 		void Trace(const char* name, const char* value);
 		void ParseImportOrInclude();
 		std::string ParseAlias();
-		void ParseShallowStmtList();
+		void ParseShallowStmtList(TOKEN terminator = END);
 		bool IsOperator();
 		bool IsBoolean();
 		bool IsAssignment();
@@ -63,6 +63,13 @@ namespace internal{
 		std::vector<ASTVar*> ParseFuncArgs();
 		ASTExpr* ParseThrow();
 		ASTExpr* ParseIf();
+		ASTNode* ParseDelete();
+		ASTExpr* ParseSwitch();
+		ASTExpr* ParseCase();
+		ASTNode* ParseObject();
+		void OpenScope(Scope* sc);
+		void CloseScope();
+		ASTNode* ParseInternal();
 
 	public:
 		Parser(Isolate* iso);
@@ -72,6 +79,8 @@ namespace internal{
 		bool IsInternal(){return isInternal;}
 		void SetInline(bool isInline){isInline = isInline;}
 		void Parse();
+		static Scope* Parse(Isolate* iso, Scope* sc);
+		Scope* GetBaseScope(){return rootScope;}
 
 		int Pos;
 		int Row;

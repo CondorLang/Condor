@@ -193,6 +193,7 @@ namespace internal{
 		AS,
 		EXPORT,
 		DELETE,
+		INTERNAL,
 		KEYWORD_END
 	};	
 

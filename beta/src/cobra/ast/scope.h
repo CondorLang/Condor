@@ -18,15 +18,18 @@ namespace internal{
 	{
 	private:
 		bool isParsed;
-		std::string* raw;
 		std::vector<ASTNode*> nodes;
 		
 	public:
 		Scope();
 		~Scope();
+		Scope* outer;
+		std::string raw;
 		static Scope* New(Isolate* isolate);
 		void Insert(ASTNode* node);
+		void InsertBefore(ASTNode* node);
 		int Size();
+		bool IsParsed(){return isParsed;}
 		ASTNode* Get(int idx);
 	};
 } // namespace internal

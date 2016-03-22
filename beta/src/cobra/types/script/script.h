@@ -11,6 +11,7 @@
 #include "cobra/mem/isolate.h"	
 #include "cobra/error/error.h"
 #include "cobra/parser/parser.h"
+#include "cobra/semantics/semantics.h"
 #include "cobra/types/strings/string.h"	
 
 namespace Cobra {
@@ -18,6 +19,7 @@ namespace internal{
 
 	class String;
 	class Parser;
+	class Semantics;
 
 	class Script
 	{
@@ -30,6 +32,7 @@ namespace internal{
 
 		Parser* parser;
 		String* source;
+		Semantics* semantics;
 		bool hasErr;
 		std::vector<std::string> msgs;
 		std::string name;
