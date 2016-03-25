@@ -9,11 +9,9 @@ namespace Cobra {
 namespace internal{
 
 	#define TRACE_PARSER Flags::traceParser
-	#define TRACE_CHECK Flags::traceCheck
+	#define TRACE_SEMANTIC Flags::traceSemantic
 	#define PRINT_VARIABLES Flags::printVariables;
 	#define PARSING_TIME Flags::parsingTime;
-	#define HEAP_INSERT Flags::heapInsert;
-	#define HEAP_DELETE Flags::heapDelete;
 	#define EXPORTED_NODES Flags::exportedNodes;
 	#define MAX_MEMORY_SIZE Flags::maxMemorySize;
 	#define MEMORY_AUDIT Flags::memoryAudit;
@@ -26,11 +24,9 @@ namespace internal{
 	 {
 	 public:
 	 		static bool traceParser;
-	 		static bool traceCheck;
+	 		static bool traceSemantic;
 	 		static bool printVariables;
 	 		static bool parsingTime;
-	 		static bool heapInsert;
-	 		static bool heapDelete;
 	 		static bool exportedNodes;
 	 		static bool memoryAudit;
 	 		static bool memoryRequest;

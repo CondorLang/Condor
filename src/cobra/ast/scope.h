@@ -3,9 +3,11 @@
 
 #include <string>
 #include <map>
-#include "ast.h"
-#include "cobra/globals.h"
 #include <vector>
+
+#include "cobra/global.h"
+#include "cobra/mem/isolate.h"
+#include "cobra/ast/node.h"
 
 namespace Cobra {
 namespace internal{
@@ -15,23 +17,22 @@ namespace internal{
 	class Scope
 	{
 	private:
-		std::vector<ASTNode*> ordered;
-
-		int count;
+		bool isParsed;
+		std::vector<ASTNode*> nodes;
+		
 	public:
 		Scope();
 		~Scope();
-		static Scope* New(Isolate* iso);
 		Scope* outer;
-		Isolate* isolate;
-
-		Scope* NewScope(Isolate* isolate);
-		std::vector<ASTNode*> Lookup(std::string name);
+		std::string raw;
+		static Scope* New(Isolate* isolate);
 		void Insert(ASTNode* node);
-		void String();
-		ASTNode* Get(int index);
-		int Size();
 		void InsertBefore(ASTNode* node);
+		int Size();
+		bool IsParsed(){return isParsed;}
+		void SetParsed(bool parsed){isParsed = parsed;}
+		ASTNode* Get(int idx);
+		std::vector<ASTNode*> Lookup(std::string name, bool deep = true);
 	};
 } // namespace internal
 }

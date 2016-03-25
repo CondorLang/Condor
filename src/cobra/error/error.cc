@@ -97,6 +97,12 @@ namespace Error {
 			case CHECK_IMPORTS: return "Check imports";
 			case UNEXPECTED_CHARACTER: return "Unexpected character";
 			case INVALID_ARRAY_MEMBER: return "Invalid array member";
+			case INVALID_INCLUDE_IMPORT: return "Invalid include or import";
+			case UNEXPECTED_END_OF_FILE: return "Unexpected end of file";
+			case INVALID_USE_OF_EXPORT: return "Invalid use of export";
+			case INVALID_CASE_STMT: return "Invalid case statement";
+			case NOT_IMPLEMENTED: return "Not implemented";
+			case MULTIPLE_RETURNS_NOT_ALLOWED: return "Multiple returns not allowed";
 			case SCANNER: {
 				if (tok != NULL){
 					return tok->raw;

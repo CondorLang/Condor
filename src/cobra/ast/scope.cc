@@ -4,62 +4,41 @@
 namespace Cobra{
 namespace internal{
 	Scope::Scope(){
-		count = 1;
+		isParsed = false;
 		outer = NULL;
-		isolate = NULL;
 	}
 
 	Scope::~Scope(){}
 
-	Scope* Scope::New(Isolate* iso){
-		void* p = iso->GetMemory(sizeof(Scope));
-		Scope* s = new(p) Scope();
-		s->count = 1;
-		s->outer = NULL;
-		s->isolate = iso;
-		return s;
-	}
-
-	Scope* Scope::NewScope(Isolate* isolate){
-		Scope* scope = Scope::New(isolate);
-		scope->outer = this;
-		return scope;
-	}
-
-	std::vector<ASTNode*> Scope::Lookup(std::string name){
-		std::vector<ASTNode*> objs;
-		for (int i = 0; i < ordered.size(); i++){
-			if (ordered[i]->name == name && ordered[i]->type != FUNC_CALL) objs.push_back(ordered[i]);
-		}
-		return objs;
+	Scope* Scope::New(Isolate* isolate){
+		void* pt = isolate->GetMemory(sizeof(Scope));
+		Scope* n = new(pt) Scope();
+		return n;
 	}
 
 	void Scope::Insert(ASTNode* node){
-		if (node != NULL){
-			ordered.push_back(node);
-			count++;
-		}
-	}
-
-	ASTNode* Scope::Get(int index){
-		return ordered[index];
+		nodes.push_back(node);
 	}
 
 	int Scope::Size(){
-		return ordered.size();
+		return nodes.size();
 	}
 
-	void Scope::String(){
-		for (int i = 0; i < ordered.size(); i++){
-			printf("Found: %s\n", ordered[i]->name.c_str());
-		}
+	ASTNode* Scope::Get(int idx){
+		return nodes.at(idx);
 	}
 
 	void Scope::InsertBefore(ASTNode* node){
-		if (node != NULL){
-			ordered.insert(ordered.begin(), node);
-			count++;
+		nodes.insert(nodes.begin(), node);
+	}
+
+	std::vector<ASTNode*> Scope::Lookup(std::string name, bool deep){
+		std::vector<ASTNode*> results;
+		for (int i = 0; i < nodes.size(); i++){
+			if (nodes[i]->name == name) results.push_back(nodes[i]);
 		}
+		if (results.size() == 0 && outer != NULL && deep) return outer->Lookup(name);
+		return results;
 	}
 } // namespace internal
 } // namespace Cobra	

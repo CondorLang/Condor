@@ -52,7 +52,7 @@ namespace internal{
 		K_FUNC,
 		HANDLE,
 		ASTARRAY,
-		ASTLITERARY,
+		LITERAL,
 		K_TOKEN,
 		PARSER,
 		CHECK,
@@ -186,12 +186,14 @@ namespace internal{
 		SWITCH,
 		THROW,
 		TRY,
+		CATCH,
 		TYPE,
 		VAR,
 		WHILE,
 		AS,
 		EXPORT,
 		DELETE,
+		INTERNAL,
 		KEYWORD_END
 	};	
 
@@ -213,6 +215,8 @@ namespace internal{
 		std::string raw;
 
 		std::string String();
+		int Int(){return (int) value;}
+		int Length();
 		int Precedence();
 		bool IsKeyword(){return value > KEYWORD_BEGIN && value < KEYWORD_END;}
 		bool IsLiteral(){return value > LITERAL_BEGIN && value < LITERAL_END;}

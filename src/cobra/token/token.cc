@@ -52,7 +52,7 @@ namespace internal{
 			case K_FUNC: return "kFunc";
 			case HANDLE: return "kHandle";
 			case ASTARRAY: return "kAstArray";
-			case ASTLITERARY: return "kAstLiterary";
+			case LITERAL: return "kLiteral";
 			case K_TOKEN: return "kToken";
 			case PARSER: return "kParser";
 			case CHECK: return "kCheck";
@@ -154,6 +154,8 @@ namespace internal{
 			case TRY: return "try";
 			case THROW: return "throw";
 			case DELETE: return "delete";
+			case CATCH: return "catch";
+			case INTERNAL: return "internal";
 
 			default: return "";
 		}
@@ -226,6 +228,8 @@ namespace internal{
 		else if (str == "try") return Token::New(iso, TRY);
 		else if (str == "throw") return Token::New(iso, THROW);
 		else if (str == "delete") return Token::New(iso, DELETE);
+		else if (str == "catch") return Token::New(iso, CATCH);
+		else if (str == "undefined") return Token::New(iso, UNDEFINED);
 		else return Token::New(iso, IDENT);
 	}
 
@@ -240,6 +244,11 @@ namespace internal{
 		void* p = iso->GetMemory(sizeof(Token));
 		Token* t = new(p) Token(val);
 		return t;
+	}
+
+	int Token::Length(){
+		if (raw.length() > 0) return (int) raw.length();
+		return String().length();
 	}
 } // namespace internal
 } // namespace Cobra

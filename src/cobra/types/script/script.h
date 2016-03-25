@@ -1,80 +1,57 @@
 #ifndef SCRIPT_H_
 #define SCRIPT_H_
 
-#include "cobra/parser/parser.h"
-#include "cobra/ast/check.h"
-#include "cobra/mem/handle.h"
-#include "cobra/ast/ast.h"
-#include "cobra/assert.h"
-#include "cobra/ast/context.h"
-#include "cobra/types/vector/vector.h"
-#include "cobra/types/script/script.h"
-#include "cobra/types/strings/string.h"
-#include "cobra/codegen/codegen.h"
+#include <string>
 #include <map>
-#include <fstream>
-#include <streambuf>
-#include <stdlib.h>
+#include <vector>
+
+#include "cobra/flags.h"
 #include "cobra/clock.h"
 #include "cobra/shell.h"
-#include <string>
-#include <cstring>
+#include "cobra/mem/isolate.h"	
+#include "cobra/error/error.h"
+#include "cobra/parser/parser.h"
+#include "cobra/semantics/semantics.h"
+#include "cobra/types/strings/string.h"	
 
 namespace Cobra {
 namespace internal{
 
-	class Handle;
+	class String;
 	class Parser;
-	class Check;
-	class Codegen;
-	template<class T> class Pointer;
+	class Semantics;
 
 	class Script
 	{
 	private:
+		String* raw;
 
 		//flags
 		bool parsingTime;
 		bool internal;
 
-		Handle* source;
 		Parser* parser;
-		Check* check;
+		String* source;
+		std::string* currentCode;
+		Semantics* semantics;
 		bool hasErr;
-		Vector<std::string> msgs;
+		std::vector<std::string> msgs;
 		std::string name;
 		const char* basePath;
-		std::map<std::size_t, ASTFile*> includes;
-		void SetIncludes();
-		void SetImports();
 		std::string absolutePath;
 		std::string sourceCode;
 		Isolate* isolate;
 		bool compiled;
-		Codegen* codegen;
-		std::string GetPathOfImport(std::string import);
-		std::string ParseRelativePath(std::string absolute, std::string path);
-		std::string BackFolder(std::string path);
-		std::string StayInFolder(std::string path);		
+
 		std::string GetSourceRow(int row, int col);
-		int CharsToNewLine(std::string code, int start);
 
 	public:
-		Script(){}
-		static Script* New(Handle* string, Isolate* isolate);
-		void Compile();
-		void SetDefualts(Handle* string, Isolate* isolate);
-		Handle* GetSource(){return source;}
-		std::string GetSourceCode();
-		bool HasError(){return hasErr;}
-		Isolate* GetIsolate(){return isolate;}
-		const char* GetAbsolutePath(){return absolutePath.c_str();}
-		std::string GetFileName();
-		void Run();
-		ASTNode* GetExportedObject(std::string name);
-		const char* GetErrorMsg(){if (msgs.size() > 0) return msgs[0].c_str(); else return "";}
+		Script(Isolate* isolate, String* str);
+		~Script(){}
+		static Script* New(Isolate* iso, String* str);
 		static void RunInternalScript(Isolate* isolate, std::string hex, std::string _name);
-		void PrintExported();
+		void Run();
+		void Compile();
 	};
 
 	namespace Sizes{

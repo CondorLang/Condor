@@ -131,26 +131,20 @@ src/api.o: src/api.cc src/api.h src/../include/Cobra.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/bitset \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__bit_reference \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/istream \
-  src/cobra/mem/isolate.h src/cobra/mem/heap.h \
+  src/cobra/flags.h src/cobra/global.h src/cobra/mem/isolate.h \
+  src/cobra/mem/allocate.h /usr/include/math.h src/cobra/mem/list.h \
+  src/cobra/mem/gc.h src/cobra/ast/context.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/vector \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__split_buffer \
-  src/cobra/globals.h src/cobra/token/token.h src/cobra/flags.h \
-  src/cobra/assert.h src/cobra/ast/context.h \
+  src/cobra/types/strings/string.h \
+  src/cobra/types/strings/string-bytes.h src/cobra/types/script/script.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/map \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__tree \
-  src/cobra/ast/ast.h src/cobra/scanner/scanner.h \
-  src/cobra/error/error.h src/cobra/types/vector/vector.h \
-  src/cobra/ast/scope.h src/cobra/types/try_catch/exception.h \
-  src/cobra/types/try_catch/exception-bytes.h \
-  src/cobra/types/array/array.h src/cobra/types/script/script.h \
-  src/cobra/parser/parser.h src/cobra/mem/handle.h \
-  src/cobra/types/strings/string.h \
-  src/cobra/types/strings/string-bytes.h src/cobra/parser/internal.h \
-  src/cobra/mem/sizes.h src/cobra/ast/check.h \
-  src/cobra/codegen/codegen.h src/cobra/clock.h src/cobra/shell.h \
-  src/cobra/types/array/array-bytes.h src/cobra/mem/factory.h \
-  src/cobra/mem/allocate.h /usr/include/math.h src/cobra/mem/list.h \
-  src/cobra/mem/gc.h
+  src/cobra/clock.h src/cobra/shell.h src/cobra/error/error.h \
+  src/cobra/token/token.h src/cobra/parser/parser.h src/cobra/ast/node.h \
+  src/cobra/ast/scope.h src/cobra/scanner/scanner.h \
+  src/cobra/types/vector/vector.h src/cobra/semantics/semantics.h \
+  src/cobra/semantics/binary.h
 
 src/api.h:
 
@@ -544,69 +538,11 @@ src/../include/Cobra.h:
 
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/istream:
 
-src/cobra/mem/isolate.h:
-
-src/cobra/mem/heap.h:
-
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/vector:
-
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__split_buffer:
-
-src/cobra/globals.h:
-
-src/cobra/token/token.h:
-
 src/cobra/flags.h:
 
-src/cobra/assert.h:
+src/cobra/global.h:
 
-src/cobra/ast/context.h:
-
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/map:
-
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__tree:
-
-src/cobra/ast/ast.h:
-
-src/cobra/scanner/scanner.h:
-
-src/cobra/error/error.h:
-
-src/cobra/types/vector/vector.h:
-
-src/cobra/ast/scope.h:
-
-src/cobra/types/try_catch/exception.h:
-
-src/cobra/types/try_catch/exception-bytes.h:
-
-src/cobra/types/array/array.h:
-
-src/cobra/types/script/script.h:
-
-src/cobra/parser/parser.h:
-
-src/cobra/mem/handle.h:
-
-src/cobra/types/strings/string.h:
-
-src/cobra/types/strings/string-bytes.h:
-
-src/cobra/parser/internal.h:
-
-src/cobra/mem/sizes.h:
-
-src/cobra/ast/check.h:
-
-src/cobra/codegen/codegen.h:
-
-src/cobra/clock.h:
-
-src/cobra/shell.h:
-
-src/cobra/types/array/array-bytes.h:
-
-src/cobra/mem/factory.h:
+src/cobra/mem/isolate.h:
 
 src/cobra/mem/allocate.h:
 
@@ -615,3 +551,41 @@ src/cobra/mem/allocate.h:
 src/cobra/mem/list.h:
 
 src/cobra/mem/gc.h:
+
+src/cobra/ast/context.h:
+
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/vector:
+
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__split_buffer:
+
+src/cobra/types/strings/string.h:
+
+src/cobra/types/strings/string-bytes.h:
+
+src/cobra/types/script/script.h:
+
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/map:
+
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__tree:
+
+src/cobra/clock.h:
+
+src/cobra/shell.h:
+
+src/cobra/error/error.h:
+
+src/cobra/token/token.h:
+
+src/cobra/parser/parser.h:
+
+src/cobra/ast/node.h:
+
+src/cobra/ast/scope.h:
+
+src/cobra/scanner/scanner.h:
+
+src/cobra/types/vector/vector.h:
+
+src/cobra/semantics/semantics.h:
+
+src/cobra/semantics/binary.h:

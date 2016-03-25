@@ -85,7 +85,7 @@ src/cobra/mem/allocate.o: src/cobra/mem/allocate.cc \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/stdexcept \
   /usr/include/math.h src/cobra/flags.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/cstdlib \
-  src/cobra/globals.h src/cobra/mem/list.h
+  src/cobra/global.h src/cobra/mem/list.h
 
 src/cobra/mem/allocate.h:
 
@@ -345,6 +345,6 @@ src/cobra/flags.h:
 
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/cstdlib:
 
-src/cobra/globals.h:
+src/cobra/global.h:
 
 src/cobra/mem/list.h:

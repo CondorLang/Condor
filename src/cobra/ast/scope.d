@@ -72,7 +72,6 @@ src/cobra/ast/scope.o: src/cobra/ast/scope.cc src/cobra/ast/scope.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/map \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__tree \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/functional \
-  src/cobra/ast/ast.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/vector \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__bit_reference \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/climits \
@@ -81,11 +80,7 @@ src/cobra/ast/scope.o: src/cobra/ast/scope.cc src/cobra/ast/scope.h \
   /usr/include/i386/limits.h /usr/include/i386/_limits.h \
   /usr/include/sys/syslimits.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__split_buffer \
-  src/cobra/token/token.h src/cobra/scanner/scanner.h \
-  src/cobra/error/error.h src/cobra/types/vector/vector.h \
-  src/cobra/globals.h src/cobra/mem/isolate.h src/cobra/mem/heap.h \
-  src/cobra/flags.h \
-  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/cstdlib \
+  src/cobra/global.h src/cobra/mem/isolate.h src/cobra/mem/allocate.h \
   /usr/include/stdlib.h /usr/include/sys/wait.h \
   /usr/include/sys/_types/_id_t.h /usr/include/sys/signal.h \
   /usr/include/machine/signal.h /usr/include/i386/signal.h \
@@ -98,62 +93,10 @@ src/cobra/ast/scope.o: src/cobra/ast/scope.cc src/cobra/ast/scope.h \
   /usr/include/sys/_endian.h /usr/include/libkern/_OSByteOrder.h \
   /usr/include/libkern/i386/_OSByteOrder.h /usr/include/alloca.h \
   /usr/include/machine/types.h /usr/include/i386/types.h \
-  src/cobra/assert.h src/cobra/ast/context.h \
-  src/cobra/types/try_catch/exception.h src/../include/Cobra.h \
-  src/cobra/types/try_catch/exception-bytes.h \
-  src/cobra/types/array/array.h src/cobra/types/script/script.h \
-  src/cobra/parser/parser.h src/cobra/mem/handle.h \
-  src/cobra/types/strings/string.h \
-  src/cobra/types/strings/string-bytes.h src/cobra/parser/internal.h \
-  src/cobra/mem/sizes.h src/cobra/ast/check.h \
-  src/cobra/codegen/codegen.h \
-  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/fstream \
-  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/ostream \
-  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/ios \
-  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__locale \
-  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/mutex \
-  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__mutex_base \
-  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/chrono \
-  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/ctime \
-  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/ratio \
-  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/system_error \
-  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/cerrno \
-  /usr/include/errno.h /usr/include/sys/errno.h /usr/include/pthread.h \
-  /usr/include/pthread/pthread_impl.h /usr/include/pthread/sched.h \
-  /usr/include/sys/_pthread/_pthread_cond_t.h \
-  /usr/include/sys/_pthread/_pthread_condattr_t.h \
-  /usr/include/sys/_pthread/_pthread_key_t.h \
-  /usr/include/sys/_pthread/_pthread_mutex_t.h \
-  /usr/include/sys/_pthread/_pthread_mutexattr_t.h \
-  /usr/include/sys/_pthread/_pthread_once_t.h \
-  /usr/include/sys/_pthread/_pthread_rwlock_t.h \
-  /usr/include/sys/_pthread/_pthread_rwlockattr_t.h \
-  /usr/include/sys/_pthread/_pthread_t.h /usr/include/pthread/qos.h \
-  /usr/include/sys/qos.h /usr/include/sys/_types/_mach_port_t.h \
-  /usr/include/locale.h /usr/include/_locale.h /usr/include/xlocale.h \
-  /usr/include/_xlocale.h /usr/include/xlocale/_ctype.h \
-  /usr/include/xlocale/__wctype.h /usr/include/xlocale/_stdio.h \
-  /usr/include/xlocale/_stdlib.h /usr/include/xlocale/_string.h \
-  /usr/include/xlocale/_time.h /usr/include/xlocale/_wchar.h \
-  /usr/include/xlocale/_wctype.h \
-  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/streambuf \
-  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/locale \
-  /usr/include/nl_types.h /usr/include/sys/types.h \
-  /usr/include/sys/_types/_blkcnt_t.h \
-  /usr/include/sys/_types/_blksize_t.h \
-  /usr/include/sys/_types/_in_addr_t.h \
-  /usr/include/sys/_types/_in_port_t.h /usr/include/sys/_types/_ino_t.h \
-  /usr/include/sys/_types/_ino64_t.h /usr/include/sys/_types/_key_t.h \
-  /usr/include/sys/_types/_nlink_t.h /usr/include/sys/_types/_rsize_t.h \
-  /usr/include/sys/_types/_errno_t.h \
-  /usr/include/sys/_types/_fsblkcnt_t.h \
-  /usr/include/sys/_types/_fsfilcnt_t.h /usr/include/_types/_nl_item.h \
-  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/bitset \
-  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/istream \
-  src/cobra/clock.h src/cobra/shell.h \
-  src/cobra/types/array/array-bytes.h src/cobra/mem/factory.h \
-  src/cobra/mem/allocate.h /usr/include/math.h src/cobra/mem/list.h \
-  src/cobra/mem/gc.h
+  /usr/include/math.h src/cobra/flags.h \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/cstdlib \
+  src/cobra/mem/list.h src/cobra/mem/gc.h src/cobra/ast/context.h \
+  src/cobra/ast/node.h src/cobra/token/token.h
 
 src/cobra/ast/scope.h:
 
@@ -371,8 +314,6 @@ src/cobra/ast/scope.h:
 
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/functional:
 
-src/cobra/ast/ast.h:
-
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/vector:
 
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__bit_reference:
@@ -393,23 +334,11 @@ src/cobra/ast/ast.h:
 
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__split_buffer:
 
-src/cobra/token/token.h:
-
-src/cobra/scanner/scanner.h:
-
-src/cobra/error/error.h:
-
-src/cobra/types/vector/vector.h:
-
-src/cobra/globals.h:
+src/cobra/global.h:
 
 src/cobra/mem/isolate.h:
 
-src/cobra/mem/heap.h:
-
-src/cobra/flags.h:
-
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/cstdlib:
+src/cobra/mem/allocate.h:
 
 /usr/include/stdlib.h:
 
@@ -453,166 +382,18 @@ src/cobra/flags.h:
 
 /usr/include/i386/types.h:
 
-src/cobra/assert.h:
-
-src/cobra/ast/context.h:
-
-src/cobra/types/try_catch/exception.h:
-
-src/../include/Cobra.h:
-
-src/cobra/types/try_catch/exception-bytes.h:
-
-src/cobra/types/array/array.h:
-
-src/cobra/types/script/script.h:
-
-src/cobra/parser/parser.h:
-
-src/cobra/mem/handle.h:
-
-src/cobra/types/strings/string.h:
-
-src/cobra/types/strings/string-bytes.h:
-
-src/cobra/parser/internal.h:
-
-src/cobra/mem/sizes.h:
-
-src/cobra/ast/check.h:
-
-src/cobra/codegen/codegen.h:
-
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/fstream:
-
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/ostream:
-
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/ios:
-
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__locale:
-
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/mutex:
-
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__mutex_base:
-
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/chrono:
-
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/ctime:
-
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/ratio:
-
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/system_error:
-
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/cerrno:
-
-/usr/include/errno.h:
-
-/usr/include/sys/errno.h:
-
-/usr/include/pthread.h:
-
-/usr/include/pthread/pthread_impl.h:
-
-/usr/include/pthread/sched.h:
-
-/usr/include/sys/_pthread/_pthread_cond_t.h:
-
-/usr/include/sys/_pthread/_pthread_condattr_t.h:
-
-/usr/include/sys/_pthread/_pthread_key_t.h:
-
-/usr/include/sys/_pthread/_pthread_mutex_t.h:
-
-/usr/include/sys/_pthread/_pthread_mutexattr_t.h:
-
-/usr/include/sys/_pthread/_pthread_once_t.h:
-
-/usr/include/sys/_pthread/_pthread_rwlock_t.h:
-
-/usr/include/sys/_pthread/_pthread_rwlockattr_t.h:
-
-/usr/include/sys/_pthread/_pthread_t.h:
-
-/usr/include/pthread/qos.h:
-
-/usr/include/sys/qos.h:
-
-/usr/include/sys/_types/_mach_port_t.h:
-
-/usr/include/locale.h:
-
-/usr/include/_locale.h:
-
-/usr/include/xlocale.h:
-
-/usr/include/_xlocale.h:
-
-/usr/include/xlocale/_ctype.h:
-
-/usr/include/xlocale/__wctype.h:
-
-/usr/include/xlocale/_stdio.h:
-
-/usr/include/xlocale/_stdlib.h:
-
-/usr/include/xlocale/_string.h:
-
-/usr/include/xlocale/_time.h:
-
-/usr/include/xlocale/_wchar.h:
-
-/usr/include/xlocale/_wctype.h:
-
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/streambuf:
-
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/locale:
-
-/usr/include/nl_types.h:
-
-/usr/include/sys/types.h:
-
-/usr/include/sys/_types/_blkcnt_t.h:
-
-/usr/include/sys/_types/_blksize_t.h:
-
-/usr/include/sys/_types/_in_addr_t.h:
-
-/usr/include/sys/_types/_in_port_t.h:
-
-/usr/include/sys/_types/_ino_t.h:
-
-/usr/include/sys/_types/_ino64_t.h:
-
-/usr/include/sys/_types/_key_t.h:
-
-/usr/include/sys/_types/_nlink_t.h:
-
-/usr/include/sys/_types/_rsize_t.h:
-
-/usr/include/sys/_types/_errno_t.h:
-
-/usr/include/sys/_types/_fsblkcnt_t.h:
-
-/usr/include/sys/_types/_fsfilcnt_t.h:
-
-/usr/include/_types/_nl_item.h:
-
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/bitset:
-
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/istream:
-
-src/cobra/clock.h:
-
-src/cobra/shell.h:
-
-src/cobra/types/array/array-bytes.h:
-
-src/cobra/mem/factory.h:
-
-src/cobra/mem/allocate.h:
-
 /usr/include/math.h:
+
+src/cobra/flags.h:
+
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/cstdlib:
 
 src/cobra/mem/list.h:
 
 src/cobra/mem/gc.h:
+
+src/cobra/ast/context.h:
+
+src/cobra/ast/node.h:
+
+src/cobra/token/token.h:

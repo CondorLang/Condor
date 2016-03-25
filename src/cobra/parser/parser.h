@@ -2,118 +2,95 @@
 #define PARSER_H_
 
 #include <string>
-#include "cobra/token/token.h"
-#include "cobra/scanner/scanner.h"
-#include "cobra/ast/scope.h"
-#include "cobra/error/error.h"
-#include "cobra/ast/ast.h"
+#include <stdarg.h>
+
 #include "cobra/mem/isolate.h"
-#include "cobra/mem/handle.h"
-#include <vector>
-#include "internal.h"
-#include "cobra/mem/sizes.h"
+#include "cobra/token/token.h"
+#include "cobra/ast/node.h"
+#include "cobra/ast/scope.h"
+#include "cobra/scanner/scanner.h"
+#include "cobra/types/strings/string.h"
 
 namespace Cobra {
 namespace internal{
 
-	class Isolate;
-	class Scanner;
-
-	/**
-	 * @brief The Parser class
-	 * @details This is where we create the AST
-	 */
 	class Parser
 	{
-	public:
-		P_MODE mode;
-		Token* expected;
-		int Pos;
-		int Row;
-		int Col;
-
-		Parser(){}
-		static Parser* New(Isolate* iso, std::string* src, std::string* path);
-		ASTFile* Parse();
-		std::vector<ASTImport*> imports;
-		std::vector<ASTInclude*> includes;
-		std::vector<ASTNode*> exports;
-		void SetIsolate(Isolate* iso){isolate = iso;}
-		void SetInteral(bool i){internal = i;}
-		void SetInline(bool isInline){IsInline = isInline;}
-		std::string* filePath;
-
 	private:
+		Isolate* isolate;
+		std::string* source;
 		Scanner* scanner;
 		Token* tok;
+		Scope* rootScope;
+		Scope* scope;
 		int pos;
 		int row;
 		int col;
 		bool reset;
 		bool nonOp;
-		bool IsInline;
-		Scope* topScope;
-		Scope* currentFunctionScope;
-		Isolate* isolate;
-		std::string* source;
-		bool internal;
-		void Flush();
-
-		// Parser options
-		bool trace;
+		bool isInline;
+		bool isInternal;
 		bool printVariables;
-		bool printCheck;
-		bool allowNative;
+		bool trace;
+		std::vector<ASTImport*> imports;
+		std::vector<ASTInclude*> includes;
 
-		void Trace(const char* name, const char* value);
-		void PrintTok();
-		void OpenScope();
-		void CloseScope();
+		void SetDefaults(std::string* source);
+		void SetRowCol(ASTNode* node);
 		void Next();
 		void Expect(TOKEN val);
+		bool Is(int argc, ...);
+		void PrintTok();
+		void Trace(const char* name, const char* value);
+		void ParseImportOrInclude();
+		std::string ParseAlias();
+		void ParseShallowStmtList(TOKEN terminator = END);
 		bool IsOperator();
+		bool IsBoolean();
 		bool IsAssignment();
 		bool IsVarType();
-		bool IsBoolean();
-		VISIBILITY GetVisibility();
-		void AddRowCol(ASTNode* node);
-		void ParseMode();
-		void ParseImportOrInclude();
-		ASTNode* ParseNodes();
-		ASTFunc* ParseFunc(bool hasFunc);
-		void ParseFuncParams(ASTFunc* func);
-		ASTBlock* ParseBlock(bool initEat);
-		void ParseStmtList();
-		ASTNode* ParseStmt();
-		ASTNode* ParseVar();
-		ASTNode* ParseReturn();
+		ASTFunc* ParseFunc();
+		Scope* LazyParseBody();
 		ASTNode* ParseIdentStart();
-		ASTNode* ParseTryCatch();
-		ASTExpr* ParseSimpleStmt(bool callNext);
+		std::vector<ASTVar*> ParseVarList();
 		ASTExpr* ParseExpr();
 		ASTExpr* ParseBinaryExpr();
-		ASTExpr* ParseUnaryExpr();
-		ASTExpr* ParsePrimaryExpr();
-		ASTExpr* ParseOperand();
-		ASTIdent* ParseIdent(bool eat);
-		ASTExpr* ParseFuncCall(ASTExpr* unary);
-		ASTExpr* ParseArray(ASTExpr* expr);
-		ASTExpr* ParseObjectInit();
+		ASTExpr* ParseVarType();
+		ASTExpr* ParseFuncCall(ASTExpr* expr);
+		ASTExpr* ParseForExpr();
+		ASTExpr* ParseBoolean();
+		ASTExpr* ParseWhile();
+		ASTExpr* ParseTryCatch();
+		std::vector<ASTVar*> ParseFuncArgs();
+		ASTExpr* ParseThrow();
+		ASTExpr* ParseIf();
+		ASTNode* ParseDelete();
+		ASTExpr* ParseSwitch();
+		ASTExpr* ParseCase();
 		ASTNode* ParseObject();
-		ASTIf* ParseIf();
-		ASTElse* ParseElse();
-		ASTWhile* ParseWhile();
-		ASTFor* ParseFor();
-		ASTNode* ParseThrow();
-		ASTVar* ParseArrayInit(ASTArray* array);
-		ASTNode* ParseDelete(); 
-		ASTNode* GetObjectInScopeByString(std::string name, Scope* sc);
-		ASTExpr* ParseNative();
-	};
+		void OpenScope(Scope* sc);
+		void CloseScope();
+		ASTNode* ParseInternal();
+		ASTNode* ParseReturn();
 
-	namespace Sizes{
-		const int kParser = sizeof(Parser);
-	}
+	public:
+		Parser(Isolate* iso);
+		~Parser();
+		static Parser* New(Isolate* isolate, std::string* source);
+		void SetInteral(bool isInternal){isInternal = isInternal;}
+		bool IsInternal(){return isInternal;}
+		void SetInline(bool isInline){isInline = isInline;}
+		void Parse();
+		static Scope* Parse(Isolate* iso, Scope* sc);
+		Scope* GetBaseScope(){return rootScope;}
+		std::string* GetSource(){return source == NULL ? scanner->src : source;}
+
+		int Pos;
+		int Row;
+		int Col;
+		Token* expected;
+		
+	};
 } // namespace internal
 }
 

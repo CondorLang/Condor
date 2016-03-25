@@ -1,41 +1,5 @@
-#mode "strict";
-
-import "exception"
-
 func add(int a, int b){
 	return a + b;
 }
 
-func minus(int a, int b){
-	return a - b;
-}
-
-object Fruit{
-	private string name;
-	func Fruit(string name){
-		this.name = name;
-	}
-	func GetName(){return this.name;}
-	func SetName(string name){this.name = name;}
-	func AppendName(string name){this.name += name;}
-}
-
-func loop(Fruit f){
-	for (int i = 0; i < 100; i++){
-		f.AppendName(i + "");
-	}
-	return loop(f);
-}
-
-func loopA(string[] a){
-	for (int i = 0; i < a.length; i++){
-		a[i] += " ";
-	}
-}
-
-func main(){
-	Fruit apple = "Apple";
-	apple.SetName("Banana");
-	loop(apple);
-	loopA(["a", "b", "c"]);
-}
+var c = add(1, 2) + add(2, 2);

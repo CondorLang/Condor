@@ -8,7 +8,7 @@
 #include <string>
 #include <math.h>
 #include "cobra/flags.h"
-#include "cobra/globals.h"
+#include "cobra/global.h"
 #include "list.h"
 
 namespace Cobra {

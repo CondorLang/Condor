@@ -3,23 +3,26 @@
 #include <string>
 #include <sstream>
 #include <iostream>
+#include <time.h>
 
 using namespace Cobra;
 
 int main(int argc, const char* argv[]){
 	SetCommandLineFlags(argc, argv);
-	Context* context = Context::New();
 	Isolate* isolate = Isolate::New();
-	context->SetIsolate(isolate);
+	Context* context = isolate->CreateContext();
 
 	isolate->Enter();
 	std::string input = "";
-	std::cout << "CobraLang (C) 2015\n";
+	time_t theTime = time(NULL);
+	struct tm *aTime = localtime(&theTime);
+	int year = aTime->tm_year + 1900;
+	std::cout << "CobraLang (C) " + std::to_string(year) + "\n";
 	while (true){
 		std::cout << ">> ";
 		getline(std::cin, input);
-		Handle* handle = String::New(isolate, input.c_str());
-		Handle* script = Script::Compile(isolate, handle);
+		String* string = String::New(isolate, input.c_str());
+		Script* script = Script::Compile(isolate, string);
 		script->Run();
 	}
 

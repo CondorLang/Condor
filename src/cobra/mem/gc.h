@@ -1,7 +1,6 @@
 #ifndef GC_H_
 #define GC_H_
 
-#include "cobra/ast/ast.h"
 #include "allocate.h"
 
 namespace Cobra {

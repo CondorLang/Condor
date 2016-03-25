@@ -1,0 +1,6 @@
+#mode "strict";
+
+export object Array{
+	func Array(){}
+	int length = 0;
+}

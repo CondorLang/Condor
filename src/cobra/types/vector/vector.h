@@ -4,7 +4,7 @@
 #include <stddef.h>
 #include <stdio.h>
 #include <typeinfo>
-#include "cobra/globals.h"
+#include "cobra/global.h"
 
 namespace Cobra {
 namespace internal{

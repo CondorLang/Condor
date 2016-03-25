@@ -9,7 +9,9 @@ namespace Cobra {
 		class Isolate;
 	}
 
-	#define API_VERSION 1.0
+	#define MAJOR 0
+	#define MINOR 1
+	#define BUILD 0
 
 } // namespace Cobra
 

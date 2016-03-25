@@ -4,7 +4,6 @@ namespace Cobra {
 namespace internal{
 
 	Isolate::Isolate(){
-		factory = new Factory(this);
 		const static size_t poolSize = KB * 8; // 8kb
 		const static size_t chunkSize2 = 35;
 		const static size_t sizeToAllocate2 = DEFAULT_MEMORY_CHUNK_SIZE * 2;
@@ -35,11 +34,23 @@ namespace internal{
 	}
 
 	Isolate::~Isolate(){
+	}
+
+	void Isolate::Dispose(){
 		delete small;
 		delete medium;
 		delete large;
 		delete xl;
-		delete factory;
+		delete gc;
+		delete self;
+	}
+
+	Context* Isolate::CreateContext(){
+		void* p = this->GetMemory(sizeof(Context));
+		Context* context = new(p) Context();
+		context->SetIsolate(this);
+		this->context = context;
+		return context;
 	}
 
 	void* Isolate::GetMemory(const size_t size){
@@ -62,57 +73,6 @@ namespace internal{
 		else if (size < 80) medium->FreeMemory(ptr, size);
 		else if (size < 130) large->FreeMemory(ptr, size);
 		else xl->FreeMemory(ptr, size);
-	}
-
-	void Isolate::_enter(){
-		_currentIsolate = this;
-	}
-
-	void Isolate::_exit(){
-		bool en = EXPORTED_NODES;
-		if (en){
-			this->context->PrintExported(this);
-		}
-		_currentIsolate = NULL;
-	}
-
-	void Isolate::RunGC(){
-		gc->Run(small);
-		gc->Run(medium);
-		gc->Run(large);
-		gc->Run(xl);
-	}
-
-	HeapObject* Isolate::Insert(HeapObject obj){
-		HeapObject* o = heapstore.Insert(obj);
-		bool heapInsertFlag = HEAP_INSERT;
-		if (heapInsertFlag){
-			Token* tok = new Token(obj.type);
-			printf("\t%s\n", tok->String().c_str());
-			delete tok;
-		}
-		return o;
-	}
-
-	void Isolate::FlushAST(){
-
-		std::string flushing = "kAstFile kAstFor kFunc kScope kAstInclude kAstImport kAstFunc kAstBlock";
-		flushing += "kAstVar kAstUnaryExpr kAstBinaryExpr kAstObjectMemberChainExpr kAstIdent" + 
-		flushing += "kAstFuncCallExpr kAstArrayMemberExpr kAstObject kAstIf kAstElse kAstWhile" + 
-		flushing += "kAstFor kAstFile";
-		heapstore.FlushByTypeString(flushing);
-	}
-
-	void Isolate::FlushAll(){
-		heapstore.FlushAll();
-	}
-
-	void Isolate::SetContext(Context* context){
-		this->context = context;
-	}
-
-	bool Isolate::IsAddressValid(Address addr){
-		return heapstore.IsValidAddress(addr);
 	}
 
 } // namespace internal

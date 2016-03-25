@@ -119,6 +119,19 @@ namespace internal{
 					Next(); 
 					return Token::New(isolate, MOD_ASSIGN);
 				}
+				else if (IsLetter(p)){ // internal
+					Next();
+					std::string result = "";
+					result += ch;
+					Next();
+					while (IsLetter(ch) || IsNumber(ch) || ch == '_'){
+						result += ch;
+						Next();
+					}
+					Token* tok = Token::New(isolate, INTERNAL);
+					tok->raw = result;
+					return tok;
+				}
 				return Token::New(isolate, MOD);
 			}
 			case '<': {
@@ -426,6 +439,14 @@ namespace internal{
 				Next();
 			}
 		}
+	}
+
+	std::string Scanner::Substr(int start, int end){
+		return src->substr(start, end - start);
+	}
+
+	std::string Scanner::LookAhead(int len){
+		return Substr(offset, offset + len);
 	}
 } // namespace internal
 } // namespace Cobra

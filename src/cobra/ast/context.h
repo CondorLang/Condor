@@ -1,40 +1,31 @@
 #ifndef CONTEXT_H_
 #define CONTEXT_H_
 
-#include <map>
-#include "cobra/mem/isolate.h"
-#include "cobra/ast/ast.h"
-#include "cobra/types/try_catch/exception.h"
 #include <vector>
-#include <algorithm>
-#include "cobra/types/array/array.h"
+#include <string>
+
+#include "cobra/mem/isolate.h"
 
 namespace Cobra {
 namespace internal{
 
 	class Isolate;
-	class Script;
+	class Scope;
 	
 	class Context
 	{
 	private:
-		std::map<Isolate*, std::map<size_t, Script*> > scripts;
+		Isolate* isolate;
 		std::vector<std::string> inProgress;
-		std::vector<std::string> imported;
+		Scope* root;
 		int nextAstId;
+
 	public:
 		Context();
 		~Context();
-		void SetIsolate(Isolate* isolate);
-		void AddScript(Script* script);
-		Script* GetScriptByString(Isolate* iso, std::string code);
-		bool IsIncluded(Isolate* iso, const char* path);
-		bool IsImported(Isolate* iso, std::string name);
-		void SetImport(std::string name);
+		void SetIsolate(Isolate* isolate){this->isolate = isolate;}
+		Isolate* GetIsolate(){return this->isolate;}
 		void AddToInProgress(std::string str);
-		void RemoveFromInProgress(std::string str);
-		ASTNode* GetExportedNode(Isolate* iso, std::string name);
-		void PrintExported(Isolate* iso);
 		int GetNextAstId();
 	};
 
