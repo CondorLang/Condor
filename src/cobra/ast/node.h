@@ -49,6 +49,7 @@ namespace internal{
 		TOKEN baseType;
 		ASTNode* value;
 		TOKEN assignmentType;
+		bool isArray;
 		static ASTVar* New(Isolate* iso);		
 	};
 
@@ -175,6 +176,13 @@ namespace internal{
 	{
 	public:
 		static ASTUndefined* New(Isolate* iso);
+	};
+
+	class ASTArray : public ASTExpr
+	{
+	public:
+		static ASTArray* New(Isolate* iso);
+		std::vector<ASTExpr*> members;
 	};
 
 } // namespace internal

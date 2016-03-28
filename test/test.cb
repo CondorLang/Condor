@@ -2,4 +2,19 @@ func add(int a, int b){
 	return a + b;
 }
 
-var c = add(1, 2) + add(2, 2);
+func minus(var a, var b){
+	return a + b;
+}
+
+func div(var a, var b){
+	return a / b;
+}
+
+func loop(int[] a){
+	return a[0];
+}
+
+int a = add(1, 2);
+int b = minus(1, 2);
+add(1, 1);
+int[] art = [1, 2];

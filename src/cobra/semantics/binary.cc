@@ -6,7 +6,7 @@ namespace internal{
 	TOKEN Binary::Compare(TOKEN leftT, TOKEN right, TOKEN op){
 		int left = (int) leftT;
 		switch (left){
-			case INT: case BOOLEAN: {
+			case INT: case BOOLEAN: case VAR: {
 				if (op == ADD){
 					if (right == INT) return INT;
 					else if (right == DOUBLE) return DOUBLE;
@@ -14,6 +14,7 @@ namespace internal{
 					else if (right == BOOLEAN) return INT;
 					else if (right == CHAR) return INT;
 					else if (right == STRING) return STRING;
+					else if (right == VAR) return VAR;
 					else if (right == ARRAY) throw Error::CANNOT_ADD_TO_ARRAY;
 					else {
 						throw Error::INVALID_ADD_EXPR;
@@ -25,6 +26,7 @@ namespace internal{
 					else if (right == DOUBLE) return DOUBLE;
 					else if (right == FLOAT) return FLOAT;
 					else if (right == BOOLEAN) return INT;
+					else if (right == VAR) return VAR;
 					else if (right == CHAR) throw Error::CANNOT_SUB_CHAR_FROM_TYPE;
 					else if (right == STRING) throw Error::CANNOT_SUB_STRING_FROM_TYPE;
 					else if (right == ARRAY) throw Error::CANNOT_SUB_FROM_ARRAY;
@@ -38,6 +40,7 @@ namespace internal{
 					else if (right == DOUBLE) return DOUBLE;
 					else if (right == FLOAT) return FLOAT;
 					else if (right == BOOLEAN) return INT;
+					else if (right == VAR) return VAR;
 					else if (right == CHAR) throw Error::CANNOT_DIV_CHAR_FROM_TYPE;
 					else if (right == STRING) throw Error::CANNOT_DIV_STRING_FROM_TYPE;
 					else if (right == ARRAY) throw Error::CANNOT_DIV_FROM_ARRAY;
@@ -51,6 +54,7 @@ namespace internal{
 					else if (right == DOUBLE) return DOUBLE;
 					else if (right == FLOAT) return FLOAT;
 					else if (right == BOOLEAN) return INT;
+					else if (right == VAR) return VAR;
 					else if (right == CHAR) throw Error::CANNOT_MULT_CHAR_FROM_TYPE;
 					else if (right == STRING) throw Error::CANNOT_MULT_STRING_FROM_TYPE;
 					else if (right == ARRAY) throw Error::CANNOT_MULT_FROM_ARRAY;
@@ -64,6 +68,7 @@ namespace internal{
 					else if (right == DOUBLE) return DOUBLE;
 					else if (right == FLOAT) return FLOAT;
 					else if (right == BOOLEAN) return INT;
+					else if (right == VAR) return VAR;
 					else if (right == CHAR) throw Error::CANNOT_MOD_CHAR_FROM_TYPE;
 					else if (right == STRING) throw Error::CANNOT_MOD_STRING_FROM_TYPE;
 					else if (right == ARRAY) throw Error::CANNOT_MOD_FROM_ARRAY;

@@ -30,7 +30,7 @@ namespace internal{
 		void InsertBefore(ASTNode* node);
 		int Size();
 		bool IsParsed(){return isParsed;}
-		void SetParsed(bool parsed){isParsed = parsed;}
+		void SetParsed(){isParsed = true;}
 		ASTNode* Get(int idx);
 		std::vector<ASTNode*> Lookup(std::string name, bool deep = true);
 	};

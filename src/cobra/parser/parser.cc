@@ -59,7 +59,7 @@ namespace internal{
 		Scope* result = p->GetBaseScope();
 		iso->FreeMemory(p, sizeof(Parser));
 		result->raw = sc->raw;
-		sc->SetParsed(true);
+		result->SetParsed();
 		return result;
 	}
 
@@ -118,7 +118,7 @@ namespace internal{
 	}
 
 	bool Parser::IsVarType(){
-		return Is(9, INT, BOOLEAN, FLOAT, DOUBLE, CHAR, STRING, IDENT, TRUE_LITERAL, FALSE_LITERAL);
+		return Is(10, INT, BOOLEAN, FLOAT, DOUBLE, CHAR, STRING, IDENT, TRUE_LITERAL, FALSE_LITERAL, kNULL);
 	}
 
 	bool Parser::IsBoolean(){
@@ -319,8 +319,9 @@ namespace internal{
 	// TODO
 	ASTNode* Parser::ParseIdentStart(){
 		Trace("Parsing", "Ident Start");
-		PrintTok();
-		return NULL;
+		ASTExpr* expr = ParseExpr();
+		if (Is(1, SEMICOLON)) Next();
+		return expr;
 	}
 
 	/**
@@ -340,6 +341,12 @@ namespace internal{
 		bool isBrace = Is(1, LBRACE);
 		if (Is(1, LBRACE)) Next();
 		bool breakOut = false;
+		bool isArray = Is(1, LBRACK);
+		if (isArray){
+			Next();
+			Expect(RBRACK);
+			Next();
+		}
 		while (true){
 			if (Is(1, RBRACE)) {
 				breakOut = true;
@@ -350,6 +357,7 @@ namespace internal{
 			SetRowCol(var);
 			var->baseType = tok->value;
 			var->name = tok->raw;
+			var->isArray = isArray;
 			Next();
 			Trace("Parsing Var", var->name.c_str());
 			var->assignmentType = tok->value;
@@ -393,6 +401,17 @@ namespace internal{
 				lit->unary = unary;
 				lit->isPost = false;
 			}
+		}
+		if (Is(1, LBRACK)){
+			Trace("Parsing", "Array");
+			ASTArray* ary = ASTArray::New(isolate);
+			Next();
+			while (!Is(1, RBRACK)){
+				ary->members.push_back(ParseExpr());
+				if (Is(1, COMMA)) Next();
+			}
+			Next();
+			return ary;
 		}
 		if (IsOperator() || IsBoolean()) { // needs to be last to catch all lingering operators
 			ASTBinaryExpr* binary = ASTBinaryExpr::New(isolate);
@@ -492,8 +511,8 @@ namespace internal{
 		Next();
 		std::vector<ASTVar*> vars;
 		while (true){
-			if (!Is(2, IDENT, RPAREN) && !IsVarType()) throw Error::INVALID_ARGUMENT_TYPE;
-			if (Is(1, IDENT) || IsVarType()){
+			if (!Is(3, IDENT, RPAREN, VAR) && !IsVarType()) throw Error::INVALID_ARGUMENT_TYPE;
+			if (Is(2, IDENT, VAR) || IsVarType()){
 				std::string first = tok->raw;
 				TOKEN firstType = tok->value;
 				if (first.length() == 0) first = tok->String();

@@ -54,6 +54,7 @@ namespace internal{
 		n->baseType = UNDEFINED;
 		n->value = NULL;
 		n->assignmentType = ILLEGAL;
+		n->isArray = false;
 		return n;
 	}
 
@@ -193,6 +194,14 @@ namespace internal{
 		ASTUndefined* n = new(pt) ASTUndefined();
 		ASTNode::SetDefaults(n, iso);
 		n->type = UNDEFINED;
+		return n;
+	}
+
+	ASTArray* ASTArray::New(Isolate* iso){
+		void* pt = iso->GetMemory(sizeof(ASTArray));
+		ASTArray* n = new(pt) ASTArray();
+		ASTNode::SetDefaults(n, iso);
+		n->type = ARRAY;
 		return n;
 	}
 

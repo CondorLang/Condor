@@ -60,6 +60,7 @@ namespace internal{
 
 	void Semantics::ScanScope(Scope* scope){
 		Trace("Scanning Scope", (std::to_string(scope->Size()) + " items").c_str());
+		scope->outer = currentScope;
 		currentScope = scope;
 		for (int i = 0; i < scope->Size(); i++){
 			ASTNode* node = scope->Get(i);
@@ -70,10 +71,7 @@ namespace internal{
 				case FOR: ValidateFor((ASTForExpr*) node); break;
 				case IF: ValidateIf((ASTIf*) node); break;
 				case FUNC: break;
-				default: {
-					printf("d: %s\n", Token::ToString(node->type));
-					throw Error::NOT_IMPLEMENTED;
-				}
+				default: ValidateExpr((ASTExpr*) node); break;
 			}
 		}
 		currentScope = scope->outer;
@@ -92,6 +90,7 @@ namespace internal{
 		}
 		if (var->baseType != UNDEFINED) Trace("Type", var->baseType);
 		else Trace("Type", var->assignmentType);
+		if (var->isArray) Trace("Array", "True");
 		indent--;
 	}
 
@@ -104,6 +103,7 @@ namespace internal{
 			case BINARY: return ValidateBinary((ASTBinaryExpr*) expr);
 			case LITERAL: return ValidateLiteral((ASTLiteral*) expr);
 			case FUNC_CALL: return ValidateFuncCall((ASTFuncCall*) expr);
+			case ARRAY: return ValidateArray((ASTArray*) expr);
 			default: {
 				printf("d: %s\n", Token::ToString(expr->type));
 				throw Error::NOT_IMPLEMENTED;
@@ -203,6 +203,16 @@ namespace internal{
 			throw Error::MULTIPLE_RETURNS_NOT_ALLOWED;
 		}
 		func->assignmentType = ((ASTVar*) returns[0])->assignmentType;
+	}
+
+	TOKEN Semantics::ValidateArray(ASTArray* expr){
+		TOKEN type = ValidateExpr(expr->members[0]);
+		for (int i = 1; i < expr->members.size(); i++){
+			TOKEN tmpType = ValidateExpr(expr->members[i]);
+			SetRowCol(expr->members[i]);
+			if (type != tmpType) throw Error::INVALID_ARRAY_MEMBER;
+		}
+		return type;
 	}
 
 } // namespace internal

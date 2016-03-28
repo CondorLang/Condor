@@ -37,6 +37,7 @@ namespace internal{
 		TOKEN ValidateBinary(ASTBinaryExpr* expr);
 		TOKEN ValidateIdent(ASTLiteral* expr);
 		TOKEN ValidateFuncCall(ASTFuncCall* expr);
+		TOKEN ValidateArray(ASTArray* expr);
 
 	public:
 		Semantics(Isolate* iso);
