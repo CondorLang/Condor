@@ -70,7 +70,8 @@ namespace internal{
 				case VAR: ValidateVar((ASTVar*) node); break;
 				case FOR: ValidateFor((ASTForExpr*) node); break;
 				case IF: ValidateIf((ASTIf*) node); break;
-				case FUNC: break;
+				case FUNC: /**ValidateFunc((ASTFunc*) node);**/ break; // Part of JIT compiling
+				case OBJECT: /**ValidateObject((ASTObject*) node);**/ break; // Part of JIT compiling
 				default: ValidateExpr((ASTExpr*) node); break;
 			}
 		}
@@ -79,6 +80,10 @@ namespace internal{
 
 	void Semantics::ValidateVar(ASTVar* var){
 		SetRowCol(var);
+		if (var->isObject && var->value->type == FUNC_CALL){
+			ValidateObjectInit(var);
+			return;
+		}
 		Trace("Validating Var", var->name.c_str());
 		indent++;
 		var->assignmentType = ValidateExpr((ASTExpr*) var->value);
@@ -91,6 +96,12 @@ namespace internal{
 		if (var->baseType != UNDEFINED) Trace("Type", var->baseType);
 		else Trace("Type", var->assignmentType);
 		if (var->isArray) Trace("Array", "True");
+		if (var->member != NULL){
+			ASTArray* ary = (ASTArray*) var->member;
+			if (ary->members.size() == 0 || ary->members.size() > 1) throw Error::INVALID_ACCESS_TO_ARRAY;
+			ValidateExpr(ary->members[0]);
+			ExpectNumber((ASTLiteral*) ary->members[0]);
+		}
 		indent--;
 	}
 
@@ -173,15 +184,15 @@ namespace internal{
 	}
 
 	// TODO: add variable types
-	TOKEN Semantics::ValidateFuncCall(ASTFuncCall* expr){
+	TOKEN Semantics::ValidateFuncCall(ASTFuncCall* expr, bool isConstructor){
 		Trace("Validating Func Call", expr->name.c_str());
 		SetRowCol(expr);
 		std::vector<ASTNode*> nodes = currentScope->Lookup(expr->name);
-		if (nodes.size() == 0) throw Error::UNDEFINED_FUNC;
+		if (nodes.size() == 0 && !isConstructor) throw Error::UNDEFINED_FUNC;
 		for (int i = 0; i < nodes.size(); i++){
 			if (nodes[i]->type == FUNC){
 				ASTFunc* func = (ASTFunc*) nodes[i];
-				ValidateFunc(func, true);
+				ValidateFunc(func, true, isConstructor);
 				expr->func = func;
 				return func->assignmentType;
 			}
@@ -190,7 +201,7 @@ namespace internal{
 	}
 
 	// TODO: Inject args into the scope
-	void Semantics::ValidateFunc(ASTFunc* func, bool parse){
+	void Semantics::ValidateFunc(ASTFunc* func, bool parse, bool isConstructor){
 		if (func->scope->IsParsed() || !parse) return;
 		func->scope = Parser::Parse(isolate, func->scope);
 		for (int i = 0; i < func->args.size(); i++){
@@ -202,7 +213,8 @@ namespace internal{
 			SetRowCol(returns[1]);
 			throw Error::MULTIPLE_RETURNS_NOT_ALLOWED;
 		}
-		func->assignmentType = ((ASTVar*) returns[0])->assignmentType;
+		else if (returns.size() == 1 && isConstructor) throw Error::NO_RETURN_STMTS_IN_CONSTRUCTOR;
+		if (!isConstructor) func->assignmentType = ((ASTVar*) returns[0])->assignmentType;
 	}
 
 	TOKEN Semantics::ValidateArray(ASTArray* expr){
@@ -213,6 +225,72 @@ namespace internal{
 			if (type != tmpType) throw Error::INVALID_ARRAY_MEMBER;
 		}
 		return type;
+	}
+
+	void Semantics::ExpectNumber(ASTLiteral* lit){
+		SetRowCol(lit);
+		int type = (int) lit->litType;
+		if (lit->var != NULL){
+			type = (int) lit->var->assignmentType;
+		}
+		switch (type){
+			case BOOLEAN: case INT: case DOUBLE: case FLOAT: return;
+		}
+		throw Error::INVALID_ACCESS_TO_ARRAY;
+	}
+
+	void Semantics::ValidateObject(ASTObject* obj){
+		Trace("Validating Object", obj->name.c_str());
+	}
+
+	/**
+	 * Disallow a return statement in the constructor
+	 */
+	void Semantics::ValidateObjectInit(ASTVar* var){
+		if (var->value->type != FUNC_CALL) throw Error::OBJECT_CONSTRUCTOR_INVALID;
+		Trace("Validating Var", var->name.c_str());
+		indent++;
+		Trace("Object", "True");
+		var->baseName = var->value->name;
+		std::vector<ASTNode*> nodes = currentScope->Lookup(var->baseName);
+		ASTObject* base = NULL;
+		if (nodes.size() > 1){
+			for (int i = 0; i < nodes.size(); i++){ // get the base object
+				ASTObject* obj = (ASTObject*) nodes[i];
+				if (obj->type == OBJECT && !obj->extend){
+					base = obj;
+				}
+			}
+			base->scope = Parser::Parse(isolate, base->scope);
+			ScanScope(base->scope);
+			for (int i = 0; i < nodes.size(); i++){
+				ASTObject* obj = (ASTObject*) nodes[i];
+				if (obj->type == OBJECT && obj->extend){
+					ValidateExtend(base, obj);
+					Scope* s = obj->scope;
+					obj->scope->outer->Destroy(obj);
+					s->Destroy();
+				}
+			}
+		}
+		else if (nodes.size() == 0) throw Error::UNDEFINED_VARIABLE;
+
+		// find the matching constructor
+		Scope* tmp = currentScope;
+		currentScope = base->scope;
+		ValidateFuncCall((ASTFuncCall*) var->value, true);
+		currentScope = tmp;
+
+		indent--;
+	}
+
+	void Semantics::ValidateExtend(ASTObject* base, ASTObject* extend){
+		Trace("Extending Object", base->name.c_str());
+		indent++;
+		extend->scope = Parser::Parse(isolate, extend->scope);
+		ScanScope(extend->scope);
+		base->scope->Merge(extend->scope);
+		indent--;
 	}
 
 } // namespace internal

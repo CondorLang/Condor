@@ -101,6 +101,7 @@ namespace internal{
 		DIV, // /
 		MOD, // %,
 		HASH, // #
+		DOLLAR, // $
 		TICK, // `
 
 		AND, // &

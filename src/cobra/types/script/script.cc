@@ -89,30 +89,26 @@ namespace internal{
 		std::string result = "";
 		std::string u = UNDERLINE_START;
 		std::string u2 = UNDERLINE_STOP;
-		int r = 0;
-		int c = 0;
+		int r = 1;
+		int c = 1;
 		bool carrot = false;
 		for (int i = 0; i < src.length(); i++){
-			if (src[i] == '\t'){
-				src[i] = ' ';
-			}
-			if (r == row - 1){
-				result += src[i];
-			}
-			else if (r == row){
+			if (src[i] == '\t') src[i] = ' ';
+			if (r == row - 1 || r == row){
 				result += src[i];
 			}
 			else if (r > row) break;
 			if (src[i] == '\n'){
 				r++;
-				c = 0;
+				c = 1;
 			}
 			c++;
 		}
-		for (int i = 0; i <= col; i++){
-			result += " ";
+		result += '\n';
+		for (int i = 0; i < col; i++){
+			result += ' ';
 		}
-		result += "^";
+		result += "\033[1;32m^\033[0m";
 		result += "\n";
 		return result;
 	}

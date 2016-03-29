@@ -320,6 +320,18 @@ namespace internal{
 	ASTNode* Parser::ParseIdentStart(){
 		Trace("Parsing", "Ident Start");
 		ASTExpr* expr = ParseExpr();
+		if (IsAssignment()) {
+			ASTVar* var = ASTVar::New(isolate);
+			var->assignmentType = tok->value;
+			Next();
+			var->value = ParseExpr();
+			if (var->value == NULL) var->value = ASTUndefined::New(isolate);
+			Next();
+			if (Is(1, SEMICOLON)) Next();
+			var->name = expr->name;
+			var->member = expr;
+			return var;
+		}
 		if (Is(1, SEMICOLON)) Next();
 		return expr;
 	}
@@ -365,6 +377,7 @@ namespace internal{
 			Next();
 			var->value = ParseExpr();
 			if (var->value == NULL) var->value = ASTUndefined::New(isolate);
+			var->isObject = var->value->type == FUNC_CALL && ((ASTFuncCall*)var->value)->isInit; 
 			vars.push_back(var);
 			if (!isBrace) return vars;
 		}
@@ -405,6 +418,7 @@ namespace internal{
 		if (Is(1, LBRACK)){
 			Trace("Parsing", "Array");
 			ASTArray* ary = ASTArray::New(isolate);
+			if (expr != NULL) ary->name = ((ASTLiteral*) expr)->value;
 			Next();
 			while (!Is(1, RBRACK)){
 				ary->members.push_back(ParseExpr());
@@ -422,6 +436,13 @@ namespace internal{
 			Next();
 			binary->right = ParseExpr();
 			return binary;
+		}
+		if (Is(1, NEW)){
+			Next();
+			ASTExpr* expr = ParseVarType();
+			ASTFuncCall* call = (ASTFuncCall*) ParseFuncCall(expr);
+			call->isInit = true;
+			return call;
 		}
 		return expr;
 	}
@@ -637,19 +658,16 @@ namespace internal{
 
 	ASTNode* Parser::ParseObject(){
 		Next();
+		bool extend = Is(1, DOLLAR);
+		if (extend) Next();
 		Expect(IDENT);
 		Trace("Parsing Object", tok->raw.c_str());
 		ASTObject* obj = ASTObject::New(isolate);
+		obj->name = tok->raw;
+		obj->extend = extend;
 		SetRowCol(obj);
 		Next();
-		Expect(LBRACE);
-		Next();
-		obj->scope = Scope::New(isolate);
-		OpenScope(obj->scope);
-		ParseShallowStmtList(RBRACE);
-		CloseScope();
-		Expect(RBRACE);
-		Next();
+		obj->scope = LazyParseBody();
 		return obj;
 	}
 

@@ -1,4 +1,4 @@
 *.a
 *.o
-build/Cobra
+*.d
 .DS_Store

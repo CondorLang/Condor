@@ -103,6 +103,8 @@ namespace Error {
 			case INVALID_CASE_STMT: return "Invalid case statement";
 			case NOT_IMPLEMENTED: return "Not implemented";
 			case MULTIPLE_RETURNS_NOT_ALLOWED: return "Multiple returns not allowed";
+			case INVALID_ACCESS_TO_ARRAY: return "Invalid access to array";
+			case NO_RETURN_STMTS_IN_CONSTRUCTOR: return "No return statements are allowed in the constructor";
 			case SCANNER: {
 				if (tok != NULL){
 					return tok->raw;

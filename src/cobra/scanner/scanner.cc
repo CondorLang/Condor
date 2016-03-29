@@ -58,6 +58,9 @@ namespace internal{
 			case '`': {
 				return Token::New(isolate, TICK);
 			}
+			case '$': {
+				return Token::New(isolate, DOLLAR);
+			}
 			case '*': {
 				char p = Peek();
 				if (p == '=') {

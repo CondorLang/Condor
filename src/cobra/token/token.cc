@@ -110,6 +110,7 @@ namespace internal{
 			case LSS: return "<";
 			case GTR: return ">";
 			case ASSIGN: return "=";
+			case DOLLAR: return "$";
 			case NOT: return "!";
 			case NEQ: return "!=";
 			case LEQ: return "<=";

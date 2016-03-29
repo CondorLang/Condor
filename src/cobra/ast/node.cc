@@ -55,6 +55,8 @@ namespace internal{
 		n->value = NULL;
 		n->assignmentType = ILLEGAL;
 		n->isArray = false;
+		n->isObject = false;
+		n->member = NULL;
 		return n;
 	}
 
@@ -98,6 +100,7 @@ namespace internal{
 		n->type = FUNC_CALL;
 		n->isInternal = false;
 		n->func = NULL;
+		n->isInit = false;
 		return n;
 	}
 
@@ -186,6 +189,7 @@ namespace internal{
 		ASTNode::SetDefaults(n, iso);
 		n->type = OBJECT;
 		n->scope = NULL;
+		n->extend = false;
 		return n;
 	}
 

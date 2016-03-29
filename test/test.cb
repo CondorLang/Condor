@@ -1,20 +1,15 @@
-func add(int a, int b){
-	return a + b;
+object Math{
+	static func pi(){return 3.14159265;}
+	func Math(){
+		var a = 10;
+		var b = 20;
+		var c = a + b;
+	}
 }
 
-func minus(var a, var b){
-	return a + b;
+object $Math{
+	static func floor(double num){return num;}
 }
 
-func div(var a, var b){
-	return a / b;
-}
-
-func loop(int[] a){
-	return a[0];
-}
-
-int a = add(1, 2);
-int b = minus(1, 2);
-add(1, 1);
-int[] art = [1, 2];
+var m = new Math();
+//var p = Math.pi();

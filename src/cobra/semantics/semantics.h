@@ -31,13 +31,17 @@ namespace internal{
 		void ValidateFor(ASTForExpr* expr);
 		void ValidateBoolean(ASTBinaryExpr* expr);
 		void ValidateIf(ASTIf* expr);
-		void ValidateFunc(ASTFunc* func, bool parse = false);
+		void ValidateFunc(ASTFunc* func, bool parse = false, bool isConstructor = false);
 		TOKEN ValidateExpr(ASTExpr* expr);
 		TOKEN ValidateLiteral(ASTLiteral* lit);
 		TOKEN ValidateBinary(ASTBinaryExpr* expr);
 		TOKEN ValidateIdent(ASTLiteral* expr);
-		TOKEN ValidateFuncCall(ASTFuncCall* expr);
+		TOKEN ValidateFuncCall(ASTFuncCall* expr, bool isConstructor = false);
 		TOKEN ValidateArray(ASTArray* expr);
+		void ExpectNumber(ASTLiteral* lit);
+		void ValidateObject(ASTObject* obj);
+		void ValidateObjectInit(ASTVar* var);
+		void ValidateExtend(ASTObject* base, ASTObject* extend);
 
 	public:
 		Semantics(Isolate* iso);

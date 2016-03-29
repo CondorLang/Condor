@@ -26,6 +26,7 @@ namespace internal{
 		std::vector<TOKEN> visibility;
 		static ASTNode* New(Isolate* iso);
 		static void SetDefaults(ASTNode* node, Isolate* iso);
+		size_t Size(){return sizeof(ASTNode);}
 	};
 
 	class ASTImport : public ASTNode
@@ -33,6 +34,7 @@ namespace internal{
 	public:
 		std::string alias;
 		static ASTImport* New(Isolate* iso);
+		size_t Size(){return sizeof(ASTImport);}
 	};
 
 	class ASTInclude : public ASTNode
@@ -40,6 +42,7 @@ namespace internal{
 	public:
 		std::string alias;
 		static ASTInclude* New(Isolate* iso);
+		size_t Size(){return sizeof(ASTInclude);}
 	};
 
 	class ASTVar : public ASTNode
@@ -48,9 +51,12 @@ namespace internal{
 		std::string baseName;
 		TOKEN baseType;
 		ASTNode* value;
+		ASTNode* member;
 		TOKEN assignmentType;
 		bool isArray;
+		bool isObject;
 		static ASTVar* New(Isolate* iso);		
+		size_t Size(){return sizeof(ASTVar);}
 	};
 
 	class ASTFunc : public ASTNode
@@ -60,12 +66,14 @@ namespace internal{
 		std::vector<ASTVar*> args;
 		TOKEN assignmentType;
 		static ASTFunc* New(Isolate* iso);
+		size_t Size(){return sizeof(ASTFunc);}
 	};
 
 	class ASTExpr : public ASTNode
 	{
 	public:
 		static ASTExpr* New(Isolate* iso);
+		size_t Size(){return sizeof(ASTExpr);}
 	};
 
 	class ASTBinaryExpr : public ASTExpr
@@ -76,6 +84,7 @@ namespace internal{
 		ASTExpr* right;
 		TOKEN op;
 		bool isBoolean;
+		size_t Size(){return sizeof(ASTBinaryExpr);}
 	};
 
 	class ASTLiteral : public ASTExpr
@@ -87,6 +96,7 @@ namespace internal{
 		TOKEN litType;
 		TOKEN unary;
 		int isPost;
+		size_t Size(){return sizeof(ASTLiteral);}
 	};
 
 	class ASTFuncCall : public ASTExpr
@@ -95,7 +105,9 @@ namespace internal{
 		static ASTFuncCall* New(Isolate* iso);
 		std::vector<ASTExpr*> params;	
 		bool isInternal;	
+		bool isInit;
 		ASTFunc* func;
+		size_t Size(){return sizeof(ASTFuncCall);}
 	};
 
 	class ASTForExpr : public ASTExpr
@@ -106,6 +118,7 @@ namespace internal{
 		ASTExpr* condition;
 		ASTExpr* tick;
 		Scope* scope; 		
+		size_t Size(){return sizeof(ASTForExpr);}
 	};
 
 	class ASTWhileExpr : public ASTExpr
@@ -114,6 +127,7 @@ namespace internal{
 		static ASTWhileExpr* New(Isolate* iso);
 		ASTExpr* condition;
 		Scope* scope;		
+		size_t Size(){return sizeof(ASTWhileExpr);}
 	};
 
 	class ASTTryCatchExpr : public ASTExpr
@@ -123,6 +137,7 @@ namespace internal{
 		Scope* tryScope;
 		Scope* catchScope;
 		std::vector<ASTVar*> catchParams;		
+		size_t Size(){return sizeof(ASTTryCatchExpr);}
 	};
 
 	class ASTThrow : public ASTExpr
@@ -130,6 +145,7 @@ namespace internal{
 	public:
 		static ASTThrow* New(Isolate* iso);
 		ASTExpr* expr;		
+		size_t Size(){return sizeof(ASTThrow);}
 	};
 
 	class ASTIf : public ASTExpr
@@ -138,7 +154,8 @@ namespace internal{
 		static ASTIf* New(Isolate* iso);
 		ASTExpr* condition;
 		Scope* scope;
-		std::vector<ASTIf*> elseIfs;		
+		std::vector<ASTIf*> elseIfs;	
+		size_t Size(){return sizeof(ASTIf);}	
 	};
 
 	class ASTDelete : public ASTExpr
@@ -146,6 +163,7 @@ namespace internal{
 	public:
 		static ASTDelete* New(Isolate* iso);
 		ASTNode* node;		
+		size_t Size(){return sizeof(ASTDelete);}
 	};
 
 	class ASTCase : public ASTExpr
@@ -155,6 +173,7 @@ namespace internal{
 		ASTNode* condition;
 		Scope* scope;
 		bool isDefault;
+		size_t Size(){return sizeof(ASTCase);}
 	};
 
 	class ASTSwitch : public ASTExpr
@@ -163,6 +182,7 @@ namespace internal{
 		static ASTSwitch* New(Isolate* iso);
 		std::vector<ASTCase*> cases;
 		ASTNode* value;
+		size_t Size(){return sizeof(ASTSwitch);}
 	};
 
 	class ASTObject : public ASTNode
@@ -170,12 +190,15 @@ namespace internal{
 	public:
 		static ASTObject* New(Isolate* iso);
 		Scope* scope;
+		bool extend;
+		size_t Size(){return sizeof(ASTObject);}
 	};
 
 	class ASTUndefined : public ASTNode
 	{
 	public:
 		static ASTUndefined* New(Isolate* iso);
+		size_t Size(){return sizeof(ASTUndefined);}
 	};
 
 	class ASTArray : public ASTExpr
@@ -183,6 +206,7 @@ namespace internal{
 	public:
 		static ASTArray* New(Isolate* iso);
 		std::vector<ASTExpr*> members;
+		size_t Size(){return sizeof(ASTArray);}
 	};
 
 } // namespace internal

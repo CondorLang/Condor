@@ -13,6 +13,7 @@ namespace internal{
 	Scope* Scope::New(Isolate* isolate){
 		void* pt = isolate->GetMemory(sizeof(Scope));
 		Scope* n = new(pt) Scope();
+		n->isolate = isolate;
 		return n;
 	}
 
@@ -39,6 +40,25 @@ namespace internal{
 		}
 		if (results.size() == 0 && outer != NULL && deep) return outer->Lookup(name);
 		return results;
+	}
+
+	void Scope::Merge(Scope* scope){
+		if (scope == NULL) return;
+		std::vector<ASTNode*> kNodes = scope->GetNodes();
+		nodes.insert(nodes.end(), kNodes.begin(), kNodes.end());
+	}
+
+	void Scope::Destroy(ASTNode* node){
+		for (int i = 0; i < nodes.size(); i++){
+			if (nodes[i] == node) {
+				isolate->FreeMemory(node, node->Size());
+				nodes.erase(nodes.begin() + i);
+			}
+		}
+	}
+
+	void Scope::Destroy(){
+		isolate->FreeMemory(this, sizeof(Scope));
 	}
 } // namespace internal
 } // namespace Cobra	

@@ -19,6 +19,7 @@ namespace internal{
 	private:
 		bool isParsed;
 		std::vector<ASTNode*> nodes;
+		Isolate* isolate;
 		
 	public:
 		Scope();
@@ -31,6 +32,10 @@ namespace internal{
 		int Size();
 		bool IsParsed(){return isParsed;}
 		void SetParsed(){isParsed = true;}
+		void Merge(Scope* scope);
+		void Destroy(ASTNode* node);
+		void Destroy();
+		std::vector<ASTNode*> GetNodes(){return nodes;}
 		ASTNode* Get(int idx);
 		std::vector<ASTNode*> Lookup(std::string name, bool deep = true);
 	};
