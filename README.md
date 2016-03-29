@@ -41,6 +41,24 @@ make d
 [travis-url]: https://travis-ci.org/chaseWillden/CobraLang/
 [travis-image]: https://img.shields.io/travis/chaseWillden/CobraLang/master.svg?style=flat
 
+Contributing:
+-------------
+If you would like to contribute to the CobraLang project, pull requests are always welcome. The folder structure goes as follows:
+ - **src** (source code)
+  - **ast** (abstract syntax tree related files)
+  - **error** (error files)
+  - **mem** (memory related files)
+  - **parser** (the basic parser from code -> ast -> syntax analysis)
+  - **scanner** (the lexical analysis)
+  - **semantics** (the semantics analysis)
+  - **token** (the token related files, see scanner)
+  - **types** (intended for all internal .cb files and the interface with c++)
+    - **array** (internal array files)
+    - **script** (internal scripting, this is the backend how the string is compiled into the code)
+    - **string** (internal string files)
+    - **try_catch** (internal try_catch files)
+    - **vector** (internal vector files)
+
 Todo:
 ------
  - semantics.cc 186 - add variable types
