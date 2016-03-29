@@ -26,6 +26,45 @@ def clean(name):
     if os.path.isfile(name):
         os.remove(name)
 
+def getTodo(lines, file, i):
+    result = []
+    split = lines.split('\n')
+    for line in split:
+        if 'TODO: ' in line:
+            s = line.split('TODO: ')
+            result.append(file + ' ' + str(i) + ' - ' + s[1])
+    return result
+
+def updateReadme():
+    rootdir = 'src/'
+    todos = []
+    output = ''
+    with open('readme.md','r+') as fout:
+        for root, subFolders, files in os.walk(rootdir):
+            for file in files:
+                if '.cc' in file or '.h' in file:
+                    with open(os.path.join(root, file), 'r') as fin:
+                        i = 0
+                        for lines in fin:
+                            i = i + 1
+                            todos.extend(getTodo(lines, file, i))
+        found = False
+        for lines in fout:
+            if 'Todo:' in lines:
+                found = True
+            elif not found:
+                output += lines
+            if found:
+                break
+        output += 'Todo:\n------'
+        for todo in todos:
+            output += '\n - ' + todo
+        fout.close()
+    os.remove('readme.md')
+    f = open('readme.md', 'w+')
+    f.write(output)
+    
+
 def toFile(fName, s):
     if string:
         f = open(fName,'wb')
@@ -72,4 +111,5 @@ if __name__ == "__main__":
         start('src/cobra/types/strings/string.cb', 'String')
         start('src/cobra/types/try_catch/exception.cb', 'Exception')
         start('src/cobra/types/array/array.cb', 'Array')
+        updateReadme()
 

@@ -201,6 +201,7 @@ namespace internal{
 	}
 
 	// TODO: Inject args into the scope
+	// TODO: Stmts after the return stmt should be freed
 	void Semantics::ValidateFunc(ASTFunc* func, bool parse, bool isConstructor){
 		if (func->scope->IsParsed() || !parse) return;
 		func->scope = Parser::Parse(isolate, func->scope);
@@ -280,7 +281,6 @@ namespace internal{
 		currentScope = base->scope;
 		ValidateFuncCall((ASTFuncCall*) var->value, true);
 		currentScope = tmp;
-
 		indent--;
 	}
 
