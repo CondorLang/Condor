@@ -11,5 +11,17 @@ object $Math{
 	static func floor(double num){return num;}
 }
 
+// object Fruit{
+// 	private string name;
+// 	static string NAME = "Fruit";
+// 	func Fruit(string name){
+// 		this.name = name;
+// 	}
+
+// 	func getName(){
+// 		return this.name;
+// 	}
+// }
+
 var m = new Math();
 //var p = Math.pi();

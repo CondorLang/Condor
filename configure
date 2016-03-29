@@ -7,6 +7,9 @@ parser = optparse.OptionParser()
 parser.add_option('-f', '--internal-files',
     action="store_true", dest="internalFiles",
     help="Internal files", default="spam")
+parser.add_option('-n', '--no-update-readme',
+    action="store_true", dest="noUpdateReadme",
+    help="Do not update the readme file", default=False)
 
 options, args = parser.parse_args()
 
@@ -111,5 +114,6 @@ if __name__ == "__main__":
         start('src/cobra/types/strings/string.cb', 'String')
         start('src/cobra/types/try_catch/exception.cb', 'Exception')
         start('src/cobra/types/array/array.cb', 'Array')
-        updateReadme()
+        if not options.noUpdateReadme:
+            updateReadme()
 

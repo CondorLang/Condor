@@ -2,6 +2,8 @@
 
 CobraLang is intended to be another simple and intuitive programming language. The syntax is familiar by design, but allows for the combining of a few concepts.
 
+See (Wiki)[https://github.com/chaseWillden/CobraLang/wiki] for documentation.
+
 Top Problems with Programming
 -----------------------------
  - Lack of Code organization
