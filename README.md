@@ -1,5 +1,5 @@
-CobraLang
-=========
+# CobraLang [![Build Status][travis-image]][travis-url]
+
 
 To do:
 -------
@@ -13,3 +13,7 @@ Top Problems with Programming
  - Readability
  - (Java) Not too verbose
  - Memory Management
+
+
+[travis-url]: https://travis-ci.org/chaseWillden/CobraLang/
+[travis-image]: https://img.shields.io/travis/chaseWillden/CobraLang/master.svg?style=flat
