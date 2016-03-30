@@ -95,9 +95,10 @@ namespace internal{
 			   var->assignmentType == kNULL)) {
 			throw Error::INVALID_ASSIGNMENT_TO_TYPE;
 		}
-		Trace("Type", var->assignmentType);
+		if (var->assignmentType == UNDEFINED) Trace("Type", var->baseType);
+		else Trace("Type", var->assignmentType);
 		if (var->isArray) Trace("Array", "True");
-		if (var->member != NULL){
+		if (var->isArray && var->member != NULL){
 			ASTArray* ary = (ASTArray*) var->member;
 			if (ary->members.size() == 0 || ary->members.size() > 1) throw Error::INVALID_ACCESS_TO_ARRAY;
 			ValidateExpr(ary->members[0]);
@@ -328,6 +329,7 @@ namespace internal{
 		indent--;
 	}
 
+	// TODO: take into accout the "this" keyword
 	TOKEN Semantics::ValidateObjectChain(ASTBinaryExpr* expr){
 		SetRowCol(expr);
 		ValidateExpr(expr->left);

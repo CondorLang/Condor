@@ -13,19 +13,20 @@ object $Math{
 	static func floor(double num){return num;}
 }
 
-// object Fruit{
-// 	private string name;
-// 	static string NAME = "Fruit";
-// 	func Fruit(string name){
-// 		this.name = name;
-// 	}
+object Fruit{
+	private string name;
+	static string NAME = "Fruit";
+	func Fruit(string name){
+		this.name = name;
+	}
 
-// 	func getName(){
-// 		return this.name;
-// 	}
-// }
+	func getName(){
+		return this.name;
+	}
+}
 
 var m = new Math();
 var d = m.get();
 var e = Math.pi;
 var f = Math.floor(e);
+var apple = new Fruit("apple");

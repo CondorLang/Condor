@@ -62,4 +62,5 @@ If you would like to contribute to the CobraLang project, pull requests are alwa
 Todo:
 ------
  - parser.cc 191 - Parse (type casting)
- - semantics.cc 204 - add variable types
+ - semantics.cc 205 - add variable types
+ - semantics.cc 332 - take into accout the "this" keyword
