@@ -64,7 +64,8 @@ namespace Cobra{
 	}
 
 	String* String::NewFromFile(Isolate* isolate, const char* path){
-		char* absolutePath = realpath(path, NULL);
+		//char* absolutePath = realpath(path, NULL); error on windows
+		const char* absolutePath = path;
 		std::ifstream in(absolutePath);
 		if (!in){
 			printf("File, %s, was empty\n", absolutePath);

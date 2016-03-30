@@ -519,6 +519,14 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "src/api.cc",
+			"settings":
+			{
+				"buffer_size": 2865,
+				"line_ending": "Windows"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -745,6 +753,13 @@
 		"side_bar_visible": false,
 		"status_bar_visible": false
 	},
+	"expanded_folders":
+	[
+		"/E/dev/CobraLang",
+		"/E/dev/CobraLang/src",
+		"/E/dev/CobraLang/src/cobra",
+		"/E/dev/CobraLang/src/cobra/token"
+	],
 	"file_history":
 	[
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/global.h",
@@ -878,7 +893,7 @@
 	],
 	"find":
 	{
-		"height": 22.0
+		"height": 34.0
 	},
 	"find_in_files":
 	{
@@ -1148,8 +1163,38 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "src/api.cc",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2865,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1702,
+								1702
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 765.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],
