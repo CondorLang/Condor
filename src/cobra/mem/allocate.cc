@@ -36,9 +36,9 @@ namespace internal{
 	MemoryPool::~MemoryPool(){
 		bool memoryAudit = MEMORY_AUDIT;
 		if (memoryAudit){
-			printf("\nCobraLang (c)\n-----------------------------\n");
+			printf("\nCobraLang (c) %c%c%c%c\n-----------------------------\n", BUILD_YEAR_CH0, BUILD_YEAR_CH1, BUILD_YEAR_CH2, BUILD_YEAR_CH3);
 			printf("Name: %s\n", name.c_str());
-			printf("Total Memory Used: \t%lukb\n", (kUsedSize / KB));
+			printf("Total Memory Used: \t%zu bytes\n", (kUsedSize));
 			printf("Total Memory Unused: \t%lukb\n",  (kFreeSize / KB));
 			printf("Total Memory Size: \t%lukb\n", (kTotalSize / KB));
 			printf("Total Chunks Used: \t%d\n", kChunkCount);

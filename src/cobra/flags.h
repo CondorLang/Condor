@@ -18,7 +18,6 @@ namespace internal{
 	#define MEMORY_REQUEST Flags::memoryRequest;
 	#define EXPAND_AST Flags::expandAST;
 	#define ALLOW_NATIVE Flags::allowNative;
-	#define PRINT_ASM Flags::printAsm;
 	#define COMPILE_TIME Flags::compileTime
 
 	class Flags
@@ -33,7 +32,6 @@ namespace internal{
 	 		static bool memoryRequest;
 	 		static bool expandAST;
 	 		static bool allowNative;
-	 		static bool printAsm;
 	 		static bool compileTime;
 	 		static void SetCommandLineFlags(int argc, const char* argv[]);
 	 }; 

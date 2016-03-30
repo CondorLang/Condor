@@ -61,7 +61,5 @@ If you would like to contribute to the CobraLang project, pull requests are alwa
 
 Todo:
 ------
- - scope.cc 65 - Removing all nodes after index may cause pointer issues. Look into
  - parser.cc 191 - Parse (type casting)
  - semantics.cc 204 - add variable types
- - semantics.cc 221 - Stmts after the return stmt should be freed

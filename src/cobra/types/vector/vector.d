@@ -40,26 +40,14 @@ src/cobra/types/vector/vector.o: src/cobra/types/vector/vector.cc \
   /usr/include/sys/_types/_int64_t.h /usr/include/_types/_uint8_t.h \
   /usr/include/_types/_uint16_t.h /usr/include/_types/_uint32_t.h \
   /usr/include/sys/_types/_uintptr_t.h /usr/include/_types/_intmax_t.h \
-  /usr/include/_types/_uintmax_t.h src/cobra/global.h src/cobra/assert.h \
-  src/cobra/mem/isolate.h src/cobra/mem/allocate.h /usr/include/stdlib.h \
-  /usr/include/sys/wait.h /usr/include/sys/_types/_id_t.h \
-  /usr/include/sys/signal.h /usr/include/machine/signal.h \
-  /usr/include/i386/signal.h /usr/include/machine/_mcontext.h \
-  /usr/include/i386/_mcontext.h /usr/include/mach/i386/_structs.h \
-  /usr/include/sys/_pthread/_pthread_attr_t.h \
-  /usr/include/sys/_types/_sigaltstack.h \
-  /usr/include/sys/_types/_ucontext.h /usr/include/sys/resource.h \
-  /usr/include/machine/endian.h /usr/include/i386/endian.h \
-  /usr/include/sys/_endian.h /usr/include/libkern/_OSByteOrder.h \
-  /usr/include/libkern/i386/_OSByteOrder.h /usr/include/alloca.h \
-  /usr/include/sys/_types/_ct_rune_t.h /usr/include/sys/_types/_rune_t.h \
-  /usr/include/sys/_types/_wchar_t.h /usr/include/machine/types.h \
-  /usr/include/i386/types.h \
+  /usr/include/_types/_uintmax_t.h src/cobra/global.h \
+  /usr/include/time.h /usr/include/sys/_types/_clock_t.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iosfwd \
   /usr/include/wchar.h /usr/include/sys/_types/_mbstate_t.h \
+  /usr/include/sys/_types/_ct_rune_t.h /usr/include/sys/_types/_rune_t.h \
+  /usr/include/sys/_types/_wchar_t.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.0.2/include/stdarg.h \
-  /usr/include/time.h /usr/include/sys/_types/_clock_t.h \
   /usr/include/_wctype.h /usr/include/sys/_types/_wint_t.h \
   /usr/include/_types/_wctype_t.h /usr/include/ctype.h \
   /usr/include/runetype.h \
@@ -84,6 +72,19 @@ src/cobra/types/vector/vector.o: src/cobra/types/vector/vector.cc \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/tuple \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/atomic \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/stdexcept \
+  src/cobra/assert.h src/cobra/mem/isolate.h src/cobra/mem/allocate.h \
+  /usr/include/stdlib.h /usr/include/sys/wait.h \
+  /usr/include/sys/_types/_id_t.h /usr/include/sys/signal.h \
+  /usr/include/machine/signal.h /usr/include/i386/signal.h \
+  /usr/include/machine/_mcontext.h /usr/include/i386/_mcontext.h \
+  /usr/include/mach/i386/_structs.h \
+  /usr/include/sys/_pthread/_pthread_attr_t.h \
+  /usr/include/sys/_types/_sigaltstack.h \
+  /usr/include/sys/_types/_ucontext.h /usr/include/sys/resource.h \
+  /usr/include/machine/endian.h /usr/include/i386/endian.h \
+  /usr/include/sys/_endian.h /usr/include/libkern/_OSByteOrder.h \
+  /usr/include/libkern/i386/_OSByteOrder.h /usr/include/alloca.h \
+  /usr/include/machine/types.h /usr/include/i386/types.h \
   /usr/include/math.h src/cobra/flags.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/cstdlib \
   src/cobra/mem/list.h src/cobra/mem/gc.h src/cobra/ast/context.h \
@@ -232,59 +233,9 @@ src/cobra/types/vector/vector.h:
 
 src/cobra/global.h:
 
-src/cobra/assert.h:
+/usr/include/time.h:
 
-src/cobra/mem/isolate.h:
-
-src/cobra/mem/allocate.h:
-
-/usr/include/stdlib.h:
-
-/usr/include/sys/wait.h:
-
-/usr/include/sys/_types/_id_t.h:
-
-/usr/include/sys/signal.h:
-
-/usr/include/machine/signal.h:
-
-/usr/include/i386/signal.h:
-
-/usr/include/machine/_mcontext.h:
-
-/usr/include/i386/_mcontext.h:
-
-/usr/include/mach/i386/_structs.h:
-
-/usr/include/sys/_pthread/_pthread_attr_t.h:
-
-/usr/include/sys/_types/_sigaltstack.h:
-
-/usr/include/sys/_types/_ucontext.h:
-
-/usr/include/sys/resource.h:
-
-/usr/include/machine/endian.h:
-
-/usr/include/i386/endian.h:
-
-/usr/include/sys/_endian.h:
-
-/usr/include/libkern/_OSByteOrder.h:
-
-/usr/include/libkern/i386/_OSByteOrder.h:
-
-/usr/include/alloca.h:
-
-/usr/include/sys/_types/_ct_rune_t.h:
-
-/usr/include/sys/_types/_rune_t.h:
-
-/usr/include/sys/_types/_wchar_t.h:
-
-/usr/include/machine/types.h:
-
-/usr/include/i386/types.h:
+/usr/include/sys/_types/_clock_t.h:
 
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:
 
@@ -294,11 +245,13 @@ src/cobra/mem/allocate.h:
 
 /usr/include/sys/_types/_mbstate_t.h:
 
+/usr/include/sys/_types/_ct_rune_t.h:
+
+/usr/include/sys/_types/_rune_t.h:
+
+/usr/include/sys/_types/_wchar_t.h:
+
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.0.2/include/stdarg.h:
-
-/usr/include/time.h:
-
-/usr/include/sys/_types/_clock_t.h:
 
 /usr/include/_wctype.h:
 
@@ -355,6 +308,54 @@ src/cobra/mem/allocate.h:
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/atomic:
 
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/stdexcept:
+
+src/cobra/assert.h:
+
+src/cobra/mem/isolate.h:
+
+src/cobra/mem/allocate.h:
+
+/usr/include/stdlib.h:
+
+/usr/include/sys/wait.h:
+
+/usr/include/sys/_types/_id_t.h:
+
+/usr/include/sys/signal.h:
+
+/usr/include/machine/signal.h:
+
+/usr/include/i386/signal.h:
+
+/usr/include/machine/_mcontext.h:
+
+/usr/include/i386/_mcontext.h:
+
+/usr/include/mach/i386/_structs.h:
+
+/usr/include/sys/_pthread/_pthread_attr_t.h:
+
+/usr/include/sys/_types/_sigaltstack.h:
+
+/usr/include/sys/_types/_ucontext.h:
+
+/usr/include/sys/resource.h:
+
+/usr/include/machine/endian.h:
+
+/usr/include/i386/endian.h:
+
+/usr/include/sys/_endian.h:
+
+/usr/include/libkern/_OSByteOrder.h:
+
+/usr/include/libkern/i386/_OSByteOrder.h:
+
+/usr/include/alloca.h:
+
+/usr/include/machine/types.h:
+
+/usr/include/i386/types.h:
 
 /usr/include/math.h:
 

@@ -218,7 +218,6 @@ namespace internal{
 		return UNDEFINED;
 	}
 
-	// TODO: Stmts after the return stmt should be freed
 	void Semantics::ValidateFunc(ASTFunc* func, bool parse, bool isConstructor){
 		Trace("Parsing Func", func->name.c_str());
 		if (func->scope->IsParsed() || !parse) return;

@@ -62,7 +62,6 @@ namespace internal{
 		isolate->FreeMemory(this, sizeof(Scope));
 	}
 
-	// TODO: Removing all nodes after index may cause pointer issues. Look into
 	void Scope::RemoveAllAfter(ASTNode* node){
 		bool found = false;
 		int idx = -1;

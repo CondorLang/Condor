@@ -15,7 +15,6 @@ namespace internal{
 			else if (arg == "--memory-request") Flags::memoryRequest = true;
 			else if (arg == "--expand-ast") Flags::expandAST = true;
 			else if (arg == "--allow-native") Flags::allowNative = true;
-			else if (arg == "--print-asm") Flags::printAsm = true;
 			else if (arg == "--compile-time") Flags::compileTime = true;
 			else if (arg == "-h" || arg == "--help"){
 				printf("\n\nCobraLang\n=========\n(C) 2015 Cobra Authors\n\n");
@@ -29,7 +28,6 @@ namespace internal{
 				printf("--memory-request\t%s\n", "Tracks the memory requested");
 				printf("--expand-ast\t\t%s\n", "Expand the abstract syntax tree");
 				printf("--allow-native\t\t%s\n", "Allow native functions in code");
-				printf("--print-asm\t\t%s\n", "Print the asembly generated");
 			}
 			else if (arg.find("-") != std::string::npos || arg.find("-") != std::string::npos){
 				printf("Unidentified flag\nExiting...\n");
@@ -47,7 +45,6 @@ namespace internal{
 	bool Flags::memoryRequest = false;
 	bool Flags::expandAST = false;
 	bool Flags::allowNative = false;
-	bool Flags::printAsm = false;
 	bool Flags::compileTime = false;
 
 } // namespace internal
