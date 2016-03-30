@@ -28,6 +28,7 @@ namespace internal{
 
 		//flags
 		bool parsingTime;
+		bool compileTime;
 		bool internal;
 
 		Parser* parser;

@@ -188,6 +188,7 @@ namespace internal{
 		return "";
 	}
 
+	// TODO: Parse (type casting)
 	void Parser::ParseShallowStmtList(TOKEN terminator){
 		ASTNode* node = NULL;
 		while (tok->value != terminator){
@@ -195,76 +196,90 @@ namespace internal{
 			bool isExport = false;
 			std::vector<TOKEN> visibility;
 			node = NULL; // reset node
-			switch (type){
-				case EXPORT: {
-					isExport = true;
-					Next();
-				}
-				case PUBLIC: case STATIC: case PRIVATE: case PROTECTED: {
-					if (isExport) throw Error::INVALID_USE_OF_EXPORT;
-					while (Is(4, PUBLIC, STATIC, PRIVATE, PROTECTED)) {
-						visibility.push_back(tok->value);
+			bool again = false;
+			while (true){
+				switch (type){
+					case EXPORT: {
+						isExport = true;
 						Next();
 					}
-				}
-				case FUNC: {
-					node = ParseFunc(); 
-					break;
-				}
-				case IDENT: {
-					node = ParseIdentStart();
-					break;
-				}
-				case INT: case STRING: case VAR: {
-					std::vector<ASTVar*> list = ParseVarList();
-					for (int i = 0; i < list.size(); i++){
-						scope->Insert(list[i]);
+					case PUBLIC: case STATIC: case PRIVATE: case PROTECTED: {
+						if (isExport) throw Error::INVALID_USE_OF_EXPORT;
+						while (Is(4, PUBLIC, STATIC, PRIVATE, PROTECTED)) {
+							visibility.push_back(tok->value);
+							Next();
+						}
+						again = true;
+						type = tok->Int();
+						break;
 					}
-					break;
+					case FUNC: {
+						node = ParseFunc(); 
+						break;
+					}
+					case IDENT: {
+						node = ParseIdentStart();
+						break;
+					}
+					case INT: case BOOLEAN: 
+					case FLOAT: case DOUBLE: 
+					case CHAR: case STRING: 
+					case TRUE_LITERAL: 
+					case FALSE_LITERAL: 
+					case kNULL: case VAR: {
+						std::vector<ASTVar*> list = ParseVarList();
+						for (int i = 0; i < list.size(); i++){
+							scope->Insert(list[i]);
+						}
+						break;
+					}
+					case FOR: {
+						node = ParseForExpr();
+						break;
+					}
+					case WHILE: {
+						node = ParseWhile();
+						break;
+					}
+					case TRY: {
+						node = ParseTryCatch();
+						break;
+					}
+					case THROW: {
+						node = ParseThrow();
+						break;
+					}
+					case IF: {
+						node = ParseIf();
+						break;
+					}
+					case DELETE: {
+						node = ParseDelete();
+						break;
+					}
+					case SWITCH: {
+						node = ParseSwitch();
+						break;
+					}
+					case OBJECT: {
+						node = ParseObject();
+						break;
+					}
+					case INTERNAL: {
+						node = ParseInternal();
+						break;
+					}
+					case RETURN: {
+						node = ParseReturn();
+						break;
+					}
+					default: {
+						PrintTok();
+						throw Error::UNEXPECTED_CHARACTER;
+					}
 				}
-				case FOR: {
-					node = ParseForExpr();
-					break;
-				}
-				case WHILE: {
-					node = ParseWhile();
-					break;
-				}
-				case TRY: {
-					node = ParseTryCatch();
-					break;
-				}
-				case THROW: {
-					node = ParseThrow();
-					break;
-				}
-				case IF: {
-					node = ParseIf();
-					break;
-				}
-				case DELETE: {
-					node = ParseDelete();
-					break;
-				}
-				case SWITCH: {
-					node = ParseSwitch();
-					break;
-				}
-				case OBJECT: {
-					node = ParseObject();
-					break;
-				}
-				case INTERNAL: {
-					node = ParseInternal();
-					break;
-				}
-				case RETURN: {
-					node = ParseReturn();
-					break;
-				}
-				default: {
-					throw Error::UNEXPECTED_CHARACTER;
-				}
+				if (!again) break;
+				else again = false;
 			}
 			if (node != NULL){
 				node->isExport = isExport;
@@ -291,7 +306,7 @@ namespace internal{
 		func->name = tok->raw;
 		Next();
 		std::vector<ASTVar*> vars = ParseFuncArgs();
-		func->args.insert(func->args.end(), vars.begin(), vars.end());
+		if (vars.size() > 0) func->args.insert(func->args.end(), vars.begin(), vars.end());
 		func->scope = LazyParseBody();
 		return func;
 	}
@@ -300,7 +315,7 @@ namespace internal{
 		Trace("Storing", "Body for later");
 		Expect(LBRACE);
 		Next();
-		int start = pos - tok->Length();
+		int start = pos - tok->Length() + 1;
 		int braceDepth = 1;
 		while (true){
 			if (Is(1, LBRACE)) braceDepth++;
@@ -427,11 +442,12 @@ namespace internal{
 			Next();
 			return ary;
 		}
-		if (IsOperator() || IsBoolean()) { // needs to be last to catch all lingering operators
+		if (IsOperator() || IsBoolean() || Is(1, PERIOD)) { // needs to be last to catch all lingering operators
 			ASTBinaryExpr* binary = ASTBinaryExpr::New(isolate);
 			SetRowCol(binary);
 			binary->left = expr;
 			binary->op = tok->value;
+			binary->isChain = Is(1, PERIOD);
 			Trace("Parsing Operator", Token::ToString(tok->value));
 			Next();
 			binary->right = ParseExpr();
@@ -467,7 +483,8 @@ namespace internal{
 		call->name = lit->value;
 		isolate->FreeMemory(expr, sizeof(ASTExpr));
 		while (true){
-			call->params.push_back(ParseExpr());
+			ASTExpr* e = ParseExpr();
+			if (e != NULL) call->params.push_back(e);
 			if (Is(1, RPAREN)) break;
 			if (!Is(1, COMMA)) throw Error::EXPECTED_PARAMETER;
 			Next();
@@ -522,7 +539,7 @@ namespace internal{
 		Expect(CATCH);
 		Next();
 		std::vector<ASTVar*> vars = ParseFuncArgs();
-		expr->catchParams.insert(expr->catchParams.end(), vars.begin(), vars.end());
+		if (vars.size() > 0) expr->catchParams.insert(expr->catchParams.end(), vars.begin(), vars.end());
 		expr->catchScope = LazyParseBody();
 		return expr;
 	}
@@ -532,6 +549,7 @@ namespace internal{
 		Next();
 		std::vector<ASTVar*> vars;
 		while (true){
+			if (Is(1, RPAREN)) break;
 			if (!Is(3, IDENT, RPAREN, VAR) && !IsVarType()) throw Error::INVALID_ARGUMENT_TYPE;
 			if (Is(2, IDENT, VAR) || IsVarType()){
 				std::string first = tok->raw;

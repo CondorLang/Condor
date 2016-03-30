@@ -35,6 +35,7 @@ namespace internal{
 		void Merge(Scope* scope);
 		void Destroy(ASTNode* node);
 		void Destroy();
+		void RemoveAllAfter(ASTNode* node);
 		std::vector<ASTNode*> GetNodes(){return nodes;}
 		ASTNode* Get(int idx);
 		std::vector<ASTNode*> Lookup(std::string name, bool deep = true);

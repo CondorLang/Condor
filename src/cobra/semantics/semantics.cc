@@ -11,6 +11,8 @@ namespace internal{
 		baseScope = NULL;
 		trace = TRACE_SEMANTIC;
 		indent = 0;
+		inObject = false;
+		tmp = NULL;
 	}
 
 	Semantics::~Semantics(){}
@@ -93,8 +95,7 @@ namespace internal{
 			   var->assignmentType == kNULL)) {
 			throw Error::INVALID_ASSIGNMENT_TO_TYPE;
 		}
-		if (var->baseType != UNDEFINED) Trace("Type", var->baseType);
-		else Trace("Type", var->assignmentType);
+		Trace("Type", var->assignmentType);
 		if (var->isArray) Trace("Array", "True");
 		if (var->member != NULL){
 			ASTArray* ary = (ASTArray*) var->member;
@@ -160,9 +161,26 @@ namespace internal{
 	}
 
 	TOKEN Semantics::ValidateBinary(ASTBinaryExpr* expr){
+		if (expr->op == PERIOD) return ValidateObjectChain(expr);;
 		SetRowCol(expr);
 		TOKEN left = ValidateExpr(expr->left);
+
+		bool working = inObject; // used for object chains
+		if (inObject){
+			Scope* s = tmp;
+			tmp = currentScope;
+			currentScope = s;
+			inObject = false;
+		}
+
 		TOKEN right = ValidateExpr(expr->right);
+
+		if (working){
+			Scope* s = tmp;
+			tmp = currentScope;
+			currentScope = s;
+		}
+
 		try{
 			return Binary::Compare(left, right, expr->op);
 		}
@@ -194,15 +212,15 @@ namespace internal{
 				ASTFunc* func = (ASTFunc*) nodes[i];
 				ValidateFunc(func, true, isConstructor);
 				expr->func = func;
-				return func->assignmentType;
+				return expr->func->assignmentType;
 			}
 		}
 		return UNDEFINED;
 	}
 
-	// TODO: Inject args into the scope
 	// TODO: Stmts after the return stmt should be freed
 	void Semantics::ValidateFunc(ASTFunc* func, bool parse, bool isConstructor){
+		Trace("Parsing Func", func->name.c_str());
 		if (func->scope->IsParsed() || !parse) return;
 		func->scope = Parser::Parse(isolate, func->scope);
 		for (int i = 0; i < func->args.size(); i++){
@@ -210,12 +228,16 @@ namespace internal{
 		}
 		ScanScope(func->scope);
 		std::vector<ASTNode*> returns = func->scope->Lookup("return", false);
+		if (returns.size() == 1) {
+			int a = 10;
+			func->scope->RemoveAllAfter(returns[0]);
+		}
 		if (returns.size() > 1) {
 			SetRowCol(returns[1]);
 			throw Error::MULTIPLE_RETURNS_NOT_ALLOWED;
 		}
 		else if (returns.size() == 1 && isConstructor) throw Error::NO_RETURN_STMTS_IN_CONSTRUCTOR;
-		if (!isConstructor) func->assignmentType = ((ASTVar*) returns[0])->assignmentType;
+		else if (returns.size() == 1 && !isConstructor) func->assignmentType = ((ASTVar*) returns[0])->assignmentType;
 	}
 
 	TOKEN Semantics::ValidateArray(ASTArray* expr){
@@ -275,13 +297,27 @@ namespace internal{
 			}
 		}
 		else if (nodes.size() == 0) throw Error::UNDEFINED_VARIABLE;
+		else{
+			ASTObject* obj = (ASTObject*) nodes[0];
+			if (obj->type != OBJECT) throw Error::UNDEFINED_OBJECT;
+			base = obj;
+			base->scope = Parser::Parse(isolate, base->scope);
+			ScanScope(base->scope);
+		}
 
 		// find the matching constructor
-		Scope* tmp = currentScope;
+		Trace("Validating Object", var->value->name.c_str());
+		tmp = currentScope;
 		currentScope = base->scope;
 		ValidateFuncCall((ASTFuncCall*) var->value, true);
 		currentScope = tmp;
+		tmp = NULL;
 		indent--;
+
+		ASTObjectInstance* instance = ASTObjectInstance::New(isolate);
+		instance->constructor = (ASTFuncCall*) var->value;
+		instance->base = base;
+		var->value = instance;
 	}
 
 	void Semantics::ValidateExtend(ASTObject* base, ASTObject* extend){
@@ -293,5 +329,50 @@ namespace internal{
 		indent--;
 	}
 
+	TOKEN Semantics::ValidateObjectChain(ASTBinaryExpr* expr){
+		SetRowCol(expr);
+		ValidateExpr(expr->left);
+		ASTObject* obj = GetObject(expr->left);
+		if (obj == NULL) throw Error::UNDEFINED_OBJECT;
+		if (!obj->scope->IsParsed()) {
+			obj->scope = Parser::Parse(isolate, obj->scope);
+			ScanScope(obj->scope);
+		}
+
+		inObject = true;
+		indent++;
+		tmp = currentScope;
+		currentScope = obj->scope;
+		TOKEN right = ValidateExpr(expr->right);
+		currentScope = tmp;
+		indent--;
+		tmp = NULL;
+		inObject = false;
+		return right;
+	}
+
+	ASTObject* Semantics::GetObject(ASTNode* node){
+		SetRowCol(node);
+		int type = (int) node->type;
+		switch (type){
+			case LITERAL: {
+				ASTLiteral* lit = (ASTLiteral*) node;
+				return GetObject(lit->var);
+			}
+			case VAR: {
+				ASTVar* var = (ASTVar*) node;
+				if (var->isObject) return GetObject(var->value);
+			}
+			case OBJECT_INSTANCE: {
+				ASTObjectInstance* instance = (ASTObjectInstance*) node;
+				return instance->base;
+			}
+			case OBJECT: return (ASTObject*) node;
+			default: {
+				printf("dd: %s - %s\n", Token::ToString(node->type), node->name.c_str());
+				return NULL;
+			}
+		}
+	}
 } // namespace internal
 }

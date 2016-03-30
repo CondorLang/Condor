@@ -26,6 +26,7 @@ namespace internal{
 		std::vector<TOKEN> visibility;
 		static ASTNode* New(Isolate* iso);
 		static void SetDefaults(ASTNode* node, Isolate* iso);
+		bool HasVisibility(TOKEN tok);
 		size_t Size(){return sizeof(ASTNode);}
 	};
 
@@ -84,6 +85,7 @@ namespace internal{
 		ASTExpr* right;
 		TOKEN op;
 		bool isBoolean;
+		bool isChain;
 		size_t Size(){return sizeof(ASTBinaryExpr);}
 	};
 
@@ -207,6 +209,16 @@ namespace internal{
 		static ASTArray* New(Isolate* iso);
 		std::vector<ASTExpr*> members;
 		size_t Size(){return sizeof(ASTArray);}
+	};
+
+	class ASTObjectInstance : public ASTNode
+	{
+	public:
+		static ASTObjectInstance* New(Isolate* iso);
+		std::vector<ASTExpr*> members;
+		ASTFuncCall* constructor;
+		ASTObject* base;
+		size_t Size(){return sizeof(ASTObjectInstance);}		
 	};
 
 } // namespace internal

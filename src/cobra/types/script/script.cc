@@ -17,6 +17,7 @@ namespace internal{
 		compiled = false;
 		parser = NULL;
 		parsingTime = PARSING_TIME;
+		compileTime = COMPILE_TIME;
 		sourceCode = "";
 		internal = str->IsInternal();
 		sourceCode += str->GetValue();
@@ -36,10 +37,15 @@ namespace internal{
 		parser->SetInteral(internal);
 		parser->SetInline(isInline);
 		Clock* clock = NULL;
+		Clock* compileClock = NULL;
 		try {
 			if (parsingTime) {
 				clock = new Clock;
 				clock->Start();
+			}
+			if (compileTime) {
+				compileClock = new Clock;
+				compileClock->Start();
 			}
 
 			parser->Parse();
@@ -69,6 +75,12 @@ namespace internal{
 
 		try {
 			semantics->Evaluate(parser->GetBaseScope());
+
+			if (compileTime){
+				compileClock->Stop();
+				if (!parser->IsInternal()) 
+					printf("Compile:  %f sec | %s\n", compileClock->GetDuration(), absolutePath.c_str());
+			}
 		}
 		catch (Error::ERROR e){
 			std::string msg = Error::String(e, NULL);

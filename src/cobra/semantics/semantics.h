@@ -18,9 +18,11 @@ namespace internal{
 		Isolate* isolate;
 		Scope* currentScope;
 		Scope* baseScope;
+		Scope* tmp;
 		Parser* parser;
 		bool trace;
 		int indent;
+		bool inObject;
 
 		void Trace(const char* first, const char* second);
 		void Trace(const char* first, TOKEN second);
@@ -38,10 +40,12 @@ namespace internal{
 		TOKEN ValidateIdent(ASTLiteral* expr);
 		TOKEN ValidateFuncCall(ASTFuncCall* expr, bool isConstructor = false);
 		TOKEN ValidateArray(ASTArray* expr);
+		TOKEN ValidateObjectChain(ASTBinaryExpr* expr);
 		void ExpectNumber(ASTLiteral* lit);
 		void ValidateObject(ASTObject* obj);
 		void ValidateObjectInit(ASTVar* var);
 		void ValidateExtend(ASTObject* base, ASTObject* extend);
+		ASTObject* GetObject(ASTNode* node);
 
 	public:
 		Semantics(Isolate* iso);

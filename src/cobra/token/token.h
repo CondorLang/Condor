@@ -20,7 +20,7 @@ namespace internal{
 		UNARY,
 		BINARY,
 		FUNC_CALL,
-		OBJECT_INIT,
+		OBJECT_INSTANCE,
 		FILE,
 		BLOCK,
 		ARRAY_MEMBER,

@@ -19,6 +19,13 @@ namespace internal{
 		node->id = iso->GetContext()->GetNextAstId();
 	}
 
+	bool ASTNode::HasVisibility(TOKEN tok){
+		for (int i = 0; i < visibility.size(); i++){
+			if (visibility[i] == tok) return true;
+		}
+		return visibility.size() == 0 && tok == PUBLIC;
+	}
+
 	ASTImport* ASTImport::New(Isolate* iso){
 		void* pt = iso->GetMemory(sizeof(ASTImport));
 		ASTImport* n = new(pt) ASTImport();
@@ -77,6 +84,7 @@ namespace internal{
 		n->right = NULL;
 		n->isBoolean = false;
 		n->op = ILLEGAL;
+		n->isChain = false;
 		return n;
 	}
 
@@ -206,6 +214,16 @@ namespace internal{
 		ASTArray* n = new(pt) ASTArray();
 		ASTNode::SetDefaults(n, iso);
 		n->type = ARRAY;
+		return n;
+	}
+
+	ASTObjectInstance* ASTObjectInstance::New(Isolate* iso){
+		void* pt = iso->GetMemory(sizeof(ASTObjectInstance));
+		ASTObjectInstance* n = new(pt) ASTObjectInstance();
+		ASTNode::SetDefaults(n, iso);
+		n->type = OBJECT_INSTANCE;
+		n->constructor = NULL;
+		n->base = NULL;
 		return n;
 	}
 

@@ -1,2 +1,32 @@
 {
+	"folders":
+	[
+		{
+			"path": ".",
+			"file_exclude_patterns": ["*.d"]
+		}
+	],
+	"build_systems": 
+	[
+		{
+			"name": "All",
+			"cmd": ["make"],
+			"working_dir": "${project_path}"
+		},
+		{
+			"name": "Make Semantic",
+			"cmd": ["make", "sem"],
+			"working_dir": "${project_path}"
+		},
+		{
+			"name": "Make Parser",
+			"cmd": ["make", "parser"],
+			"working_dir": "${project_path}"
+		},
+		{
+			"name": "Open",
+			"working_dir": "${project_path}",
+			"cmd": ["open", "-a", "Terminal", "./"]
+		}
+	]
 }

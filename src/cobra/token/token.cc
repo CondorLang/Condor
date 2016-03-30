@@ -18,7 +18,7 @@ namespace internal{
 			case UNARY: return "kUnary";
 			case BINARY: return "kBinary";
 			case FUNC_CALL: return "kFuncCall";
-			case OBJECT_INIT: return "kObjectInit";
+			case OBJECT_INSTANCE: return "kObjectInit";
 			case FILE: return "kFile";
 			case BLOCK: return "kBlock";
 			case IDENT: return "ident";

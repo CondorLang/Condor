@@ -14,6 +14,16 @@ all:
 	make buildAll
 	make lib
 
+sem: 
+	make all
+	g++ $(FLAGS) -I ./ test/main.cc -Iinclude build/libcobra.a -o build/Cobra
+	./build/Cobra --trace-semantic
+
+parser: 
+	make all
+	g++ $(FLAGS) -I ./ test/main.cc -Iinclude build/libcobra.a -o build/Cobra
+	./build/Cobra --trace-parser
+
 cb: 
 	./configure -f
 

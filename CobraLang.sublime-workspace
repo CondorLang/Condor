@@ -520,9 +520,29 @@
 	"buffers":
 	[
 	],
-	"build_system": "Packages/Makefile/Make.sublime-build",
+	"build_system": "",
 	"build_system_choices":
 	[
+		[
+			[
+				[
+					"Make",
+					""
+				],
+				[
+					"Packages/Makefile/Make.sublime-build",
+					""
+				],
+				[
+					"Packages/Makefile/Make.sublime-build",
+					"Clean"
+				]
+			],
+			[
+				"Make",
+				""
+			]
+		],
 		[
 			[
 				[
@@ -727,6 +747,8 @@
 	},
 	"file_history":
 	[
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/global.h",
+		"/Users/willdech/Documents/dev/CobraLang/CobraLang.sublime-project",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/codegen/codegen.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/codegen/symbols.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/codegen/tmp.asm",
@@ -746,7 +768,6 @@
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/flags.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/flags.h",
 		"/Users/willdech/Documents/dev/CobraLang/Makefile",
-		"/Users/willdech/Documents/dev/CobraLang/CobraLang.sublime-project",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/allocate.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/allocate.h",
 		"/Users/willdech/Documents/dev/Systems/moe/projects/byui.js/test/index.html",
@@ -853,12 +874,11 @@
 		"/Applications/XAMPP/xamppfiles/htdocs/lms/attempt1/api/index.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/lms/attempt1/index.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/css/src/notification/notification.css",
-		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/js/src/window/window.js",
-		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/js/src/sidebar/item.js"
+		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/js/src/window/window.js"
 	],
 	"find":
 	{
-		"height": 35.0
+		"height": 22.0
 	},
 	"find_in_files":
 	{

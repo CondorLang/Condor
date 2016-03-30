@@ -61,6 +61,7 @@ If you would like to contribute to the CobraLang project, pull requests are alwa
 
 Todo:
 ------
- - semantics.cc 186 - add variable types
- - semantics.cc 203 - Inject args into the scope
- - semantics.cc 204 - Stmts after the return stmt should be freed
+ - scope.cc 65 - Removing all nodes after index may cause pointer issues. Look into
+ - parser.cc 191 - Parse (type casting)
+ - semantics.cc 204 - add variable types
+ - semantics.cc 221 - Stmts after the return stmt should be freed
