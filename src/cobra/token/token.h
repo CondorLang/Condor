@@ -226,7 +226,7 @@ namespace internal{
 		bool IsNumber(){return value > BEGIN_NUMBER && value < END_NUMBER;}
 		bool IsString(){return value > BEGIN_STRING && value < END_STRING;}
 		static Token* GetToken(Isolate* iso, std::string str);
-		static const char* ToString(TOKEN token);
+		static std::string ToString(TOKEN token);
 	};
 } // namespace internal{
 }

@@ -124,6 +124,7 @@ namespace internal{
 			ValidateExpr(ary->members[0]);
 			ExpectNumber((ASTLiteral*) ary->members[0]);
 		}
+		ValidateBaseAndAssignment(var);
 		indent--;
 	}
 
@@ -139,7 +140,7 @@ namespace internal{
 			case FUNC_CALL: return ValidateFuncCall((ASTFuncCall*) expr);
 			case ARRAY: return ValidateArray((ASTArray*) expr);
 			default: {
-				printf("d: %s\n", Token::ToString(expr->type));
+				printf("d: %s\n", Token::ToString(expr->type).c_str());
 				throw Error::NOT_IMPLEMENTED;
 			}
 		}
@@ -398,7 +399,7 @@ namespace internal{
 			}
 			case OBJECT: return (ASTObject*) node;
 			default: {
-				printf("dd: %s - %s\n", Token::ToString(node->type), node->name.c_str());
+				printf("dd: %s - %s\n", Token::ToString(node->type).c_str(), node->name.c_str());
 				return NULL;
 			}
 		}
@@ -408,6 +409,11 @@ namespace internal{
 		Trace("Validating", "Cast");
 		ValidateLiteral((ASTLiteral*) expr->cast);
 		return expr->cast->litType;
+	}
+
+	// TODO: Compare the base type with the assignment type. Throw an error if they are not the same if hard typed.
+	void Semantics::ValidateBaseAndAssignment(ASTVar* var){
+
 	}
 } // namespace internal
 }

@@ -234,11 +234,9 @@ namespace internal{
 		else return Token::New(iso, IDENT);
 	}
 
-	const char* Token::ToString(TOKEN token){
-		Token* tok = new Token(token);
-		const char* str = tok->String().c_str();
-		delete tok;
-		return str;
+	std::string Token::ToString(TOKEN token){
+		Token tok(token);
+		return tok.String();
 	}
 
 	Token* Token::New(Isolate* iso, TOKEN val){

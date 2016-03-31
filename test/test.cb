@@ -1,10 +1,12 @@
-object Fruit{
-	private string name = "Apple";
-	func Fruit(){}
-	func getName(){return this.name;}
+int a = 10;
+bool b = false;
+double c = 1;
+float d = 1;
+char e = 'c';
+string f = "c";
+
+func add(int a, double b){
+	return a + b;
 }
 
-var apple = new Fruit();
-var banana = new Fruit();
-var appleName = apple.getName();
-var bananaName = banana.getName();
+int g = add(a, b);

@@ -53,6 +53,7 @@ namespace internal{
 		Scope* GetCurrentScope();
 		Scope* GetPreviousScope();
 		void SwapScopes();
+		void ValidateBaseAndAssignment(ASTVar* var);
 
 	public:
 		Semantics(Isolate* iso);

@@ -70,7 +70,7 @@ namespace internal{
 	}
 
 	void Parser::PrintTok(){
-		printf("Debug: Raw: %s, Type: %s\n", tok->raw.c_str(), Token::ToString(tok->value));
+		printf("Debug: Raw: %s, Type: %s\n", tok->raw.c_str(), Token::ToString(tok->value).c_str());
 	}
 
 	void Parser::Next(){
@@ -377,7 +377,7 @@ namespace internal{
 			Expect(IDENT);
 			ASTVar* var = ASTVar::New(isolate);
 			SetRowCol(var);
-			var->baseType = tok->value;
+			var->baseType = base;
 			var->name = tok->raw;
 			var->isArray = isArray;
 			Next();
@@ -455,7 +455,7 @@ namespace internal{
 			expr->cast = cast;
 			binary->op = tok->value;
 			binary->isChain = Is(1, PERIOD);
-			Trace("Parsing Operator", Token::ToString(tok->value));
+			Trace("Parsing Operator", Token::ToString(tok->value).c_str());
 			Next();
 			binary->right = ParseExpr();
 			return binary;
