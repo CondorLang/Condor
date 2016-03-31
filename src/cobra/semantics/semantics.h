@@ -16,13 +16,14 @@ namespace internal{
 	{
 	private: 
 		Isolate* isolate;
-		Scope* currentScope;
+		std::vector<Scope*> scopes;
 		Scope* baseScope;
-		Scope* tmp;
 		Parser* parser;
+		ASTObject* kThis;
 		bool trace;
 		int indent;
 		bool inObject;
+		bool isThis;
 
 		void Trace(const char* first, const char* second);
 		void Trace(const char* first, TOKEN second);
@@ -46,6 +47,12 @@ namespace internal{
 		void ValidateObjectInit(ASTVar* var);
 		void ValidateExtend(ASTObject* base, ASTObject* extend);
 		ASTObject* GetObject(ASTNode* node);
+		TOKEN ValidateCast(ASTExpr* expr);
+		void OpenScope(Scope* scope){scopes.insert(scopes.begin(), scope);}
+		void CloseScope(){scopes.erase(scopes.begin());}
+		Scope* GetCurrentScope();
+		Scope* GetPreviousScope();
+		void SwapScopes();
 
 	public:
 		Semantics(Isolate* iso);

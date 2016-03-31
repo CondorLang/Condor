@@ -65,15 +65,15 @@ namespace Cobra{
 
 	String* String::NewFromFile(Isolate* isolate, const char* path){
 		//char* absolutePath = realpath(path, NULL); error on windows
-		const char* absolutePath = path;
-		std::ifstream in(absolutePath);
+		//const char* absolutePath = path;
+		std::ifstream in(path);
 		if (!in){
-			printf("File, %s, was empty\n", absolutePath);
+			printf("File, %s, was empty\n", path);
 			return String::New(isolate);
 		}
 		std::string fileStr((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
-		String* h = String::New(isolate, fileStr.c_str(), absolutePath);
-		delete absolutePath;
+		String* h = String::New(isolate, fileStr.c_str(), path);
+		//delete absolutePath;
 		return h;
 	}
 

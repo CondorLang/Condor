@@ -11,6 +11,7 @@ namespace Cobra {
 namespace internal{
 
 	class Isolate;
+	class ASTLiteral;
 
 	class ASTNode
 	{
@@ -74,6 +75,7 @@ namespace internal{
 	{
 	public:
 		static ASTExpr* New(Isolate* iso);
+		ASTLiteral* cast;
 		size_t Size(){return sizeof(ASTExpr);}
 	};
 

@@ -8,6 +8,7 @@
 #include "cobra/global.h"
 #include "cobra/mem/isolate.h"
 #include "cobra/ast/node.h"
+#include "cobra/token/token.h"
 
 namespace Cobra {
 namespace internal{
@@ -26,6 +27,8 @@ namespace internal{
 		~Scope();
 		Scope* outer;
 		std::string raw;
+		std::string name;
+		ASTNode* owner;
 		static Scope* New(Isolate* isolate);
 		void Insert(ASTNode* node);
 		void InsertBefore(ASTNode* node);

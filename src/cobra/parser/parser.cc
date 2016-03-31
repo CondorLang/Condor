@@ -55,10 +55,12 @@ namespace internal{
 		if (sc->IsParsed()) return sc;
 		Parser* p = Parser::New(iso, &sc->raw);
 		p->Parse();
-		iso->FreeMemory(sc, sizeof(Scope));
 		Scope* result = p->GetBaseScope();
-		iso->FreeMemory(p, sizeof(Parser));
+		result->name = sc->name;
+		result->owner = sc->owner;
 		result->raw = sc->raw;
+		iso->FreeMemory(p, sizeof(Parser));
+		iso->FreeMemory(sc, sizeof(Scope));
 		result->SetParsed();
 		return result;
 	}
@@ -188,98 +190,90 @@ namespace internal{
 		return "";
 	}
 
-	// TODO: Parse (type casting)
 	void Parser::ParseShallowStmtList(TOKEN terminator){
 		ASTNode* node = NULL;
 		while (tok->value != terminator){
-			int type = tok->Int();
 			bool isExport = false;
 			std::vector<TOKEN> visibility;
 			node = NULL; // reset node
-			bool again = false;
-			while (true){
-				switch (type){
-					case EXPORT: {
-						isExport = true;
-						Next();
-					}
-					case PUBLIC: case STATIC: case PRIVATE: case PROTECTED: {
-						if (isExport) throw Error::INVALID_USE_OF_EXPORT;
-						while (Is(4, PUBLIC, STATIC, PRIVATE, PROTECTED)) {
-							visibility.push_back(tok->value);
-							Next();
-						}
-						again = true;
-						type = tok->Int();
-						break;
-					}
-					case FUNC: {
-						node = ParseFunc(); 
-						break;
-					}
-					case IDENT: {
-						node = ParseIdentStart();
-						break;
-					}
-					case INT: case BOOLEAN: 
-					case FLOAT: case DOUBLE: 
-					case CHAR: case STRING: 
-					case TRUE_LITERAL: 
-					case FALSE_LITERAL: 
-					case kNULL: case VAR: {
-						std::vector<ASTVar*> list = ParseVarList();
-						for (int i = 0; i < list.size(); i++){
-							scope->Insert(list[i]);
-						}
-						break;
-					}
-					case FOR: {
-						node = ParseForExpr();
-						break;
-					}
-					case WHILE: {
-						node = ParseWhile();
-						break;
-					}
-					case TRY: {
-						node = ParseTryCatch();
-						break;
-					}
-					case THROW: {
-						node = ParseThrow();
-						break;
-					}
-					case IF: {
-						node = ParseIf();
-						break;
-					}
-					case DELETE: {
-						node = ParseDelete();
-						break;
-					}
-					case SWITCH: {
-						node = ParseSwitch();
-						break;
-					}
-					case OBJECT: {
-						node = ParseObject();
-						break;
-					}
-					case INTERNAL: {
-						node = ParseInternal();
-						break;
-					}
-					case RETURN: {
-						node = ParseReturn();
-						break;
-					}
-					default: {
-						PrintTok();
-						throw Error::UNEXPECTED_CHARACTER;
-					}
+			if (Is(1, EXPORT)) {
+				isExport = true;
+				Next();
+			}
+			if (Is(4, PUBLIC, STATIC, PRIVATE, PROTECTED)){
+				if (isExport) throw Error::INVALID_USE_OF_EXPORT;
+				while (Is(4, PUBLIC, STATIC, PRIVATE, PROTECTED)) {
+					visibility.push_back(tok->value);
+					Next();
 				}
-				if (!again) break;
-				else again = false;
+			}
+			int type = tok->Int();
+			switch (type){
+				case FUNC: {
+					node = ParseFunc(); 
+					break;
+				}
+				case IDENT: {
+					node = ParseIdentStart();
+					break;
+				}
+				case INT: case BOOLEAN: 
+				case FLOAT: case DOUBLE: 
+				case CHAR: case STRING: 
+				case TRUE_LITERAL: 
+				case FALSE_LITERAL: 
+				case kNULL: case VAR: {
+					std::vector<ASTVar*> list = ParseVarList();
+					for (int i = 0; i < list.size(); i++){
+						list[i]->isExport = isExport;
+						list[i]->visibility.insert(list[i]->visibility.end(), visibility.begin(), visibility.end());
+						scope->Insert(list[i]);
+					}
+					break;
+				}
+				case FOR: {
+					node = ParseForExpr();
+					break;
+				}
+				case WHILE: {
+					node = ParseWhile();
+					break;
+				}
+				case TRY: {
+					node = ParseTryCatch();
+					break;
+				}
+				case THROW: {
+					node = ParseThrow();
+					break;
+				}
+				case IF: {
+					node = ParseIf();
+					break;
+				}
+				case DELETE: {
+					node = ParseDelete();
+					break;
+				}
+				case SWITCH: {
+					node = ParseSwitch();
+					break;
+				}
+				case OBJECT: {
+					node = ParseObject();
+					break;
+				}
+				case INTERNAL: {
+					node = ParseInternal();
+					break;
+				}
+				case RETURN: {
+					node = ParseReturn();
+					break;
+				}
+				default: {
+					node = ParseExpr();
+				}
 			}
 			if (node != NULL){
 				node->isExport = isExport;
@@ -308,6 +302,8 @@ namespace internal{
 		std::vector<ASTVar*> vars = ParseFuncArgs();
 		if (vars.size() > 0) func->args.insert(func->args.end(), vars.begin(), vars.end());
 		func->scope = LazyParseBody();
+		func->scope->owner = func;
+		func->scope->name = func->name;
 		return func;
 	}
 
@@ -331,7 +327,6 @@ namespace internal{
 		return scope;
 	}
 
-	// TODO
 	ASTNode* Parser::ParseIdentStart(){
 		Trace("Parsing", "Ident Start");
 		ASTExpr* expr = ParseExpr();
@@ -413,9 +408,19 @@ namespace internal{
 		bool pre = true;
 		TOKEN unary = UNDEFINED;
 		bool incdec = Is(2, INC, DEC);
+		ASTLiteral* cast = NULL;
 		if (incdec) {
 			unary = tok->value;
 			Next();
+		}
+		if (Is(1, LPAREN)){ // type casting
+			Next();
+			cast = (ASTLiteral*) ParseVarType();
+			if (cast->type != LITERAL) throw Error::UNKNOWN_CAST_TYPE;
+			SetRowCol(cast);
+			Expect(RPAREN);
+			Next();
+			Trace("Parsing", "Type cast");
 		}
 		if (IsVarType()) expr = ParseVarType();
 		if (Is(1, LPAREN)) expr = ParseFuncCall(expr);
@@ -440,12 +445,14 @@ namespace internal{
 				if (Is(1, COMMA)) Next();
 			}
 			Next();
+			expr->cast = cast;
 			return ary;
 		}
 		if (IsOperator() || IsBoolean() || Is(1, PERIOD)) { // needs to be last to catch all lingering operators
 			ASTBinaryExpr* binary = ASTBinaryExpr::New(isolate);
 			SetRowCol(binary);
 			binary->left = expr;
+			expr->cast = cast;
 			binary->op = tok->value;
 			binary->isChain = Is(1, PERIOD);
 			Trace("Parsing Operator", Token::ToString(tok->value));
@@ -458,7 +465,11 @@ namespace internal{
 			ASTExpr* expr = ParseVarType();
 			ASTFuncCall* call = (ASTFuncCall*) ParseFuncCall(expr);
 			call->isInit = true;
+			call->cast = cast;
 			return call;
+		}
+		if (expr != NULL){
+			expr->cast = cast;
 		}
 		return expr;
 	}
@@ -470,6 +481,7 @@ namespace internal{
 		if (tok->raw.length() > 0) Trace("Parsing Literal", tok->raw.c_str());
 		else Trace("Parsing Literal", tok->String().c_str());
 		lit->litType = tok->value;
+		if (lit->value.size() == 0) lit->value = tok->String();
 		Next();
 		return lit;
 	}
@@ -505,6 +517,7 @@ namespace internal{
 		Expect(RPAREN);
 		Next();
 		expr->scope = LazyParseBody();
+		expr->scope->owner = expr;
 		return expr;
 	}
 
@@ -527,6 +540,7 @@ namespace internal{
 		Expect(RPAREN);
 		Next();
 		expr->scope = LazyParseBody();
+		expr->scope->owner = expr;
 		return expr;
 	}
 
@@ -536,11 +550,13 @@ namespace internal{
 		SetRowCol(expr);
 		Next();
 		expr->tryScope = LazyParseBody();
+		expr->tryScope->owner = expr;
 		Expect(CATCH);
 		Next();
 		std::vector<ASTVar*> vars = ParseFuncArgs();
 		if (vars.size() > 0) expr->catchParams.insert(expr->catchParams.end(), vars.begin(), vars.end());
 		expr->catchScope = LazyParseBody();
+		expr->catchScope->owner = expr;
 		return expr;
 	}
 
@@ -608,6 +624,7 @@ namespace internal{
 			Expect(RPAREN);
 			Next();
 			stmt->scope = LazyParseBody();
+			stmt->scope->owner = stmt;
 			while (Is(2, ELSE, IF)){
 				ASTIf* ifs = (ASTIf*) ParseIf();
 				stmt->elseIfs.push_back(ifs);
@@ -671,6 +688,7 @@ namespace internal{
 		Expect(COLON);
 		Next();
 		expr->scope = LazyParseBody();
+		expr->scope->owner = expr;
 		return expr;
 	}
 
@@ -686,6 +704,8 @@ namespace internal{
 		SetRowCol(obj);
 		Next();
 		obj->scope = LazyParseBody();
+		obj->scope->owner = obj;
+		obj->scope->name = obj->name;
 		return obj;
 	}
 

@@ -6,6 +6,7 @@ namespace internal{
 	Scope::Scope(){
 		isParsed = false;
 		outer = NULL;
+		owner = NULL;
 	}
 
 	Scope::~Scope(){}

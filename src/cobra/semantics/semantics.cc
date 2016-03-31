@@ -7,12 +7,12 @@ namespace internal{
 		isolate = iso;
 		row = -1;
 		col = -1;
-		currentScope = NULL;
 		baseScope = NULL;
 		trace = TRACE_SEMANTIC;
 		indent = 0;
 		inObject = false;
-		tmp = NULL;
+		kThis = NULL;
+		isThis = false;
 	}
 
 	Semantics::~Semantics(){}
@@ -31,10 +31,11 @@ namespace internal{
 	}
 
 	std::string* Semantics::GetSource(){
-		if (currentScope == baseScope) {
+		Scope* s = GetCurrentScope();
+		if (s == baseScope) {
 			return parser->GetSource();
 		}
-		return &currentScope->raw;
+		return &s->raw;
 	}
 
 	void Semantics::Trace(const char* first, const char* second){
@@ -53,17 +54,36 @@ namespace internal{
 			printf("%s%s - %s\n", tabs.c_str(), first, t->String().c_str());
 		}
 	}
+
+	Scope* Semantics::GetCurrentScope(){
+		if (scopes.size() == 0) return NULL;
+		return scopes[0];
+	}
+
+	Scope* Semantics::GetPreviousScope(){
+		if (scopes.size() < 2) return NULL;
+		return scopes[1];
+	}
+
+	void Semantics::SwapScopes(){
+		if (scopes.size() < 2) throw Error::INTERNAL_SCOPE_ERROR;
+		Scope* s = scopes[0];
+		Scope* s2 = scopes[1];
+		CloseScope();
+		CloseScope();
+		OpenScope(s);
+		OpenScope(s2);
+	}
 	
 	void Semantics::Evaluate(Scope* scope){
 		baseScope = scope;
 		ScanScope(baseScope);
-		currentScope = baseScope;
 	}
 
 	void Semantics::ScanScope(Scope* scope){
 		Trace("Scanning Scope", (std::to_string(scope->Size()) + " items").c_str());
-		scope->outer = currentScope;
-		currentScope = scope;
+		scope->outer = GetCurrentScope();
+		OpenScope(scope);
 		for (int i = 0; i < scope->Size(); i++){
 			ASTNode* node = scope->Get(i);
 			SetRowCol(node);
@@ -77,7 +97,7 @@ namespace internal{
 				default: ValidateExpr((ASTExpr*) node); break;
 			}
 		}
-		currentScope = scope->outer;
+		CloseScope();
 	}
 
 	void Semantics::ValidateVar(ASTVar* var){
@@ -110,6 +130,7 @@ namespace internal{
 	TOKEN Semantics::ValidateExpr(ASTExpr* expr){
 		SetRowCol(expr);
 		if (expr == NULL) return UNDEFINED;
+		if (expr->cast != NULL) return ValidateCast(expr);
 		int type = (int) expr->type;
 		switch (type){
 			case UNDEFINED: return UNDEFINED;
@@ -168,18 +189,14 @@ namespace internal{
 
 		bool working = inObject; // used for object chains
 		if (inObject){
-			Scope* s = tmp;
-			tmp = currentScope;
-			currentScope = s;
+			SwapScopes();
 			inObject = false;
 		}
 
 		TOKEN right = ValidateExpr(expr->right);
 
 		if (working){
-			Scope* s = tmp;
-			tmp = currentScope;
-			currentScope = s;
+			SwapScopes();
 		}
 
 		try{
@@ -194,7 +211,20 @@ namespace internal{
 	TOKEN Semantics::ValidateIdent(ASTLiteral* expr){
 		SetRowCol(expr);
 		expr->name = expr->value;
-		std::vector<ASTNode*> nodes = currentScope->Lookup(expr->name);
+		Scope* s = GetCurrentScope();
+		if (expr->name == "this"){
+			if (s->outer == NULL) throw Error::INVALID_USAGE_OF_THIS;
+			kThis = (ASTObject*) s->outer->owner;
+			OpenScope(s->outer);
+			if (kThis == NULL) throw Error::INVALID_USAGE_OF_THIS;
+			isThis = true;
+			return UNDEFINED;
+		}	
+		std::vector<ASTNode*> nodes = s->Lookup(expr->name, isThis ? false : true);
+		for (int i = 0; i < nodes.size(); i++){
+			if (!isThis && nodes[i]->HasVisibility(PRIVATE)) throw Error::UNABLE_TO_ACCESS_PRIVATE_MEMBER;
+		}
+
 		if (nodes.size() > 1) throw Error::DIFFERENT_TYPE_ALREADY_DEFINED_IN_SCOPE;
 		else if (nodes.size() == 0) throw Error::UNDEFINED_VARIABLE;
 		expr->var = (ASTVar*) nodes[0];
@@ -206,7 +236,7 @@ namespace internal{
 	TOKEN Semantics::ValidateFuncCall(ASTFuncCall* expr, bool isConstructor){
 		Trace("Validating Func Call", expr->name.c_str());
 		SetRowCol(expr);
-		std::vector<ASTNode*> nodes = currentScope->Lookup(expr->name);
+		std::vector<ASTNode*> nodes = GetCurrentScope()->Lookup(expr->name);
 		if (nodes.size() == 0 && !isConstructor) throw Error::UNDEFINED_FUNC;
 		for (int i = 0; i < nodes.size(); i++){
 			if (nodes[i]->type == FUNC){
@@ -220,8 +250,8 @@ namespace internal{
 	}
 
 	void Semantics::ValidateFunc(ASTFunc* func, bool parse, bool isConstructor){
-		Trace("Parsing Func", func->name.c_str());
 		if (func->scope->IsParsed() || !parse) return;
+		Trace("Parsing Func", func->name.c_str());
 		func->scope = Parser::Parse(isolate, func->scope);
 		for (int i = 0; i < func->args.size(); i++){
 			func->scope->InsertBefore(func->args[i]);
@@ -266,16 +296,13 @@ namespace internal{
 		Trace("Validating Object", obj->name.c_str());
 	}
 
-	/**
-	 * Disallow a return statement in the constructor
-	 */
 	void Semantics::ValidateObjectInit(ASTVar* var){
 		if (var->value->type != FUNC_CALL) throw Error::OBJECT_CONSTRUCTOR_INVALID;
 		Trace("Validating Var", var->name.c_str());
 		indent++;
 		Trace("Object", "True");
 		var->baseName = var->value->name;
-		std::vector<ASTNode*> nodes = currentScope->Lookup(var->baseName);
+		std::vector<ASTNode*> nodes = GetCurrentScope()->Lookup(var->baseName);
 		ASTObject* base = NULL;
 		if (nodes.size() > 1){
 			for (int i = 0; i < nodes.size(); i++){ // get the base object
@@ -307,11 +334,9 @@ namespace internal{
 
 		// find the matching constructor
 		Trace("Validating Object", var->value->name.c_str());
-		tmp = currentScope;
-		currentScope = base->scope;
+		OpenScope(base->scope);
 		ValidateFuncCall((ASTFuncCall*) var->value, true);
-		currentScope = tmp;
-		tmp = NULL;
+		CloseScope();
 		indent--;
 
 		ASTObjectInstance* instance = ASTObjectInstance::New(isolate);
@@ -329,7 +354,6 @@ namespace internal{
 		indent--;
 	}
 
-	// TODO: take into accout the "this" keyword
 	TOKEN Semantics::ValidateObjectChain(ASTBinaryExpr* expr){
 		SetRowCol(expr);
 		ValidateExpr(expr->left);
@@ -342,18 +366,22 @@ namespace internal{
 
 		inObject = true;
 		indent++;
-		tmp = currentScope;
-		currentScope = obj->scope;
+		OpenScope(obj->scope);
 		TOKEN right = ValidateExpr(expr->right);
-		currentScope = tmp;
+		CloseScope();
 		indent--;
-		tmp = NULL;
 		inObject = false;
+		isThis = false;
 		return right;
 	}
 
 	ASTObject* Semantics::GetObject(ASTNode* node){
 		SetRowCol(node);
+		if (isThis) {
+			ASTObject* o = kThis;
+			kThis = NULL;
+			return o;
+		}
 		int type = (int) node->type;
 		switch (type){
 			case LITERAL: {
@@ -374,6 +402,12 @@ namespace internal{
 				return NULL;
 			}
 		}
+	}
+
+	TOKEN Semantics::ValidateCast(ASTExpr* expr){
+		Trace("Validating", "Cast");
+		ValidateLiteral((ASTLiteral*) expr->cast);
+		return expr->cast->litType;
 	}
 } // namespace internal
 }

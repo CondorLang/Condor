@@ -1,32 +1,10 @@
-object Math{
-	static double pi = 3.14159265;
-
-	func Math(){
-		var a = 10;
-		var b = 20;
-		var c = a + b;
-	}
-	func get(){return 1;}
-}
-
-object $Math{
-	static func floor(double num){return num;}
-}
-
 object Fruit{
-	private string name;
-	static string NAME = "Fruit";
-	func Fruit(string name){
-		this.name = name;
-	}
-
-	func getName(){
-		return this.name;
-	}
+	private string name = "Apple";
+	func Fruit(){}
+	func getName(){return this.name;}
 }
 
-var m = new Math();
-var d = m.get();
-var e = Math.pi;
-var f = Math.floor(e);
-var apple = new Fruit("apple");
+var apple = new Fruit();
+var banana = new Fruit();
+var appleName = apple.getName();
+var bananaName = banana.getName();

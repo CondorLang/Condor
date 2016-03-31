@@ -72,6 +72,7 @@ namespace internal{
 		ASTExpr* n = new(pt) ASTExpr();
 		ASTNode::SetDefaults(n, iso);
 		n->type = EXPR;
+		n->cast = NULL;
 		return n;
 	}
 
