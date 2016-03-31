@@ -14,6 +14,7 @@ namespace Cobra {
 namespace internal{
 	class ASTNode;
 	class Type;
+	class Context;
 
 	class Scope
 	{
@@ -28,6 +29,7 @@ namespace internal{
 		Scope* outer;
 		std::string raw;
 		std::string name;
+		Context* context;
 		ASTNode* owner;
 		static Scope* New(Isolate* isolate);
 		void Insert(ASTNode* node);
@@ -41,7 +43,7 @@ namespace internal{
 		void RemoveAllAfter(ASTNode* node);
 		std::vector<ASTNode*> GetNodes(){return nodes;}
 		ASTNode* Get(int idx);
-		std::vector<ASTNode*> Lookup(std::string name, bool deep = true);
+		std::vector<ASTNode*> Lookup(std::string name, bool deep = true, bool exported = false);
 	};
 } // namespace internal
 }

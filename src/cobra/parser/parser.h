@@ -32,8 +32,6 @@ namespace internal{
 		bool isInternal;
 		bool printVariables;
 		bool trace;
-		std::vector<ASTImport*> imports;
-		std::vector<ASTInclude*> includes;
 
 		void SetDefaults(std::string* source);
 		void SetRowCol(ASTNode* node);
@@ -77,7 +75,10 @@ namespace internal{
 		Parser(Isolate* iso);
 		~Parser();
 		static Parser* New(Isolate* isolate, std::string* source);
-		void SetInteral(bool isInternal){isInternal = isInternal;}
+		std::vector<ASTImport*> imports;
+		std::vector<ASTInclude*> includes;
+		
+		void SetInteral(bool isInternal);
 		bool IsInternal(){return isInternal;}
 		void SetInline(bool isInline){isInline = isInline;}
 		void Parse();

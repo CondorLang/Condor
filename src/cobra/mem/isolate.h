@@ -24,8 +24,6 @@ namespace internal{
 	public:
 		Isolate();
 		~Isolate();
-		inline void Enter(){}
-		inline void Exit(){}
 		Context* CreateContext();
 		Context* GetContext(){return context;}
 		void* GetMemory(const size_t size);

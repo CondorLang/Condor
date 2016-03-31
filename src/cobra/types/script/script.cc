@@ -4,14 +4,16 @@
 namespace Cobra {
 namespace internal{
 
-	Script* Script::New(Isolate* iso, String* str){
+	Script* Script::New(Context* context, String* str){
+		Isolate* iso = context->GetIsolate();
 		void* p = (Script*) iso->GetMemory(sizeof(Script));
-		Script* script = new(p) Script(iso, str);
+		Script* script = new(p) Script(iso, str, context);
 		return script;
 	}
 
-	Script::Script(Isolate* isolate, String* str){
+	Script::Script(Isolate* isolate, String* str, Context* con){
 		source = str;
+		context = con;
 		hasErr = false;
 		this->isolate = isolate;
 		compiled = false;
@@ -22,16 +24,39 @@ namespace internal{
 		internal = str->IsInternal();
 		sourceCode += str->GetValue();
 		absolutePath = str->GetPath();
-		name = absolutePath;
+		if (absolutePath == "inline"){
+			name = str->name;
+		}
+		else{
+			name = absolutePath;
+		}
 		semantics = NULL;
 		currentCode = NULL;
 	}
 
 	void Script::RunInternalScript(Isolate* isolate, std::string hex, std::string _name){
-		
+		Cobra::Isolate* iso = CAST(Cobra::Isolate*, isolate);
+		int len = hex.length();
+		std::string newString;
+		for(int i=0; i< len; i+=2)
+		{
+		    std::string byte = hex.substr(i,2);
+		    char chr = (char) (int)strtol(byte.c_str(), NULL, 16);
+		    newString.push_back(chr);
+		}
+		Cobra::String* str = Cobra::String::New(iso, newString.c_str());
+		String* iStr = CAST(String*, str);
+		iStr->name = _name;
+		iStr->SetInternal();
+
+		Cobra::Context* c = CAST(Cobra::Context*, isolate->GetContext());
+		Cobra::Script* script = Cobra::Script::Compile(c, str);
+		Script* s = CAST(Script*, script);
+		script->Run();
 	}
 
 	void Script::Compile(){
+		if (context->IsIncluded(name)) return;
 		parser = Parser::New(isolate, &sourceCode);
 		bool isInline = absolutePath == "inline";
 		parser->SetInteral(internal);
@@ -56,10 +81,10 @@ namespace internal{
 					printf("Parsing:  %f sec | %s\n", clock->GetDuration(), absolutePath.c_str());
 			}
 			if (absolutePath != "inline"){
-				isolate->GetContext()->AddToInProgress(absolutePath);
+				context->AddToInProgress(absolutePath);
 			}
 			else{
-				isolate->GetContext()->AddToInProgress(name);
+				context->AddToInProgress(name);
 			}
 		}
 		catch (Error::ERROR e){
@@ -71,6 +96,7 @@ namespace internal{
 			hasErr = true;
 			return;
 		}
+		LoadImports();
 		semantics = Semantics::New(isolate, parser);
 
 		try {
@@ -89,6 +115,9 @@ namespace internal{
 			hasErr = true;
 		}
 
+		Scope* base = parser->GetBaseScope();
+		base->name = name;
+		context->AddScope(base);
 	}
 
 	void Script::Run(){
@@ -123,6 +152,14 @@ namespace internal{
 		result += "\033[1;32m^\033[0m";
 		result += "\n";
 		return result;
+	}
+
+	void Script::LoadImports(){
+		for (int i = 0; i < parser->imports.size(); i++){
+			ASTImport* import = parser->imports[i];
+			if (import->name == "array") Array::CB(isolate);
+			else if (import->name == "string") String::CB(isolate);
+		}
 	}
 
 } // namespace internal

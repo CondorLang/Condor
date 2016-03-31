@@ -32,14 +32,14 @@ namespace Cobra{
 		return CAST(Isolate*, isolate);
 	}
 
-	void Isolate::Enter(){
-		i::Isolate* isolate = CAST(i::Isolate*, this);
-		isolate->Enter();
+	void Context::Enter(){
+		i::Context* context = CAST(i::Context*, this);
+		context->Enter();
 	}
 
-	void Isolate::Exit(){
-		i::Isolate* isolate = CAST(i::Isolate*, this);
-		isolate->Exit();
+	void Context::Exit(){
+		i::Context* context = CAST(i::Context*, this);
+		context->Exit();
 	}
 
 	void Isolate::Dispose(){
@@ -93,10 +93,10 @@ namespace Cobra{
 		return CAST(String*, str);
 	}
 
-	Script* Script::Compile(Isolate* isolate, String* string){
-		i::Isolate* iso = CAST(i::Isolate*, isolate);
+	Script* Script::Compile(Context* context, String* string){
+		i::Context* con = CAST(i::Context*, context);
 		i::String* str = CAST(i::String*, string);
-		i::Script* script = i::Script::New(iso, str);
+		i::Script* script = i::Script::New(con, str);
 		script->Compile();
 		return CAST(Script*, script);
 	}

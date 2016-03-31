@@ -21,6 +21,7 @@ namespace internal{
 		static String* New(Isolate* isolate);
 		void SetDefaults(){internal = false;}
 		Isolate* isolate;
+		std::string name;
 		static void CB(Isolate* isolate);
 		static std::string Code;
 		void SetValue(const char* val){value = val;}

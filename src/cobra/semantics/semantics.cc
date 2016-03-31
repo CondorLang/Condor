@@ -21,6 +21,9 @@ namespace internal{
 		void* p = (Semantics*) iso->GetMemory(sizeof(Semantics));
 		Semantics* n = new(p) Semantics(iso);
 		n->parser = parser;
+		if (parser->IsInternal()){
+			n->trace = false;
+		}
 		return n;
 	}
 

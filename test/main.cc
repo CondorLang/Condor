@@ -9,12 +9,12 @@ int main(int argc, const char* argv[]){
 	Isolate* isolate = Isolate::New();
 	Context* context = isolate->CreateContext();
 
-	isolate->Enter();
+	context->Enter();
 	String* string = String::NewFromFile(isolate, "test/test.cb");
-	Script* script = Script::Compile(isolate, string);
+	Script* script = Script::Compile(context, string);
 	script->Run();
 
-	isolate->Exit();
+	context->Exit();
 	context->Dispose();
 	isolate->Dispose();
 }

@@ -1,0 +1,138 @@
+==27292== Memcheck, a memory error detector
+==27292== Copyright (C) 2002-2013, and GNU GPL'd, by Julian Seward et al.
+==27292== Using Valgrind-3.11.0.SVN and LibVEX; rerun with -h for copyright info
+==27292== Command: ./build/Cobra
+==27292== 
+--27292-- run: /usr/bin/dsymutil "./build/Cobra"
+==27292== 
+==27292== HEAP SUMMARY:
+==27292==     in use at exit: 51,828 bytes in 440 blocks
+==27292==   total heap usage: 513 allocs, 73 frees, 98,396 bytes allocated
+==27292== 
+==27292== 8 bytes in 1 blocks are definitely lost in loss record 2 of 89
+==27292==    at 0x10006B4AB: malloc (in /usr/local/Cellar/valgrind/HEAD/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==27292==    by 0x1000AF43D: operator new(unsigned long) (in /usr/lib/libc++.1.dylib)
+==27292==    by 0x10001F16D: std::__1::__split_buffer<Cobra::internal::ASTImport*, std::__1::allocator<Cobra::internal::ASTImport*>&>::__split_buffer(unsigned long, unsigned long, std::__1::allocator<Cobra::internal::ASTImport*>&) (new:156)
+==27292==    by 0x10001EB9C: std::__1::__split_buffer<Cobra::internal::ASTImport*, std::__1::allocator<Cobra::internal::ASTImport*>&>::__split_buffer(unsigned long, unsigned long, std::__1::allocator<Cobra::internal::ASTImport*>&) (__split_buffer:324)
+==27292==    by 0x10001EA57: void std::__1::vector<Cobra::internal::ASTImport*, std::__1::allocator<Cobra::internal::ASTImport*> >::__push_back_slow_path<Cobra::internal::ASTImport* const&>(Cobra::internal::ASTImport* const&) (vector:1575)
+==27292==    by 0x100016412: Cobra::internal::Parser::ParseImportOrInclude() (vector:1596)
+==27292==    by 0x100015B83: Cobra::internal::Parser::Parse() (parser.cc:45)
+==27292==    by 0x100001EA7: Cobra::internal::Script::Compile() (script.cc:51)
+==27292==    by 0x10003BA09: Cobra::Script::Compile(Cobra::Isolate*, Cobra::String*) (api.cc:100)
+==27292==    by 0x1000013FA: main (in ./build/Cobra)
+==27292== 
+==27292== 8 bytes in 1 blocks are definitely lost in loss record 3 of 89
+==27292==    at 0x10006B4AB: malloc (in /usr/local/Cellar/valgrind/HEAD/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==27292==    by 0x1000AF43D: operator new(unsigned long) (in /usr/lib/libc++.1.dylib)
+==27292==    by 0x10000E46D: std::__1::__split_buffer<Cobra::internal::ASTNode*, std::__1::allocator<Cobra::internal::ASTNode*>&>::__split_buffer(unsigned long, unsigned long, std::__1::allocator<Cobra::internal::ASTNode*>&) (new:156)
+==27292==    by 0x10000DFAC: std::__1::__split_buffer<Cobra::internal::ASTNode*, std::__1::allocator<Cobra::internal::ASTNode*>&>::__split_buffer(unsigned long, unsigned long, std::__1::allocator<Cobra::internal::ASTNode*>&) (__split_buffer:324)
+==27292==    by 0x10000DE87: void std::__1::vector<Cobra::internal::ASTNode*, std::__1::allocator<Cobra::internal::ASTNode*> >::__push_back_slow_path<Cobra::internal::ASTNode* const&>(Cobra::internal::ASTNode* const&) (vector:1575)
+==27292==    by 0x10000A0A9: Cobra::internal::Scope::Insert(Cobra::internal::ASTNode*) (vector:1596)
+==27292==    by 0x100017756: Cobra::internal::Parser::ParseShallowStmtList(Cobra::internal::TOKEN) (parser.cc:281)
+==27292==    by 0x100015B96: Cobra::internal::Parser::Parse() (parser.cc:46)
+==27292==    by 0x100001EA7: Cobra::internal::Script::Compile() (script.cc:51)
+==27292==    by 0x10003BA09: Cobra::Script::Compile(Cobra::Isolate*, Cobra::String*) (api.cc:100)
+==27292==    by 0x1000013FA: main (in ./build/Cobra)
+==27292== 
+==27292== 8 bytes in 1 blocks are definitely lost in loss record 4 of 89
+==27292==    at 0x10006B4AB: malloc (in /usr/local/Cellar/valgrind/HEAD/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==27292==    by 0x1000AF43D: operator new(unsigned long) (in /usr/lib/libc++.1.dylib)
+==27292==    by 0x10003144D: std::__1::__split_buffer<Cobra::internal::Scope*, std::__1::allocator<Cobra::internal::Scope*>&>::__split_buffer(unsigned long, unsigned long, std::__1::allocator<Cobra::internal::Scope*>&) (new:156)
+==27292==    by 0x100030D5C: std::__1::__split_buffer<Cobra::internal::Scope*, std::__1::allocator<Cobra::internal::Scope*>&>::__split_buffer(unsigned long, unsigned long, std::__1::allocator<Cobra::internal::Scope*>&) (__split_buffer:324)
+==27292==    by 0x1000301C7: std::__1::vector<Cobra::internal::Scope*, std::__1::allocator<Cobra::internal::Scope*> >::insert(std::__1::__wrap_iter<Cobra::internal::Scope* const*>, Cobra::internal::Scope* const&) (vector:1746)
+==27292==    by 0x10002F960: Cobra::internal::Semantics::OpenScope(Cobra::internal::Scope*) (in ./build/Cobra)
+==27292==    by 0x10002C461: Cobra::internal::Semantics::ScanScope(Cobra::internal::Scope*) (semantics.cc:86)
+==27292==    by 0x10002C1BF: Cobra::internal::Semantics::Evaluate(Cobra::internal::Scope*) (semantics.cc:80)
+==27292==    by 0x100003C92: Cobra::internal::Script::Compile() (script.cc:77)
+==27292==    by 0x10003BA09: Cobra::Script::Compile(Cobra::Isolate*, Cobra::String*) (api.cc:100)
+==27292==    by 0x1000013FA: main (in ./build/Cobra)
+==27292== 
+==27292== 24 bytes in 1 blocks are definitely lost in loss record 19 of 89
+==27292==    at 0x10006B4AB: malloc (in /usr/local/Cellar/valgrind/HEAD/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==27292==    by 0x1000AF43D: operator new(unsigned long) (in /usr/lib/libc++.1.dylib)
+==27292==    by 0x10000602D: std::__1::__split_buffer<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::allocator<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >&>::__split_buffer(unsigned long, unsigned long, std::__1::allocator<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >&) (new:156)
+==27292==    by 0x1000058EC: std::__1::__split_buffer<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::allocator<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >&>::__split_buffer(unsigned long, unsigned long, std::__1::allocator<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >&) (__split_buffer:324)
+==27292==    by 0x1000057B4: void std::__1::vector<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::allocator<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > >::__push_back_slow_path<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > const&>(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > const&) (vector:1575)
+==27292==    by 0x100008175: Cobra::internal::Context::AddToInProgress(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >) (vector:1596)
+==27292==    by 0x100002128: Cobra::internal::Script::Compile() (script.cc:59)
+==27292==    by 0x10003BA09: Cobra::Script::Compile(Cobra::Isolate*, Cobra::String*) (api.cc:100)
+==27292==    by 0x1000013FA: main (in ./build/Cobra)
+==27292== 
+==27292== 40 bytes in 1 blocks are definitely lost in loss record 31 of 89
+==27292==    at 0x10006B4AB: malloc (in /usr/local/Cellar/valgrind/HEAD/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==27292==    by 0x100014300: Cobra::internal::MemoryPool::AllocateMemory(unsigned long) (allocate.cc:167)
+==27292==    by 0x10001425D: Cobra::internal::MemoryPool::MemoryPool(unsigned long, unsigned long, unsigned long) (allocate.cc:33)
+==27292==    by 0x10001439C: Cobra::internal::MemoryPool::MemoryPool(unsigned long, unsigned long, unsigned long) (allocate.cc:21)
+==27292==    by 0x10003B0AF: Cobra::Isolate::New() (api.cc:28)
+==27292==    by 0x1000013BF: main (in ./build/Cobra)
+==27292== 
+==27292== 48 bytes in 1 blocks are definitely lost in loss record 36 of 89
+==27292==    at 0x10006B4AB: malloc (in /usr/local/Cellar/valgrind/HEAD/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==27292==    by 0x1000AF43D: operator new(unsigned long) (in /usr/lib/libc++.1.dylib)
+==27292==    by 0x1000B2E53: std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >::__grow_by_and_replace(unsigned long, unsigned long, unsigned long, unsigned long, unsigned long, unsigned long, char const*) (in /usr/lib/libc++.1.dylib)
+==27292==    by 0x1000B2580: std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >::assign(char const*, unsigned long) (in /usr/lib/libc++.1.dylib)
+==27292==    by 0x10003BB5C: Cobra::internal::String::SetValue(char const*) (string:1370)
+==27292==    by 0x10003B992: Cobra::String::New(Cobra::Isolate*, char const*, char const*) (api.cc:92)
+==27292==    by 0x10003B84C: Cobra::String::NewFromFile(Cobra::Isolate*, char const*) (api.cc:75)
+==27292==    by 0x1000013E9: main (in ./build/Cobra)
+==27292== 
+==27292== 48 bytes in 1 blocks are definitely lost in loss record 37 of 89
+==27292==    at 0x10006B4AB: malloc (in /usr/local/Cellar/valgrind/HEAD/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==27292==    by 0x1000AF43D: operator new(unsigned long) (in /usr/lib/libc++.1.dylib)
+==27292==    by 0x1000B2E53: std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >::__grow_by_and_replace(unsigned long, unsigned long, unsigned long, unsigned long, unsigned long, unsigned long, char const*) (in /usr/lib/libc++.1.dylib)
+==27292==    by 0x1000B2D22: std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >::append(char const*, unsigned long) (in /usr/lib/libc++.1.dylib)
+==27292==    by 0x100001B36: Cobra::internal::Script::Script(Cobra::internal::Isolate*, Cobra::internal::String*) (string:2653)
+==27292==    by 0x1000014B4: Cobra::internal::Script::Script(Cobra::internal::Isolate*, Cobra::internal::String*) (script.cc:13)
+==27292==    by 0x10000146E: Cobra::internal::Script::New(Cobra::internal::Isolate*, Cobra::internal::String*) (script.cc:9)
+==27292==    by 0x10003B9FC: Cobra::Script::Compile(Cobra::Isolate*, Cobra::String*) (api.cc:99)
+==27292==    by 0x1000013FA: main (in ./build/Cobra)
+==27292== 
+==27292== 1,240 bytes in 1 blocks are definitely lost in loss record 79 of 89
+==27292==    at 0x10006B4AB: malloc (in /usr/local/Cellar/valgrind/HEAD/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==27292==    by 0x100014300: Cobra::internal::MemoryPool::AllocateMemory(unsigned long) (allocate.cc:167)
+==27292==    by 0x10001425D: Cobra::internal::MemoryPool::MemoryPool(unsigned long, unsigned long, unsigned long) (allocate.cc:33)
+==27292==    by 0x10001439C: Cobra::internal::MemoryPool::MemoryPool(unsigned long, unsigned long, unsigned long) (allocate.cc:21)
+==27292==    by 0x100015323: Cobra::internal::Isolate::Isolate() (isolate.cc:23)
+==27292==    by 0x100015494: Cobra::internal::Isolate::Isolate() (isolate.cc:6)
+==27292==    by 0x10003B0E0: Cobra::Isolate::New() (api.cc:30)
+==27292==    by 0x1000013BF: main (in ./build/Cobra)
+==27292== 
+==27292== 2,480 bytes in 1 blocks are definitely lost in loss record 83 of 89
+==27292==    at 0x10006B4AB: malloc (in /usr/local/Cellar/valgrind/HEAD/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==27292==    by 0x100014300: Cobra::internal::MemoryPool::AllocateMemory(unsigned long) (allocate.cc:167)
+==27292==    by 0x10001425D: Cobra::internal::MemoryPool::MemoryPool(unsigned long, unsigned long, unsigned long) (allocate.cc:33)
+==27292==    by 0x10001439C: Cobra::internal::MemoryPool::MemoryPool(unsigned long, unsigned long, unsigned long) (allocate.cc:21)
+==27292==    by 0x100015298: Cobra::internal::Isolate::Isolate() (isolate.cc:20)
+==27292==    by 0x100015494: Cobra::internal::Isolate::Isolate() (isolate.cc:6)
+==27292==    by 0x10003B0E0: Cobra::Isolate::New() (api.cc:30)
+==27292==    by 0x1000013BF: main (in ./build/Cobra)
+==27292== 
+==27292== 4,000 bytes in 1 blocks are definitely lost in loss record 87 of 89
+==27292==    at 0x10006B4AB: malloc (in /usr/local/Cellar/valgrind/HEAD/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==27292==    by 0x100014300: Cobra::internal::MemoryPool::AllocateMemory(unsigned long) (allocate.cc:167)
+==27292==    by 0x10001425D: Cobra::internal::MemoryPool::MemoryPool(unsigned long, unsigned long, unsigned long) (allocate.cc:33)
+==27292==    by 0x10001439C: Cobra::internal::MemoryPool::MemoryPool(unsigned long, unsigned long, unsigned long) (allocate.cc:21)
+==27292==    by 0x10001520E: Cobra::internal::Isolate::Isolate() (isolate.cc:15)
+==27292==    by 0x100015494: Cobra::internal::Isolate::Isolate() (isolate.cc:6)
+==27292==    by 0x10003B0E0: Cobra::Isolate::New() (api.cc:30)
+==27292==    by 0x1000013BF: main (in ./build/Cobra)
+==27292== 
+==27292== 9,160 bytes in 1 blocks are definitely lost in loss record 89 of 89
+==27292==    at 0x10006B4AB: malloc (in /usr/local/Cellar/valgrind/HEAD/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==27292==    by 0x100014300: Cobra::internal::MemoryPool::AllocateMemory(unsigned long) (allocate.cc:167)
+==27292==    by 0x10001425D: Cobra::internal::MemoryPool::MemoryPool(unsigned long, unsigned long, unsigned long) (allocate.cc:33)
+==27292==    by 0x10001439C: Cobra::internal::MemoryPool::MemoryPool(unsigned long, unsigned long, unsigned long) (allocate.cc:21)
+==27292==    by 0x10001518F: Cobra::internal::Isolate::Isolate() (isolate.cc:10)
+==27292==    by 0x100015494: Cobra::internal::Isolate::Isolate() (isolate.cc:6)
+==27292==    by 0x10003B0E0: Cobra::Isolate::New() (api.cc:30)
+==27292==    by 0x1000013BF: main (in ./build/Cobra)
+==27292== 
+==27292== LEAK SUMMARY:
+==27292==    definitely lost: 17,064 bytes in 11 blocks
+==27292==    indirectly lost: 0 bytes in 0 blocks
+==27292==      possibly lost: 0 bytes in 0 blocks
+==27292==    still reachable: 0 bytes in 0 blocks
+==27292==         suppressed: 34,764 bytes in 429 blocks
+==27292== 
+==27292== For counts of detected and suppressed errors, rerun with: -v
+==27292== ERROR SUMMARY: 11 errors from 11 contexts (suppressed: 15 from 15)

@@ -97,14 +97,15 @@ src/cobra/types/script/script.o: src/cobra/types/script/script.cc \
   /usr/include/machine/types.h /usr/include/i386/types.h \
   src/cobra/clock.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/ctime \
-  src/cobra/shell.h src/cobra/mem/isolate.h src/cobra/mem/allocate.h \
-  /usr/include/math.h src/cobra/global.h src/cobra/mem/list.h \
-  src/cobra/mem/gc.h src/cobra/ast/context.h src/cobra/error/error.h \
-  src/cobra/token/token.h src/cobra/parser/parser.h src/cobra/ast/node.h \
-  src/cobra/ast/scope.h src/cobra/scanner/scanner.h \
+  src/cobra/shell.h src/cobra/ast/context.h src/cobra/mem/isolate.h \
+  src/cobra/mem/allocate.h /usr/include/math.h src/cobra/global.h \
+  src/cobra/mem/list.h src/cobra/mem/gc.h src/cobra/ast/node.h \
+  src/cobra/token/token.h src/cobra/ast/scope.h src/cobra/error/error.h \
+  src/cobra/parser/parser.h src/cobra/scanner/scanner.h \
   src/cobra/types/vector/vector.h src/cobra/types/strings/string.h \
   src/../include/Cobra.h src/cobra/types/strings/string-bytes.h \
-  src/cobra/semantics/semantics.h src/cobra/semantics/binary.h
+  src/cobra/semantics/semantics.h src/cobra/semantics/binary.h \
+  src/cobra/types/array/array.h src/cobra/types/array/array-bytes.h
 
 src/cobra/types/script/script.h:
 
@@ -394,6 +395,8 @@ src/cobra/clock.h:
 
 src/cobra/shell.h:
 
+src/cobra/ast/context.h:
+
 src/cobra/mem/isolate.h:
 
 src/cobra/mem/allocate.h:
@@ -406,17 +409,15 @@ src/cobra/mem/list.h:
 
 src/cobra/mem/gc.h:
 
-src/cobra/ast/context.h:
-
-src/cobra/error/error.h:
+src/cobra/ast/node.h:
 
 src/cobra/token/token.h:
 
-src/cobra/parser/parser.h:
-
-src/cobra/ast/node.h:
-
 src/cobra/ast/scope.h:
+
+src/cobra/error/error.h:
+
+src/cobra/parser/parser.h:
 
 src/cobra/scanner/scanner.h:
 
@@ -431,3 +432,7 @@ src/cobra/types/strings/string-bytes.h:
 src/cobra/semantics/semantics.h:
 
 src/cobra/semantics/binary.h:
+
+src/cobra/types/array/array.h:
+
+src/cobra/types/array/array-bytes.h:

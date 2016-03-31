@@ -12,6 +12,8 @@ namespace Cobra {
 	class Context
 	{
 	public:
+		void Enter();
+		void Exit();
 		void Dispose();		
 	};
 		
@@ -22,8 +24,6 @@ namespace Cobra {
 	class Isolate
 	{
 	public:
-		void Enter();
-		void Exit();
 		void Dispose();
 		static Isolate* New();
 		Context* CreateContext();
@@ -45,7 +45,7 @@ namespace Cobra {
 	class Script
 	{
 	public:
-		static Script* Compile(Isolate* isolate, String* string);
+		static Script* Compile(Context* context, String* string);
 		void Run();
 	};
 

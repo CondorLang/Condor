@@ -8,11 +8,14 @@
 #include "cobra/flags.h"
 #include "cobra/clock.h"
 #include "cobra/shell.h"
+#include "cobra/ast/context.h"
 #include "cobra/mem/isolate.h"	
 #include "cobra/error/error.h"
 #include "cobra/parser/parser.h"
 #include "cobra/semantics/semantics.h"
+
 #include "cobra/types/strings/string.h"	
+#include "cobra/types/array/array.h"
 
 namespace Cobra {
 namespace internal{
@@ -42,14 +45,16 @@ namespace internal{
 		std::string absolutePath;
 		std::string sourceCode;
 		Isolate* isolate;
+		Context* context;
 		bool compiled;
 
 		std::string GetSourceRow(int row, int col);
+		void LoadImports();
 
 	public:
-		Script(Isolate* isolate, String* str);
+		Script(Isolate* isolate, String* str, Context* con);
 		~Script(){}
-		static Script* New(Isolate* iso, String* str);
+		static Script* New(Context* context, String* str);
 		static void RunInternalScript(Isolate* isolate, std::string hex, std::string _name);
 		void Run();
 		void Compile();

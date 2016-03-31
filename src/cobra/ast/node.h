@@ -12,6 +12,7 @@ namespace internal{
 
 	class Isolate;
 	class ASTLiteral;
+	class Scope;
 
 	class ASTNode
 	{

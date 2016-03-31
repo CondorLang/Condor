@@ -29,6 +29,16 @@ namespace internal{
 		trace = TRACE_PARSER;
 	}
 
+	void Parser::SetInteral(bool isInternal){
+		if (!isInternal) {
+			isInternal = isInternal;
+		}
+		if (isInternal){
+			printVariables = false;
+			trace = false;
+		}
+	}
+
 	void Parser::SetDefaults(std::string* source){
 		source = source;
 		scanner = Scanner::New(isolate, source);

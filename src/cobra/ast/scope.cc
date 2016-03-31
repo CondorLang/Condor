@@ -35,12 +35,18 @@ namespace internal{
 		nodes.insert(nodes.begin(), node);
 	}
 
-	std::vector<ASTNode*> Scope::Lookup(std::string name, bool deep){
+	std::vector<ASTNode*> Scope::Lookup(std::string name, bool deep, bool exported){
 		std::vector<ASTNode*> results;
 		for (int i = 0; i < nodes.size(); i++){
-			if (nodes[i]->name == name) results.push_back(nodes[i]);
+			if (exported){
+				if (nodes[i]->name == name && nodes[i]->isExport) results.push_back(nodes[i]);
+			}
+			else{
+				if (nodes[i]->name == name) results.push_back(nodes[i]);
+			}
 		}
 		if (results.size() == 0 && outer != NULL && deep) return outer->Lookup(name);
+		else if (results.size() == 0 && outer == NULL && deep) return isolate->GetContext()->Lookup(name);
 		return results;
 	}
 

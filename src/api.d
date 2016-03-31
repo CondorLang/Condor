@@ -136,15 +136,16 @@ src/api.o: src/api.cc src/api.h src/../include/Cobra.h \
   src/cobra/mem/gc.h src/cobra/ast/context.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/vector \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__split_buffer \
-  src/cobra/types/strings/string.h \
-  src/cobra/types/strings/string-bytes.h src/cobra/types/script/script.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/map \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__tree \
+  src/cobra/ast/node.h src/cobra/token/token.h src/cobra/ast/scope.h \
+  src/cobra/types/strings/string.h \
+  src/cobra/types/strings/string-bytes.h src/cobra/types/script/script.h \
   src/cobra/clock.h src/cobra/shell.h src/cobra/error/error.h \
-  src/cobra/token/token.h src/cobra/parser/parser.h src/cobra/ast/node.h \
-  src/cobra/ast/scope.h src/cobra/scanner/scanner.h \
+  src/cobra/parser/parser.h src/cobra/scanner/scanner.h \
   src/cobra/types/vector/vector.h src/cobra/semantics/semantics.h \
-  src/cobra/semantics/binary.h
+  src/cobra/semantics/binary.h src/cobra/types/array/array.h \
+  src/cobra/types/array/array-bytes.h
 
 src/api.h:
 
@@ -558,15 +559,21 @@ src/cobra/ast/context.h:
 
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__split_buffer:
 
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/map:
+
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__tree:
+
+src/cobra/ast/node.h:
+
+src/cobra/token/token.h:
+
+src/cobra/ast/scope.h:
+
 src/cobra/types/strings/string.h:
 
 src/cobra/types/strings/string-bytes.h:
 
 src/cobra/types/script/script.h:
-
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/map:
-
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__tree:
 
 src/cobra/clock.h:
 
@@ -574,13 +581,7 @@ src/cobra/shell.h:
 
 src/cobra/error/error.h:
 
-src/cobra/token/token.h:
-
 src/cobra/parser/parser.h:
-
-src/cobra/ast/node.h:
-
-src/cobra/ast/scope.h:
 
 src/cobra/scanner/scanner.h:
 
@@ -589,3 +590,7 @@ src/cobra/types/vector/vector.h:
 src/cobra/semantics/semantics.h:
 
 src/cobra/semantics/binary.h:
+
+src/cobra/types/array/array.h:
+
+src/cobra/types/array/array-bytes.h:
