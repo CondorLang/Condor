@@ -61,5 +61,6 @@ If you would like to contribute to the CobraLang project, pull requests are alwa
 
 Todo:
 ------
- - semantics.cc 236 - add variable types
- - semantics.cc 414 - Compare the base type with the assignment type. Throw an error if they are not the same if hard typed.
+ - semantics.cc 253 - add variable types
+ - semantics.cc 432 - Compare the base type with the assignment type. Throw an error if they are not the same if hard typed.
+ - semantics.cc 448 - Move the internal function registry

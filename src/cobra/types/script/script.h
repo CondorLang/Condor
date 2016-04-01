@@ -13,9 +13,11 @@
 #include "cobra/error/error.h"
 #include "cobra/parser/parser.h"
 #include "cobra/semantics/semantics.h"
+#include "cobra/execute/execute.h"
 
 #include "cobra/types/strings/string.h"	
 #include "cobra/types/array/array.h"
+#include "cobra/types/console/console.h"
 
 namespace Cobra {
 namespace internal{
@@ -38,6 +40,7 @@ namespace internal{
 		String* source;
 		std::string* currentCode;
 		Semantics* semantics;
+		Execute* executor;
 		bool hasErr;
 		std::vector<std::string> msgs;
 		std::string name;
@@ -57,6 +60,8 @@ namespace internal{
 		static Script* New(Context* context, String* str);
 		static void RunInternalScript(Isolate* isolate, std::string hex, std::string _name);
 		void Run();
+		bool HasError(){return hasErr;}
+		std::string GetErrorMsg(){if (msgs.size() > 0) return msgs[0]; return "";}
 		void Compile();
 	};
 

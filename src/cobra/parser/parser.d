@@ -104,8 +104,10 @@ src/cobra/parser/parser.o: src/cobra/parser/parser.cc \
   src/cobra/types/script/script.h src/cobra/clock.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/ctime \
   src/cobra/shell.h src/cobra/semantics/semantics.h \
-  src/cobra/semantics/binary.h src/cobra/types/array/array.h \
-  src/cobra/types/array/array-bytes.h
+  src/cobra/semantics/binary.h src/cobra/semantics/internal.h \
+  src/cobra/execute/execute.h src/cobra/types/array/array.h \
+  src/cobra/types/array/array-bytes.h src/cobra/types/console/console.h \
+  src/cobra/types/console/console-bytes.h
 
 src/cobra/parser/parser.h:
 
@@ -433,6 +435,14 @@ src/cobra/semantics/semantics.h:
 
 src/cobra/semantics/binary.h:
 
+src/cobra/semantics/internal.h:
+
+src/cobra/execute/execute.h:
+
 src/cobra/types/array/array.h:
 
 src/cobra/types/array/array-bytes.h:
+
+src/cobra/types/console/console.h:
+
+src/cobra/types/console/console-bytes.h:

@@ -16,10 +16,12 @@ namespace internal{
 			else if (arg == "--expand-ast") Flags::expandAST = true;
 			else if (arg == "--allow-native") Flags::allowNative = true;
 			else if (arg == "--compile-time") Flags::compileTime = true;
+			else if (arg == "--trace-evaluation") Flags::traceEvaluation = true;
 			else if (arg == "-h" || arg == "--help"){
 				printf("\n\nCobraLang\n=========\n(C) 2015 Cobra Authors\n\n");
 				printf("--trace-parser\t\t%s\n", "Trace the path of the parser");
-				printf("--trace-semantic\t\t%s\n", "Trace the path of the ast semantic checker");
+				printf("--trace-semantic\t%s\n", "Trace the path of the ast semantic checker");
+				printf("--trace-evaluation\t%s\n", "Trace the evaluation of the code");
 				printf("--print-variables\t%s\n", "Prints the variables inside each scope");
 				printf("--print-exported\t%s\n", "Prints the exported nodes in the context");
 				printf("--parsing-time\t\t%s\n", "Prints the time it took to parse");
@@ -46,6 +48,7 @@ namespace internal{
 	bool Flags::expandAST = false;
 	bool Flags::allowNative = false;
 	bool Flags::compileTime = false;
+	bool Flags::traceEvaluation = false;
 
 } // namespace internal
 } // namespace Cobra

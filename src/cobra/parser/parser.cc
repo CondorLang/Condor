@@ -60,11 +60,18 @@ namespace internal{
 		}
 	}
 
-	Scope* Parser::Parse(Isolate* iso, Scope* sc){
+	Scope* Parser::Parse(Isolate* iso, Scope* sc, Semantics* s){
 		if (sc == NULL) throw Error::INTERNAL_SCOPE_ERROR;
 		if (sc->IsParsed()) return sc;
 		Parser* p = Parser::New(iso, &sc->raw);
-		p->Parse();
+		try {
+			p->Parse();
+		}
+		catch (Error::ERROR e){
+			s->row = p->row;
+			s->col = p->col;
+			throw e;
+		}
 		Scope* result = p->GetBaseScope();
 		result->name = sc->name;
 		result->owner = sc->owner;
@@ -191,8 +198,9 @@ namespace internal{
 	std::string Parser::ParseAlias(){
 		Next();
 		if (Is(1, AS)){
+			throw Error::NOT_IMPLEMENTED;
 			Next();
-			Expect(STRING);
+			Expect(IDENT);
 			std::string result = tok->raw;
 			Next();
 			return result;
@@ -221,6 +229,10 @@ namespace internal{
 			switch (type){
 				case FUNC: {
 					node = ParseFunc(); 
+					break;
+				}
+				case INTERNAL: {
+					node = ParseInternal();
 					break;
 				}
 				case IDENT: {
@@ -273,16 +285,14 @@ namespace internal{
 					node = ParseObject();
 					break;
 				}
-				case INTERNAL: {
-					node = ParseInternal();
-					break;
-				}
 				case RETURN: {
 					node = ParseReturn();
 					break;
 				}
 				default: {
+					TOKEN t = tok->value;
 					node = ParseExpr();
+					if (tok->value == t) throw Error::RESERVED_KEYWORD;
 				}
 			}
 			if (node != NULL){
@@ -322,6 +332,7 @@ namespace internal{
 		Expect(LBRACE);
 		Next();
 		int start = pos - tok->Length() + 1;
+		if (Is(1, INTERNAL)) start--;
 		int braceDepth = 1;
 		while (true){
 			if (Is(1, LBRACE)) braceDepth++;
@@ -731,12 +742,13 @@ namespace internal{
 
 	ASTNode* Parser::ParseInternal(){
 		Trace("Parsing Internal Func Call", tok->raw.c_str());
-		ASTExpr* expr = ASTExpr::New(isolate);
+		ASTLiteral* expr = ASTLiteral::New(isolate);
 		SetRowCol(expr);
-		expr->name = tok->raw;
+		expr->value = tok->raw;
 		ASTFuncCall* call = (ASTFuncCall* ) ParseFuncCall(expr);
+		call->isInternal = true;
+		if (call->name[0] == '%') call->name.erase(call->name.begin());
 		if (Is(1, SEMICOLON)) Next();
-		if (isInternal) call->isInternal = true;
 		else throw Error::UNEXPECTED_CHARACTER;
 		return call;
 	}

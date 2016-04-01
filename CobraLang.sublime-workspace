@@ -4,6 +4,38 @@
 		"selected_items":
 		[
 			[
+				"int",
+				"internal"
+			],
+			[
+				"new",
+				"newString"
+			],
+			[
+				"baes",
+				"baseType"
+			],
+			[
+				"to",
+				"ToString"
+			],
+			[
+				"base",
+				"baseType"
+			],
+			[
+				"bas",
+				"baseType"
+			],
+			[
+				"INTN",
+				"INVALID_ASSIGNMENT_TO_TYPE"
+			],
+			[
+				"catc",
+				"catchScope"
+			],
+			[
 				"all",
 				"allowNative"
 			],
@@ -482,55 +514,123 @@
 			[
 				"sel",
 				"selectedDay"
-			],
-			[
-				"_err",
-				"_error_in_progress"
-			],
-			[
-				"hea",
-				"headers"
-			],
-			[
-				"ut",
-				"utf-8"
-			],
-			[
-				"Get",
-				"GetFolderByServerRelativeUrl"
-			],
-			[
-				"error",
-				"errors"
-			],
-			[
-				"err",
-				"errXml"
-			],
-			[
-				"XMLHT",
-				"XMLHttpRequest"
-			],
-			[
-				"sele",
-				"selectedSurvey"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "src/api.cc",
+			"file": "test/test.cb",
 			"settings":
 			{
-				"buffer_size": 2865,
-				"line_ending": "Windows"
+				"buffer_size": 50,
+				"line_ending": "Unix"
 			}
 		}
 	],
-	"build_system": "",
+	"build_system": "Open",
 	"build_system_choices":
 	[
+		[
+			[
+				[
+					"All",
+					""
+				],
+				[
+					"Make Parser",
+					""
+				],
+				[
+					"Make Semantic",
+					""
+				],
+				[
+					"Open",
+					""
+				],
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					""
+				],
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					"Run"
+				],
+				[
+					"Packages/Makefile/Make.sublime-build",
+					""
+				],
+				[
+					"Packages/Makefile/Make.sublime-build",
+					"Clean"
+				]
+			],
+			[
+				"Open",
+				""
+			]
+		],
+		[
+			[
+				[
+					"All",
+					""
+				],
+				[
+					"Make Parser",
+					""
+				],
+				[
+					"Make Semantic",
+					""
+				],
+				[
+					"Open",
+					""
+				],
+				[
+					"Packages/Makefile/Make.sublime-build",
+					""
+				],
+				[
+					"Packages/Makefile/Make.sublime-build",
+					"Clean"
+				]
+			],
+			[
+				"Open",
+				""
+			]
+		],
+		[
+			[
+				[
+					"All",
+					""
+				],
+				[
+					"Make Parser",
+					""
+				],
+				[
+					"Make Semantic",
+					""
+				],
+				[
+					"Packages/Makefile/Make.sublime-build",
+					""
+				],
+				[
+					"Packages/Makefile/Make.sublime-build",
+					"Clean"
+				]
+			],
+			[
+				"Make Semantic",
+				""
+			]
+		],
 		[
 			[
 				[
@@ -595,7 +695,7 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 27.0,
+		"height": 392.0,
 		"last_filter": "",
 		"selected_items":
 		[
@@ -755,35 +855,61 @@
 	},
 	"expanded_folders":
 	[
-		"/E/dev/CobraLang",
-		"/E/dev/CobraLang/src",
-		"/E/dev/CobraLang/src/cobra",
-		"/E/dev/CobraLang/src/cobra/token"
+		"/Users/willdech/Documents/dev/CobraLang",
+		"/Users/willdech/Documents/dev/CobraLang/src",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/array",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/script",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/strings",
+		"/Users/willdech/Documents/dev/CobraLang/test"
 	],
 	"file_history":
 	[
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/global.h",
+		"/Users/willdech/Documents/dev/CobraLang/test/test.cb",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/context.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/context.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/script/script.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/semantics.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/scope.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/node.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/scope.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/script/script.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/strings/string.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/parser.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/parser.cc",
+		"/Users/willdech/Documents/dev/CobraLang/test/main.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/api.cc",
+		"/Users/willdech/Documents/dev/CobraLang/include/Cobra.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/isolate.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/semantics.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/node.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/token/token.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/token/token.cc",
 		"/Users/willdech/Documents/dev/CobraLang/CobraLang.sublime-project",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/error/error.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/error/error.h",
+		"/Users/willdech/Documents/dev/CobraLang/readme.md",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/global.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/allocate.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/flags.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/flags.cc",
+		"/Users/willdech/Documents/dev/CobraLang/Makefile",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/codegen/codegen.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/codegen/symbols.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/codegen/tmp.asm",
-		"/Users/willdech/Documents/dev/CobraLang/test/test.cb",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/codegen/codegen.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/codegen/hello.asm",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/parser.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/parser.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/check.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/internal.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/ast.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/internal.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/scope.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/scope.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/check.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/ast.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/flags.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/flags.h",
-		"/Users/willdech/Documents/dev/CobraLang/Makefile",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/allocate.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/allocate.h",
 		"/Users/willdech/Documents/dev/Systems/moe/projects/byui.js/test/index.html",
 		"/Applications/XAMPP/xamppfiles/htdocs/studim/api/index.php",
@@ -794,13 +920,7 @@
 		"/Users/willdech/Documents/dev/Systems/moe/projects/byui.js/src/csv.js",
 		"/Users/willdech/Documents/dev/CobraLang/test/tests/array.cb",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/array/array.cb",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/context.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/token/token.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/error/error.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/error/error.h",
 		"/Users/willdech/Documents/dev/CobraLang/test/tests/college.cb",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/script/script.cc",
-		"/Users/willdech/Documents/dev/CobraLang/test/main.cc",
 		"/Users/willdech/Documents/dev/CobraLang/test/tests/console.cb",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/strings/string.cb",
 		"/Users/willdech/Documents/dev/CobraLang/test/tests/string.cb",
@@ -877,23 +997,11 @@
 		"/Applications/XAMPP/xamppfiles/htdocs/studim/api/lib/result.php",
 		"/Users/willdech/Documents/dev/Systems/moe/projects/PatternRecognitionApplication/src/string/trim.js",
 		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/include/menu.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/index.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/todo.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/profile.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/index.html",
-		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/css/src/card/card.css",
-		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/profile.html",
-		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/todo.html",
-		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/css/src/tiles/tiles.css",
-		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/css/src/sidebar/left.css",
-		"/Applications/XAMPP/xamppfiles/htdocs/lms/attempt1/api/index.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/lms/attempt1/index.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/css/src/notification/notification.css",
-		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/js/src/window/window.js"
+		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/index.php"
 	],
 	"find":
 	{
-		"height": 34.0
+		"height": 35.0
 	},
 	"find_in_files":
 	{
@@ -964,6 +1072,45 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"undefined_func",
+			"addtoinprog",
+			"context",
+			"Isolate",
+			"isolate",
+			"Isolate",
+			"visibilit",
+			"}\n",
+			"currentscope ",
+			"currentscope",
+			"tmp",
+			"currentScope",
+			"current",
+			"[i].",
+			"nodes[i].",
+			"true",
+			"static",
+			"public",
+			"Is(1, pub",
+			"this",
+			"lazyPar",
+			"lazy",
+			"validateobject",
+			"undefined_variable",
+			"cast",
+			"astliteral",
+			"cast",
+			"expr",
+			"cast",
+			":boolean",
+			"absolutePath",
+			"this",
+			"printtok",
+			"undefined_vari",
+			"double:",
+			"printtok",
+			"tmp",
+			"undefined_func",
+			"validatebinary",
 			"parsenative",
 			"ASTIdent",
 			"parseint",
@@ -1052,46 +1199,7 @@
 			"varclass =",
 			"varclass",
 			"printf",
-			"(STRING){1,}",
-			"string",
-			"param",
-			"GetObjectInScope",
-			"GetObjectInScope(",
-			"array",
-			"INVALID_OBJECT_MEMBER",
-			"invalid_object_member",
-			"varclass = ",
-			"varclass =",
-			"type",
-			"print",
-			"astobject",
-			"members",
-			"validateobjectchainmember",
-			"college",
-			"program",
-			"papa",
-			"window",
-			"HoursStandard",
-			"3.5",
-			"* 3.5",
-			"props",
-			"API_H_",
-			"NODE_H_",
-			"ary",
-			"prototype",
-			" in ",
-			");",
-			"console.log(",
-			".c",
-			"c",
-			"{\n						exit = true;\n					}",
-			"zip",
-			"div",
-			"lms",
-			"time",
-			"GetCurrent",
-			"exists",
-			")'\n"
+			"(STRING){1,}"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1168,28 +1276,27 @@
 			[
 				{
 					"buffer": 0,
-					"file": "src/api.cc",
+					"file": "test/test.cb",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2865,
+						"buffer_size": 50,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1702,
-								1702
+								50,
+								50
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/Go/Go.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 765.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -1231,7 +1338,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 120.0
+		"height": 266.0
 	},
 	"output.find_results":
 	{
@@ -1287,7 +1394,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 150.0,
+	"side_bar_width": 176.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

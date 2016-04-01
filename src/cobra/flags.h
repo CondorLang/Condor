@@ -10,6 +10,7 @@ namespace internal{
 
 	#define TRACE_PARSER Flags::traceParser
 	#define TRACE_SEMANTIC Flags::traceSemantic
+	#define TRACE_EVALUATION Flags::traceEvaluation;
 	#define PRINT_VARIABLES Flags::printVariables;
 	#define PARSING_TIME Flags::parsingTime;
 	#define EXPORTED_NODES Flags::exportedNodes;
@@ -18,7 +19,7 @@ namespace internal{
 	#define MEMORY_REQUEST Flags::memoryRequest;
 	#define EXPAND_AST Flags::expandAST;
 	#define ALLOW_NATIVE Flags::allowNative;
-	#define COMPILE_TIME Flags::compileTime
+	#define COMPILE_TIME Flags::compileTime;
 
 	class Flags
 	 {
@@ -33,6 +34,7 @@ namespace internal{
 	 		static bool expandAST;
 	 		static bool allowNative;
 	 		static bool compileTime;
+	 		static bool traceEvaluation;
 	 		static void SetCommandLineFlags(int argc, const char* argv[]);
 	 }; 
 

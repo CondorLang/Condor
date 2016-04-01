@@ -47,6 +47,8 @@ namespace Cobra {
 	public:
 		static Script* Compile(Context* context, String* string);
 		void Run();
+		bool HasError();
+		std::string GetErrorMsg();
 	};
 
 }

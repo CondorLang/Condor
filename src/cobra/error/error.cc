@@ -106,6 +106,7 @@ namespace Error {
 			case INVALID_ACCESS_TO_ARRAY: return "Invalid access to array";
 			case NO_RETURN_STMTS_IN_CONSTRUCTOR: return "No return statements are allowed in the constructor";
 			case INVALID_USAGE_OF_THIS: return "Invalid usage of this";
+			case RESERVED_KEYWORD: return "Reserved keyword";
 			case SCANNER: {
 				if (tok != NULL){
 					return tok->raw;

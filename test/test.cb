@@ -1,7 +1,3 @@
-import "array"
+import "console"
 
-object Test{
-
-}
-
-var ary = new Array();
+Console.write("test");

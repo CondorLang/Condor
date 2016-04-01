@@ -112,6 +112,7 @@ namespace internal{
 		bool isInternal;	
 		bool isInit;
 		ASTFunc* func;
+		void* ptr;
 		size_t Size(){return sizeof(ASTFuncCall);}
 	};
 

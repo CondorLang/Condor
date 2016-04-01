@@ -38,10 +38,9 @@ namespace internal{
 		Cobra::Isolate* iso = CAST(Cobra::Isolate*, isolate);
 		int len = hex.length();
 		std::string newString;
-		for(int i=0; i< len; i+=2)
-		{
-		    std::string byte = hex.substr(i,2);
-		    char chr = (char) (int)strtol(byte.c_str(), NULL, 16);
+		for (int i = 0; i < len; i += 2){
+		    std::string byte = hex.substr(i, 2);
+		    char chr = (char) (int) strtol(byte.c_str(), NULL, 16);
 		    newString.push_back(chr);
 		}
 		Cobra::String* str = Cobra::String::New(iso, newString.c_str());
@@ -92,7 +91,7 @@ namespace internal{
 			currentCode = parser->GetSource();
 			msg = std::to_string(parser->Row) + ":" + std::to_string(parser->Col) + " - " + msg + " - \n\t" + absolutePath.c_str() + "\n\n" + GetSourceRow(parser->Row, parser->Col);
 			msgs.push_back(msg);
-			printf("%s\n", msg.c_str());
+			printf("\nParser Error: \n%s\n", msg.c_str());
 			hasErr = true;
 			return;
 		}
@@ -111,8 +110,11 @@ namespace internal{
 		catch (Error::ERROR e){
 			std::string msg = Error::String(e, NULL);
 			currentCode = semantics->GetSource();
-			printf("%d:%d - %s - \n\t%s\nCode:\n\n%s\n", semantics->row, semantics->col, msg.c_str(), absolutePath.c_str(), GetSourceRow(semantics->row, semantics->col).c_str());
+			msg = std::to_string(semantics->row) + ":" + std::to_string(semantics->col) + " - " + msg + " - \n\t" + absolutePath.c_str() + "\n\n" + GetSourceRow(semantics->row, semantics->col);
+			printf("\nSemantic Error: \n%s\n", msg.c_str());
+			msgs.push_back(msg);
 			hasErr = true;
+			return;
 		}
 
 		Scope* base = parser->GetBaseScope();
@@ -121,7 +123,8 @@ namespace internal{
 	}
 
 	void Script::Run(){
-		
+		executor = Execute::New(isolate, parser->GetBaseScope());
+		executor->Evaluate();
 	}
 
 	std::string Script::GetSourceRow(int row, int col){
@@ -159,6 +162,7 @@ namespace internal{
 			ASTImport* import = parser->imports[i];
 			if (import->name == "array") Array::CB(isolate);
 			else if (import->name == "string") String::CB(isolate);
+			else if (import->name == "console") Console::CB(isolate);
 		}
 	}
 

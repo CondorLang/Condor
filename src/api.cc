@@ -105,4 +105,14 @@ namespace Cobra{
 		i::Script* script = CAST(i::Script*, this);
 		script->Run();
 	}
+
+	bool Script::HasError(){
+		i::Script* script = CAST(i::Script*, this);
+		return script->HasError();
+	}
+
+	std::string Script::GetErrorMsg(){
+		i::Script* script = CAST(i::Script*, this);
+		return script->GetErrorMsg();
+	}
 }

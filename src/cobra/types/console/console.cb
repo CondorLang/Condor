@@ -1,0 +1,5 @@
+export object Console{
+	static func write(string txt){
+		%printf(txt);
+	}
+}

@@ -12,20 +12,21 @@ int main(int argc, const char* argv[]){
 	Isolate* isolate = Isolate::New();
 	Context* context = isolate->CreateContext();
 
-	isolate->Enter();
+	context->Enter();
 	std::string input = "";
 	time_t theTime = time(NULL);
 	struct tm *aTime = localtime(&theTime);
 	int year = aTime->tm_year + 1900;
 	std::cout << "CobraLang (C) " + std::to_string(year) + "\n";
+
 	while (true){
 		std::cout << ">> ";
 		getline(std::cin, input);
 		String* string = String::New(isolate, input.c_str());
-		Script* script = Script::Compile(isolate, string);
+		Script* script = Script::Compile(context, string);
 		script->Run();
 	}
 
-	isolate->Exit();
+	context->Exit();
 	isolate->Dispose();
 }

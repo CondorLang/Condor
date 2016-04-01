@@ -31,7 +31,6 @@ namespace internal{
 		
 		while (ch == '\n' || ch == ' ' || ch == '\t')
 			ScanWhiteSpaces();
-
 		switch (ch){
 			case -1: return Token::New(isolate, END);
 			case '\0': return Token::New(isolate, END);
@@ -122,8 +121,7 @@ namespace internal{
 					Next(); 
 					return Token::New(isolate, MOD_ASSIGN);
 				}
-				else if (IsLetter(p)){ // internal
-					Next();
+				else if (IsLetter(p) || p == '_'){ // internal
 					std::string result = "";
 					result += ch;
 					Next();

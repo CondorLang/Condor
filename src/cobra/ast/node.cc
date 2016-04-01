@@ -110,6 +110,7 @@ namespace internal{
 		n->isInternal = false;
 		n->func = NULL;
 		n->isInit = false;
+		n->ptr = NULL;
 		return n;
 	}
 

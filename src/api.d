@@ -144,8 +144,10 @@ src/api.o: src/api.cc src/api.h src/../include/Cobra.h \
   src/cobra/clock.h src/cobra/shell.h src/cobra/error/error.h \
   src/cobra/parser/parser.h src/cobra/scanner/scanner.h \
   src/cobra/types/vector/vector.h src/cobra/semantics/semantics.h \
-  src/cobra/semantics/binary.h src/cobra/types/array/array.h \
-  src/cobra/types/array/array-bytes.h
+  src/cobra/semantics/binary.h src/cobra/semantics/internal.h \
+  src/cobra/execute/execute.h src/cobra/types/array/array.h \
+  src/cobra/types/array/array-bytes.h src/cobra/types/console/console.h \
+  src/cobra/types/console/console-bytes.h
 
 src/api.h:
 
@@ -591,6 +593,14 @@ src/cobra/semantics/semantics.h:
 
 src/cobra/semantics/binary.h:
 
+src/cobra/semantics/internal.h:
+
+src/cobra/execute/execute.h:
+
 src/cobra/types/array/array.h:
 
 src/cobra/types/array/array-bytes.h:
+
+src/cobra/types/console/console.h:
+
+src/cobra/types/console/console-bytes.h:

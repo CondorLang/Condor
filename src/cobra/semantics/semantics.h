@@ -6,6 +6,7 @@
 #include "cobra/error/error.h"
 #include "cobra/parser/parser.h"
 #include "binary.h"
+#include "internal.h"
 
 namespace Cobra {
 namespace internal{
@@ -54,6 +55,9 @@ namespace internal{
 		Scope* GetPreviousScope();
 		void SwapScopes();
 		void ValidateBaseAndAssignment(ASTVar* var);
+		TOKEN ValidateWhile(ASTWhileExpr* expr);
+		Scope* Parse(Scope* scope);
+		TOKEN ValidateInternal(ASTFuncCall* call);
 
 	public:
 		Semantics(Isolate* iso);

@@ -14,6 +14,8 @@
 namespace Cobra {
 namespace internal{
 
+	class Semantics;
+
 	class Parser
 	{
 	private:
@@ -82,7 +84,7 @@ namespace internal{
 		bool IsInternal(){return isInternal;}
 		void SetInline(bool isInline){isInline = isInline;}
 		void Parse();
-		static Scope* Parse(Isolate* iso, Scope* sc);
+		static Scope* Parse(Isolate* iso, Scope* sc, Semantics* s);
 		Scope* GetBaseScope(){return rootScope;}
 		std::string* GetSource(){return source == NULL ? scanner->src : source;}
 

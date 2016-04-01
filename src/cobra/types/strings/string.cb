@@ -2,6 +2,7 @@ export object String{
 	func String(){}
 	func String(string str){
 		this.base = str;
+		this.setSize();
 	}
 	func String(int val){
 		char v = (char) val;

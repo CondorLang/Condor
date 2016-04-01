@@ -1,0 +1,7 @@
+
+namespace Cobra{
+namespace internal{
+        static const char* ConsoleBytes = "6578706f7274206f626a65637420436f6e736f6c657b0a097374617469632066756e6320777269746528737472696e6720747874297b0a0909257072696e746628747874293b0a097d0a7d";
+} // namespace internal
+} // namespace Cobra
+    

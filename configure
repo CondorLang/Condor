@@ -99,6 +99,17 @@ namespace internal{
     '''
     return fileContents
 
+def getCbFiles():
+    rootdir = 'src/'
+    for root, subFolders, files in os.walk(rootdir):
+            for file in files:
+                if '.cb' in file:
+                    name = file.split('.cb')[0]
+                    name = name.capitalize()
+                    start(os.path.join(root, file), name)
+
+
+
 def start(name, className):
     bytesname = string.replace(name, '.cb', '-bytes.h')
     clean(string.replace(name, '.cb', '.o'))
@@ -111,9 +122,7 @@ def start(name, className):
 if __name__ == "__main__":
     # if options.internalFiles:
     if True:
-        start('src/cobra/types/strings/string.cb', 'String')
-        start('src/cobra/types/try_catch/exception.cb', 'Exception')
-        start('src/cobra/types/array/array.cb', 'Array')
+        getCbFiles()
         if not options.noUpdateReadme:
             updateReadme()
 
