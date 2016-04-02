@@ -6,6 +6,7 @@ namespace internal{
 	Execute* Execute::New(Isolate* isolate, Scope* scope){
 		void* pt = isolate->GetMemory(sizeof(Execute));
 		Execute* n = new(pt) Execute(scope);
+		n->isolate = isolate;
 		return n;
 	}
 
@@ -19,15 +20,20 @@ namespace internal{
 			int type = (int) node->type;
 			switch (type){
 				case BINARY: EvaluateBinary((ASTBinaryExpr*) node);
+				case FUNC_CALL: EvaluateFuncCall((ASTFuncCall*) node);
 			}
 		}
 	}
 
 	void Execute::EvaluateBinary(ASTBinaryExpr* binary){
-		ASTFuncCall* call = (ASTFuncCall*) binary->right;
-		ASTLiteral* lit = (ASTLiteral*) call->params[0];
-		//call->ptr(lit->value);
-		//printf("d: %d\n", call->ptr);
+
+	}
+
+	void Execute::EvaluateFuncCall(ASTFuncCall* call){
+		if (call->isInternal && call->callback != nullptr) {
+			ASTLiteral* lit = (ASTLiteral*) call->params[0];
+			CALL_INTERNAL(isolate, call->callback, lit);
+		}
 	}
 
 } // namespace internal

@@ -274,6 +274,52 @@ namespace internal{
 					result = ch;
 					while (true){
 						Next();
+						if (ch == '\\'){
+							Next();
+							// TODO: Simplify the character break, see https://github.com/golang/go/blob/master/src/go/scanner/scanner.go#L368
+							switch (ch){
+								case 'n': {
+									result += '\n';
+									Next();
+									break;
+								}
+								case 't': {
+									result += "\t";
+									Next();
+									break;
+								}
+								case 'a': {
+									result += '\a';
+									Next();
+									break;
+								}
+								case 'b': {
+									result += '\b';
+									Next();
+									break;
+								}
+								case 'f': {
+									result += '\f';
+									Next();
+									break;
+								}
+								case 'r': {
+									result += '\r';
+									Next();
+									break;
+								}
+								case 'v': {
+									result += '\v';
+									Next();
+									break;
+								}
+								case '\\': {
+									result += '\\';
+									Next();
+									break;
+								}
+							}
+						}
 						if (ch == '"' || ch == -1) break;
 						result += ch;
 					}

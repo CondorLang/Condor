@@ -100,15 +100,16 @@ src/cobra/types/try_catch/exception.o: \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__tree \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/functional \
   src/cobra/ast/node.h src/cobra/token/token.h src/cobra/ast/scope.h \
-  src/cobra/types/script/script.h src/cobra/clock.h \
+  src/cobra/semantics/internal.h src/cobra/types/script/script.h \
+  src/cobra/clock.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/ctime \
   src/cobra/shell.h src/cobra/error/error.h src/cobra/parser/parser.h \
   src/cobra/scanner/scanner.h src/cobra/types/vector/vector.h \
   src/cobra/types/strings/string.h \
   src/cobra/types/strings/string-bytes.h src/cobra/semantics/semantics.h \
-  src/cobra/semantics/binary.h src/cobra/semantics/internal.h \
-  src/cobra/execute/execute.h src/cobra/types/array/array.h \
-  src/cobra/types/array/array-bytes.h src/cobra/types/console/console.h \
+  src/cobra/semantics/binary.h src/cobra/execute/execute.h \
+  src/cobra/types/array/array.h src/cobra/types/array/array-bytes.h \
+  src/cobra/types/console/console.h \
   src/cobra/types/console/console-bytes.h \
   src/cobra/types/try_catch/exception-bytes.h
 
@@ -416,6 +417,8 @@ src/cobra/token/token.h:
 
 src/cobra/ast/scope.h:
 
+src/cobra/semantics/internal.h:
+
 src/cobra/types/script/script.h:
 
 src/cobra/clock.h:
@@ -439,8 +442,6 @@ src/cobra/types/strings/string-bytes.h:
 src/cobra/semantics/semantics.h:
 
 src/cobra/semantics/binary.h:
-
-src/cobra/semantics/internal.h:
 
 src/cobra/execute/execute.h:
 

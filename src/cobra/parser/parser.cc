@@ -22,7 +22,8 @@ namespace internal{
 		reset = false;
 		nonOp = false;
 		isInline = false;
-		isInternal = ALLOW_NATIVE;
+		isInternal = false;
+		allowNative = ALLOW_NATIVE;
 		rootScope = Scope::New(isolate);
 		scope = rootScope;
 		printVariables = PRINT_VARIABLES;
@@ -30,10 +31,9 @@ namespace internal{
 	}
 
 	void Parser::SetInteral(bool isInternal){
-		if (!isInternal) {
-			isInternal = isInternal;
-		}
+		this->isInternal = isInternal;
 		if (isInternal){
+			allowNative = true;
 			printVariables = false;
 			trace = false;
 		}
@@ -740,6 +740,7 @@ namespace internal{
 		scope = scope->outer;
 	}
 
+	// TODO: Disallow for allow-native on a non internal file
 	ASTNode* Parser::ParseInternal(){
 		Trace("Parsing Internal Func Call", tok->raw.c_str());
 		ASTLiteral* expr = ASTLiteral::New(isolate);

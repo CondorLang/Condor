@@ -98,7 +98,8 @@ src/cobra/mem/isolate.o: src/cobra/mem/isolate.cc src/cobra/mem/isolate.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/map \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__tree \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/functional \
-  src/cobra/ast/node.h src/cobra/token/token.h src/cobra/ast/scope.h
+  src/cobra/ast/node.h src/cobra/token/token.h src/cobra/ast/scope.h \
+  src/cobra/semantics/internal.h
 
 src/cobra/mem/isolate.h:
 
@@ -399,3 +400,5 @@ src/cobra/ast/node.h:
 src/cobra/token/token.h:
 
 src/cobra/ast/scope.h:
+
+src/cobra/semantics/internal.h:

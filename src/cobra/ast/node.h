@@ -3,9 +3,11 @@
 
 #include <string>
 
+#include "cobra/global.h"
 #include "cobra/token/token.h"
 #include "cobra/mem/isolate.h"
 #include "cobra/ast/scope.h"
+#include "cobra/semantics/internal.h"
 
 namespace Cobra {
 namespace internal{
@@ -13,6 +15,8 @@ namespace internal{
 	class Isolate;
 	class ASTLiteral;
 	class Scope;
+
+	typedef void (*InternalFunctionCallback)(ASTNode* node);
 
 	class ASTNode
 	{
@@ -112,7 +116,7 @@ namespace internal{
 		bool isInternal;	
 		bool isInit;
 		ASTFunc* func;
-		void* ptr;
+		InternalFunctionCallback callback;
 		size_t Size(){return sizeof(ASTFuncCall);}
 	};
 

@@ -100,14 +100,14 @@ src/cobra/types/script/script.o: src/cobra/types/script/script.cc \
   src/cobra/shell.h src/cobra/ast/context.h src/cobra/mem/isolate.h \
   src/cobra/mem/allocate.h /usr/include/math.h src/cobra/global.h \
   src/cobra/mem/list.h src/cobra/mem/gc.h src/cobra/ast/node.h \
-  src/cobra/token/token.h src/cobra/ast/scope.h src/cobra/error/error.h \
+  src/cobra/token/token.h src/cobra/ast/scope.h \
+  src/cobra/semantics/internal.h src/cobra/error/error.h \
   src/cobra/parser/parser.h src/cobra/scanner/scanner.h \
   src/cobra/types/vector/vector.h src/cobra/types/strings/string.h \
   src/../include/Cobra.h src/cobra/types/strings/string-bytes.h \
   src/cobra/semantics/semantics.h src/cobra/semantics/binary.h \
-  src/cobra/semantics/internal.h src/cobra/execute/execute.h \
-  src/cobra/types/array/array.h src/cobra/types/array/array-bytes.h \
-  src/cobra/types/console/console.h \
+  src/cobra/execute/execute.h src/cobra/types/array/array.h \
+  src/cobra/types/array/array-bytes.h src/cobra/types/console/console.h \
   src/cobra/types/console/console-bytes.h
 
 src/cobra/types/script/script.h:
@@ -418,6 +418,8 @@ src/cobra/token/token.h:
 
 src/cobra/ast/scope.h:
 
+src/cobra/semantics/internal.h:
+
 src/cobra/error/error.h:
 
 src/cobra/parser/parser.h:
@@ -435,8 +437,6 @@ src/cobra/types/strings/string-bytes.h:
 src/cobra/semantics/semantics.h:
 
 src/cobra/semantics/binary.h:
-
-src/cobra/semantics/internal.h:
 
 src/cobra/execute/execute.h:
 

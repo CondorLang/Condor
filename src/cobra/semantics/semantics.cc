@@ -447,7 +447,7 @@ namespace internal{
 	 */
 	// TODO: Move the internal function registry
 	TOKEN Semantics::ValidateInternal(ASTFuncCall* call){
-		if (call->name == "printf") {}//call->ptr = &Internal::PrintF;
+		if (call->name == "printf") call->callback = Internal::PrintF;
 		else throw Error::UNDEFINED_FUNC;
 		return UNDEFINED;
 	}

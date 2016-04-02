@@ -69,7 +69,7 @@ src/cobra/ast/node.o: src/cobra/ast/node.cc src/cobra/ast/node.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/tuple \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/atomic \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/stdexcept \
-  src/cobra/token/token.h src/cobra/mem/isolate.h \
+  src/cobra/global.h src/cobra/token/token.h src/cobra/mem/isolate.h \
   src/cobra/mem/allocate.h /usr/include/stdlib.h /usr/include/sys/wait.h \
   /usr/include/sys/_types/_id_t.h /usr/include/sys/signal.h \
   /usr/include/machine/signal.h /usr/include/i386/signal.h \
@@ -84,8 +84,7 @@ src/cobra/ast/node.o: src/cobra/ast/node.cc src/cobra/ast/node.h \
   /usr/include/machine/types.h /usr/include/i386/types.h \
   /usr/include/math.h src/cobra/flags.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/cstdlib \
-  src/cobra/global.h src/cobra/mem/list.h src/cobra/mem/gc.h \
-  src/cobra/ast/context.h \
+  src/cobra/mem/list.h src/cobra/mem/gc.h src/cobra/ast/context.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/vector \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__bit_reference \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/climits \
@@ -97,7 +96,7 @@ src/cobra/ast/node.o: src/cobra/ast/node.cc src/cobra/ast/node.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/map \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__tree \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/functional \
-  src/cobra/ast/scope.h
+  src/cobra/ast/scope.h src/cobra/semantics/internal.h
 
 src/cobra/ast/node.h:
 
@@ -309,6 +308,8 @@ src/cobra/ast/node.h:
 
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/stdexcept:
 
+src/cobra/global.h:
+
 src/cobra/token/token.h:
 
 src/cobra/mem/isolate.h:
@@ -363,8 +364,6 @@ src/cobra/flags.h:
 
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/cstdlib:
 
-src/cobra/global.h:
-
 src/cobra/mem/list.h:
 
 src/cobra/mem/gc.h:
@@ -398,3 +397,5 @@ src/cobra/ast/context.h:
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/functional:
 
 src/cobra/ast/scope.h:
+
+src/cobra/semantics/internal.h:

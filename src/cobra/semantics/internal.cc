@@ -3,8 +3,11 @@
 namespace Cobra {
 namespace internal{
 
-	void Internal::PrintF(std::string msg){
-		printf("%s", msg.c_str());
+	void Internal::PrintF(ASTNode* lit){
+		ASTLiteral* v = (ASTLiteral*) lit;
+		if (v->type == LITERAL) {
+			printf("%s", v->value.c_str());
+		}
 	}
 
 } // namespace internal

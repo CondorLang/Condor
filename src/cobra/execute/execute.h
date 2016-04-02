@@ -15,8 +15,10 @@ namespace internal{
 	{
 	private:
 		Scope* scope;
+		Isolate* isolate;
 
 		void EvaluateBinary(ASTBinaryExpr* binary);
+		void EvaluateFuncCall(ASTFuncCall* call);
 
 	public:
 		static Execute* New(Isolate* isolate, Scope* scope);
