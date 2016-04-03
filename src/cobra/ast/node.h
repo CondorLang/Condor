@@ -30,6 +30,7 @@ namespace internal{
 		int id;
 		bool isExport;
 		std::vector<TOKEN> visibility;
+		std::vector<ASTNode*> local;
 		static ASTNode* New(Isolate* iso);
 		static void SetDefaults(ASTNode* node, Isolate* iso);
 		bool HasVisibility(TOKEN tok);
@@ -62,6 +63,8 @@ namespace internal{
 		TOKEN assignmentType;
 		bool isArray;
 		bool isObject;
+		bool isArg;
+		int order;
 		static ASTVar* New(Isolate* iso);		
 		size_t Size(){return sizeof(ASTVar);}
 	};

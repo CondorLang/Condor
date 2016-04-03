@@ -50,8 +50,10 @@ namespace internal{
 
 		Cobra::Context* c = CAST(Cobra::Context*, isolate->GetContext());
 		Cobra::Script* script = Cobra::Script::Compile(c, str);
-		Script* s = CAST(Script*, script);
-		script->Run();
+		if (!script->HasError()){
+			Script* s = CAST(Script*, script);
+			script->Run();
+		}
 	}
 
 	void Script::Compile(){

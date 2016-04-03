@@ -64,6 +64,8 @@ namespace internal{
 		n->isArray = false;
 		n->isObject = false;
 		n->member = NULL;
+		n->isArg = false;
+		n->order = -1;
 		return n;
 	}
 

@@ -107,6 +107,7 @@ namespace Error {
 			case NO_RETURN_STMTS_IN_CONSTRUCTOR: return "No return statements are allowed in the constructor";
 			case INVALID_USAGE_OF_THIS: return "Invalid usage of this";
 			case RESERVED_KEYWORD: return "Reserved keyword";
+			case INVALID_SCRIPT: return "Invalid script";
 			case SCANNER: {
 				if (tok != NULL){
 					return tok->raw;

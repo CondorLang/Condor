@@ -14,11 +14,18 @@ namespace internal{
 	class Execute
 	{
 	private:
-		Scope* scope;
+		std::vector<Scope*> scopes;
 		Isolate* isolate;
+		bool trace;
+
+		void Trace(std::string first, std::string msg2);
+		void OpenScope(Scope* sc);
+		Scope* GetCurrentScope(){return scopes[0];}
+		void Empty(Scope* scope);
 
 		void EvaluateBinary(ASTBinaryExpr* binary);
 		void EvaluateFuncCall(ASTFuncCall* call);
+		ASTLiteral* ExtractLiteral(ASTLiteral* lit);
 
 	public:
 		static Execute* New(Isolate* isolate, Scope* scope);

@@ -24,7 +24,7 @@ int main(int argc, const char* argv[]){
 		getline(std::cin, input);
 		String* string = String::New(isolate, input.c_str());
 		Script* script = Script::Compile(context, string);
-		script->Run();
+		if (!script->HasError()) script->Run();
 	}
 
 	context->Exit();

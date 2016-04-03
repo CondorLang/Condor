@@ -1,3 +1,5 @@
 import "console"
 
-Console.write("test");
+Console.write("this is a complete test\n");
+Console.write("This is another test\n");
+Console.write("This is going to work great\n");

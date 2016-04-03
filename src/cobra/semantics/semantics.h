@@ -25,6 +25,7 @@ namespace internal{
 		int indent;
 		bool inObject;
 		bool isThis;
+		bool staticRequired;
 
 		void Trace(const char* first, const char* second);
 		void Trace(const char* first, TOKEN second);

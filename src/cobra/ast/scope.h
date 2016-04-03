@@ -30,6 +30,7 @@ namespace internal{
 		std::string raw;
 		std::string name;
 		Context* context;
+		std::vector<ASTNode*> local;
 		ASTNode* owner;
 		static Scope* New(Isolate* isolate);
 		void Insert(ASTNode* node);

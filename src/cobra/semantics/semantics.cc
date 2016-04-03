@@ -13,6 +13,7 @@ namespace internal{
 		inObject = false;
 		kThis = NULL;
 		isThis = false;
+		staticRequired = false;
 	}
 
 	Semantics::~Semantics(){}
@@ -202,6 +203,9 @@ namespace internal{
 		SetRowCol(expr);
 		TOKEN left = ValidateExpr(expr->left);
 
+		staticRequired = false;
+		if (expr->left->type == OBJECT) staticRequired = true;
+
 		bool working = inObject; // used for object chains
 		if (inObject){
 			SwapScopes();
@@ -259,6 +263,7 @@ namespace internal{
 		if (nodes.size() == 0 && !isConstructor) throw Error::UNDEFINED_FUNC;
 		for (int i = 0; i < nodes.size(); i++){
 			if (nodes[i]->type == FUNC){
+				if (staticRequired && !nodes[i]->HasVisibility(STATIC)) continue;
 				ASTFunc* func = (ASTFunc*) nodes[i];
 				ValidateFunc(func, true, isConstructor);
 				expr->func = func;
@@ -273,6 +278,9 @@ namespace internal{
 		Trace("Parsing Func", func->name.c_str());
 		func->scope = Parse(func->scope);
 		for (int i = 0; i < func->args.size(); i++){
+			ASTVar* var = (ASTVar*) func->args[i];
+			var->isArg = true;
+			var->order = i;
 			func->scope->InsertBefore(func->args[i]);
 		}
 		ScanScope(func->scope);
@@ -449,6 +457,7 @@ namespace internal{
 	TOKEN Semantics::ValidateInternal(ASTFuncCall* call){
 		if (call->name == "printf") call->callback = Internal::PrintF;
 		else throw Error::UNDEFINED_FUNC;
+		for (int i = 0; i < call->params.size(); i++) ValidateExpr(call->params[i]);
 		return UNDEFINED;
 	}
 } // namespace internal

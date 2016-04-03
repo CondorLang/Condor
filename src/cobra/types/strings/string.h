@@ -28,6 +28,7 @@ namespace internal{
 		std::string GetValue(){return value;}
 		void SetPath(const char* path){filePath = path;}
 		const char* GetPath(){return filePath.c_str();}
+		std::string GetPathStr(){return filePath;}
 		int Length(){return value.length();}
 		static bool Replace(std::string& str, const std::string& from, const std::string& to);
 		static int NthSubStr(int n, const std::string& s, const std::string& p);

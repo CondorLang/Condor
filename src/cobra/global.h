@@ -13,6 +13,7 @@ namespace internal{
 	#define BUILD_YEAR_CH1 (__DATE__[ 8])
 	#define BUILD_YEAR_CH2 (__DATE__[ 9])
 	#define BUILD_YEAR_CH3 (__DATE__[10])
+	#define HERE() printf("d: %s\n", "here");
 	
 	typedef uint8_t byte; // since byte doesn't exist
 	typedef byte* Address;
