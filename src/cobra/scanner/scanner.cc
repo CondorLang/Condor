@@ -251,6 +251,7 @@ namespace internal{
 			case '{': return Token::New(isolate, LBRACE);
 			case '}': return Token::New(isolate, RBRACE);
 			case '#': return Token::New(isolate, HASH);
+			// TODO: Call ScanEscape() for char
 			case '\'': {
 				char p = Peek();
 				char p2 = src->at(readOffset + 1);
@@ -274,54 +275,10 @@ namespace internal{
 					result = ch;
 					while (true){
 						Next();
-						if (ch == '\\'){
-							Next();
-							// TODO: Simplify the character break, see https://github.com/golang/go/blob/master/src/go/scanner/scanner.go#L368
-							switch (ch){
-								case 'n': {
-									result += '\n';
-									Next();
-									break;
-								}
-								case 't': {
-									result += "\t";
-									Next();
-									break;
-								}
-								case 'a': {
-									result += '\a';
-									Next();
-									break;
-								}
-								case 'b': {
-									result += '\b';
-									Next();
-									break;
-								}
-								case 'f': {
-									result += '\f';
-									Next();
-									break;
-								}
-								case 'r': {
-									result += '\r';
-									Next();
-									break;
-								}
-								case 'v': {
-									result += '\v';
-									Next();
-									break;
-								}
-								case '\\': {
-									result += '\\';
-									Next();
-									break;
-								}
-							}
-						}
+						std::string s = ScanEscape();
+						if (s.length() > 0) result += s;
 						if (ch == '"' || ch == -1) break;
-						result += ch;
+						if (s.length() == 0) result += ch;
 					}
 				}
 				Token* tok = Token::New(isolate, STRING);
@@ -486,6 +443,26 @@ namespace internal{
 				Next();
 			}
 		}
+	}
+
+	std::string Scanner::ScanEscape(){
+		std::string result = "";
+		if (ch == '\\'){
+			Next();
+			// TODO: Simplify the character break, see https://github.com/golang/go/blob/master/src/go/scanner/scanner.go#L368
+			switch (ch){
+				case 'n': result += '\n'; break;
+				case 't': result += '\t'; break;
+				case 'a': result += '\a'; break;
+				case 'b': result += '\b'; break;
+				case 'f': result += '\f'; break;
+				case 'r': result += '\r'; break;
+				case 'v': result += '\v'; break;
+				case '\\': result += '\\'; break;
+				default: throw Error::UNKNWON_ESCAPE_SEQUENCE;
+			}
+		}
+		return result;
 	}
 
 	std::string Scanner::Substr(int start, int end){

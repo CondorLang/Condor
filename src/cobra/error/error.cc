@@ -108,6 +108,7 @@ namespace Error {
 			case INVALID_USAGE_OF_THIS: return "Invalid usage of this";
 			case RESERVED_KEYWORD: return "Reserved keyword";
 			case INVALID_SCRIPT: return "Invalid script";
+			case UNKNWON_ESCAPE_SEQUENCE: return "Unknown escape sequence";
 			case SCANNER: {
 				if (tok != NULL){
 					return tok->raw;

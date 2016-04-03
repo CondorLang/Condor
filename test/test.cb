@@ -1,5 +1,7 @@
 import "console"
 
-Console.write("this is a complete test\n");
-Console.write("This is another test\n");
-Console.write("This is going to work great\n");
+func print(string txt){
+	Console.write(txt);
+}
+
+print("this is a test\n");

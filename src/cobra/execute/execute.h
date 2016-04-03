@@ -25,7 +25,6 @@ namespace internal{
 
 		void EvaluateBinary(ASTBinaryExpr* binary);
 		void EvaluateFuncCall(ASTFuncCall* call);
-		ASTLiteral* ExtractLiteral(ASTLiteral* lit);
 
 	public:
 		static Execute* New(Isolate* isolate, Scope* scope);

@@ -50,29 +50,20 @@ namespace internal{
 
 	void Execute::EvaluateFuncCall(ASTFuncCall* call){
 		if (call->isInternal && call->callback != nullptr) {
+			Trace("Evaluate", "Internal func call - " + call->name);
 			ASTLiteral* lit = (ASTLiteral*) call->params[0];
-			lit = ExtractLiteral(lit);
 			return CALL_INTERNAL(isolate, call->callback, lit);
 		}
+		Trace("Evaluate", "Func call - " + call->name);
 
 		ASTFunc* func = call->func;
 		Scope* s = func->scope;
-		Empty(s);
+		Empty(s); // clear local stack
 		for (int i = 0; i < call->params.size(); i++){
 			s->local.push_back(call->params[i]);
 		}
 		OpenScope(s);
 		Evaluate();
-	}
-
-	// TODO: Scrap this function, too many flaws. 
-	ASTLiteral* Execute::ExtractLiteral(ASTLiteral* lit){
-		if (lit->var == NULL) return lit;
-		ASTVar* var = lit->var;
-		if (var->isArg && var->order > -1){
-			return (ASTLiteral*) GetCurrentScope()->local.at(var->order);
-		}
-		return NULL;
 	}
 
 } // namespace internal
