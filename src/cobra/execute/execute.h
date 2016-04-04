@@ -20,6 +20,7 @@ namespace internal{
 
 		void Trace(std::string first, std::string msg2);
 		void OpenScope(Scope* sc);
+		void CloseScope(){scopes.erase(scopes.begin());}
 		Scope* GetCurrentScope(){return scopes[0];}
 		void Empty(Scope* scope);
 

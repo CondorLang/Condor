@@ -18,6 +18,7 @@ namespace internal{
 
 	typedef void (*InternalFunctionCallback)(ASTNode* node);
 
+	// TODO: Create a Expand() function which expands the node and the tree
 	class ASTNode
 	{
 	public:

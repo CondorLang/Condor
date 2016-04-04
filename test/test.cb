@@ -5,3 +5,5 @@ func print(string txt){
 }
 
 print("this is a test\n");
+var a = 10 + 10;
+var b = 10 + 10 + (10);

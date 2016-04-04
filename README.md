@@ -43,28 +43,17 @@ make d
 
 Contributing:
 -------------
-If you would like to contribute to the CobraLang project, pull requests are always welcome. The folder structure goes as follows:
- - **src** (source code)
-  - **ast** (abstract syntax tree related files)
-  - **error** (error files)
-  - **mem** (memory related files)
-  - **parser** (the basic parser from code -> ast -> syntax analysis)
-  - **scanner** (the lexical analysis)
-  - **semantics** (the semantics analysis)
-  - **token** (the token related files, see scanner)
-  - **types** (intended for all internal .cb files and the interface with c++)
-    - **array** (internal array files)
-    - **script** (internal scripting, this is the backend how the string is compiled into the code)
-    - **string** (internal string files)
-    - **try_catch** (internal try_catch files)
-    - **vector** (internal vector files)
+See [Contributing](https://github.com/chaseWillden/CobraLang/wiki/Contributing) page in the wiki
 
 Todo:
 ------
- - execute.cc 39 - Run a GC to free memory for "true" local variables and clear the rest.
- - parser.cc 743 - Disallow for allow-native on a non internal file
+ - node.h 21 - Create a Expand() function which expands the node and the tree
+ - execute.cc 40 - Run a GC to free memory for "true" local variables and clear the rest.
+ - parser.cc 426 - Account for parentheses, var = 10 + 10 + (10 + 10) + (10);
+ - parser.cc 744 - Disallow for allow-native on a non internal file
  - scanner.cc 254 - Call ScanEscape() for char
  - scanner.cc 452 - Simplify the character break, see https://github.com/golang/go/blob/master/src/go/scanner/scanner.go#L368
+ - scanner.cc 453 - Include Octal, Hex, UTF-8, UTF-16, see https://msdn.microsoft.com/en-us/library/6aw8xdf2.aspx
  - semantics.cc 257 - add variable types
  - semantics.cc 440 - Compare the base type with the assignment type. Throw an error if they are not the same if hard typed.
  - semantics.cc 456 - Move the internal function registry

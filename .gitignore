@@ -1,4 +1,4 @@
 *.a
-*.o
-*.d
+src/*.o
+src/*.d
 .DS_Store

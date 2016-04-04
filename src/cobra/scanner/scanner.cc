@@ -450,6 +450,7 @@ namespace internal{
 		if (ch == '\\'){
 			Next();
 			// TODO: Simplify the character break, see https://github.com/golang/go/blob/master/src/go/scanner/scanner.go#L368
+			// TODO: Include Octal, Hex, UTF-8, UTF-16, see https://msdn.microsoft.com/en-us/library/6aw8xdf2.aspx
 			switch (ch){
 				case 'n': result += '\n'; break;
 				case 't': result += '\t'; break;
@@ -459,6 +460,17 @@ namespace internal{
 				case 'r': result += '\r'; break;
 				case 'v': result += '\v'; break;
 				case '\\': result += '\\'; break;
+				case '0': result += '\0'; break;
+				case '1': result += '\1'; break;
+				case '2': result += '\2'; break;
+				case '3': result += '\3'; break;
+				case '4': result += '\4'; break;
+				case '5': result += '\5'; break;
+				case '6': result += '\6'; break;
+				case '7': result += '\7'; break;
+				case '?': result += '\?'; break;
+				case '\'': result += '\''; break;
+				case '"': result += '\"'; break;
 				default: throw Error::UNKNWON_ESCAPE_SEQUENCE;
 			}
 		}

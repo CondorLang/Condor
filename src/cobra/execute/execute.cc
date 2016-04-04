@@ -34,6 +34,7 @@ namespace internal{
 				case FUNC_CALL: EvaluateFuncCall((ASTFuncCall*) node); break;
 			}
 		}
+		CloseScope();
 	}
 
 	// TODO: Run a GC to free memory for "true" local variables and clear the rest.

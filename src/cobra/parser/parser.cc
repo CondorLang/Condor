@@ -423,6 +423,7 @@ namespace internal{
 		return expr;
 	}
 
+	// TODO: Account for parentheses, var = 10 + 10 + (10 + 10) + (10);
 	ASTExpr* Parser::ParseBinaryExpr(){
 		Trace("Parsing", "Binary Expression");
 		ASTExpr* expr = NULL;
