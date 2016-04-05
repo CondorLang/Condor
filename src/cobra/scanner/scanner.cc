@@ -251,11 +251,17 @@ namespace internal{
 			case '{': return Token::New(isolate, LBRACE);
 			case '}': return Token::New(isolate, RBRACE);
 			case '#': return Token::New(isolate, HASH);
-			// TODO: Call ScanEscape() for char
 			case '\'': {
 				char p = Peek();
 				char p2 = src->at(readOffset + 1);
-				if (p2 == '\''){
+				if (p == '\\'){
+					Next();
+					Token* tok = Token::New(isolate, CHAR);
+					tok->raw = ScanEscape();
+					Next();
+					return tok;
+				}
+				else if (p2 == '\''){
 					Token* tok = Token::New(isolate, CHAR);
 					tok->raw = p;
 					Next();
@@ -449,7 +455,6 @@ namespace internal{
 		std::string result = "";
 		if (ch == '\\'){
 			Next();
-			// TODO: Simplify the character break, see https://github.com/golang/go/blob/master/src/go/scanner/scanner.go#L368
 			// TODO: Include Octal, Hex, UTF-8, UTF-16, see https://msdn.microsoft.com/en-us/library/6aw8xdf2.aspx
 			switch (ch){
 				case 'n': result += '\n'; break;

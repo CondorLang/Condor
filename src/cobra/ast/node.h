@@ -30,6 +30,7 @@ namespace internal{
 		int col;
 		int id;
 		bool isExport;
+		bool isInParen;
 		std::vector<TOKEN> visibility;
 		std::vector<ASTNode*> local;
 		static ASTNode* New(Isolate* iso);
@@ -108,6 +109,7 @@ namespace internal{
 		ASTVar* var;
 		TOKEN litType;
 		TOKEN unary;
+		bool isCast;
 		int isPost;
 		size_t Size(){return sizeof(ASTLiteral);}
 	};

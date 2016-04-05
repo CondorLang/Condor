@@ -16,6 +16,7 @@ namespace internal{
 		node->type = UNDEFINED;
 		node->name = "";
 		node->isExport = false;
+		node->isInParen = false;
 		node->id = iso->GetContext()->GetNextAstId();
 	}
 
@@ -101,6 +102,7 @@ namespace internal{
 		n->unary = UNDEFINED;
 		n->isPost = true;
 		n->var = NULL;
+		n->isCast = false;
 		return n;
 	}
 

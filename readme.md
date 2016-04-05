@@ -49,11 +49,8 @@ Todo:
 ------
  - node.h 21 - Create a Expand() function which expands the node and the tree
  - execute.cc 40 - Run a GC to free memory for "true" local variables and clear the rest.
- - parser.cc 426 - Account for parentheses, var = 10 + 10 + (10 + 10) + (10);
- - parser.cc 744 - Disallow for allow-native on a non internal file
- - scanner.cc 254 - Call ScanEscape() for char
- - scanner.cc 452 - Simplify the character break, see https://github.com/golang/go/blob/master/src/go/scanner/scanner.go#L368
- - scanner.cc 453 - Include Octal, Hex, UTF-8, UTF-16, see https://msdn.microsoft.com/en-us/library/6aw8xdf2.aspx
+ - parser.cc 755 - Disallow for allow-native on a non internal file
+ - scanner.cc 458 - Include Octal, Hex, UTF-8, UTF-16, see https://msdn.microsoft.com/en-us/library/6aw8xdf2.aspx
  - semantics.cc 257 - add variable types
  - semantics.cc 440 - Compare the base type with the assignment type. Throw an error if they are not the same if hard typed.
  - semantics.cc 456 - Move the internal function registry

@@ -423,7 +423,6 @@ namespace internal{
 		return expr;
 	}
 
-	// TODO: Account for parentheses, var = 10 + 10 + (10 + 10) + (10);
 	ASTExpr* Parser::ParseBinaryExpr(){
 		Trace("Parsing", "Binary Expression");
 		ASTExpr* expr = NULL;
@@ -437,12 +436,23 @@ namespace internal{
 		}
 		if (Is(1, LPAREN)){ // type casting
 			Next();
-			cast = (ASTLiteral*) ParseVarType();
-			if (cast->type != LITERAL) throw Error::UNKNOWN_CAST_TYPE;
-			SetRowCol(cast);
-			Expect(RPAREN);
-			Next();
-			Trace("Parsing", "Type cast");
+			ASTExpr* paren = ParseExpr();
+			
+			if (paren->type == LITERAL && ((ASTLiteral*) paren)->isCast){
+				cast = (ASTLiteral*) paren;
+				if (cast->type != LITERAL) throw Error::UNKNOWN_CAST_TYPE;
+				SetRowCol(cast);
+				Expect(RPAREN);
+				Next();
+				Trace("Parsing", "Type cast");
+			}
+			else{
+				expr = paren;
+				expr->isInParen = true;
+				SetRowCol(expr);
+				Expect(RPAREN);
+				Next();
+			}			
 		}
 		if (IsVarType()) expr = ParseVarType();
 		if (Is(1, LPAREN)) expr = ParseFuncCall(expr);
@@ -504,6 +514,7 @@ namespace internal{
 		else Trace("Parsing Literal", tok->String().c_str());
 		lit->litType = tok->value;
 		if (lit->value.size() == 0) lit->value = tok->String();
+		if (lit->value == Token::ToString(lit->litType)) lit->isCast = true;
 		Next();
 		return lit;
 	}
