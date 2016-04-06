@@ -500,6 +500,9 @@ namespace internal{
 			call->cast = cast;
 			return call;
 		}
+		if (Is(1, INTERNAL)){
+			return (ASTExpr*) ParseInternal();
+		}
 		if (expr != NULL){
 			expr->cast = cast;
 		}

@@ -278,10 +278,13 @@ namespace internal{
 				Next(); // eat "
 				if (ch == '"') result = "";
 				else{
-					result = ch;
+					std::string s = ScanEscape(); // first char escaped
+					if (s.length() > 0) result = s;
+					if (s.length() == 0) result = ch;
+
 					while (true){
 						Next();
-						std::string s = ScanEscape();
+						s = ScanEscape();
 						if (s.length() > 0) result += s;
 						if (ch == '"' || ch == -1) break;
 						if (s.length() == 0) result += ch;

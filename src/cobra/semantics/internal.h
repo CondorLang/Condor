@@ -6,22 +6,21 @@
 #include "cobra/global.h"
 
 #include <string>
+#include <iostream>
 
 namespace Cobra {
 namespace internal{
 
 	class ASTNode;
-	typedef void (*InternalFunctionCallback)(ASTNode* node);
+	typedef ASTNode* (*InternalFunctionCallback)(Isolate* iso, ASTNode* node);
 
 	class Internal
 	{
 	public:
-		static void PrintF(ASTNode* lit);
-		static void CallInternal(Isolate* iso, InternalFunctionCallback call, ASTNode* node){call(node);}
+		static ASTNode* PrintF(Isolate* iso, ASTNode* lit);
+		static ASTNode* ReadLine(Isolate* iso, ASTNode* lit);
+		static ASTNode* CallInternal(Isolate* iso, InternalFunctionCallback call, ASTNode* node){return call(iso, node);}
 	};
-
-	#define CALL_INTERNAL(iso, func, node) \
-			Internal::CallInternal(iso, func, node);
 
 } // namespace internal
 }

@@ -45,7 +45,12 @@ namespace internal{
 				if (nodes[i]->name == name) results.push_back(nodes[i]);
 			}
 		}
-		if (results.size() == 0 && outer != NULL && deep) return outer->Lookup(name);
+		// removed if (results.size() == 0 && outer != NULL && deep) return outer->Lookup(name);
+		if (outer != NULL && deep) {
+			std::vector<ASTNode*> kNodes = outer->Lookup(name);
+			results.insert(results.end(), kNodes.begin(), kNodes.end());
+			return results;
+		}
 		else if (results.size() == 0 && outer == NULL && deep) return isolate->GetContext()->Lookup(name);
 		return results;
 	}
@@ -59,7 +64,7 @@ namespace internal{
 	void Scope::Destroy(ASTNode* node){
 		for (int i = 0; i < nodes.size(); i++){
 			if (nodes[i] == node) {
-				isolate->FreeMemory(node, node->Size());
+				node->Free(isolate);
 				nodes.erase(nodes.begin() + i);
 			}
 		}
@@ -82,8 +87,13 @@ namespace internal{
 		if (idx != -1 && nodes.size() > idx){
 			for (int i = nodes.size(); i >= idx; i--){
 				ASTNode* node = nodes[i];
-				isolate->FreeMemory(node, node->Size());
-				nodes.erase(nodes.begin() + i);
+				node->Free(isolate);
+				if (nodes.size() == i){
+					nodes.erase(nodes.end() - 1);
+				}
+				else{
+					nodes.erase(nodes.begin() + i);
+				}
 			}
 		}
 	}

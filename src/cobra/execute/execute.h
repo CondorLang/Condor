@@ -2,6 +2,7 @@
 #define EXECUTE_H_
 
 #include <string>
+#include <vector>
 
 #include "cobra/ast/node.h"
 #include "cobra/ast/scope.h"
@@ -22,10 +23,11 @@ namespace internal{
 		void OpenScope(Scope* sc);
 		void CloseScope(){scopes.erase(scopes.begin());}
 		Scope* GetCurrentScope(){return scopes[0];}
-		void Empty(Scope* scope);
 
-		void EvaluateBinary(ASTBinaryExpr* binary);
-		void EvaluateFuncCall(ASTFuncCall* call);
+		ASTLiteral* EvaluateFuncCall(ASTFuncCall* call);
+		ASTLiteral* EvaluateBinary(ASTBinaryExpr* binary); 
+		ASTLiteral* EvaluateValue(ASTNode* node);
+		ASTLiteral* EvaluateVar(ASTVar* var);
 
 	public:
 		static Execute* New(Isolate* isolate, Scope* scope);

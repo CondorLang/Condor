@@ -139,7 +139,9 @@ src/api.o: src/api.cc src/api.h src/../include/Cobra.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/map \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__tree \
   src/cobra/ast/node.h src/cobra/token/token.h src/cobra/ast/scope.h \
-  src/cobra/semantics/internal.h src/cobra/types/strings/string.h \
+  src/cobra/semantics/internal.h \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iostream \
+  src/cobra/types/strings/string.h \
   src/cobra/types/strings/string-bytes.h src/cobra/types/script/script.h \
   src/cobra/clock.h src/cobra/shell.h src/cobra/error/error.h \
   src/cobra/parser/parser.h src/cobra/scanner/scanner.h \
@@ -572,6 +574,8 @@ src/cobra/token/token.h:
 src/cobra/ast/scope.h:
 
 src/cobra/semantics/internal.h:
+
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iostream:
 
 src/cobra/types/strings/string.h:
 

@@ -14,6 +14,7 @@ namespace internal{
 		kThis = NULL;
 		isThis = false;
 		staticRequired = false;
+		expand = EXPAND_AST;
 	}
 
 	Semantics::~Semantics(){}
@@ -247,8 +248,7 @@ namespace internal{
 			if (!isThis && nodes[i]->HasVisibility(PRIVATE)) throw Error::UNABLE_TO_ACCESS_PRIVATE_MEMBER;
 		}
 
-		if (nodes.size() > 1) throw Error::DIFFERENT_TYPE_ALREADY_DEFINED_IN_SCOPE;
-		else if (nodes.size() == 0) throw Error::UNDEFINED_VARIABLE;
+		if (nodes.size() == 0) throw Error::UNDEFINED_VARIABLE;
 		expr->var = (ASTVar*) nodes[0];
 		if (expr->var->assignmentType == UNDEFINED) return expr->var->baseType;
 		return expr->var->assignmentType;
@@ -267,12 +267,14 @@ namespace internal{
 				ASTFunc* func = (ASTFunc*) nodes[i];
 				ValidateFunc(func, true, isConstructor);
 				expr->func = func;
+				for (int i = 0; i < expr->params.size(); i++) ValidateExpr(expr->params[i]);
 				return expr->func->assignmentType;
 			}
 		}
 		return UNDEFINED;
 	}
 
+	// TODO: Fix RemoveAllAfter in scope. 
 	void Semantics::ValidateFunc(ASTFunc* func, bool parse, bool isConstructor){
 		if (func->scope->IsParsed() || !parse) return;
 		Trace("Parsing Func", func->name.c_str());
@@ -285,10 +287,9 @@ namespace internal{
 		}
 		ScanScope(func->scope);
 		std::vector<ASTNode*> returns = func->scope->Lookup("return", false);
-		if (returns.size() == 1) {
-			int a = 10;
-			func->scope->RemoveAllAfter(returns[0]);
-		}
+		// if (returns.size() == 1) {
+		// 	func->scope->RemoveAllAfter(returns[0]);
+		// }
 		if (returns.size() > 1) {
 			SetRowCol(returns[1]);
 			throw Error::MULTIPLE_RETURNS_NOT_ALLOWED;
@@ -453,11 +454,15 @@ namespace internal{
 	/**
 	 * All Internal Functions need to be registered here for now
 	 */
-	// TODO: Move the internal function registry
 	TOKEN Semantics::ValidateInternal(ASTFuncCall* call){
 		if (call->name == "printf") call->callback = Internal::PrintF;
+		else if (call->name == "readln") call->callback = Internal::ReadLine;
 		else throw Error::UNDEFINED_FUNC;
 		for (int i = 0; i < call->params.size(); i++) ValidateExpr(call->params[i]);
+		Trace("  Type: ", "Internal");
+		if (call->name == "readln") {
+			int a = 10;
+		}
 		return UNDEFINED;
 	}
 } // namespace internal

@@ -4,7 +4,7 @@ func print(string txt){
 	Console.write(txt);
 }
 
-print("this is a test\n");
-var a = 10 + 10;
-var c = (int) 10.0;
-var b = 10 + 10 + (10);
+print(">> ");
+// var a = Console.get();
+// print(a);
+// print('\n');

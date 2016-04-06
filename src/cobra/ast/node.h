@@ -16,7 +16,7 @@ namespace internal{
 	class ASTLiteral;
 	class Scope;
 
-	typedef void (*InternalFunctionCallback)(ASTNode* node);
+	typedef ASTNode* (*InternalFunctionCallback)(Isolate* iso, ASTNode* node);
 
 	// TODO: Create a Expand() function which expands the node and the tree
 	class ASTNode
@@ -32,9 +32,10 @@ namespace internal{
 		bool isExport;
 		bool isInParen;
 		std::vector<TOKEN> visibility;
-		std::vector<ASTNode*> local;
+		ASTNode* local;
 		static ASTNode* New(Isolate* iso);
 		static void SetDefaults(ASTNode* node, Isolate* iso);
+		void Free(Isolate* iso);
 		bool HasVisibility(TOKEN tok);
 		size_t Size(){return sizeof(ASTNode);}
 	};

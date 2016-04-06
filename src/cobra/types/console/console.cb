@@ -1,5 +1,11 @@
 export object Console{
 	static func write(string txt){
+		Console.Write(txt);
+	}
+	static func Write(string txt){
 		%printf(txt);
+	}
+	static func get(){
+		return %readln();
 	}
 }
