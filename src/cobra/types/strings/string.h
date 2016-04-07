@@ -2,6 +2,7 @@
 #define STRING_H_
 
 #include <string>
+
 #include "../include/Cobra.h"
 #include "cobra/mem/isolate.h"
 #include "string-bytes.h"
@@ -22,7 +23,7 @@ namespace internal{
 		void SetDefaults(){internal = false;}
 		Isolate* isolate;
 		std::string name;
-		static void CB(Isolate* isolate);
+		static void CB(Isolate* isolate, std::string sub);
 		static std::string Code;
 		void SetValue(const char* val){value = val;}
 		std::string GetValue(){return value;}
@@ -32,6 +33,7 @@ namespace internal{
 		int Length(){return value.length();}
 		static bool Replace(std::string& str, const std::string& from, const std::string& to);
 		static int NthSubStr(int n, const std::string& s, const std::string& p);
+		static std::vector<std::string> Split(std::string str, char delimiter);
 		void SetInternal(){internal = true;}
 		bool IsInternal(){return internal;}
 	};

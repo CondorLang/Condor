@@ -10,8 +10,8 @@ namespace internal{
 		return str;
 	}
 
-	void String::CB(Isolate* isolate){
-		Script::RunInternalScript(isolate, StringBytes, "string");
+	void String::CB(Isolate* isolate, std::string sub){
+		Script::RunInternalScript(isolate, StringBytes, "string", sub);
 	}
 
 	bool String::Replace(std::string& str, const std::string& from, const std::string& to){
@@ -31,6 +31,21 @@ namespace internal{
 		 	return(i);
 		else
 		 	return(-1);
+	}
+
+	std::vector<std::string> String::Split(std::string str, char delimiter){
+		std::vector<std::string> result;
+		int start = 0;
+		std::string tmp;
+		for (int i = 0; i < str.length(); i++){
+			if (str[i] == delimiter){
+				tmp = str.substr(start, i - start);
+				result.push_back(tmp);
+				start = i + 1;
+			}
+		}
+		result.push_back(str.substr(start, str.size() - start));
+		return result;
 	}
 
 } // namespace internal

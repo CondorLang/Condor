@@ -35,7 +35,7 @@ namespace internal{
 		int GetNextAstId();
 		void AddScope(Scope* scope);
 		bool IsIncluded(std::string name);
-		std::vector<ASTNode*> Lookup(std::string name);
+		std::vector<ASTNode*> Lookup(Scope* scope, std::string name);
 	};
 
 } // namespace internal

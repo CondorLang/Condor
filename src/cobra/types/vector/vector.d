@@ -100,7 +100,7 @@ src/cobra/types/vector/vector.o: src/cobra/types/vector/vector.cc \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__tree \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/functional \
   src/cobra/ast/node.h src/cobra/token/token.h src/cobra/ast/scope.h \
-  src/cobra/semantics/internal.h \
+  src/cobra/semantics/internal.h src/cobra/error/error.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iostream \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/ios \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__locale \
@@ -450,6 +450,8 @@ src/cobra/token/token.h:
 src/cobra/ast/scope.h:
 
 src/cobra/semantics/internal.h:
+
+src/cobra/error/error.h:
 
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iostream:
 

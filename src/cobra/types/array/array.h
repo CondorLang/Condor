@@ -12,7 +12,7 @@ namespace internal{
 	public:
 		Array(){}
 		~Array(){}
-		static void CB(Isolate* isolate);
+		static void CB(Isolate* isolate, std::string sub);
 	};
 
 } // namespace internal

@@ -13,6 +13,8 @@ namespace internal{
 	Execute::Execute(Scope* scope){
 		OpenScope(scope);
 		trace = TRACE_EVALUATION;
+		row = -1;
+		col = -1;
 	}
 
 	void Execute::Trace(std::string first, std::string msg2){
@@ -21,6 +23,12 @@ namespace internal{
 			for (int i = 0; i < scopes.size(); i++) tabs += "  ";
 			printf("%s%s - %s\n", tabs.c_str(), first.c_str(), msg2.c_str());
 		}
+	}
+
+	void Execute::SetRowCol(ASTNode* node){
+		if (node == NULL) return;
+		row = node->row;
+		col = node->col;
 	}
 
 	void Execute::OpenScope(Scope* sc){
@@ -44,6 +52,7 @@ namespace internal{
 	}
 
 	ASTLiteral* Execute::EvaluateFuncCall(ASTFuncCall* call){
+		SetRowCol(call);
 		Trace("Evaluating Func Call", call->name);
 		ASTFunc* func = call->func;
 		if (func == NULL && call->isInternal){ // internal
@@ -52,8 +61,12 @@ namespace internal{
 			return (ASTLiteral*) Internal::CallInternal(isolate, call->callback, lit);
 		}
 		else{
+			if (func == NULL) throw Error::UNDEFINED_FUNC;
 			for (int i = 0; i < func->args.size(); i++){
-				func->args[i]->value = EvaluateValue(call->params[i]);
+				if (call->params.size() > i) func->args[i]->value = EvaluateValue(call->params[i]);
+				else{
+					func->args[i]->value = ASTUndefined::New(isolate);
+				}
 			}
 			OpenScope(func->scope);
 			Evaluate();
@@ -67,6 +80,7 @@ namespace internal{
 	}
 
 	ASTLiteral* Execute::EvaluateBinary(ASTBinaryExpr* binary){
+		SetRowCol(binary);
 		if (binary->right->type == FUNC_CALL && ((ASTFuncCall*) binary->right)->func->HasVisibility(STATIC)){
 			return (ASTLiteral*) EvaluateFuncCall((ASTFuncCall*) binary->right);
 		}
@@ -74,6 +88,7 @@ namespace internal{
 	}
 
 	ASTLiteral* Execute::EvaluateValue(ASTNode* node){
+		SetRowCol(node);
 		if (node == NULL) return NULL;
 		int type = (int) node->type;
 		switch (type){
@@ -99,6 +114,7 @@ namespace internal{
 	}
 
 	ASTLiteral* Execute::EvaluateVar(ASTVar* var){
+		SetRowCol(var);
 		Trace("Evaluating Var", var->name);
 		return (ASTLiteral*) EvaluateValue(var->value);
 	}

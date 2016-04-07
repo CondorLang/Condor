@@ -50,6 +50,7 @@ namespace internal{
 		Isolate* isolate;
 		Context* context;
 		bool compiled;
+		std::string subModule;
 
 		std::string GetSourceRow(int row, int col);
 		void LoadImports();
@@ -58,11 +59,12 @@ namespace internal{
 		Script(Isolate* isolate, String* str, Context* con);
 		~Script(){}
 		static Script* New(Context* context, String* str);
-		static void RunInternalScript(Isolate* isolate, std::string hex, std::string _name);
+		static void RunInternalScript(Isolate* isolate, std::string hex, std::string _name, std::string sub);
 		void Run();
 		bool HasError(){return hasErr;}
 		std::string GetErrorMsg(){if (msgs.size() > 0) return msgs[0]; return "";}
 		void Compile();
+		void SetSub(std::string sub){subModule = sub;}
 	};
 
 	namespace Sizes{

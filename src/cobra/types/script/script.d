@@ -101,7 +101,7 @@ src/cobra/types/script/script.o: src/cobra/types/script/script.cc \
   src/cobra/mem/allocate.h /usr/include/math.h src/cobra/global.h \
   src/cobra/mem/list.h src/cobra/mem/gc.h src/cobra/ast/node.h \
   src/cobra/token/token.h src/cobra/ast/scope.h \
-  src/cobra/semantics/internal.h \
+  src/cobra/semantics/internal.h src/cobra/error/error.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iostream \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/ios \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__locale \
@@ -144,13 +144,12 @@ src/cobra/types/script/script.o: src/cobra/types/script/script.cc \
   /usr/include/sys/_types/_fsblkcnt_t.h \
   /usr/include/sys/_types/_fsfilcnt_t.h /usr/include/_types/_nl_item.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/bitset \
-  src/cobra/error/error.h src/cobra/parser/parser.h \
-  src/cobra/scanner/scanner.h src/cobra/types/vector/vector.h \
-  src/cobra/types/strings/string.h src/../include/Cobra.h \
-  src/cobra/types/strings/string-bytes.h src/cobra/semantics/semantics.h \
-  src/cobra/semantics/binary.h src/cobra/execute/execute.h \
-  src/cobra/types/array/array.h src/cobra/types/array/array-bytes.h \
-  src/cobra/types/console/console.h \
+  src/cobra/parser/parser.h src/cobra/scanner/scanner.h \
+  src/cobra/types/vector/vector.h src/cobra/types/strings/string.h \
+  src/../include/Cobra.h src/cobra/types/strings/string-bytes.h \
+  src/cobra/semantics/semantics.h src/cobra/semantics/binary.h \
+  src/cobra/execute/execute.h src/cobra/types/array/array.h \
+  src/cobra/types/array/array-bytes.h src/cobra/types/console/console.h \
   src/cobra/types/console/console-bytes.h
 
 src/cobra/types/script/script.h:
@@ -463,6 +462,8 @@ src/cobra/ast/scope.h:
 
 src/cobra/semantics/internal.h:
 
+src/cobra/error/error.h:
+
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iostream:
 
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/ios:
@@ -578,8 +579,6 @@ src/cobra/semantics/internal.h:
 /usr/include/_types/_nl_item.h:
 
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/bitset:
-
-src/cobra/error/error.h:
 
 src/cobra/parser/parser.h:
 

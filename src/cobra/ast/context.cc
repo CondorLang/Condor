@@ -34,9 +34,11 @@ namespace internal{
 		included[scope->name] = true;
 	}
 
-	std::vector<ASTNode*> Context::Lookup(std::string name){
+	std::vector<ASTNode*> Context::Lookup(Scope* scope, std::string name){
 		std::vector<ASTNode*> result;
 		for (int i = 0; i < root.size(); i++){
+			Scope* s = root[i];
+			if (s == scope) continue;
 			std::vector<ASTNode*> tmp = root[i]->Lookup(name, false, true);
 			result.insert(result.end(), tmp.begin(), tmp.end());
 		}

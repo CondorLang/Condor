@@ -1,10 +1,7 @@
 import "console"
 
-func print(string txt){
-	Console.write(txt);
-}
-
-print(">> ");
-// var a = Console.get();
-// print(a);
-// print('\n');
+// var a = Console.get(">> ");
+// println(a);
+println("This is a test\n");
+var a = "This is another test\n";
+println(a);

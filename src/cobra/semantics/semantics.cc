@@ -97,6 +97,7 @@ namespace internal{
 
 	void Semantics::ScanScope(Scope* scope){
 		Trace("Scanning Scope", (std::to_string(scope->Size()) + " items").c_str());
+		indent++;
 		scope->outer = GetCurrentScope();
 		OpenScope(scope);
 		for (int i = 0; i < scope->Size(); i++){
@@ -113,6 +114,7 @@ namespace internal{
 				default: ValidateExpr((ASTExpr*) node); break;
 			}
 		}
+		indent--;
 		CloseScope();
 	}
 
@@ -141,6 +143,9 @@ namespace internal{
 			ExpectNumber((ASTLiteral*) ary->members[0]);
 		}
 		ValidateBaseAndAssignment(var);
+		if (var->value != NULL){
+			var->assignmentType = ValidateExpr((ASTExpr*) var->value);
+		}
 		indent--;
 	}
 
@@ -156,7 +161,6 @@ namespace internal{
 			case FUNC_CALL: return ValidateFuncCall((ASTFuncCall*) expr);
 			case ARRAY: return ValidateArray((ASTArray*) expr);
 			default: {
-				printf("d: %s\n", Token::ToString(expr->type).c_str());
 				throw Error::NOT_IMPLEMENTED;
 			}
 		}
@@ -219,6 +223,16 @@ namespace internal{
 			SwapScopes();
 		}
 
+		// if (expr->right->type == FUNC_CALL){ // scope issue if I don't do it here
+		// 	ASTFuncCall* call = (ASTFuncCall*) expr->right;
+		// 	if (call->params.size() > 0){
+		// 		Trace("Validating Func Call Params For", call->name.c_str());
+		// 		for (int j = 0; j < call->params.size(); j++) {
+		// 			ValidateExpr(call->params[j]);
+		// 		}
+		// 	}		
+		// }
+
 		try{
 			return Binary::Compare(left, right, expr->op);
 		}
@@ -229,9 +243,9 @@ namespace internal{
 	}
 
 	TOKEN Semantics::ValidateIdent(ASTLiteral* expr){
-		Trace("Validating", "Ident");
 		SetRowCol(expr);
 		expr->name = expr->value;
+		Trace("Validating Ident", expr->name.c_str());
 		Scope* s = GetCurrentScope();
 		if (expr->name == "this"){
 			if (s->outer == NULL) throw Error::INVALID_USAGE_OF_THIS;
@@ -243,12 +257,17 @@ namespace internal{
 		}	
 		std::vector<ASTNode*> nodes = s->Lookup(expr->name, isThis ? false : true);
 		if (nodes.size() == 1 && nodes[0] == expr) throw Error::UNDEFINED_VARIABLE;
-
+		if (nodes.size() == 0) {
+			SwapScopes(); // used in object chains
+			s = GetCurrentScope();
+			nodes = s->Lookup(expr->name, isThis ? false : true);
+			SwapScopes();
+			if (nodes.size() == 0 || (nodes.size() == 1 && nodes[0] == expr)) throw Error::UNDEFINED_VARIABLE; 
+		}
 		for (int i = 0; i < nodes.size(); i++){
 			if (!isThis && nodes[i]->HasVisibility(PRIVATE)) throw Error::UNABLE_TO_ACCESS_PRIVATE_MEMBER;
 		}
 
-		if (nodes.size() == 0) throw Error::UNDEFINED_VARIABLE;
 		expr->var = (ASTVar*) nodes[0];
 		if (expr->var->assignmentType == UNDEFINED) return expr->var->baseType;
 		return expr->var->assignmentType;
@@ -265,9 +284,14 @@ namespace internal{
 			if (nodes[i]->type == FUNC){
 				if (staticRequired && !nodes[i]->HasVisibility(STATIC)) continue;
 				ASTFunc* func = (ASTFunc*) nodes[i];
-				ValidateFunc(func, true, isConstructor);
 				expr->func = func;
-				for (int i = 0; i < expr->params.size(); i++) ValidateExpr(expr->params[i]);
+				indent++;
+				ValidateFunc(func, true, isConstructor);
+				indent--;
+				if (expr->params.size() > 0){
+					Trace("Validating Func Call Params For", expr->name.c_str());
+					for (int j = 0; j < expr->params.size(); j++) ValidateExpr(expr->params[j]);
+				}				
 				return expr->func->assignmentType;
 			}
 		}
@@ -452,18 +476,13 @@ namespace internal{
 	}
 
 	/**
-	 * All Internal Functions need to be registered here for now
+	 * All Internal Functions need to be registered in Internal::Bind()
 	 */
 	TOKEN Semantics::ValidateInternal(ASTFuncCall* call){
-		if (call->name == "printf") call->callback = Internal::PrintF;
-		else if (call->name == "readln") call->callback = Internal::ReadLine;
-		else throw Error::UNDEFINED_FUNC;
+		TOKEN t = Internal::Bind(call);
 		for (int i = 0; i < call->params.size(); i++) ValidateExpr(call->params[i]);
 		Trace("  Type: ", "Internal");
-		if (call->name == "readln") {
-			int a = 10;
-		}
-		return UNDEFINED;
+		return t;
 	}
 } // namespace internal
 }

@@ -34,7 +34,7 @@ namespace internal{
 		currentCode = NULL;
 	}
 
-	void Script::RunInternalScript(Isolate* isolate, std::string hex, std::string _name){
+	void Script::RunInternalScript(Isolate* isolate, std::string hex, std::string _name, std::string sub){
 		Cobra::Isolate* iso = CAST(Cobra::Isolate*, isolate);
 		int len = hex.length();
 		std::string newString;
@@ -52,6 +52,7 @@ namespace internal{
 		Cobra::Script* script = Cobra::Script::Compile(c, str);
 		if (!script->HasError()){
 			Script* s = CAST(Script*, script);
+			s->SetSub(sub);
 			script->Run();
 		}
 	}
@@ -87,6 +88,7 @@ namespace internal{
 			else{
 				context->AddToInProgress(name);
 			}
+			LoadImports();
 		}
 		catch (Error::ERROR e){
 			std::string msg = Error::String(e, parser->expected);
@@ -97,10 +99,9 @@ namespace internal{
 			hasErr = true;
 			return;
 		}
-		LoadImports();
-		semantics = Semantics::New(isolate, parser);
 
 		try {
+			semantics = Semantics::New(isolate, parser);
 			semantics->Evaluate(parser->GetBaseScope());
 
 			if (compileTime){
@@ -125,8 +126,29 @@ namespace internal{
 	}
 
 	void Script::Run(){
+		if (hasErr) return;
+		if (subModule.length() > 0) {
+			if (subModule != "*"){
+				Scope* s = parser->GetBaseScope();
+				for (int i = 0; i < s->Size(); i++){
+					if (s->Get(i)->name == subModule) s->Get(i)->isExport = true;
+					else s->Get(i)->isExport = false;
+				}
+			}
+		}
 		executor = Execute::New(isolate, parser->GetBaseScope());
-		executor->Evaluate();
+		try {
+			executor->Evaluate();
+		}
+		catch (Error::ERROR e){
+			std::string msg = Error::String(e, NULL);
+			std::string src = executor->GetSource();
+			currentCode = &src;
+			msg = std::to_string(executor->row) + ":" + std::to_string(executor->col) + " - " + msg + " - \n\t" + absolutePath.c_str() + "\n\n" + GetSourceRow(executor->row, executor->col);
+			printf("\nExecution Error: \n%s\n", msg.c_str());
+			msgs.push_back(msg);
+			return;
+		}
 	}
 
 	std::string Script::GetSourceRow(int row, int col){
@@ -162,9 +184,23 @@ namespace internal{
 	void Script::LoadImports(){
 		for (int i = 0; i < parser->imports.size(); i++){
 			ASTImport* import = parser->imports[i];
-			if (import->name == "array") Array::CB(isolate);
-			else if (import->name == "string") String::CB(isolate);
-			else if (import->name == "console") Console::CB(isolate);
+			std::vector<std::string> splits = String::Split(import->name, '.');
+			std::string name = splits[0];
+			std::string sub = "";
+			if (splits.size() > 1) sub = splits[1];
+			if (sub.length() > 0) {
+				parser->Row = import->row;
+				parser->Col = import->col;
+				throw Error::NOT_IMPLEMENTED;
+			}
+			if (name == "array") Array::CB(isolate, sub);
+			else if (name == "string") String::CB(isolate, sub);
+			else if (name == "console") Console::CB(isolate, sub);
+			else {
+				parser->Row = import->row;
+				parser->Col = import->col;
+				throw Error::INVALID_IMPORT;
+			}
 		}
 	}
 

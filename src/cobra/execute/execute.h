@@ -8,6 +8,7 @@
 #include "cobra/ast/scope.h"
 #include "cobra/mem/isolate.h"
 #include "cobra/token/token.h"
+#include "cobra/error/error.h"
 
 namespace Cobra {
 namespace internal{
@@ -23,6 +24,7 @@ namespace internal{
 		void OpenScope(Scope* sc);
 		void CloseScope(){scopes.erase(scopes.begin());}
 		Scope* GetCurrentScope(){return scopes[0];}
+		void SetRowCol(ASTNode* node);
 
 		ASTLiteral* EvaluateFuncCall(ASTFuncCall* call);
 		ASTLiteral* EvaluateBinary(ASTBinaryExpr* binary); 
@@ -34,6 +36,10 @@ namespace internal{
 		Execute(Scope* scope);
 		~Execute(){}
 		void Evaluate();
+		std::string GetSource(){return GetCurrentScope()->raw;}
+
+		int row;
+		int col;
 	};
 
 } // namespace internal

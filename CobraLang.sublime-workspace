@@ -4,16 +4,76 @@
 		"selected_items":
 		[
 			[
+				"pri",
+				"print"
+			],
+			[
+				"Evalu",
+				"EvaluateBinary"
+			],
+			[
+				"UND",
+				"UNDEFINED"
+			],
+			[
 				"Eva",
-				"Evaluate"
+				"EvaluateFuncCall"
+			],
+			[
+				"ASTFU",
+				"ASTFuncCall"
+			],
+			[
+				"Eval",
+				"EvaluateValue"
+			],
+			[
+				"retu",
+				"returns"
+			],
+			[
+				"Evalua",
+				"Evaluating"
+			],
+			[
+				"Valid",
+				"ValidateExpr"
+			],
+			[
+				"Evl",
+				"EvaluateValue"
+			],
+			[
+				"node",
+				"nodesz"
+			],
+			[
+				"ASTOBj",
+				"ASTObjectInstance"
+			],
+			[
+				"OBJ",
+				"OBJECT_INSTANCE"
+			],
+			[
+				"Ev",
+				"EvaluateFuncCall"
+			],
+			[
+				"lit",
+				"litType"
+			],
+			[
+				"isAr",
+				"isArray"
+			],
+			[
+				"isC",
+				"isCast"
 			],
 			[
 				"Scan",
 				"ScanEscape"
-			],
-			[
-				"Eval",
-				"EvaluateLiteral"
 			],
 			[
 				"Get",
@@ -22,10 +82,6 @@
 			[
 				"allo",
 				"allowNative"
-			],
-			[
-				"Ev",
-				"Evaluate"
 			],
 			[
 				"Un",
@@ -38,10 +94,6 @@
 			[
 				"isIn",
 				"isInternalFunc"
-			],
-			[
-				"UND",
-				"UNDEFINED_VARIABLE"
 			],
 			[
 				"int",
@@ -84,10 +136,6 @@
 				"INVALID_FUNCTION_CALL"
 			],
 			[
-				"ASTFU",
-				"ASTFuncCallExpr"
-			],
-			[
 				"PareFun",
 				"ParseFuncCall"
 			],
@@ -98,10 +146,6 @@
 			[
 				"GetObj",
 				"GetObjectInScope"
-			],
-			[
-				"OBJ",
-				"OBJECT"
 			],
 			[
 				"GetOb",
@@ -300,10 +344,6 @@
 				"parentId"
 			],
 			[
-				"pri",
-				"print_r"
-			],
-			[
 				"sharedW",
 				"sharedWith"
 			],
@@ -436,10 +476,6 @@
 				"isContentItem"
 			],
 			[
-				"isC",
-				"isContentType"
-			],
-			[
 				"getM",
 				"getModulesAndTopicsRecursive"
 			],
@@ -478,84 +514,32 @@
 			[
 				"create",
 				"createIsolateCtrl"
-			],
-			[
-				"crea",
-				"createIsolate"
-			],
-			[
-				"contex",
-				"contextsById"
-			],
-			[
-				"is",
-				"isolatesById"
-			],
-			[
-				"isoalte",
-				"isolateId"
-			],
-			[
-				"getCurr",
-				"getCurrentCode"
-			],
-			[
-				"wee",
-				"weekAsInt"
-			],
-			[
-				"str_rep",
-				"str_replace"
-			],
-			[
-				"time",
-				"timestamp"
-			],
-			[
-				"json",
-				"json_decode"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "src/cobra/execute/execute.cc",
-			"settings":
-			{
-				"buffer_size": 1953,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "test/test.cb",
 			"settings":
 			{
-				"buffer_size": 133,
+				"buffer_size": 139,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/cobra/parser/parser.cc",
+			"file": "src/cobra/types/console/console.cb",
 			"settings":
 			{
-				"buffer_size": 17663,
+				"buffer_size": 175,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/cobra/scanner/scanner.cc",
+			"file": "src/cobra/execute/execute.cc",
 			"settings":
 			{
-				"buffer_size": 11025,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": ".gitignore",
-			"settings":
-			{
-				"buffer_size": 253,
+				"buffer_size": 3087,
 				"line_ending": "Unix"
 			}
 		},
@@ -563,7 +547,31 @@
 			"file": "src/cobra/semantics/semantics.cc",
 			"settings":
 			{
-				"buffer_size": 13031,
+				"buffer_size": 13196,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/cobra/ast/scope.h",
+			"settings":
+			{
+				"buffer_size": 1064,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/cobra/ast/scope.cc",
+			"settings":
+			{
+				"buffer_size": 2304,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/cobra/execute/execute.h",
+			"settings":
+			{
+				"buffer_size": 890,
 				"line_ending": "Unix"
 			}
 		}
@@ -900,40 +908,40 @@
 		"/Users/willdech/Documents/dev/CobraLang/src",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/error",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/execute",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/scanner",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types",
-		"/Users/willdech/Documents/dev/CobraLang/test"
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/console"
 	],
 	"file_history":
 	[
-		"/Users/willdech/Documents/dev/CobraLang/readme.md",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/console/console.cb",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/internal.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/semantics.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/parser.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/scope.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/internal.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/node.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/node.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/execute/execute.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/scanner/scanner.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/node.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/scope.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/semantics.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/execute/execute.cc",
+		"/Users/willdech/Documents/dev/CobraLang/readme.md",
+		"/Users/willdech/Documents/dev/CobraLang/test/test.cb",
+		"/Users/willdech/Documents/dev/CobraLang/.gitignore",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/execute/execute.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/scanner/scanner.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/error/error.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/error/error.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/global.h",
-		"/Users/willdech/Documents/dev/CobraLang/test/test.cb",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/scope.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/semantics.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/script/script.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/api.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/strings/string.h",
 		"/Users/willdech/Documents/dev/CobraLang/test/shell.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/console/console.cb",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/semantics.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/internal.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/execute/execute.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/parser.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/parser.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/script/script.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/internal.cc",
 		"/Users/willdech/Documents/dev/CobraLang/test/main.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/flags.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/flags.h",
@@ -946,7 +954,6 @@
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/strings/string.cb",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/context.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/context.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/scope.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/isolate.h",
 		"/Users/willdech/Documents/dev/CobraLang/CobraLang.sublime-project",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/allocate.cc",
@@ -1036,8 +1043,7 @@
 		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/css/src/form/search.css",
 		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/css/src/containers/container.css",
 		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/Gruntfile.js",
-		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/css/build/lms.css",
-		"/Applications/XAMPP/xamppfiles/htdocs/studim/vendor/slim/slim/tests/Middleware/SessionCookieTest.php"
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/css/build/lms.css"
 	],
 	"find":
 	{
@@ -1112,6 +1118,39 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"\"print",
+			"right = ",
+			"func = ",
+			"parseinternal",
+			"parsereturn",
+			"\"return\"",
+			"parsereturn",
+			"\"return\"",
+			"ValidateInternal",
+			":ValidateInternal",
+			"void",
+			"validatefunccal",
+			"iValues",
+			"undefined_var",
+			"func = ",
+			"local",
+			":parseident",
+			"ValidateIdent",
+			"validateIdent",
+			"ValidateLiteral",
+			"validateident",
+			"astliteral",
+			"astliter",
+			"astfunc",
+			"node)",
+			")",
+			"Validate",
+			"ValidateCast",
+			":ValidateCast",
+			"cast",
+			"astliteral",
+			"astliter",
+			"astlitral",
 			"astliteral",
 			"result =",
 			"result",
@@ -1206,40 +1245,7 @@
 			"ASTIdent",
 			"parseint",
 			"parseintn",
-			"// here",
-			"expect(rbrace",
-			"objectinit",
-			"memberchain",
-			"FreeUnnecessaryMemory",
-			"\",\"",
-			"assignment()",
-			"assign",
-			"validatefunc",
-			"kthis",
-			"// GetObjectInScope",
-			"// here",
-			"here",
-			"here ",
-			"GetObjectInScope",
-			"array",
-			"->object = ",
-			"member->object = ",
-			"ParseFuncCall(expr);",
-			"array",
-			"astarray*",
-			"astarray",
-			"undefined_ob",
-			"IsBoolean",
-			"lt",
-			"INVALID_CONDITION_FOR_IF_STMT",
-			"ParseStmtList",
-			"parseblock",
-			"validateastn",
-			"astnot",
-			"not",
-			"validatenot",
-			"// here",
-			"here"
+			"// here"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1311,53 +1317,24 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "src/cobra/execute/execute.cc",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1953,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1870,
-								1870
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 350.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
 					"file": "test/test.cb",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 133,
+						"buffer_size": 139,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								133,
-								133
+								118,
+								118
 							]
 						],
 						"settings":
@@ -1368,110 +1345,52 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "src/cobra/parser/parser.cc",
+					"buffer": 1,
+					"file": "src/cobra/types/console/console.cb",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 17663,
+						"buffer_size": 175,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								9504,
-								9504
+								175,
+								175
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/Go/Go.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 5803.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "src/cobra/scanner/scanner.cc",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 11025,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								9998,
-								9998
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 6029.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": ".gitignore",
+					"buffer": 2,
+					"file": "src/cobra/execute/execute.cc",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 253,
+						"buffer_size": 3087,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "src/cobra/semantics/semantics.cc",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 13031,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1978,
-								1978
+								690,
+								690
 							]
 						],
 						"settings":
@@ -1480,10 +1399,126 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1028.0,
+						"translation.y": 240.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "src/cobra/semantics/semantics.cc",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 13196,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7007,
+								7007
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3480.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "src/cobra/ast/scope.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1064,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1011,
+								1011
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 98.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "src/cobra/ast/scope.cc",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2304,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1220,
+								1220
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 460.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "src/cobra/execute/execute.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 890,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								74,
+								74
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
 					"type": "text"
 				}
 			]

@@ -13,11 +13,26 @@ namespace internal{
 	}
 
 	ASTNode* Internal::ReadLine(Isolate* iso, ASTNode* lit){
+		if (lit->type == LITERAL) Internal::PrintF(iso, lit);
 		ASTLiteral* l = ASTLiteral::New(iso);
 		std::string result;
 		std::getline (std::cin, result);
 		l->value = result;
 		return l;
+	}
+
+	// TODO: replace with a macro
+	TOKEN Internal::Bind(ASTFuncCall* call){
+		if (call->name == "printf") {
+			call->callback = Internal::PrintF;
+			return UNDEFINED;
+		}
+		else if (call->name == "readln") {
+			call->callback = Internal::ReadLine;
+			return STRING;
+		}
+		else throw Error::UNDEFINED_FUNC;
+		return UNDEFINED;
 	}
 
 } // namespace internal

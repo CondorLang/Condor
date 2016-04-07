@@ -15,7 +15,7 @@ namespace internal{
 	public:
 		Exception(){}
 		~Exception(){}
-		static void CB(Isolate* isolate);
+		static void CB(Isolate* isolate, std::string sub);
 	};
 
 	namespace Sizes{

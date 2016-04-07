@@ -1,11 +1,20 @@
 export object Console{
-	static func write(string txt){
-		Console.Write(txt);
+	static func write(string txt1){
+		Console.Write(txt1);
 	}
-	static func Write(string txt){
-		%printf(txt);
+	static func Write(string txt2){
+		%printf(txt2);
 	}
-	static func get(){
-		return %readln();
+	static func get(string msg){
+		return %readln(msg);
 	}
+}
+
+export func print(string msg){
+	Console.write(msg);
+}
+
+export func println(string msg){
+	print(msg);
+	print('\n');
 }
