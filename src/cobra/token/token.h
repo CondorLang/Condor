@@ -14,6 +14,7 @@ namespace internal{
 	enum TOKEN{
 		// Internal
 		ILLEGAL = 255,
+		TOK,
 		END,
 		EXPR,
 		LITERARY,
@@ -100,6 +101,7 @@ namespace internal{
 		MUL, // *
 		DIV, // /
 		MOD, // %,
+		POW, // ^
 		HASH, // #
 		DOLLAR, // $
 		TICK, // `

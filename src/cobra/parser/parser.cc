@@ -126,7 +126,7 @@ namespace internal{
 	}
 
 	bool Parser::IsOperator(){
-		return Is(7, ADD, SUB, MOD, DIV, MUL, SHL, SHR);
+		return Is(8, ADD, SUB, MOD, DIV, MUL, SHL, SHR, POW);
 	}
 
 	bool Parser::IsAssignment(){

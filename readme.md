@@ -14,6 +14,8 @@ Top Problems with Programming
 
 Building Instructions
 ---------------------
+For the first initial download, you'll need to run, make clean to ensure that all the *.d files are removed.
+
 Building should be fairly easy. Required programs:
  - gcc
 
@@ -47,11 +49,14 @@ See [Contributing](https://github.com/chaseWillden/CobraLang/wiki/Contributing) 
 
 Todo:
 ------
- - node.h 21 - Create a Expand() function which expands the node and the tree
+ - node.h 22 - Create a Expand() function which expands the node and the tree
  - execute.cc 38 - Erase values in all non return locals
+ - execute.cc 93 - Implement paranthesis off of binary->isInParen
+ - execute.cc 128 - Crawl through the stack and calculate the result
+ - execute.cc 165 - Complete for loop
  - parser.cc 758 - Disallow for allow-native on a non internal file
- - scanner.cc 461 - Include Octal, Hex, UTF-8, UTF-16, see https://msdn.microsoft.com/en-us/library/6aw8xdf2.aspx
+ - scanner.cc 462 - Include Octal, Hex, UTF-8, UTF-16, see https://msdn.microsoft.com/en-us/library/6aw8xdf2.aspx
  - internal.cc 24 - replace with a macro
- - semantics.cc 259 - add variable types
- - semantics.cc 279 - Fix RemoveAllAfter in scope. 
- - semantics.cc 443 - Compare the base type with the assignment type. Throw an error if they are not the same if hard typed.
+ - semantics.cc 276 - add variable types
+ - semantics.cc 301 - Fix RemoveAllAfter in scope. 
+ - semantics.cc 465 - Compare the base type with the assignment type. Throw an error if they are not the same if hard typed.

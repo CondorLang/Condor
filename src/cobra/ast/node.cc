@@ -53,6 +53,15 @@ namespace internal{
 		}
 	}
 
+	ASTToken* ASTToken::New(Isolate* iso, TOKEN tok){
+		void* pt = iso->GetMemory(sizeof(ASTToken));
+		ASTToken* n = new(pt) ASTToken();
+		ASTNode::SetDefaults(n, iso);
+		n->type = TOK;
+		n->value = Token::New(iso, tok);
+		return n;
+	}
+
 	ASTImport* ASTImport::New(Isolate* iso){
 		void* pt = iso->GetMemory(sizeof(ASTImport));
 		ASTImport* n = new(pt) ASTImport();

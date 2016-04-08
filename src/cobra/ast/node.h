@@ -2,6 +2,7 @@
 #define NODE_H_
 
 #include <string>
+#include <typeinfo>
 
 #include "cobra/global.h"
 #include "cobra/token/token.h"
@@ -38,6 +39,14 @@ namespace internal{
 		void Free(Isolate* iso);
 		bool HasVisibility(TOKEN tok);
 		size_t Size(){return sizeof(ASTNode);}
+	};
+
+	class ASTToken : public ASTNode
+	{
+	public:
+		static ASTToken* New(Isolate* iso, TOKEN tok);
+		Token* value;
+		int Precedence(){return value->Precedence();}
 	};
 
 	class ASTImport : public ASTNode
@@ -113,6 +122,13 @@ namespace internal{
 		bool isCast;
 		int isPost;
 		size_t Size(){return sizeof(ASTLiteral);}
+
+		template<typename T>
+		T To(){
+			std::string name(typeid(T).name());
+			if (name == "i") return std::stoi(value);
+			return 0;
+		}
 	};
 
 	class ASTFuncCall : public ASTExpr

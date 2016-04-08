@@ -13,6 +13,7 @@ namespace internal{
 		switch (t){
 			// internal
 			case ILLEGAL: return "illegal";
+			case TOK: return "token";
 			case EXPR: return "kExpr";
 			case LITERARY: return "kLiterary";
 			case UNARY: return "kUnary";
@@ -82,6 +83,7 @@ namespace internal{
 			case MUL: return "*";
 			case DIV: return "/";
 			case MOD: return "%";
+			case POW: return "^";
 			case HASH: return "#";
 			case AND: return "&";
 			case OR: return "|";
@@ -170,14 +172,15 @@ namespace internal{
 	int Token::Precedence(){
 		int t = (int) value;
 		switch (t){
+			case LPAREN: case RPAREN: return 0;
 			case LOR: return 1;
 			case LAND: return 2;
 			case EQL: case NEQ: case LSS: case LEQ: case GTR: case GEQ: return 3;
 			case ADD: case SUB: case OR: case XOR: return 4;
 			case MUL: case DIV: case MOD: case SHL: case SHR: case AND: case AND_NOT: return 5;
-			default: return 0;
+			case POW: return 6;
+			default: return -1;
 		}
-		return 0;
 	}
 
 	/**

@@ -222,6 +222,7 @@ namespace internal{
 					Next(); 
 					return Token::New(isolate, XOR_ASSIGN);
 				}
+				return Token::New(isolate, POW);
 			}
 			case '=': {
 				char p = Peek();

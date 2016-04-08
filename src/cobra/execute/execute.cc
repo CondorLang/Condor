@@ -46,6 +46,7 @@ namespace internal{
 				case FUNC_CALL: node->local = EvaluateFuncCall((ASTFuncCall*) node); break;
 				case BINARY: node->local = EvaluateBinary((ASTBinaryExpr*) node); break;
 				case VAR: node->local = EvaluateVar((ASTVar*) node); break;
+				case FOR: EvaluateFor((ASTForExpr*) node); break;
 			}
 		}
 		CloseScope();
@@ -81,10 +82,52 @@ namespace internal{
 
 	ASTLiteral* Execute::EvaluateBinary(ASTBinaryExpr* binary){
 		SetRowCol(binary);
-		if (binary->right->type == FUNC_CALL && ((ASTFuncCall*) binary->right)->func->HasVisibility(STATIC)){
+		if (binary->op == PERIOD && binary->right->type == FUNC_CALL && ((ASTFuncCall*) binary->right)->func->HasVisibility(STATIC)){
 			return (ASTLiteral*) EvaluateFuncCall((ASTFuncCall*) binary->right);
 		}
+		FillPostix(binary);
+		return Calculate();
 		return NULL;
+	}
+
+	// TODO: Implement paranthesis off of binary->isInParen
+	void Execute::FillPostix(ASTBinaryExpr* binary){
+		ASTLiteral* left = EvaluateValue(binary->left);
+		ASTToken* tok = ASTToken::New(isolate, binary->op);
+
+		if (left != NULL) stack.push_back(left);
+		if (opStack.size() == 0) opStack.push_back(tok);
+		else if (tok->value->value == LPAREN) opStack.push_back(tok);
+		else if (tok->value->value == RPAREN){
+			for (int i = opStack.size() - 1; i >= 0; i--){
+				ASTToken* t = (ASTToken*) opStack[i];
+				if (t->value->value == LPAREN) break;
+				else{
+					stack.push_back(t);
+					opStack.pop_back();
+				}
+				opStack.pop_back();
+			}
+		}
+		else if (((ASTToken*)(opStack[opStack.size() - 1]))->Precedence() < tok->Precedence()) opStack.push_back(tok);
+		else if (((ASTToken*)(opStack[opStack.size() - 1]))->Precedence() >= tok->Precedence()){
+			for (int i = opStack.size() - 1; i >= 0; i--){
+				ASTToken* t = (ASTToken*) opStack[i];
+				if (t->Precedence() < tok->Precedence()) break;
+				else{
+					stack.push_back(t);
+					opStack.pop_back();
+				}
+			}
+			opStack.push_back(tok);
+		}
+		if (binary->right != NULL && binary->right->type == BINARY) FillPostix((ASTBinaryExpr*) binary->right);
+		else stack.push_back(EvaluateValue(binary->right));
+	}
+
+	// TODO: Crawl through the stack and calculate the result
+	ASTLiteral* Execute::Calculate(){
+
 	}
 
 	ASTLiteral* Execute::EvaluateValue(ASTNode* node){
@@ -117,6 +160,21 @@ namespace internal{
 		SetRowCol(var);
 		Trace("Evaluating Var", var->name);
 		return (ASTLiteral*) EvaluateValue(var->value);
+	}
+
+	// TODO: Complete for loop
+	void Execute::EvaluateFor(ASTForExpr* expr){
+		SetRowCol(expr);
+		Trace("Evaluating", "For");
+		ASTLiteral* init = EvaluateVar((ASTVar*) expr->var);
+		int value = init->To<int>();
+		// condition will be hard coded for now
+		while (true){
+			if (value >= 10) break; // condition
+			OpenScope(expr->scope);
+			Evaluate();
+			value++; // increment
+		}
 	}
 
 } // namespace internal

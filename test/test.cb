@@ -1,7 +1,10 @@
-import "console"
+//import "console"
 
 // var a = Console.get(">> ");
 // println(a);
-println("This is a test\n");
-var a = "This is another test\n";
-println(a);
+
+// for (int i = 0; i < 10; i++){
+// 	println("test");
+// }
+
+var a = 10 + 10;

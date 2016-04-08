@@ -3,12 +3,14 @@
 
 #include <string>
 #include <vector>
+#include <map>
 
 #include "cobra/ast/node.h"
 #include "cobra/ast/scope.h"
 #include "cobra/mem/isolate.h"
 #include "cobra/token/token.h"
 #include "cobra/error/error.h"
+#include "cobra/semantics/binary.h"
 
 namespace Cobra {
 namespace internal{
@@ -17,6 +19,8 @@ namespace internal{
 	{
 	private:
 		std::vector<Scope*> scopes;
+		std::vector<ASTNode*> stack;
+		std::vector<ASTNode*> opStack;
 		Isolate* isolate;
 		bool trace;
 
@@ -30,6 +34,9 @@ namespace internal{
 		ASTLiteral* EvaluateBinary(ASTBinaryExpr* binary); 
 		ASTLiteral* EvaluateValue(ASTNode* node);
 		ASTLiteral* EvaluateVar(ASTVar* var);
+		void EvaluateFor(ASTForExpr* expr);
+		void FillPostix(ASTBinaryExpr* binary);
+		ASTLiteral* Calculate();
 
 	public:
 		static Execute* New(Isolate* isolate, Scope* scope);
