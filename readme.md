@@ -51,13 +51,11 @@ Todo:
 ------
  - node.h 22 - Create a Expand() function which expands the node and the tree
  - execute.cc 38 - Erase values in all non return locals
- - execute.cc 117 - Implement paranthesis off of binary->isInParen
- - execute.cc 118 - Set row and col for tracking
- - execute.cc 119 - String, Char, and other data types need to be implemented
- - execute.cc 256 - Complete for loop
+ - execute.cc 127 - Set row and col for tracking
+ - execute.cc 128 - String, Char, and other data types need to be implemented
  - parser.cc 758 - Disallow for allow-native on a non internal file
  - scanner.cc 462 - Include Octal, Hex, UTF-8, UTF-16, see https://msdn.microsoft.com/en-us/library/6aw8xdf2.aspx
  - internal.cc 24 - replace with a macro
- - semantics.cc 276 - add variable types
- - semantics.cc 301 - Fix RemoveAllAfter in scope. 
- - semantics.cc 465 - Compare the base type with the assignment type. Throw an error if they are not the same if hard typed.
+ - semantics.cc 280 - add variable types
+ - semantics.cc 305 - Fix RemoveAllAfter in scope. 
+ - semantics.cc 469 - Compare the base type with the assignment type. Throw an error if they are not the same if hard typed.

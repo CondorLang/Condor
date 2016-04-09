@@ -20,6 +20,7 @@ namespace internal{
 	#define EXPAND_AST Flags::expandAST;
 	#define ALLOW_NATIVE Flags::allowNative;
 	#define COMPILE_TIME Flags::compileTime;
+	#define EXECUTION_TIME Flags::executionTime;
 
 	class Flags
 	 {
@@ -35,6 +36,7 @@ namespace internal{
 	 		static bool allowNative;
 	 		static bool compileTime;
 	 		static bool traceEvaluation;
+	 		static bool executionTime;
 	 		static void SetCommandLineFlags(int argc, const char* argv[]);
 	 }; 
 

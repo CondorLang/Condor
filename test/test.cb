@@ -2,6 +2,12 @@ import "console"
 
 //var a = Console.get(">> ");
 
-for (int i = 0; i < 10; i++){
-	println(i + 1);
-}
+var a = 10;
+a = 1 + 1;
+println(a);
+
+// var i = 10;
+// while (i < 30){
+// 	println(i);
+// 	i++;
+// }

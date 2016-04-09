@@ -38,8 +38,11 @@ namespace internal{
 		void FillPostix(ASTBinaryExpr* binary);
 		ASTLiteral* Calculate();
 		ASTLiteral* Calc(ASTToken* tok);
-		void FormatLit(ASTLiteral* lit);
+		void FormatLit(ASTLiteral* lit, bool forceType = false);
 		void TruncZeros(ASTLiteral* lit);
+		void SetCast(ASTExpr* expr, ASTLiteral* value);
+		void EvaluateWhile(ASTWhileExpr* expr);
+		bool EvaluateIf(ASTIf* expr);
 
 	public:
 		static Execute* New(Isolate* isolate, Scope* scope);

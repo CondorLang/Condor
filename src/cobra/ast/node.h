@@ -73,9 +73,11 @@ namespace internal{
 		ASTNode* value;
 		ASTNode* member;
 		TOKEN assignmentType;
+		TOKEN op;
 		bool isArray;
 		bool isObject;
 		bool isArg;
+		bool previouslyDeclared;
 		int order;
 		static ASTVar* New(Isolate* iso);		
 		size_t Size(){return sizeof(ASTVar);}

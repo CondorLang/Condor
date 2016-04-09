@@ -47,6 +47,9 @@ namespace internal{
 				case BINARY: node->local = EvaluateBinary((ASTBinaryExpr*) node); break;
 				case VAR: node->local = EvaluateVar((ASTVar*) node); break;
 				case FOR: EvaluateFor((ASTForExpr*) node); break;
+				case WHILE: EvaluateWhile((ASTWhileExpr*) node); break;
+				case IF: EvaluateIf((ASTIf*) node); break;
+				case LITERAL: node->local = EvaluateValue(node); break;
 			}
 		}
 		CloseScope();
@@ -93,7 +96,17 @@ namespace internal{
 		return lit;
 	}
 
-	void Execute::FormatLit(ASTLiteral* lit){
+	void Execute::SetCast(ASTExpr* expr, ASTLiteral* value){
+		if (value == NULL) return;
+		if (expr->cast != NULL){
+			ASTLiteral* lit = expr->cast;
+			value->litType = lit->litType;
+			FormatLit(value, true);
+		}
+	}
+
+	void Execute::FormatLit(ASTLiteral* lit, bool forceType){
+		if (lit == NULL) return;
 		int type = (int) lit->litType;
 		switch (type){
 			case BOOLEAN: lit->value = (lit->calc == 0 ? "false" : "true"); break;
@@ -101,7 +114,7 @@ namespace internal{
 			case FLOAT: lit->value = std::to_string((float) lit->calc); break;
 			case INT: lit->value = std::to_string((int) lit->calc); break;
 		}
-		if (lit->calc - (int)lit->calc > 0.0) lit->value = std::to_string(lit->calc);
+		if (lit->calc - (int)lit->calc > 0.0 && !forceType) lit->value = std::to_string(lit->calc);
 		TruncZeros(lit);
 	}
 
@@ -114,7 +127,6 @@ namespace internal{
 		}
 	}
 
-	// TODO: Implement paranthesis off of binary->isInParen
 	// TODO: Set row and col for tracking
 	// TODO: String, Char, and other data types need to be implemented
 	void Execute::FillPostix(ASTBinaryExpr* binary){
@@ -227,6 +239,7 @@ namespace internal{
 			case LITERAL: {
 				ASTLiteral* lit = (ASTLiteral*) node;
 				ASTLiteral* value = EvaluateValue(lit->var);
+				SetCast(lit, value);
 
 				if (value != NULL && lit->unary != UNDEFINED){
 					if (lit->unary == INC){
@@ -262,10 +275,13 @@ namespace internal{
 	ASTLiteral* Execute::EvaluateVar(ASTVar* var){
 		SetRowCol(var);
 		Trace("Evaluating Var", var->name);
-		return (ASTLiteral*) EvaluateValue(var->value);
+		ASTLiteral* local = (ASTLiteral*) EvaluateValue(var->value);
+		if (var->previouslyDeclared && var->op == ASSIGN){
+			if (var->local != NULL) var->local->Free(isolate);
+		}
+		return local;
 	}
 
-	// TODO: Complete for loop
 	void Execute::EvaluateFor(ASTForExpr* expr){
 		SetRowCol(expr);
 		Trace("Evaluating", "For");
@@ -278,11 +294,44 @@ namespace internal{
 			ASTLiteral* condition = EvaluateValue(expr->condition);
 			if (condition->value == "false") break; // condition
 			condition->Free(isolate); // release condition memory
-			
 			Evaluate();
 			OpenScope(expr->scope);
 			var->local = EvaluateValue(expr->tick);	
 		}
+		CloseScope();
+	}
+
+	void Execute::EvaluateWhile(ASTWhileExpr* expr){
+		SetRowCol(expr);
+		Trace("Evaluating", "While");
+		OpenScope(expr->scope);
+		while (true){
+			ASTLiteral* condition = EvaluateValue(expr->condition);
+			if (condition->value == "false") break; // condition
+			condition->Free(isolate); // release condition memory
+			Evaluate();
+			OpenScope(expr->scope);
+		}
+		CloseScope();
+	}
+
+	bool Execute::EvaluateIf(ASTIf* expr){
+		SetRowCol(expr);
+		Trace("Evaluating","If");
+		ASTLiteral* condition = EvaluateValue(expr->condition);
+		if (condition->value == "true"){
+			condition->Free(isolate); // release condition memory
+			OpenScope(expr->scope);
+			Evaluate();
+			return true;
+		}
+		else{
+			condition->Free(isolate); // release condition memory
+			for (int i = 0; i < expr->elseIfs.size(); i++){
+				if (EvaluateIf(expr->elseIfs[i])) break;
+			}
+		}
+		return false;
 	}
 
 } // namespace internal

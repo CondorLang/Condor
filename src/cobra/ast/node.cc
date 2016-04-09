@@ -102,6 +102,8 @@ namespace internal{
 		n->member = NULL;
 		n->isArg = false;
 		n->order = -1;
+		n->previouslyDeclared = false;
+		n->op = UNDEFINED;
 		return n;
 	}
 

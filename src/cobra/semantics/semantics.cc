@@ -146,13 +146,18 @@ namespace internal{
 		if (var->value != NULL){
 			var->assignmentType = ValidateExpr((ASTExpr*) var->value);
 		}
+		if (var->previouslyDeclared){
+			ASTLiteral* member = (ASTLiteral*) var->member;
+			ValidateLiteral(member);
+			var->member = member->var;
+		}
 		indent--;
 	}
 
 	TOKEN Semantics::ValidateExpr(ASTExpr* expr){
 		SetRowCol(expr);
 		if (expr == NULL) return UNDEFINED;
-		if (expr->cast != NULL) return ValidateCast(expr);
+		if (expr->cast != NULL) ValidateCast(expr);
 		int type = (int) expr->type;
 		switch (type){
 			case UNDEFINED: return UNDEFINED;
@@ -198,13 +203,16 @@ namespace internal{
 	}
 
 	void Semantics::ValidateIf(ASTIf* expr){
+		if (expr == NULL) return;
 		SetRowCol(expr);
 		Trace("Validating", "If");
+		ValidateExpr(expr->condition);
 		ValidateBoolean((ASTBinaryExpr*) expr->condition);
 		indent++;
 		expr->scope = Parse(expr->scope);
 		ScanScope(expr->scope);
 		indent--;
+		for (int i = 0; i < expr->elseIfs.size(); i++) ValidateIf(expr->elseIfs[i]);
 	}
 
 	TOKEN Semantics::ValidateBinary(ASTBinaryExpr* expr){
@@ -226,16 +234,6 @@ namespace internal{
 		if (working){
 			SwapScopes();
 		}
-
-		// if (expr->right->type == FUNC_CALL){ // scope issue if I don't do it here
-		// 	ASTFuncCall* call = (ASTFuncCall*) expr->right;
-		// 	if (call->params.size() > 0){
-		// 		Trace("Validating Func Call Params For", call->name.c_str());
-		// 		for (int j = 0; j < call->params.size(); j++) {
-		// 			ValidateExpr(call->params[j]);
-		// 		}
-		// 	}		
-		// }
 
 		try{
 			return Binary::Compare(left, right, expr->op);
@@ -270,9 +268,13 @@ namespace internal{
 		}
 		for (int i = 0; i < nodes.size(); i++){
 			if (!isThis && nodes[i]->HasVisibility(PRIVATE)) throw Error::UNABLE_TO_ACCESS_PRIVATE_MEMBER;
+			if (!isThis && (nodes[i]->type == VAR || nodes[i]->type == OBJECT)) {
+				expr->var = (ASTVar*) nodes[i];
+				break;
+			}
 		}
 
-		expr->var = (ASTVar*) nodes[0];
+		if (expr->var == NULL) throw Error::UNDEFINED_VARIABLE;
 		if (expr->var->assignmentType == UNDEFINED) return expr->var->baseType;
 		return expr->var->assignmentType;
 	}
@@ -475,7 +477,9 @@ namespace internal{
 		Trace("Validating", "While");
 		ValidateBoolean((ASTBinaryExpr*) expr->condition);
 		expr->scope = Parse(expr->scope);
+		expr->scope->InsertBefore(expr->condition);
 		ScanScope(expr->scope);
+		expr->scope->Remove(expr->condition);
 		return UNDEFINED;
 	}
 

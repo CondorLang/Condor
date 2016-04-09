@@ -353,14 +353,16 @@ namespace internal{
 		ASTExpr* expr = ParseExpr();
 		if (IsAssignment()) {
 			ASTVar* var = ASTVar::New(isolate);
-			var->assignmentType = tok->value;
+			var->op = tok->value;
 			Next();
 			var->value = ParseExpr();
 			if (var->value == NULL) var->value = ASTUndefined::New(isolate);
 			Next();
 			if (Is(1, SEMICOLON)) Next();
-			var->name = expr->name;
+			ASTLiteral* lit = (ASTLiteral*) expr;
+			var->name = lit->value;
 			var->member = expr;
+			var->previouslyDeclared = true;
 			return var;
 		}
 		if (Is(1, SEMICOLON)) Next();
@@ -403,7 +405,7 @@ namespace internal{
 			var->isArray = isArray;
 			Next();
 			Trace("Parsing Var", var->name.c_str());
-			var->assignmentType = tok->value;
+			var->op = tok->value;
 			if (!IsAssignment() && !Is(1, SEMICOLON)) throw Error::INVALID_OPERATOR;
 			Next();
 			var->value = ParseExpr();

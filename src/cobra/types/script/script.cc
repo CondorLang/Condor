@@ -20,6 +20,7 @@ namespace internal{
 		parser = NULL;
 		parsingTime = PARSING_TIME;
 		compileTime = COMPILE_TIME;
+		executionTime = EXECUTION_TIME;
 		sourceCode = "";
 		internal = str->IsInternal();
 		sourceCode += str->GetValue();
@@ -137,8 +138,19 @@ namespace internal{
 			}
 		}
 		executor = Execute::New(isolate, parser->GetBaseScope());
+		Clock* clock = NULL;
+
 		try {
+			if (executionTime) {
+				clock = new Clock;
+				clock->Start();
+			}
 			executor->Evaluate();
+			if (executionTime) {
+				clock->Stop();
+				if (!parser->IsInternal())
+					printf("Execution:  %f sec | %s\n", clock->GetDuration(), absolutePath.c_str());
+			}
 		}
 		catch (Error::ERROR e){
 			std::string msg = Error::String(e, NULL);
