@@ -138,6 +138,7 @@ namespace internal{
 		n->isPost = true;
 		n->var = NULL;
 		n->isCast = false;
+		n->calc = -100011;
 		return n;
 	}
 

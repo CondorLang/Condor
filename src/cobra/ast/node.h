@@ -119,6 +119,7 @@ namespace internal{
 		ASTVar* var;
 		TOKEN litType;
 		TOKEN unary;
+		double calc;
 		bool isCast;
 		int isPost;
 		size_t Size(){return sizeof(ASTLiteral);}

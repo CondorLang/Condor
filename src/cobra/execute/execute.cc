@@ -86,16 +86,43 @@ namespace internal{
 			return (ASTLiteral*) EvaluateFuncCall((ASTFuncCall*) binary->right);
 		}
 		FillPostix(binary);
-		return Calculate();
-		return NULL;
+		ASTLiteral* lit = Calculate();
+		FormatLit(lit);
+		stack.clear();
+		opStack.clear();
+		return lit;
+	}
+
+	void Execute::FormatLit(ASTLiteral* lit){
+		int type = (int) lit->litType;
+		switch (type){
+			case BOOLEAN: lit->value = (lit->calc == 0 ? "false" : "true"); break;
+			case DOUBLE: lit->value = std::to_string(lit->calc); break;
+			case FLOAT: lit->value = std::to_string((float) lit->calc); break;
+			case INT: lit->value = std::to_string((int) lit->calc); break;
+		}
+		if (lit->calc - (int)lit->calc > 0.0) lit->value = std::to_string(lit->calc);
+		TruncZeros(lit);
+	}
+
+	void Execute::TruncZeros(ASTLiteral* lit){
+		std::string::size_type loc = lit->value.find(".", 0);
+		if (loc == std::string::npos) return;
+		for (int i = lit->value.size() - 1; i >= loc; i--){
+			if (lit->value[i] == '0') lit->value.erase(i);
+			else break;
+		}
 	}
 
 	// TODO: Implement paranthesis off of binary->isInParen
+	// TODO: Set row and col for tracking
+	// TODO: String, Char, and other data types need to be implemented
 	void Execute::FillPostix(ASTBinaryExpr* binary){
 		ASTLiteral* left = EvaluateValue(binary->left);
 		ASTToken* tok = ASTToken::New(isolate, binary->op);
 
 		if (left != NULL) stack.push_back(left);
+		if (binary->isInParen) opStack.push_back(ASTToken::New(isolate, LPAREN));
 		if (opStack.size() == 0) opStack.push_back(tok);
 		else if (tok->value->value == LPAREN) opStack.push_back(tok);
 		else if (tok->value->value == RPAREN){
@@ -123,11 +150,73 @@ namespace internal{
 		}
 		if (binary->right != NULL && binary->right->type == BINARY) FillPostix((ASTBinaryExpr*) binary->right);
 		else stack.push_back(EvaluateValue(binary->right));
+		if (binary->isInParen) {
+			for (int i = opStack.size() - 1; i >= 0; i--){
+				ASTToken* t = (ASTToken*) opStack[i];
+				if (t->value->value == LPAREN) break;
+				else{
+					stack.push_back(t);
+					opStack.pop_back();
+				}
+			}
+			opStack.pop_back();
+		}
 	}
 
-	// TODO: Crawl through the stack and calculate the result
 	ASTLiteral* Execute::Calculate(){
+		for (int i = opStack.size() - 1; i >= 0; i--){
+			stack.push_back(opStack[i]);
+			opStack.pop_back();
+		}
 
+		// opStack is now the stack
+		for (int i = 0; i < stack.size(); i++){
+			ASTNode* n = stack[i];
+			if (n->type == TOK){
+				ASTToken* tok = (ASTToken*) n;
+				ASTLiteral* n = Calc(tok);
+				if (n != NULL) opStack.push_back(n);
+			}
+			else if (n->type == LITERAL){
+				ASTLiteral* lit = (ASTLiteral*) n;
+				lit = EvaluateValue(n);
+				lit->calc = std::stod(lit->value);
+				opStack.push_back(lit);
+			}
+			else{
+				printf("d: %s\n", "Unknown");
+			}
+		}
+		if (opStack.size() == 0) throw Error::INVALID_OPERATOR;
+		return (ASTLiteral*) opStack[0];
+	}
+
+	ASTLiteral* Execute::Calc(ASTToken* tok){
+		SetRowCol(tok);
+		int type = (int) tok->value->value;
+		if (opStack.size() < 2) throw Error::INVALID_OPERATOR;
+		ASTLiteral* first = (ASTLiteral*) opStack[opStack.size() - 1];
+		opStack.pop_back();
+		ASTLiteral* second = (ASTLiteral*) opStack[opStack.size() - 1];
+		opStack.pop_back();
+		ASTLiteral* result = ASTLiteral::New(isolate);
+		result->litType = Binary::Compare(first->litType, second->litType, tok->value->value);
+		switch (type){
+			case ADD:	result->calc = second->calc + first->calc; break;
+			case DIV:	result->calc = second->calc / first->calc; break;
+			case MUL:	result->calc = second->calc * first->calc; break;
+			case SUB:	result->calc = second->calc - first->calc; break;
+			case MOD:	result->calc = (int) second->calc % (int) first->calc; break;
+			case LOR:	result->calc = second->calc == 0 || first->calc == 0; break;
+			case LAND:	result->calc = second->calc != 0 && first->calc != 0; break;
+			case EQL:	result->calc = second->calc == first->calc; break;
+			case LSS:	result->calc = second->calc < first->calc; break;
+			case GTR: result->calc = second->calc > first->calc; break;
+			case LEQ: result->calc = second->calc <= first->calc; break;
+			case GEQ: result->calc = second->calc >= first->calc; break;
+			case NEQ: result->calc = second->calc != first->calc; break;
+		}
+		return result;
 	}
 
 	ASTLiteral* Execute::EvaluateValue(ASTNode* node){
@@ -138,6 +227,20 @@ namespace internal{
 			case LITERAL: {
 				ASTLiteral* lit = (ASTLiteral*) node;
 				ASTLiteral* value = EvaluateValue(lit->var);
+
+				if (value != NULL && lit->unary != UNDEFINED){
+					if (lit->unary == INC){
+						value->calc++;
+						value->value = std::to_string(value->calc);
+						FormatLit(value);
+					}
+					else if (lit->unary == DEC){
+						value->calc--;
+						value->value = std::to_string(value->calc);
+						FormatLit(value);
+					}
+				}
+
 				if (value != NULL) return value;
 				return (ASTLiteral*) lit;
 			}
@@ -166,14 +269,19 @@ namespace internal{
 	void Execute::EvaluateFor(ASTForExpr* expr){
 		SetRowCol(expr);
 		Trace("Evaluating", "For");
-		ASTLiteral* init = EvaluateVar((ASTVar*) expr->var);
-		int value = init->To<int>();
+		ASTVar* var = (ASTVar*) expr->var;
+		ASTLiteral* init = EvaluateVar(var);
+		var->local = init;
+		OpenScope(expr->scope);
 		// condition will be hard coded for now
 		while (true){
-			if (value >= 10) break; // condition
-			OpenScope(expr->scope);
+			ASTLiteral* condition = EvaluateValue(expr->condition);
+			if (condition->value == "false") break; // condition
+			condition->Free(isolate); // release condition memory
+			
 			Evaluate();
-			value++; // increment
+			OpenScope(expr->scope);
+			var->local = EvaluateValue(expr->tick);	
 		}
 	}
 

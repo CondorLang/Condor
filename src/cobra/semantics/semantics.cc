@@ -183,8 +183,12 @@ namespace internal{
 		indent++;
 		ValidateBoolean((ASTBinaryExpr*) expr->condition);
 		expr->scope = Parse(expr->scope);
+		expr->scope->InsertBefore(expr->tick);
+		expr->scope->InsertBefore(expr->condition);
 		expr->scope->InsertBefore(expr->var);
 		ScanScope(expr->scope);
+		expr->scope->Remove(expr->tick);
+		expr->scope->Remove(expr->condition);
 		indent--;
 	}
 

@@ -37,6 +37,9 @@ namespace internal{
 		void EvaluateFor(ASTForExpr* expr);
 		void FillPostix(ASTBinaryExpr* binary);
 		ASTLiteral* Calculate();
+		ASTLiteral* Calc(ASTToken* tok);
+		void FormatLit(ASTLiteral* lit);
+		void TruncZeros(ASTLiteral* lit);
 
 	public:
 		static Execute* New(Isolate* isolate, Scope* scope);

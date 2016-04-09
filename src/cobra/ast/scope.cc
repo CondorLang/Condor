@@ -94,5 +94,14 @@ namespace internal{
 			}
 		}
 	}
+
+	void Scope::Remove(ASTNode* node){
+		for (int i = 0; i < nodes.size(); i++){
+			if (nodes[i] == node){
+				nodes.erase(nodes.begin() + i);
+				break;
+			}
+		}
+	}
 } // namespace internal
 } // namespace Cobra	
