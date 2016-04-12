@@ -150,6 +150,8 @@ src/cobra/types/console/console.o: src/cobra/types/console/console.cc \
   src/cobra/semantics/semantics.h src/cobra/semantics/binary.h \
   src/cobra/execute/execute.h src/cobra/types/array/array.h \
   src/cobra/types/array/array-bytes.h \
+  src/cobra/types/try_catch/exception.h \
+  src/cobra/types/try_catch/exception-bytes.h \
   src/cobra/types/console/console-bytes.h
 
 src/cobra/types/console/console.h:
@@ -603,5 +605,9 @@ src/cobra/execute/execute.h:
 src/cobra/types/array/array.h:
 
 src/cobra/types/array/array-bytes.h:
+
+src/cobra/types/try_catch/exception.h:
+
+src/cobra/types/try_catch/exception-bytes.h:
 
 src/cobra/types/console/console-bytes.h:

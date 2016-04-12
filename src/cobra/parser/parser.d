@@ -149,7 +149,9 @@ src/cobra/parser/parser.o: src/cobra/parser/parser.cc \
   src/cobra/semantics/binary.h src/cobra/execute/execute.h \
   src/cobra/types/array/array.h src/cobra/types/array/array-bytes.h \
   src/cobra/types/console/console.h \
-  src/cobra/types/console/console-bytes.h
+  src/cobra/types/console/console-bytes.h \
+  src/cobra/types/try_catch/exception.h \
+  src/cobra/types/try_catch/exception-bytes.h
 
 src/cobra/parser/parser.h:
 
@@ -604,3 +606,7 @@ src/cobra/types/array/array-bytes.h:
 src/cobra/types/console/console.h:
 
 src/cobra/types/console/console-bytes.h:
+
+src/cobra/types/try_catch/exception.h:
+
+src/cobra/types/try_catch/exception-bytes.h:

@@ -113,6 +113,10 @@ namespace internal{
 		SHR, // >>
 		AND_NOT, // &^
 
+		BEGIN_ASSIGNMENT,
+
+		ASSIGN, // =
+
 		ADD_ASSIGN, // +=
 		SUB_ASSIGN, // -=
 		MUL_ASSIGN, // *=
@@ -125,6 +129,8 @@ namespace internal{
 		SHL_ASSIGN, // <<=
 		SHR_ASSIGN, // >>=
 		AND_NOT_ASSIGN, // &^=
+
+		END_ASSIGNMENT,
 
 		BOOLEAN_COMPARISON_START,
 
@@ -144,7 +150,6 @@ namespace internal{
 		RARROW, // ->
 		INC, // ++
 		DEC, // --
-		ASSIGN, // =
 		ELLIPSIS, // ...
 
 		LPAREN, // (
@@ -227,6 +232,7 @@ namespace internal{
 		bool IsBinaryComparison(){return value > BOOLEAN_COMPARISON_START && value < BOOLEAN_COMPARISON_END;}
 		bool IsNumber(){return value > BEGIN_NUMBER && value < END_NUMBER;}
 		bool IsString(){return value > BEGIN_STRING && value < END_STRING;}
+		bool IsAssign(){return value > BEGIN_ASSIGNMENT && value < END_ASSIGNMENT;}
 		static Token* GetToken(Isolate* iso, std::string str);
 		static std::string ToString(TOKEN token);
 	};

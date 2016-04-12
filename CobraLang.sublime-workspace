@@ -4,16 +4,68 @@
 		"selected_items":
 		[
 			[
+				"Valid",
+				"Validating"
+			],
+			[
+				"lit",
+				"LITERAL"
+			],
+			[
+				"pri",
+				"printf	printf …"
+			],
+			[
+				"execu",
+				"execution-time"
+			],
+			[
+				"exe",
+				"executionTime"
+			],
+			[
+				"Validat",
+				"ValidateIf"
+			],
+			[
+				"else",
+				"elseIfs"
+			],
+			[
+				"Ev",
+				"Evaluate"
+			],
+			[
+				"Evlua",
+				"Evaluating"
+			],
+			[
+				"EV",
+				"EvaluateWhile"
+			],
+			[
+				"Cas",
+				"SetCast"
+			],
+			[
+				"Eva",
+				"EvaluateValue"
+			],
+			[
+				"isIn",
+				"isInParen"
+			],
+			[
+				"For",
+				"FormatLit"
+			],
+			[
 				"Un",
 				"Unknown"
 			],
 			[
 				"Evalu",
 				"EvaluateValue"
-			],
-			[
-				"Eva",
-				"EvaluateBinary"
 			],
 			[
 				"Liter",
@@ -36,10 +88,6 @@
 				"subModule"
 			],
 			[
-				"pri",
-				"print"
-			],
-			[
 				"UND",
 				"UNDEFINED"
 			],
@@ -60,10 +108,6 @@
 				"Evaluating"
 			],
 			[
-				"Valid",
-				"ValidateExpr"
-			],
-			[
 				"Evl",
 				"EvaluateValue"
 			],
@@ -78,14 +122,6 @@
 			[
 				"OBJ",
 				"OBJECT_INSTANCE"
-			],
-			[
-				"Ev",
-				"EvaluateFuncCall"
-			],
-			[
-				"lit",
-				"litType"
 			],
 			[
 				"isAr",
@@ -110,10 +146,6 @@
 			[
 				"ASTFUNC",
 				"ASTFuncCall"
-			],
-			[
-				"isIn",
-				"isInternalFunc"
 			],
 			[
 				"int",
@@ -482,38 +514,6 @@
 			[
 				"getDi",
 				"getDiscussionTopics"
-			],
-			[
-				"isCo",
-				"isContentItem"
-			],
-			[
-				"getM",
-				"getModulesAndTopicsRecursive"
-			],
-			[
-				"loop",
-				"loopThroughTopics"
-			],
-			[
-				"rep",
-				"replaceText"
-			],
-			[
-				"term",
-				"termGlobal"
-			],
-			[
-				"getSe",
-				"getSelectionText"
-			],
-			[
-				"creat",
-				"creationDate"
-			],
-			[
-				"isol",
-				"isolateId"
 			]
 		]
 	},
@@ -523,7 +523,7 @@
 			"file": "test/test.cb",
 			"settings":
 			{
-				"buffer_size": 282,
+				"buffer_size": 155,
 				"line_ending": "Unix"
 			}
 		},
@@ -531,15 +531,15 @@
 			"file": "src/cobra/execute/execute.cc",
 			"settings":
 			{
-				"buffer_size": 7246,
+				"buffer_size": 11640,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "configure",
+			"file": "src/cobra/parser/parser.cc",
 			"settings":
 			{
-				"buffer_size": 3399,
+				"buffer_size": 17899,
 				"line_ending": "Unix"
 			}
 		},
@@ -547,7 +547,7 @@
 			"file": "src/cobra/execute/execute.h",
 			"settings":
 			{
-				"buffer_size": 1292,
+				"buffer_size": 1599,
 				"line_ending": "Unix"
 			}
 		}
@@ -886,49 +886,49 @@
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/error",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/execute",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/token",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/script",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/strings",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/try_catch",
 		"/Users/willdech/Documents/dev/CobraLang/test"
 	],
 	"file_history":
 	[
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/semantics.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/token/token.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/token/token.cc",
-		"/Users/willdech/Documents/dev/CobraLang/test/test.cb",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/binary.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/parser.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/node.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/node.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/token/token.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/parser.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/scope.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/flags.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/script/script.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/flags.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/script/script.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/scope.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/execute/execute.h",
+		"/Users/willdech/Documents/dev/CobraLang/test/test.cb",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/scanner/scanner.cc",
 		"/Users/willdech/Documents/dev/CobraLang/test/test.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/execute/shuntingyard.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/execute/shuntingyard.cc",
 		"/Users/willdech/Documents/dev/CobraLang/test/s.cc",
 		"/Users/willdech/Documents/dev/CobraLang/test/s.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/execute/execute.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/semantics.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/console/console.cb",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/internal.cc",
 		"/Users/willdech/Documents/dev/CobraLang/test/main.cc",
 		"/Users/willdech/Documents/dev/CobraLang/readme.md",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/internal.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/execute/execute.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/script/script.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/scope.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/context.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/context.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/try_catch/exception.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/try_catch/exception.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/script/script.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/strings/string.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/console/console.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/array/array.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/array/array.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/console/console.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/strings/string.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/scope.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/semantics.h",
 		"/Users/willdech/Documents/dev/CobraLang/.gitignore",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/scanner/scanner.h",
@@ -938,8 +938,6 @@
 		"/Users/willdech/Documents/dev/CobraLang/src/api.cc",
 		"/Users/willdech/Documents/dev/CobraLang/test/shell.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/parser.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/flags.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/flags.h",
 		"/Users/willdech/Documents/dev/CobraLang/configure",
 		"/Users/willdech/Documents/dev/CobraLang/include/Cobra.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/strings/string.cb",
@@ -1021,8 +1019,7 @@
 		"/Users/willdech/Documents/dev/Systems/moe/projects/HTML-Query/src/ctrl.js",
 		"/Users/willdech/Documents/dev/Systems/moe/.gitmodules",
 		"/Users/willdech/Documents/dev/Systems/moe/projects/HTML-Query/src/unzip.js",
-		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/css/src/list/list.css",
-		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/css/src/typeography/header.css"
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/css/src/list/list.css"
 	],
 	"find":
 	{
@@ -1097,6 +1094,31 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"parseidentstar",
+			"ValidateBinary",
+			"binary",
+			", ",
+			"validatebinary",
+			"parseidentstar",
+			"astvar",
+			"evaluatevar",
+			"astvar::",
+			"astvar",
+			"validatevar",
+			"identstart",
+			"elseIfs",
+			"astif",
+			"validateif",
+			"validatecast",
+			"astliter",
+			"type cast",
+			"lit",
+			"v",
+			"inc)",
+			"inc",
+			" {",
+			"return result;",
+			"or,",
 			"ASTLiteral::New",
 			"astliteral",
 			"astlite",
@@ -1199,32 +1221,7 @@
 			"BINARY_H_",
 			"validatefunccal",
 			"unexpected_char",
-			"d:",
-			"token*",
-			"binary",
-			"internal",
-			"INTERNAL",
-			"astfuncca",
-			"Array",
-			"ARRAY_H_",
-			"expect(IDENT",
-			"expect(IDENT	",
-			"expect(IDENT",
-			"importor",
-			"astliter",
-			"();\n",
-			"while (true",
-			"while (is",
-			"while (true",
-			"expect",
-			"expr",
-			"Parser::",
-			"parser::",
-			"astwhile",
-			"undefined_func",
-			"addtoinprog",
-			"context",
-			"Isolate"
+			"d:"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1305,15 +1302,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 282,
+						"buffer_size": 155,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								234,
-								234
+								85,
+								85
 							]
 						],
 						"settings":
@@ -1333,15 +1330,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7246,
+						"buffer_size": 11640,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4019,
-								4019
+								8102,
+								8102
 							]
 						],
 						"settings":
@@ -1350,40 +1347,39 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1483.0,
+						"translation.y": 3218.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "configure",
-					"semi_transient": true,
+					"file": "src/cobra/parser/parser.cc",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3399,
+						"buffer_size": 17899,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								7977,
+								7977
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 4766.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -1392,15 +1388,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1292,
+						"buffer_size": 1599,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								18,
-								18
+								1321,
+								1292
 							]
 						],
 						"settings":
@@ -1409,7 +1405,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 224.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,

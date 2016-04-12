@@ -109,6 +109,9 @@ namespace Error {
 			case RESERVED_KEYWORD: return "Reserved keyword";
 			case INVALID_SCRIPT: return "Invalid script";
 			case UNKNWON_ESCAPE_SEQUENCE: return "Unknown escape sequence";
+			case INVALID_CAST: return "Invalid cast";
+			case INTERNAL_BREAK: return "Internal break";
+			case INVALID_USE_OF_BREAK: return "Invalid use of break";
 			case SCANNER: {
 				if (tok != NULL){
 					return tok->raw;

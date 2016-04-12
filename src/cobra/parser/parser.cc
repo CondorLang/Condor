@@ -289,6 +289,10 @@ namespace internal{
 					node = ParseReturn();
 					break;
 				}
+				case BREAK: {
+					node = ParseBreak();
+					break;
+				}
 				default: {
 					TOKEN t = tok->value;
 					node = ParseExpr();
@@ -301,6 +305,16 @@ namespace internal{
 				scope->Insert(node);
 			}
 		}
+	}
+
+	ASTNode* Parser::ParseBreak(){
+		Trace("Parsing", "Break");
+		Expect(BREAK);
+		ASTBreak* b = ASTBreak::New(isolate);
+		Next();
+		Expect(SEMICOLON);
+		Next();
+		return b;
 	}
 
 	/** 
@@ -352,18 +366,15 @@ namespace internal{
 		Trace("Parsing", "Ident Start");
 		ASTExpr* expr = ParseExpr();
 		if (IsAssignment()) {
-			ASTVar* var = ASTVar::New(isolate);
-			var->op = tok->value;
+			ASTBinaryExpr* binary = ASTBinaryExpr::New(isolate);
+			SetRowCol(binary);
+			binary->left = expr;
+			binary->cast = NULL;
+			binary->op = tok->value;
 			Next();
-			var->value = ParseExpr();
-			if (var->value == NULL) var->value = ASTUndefined::New(isolate);
-			Next();
+			binary->right = ParseExpr();
 			if (Is(1, SEMICOLON)) Next();
-			ASTLiteral* lit = (ASTLiteral*) expr;
-			var->name = lit->value;
-			var->member = expr;
-			var->previouslyDeclared = true;
-			return var;
+			return binary;
 		}
 		if (Is(1, SEMICOLON)) Next();
 		return expr;
@@ -652,6 +663,8 @@ namespace internal{
 				lit->litType = TRUE_LITERAL;
 				stmt->condition = lit;
 				stmt->scope = LazyParseBody();
+				stmt->isElse = true;
+				return stmt;
 			}
 		}
 		if (Is(1, IF)){
@@ -713,7 +726,7 @@ namespace internal{
 		if (Is(1, CASE)){
 			Trace("Parsing", "Case");
 			Next();
-			expr->condition = ParseVarType();
+			expr->condition = (ASTLiteral*) ParseVarType();
 		}
 		else if (Is(1, DEFAULT)){
 			Trace("Parsing", "Default");

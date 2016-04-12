@@ -18,6 +18,7 @@
 #include "cobra/types/strings/string.h"	
 #include "cobra/types/array/array.h"
 #include "cobra/types/console/console.h"
+#include "cobra/types/try_catch/exception.h"
 
 namespace Cobra {
 namespace internal{
@@ -25,6 +26,7 @@ namespace internal{
 	class String;
 	class Parser;
 	class Semantics;
+	class Execute;
 
 	class Script
 	{

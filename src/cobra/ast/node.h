@@ -101,6 +101,13 @@ namespace internal{
 		size_t Size(){return sizeof(ASTExpr);}
 	};
 
+	class ASTBreak : public ASTExpr
+	{
+	public:
+		static ASTBreak* New(Isolate* iso);
+		size_t Size(){return sizeof(ASTBreak);}		
+	};
+
 	class ASTBinaryExpr : public ASTExpr
 	{
 	public:
@@ -123,6 +130,7 @@ namespace internal{
 		TOKEN unary;
 		double calc;
 		bool isCast;
+		bool isCalc;
 		int isPost;
 		size_t Size(){return sizeof(ASTLiteral);}
 
@@ -190,6 +198,7 @@ namespace internal{
 		static ASTIf* New(Isolate* iso);
 		ASTExpr* condition;
 		Scope* scope;
+		bool isElse;
 		std::vector<ASTIf*> elseIfs;	
 		size_t Size(){return sizeof(ASTIf);}	
 	};
@@ -206,7 +215,7 @@ namespace internal{
 	{
 	public:
 		static ASTCase* New(Isolate* iso);
-		ASTNode* condition;
+		ASTLiteral* condition;
 		Scope* scope;
 		bool isDefault;
 		size_t Size(){return sizeof(ASTCase);}

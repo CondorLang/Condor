@@ -151,7 +151,9 @@ src/cobra/semantics/semantics.o: src/cobra/semantics/semantics.cc \
   src/cobra/execute/execute.h src/cobra/semantics/binary.h \
   src/cobra/types/array/array.h src/cobra/types/array/array-bytes.h \
   src/cobra/types/console/console.h \
-  src/cobra/types/console/console-bytes.h
+  src/cobra/types/console/console-bytes.h \
+  src/cobra/types/try_catch/exception.h \
+  src/cobra/types/try_catch/exception-bytes.h
 
 src/cobra/semantics/semantics.h:
 
@@ -606,3 +608,7 @@ src/cobra/types/array/array-bytes.h:
 src/cobra/types/console/console.h:
 
 src/cobra/types/console/console-bytes.h:
+
+src/cobra/types/try_catch/exception.h:
+
+src/cobra/types/try_catch/exception-bytes.h:

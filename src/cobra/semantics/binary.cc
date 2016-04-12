@@ -348,6 +348,7 @@ namespace internal{
 			}
 			default: {
 				if (op > BOOLEAN_COMPARISON_START && op < BOOLEAN_COMPARISON_END) return BOOLEAN;
+				else if (op > BEGIN_ASSIGNMENT && op < END_ASSIGNMENT) return right;
 			}
 		}
 		throw Error::INVALID_ASSIGNMENT_TO_TYPE;

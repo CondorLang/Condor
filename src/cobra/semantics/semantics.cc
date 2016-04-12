@@ -109,6 +109,7 @@ namespace internal{
 				case FOR: ValidateFor((ASTForExpr*) node); break;
 				case WHILE: ValidateWhile((ASTWhileExpr*) node); break;
 				case IF: ValidateIf((ASTIf*) node); break;
+				case SWITCH: ValidateSwitch((ASTSwitch*) node); break;
 				case FUNC: /**ValidateFunc((ASTFunc*) node);**/ break; // Part of JIT compiling
 				case OBJECT: /**ValidateObject((ASTObject*) node);**/ break; // Part of JIT compiling
 				default: ValidateExpr((ASTExpr*) node); break;
@@ -116,6 +117,22 @@ namespace internal{
 		}
 		indent--;
 		CloseScope();
+	}
+
+	void Semantics::ValidateCase(ASTCase* expr){
+		Trace("Validating", "Case");
+		SetRowCol(expr);
+		if (expr->condition->type != LITERAL) throw Error::INVALID_CASE_STMT;
+		ValidateExpr((ASTExpr*) expr->condition);
+	}
+
+	void Semantics::ValidateSwitch(ASTSwitch* expr){
+		Trace("Validating", "Switch");
+		SetRowCol(expr);
+		ValidateExpr((ASTExpr*) expr->value);
+		for (int i = 0; i < expr->cases.size(); i++){
+			ValidateCase(expr->cases[i]);
+		}
 	}
 
 	void Semantics::ValidateVar(ASTVar* var){
@@ -165,6 +182,7 @@ namespace internal{
 			case LITERAL: return ValidateLiteral((ASTLiteral*) expr);
 			case FUNC_CALL: return ValidateFuncCall((ASTFuncCall*) expr);
 			case ARRAY: return ValidateArray((ASTArray*) expr);
+			case BREAK: return UNDEFINED;
 			default: {
 				throw Error::NOT_IMPLEMENTED;
 			}
@@ -206,8 +224,10 @@ namespace internal{
 		if (expr == NULL) return;
 		SetRowCol(expr);
 		Trace("Validating", "If");
-		ValidateExpr(expr->condition);
-		ValidateBoolean((ASTBinaryExpr*) expr->condition);
+		if (!expr->isElse){
+			ValidateExpr(expr->condition);
+			ValidateBoolean((ASTBinaryExpr*) expr->condition);
+		}
 		indent++;
 		expr->scope = Parse(expr->scope);
 		ScanScope(expr->scope);
@@ -491,6 +511,12 @@ namespace internal{
 		for (int i = 0; i < call->params.size(); i++) ValidateExpr(call->params[i]);
 		Trace("  Type: ", "Internal");
 		return t;
+	}
+
+	Scope* Semantics::ParseAndScan(Scope* scope){
+		Scope* s = Parse(scope);
+		ScanScope(s);
+		return s;
 	}
 } // namespace internal
 }

@@ -60,6 +60,8 @@ namespace internal{
 		TOKEN ValidateWhile(ASTWhileExpr* expr);
 		Scope* Parse(Scope* scope);
 		TOKEN ValidateInternal(ASTFuncCall* call);
+		void ValidateSwitch(ASTSwitch* expr);
+		void ValidateCase(ASTCase* expr);
 
 	public:
 		Semantics(Isolate* iso);
@@ -69,6 +71,7 @@ namespace internal{
 		int col;
 		void Evaluate(Scope* scope);
 		std::string* GetSource();
+		Scope* ParseAndScan(Scope* scope);
 		
 	};
 

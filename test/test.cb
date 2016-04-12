@@ -1,13 +1,17 @@
 import "console"
 
-//var a = Console.get(">> ");
+int a = 0;
+while (true){
+	if (a == 10){
+		break;
+	}
+	a++;
+	println(a);
+}
 
-var a = 10;
-a = 1 + 1;
-println(a);
-
-// var i = 10;
-// while (i < 30){
-// 	println(i);
-// 	i++;
+// int c = 10;
+// switch (c){
+// 	case 10: {
+// 		println("here");
+// 	}
 // }

@@ -15,6 +15,8 @@ namespace internal{
 		trace = TRACE_EVALUATION;
 		row = -1;
 		col = -1;
+		canBreak = false;
+		semantic = NULL;
 	}
 
 	void Execute::Trace(std::string first, std::string msg2){
@@ -44,12 +46,17 @@ namespace internal{
 			int type = (int) node->type;
 			switch (type){
 				case FUNC_CALL: node->local = EvaluateFuncCall((ASTFuncCall*) node); break;
-				case BINARY: node->local = EvaluateBinary((ASTBinaryExpr*) node); break;
+				case BINARY: EvaluateBinary((ASTBinaryExpr*) node); break;
 				case VAR: node->local = EvaluateVar((ASTVar*) node); break;
 				case FOR: EvaluateFor((ASTForExpr*) node); break;
 				case WHILE: EvaluateWhile((ASTWhileExpr*) node); break;
 				case IF: EvaluateIf((ASTIf*) node); break;
 				case LITERAL: node->local = EvaluateValue(node); break;
+				case SWITCH: EvaluateSwitch((ASTSwitch*) node); break;
+				case BREAK: {
+					if (canBreak) throw Error::INTERNAL_BREAK;
+					throw Error::INVALID_USE_OF_BREAK;
+				}
 			}
 		}
 		CloseScope();
@@ -88,12 +95,20 @@ namespace internal{
 		if (binary->op == PERIOD && binary->right->type == FUNC_CALL && ((ASTFuncCall*) binary->right)->func->HasVisibility(STATIC)){
 			return (ASTLiteral*) EvaluateFuncCall((ASTFuncCall*) binary->right);
 		}
-		FillPostix(binary);
-		ASTLiteral* lit = Calculate();
-		FormatLit(lit);
-		stack.clear();
-		opStack.clear();
-		return lit;
+		ASTToken* tok = ASTToken::New(isolate, binary->op);
+		if (tok->value->IsAssign()){
+			tok->Free(isolate);
+			Assign(binary);
+			return NULL;
+		}
+		else{
+			FillPostix(binary);
+			ASTLiteral* lit = Calculate();
+			FormatLit(lit);
+			stack.clear();
+			opStack.clear();
+			return lit;
+		}
 	}
 
 	void Execute::SetCast(ASTExpr* expr, ASTLiteral* value){
@@ -107,6 +122,7 @@ namespace internal{
 
 	void Execute::FormatLit(ASTLiteral* lit, bool forceType){
 		if (lit == NULL) return;
+		SetCalc(lit);
 		int type = (int) lit->litType;
 		switch (type){
 			case BOOLEAN: lit->value = (lit->calc == 0 ? "false" : "true"); break;
@@ -181,6 +197,20 @@ namespace internal{
 			opStack.pop_back();
 		}
 
+		// print debug
+
+		// for (int i = 0; i < stack.size(); i++){
+		// 	ASTNode* n = stack[i];
+		// 	if (n->type == TOK){
+		// 		ASTToken* tok = (ASTToken*) n;
+		// 		printf("d: %s\n", Token::ToString(tok->value->value).c_str());
+		// 	}
+		// 	else if (n->type == LITERAL){
+		// 		ASTLiteral* lit = (ASTLiteral*) n;
+		// 		printf("d: %s\n", lit->value.c_str());
+		// 	}
+		// }
+
 		// opStack is now the stack
 		for (int i = 0; i < stack.size(); i++){
 			ASTNode* n = stack[i];
@@ -190,13 +220,9 @@ namespace internal{
 				if (n != NULL) opStack.push_back(n);
 			}
 			else if (n->type == LITERAL){
-				ASTLiteral* lit = (ASTLiteral*) n;
-				lit = EvaluateValue(n);
-				lit->calc = std::stod(lit->value);
+				ASTLiteral* lit = EvaluateValue(n);
+				SetCalc(lit);
 				opStack.push_back(lit);
-			}
-			else{
-				printf("d: %s\n", "Unknown");
 			}
 		}
 		if (opStack.size() == 0) throw Error::INVALID_OPERATOR;
@@ -209,6 +235,7 @@ namespace internal{
 		if (opStack.size() < 2) throw Error::INVALID_OPERATOR;
 		ASTLiteral* first = (ASTLiteral*) opStack[opStack.size() - 1];
 		opStack.pop_back();
+		if (tok->value->IsAssign()) return first;
 		ASTLiteral* second = (ASTLiteral*) opStack[opStack.size() - 1];
 		opStack.pop_back();
 		ASTLiteral* result = ASTLiteral::New(isolate);
@@ -227,8 +254,78 @@ namespace internal{
 			case LEQ: result->calc = second->calc <= first->calc; break;
 			case GEQ: result->calc = second->calc >= first->calc; break;
 			case NEQ: result->calc = second->calc != first->calc; break;
+			default: {
+				printf("debug: %s\n", Token::ToString(tok->value->value).c_str());
+			}
 		}
 		return result;
+	}
+
+	// TODO: Implement all other assign types
+	// TODO: Implement bitwise
+	void Execute::Assign(ASTBinaryExpr* binary){
+		SetRowCol(binary);	
+		int type = (int) binary->op;
+		switch (type){
+			case ASSIGN: {
+				ASTVar* var = GetVar(binary->left);
+				ASTLiteral* lit = EvaluateValue(binary->right);
+				if (var == NULL) {
+					SetRowCol(binary->left);
+					throw Error::INVALID_ASSIGNMENT_TO_TYPE;
+				}
+				if (var->local != NULL) var->local->Free(isolate);
+				var->local = lit;
+				break;
+			}
+			case ADD_ASSIGN: case SUB_ASSIGN: 
+			case DIV_ASSIGN: case MUL_ASSIGN: {
+				ASTVar* var = GetVar(binary->left);
+				ASTLiteral* l = (ASTLiteral*) binary->right;
+				ASTLiteral* lit = EvaluateValue(binary->right);
+				if (var == NULL || var->local == NULL) {
+					SetRowCol(binary->left);
+					throw Error::INVALID_ASSIGNMENT_TO_TYPE;
+				}
+				ASTLiteral* local = (ASTLiteral*) var->local;
+				switch (type){
+					case SUB_ASSIGN: local->calc -= lit->calc; break;
+					case ADD_ASSIGN: local->calc += lit->calc; break;
+					case MUL_ASSIGN: local->calc *= lit->calc; break;
+					case DIV_ASSIGN: local->calc /= lit->calc; break;
+				}
+				FormatLit(local);
+				break;
+			}
+		}
+	}
+
+	ASTVar* Execute::GetVar(ASTNode* node){
+		SetRowCol(node);
+		if (node == NULL) return NULL;
+		int type = (int) node->type;
+		switch (type){
+			case LITERAL: {
+				ASTLiteral* lit = (ASTLiteral*) node;
+				if (lit->var != NULL) return lit->var;
+			}
+		}
+		return NULL;
+	}
+
+	void Execute::SetCalc(ASTLiteral* lit){
+		if (!lit->isCalc && lit->value.length() != 0 && (lit->litType == INT || lit->litType == DOUBLE || 
+											 lit->litType == FLOAT /** || lit->litType == BOOLEAN**/)) {
+			try{
+				if (lit->value == "true" || lit->value == "false") lit->value = lit->value == "true" ? "1" : "0";
+				lit->calc = std::stod(lit->value);
+				lit->isCalc = true;
+			}
+			catch (std::exception e){
+				SetRowCol(lit);
+				throw Error::INVALID_CAST;
+			}
+		}
 	}
 
 	ASTLiteral* Execute::EvaluateValue(ASTNode* node){
@@ -255,7 +352,9 @@ namespace internal{
 				}
 
 				if (value != NULL) return value;
-				return (ASTLiteral*) lit;
+				ASTLiteral* l = (ASTLiteral*) lit;
+				SetCalc(l);
+				return l;
 			}
 			case VAR: {
 				ASTVar* var = (ASTVar*) node;
@@ -289,12 +388,19 @@ namespace internal{
 		ASTLiteral* init = EvaluateVar(var);
 		var->local = init;
 		OpenScope(expr->scope);
-		// condition will be hard coded for now
 		while (true){
 			ASTLiteral* condition = EvaluateValue(expr->condition);
-			if (condition->value == "false") break; // condition
-			condition->Free(isolate); // release condition memory
-			Evaluate();
+			if (condition->value != "true") break; // condition
+			if (condition != expr->condition) condition->Free(isolate); // release condition memory
+			canBreak = true;
+			try {
+				Evaluate();
+			}
+			catch (Error::ERROR e){
+				if (e == Error::INTERNAL_BREAK) break;
+				throw e;
+			}
+			canBreak = false;
 			OpenScope(expr->scope);
 			var->local = EvaluateValue(expr->tick);	
 		}
@@ -307,31 +413,61 @@ namespace internal{
 		OpenScope(expr->scope);
 		while (true){
 			ASTLiteral* condition = EvaluateValue(expr->condition);
-			if (condition->value == "false") break; // condition
-			condition->Free(isolate); // release condition memory
-			Evaluate();
+			if (condition->value != "true") break; // condition
+			if (condition != expr->condition) condition->Free(isolate); // release condition memory
+			canBreak = true;
+			try {
+				Evaluate();
+			}
+			catch (Error::ERROR e){
+				if (e == Error::INTERNAL_BREAK) break;
+				throw e;
+			}
+			canBreak = false;
 			OpenScope(expr->scope);
 		}
 		CloseScope();
 	}
 
 	bool Execute::EvaluateIf(ASTIf* expr){
+		if (expr == NULL) return false;
 		SetRowCol(expr);
 		Trace("Evaluating","If");
 		ASTLiteral* condition = EvaluateValue(expr->condition);
-		if (condition->value == "true"){
-			condition->Free(isolate); // release condition memory
+		if (condition == NULL || condition->value == "true"){
+			if (condition != expr->condition) condition->Free(isolate); // release condition memory
 			OpenScope(expr->scope);
 			Evaluate();
 			return true;
 		}
 		else{
-			condition->Free(isolate); // release condition memory
+			if (condition != expr->condition) condition->Free(isolate); // release condition memory
 			for (int i = 0; i < expr->elseIfs.size(); i++){
 				if (EvaluateIf(expr->elseIfs[i])) break;
 			}
 		}
 		return false;
+	}
+
+	void Execute::EvaluateSwitch(ASTSwitch* expr){
+		SetRowCol(expr);
+		Trace("Evaluating", "Switch");
+		ASTLiteral* value = EvaluateValue(expr->value);
+		for (int i = 0; i < expr->cases.size(); i++){
+			ASTLiteral* condition = EvaluateValue(expr->cases[i]->condition);
+			ASTCase* stmt = expr->cases[i];
+			if (condition->value == value->value || stmt->isDefault){
+				if (condition != stmt->condition) condition->Free(isolate);
+				if (!stmt->scope->IsParsed()) {
+					stmt->scope->outer = GetCurrentScope();
+					stmt->scope = semantic->ParseAndScan(stmt->scope);
+				}
+				OpenScope(stmt->scope);
+				Evaluate();
+				return;
+			}
+			if (condition != stmt->condition) condition->Free(isolate);
+		}
 	}
 
 } // namespace internal

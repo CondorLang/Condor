@@ -173,12 +173,19 @@ namespace internal{
 		int t = (int) value;
 		switch (t){
 			case LPAREN: case RPAREN: return 0;
-			case LOR: return 1;
-			case LAND: return 2;
-			case EQL: case NEQ: case LSS: case LEQ: case GTR: case GEQ: return 3;
-			case ADD: case SUB: case OR: case XOR: return 4;
-			case MUL: case DIV: case MOD: case SHL: case SHR: case AND: case AND_NOT: return 5;
-			case POW: return 6;
+			case ASSIGN: case ADD_ASSIGN: 
+				case SUB_ASSIGN: case MUL_ASSIGN: 
+				case DIV_ASSIGN: case MOD_ASSIGN: 
+				case AND_ASSIGN: case OR_ASSIGN: 
+				case XOR_ASSIGN: case SHL_ASSIGN: 
+				case SHR_ASSIGN: case AND_NOT_ASSIGN: 
+					return 1;
+			case LOR: return 2;
+			case LAND: return 3;
+			case EQL: case NEQ: case LSS: case LEQ: case GTR: case GEQ: return 4;
+			case ADD: case SUB: case OR: case XOR: return 5;
+			case MUL: case DIV: case MOD: case SHL: case SHR: case AND: case AND_NOT: return 6;
+			case POW: return 7;
 			default: return -1;
 		}
 	}

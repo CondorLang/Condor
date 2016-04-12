@@ -138,6 +138,7 @@ namespace internal{
 			}
 		}
 		executor = Execute::New(isolate, parser->GetBaseScope());
+		executor->semantic = semantics;
 		Clock* clock = NULL;
 
 		try {
@@ -208,6 +209,7 @@ namespace internal{
 			if (name == "array") Array::CB(isolate, sub);
 			else if (name == "string") String::CB(isolate, sub);
 			else if (name == "console") Console::CB(isolate, sub);
+			else if (name == "exception") Exception::CB(isolate, sub);
 			else {
 				parser->Row = import->row;
 				parser->Col = import->col;

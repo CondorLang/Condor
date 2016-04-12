@@ -116,6 +116,14 @@ namespace internal{
 		return n;
 	}
 
+	ASTBreak* ASTBreak::New(Isolate* iso){
+		void* pt = iso->GetMemory(sizeof(ASTBreak));
+		ASTBreak* n = new(pt) ASTBreak();
+		ASTNode::SetDefaults(n, iso);
+		n->type = BREAK;
+		return n;
+	}
+
 	ASTBinaryExpr* ASTBinaryExpr::New(Isolate* iso){
 		void* pt = iso->GetMemory(sizeof(ASTBinaryExpr));
 		ASTBinaryExpr* n = new(pt) ASTBinaryExpr();
@@ -140,7 +148,8 @@ namespace internal{
 		n->isPost = true;
 		n->var = NULL;
 		n->isCast = false;
-		n->calc = -100011;
+		n->calc = '\0';
+		n->isCalc = false;
 		return n;
 	}
 
@@ -203,6 +212,7 @@ namespace internal{
 		n->type = IF;
 		n->condition = NULL;
 		n->scope = NULL;
+		n->isElse = false;
 		return n;
 	}
 

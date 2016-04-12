@@ -73,6 +73,7 @@ namespace internal{
 		void CloseScope();
 		ASTNode* ParseInternal();
 		ASTNode* ParseReturn();
+		ASTNode* ParseBreak();
 
 	public:
 		Parser(Isolate* iso);
