@@ -116,7 +116,8 @@ namespace Cobra {
 			UNKNWON_ESCAPE_SEQUENCE,
 			INVALID_CAST,
 			INTERNAL_BREAK,
-			INVALID_USE_OF_BREAK
+			INVALID_USE_OF_BREAK,
+			INVALID_DEFAULT_STMT
 		};
 
 		std::string String(ERROR e, Token* tok);

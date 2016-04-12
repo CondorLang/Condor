@@ -227,6 +227,10 @@ namespace internal{
 			}
 			int type = tok->Int();
 			switch (type){
+				case LBRACE: { // for straggling braces
+					Next();
+					break;
+				}
 				case FUNC: {
 					node = ParseFunc(); 
 					break;
@@ -731,6 +735,7 @@ namespace internal{
 		else if (Is(1, DEFAULT)){
 			Trace("Parsing", "Default");
 			Next();
+			expr->isDefault = true;
 		}
 		else {
 			isolate->FreeMemory(expr, sizeof(ASTCase));

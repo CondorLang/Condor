@@ -392,15 +392,17 @@ namespace internal{
 			ASTLiteral* condition = EvaluateValue(expr->condition);
 			if (condition->value != "true") break; // condition
 			if (condition != expr->condition) condition->Free(isolate); // release condition memory
+			bool cb = canBreak;
 			canBreak = true;
 			try {
 				Evaluate();
 			}
 			catch (Error::ERROR e){
+				canBreak = cb;
 				if (e == Error::INTERNAL_BREAK) break;
 				throw e;
 			}
-			canBreak = false;
+			canBreak = cb;
 			OpenScope(expr->scope);
 			var->local = EvaluateValue(expr->tick);	
 		}
@@ -415,15 +417,17 @@ namespace internal{
 			ASTLiteral* condition = EvaluateValue(expr->condition);
 			if (condition->value != "true") break; // condition
 			if (condition != expr->condition) condition->Free(isolate); // release condition memory
+			bool cb = canBreak;
 			canBreak = true;
 			try {
 				Evaluate();
 			}
 			catch (Error::ERROR e){
+				canBreak = cb;
 				if (e == Error::INTERNAL_BREAK) break;
 				throw e;
 			}
-			canBreak = false;
+			canBreak = cb;
 			OpenScope(expr->scope);
 		}
 		CloseScope();
@@ -449,6 +453,7 @@ namespace internal{
 		return false;
 	}
 
+	// TODO: Attach the correct parent scope to the scope
 	void Execute::EvaluateSwitch(ASTSwitch* expr){
 		SetRowCol(expr);
 		Trace("Evaluating", "Switch");
@@ -456,14 +461,26 @@ namespace internal{
 		for (int i = 0; i < expr->cases.size(); i++){
 			ASTLiteral* condition = EvaluateValue(expr->cases[i]->condition);
 			ASTCase* stmt = expr->cases[i];
-			if (condition->value == value->value || stmt->isDefault){
+			SetRowCol(stmt);
+			if (condition == NULL && !stmt->isDefault) throw Error::INVALID_CASE_STMT;
+			if (stmt->isDefault || condition->value == value->value){
 				if (condition != stmt->condition) condition->Free(isolate);
 				if (!stmt->scope->IsParsed()) {
 					stmt->scope->outer = GetCurrentScope();
 					stmt->scope = semantic->ParseAndScan(stmt->scope);
 				}
 				OpenScope(stmt->scope);
-				Evaluate();
+				bool cb = canBreak;
+				canBreak = true;
+				try {
+					Evaluate();
+				}
+				catch (Error::ERROR e){
+					canBreak = cb;
+					if (e == Error::INTERNAL_BREAK) return;
+					throw e;
+				}
+				canBreak = cb;
 				return;
 			}
 			if (condition != stmt->condition) condition->Free(isolate);

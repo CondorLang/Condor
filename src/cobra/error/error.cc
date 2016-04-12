@@ -112,6 +112,7 @@ namespace Error {
 			case INVALID_CAST: return "Invalid cast";
 			case INTERNAL_BREAK: return "Internal break";
 			case INVALID_USE_OF_BREAK: return "Invalid use of break";
+			case INVALID_DEFAULT_STMT: return "Invalid default statement";
 			case SCANNER: {
 				if (tok != NULL){
 					return tok->raw;

@@ -122,7 +122,8 @@ namespace internal{
 	void Semantics::ValidateCase(ASTCase* expr){
 		Trace("Validating", "Case");
 		SetRowCol(expr);
-		if (expr->condition->type != LITERAL) throw Error::INVALID_CASE_STMT;
+		if (expr->isDefault && expr->condition != NULL) throw Error::INVALID_DEFAULT_STMT;
+		else if (expr->condition != NULL && expr->condition->type != LITERAL) throw Error::INVALID_CASE_STMT;
 		ValidateExpr((ASTExpr*) expr->condition);
 	}
 

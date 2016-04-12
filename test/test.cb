@@ -1,17 +1,20 @@
 import "console"
 
-int a = 0;
-while (true){
-	if (a == 10){
-		break;
-	}
-	a++;
-	println(a);
-}
+var a = 100;
 
-// int c = 10;
-// switch (c){
-// 	case 10: {
-// 		println("here");
+// while(true){
+// 	bool isBreak = false;
+// 	switch (a){
+// 		case 100: {
+// 			isBreak = true;
+// 			break;
+// 		}
+// 		default: {
+// 			break;
+// 		}
+// 	}
+// 	a--;
+// 	if (isBreak){
+// 		break;
 // 	}
 // }
