@@ -34,6 +34,7 @@ namespace internal{
 	}
 
 	void Execute::OpenScope(Scope* sc){
+		if (sc->outer == NULL && scopes.size() > 0) sc->outer = scopes[scopes.size() - 1];
 		scopes.insert(scopes.begin(), sc);
 	}
 

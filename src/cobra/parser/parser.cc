@@ -76,6 +76,7 @@ namespace internal{
 		result->name = sc->name;
 		result->owner = sc->owner;
 		result->raw = sc->raw;
+		result->outer = sc->outer;
 		iso->FreeMemory(p, sizeof(Parser));
 		iso->FreeMemory(sc, sizeof(Scope));
 		result->SetParsed();

@@ -98,7 +98,7 @@ namespace internal{
 	void Semantics::ScanScope(Scope* scope){
 		Trace("Scanning Scope", (std::to_string(scope->Size()) + " items").c_str());
 		indent++;
-		scope->outer = GetCurrentScope();
+		if (scope->outer == NULL) scope->outer = GetCurrentScope();
 		OpenScope(scope);
 		for (int i = 0; i < scope->Size(); i++){
 			ASTNode* node = scope->Get(i);
@@ -280,7 +280,7 @@ namespace internal{
 		}	
 		std::vector<ASTNode*> nodes = s->Lookup(expr->name, isThis ? false : true);
 		if (nodes.size() == 1 && nodes[0] == expr) throw Error::UNDEFINED_VARIABLE;
-		if (nodes.size() == 0) {
+		if (nodes.size() == 0 && scopes.size() > 1) {
 			SwapScopes(); // used in object chains
 			s = GetCurrentScope();
 			nodes = s->Lookup(expr->name, isThis ? false : true);
@@ -295,7 +295,11 @@ namespace internal{
 			}
 		}
 
-		if (expr->var == NULL) throw Error::UNDEFINED_VARIABLE;
+		if (expr->var == NULL) {
+			int a = 10; // here
+			printf("ddd: %d\n", s->outer == NULL);
+			throw Error::UNDEFINED_VARIABLE;
+		}
 		if (expr->var->assignmentType == UNDEFINED) return expr->var->baseType;
 		return expr->var->assignmentType;
 	}
@@ -515,7 +519,9 @@ namespace internal{
 	}
 
 	Scope* Semantics::ParseAndScan(Scope* scope){
+		Scope* outer = scope->outer;
 		Scope* s = Parse(scope);
+		s->outer = outer;
 		ScanScope(s);
 		return s;
 	}
