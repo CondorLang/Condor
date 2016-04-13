@@ -241,22 +241,42 @@ namespace internal{
 		opStack.pop_back();
 		ASTLiteral* result = ASTLiteral::New(isolate);
 		result->litType = Binary::Compare(first->litType, second->litType, tok->value->value);
-		switch (type){
-			case ADD:	result->calc = second->calc + first->calc; break;
-			case DIV:	result->calc = second->calc / first->calc; break;
-			case MUL:	result->calc = second->calc * first->calc; break;
-			case SUB:	result->calc = second->calc - first->calc; break;
-			case MOD:	result->calc = (int) second->calc % (int) first->calc; break;
-			case LOR:	result->calc = second->calc == 0 || first->calc == 0; break;
-			case LAND:	result->calc = second->calc != 0 && first->calc != 0; break;
-			case EQL:	result->calc = second->calc == first->calc; break;
-			case LSS:	result->calc = second->calc < first->calc; break;
-			case GTR: result->calc = second->calc > first->calc; break;
-			case LEQ: result->calc = second->calc <= first->calc; break;
-			case GEQ: result->calc = second->calc >= first->calc; break;
-			case NEQ: result->calc = second->calc != first->calc; break;
-			default: {
-				printf("debug: %s\n", Token::ToString(tok->value->value).c_str());
+		int litType = (int) result->litType;
+		switch (litType){
+			case INT: case DOUBLE: 
+			case FLOAT: case BOOLEAN: {
+				switch (type){
+					case ADD:	result->calc = second->calc + first->calc; break;
+					case DIV:	result->calc = second->calc / first->calc; break;
+					case MUL:	result->calc = second->calc * first->calc; break;
+					case SUB:	result->calc = second->calc - first->calc; break;
+					case MOD:	result->calc = (int) second->calc % (int) first->calc; break;
+					case LOR:	result->calc = second->calc == 0 || first->calc == 0; break;
+					case LAND:	result->calc = second->calc != 0 && first->calc != 0; break;
+					case EQL:	result->calc = second->calc == first->calc; break;
+					case LSS:	result->calc = second->calc < first->calc; break;
+					case GTR: result->calc = second->calc > first->calc; break;
+					case LEQ: result->calc = second->calc <= first->calc; break;
+					case GEQ: result->calc = second->calc >= first->calc; break;
+					case NEQ: result->calc = second->calc != first->calc; break;
+					default: {
+						printf("debug int: %s\n", Token::ToString(tok->value->value).c_str());
+					}
+				}
+				break;
+			}
+			case STRING: case CHAR: {
+				switch (type){
+					case ADD:	result->value = second->value + first->value; break;
+					case LOR:	result->value = second->value.length() > 0 || first->value.length() > 0; break;
+					case LAND:	result->value = second->value.length() != 0 && first->value.length() != 0; break;
+					case EQL:	result->value = second->value == first->value; break;
+					case NEQ: result->value = second->value != first->value; break;
+					default: {
+						printf("debug string: %s\n", Token::ToString(tok->value->value).c_str());
+					}
+				}
+				break;
 			}
 		}
 		return result;
@@ -322,7 +342,7 @@ namespace internal{
 				lit->calc = std::stod(lit->value);
 				lit->isCalc = true;
 			}
-			catch (std::exception e){
+			catch (...){
 				SetRowCol(lit);
 				throw Error::INVALID_CAST;
 			}
@@ -334,6 +354,9 @@ namespace internal{
 		if (node == NULL) return NULL;
 		int type = (int) node->type;
 		switch (type){
+			case UNDEFINED: {
+				return (ASTLiteral*) node;
+			}
 			case LITERAL: {
 				ASTLiteral* lit = (ASTLiteral*) node;
 				ASTLiteral* value = EvaluateValue(lit->var);

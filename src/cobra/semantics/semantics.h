@@ -7,6 +7,7 @@
 #include "cobra/parser/parser.h"
 #include "binary.h"
 #include "internal.h"
+#include "cobra/assert.h"
 
 namespace Cobra {
 namespace internal{

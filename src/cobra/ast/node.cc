@@ -260,6 +260,7 @@ namespace internal{
 		ASTUndefined* n = new(pt) ASTUndefined();
 		ASTNode::SetDefaults(n, iso);
 		n->type = UNDEFINED;
+		n->value = "undefined";
 		return n;
 	}
 

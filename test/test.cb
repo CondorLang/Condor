@@ -1,19 +1,5 @@
 import "console"
 
-var a = 130;
-
-while(true){
-	bool isBreak = false;
-	switch (a){
-		case 100: {
-			isBreak = true;
-			break;
-		}
-	}
-	a--;
-	if (isBreak){
-		break;
-	}
-}
-
-println("test");
+var a = 10;
+char b = 'i';
+println("Th" + b + "s is a test " + a + " and here");

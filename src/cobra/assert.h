@@ -13,6 +13,11 @@ namespace internal{
 			FETAL("Fetal:", #condition); \
 		}		
 
+	#define BENCHMARK(node, name) \
+		if (node != NULL){\
+			printf("Function: %s, NodeId: %d\n", name, node->id);\
+		}
+
 } // namespace internal
 } // namespace Cobra
 

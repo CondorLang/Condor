@@ -239,7 +239,7 @@ namespace internal{
 		size_t Size(){return sizeof(ASTObject);}
 	};
 
-	class ASTUndefined : public ASTNode
+	class ASTUndefined : public ASTLiteral
 	{
 	public:
 		static ASTUndefined* New(Isolate* iso);
