@@ -96,19 +96,25 @@ namespace internal{
 		if (binary->op == PERIOD && binary->right->type == FUNC_CALL && ((ASTFuncCall*) binary->right)->func->HasVisibility(STATIC)){
 			return (ASTLiteral*) EvaluateFuncCall((ASTFuncCall*) binary->right);
 		}
-		ASTToken* tok = ASTToken::New(isolate, binary->op);
-		if (tok->value->IsAssign()){
-			tok->Free(isolate);
-			Assign(binary);
-			return NULL;
+		else if (binary->op == PERIOD){
+			ASTVar* var = GetVar(binary);
+			return EvaluateValue(var);
 		}
 		else{
-			FillPostix(binary);
-			ASTLiteral* lit = Calculate();
-			FormatLit(lit);
-			stack.clear();
-			opStack.clear();
-			return lit;
+			ASTToken* tok = ASTToken::New(isolate, binary->op);
+			if (tok->value->IsAssign()){
+				tok->Free(isolate);
+				Assign(binary);
+				return NULL;
+			}
+			else{
+				FillPostix(binary);
+				ASTLiteral* lit = Calculate();
+				FormatLit(lit);
+				stack.clear();
+				opStack.clear();
+				return lit;
+			}
 		}
 	}
 
@@ -330,6 +336,15 @@ namespace internal{
 				ASTLiteral* lit = (ASTLiteral*) node;
 				if (lit->var != NULL) return lit->var;
 			}
+			case BINARY: {
+				ASTBinaryExpr* binary = (ASTBinaryExpr*) node;
+				ASTVar* base = GetVar(binary->left);
+				ASTVar* prop = GetVar(binary->right);
+				ASTObjectInstance* inst = (ASTObjectInstance*) base->value;
+				SetRowCol(binary->left);
+				if (inst == NULL) throw Error::INVALID_OBJECT;
+				return inst->GetProp(isolate, prop->name);
+			}
 		}
 		return NULL;
 	}
@@ -390,6 +405,9 @@ namespace internal{
 			}
 			case BINARY: {
 				return EvaluateBinary((ASTBinaryExpr*) node);
+			}
+			case OBJECT_INSTANCE: {
+
 			}
 		}
 		return NULL;

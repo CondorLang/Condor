@@ -117,7 +117,8 @@ namespace Cobra {
 			INVALID_CAST,
 			INTERNAL_BREAK,
 			INVALID_USE_OF_BREAK,
-			INVALID_DEFAULT_STMT
+			INVALID_DEFAULT_STMT,
+			INVALID_OBJECT
 		};
 
 		std::string String(ERROR e, Token* tok);

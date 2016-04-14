@@ -423,8 +423,10 @@ namespace internal{
 			Trace("Parsing Var", var->name.c_str());
 			var->op = tok->value;
 			if (!IsAssignment() && !Is(1, SEMICOLON)) throw Error::INVALID_OPERATOR;
-			Next();
-			var->value = ParseExpr();
+			if (!Is(1, SEMICOLON)){
+				Next();
+				var->value = ParseExpr();
+			}
 			if (var->value == NULL) var->value = ASTUndefined::New(isolate);
 			var->isObject = var->value->type == FUNC_CALL && ((ASTFuncCall*)var->value)->isInit; 
 			vars.push_back(var);

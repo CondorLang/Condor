@@ -81,6 +81,7 @@ namespace internal{
 		int order;
 		static ASTVar* New(Isolate* iso);		
 		size_t Size(){return sizeof(ASTVar);}
+		ASTVar* Clone(Isolate* isolate);
 	};
 
 	class ASTFunc : public ASTNode
@@ -254,11 +255,16 @@ namespace internal{
 		size_t Size(){return sizeof(ASTArray);}
 	};
 
-	class ASTObjectInstance : public ASTNode
+	// Eventually we should do a linked list for properties
+	class ASTObjectInstance : public ASTLiteral
 	{
 	public:
 		static ASTObjectInstance* New(Isolate* iso);
-		std::vector<ASTExpr*> members;
+		std::map<std::string, ASTVar*> properties;
+		bool HasProp(std::string name){return properties.find(name) != properties.end();}
+		ASTVar* CreateProp(Isolate* isolate, std::string name);
+		ASTVar* GetProp(Isolate* isolate, std::string name);
+		void SetProp(Isolate* isolate, std::string name, ASTExpr* value);
 		ASTFuncCall* constructor;
 		ASTObject* base;
 		size_t Size(){return sizeof(ASTObjectInstance);}		

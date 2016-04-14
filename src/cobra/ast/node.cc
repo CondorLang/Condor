@@ -107,6 +107,23 @@ namespace internal{
 		return n;
 	}
 
+	ASTVar* ASTVar::Clone(Isolate* isolate){
+		ASTVar* var = ASTVar::New(isolate);
+		var->baseName = baseName;
+		var->baseType = baseType;
+		var->value = value;
+		var->assignmentType = assignmentType;
+		var->isArray = isArray;
+		var->isObject = isObject;
+		var->member = member;
+		var->isArg = isArg;
+		var->order = order;
+		var->previouslyDeclared = previouslyDeclared;
+		var->op = op;
+		var->name = name;
+		return var;
+	}
+
 	ASTExpr* ASTExpr::New(Isolate* iso){
 		void* pt = iso->GetMemory(sizeof(ASTExpr));
 		ASTExpr* n = new(pt) ASTExpr();
@@ -280,6 +297,35 @@ namespace internal{
 		n->constructor = NULL;
 		n->base = NULL;
 		return n;
+	}
+
+	ASTVar* ASTObjectInstance::CreateProp(Isolate* isolate, std::string name){
+		if (HasProp(name)){
+			properties[name]->Free(isolate);
+			properties[name] = NULL; // implement merge instead of destroy
+		}
+		ASTVar* baseVar = NULL;
+		std::vector<ASTNode*> vars = base->scope->Lookup(name, false);
+		for (int i = 0; i < vars.size(); i++){
+			if (vars[i]->type == VAR){
+				baseVar = (ASTVar*) vars[i];
+				break;
+			}
+		}
+		if (baseVar == NULL) return NULL;
+		ASTVar* clone = baseVar->Clone(isolate);
+		properties[name] = clone;
+		return clone;
+	}
+
+	ASTVar* ASTObjectInstance::GetProp(Isolate* isolate, std::string name){
+		if (HasProp(name)) return properties[name];
+		return CreateProp(isolate, name);
+	}
+
+	void ASTObjectInstance::SetProp(Isolate* isolate, std::string name, ASTExpr* value){
+		ASTVar* var = GetProp(isolate, name);
+		var->value = value;
 	}
 
 } // namespace internal

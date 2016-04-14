@@ -1,5 +1,28 @@
 import "console"
 
-var a = 10;
-char b = 'i';
-println("Th" + b + "s is a test " + a + " and here");
+object Fruit{
+	string name;
+	int size;
+	string color;
+
+	func Fruit(){
+
+	}
+}
+
+var f = new Fruit();
+f.name = "Apple";
+f.size = 10;
+f.color = "red";
+
+var g = new Fruit();
+g.name = f.name;
+g.size = f.size;
+g.color = f.color;
+
+println(g.name);
+
+g.name = "Banana";
+
+println(g.name);
+println(f.name);

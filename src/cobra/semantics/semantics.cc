@@ -254,6 +254,7 @@ namespace internal{
 
 		if (working){
 			SwapScopes();
+			kThis = NULL;
 		}
 
 		try{
@@ -274,11 +275,15 @@ namespace internal{
 			if (s->outer == NULL) throw Error::INVALID_USAGE_OF_THIS;
 			kThis = (ASTObject*) s->outer->owner;
 			OpenScope(s->outer);
+			if (kThis == NULL) kThis = (ASTObject*) s->owner;
 			if (kThis == NULL) throw Error::INVALID_USAGE_OF_THIS;
 			isThis = true;
 			return UNDEFINED;
 		}	
-		std::vector<ASTNode*> nodes = s->Lookup(expr->name, isThis ? false : true);
+		if (expr->name == "name"){
+			int a = 10;
+		}
+		std::vector<ASTNode*> nodes = s->Lookup(expr->name, !isThis);
 		if (nodes.size() == 1 && nodes[0] == expr) throw Error::UNDEFINED_VARIABLE;
 		if (nodes.size() == 0 && scopes.size() > 1) {
 			SwapScopes(); // used in object chains
@@ -289,15 +294,13 @@ namespace internal{
 		}
 		for (int i = 0; i < nodes.size(); i++){
 			if (!isThis && nodes[i]->HasVisibility(PRIVATE)) throw Error::UNABLE_TO_ACCESS_PRIVATE_MEMBER;
-			if (!isThis && (nodes[i]->type == VAR || nodes[i]->type == OBJECT)) {
+			if ((nodes[i]->type == VAR || nodes[i]->type == OBJECT)) {
 				expr->var = (ASTVar*) nodes[i];
 				break;
 			}
 		}
 
 		if (expr->var == NULL) {
-			int a = 10; // here
-			printf("ddd: %d\n", s->outer == NULL);
 			throw Error::UNDEFINED_VARIABLE;
 		}
 		if (expr->var->assignmentType == UNDEFINED) return expr->var->baseType;
