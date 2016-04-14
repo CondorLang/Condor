@@ -249,7 +249,7 @@ namespace internal{
 				case CHAR: case STRING: 
 				case TRUE_LITERAL: 
 				case FALSE_LITERAL: 
-				case kNULL: case VAR: {
+				case kNULL: case VAR: { // here
 					std::vector<ASTVar*> list = ParseVarList();
 					for (int i = 0; i < list.size(); i++){
 						list[i]->isExport = isExport;
@@ -367,9 +367,10 @@ namespace internal{
 		return scope;
 	}
 
+	// TODO: Account for variable declarations
 	ASTNode* Parser::ParseIdentStart(){
 		Trace("Parsing", "Ident Start");
-		ASTExpr* expr = ParseExpr();
+		ASTExpr* expr = ParseExpr(false);
 		if (IsAssignment()) {
 			ASTBinaryExpr* binary = ASTBinaryExpr::New(isolate);
 			SetRowCol(binary);
@@ -380,6 +381,18 @@ namespace internal{
 			binary->right = ParseExpr();
 			if (Is(1, SEMICOLON)) Next();
 			return binary;
+		}
+		if (Is(1, IDENT)){ 
+			Trace("Parsing Var", tok->raw.c_str());
+			ASTVar* var = ASTVar::New(isolate);
+			ASTLiteral* lit = (ASTLiteral*) expr;
+			var->baseName = lit->value;
+			lit->Free(isolate);
+			var->baseType = OBJECT;
+			var->name = tok->raw;
+			Next();
+			var->value = ParseExpr();
+			return var;
 		}
 		if (Is(1, SEMICOLON)) Next();
 		return expr;
@@ -436,10 +449,10 @@ namespace internal{
 		return vars;
 	}
 
-	ASTExpr* Parser::ParseExpr(){
+	ASTExpr* Parser::ParseExpr(bool semi){
 		Trace("Parsing", "Expression");
 		ASTExpr* expr = ParseBinaryExpr();
-		if (Is(1, SEMICOLON)) Next(); // loose semicolon
+		if (semi && Is(1, SEMICOLON)) Next(); // loose semicolon
 		return expr;
 	}
 

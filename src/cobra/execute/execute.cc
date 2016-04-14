@@ -288,7 +288,7 @@ namespace internal{
 		return result;
 	}
 
-	// TODO: Implement all other assign types
+	// TODO: Implement setting object variables
 	// TODO: Implement bitwise
 	void Execute::Assign(ASTBinaryExpr* binary){
 		SetRowCol(binary);	

@@ -4,6 +4,7 @@ object Fruit{
 	string name;
 	int size;
 	string color;
+	Fruit class;
 
 	func Fruit(){
 
@@ -22,7 +23,11 @@ g.color = f.color;
 
 println(g.name);
 
-g.name = "Banana";
+var name = "Banana";
+g.name = name;
+
+f.size = 20;
 
 println(g.name);
 println(f.name);
+println(f.size);

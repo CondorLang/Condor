@@ -54,7 +54,7 @@ namespace internal{
 		Scope* LazyParseBody();
 		ASTNode* ParseIdentStart();
 		std::vector<ASTVar*> ParseVarList();
-		ASTExpr* ParseExpr();
+		ASTExpr* ParseExpr(bool semi = true);
 		ASTExpr* ParseBinaryExpr();
 		ASTExpr* ParseVarType();
 		ASTExpr* ParseFuncCall(ASTExpr* expr);
