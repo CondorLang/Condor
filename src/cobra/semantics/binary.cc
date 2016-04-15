@@ -6,6 +6,10 @@ namespace internal{
 	TOKEN Binary::Compare(TOKEN leftT, TOKEN right, TOKEN op){
 		int left = (int) leftT;
 		switch (left){
+			case LITERAL: {
+				if (op == PERIOD && right == OBJECT) return LITERAL;
+				throw Error::INVALID_OPERATOR;
+			}
 			case INT: case BOOLEAN: case VAR: {
 				if (op == ADD){
 					if (right == INT) return INT;

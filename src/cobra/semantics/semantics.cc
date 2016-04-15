@@ -428,6 +428,7 @@ namespace internal{
 		ASTObjectInstance* instance = ASTObjectInstance::New(isolate);
 		instance->constructor = (ASTFuncCall*) var->value;
 		instance->base = base;
+		instance->litType = OBJECT;
 		var->value = instance;
 	}
 

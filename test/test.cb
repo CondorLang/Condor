@@ -11,23 +11,24 @@ object Fruit{
 	}
 }
 
-var f = new Fruit();
-f.name = "Apple";
-f.size = 10;
-f.color = "red";
+var apple = new Fruit();
+apple.name = "Apple";
+apple.size = 20;
+apple.color = "Red";
 
-var g = new Fruit();
-g.name = f.name;
-g.size = f.size;
-g.color = f.color;
+var banana = new Fruit();
+banana.name = "Banana";
+banana.size = 30;
+banana.color = "Yellow";
 
-println(g.name);
+var fugi = new Fruit();
+fugi.name = "Fugi Apple";
+fugi.size = 20;
+fugi.color = "Red - Yellow";
 
-var name = "Banana";
-g.name = name;
+println("Name: " + apple.name + ", Color: " + apple.color);
 
-f.size = 20;
-
-println(g.name);
-println(f.name);
-println(f.size);
+// println(apple.name + ", Color: ");
+// println(apple.name + ", Color: " + apple.color);
+// println(banana.name + ", Color: " + banana.color);
+// println(fugi.name + ", Color: " + fugi.color);

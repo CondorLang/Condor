@@ -27,6 +27,7 @@ namespace internal{
 		Isolate* isolate;
 		bool trace;
 		bool canBreak;
+		bool postixPeriod;
 
 		void Trace(std::string first, std::string msg2);
 		void OpenScope(Scope* sc);

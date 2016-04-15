@@ -186,6 +186,7 @@ namespace internal{
 			case ADD: case SUB: case OR: case XOR: return 5;
 			case MUL: case DIV: case MOD: case SHL: case SHR: case AND: case AND_NOT: return 6;
 			case POW: return 7;
+			case PERIOD: return 8;
 			default: return -1;
 		}
 	}

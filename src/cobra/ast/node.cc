@@ -294,6 +294,7 @@ namespace internal{
 		ASTObjectInstance* n = new(pt) ASTObjectInstance();
 		ASTNode::SetDefaults(n, iso);
 		n->type = OBJECT_INSTANCE;
+		n->litType = OBJECT;
 		n->constructor = NULL;
 		n->base = NULL;
 		return n;

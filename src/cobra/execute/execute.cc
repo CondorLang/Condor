@@ -17,6 +17,7 @@ namespace internal{
 		col = -1;
 		canBreak = false;
 		semantic = NULL;
+		postixPeriod = false;
 	}
 
 	void Execute::Trace(std::string first, std::string msg2){
@@ -96,10 +97,10 @@ namespace internal{
 		if (binary->op == PERIOD && binary->right->type == FUNC_CALL && ((ASTFuncCall*) binary->right)->func->HasVisibility(STATIC)){
 			return (ASTLiteral*) EvaluateFuncCall((ASTFuncCall*) binary->right);
 		}
-		else if (binary->op == PERIOD){
-			ASTVar* var = GetVar(binary);
-			return EvaluateValue(var);
-		}
+		// else if (binary->op == PERIOD){
+		// 	ASTVar* var = GetVar(binary);
+		// 	return EvaluateValue(var);
+		// }
 		else{
 			ASTToken* tok = ASTToken::New(isolate, binary->op);
 			if (tok->value->IsAssign()){
@@ -153,8 +154,15 @@ namespace internal{
 	// TODO: Set row and col for tracking
 	// TODO: String, Char, and other data types need to be implemented
 	void Execute::FillPostix(ASTBinaryExpr* binary){
-		ASTLiteral* left = EvaluateValue(binary->left);
+		ASTLiteral* left = NULL;
+		if (postixPeriod){
+			left = (ASTLiteral*) binary->left;
+		}
+		else{
+			left = EvaluateValue(binary->left);
+		}
 		ASTToken* tok = ASTToken::New(isolate, binary->op);
+		postixPeriod = binary->op == PERIOD;
 
 		if (left != NULL) stack.push_back(left);
 		if (binary->isInParen) opStack.push_back(ASTToken::New(isolate, LPAREN));
@@ -184,7 +192,11 @@ namespace internal{
 			opStack.push_back(tok);
 		}
 		if (binary->right != NULL && binary->right->type == BINARY) FillPostix((ASTBinaryExpr*) binary->right);
-		else stack.push_back(EvaluateValue(binary->right));
+		else {
+			postixPeriod = false;
+			if (binary->op == PERIOD) stack.push_back(binary->right);
+			else stack.push_back(EvaluateValue(binary->right));
+		}
 		if (binary->isInParen) {
 			for (int i = opStack.size() - 1; i >= 0; i--){
 				ASTToken* t = (ASTToken*) opStack[i];
@@ -207,6 +219,7 @@ namespace internal{
 		// print debug
 
 		// for (int i = 0; i < stack.size(); i++){
+		// 	printf("d: Stack Size: %lu\n", stack.size());
 		// 	ASTNode* n = stack[i];
 		// 	if (n->type == TOK){
 		// 		ASTToken* tok = (ASTToken*) n;
@@ -216,20 +229,46 @@ namespace internal{
 		// 		ASTLiteral* lit = (ASTLiteral*) n;
 		// 		printf("d: %s\n", lit->value.c_str());
 		// 	}
+		// 	else if (n->type == OBJECT_INSTANCE){
+		// 		ASTObjectInstance* obj = (ASTObjectInstance*) n;
+		// 		printf("d: %s\n", obj->base->name.c_str());
+		// 	}
+		// 	else{
+		// 		printf("dd: %s\n", Token::ToString(n->type).c_str());
+		// 	}
 		// }
 
 		// opStack is now the stack
+		bool justStack = false;
 		for (int i = 0; i < stack.size(); i++){
 			ASTNode* n = stack[i];
+
 			if (n->type == TOK){
 				ASTToken* tok = (ASTToken*) n;
 				ASTLiteral* n = Calc(tok);
 				if (n != NULL) opStack.push_back(n);
 			}
 			else if (n->type == LITERAL){
-				ASTLiteral* lit = EvaluateValue(n);
-				SetCalc(lit);
+				ASTLiteral* lit = NULL;
+				if (justStack) { // object oriented
+					lit = (ASTLiteral*) n;
+					lit->litType = LITERAL;
+					opStack.push_back(lit);
+					justStack = false;
+				}
+				else{
+					lit = EvaluateValue(n);
+					SetCalc(lit);
+					opStack.push_back(lit);
+				}
+			}
+			else if (n->type == OBJECT_INSTANCE){
+				ASTObjectInstance* lit = (ASTObjectInstance*) n;
 				opStack.push_back(lit);
+				justStack = true;
+			}
+			else{
+				printf("dd: %s\n", Token::ToString(n->type).c_str());
 			}
 		}
 		if (opStack.size() == 0) throw Error::INVALID_OPERATOR;
@@ -249,6 +288,11 @@ namespace internal{
 		result->litType = Binary::Compare(first->litType, second->litType, tok->value->value);
 		int litType = (int) result->litType;
 		switch (litType){
+			case LITERAL: { // object oriented
+				ASTObjectInstance* inst = (ASTObjectInstance*) second;
+				ASTVar* var = inst->GetProp(isolate, first->value);
+				return EvaluateValue(var);
+			}
 			case INT: case DOUBLE: 
 			case FLOAT: case BOOLEAN: {
 				switch (type){
@@ -296,6 +340,9 @@ namespace internal{
 		switch (type){
 			case ASSIGN: {
 				ASTVar* var = GetVar(binary->left);
+				if (var->name == "class"){
+					int a = 10;
+				}
 				ASTLiteral* lit = EvaluateValue(binary->right);
 				if (var == NULL) {
 					SetRowCol(binary->left);
@@ -335,6 +382,7 @@ namespace internal{
 			case LITERAL: {
 				ASTLiteral* lit = (ASTLiteral*) node;
 				if (lit->var != NULL) return lit->var;
+				return NULL;
 			}
 			case BINARY: {
 				ASTBinaryExpr* binary = (ASTBinaryExpr*) node;
@@ -407,7 +455,7 @@ namespace internal{
 				return EvaluateBinary((ASTBinaryExpr*) node);
 			}
 			case OBJECT_INSTANCE: {
-
+				return (ASTLiteral*) node;
 			}
 		}
 		return NULL;
