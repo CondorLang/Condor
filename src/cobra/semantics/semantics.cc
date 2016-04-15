@@ -463,6 +463,7 @@ namespace internal{
 	}
 
 	ASTObject* Semantics::GetObject(ASTNode* node){
+		if (node == NULL) return NULL;
 		SetRowCol(node);
 		if (isThis) {
 			ASTObject* o = kThis;
@@ -478,6 +479,18 @@ namespace internal{
 			case VAR: {
 				ASTVar* var = (ASTVar*) node;
 				if (var->isObject) return GetObject(var->value);
+				ASTObject* obj = GetObject(var->value);
+				if (obj == NULL && var->baseName.length() > 0){ // object chain (apple.class.name)
+					Scope* s = GetCurrentScope();
+					std::vector<ASTNode*> results = s->Lookup(var->baseName);
+					for (int i = 0; i < results.size(); i++){
+						if (results[i]->type == OBJECT){
+							obj = (ASTObject*) results[i];
+							break;
+						}
+					}
+					return obj;
+				}
 			}
 			case OBJECT_INSTANCE: {
 				ASTObjectInstance* instance = (ASTObjectInstance*) node;
@@ -489,6 +502,7 @@ namespace internal{
 				return NULL;
 			}
 		}
+		return NULL;
 	}
 
 	TOKEN Semantics::ValidateCast(ASTExpr* expr){

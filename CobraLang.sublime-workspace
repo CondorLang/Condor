@@ -5,7 +5,7 @@
 		[
 			[
 				"Eval",
-				"Evaluating"
+				"EvaluateValue"
 			],
 			[
 				"Valid",
@@ -523,7 +523,23 @@
 			"file": "test/test.cb",
 			"settings":
 			{
-				"buffer_size": 373,
+				"buffer_size": 639,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/cobra/execute/execute.cc",
+			"settings":
+			{
+				"buffer_size": 17451,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/cobra/semantics/binary.cc",
+			"settings":
+			{
+				"buffer_size": 12931,
 				"line_ending": "Unix"
 			}
 		},
@@ -531,7 +547,7 @@
 			"file": "src/cobra/semantics/semantics.cc",
 			"settings":
 			{
-				"buffer_size": 15101,
+				"buffer_size": 15131,
 				"line_ending": "Unix"
 			}
 		},
@@ -544,26 +560,10 @@
 			}
 		},
 		{
-			"file": "src/cobra/ast/node.h",
-			"settings":
-			{
-				"buffer_size": 5661,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/cobra/execute/execute.cc",
-			"settings":
-			{
-				"buffer_size": 16164,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "src/cobra/execute/execute.h",
 			"settings":
 			{
-				"buffer_size": 1753,
+				"buffer_size": 1774,
 				"line_ending": "Unix"
 			}
 		}
@@ -909,17 +909,17 @@
 	],
 	"file_history":
 	[
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/node.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/token/token.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/parser.h",
 		"/Users/willdech/Documents/dev/CobraLang/test/test.cb",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/error/error.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/error/error.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/node.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/node.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/parser.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/execute/execute.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/semantics.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/token/token.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/token/token.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/binary.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/scope.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/flags.cc",
@@ -1111,6 +1111,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"astobjectins",
+			"funccall",
+			"prinln",
+			"apple",
 			"astvar : ",
 			"ParseIdentStart",
 			"ParseVarList",
@@ -1234,11 +1238,7 @@
 			"Next();\n									break;",
 			"here",
 			"ValidateInternal",
-			"validatefunccall",
-			"validatefunc",
-			"validatefunccal",
-			"string::new",
-			"func call"
+			"validatefunccall"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1319,15 +1319,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 373,
+						"buffer_size": 639,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								308,
-								308
+								385,
+								385
 							]
 						],
 						"settings":
@@ -1343,19 +1343,19 @@
 				},
 				{
 					"buffer": 1,
-					"file": "src/cobra/semantics/semantics.cc",
+					"file": "src/cobra/execute/execute.cc",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 15101,
+						"buffer_size": 17451,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3618,
-								3618
+								8499,
+								8499
 							]
 						],
 						"settings":
@@ -1364,14 +1364,72 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1902.0,
+						"translation.y": 3683.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/cobra/semantics/binary.cc",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 12931,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								12670,
+								12670
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 4441.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "src/cobra/semantics/semantics.cc",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 15131,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								11895,
+								11895
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 5682.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 4,
 					"file": "src/cobra/parser/parser.cc",
 					"semi_transient": false,
 					"settings":
@@ -1393,68 +1451,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 5090.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "src/cobra/ast/node.h",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 5661,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1355,
-								1364
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 671.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "src/cobra/execute/execute.cc",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 16164,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								9424,
-								9424
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 3869.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
@@ -1463,15 +1463,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1753,
+						"buffer_size": 1774,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1753,
-								1753
+								567,
+								555
 							]
 						],
 						"settings":
@@ -1483,7 +1483,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 3,
 					"type": "text"
 				}
 			]

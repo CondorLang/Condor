@@ -15,6 +15,5 @@ export func print(string msg){
 }
 
 export func println(string msg){
-	print(msg);
-	print('\n');
+	print(msg + '\n');
 }

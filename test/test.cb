@@ -26,9 +26,11 @@ fugi.name = "Fugi Apple";
 fugi.size = 20;
 fugi.color = "Red - Yellow";
 
-println("Name: " + apple.name + ", Color: " + apple.color);
+fugi.class = apple;
 
-// println(apple.name + ", Color: ");
-// println(apple.name + ", Color: " + apple.color);
-// println(banana.name + ", Color: " + banana.color);
-// println(fugi.name + ", Color: " + fugi.color);
+println("Name: " + apple.name + ", Color: " + apple.color);
+println(apple.name + ", Color: " + apple.color);
+println(banana.name + ", Color: " + banana.color);
+println(fugi.name + ", Color: " + fugi.color);
+println("\n\n" + "The Moment of truth: " + "\n\n");
+println(fugi.name + " - Class: " + fugi.class.name);

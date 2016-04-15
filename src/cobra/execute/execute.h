@@ -26,10 +26,13 @@ namespace internal{
 		std::vector<ASTNode*> opStack;
 		Isolate* isolate;
 		bool trace;
+		bool steps;
+		int numOfSteps;
 		bool canBreak;
 		bool postixPeriod;
 
 		void Trace(std::string first, std::string msg2);
+		void PrintStep(std::string msg);
 		void OpenScope(Scope* sc);
 		void CloseScope(){scopes.erase(scopes.begin());}
 		Scope* GetCurrentScope(){return scopes[0];}
