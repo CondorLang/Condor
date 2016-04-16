@@ -1,0 +1,661 @@
+Step [1]: 
+
+Starting
+Step [2]: Evaluating Scope
+Step [1]: 
+
+Starting
+Step [2]: Evaluating Scope
+Step [3]: Evaluating Var (apple)
+Step [4]: Evaluating Value (kObjectInit)
+Step [5]: Binary Expression
+Step [6]: Binary Assignment
+Step [7]: Assignment value
+Step [8]: Getting Variable ()
+Step [9]: Getting Variable (apple)
+Step [10]: Getting Variable (name)
+Step [11]: Evaluating Value (kLiteral)
+Step [12]: Set the calculated value (Apple)
+Step [13]: Binary Expression
+Step [14]: Binary Assignment
+Step [15]: Assignment value
+Step [16]: Getting Variable ()
+Step [17]: Getting Variable (apple)
+Step [18]: Getting Variable (size)
+Step [19]: Evaluating Value (kLiteral)
+Step [20]: Set the calculated value (20)
+Step [21]: Binary Expression
+Step [22]: Binary Assignment
+Step [23]: Assignment value
+Step [24]: Getting Variable ()
+Step [25]: Getting Variable (apple)
+Step [26]: Getting Variable (color)
+Step [27]: Evaluating Value (kLiteral)
+Step [28]: Set the calculated value (Red)
+Step [29]: Evaluating Var (banana)
+Step [30]: Evaluating Value (kObjectInit)
+Step [31]: Binary Expression
+Step [32]: Binary Assignment
+Step [33]: Assignment value
+Step [34]: Getting Variable ()
+Step [35]: Getting Variable (banana)
+Step [36]: Getting Variable (name)
+Step [37]: Evaluating Value (kLiteral)
+Step [38]: Set the calculated value (Banana)
+Step [39]: Binary Expression
+Step [40]: Binary Assignment
+Step [41]: Assignment value
+Step [42]: Getting Variable ()
+Step [43]: Getting Variable (banana)
+Step [44]: Getting Variable (size)
+Step [45]: Evaluating Value (kLiteral)
+Step [46]: Set the calculated value (30)
+Step [47]: Binary Expression
+Step [48]: Binary Assignment
+Step [49]: Assignment value
+Step [50]: Getting Variable ()
+Step [51]: Getting Variable (banana)
+Step [52]: Getting Variable (color)
+Step [53]: Evaluating Value (kLiteral)
+Step [54]: Set the calculated value (Yellow)
+Step [55]: Evaluating Var (fugi)
+Step [56]: Evaluating Value (kObjectInit)
+Step [57]: Binary Expression
+Step [58]: Binary Assignment
+Step [59]: Assignment value
+Step [60]: Getting Variable ()
+Step [61]: Getting Variable (fugi)
+Step [62]: Getting Variable (name)
+Step [63]: Evaluating Value (kLiteral)
+Step [64]: Set the calculated value (Fugi Apple)
+Step [65]: Binary Expression
+Step [66]: Binary Assignment
+Step [67]: Assignment value
+Step [68]: Getting Variable ()
+Step [69]: Getting Variable (fugi)
+Step [70]: Getting Variable (size)
+Step [71]: Evaluating Value (kLiteral)
+Step [72]: Set the calculated value (20)
+Step [73]: Binary Expression
+Step [74]: Binary Assignment
+Step [75]: Assignment value
+Step [76]: Getting Variable ()
+Step [77]: Getting Variable (fugi)
+Step [78]: Getting Variable (color)
+Step [79]: Evaluating Value (kLiteral)
+Step [80]: Set the calculated value (Red - Yellow)
+Step [81]: Binary Expression
+Step [82]: Binary Assignment
+Step [83]: Assignment value
+Step [84]: Getting Variable ()
+Step [85]: Getting Variable (fugi)
+Step [86]: Getting Variable (class)
+Step [87]: Evaluating Value (kLiteral)
+Step [88]: Evaluating Value (var)
+Step [89]: Function Call - println
+Step [90]: Evaluating Parameter (msg)
+Step [91]: Evaluating Value (kBinary)
+Step [92]: Binary Expression
+Step [93]: Calculation
+Step [94]: Filling Postix (Reverse Polish Notation)
+Step [95]: Evaluating Value (kLiteral)
+Step [96]: Set the calculated value (Name: )
+Step [97]: Filling Postix (Reverse Polish Notation)
+Step [98]: Evaluating Value (kLiteral)
+Step [99]: Evaluating Value (var)
+Step [100]: Filling Postix (Reverse Polish Notation)
+Step [101]: Filling Postix (Reverse Polish Notation)
+Step [102]: Evaluating Value (kLiteral)
+Step [103]: Set the calculated value (, Color: )
+Step [104]: Filling Postix (Reverse Polish Notation)
+Step [105]: Evaluating Value (kLiteral)
+Step [106]: Evaluating Value (var)
+Step [107]: Evaluating Postix Values
+Step [108]: Evaluating Value (kLiteral)
+Step [109]: Set the calculated value (Name: )
+Step [110]: Set the calculated value (Name: )
+Step [111]: Calculating ('' . 'name')
+Step [112]: Evaluating Value (var)
+Step [113]: Calculating ('Name: ' + 'Apple')
+Step [114]: Evaluating Value (kLiteral)
+Step [115]: Set the calculated value (, Color: )
+Step [116]: Set the calculated value (, Color: )
+Step [117]: Calculating ('Name: Apple' + ', Color: ')
+Step [118]: Calculating ('' . 'color')
+Step [119]: Evaluating Value (var)
+Step [120]: Calculating ('Name: Apple, Color: ' + 'Red')
+Step [121]: Formating Literal
+Step [122]: Set the calculated value (Name: Apple, Color: Red)
+Step [123]: Truncating Zeros
+Step [124]: Opening Scope
+Step [125]: Evaluating Scope
+Step [126]: Evaluating Var (msg)
+Step [127]: Evaluating Value (kLiteral)
+Step [128]: Set the calculated value (Name: Apple, Color: Red)
+Step [129]: Function Call - print
+Step [130]: Evaluating Parameter (msg)
+Step [131]: Evaluating Value (kBinary)
+Step [132]: Binary Expression
+Step [133]: Calculation
+Step [134]: Filling Postix (Reverse Polish Notation)
+Step [135]: Evaluating Value (kLiteral)
+Step [136]: Evaluating Value (var)
+Step [137]: Evaluating Value (kLiteral)
+Step [138]: Set the calculated value (
+)
+Step [139]: Evaluating Postix Values
+Step [140]: Evaluating Value (kLiteral)
+Step [141]: Set the calculated value (Name: Apple, Color: Red)
+Step [142]: Set the calculated value (Name: Apple, Color: Red)
+Step [143]: Evaluating Value (kLiteral)
+Step [144]: Set the calculated value (
+)
+Step [145]: Set the calculated value (
+)
+Step [146]: Calculating ('Name: Apple, Color: Red' + '
+')
+Step [147]: Formating Literal
+Step [148]: Set the calculated value (Name: Apple, Color: Red
+)
+Step [149]: Truncating Zeros
+Step [150]: Opening Scope
+Step [151]: Evaluating Scope
+Step [152]: Evaluating Var (msg)
+Step [153]: Evaluating Value (kLiteral)
+Step [154]: Set the calculated value (Name: Apple, Color: Red
+)
+Step [155]: Binary Expression
+Step [156]: Static Function Call
+Step [157]: Function Call - write
+Step [158]: Evaluating Parameter (txt1)
+Step [159]: Evaluating Value (kLiteral)
+Step [160]: Evaluating Value (var)
+Step [161]: Opening Scope
+Step [162]: Evaluating Scope
+Step [163]: Evaluating Var (txt1)
+Step [164]: Evaluating Value (kLiteral)
+Step [165]: Set the calculated value (Name: Apple, Color: Red
+)
+Step [166]: Binary Expression
+Step [167]: Static Function Call
+Step [168]: Function Call - Write
+Step [169]: Evaluating Parameter (txt2)
+Step [170]: Evaluating Value (kLiteral)
+Step [171]: Evaluating Value (var)
+Step [172]: Opening Scope
+Step [173]: Evaluating Scope
+Step [174]: Evaluating Var (txt2)
+Step [175]: Evaluating Value (kLiteral)
+Step [176]: Set the calculated value (Name: Apple, Color: Red
+)
+Step [177]: Function Call - printf
+Step [178]: Evaluating Value (kLiteral)
+Step [179]: Evaluating Value (var)
+Name: Apple, Color: Red
+Step [180]: Function Call - println
+Step [181]: Evaluating Parameter (msg)
+Step [182]: Evaluating Value (kBinary)
+Step [183]: Binary Expression
+Step [184]: Calculation
+Step [185]: Filling Postix (Reverse Polish Notation)
+Step [186]: Evaluating Value (kLiteral)
+Step [187]: Evaluating Value (var)
+Step [188]: Filling Postix (Reverse Polish Notation)
+Step [189]: Filling Postix (Reverse Polish Notation)
+Step [190]: Evaluating Value (kLiteral)
+Step [191]: Set the calculated value (, Color: )
+Step [192]: Filling Postix (Reverse Polish Notation)
+Step [193]: Evaluating Value (kLiteral)
+Step [194]: Evaluating Value (var)
+Step [195]: Evaluating Postix Values
+Step [196]: Calculating ('' . 'name')
+Step [197]: Evaluating Value (var)
+Step [198]: Evaluating Value (kLiteral)
+Step [199]: Set the calculated value (, Color: )
+Step [200]: Set the calculated value (, Color: )
+Step [201]: Calculating ('Apple' + ', Color: ')
+Step [202]: Calculating ('' . 'color')
+Step [203]: Evaluating Value (var)
+Step [204]: Calculating ('Apple, Color: ' + 'Red')
+Step [205]: Formating Literal
+Step [206]: Set the calculated value (Apple, Color: Red)
+Step [207]: Truncating Zeros
+Step [208]: Opening Scope
+Step [209]: Evaluating Scope
+Step [210]: Evaluating Var (msg)
+Step [211]: Evaluating Value (kLiteral)
+Step [212]: Set the calculated value (Apple, Color: Red)
+Step [213]: Function Call - print
+Step [214]: Evaluating Parameter (msg)
+Step [215]: Evaluating Value (kBinary)
+Step [216]: Binary Expression
+Step [217]: Calculation
+Step [218]: Filling Postix (Reverse Polish Notation)
+Step [219]: Evaluating Value (kLiteral)
+Step [220]: Evaluating Value (var)
+Step [221]: Evaluating Value (kLiteral)
+Step [222]: Set the calculated value (
+)
+Step [223]: Evaluating Postix Values
+Step [224]: Evaluating Value (kLiteral)
+Step [225]: Set the calculated value (Apple, Color: Red)
+Step [226]: Set the calculated value (Apple, Color: Red)
+Step [227]: Evaluating Value (kLiteral)
+Step [228]: Set the calculated value (
+)
+Step [229]: Set the calculated value (
+)
+Step [230]: Calculating ('Apple, Color: Red' + '
+')
+Step [231]: Formating Literal
+Step [232]: Set the calculated value (Apple, Color: Red
+)
+Step [233]: Truncating Zeros
+Step [234]: Opening Scope
+Step [235]: Evaluating Scope
+Step [236]: Evaluating Var (msg)
+Step [237]: Evaluating Value (kLiteral)
+Step [238]: Set the calculated value (Apple, Color: Red
+)
+Step [239]: Binary Expression
+Step [240]: Static Function Call
+Step [241]: Function Call - write
+Step [242]: Evaluating Parameter (txt1)
+Step [243]: Evaluating Value (kLiteral)
+Step [244]: Evaluating Value (var)
+Step [245]: Opening Scope
+Step [246]: Evaluating Scope
+Step [247]: Evaluating Var (txt1)
+Step [248]: Evaluating Value (kLiteral)
+Step [249]: Set the calculated value (Apple, Color: Red
+)
+Step [250]: Binary Expression
+Step [251]: Static Function Call
+Step [252]: Function Call - Write
+Step [253]: Evaluating Parameter (txt2)
+Step [254]: Evaluating Value (kLiteral)
+Step [255]: Evaluating Value (var)
+Step [256]: Opening Scope
+Step [257]: Evaluating Scope
+Step [258]: Evaluating Var (txt2)
+Step [259]: Evaluating Value (kLiteral)
+Step [260]: Set the calculated value (Apple, Color: Red
+)
+Step [261]: Function Call - printf
+Step [262]: Evaluating Value (kLiteral)
+Step [263]: Evaluating Value (var)
+Apple, Color: Red
+Step [264]: Function Call - println
+Step [265]: Evaluating Parameter (msg)
+Step [266]: Evaluating Value (kBinary)
+Step [267]: Binary Expression
+Step [268]: Calculation
+Step [269]: Filling Postix (Reverse Polish Notation)
+Step [270]: Evaluating Value (kLiteral)
+Step [271]: Evaluating Value (var)
+Step [272]: Filling Postix (Reverse Polish Notation)
+Step [273]: Filling Postix (Reverse Polish Notation)
+Step [274]: Evaluating Value (kLiteral)
+Step [275]: Set the calculated value (, Color: )
+Step [276]: Filling Postix (Reverse Polish Notation)
+Step [277]: Evaluating Value (kLiteral)
+Step [278]: Evaluating Value (var)
+Step [279]: Evaluating Postix Values
+Step [280]: Calculating ('' . 'name')
+Step [281]: Evaluating Value (var)
+Step [282]: Evaluating Value (kLiteral)
+Step [283]: Set the calculated value (, Color: )
+Step [284]: Set the calculated value (, Color: )
+Step [285]: Calculating ('Banana' + ', Color: ')
+Step [286]: Calculating ('' . 'color')
+Step [287]: Evaluating Value (var)
+Step [288]: Calculating ('Banana, Color: ' + 'Yellow')
+Step [289]: Formating Literal
+Step [290]: Set the calculated value (Banana, Color: Yellow)
+Step [291]: Truncating Zeros
+Step [292]: Opening Scope
+Step [293]: Evaluating Scope
+Step [294]: Evaluating Var (msg)
+Step [295]: Evaluating Value (kLiteral)
+Step [296]: Set the calculated value (Banana, Color: Yellow)
+Step [297]: Function Call - print
+Step [298]: Evaluating Parameter (msg)
+Step [299]: Evaluating Value (kBinary)
+Step [300]: Binary Expression
+Step [301]: Calculation
+Step [302]: Filling Postix (Reverse Polish Notation)
+Step [303]: Evaluating Value (kLiteral)
+Step [304]: Evaluating Value (var)
+Step [305]: Evaluating Value (kLiteral)
+Step [306]: Set the calculated value (
+)
+Step [307]: Evaluating Postix Values
+Step [308]: Evaluating Value (kLiteral)
+Step [309]: Set the calculated value (Banana, Color: Yellow)
+Step [310]: Set the calculated value (Banana, Color: Yellow)
+Step [311]: Evaluating Value (kLiteral)
+Step [312]: Set the calculated value (
+)
+Step [313]: Set the calculated value (
+)
+Step [314]: Calculating ('Banana, Color: Yellow' + '
+')
+Step [315]: Formating Literal
+Step [316]: Set the calculated value (Banana, Color: Yellow
+)
+Step [317]: Truncating Zeros
+Step [318]: Opening Scope
+Step [319]: Evaluating Scope
+Step [320]: Evaluating Var (msg)
+Step [321]: Evaluating Value (kLiteral)
+Step [322]: Set the calculated value (Banana, Color: Yellow
+)
+Step [323]: Binary Expression
+Step [324]: Static Function Call
+Step [325]: Function Call - write
+Step [326]: Evaluating Parameter (txt1)
+Step [327]: Evaluating Value (kLiteral)
+Step [328]: Evaluating Value (var)
+Step [329]: Opening Scope
+Step [330]: Evaluating Scope
+Step [331]: Evaluating Var (txt1)
+Step [332]: Evaluating Value (kLiteral)
+Step [333]: Set the calculated value (Banana, Color: Yellow
+)
+Step [334]: Binary Expression
+Step [335]: Static Function Call
+Step [336]: Function Call - Write
+Step [337]: Evaluating Parameter (txt2)
+Step [338]: Evaluating Value (kLiteral)
+Step [339]: Evaluating Value (var)
+Step [340]: Opening Scope
+Step [341]: Evaluating Scope
+Step [342]: Evaluating Var (txt2)
+Step [343]: Evaluating Value (kLiteral)
+Step [344]: Set the calculated value (Banana, Color: Yellow
+)
+Step [345]: Function Call - printf
+Step [346]: Evaluating Value (kLiteral)
+Step [347]: Evaluating Value (var)
+Banana, Color: Yellow
+Step [348]: Function Call - println
+Step [349]: Evaluating Parameter (msg)
+Step [350]: Evaluating Value (kBinary)
+Step [351]: Binary Expression
+Step [352]: Calculation
+Step [353]: Filling Postix (Reverse Polish Notation)
+Step [354]: Evaluating Value (kLiteral)
+Step [355]: Evaluating Value (var)
+Step [356]: Filling Postix (Reverse Polish Notation)
+Step [357]: Filling Postix (Reverse Polish Notation)
+Step [358]: Evaluating Value (kLiteral)
+Step [359]: Set the calculated value (, Color: )
+Step [360]: Filling Postix (Reverse Polish Notation)
+Step [361]: Evaluating Value (kLiteral)
+Step [362]: Evaluating Value (var)
+Step [363]: Evaluating Postix Values
+Step [364]: Calculating ('' . 'name')
+Step [365]: Evaluating Value (var)
+Step [366]: Evaluating Value (kLiteral)
+Step [367]: Set the calculated value (, Color: )
+Step [368]: Set the calculated value (, Color: )
+Step [369]: Calculating ('Fugi Apple' + ', Color: ')
+Step [370]: Calculating ('' . 'color')
+Step [371]: Evaluating Value (var)
+Step [372]: Calculating ('Fugi Apple, Color: ' + 'Red - Yellow')
+Step [373]: Formating Literal
+Step [374]: Set the calculated value (Fugi Apple, Color: Red - Yellow)
+Step [375]: Truncating Zeros
+Step [376]: Opening Scope
+Step [377]: Evaluating Scope
+Step [378]: Evaluating Var (msg)
+Step [379]: Evaluating Value (kLiteral)
+Step [380]: Set the calculated value (Fugi Apple, Color: Red - Yellow)
+Step [381]: Function Call - print
+Step [382]: Evaluating Parameter (msg)
+Step [383]: Evaluating Value (kBinary)
+Step [384]: Binary Expression
+Step [385]: Calculation
+Step [386]: Filling Postix (Reverse Polish Notation)
+Step [387]: Evaluating Value (kLiteral)
+Step [388]: Evaluating Value (var)
+Step [389]: Evaluating Value (kLiteral)
+Step [390]: Set the calculated value (
+)
+Step [391]: Evaluating Postix Values
+Step [392]: Evaluating Value (kLiteral)
+Step [393]: Set the calculated value (Fugi Apple, Color: Red - Yellow)
+Step [394]: Set the calculated value (Fugi Apple, Color: Red - Yellow)
+Step [395]: Evaluating Value (kLiteral)
+Step [396]: Set the calculated value (
+)
+Step [397]: Set the calculated value (
+)
+Step [398]: Calculating ('Fugi Apple, Color: Red - Yellow' + '
+')
+Step [399]: Formating Literal
+Step [400]: Set the calculated value (Fugi Apple, Color: Red - Yellow
+)
+Step [401]: Truncating Zeros
+Step [402]: Opening Scope
+Step [403]: Evaluating Scope
+Step [404]: Evaluating Var (msg)
+Step [405]: Evaluating Value (kLiteral)
+Step [406]: Set the calculated value (Fugi Apple, Color: Red - Yellow
+)
+Step [407]: Binary Expression
+Step [408]: Static Function Call
+Step [409]: Function Call - write
+Step [410]: Evaluating Parameter (txt1)
+Step [411]: Evaluating Value (kLiteral)
+Step [412]: Evaluating Value (var)
+Step [413]: Opening Scope
+Step [414]: Evaluating Scope
+Step [415]: Evaluating Var (txt1)
+Step [416]: Evaluating Value (kLiteral)
+Step [417]: Set the calculated value (Fugi Apple, Color: Red - Yellow
+)
+Step [418]: Binary Expression
+Step [419]: Static Function Call
+Step [420]: Function Call - Write
+Step [421]: Evaluating Parameter (txt2)
+Step [422]: Evaluating Value (kLiteral)
+Step [423]: Evaluating Value (var)
+Step [424]: Opening Scope
+Step [425]: Evaluating Scope
+Step [426]: Evaluating Var (txt2)
+Step [427]: Evaluating Value (kLiteral)
+Step [428]: Set the calculated value (Fugi Apple, Color: Red - Yellow
+)
+Step [429]: Function Call - printf
+Step [430]: Evaluating Value (kLiteral)
+Step [431]: Evaluating Value (var)
+Fugi Apple, Color: Red - Yellow
+Step [432]: Function Call - println
+Step [433]: Evaluating Parameter (msg)
+Step [434]: Evaluating Value (kBinary)
+Step [435]: Binary Expression
+Step [436]: Calculation
+Step [437]: Filling Postix (Reverse Polish Notation)
+Step [438]: Evaluating Value (kLiteral)
+Step [439]: Set the calculated value (
+
+)
+Step [440]: Filling Postix (Reverse Polish Notation)
+Step [441]: Evaluating Value (kLiteral)
+Step [442]: Set the calculated value (The Moment of truth: )
+Step [443]: Evaluating Value (kLiteral)
+Step [444]: Set the calculated value (
+
+)
+Step [445]: Evaluating Postix Values
+Step [446]: Evaluating Value (kLiteral)
+Step [447]: Set the calculated value (
+
+)
+Step [448]: Set the calculated value (
+
+)
+Step [449]: Evaluating Value (kLiteral)
+Step [450]: Set the calculated value (The Moment of truth: )
+Step [451]: Set the calculated value (The Moment of truth: )
+Step [452]: Calculating ('
+
+' + 'The Moment of truth: ')
+Step [453]: Evaluating Value (kLiteral)
+Step [454]: Set the calculated value (
+
+)
+Step [455]: Set the calculated value (
+
+)
+Step [456]: Calculating ('
+
+The Moment of truth: ' + '
+
+')
+Step [457]: Formating Literal
+Step [458]: Set the calculated value (
+
+The Moment of truth: 
+
+)
+Step [459]: Truncating Zeros
+Step [460]: Opening Scope
+Step [461]: Evaluating Scope
+Step [462]: Evaluating Var (msg)
+Step [463]: Evaluating Value (kLiteral)
+Step [464]: Set the calculated value (
+
+The Moment of truth: 
+
+)
+Step [465]: Function Call - print
+Step [466]: Evaluating Parameter (msg)
+Step [467]: Evaluating Value (kBinary)
+Step [468]: Binary Expression
+Step [469]: Calculation
+Step [470]: Filling Postix (Reverse Polish Notation)
+Step [471]: Evaluating Value (kLiteral)
+Step [472]: Evaluating Value (var)
+Step [473]: Evaluating Value (kLiteral)
+Step [474]: Set the calculated value (
+)
+Step [475]: Evaluating Postix Values
+Step [476]: Evaluating Value (kLiteral)
+Step [477]: Set the calculated value (
+
+The Moment of truth: 
+
+)
+Step [478]: Set the calculated value (
+
+The Moment of truth: 
+
+)
+Step [479]: Evaluating Value (kLiteral)
+Step [480]: Set the calculated value (
+)
+Step [481]: Set the calculated value (
+)
+Step [482]: Calculating ('
+
+The Moment of truth: 
+
+' + '
+')
+Step [483]: Formating Literal
+Step [484]: Set the calculated value (
+
+The Moment of truth: 
+
+
+)
+Step [485]: Truncating Zeros
+Step [486]: Opening Scope
+Step [487]: Evaluating Scope
+Step [488]: Evaluating Var (msg)
+Step [489]: Evaluating Value (kLiteral)
+Step [490]: Set the calculated value (
+
+The Moment of truth: 
+
+
+)
+Step [491]: Binary Expression
+Step [492]: Static Function Call
+Step [493]: Function Call - write
+Step [494]: Evaluating Parameter (txt1)
+Step [495]: Evaluating Value (kLiteral)
+Step [496]: Evaluating Value (var)
+Step [497]: Opening Scope
+Step [498]: Evaluating Scope
+Step [499]: Evaluating Var (txt1)
+Step [500]: Evaluating Value (kLiteral)
+Step [501]: Set the calculated value (
+
+The Moment of truth: 
+
+
+)
+Step [502]: Binary Expression
+Step [503]: Static Function Call
+Step [504]: Function Call - Write
+Step [505]: Evaluating Parameter (txt2)
+Step [506]: Evaluating Value (kLiteral)
+Step [507]: Evaluating Value (var)
+Step [508]: Opening Scope
+Step [509]: Evaluating Scope
+Step [510]: Evaluating Var (txt2)
+Step [511]: Evaluating Value (kLiteral)
+Step [512]: Set the calculated value (
+
+The Moment of truth: 
+
+
+)
+Step [513]: Function Call - printf
+Step [514]: Evaluating Value (kLiteral)
+Step [515]: Evaluating Value (var)
+
+
+The Moment of truth: 
+
+
+Step [516]: Function Call - println
+Step [517]: Evaluating Parameter (msg)
+Step [518]: Evaluating Value (kBinary)
+Step [519]: Binary Expression
+Step [520]: Calculation
+Step [521]: Filling Postix (Reverse Polish Notation)
+Step [522]: Evaluating Value (kLiteral)
+Step [523]: Evaluating Value (var)
+Step [524]: Filling Postix (Reverse Polish Notation)
+Step [525]: Filling Postix (Reverse Polish Notation)
+Step [526]: Evaluating Value (kLiteral)
+Step [527]: Set the calculated value ( - Class: )
+Step [528]: Filling Postix (Reverse Polish Notation)
+Step [529]: Evaluating Value (kLiteral)
+Step [530]: Evaluating Value (var)
+Step [531]: Filling Postix (Reverse Polish Notation)
+Step [532]: Evaluating Postix Values
+Step [533]: Calculating ('' . 'name')
+Step [534]: Evaluating Value (var)
+Step [535]: Evaluating Value (kLiteral)
+Step [536]: Set the calculated value ( - Class: )
+Step [537]: Set the calculated value ( - Class: )
+Step [538]: Calculating ('Fugi Apple' + ' - Class: ')
+Step [539]: Calculating ('' . 'class')
+Step [540]: Evaluating Value (var)
+Step [541]: Evaluating Value (kLiteral)
+Step [542]: Evaluating Value (var)
+Step [543]: Evaluating Value (undefined)
+Step [544]: Set the calculated value (undefined)
+
+Execution Error: 
+0:0 - Invalid assignment to type - 
+	test/test.cb
+
+
+[1;32m^[0m
+

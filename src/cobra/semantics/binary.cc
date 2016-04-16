@@ -225,6 +225,7 @@ namespace internal{
 					else if (right == CHAR) return STRING;
 					else if (right == STRING) return STRING;
 					else if (right == ARRAY) throw Error::CANNOT_ADD_TO_ARRAY;
+					else if (right == UNDEFINED) return STRING;
 					else {
 						throw Error::INVALID_ADD_EXPR;
 					}
@@ -292,6 +293,7 @@ namespace internal{
 					else if (right == CHAR) return STRING;
 					else if (right == STRING) return STRING;
 					else if (right == ARRAY) throw Error::CANNOT_ADD_TO_ARRAY;
+					else if (right == UNDEFINED) return STRING;
 					else {
 						throw Error::INVALID_ADD_EXPR;
 					}

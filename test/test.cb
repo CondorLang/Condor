@@ -25,7 +25,6 @@ var fugi = new Fruit();
 fugi.name = "Fugi Apple";
 fugi.size = 20;
 fugi.color = "Red - Yellow";
-
 fugi.class = apple;
 
 println("Name: " + apple.name + ", Color: " + apple.color);

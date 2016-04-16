@@ -30,6 +30,7 @@ namespace internal{
 		int numOfSteps;
 		bool canBreak;
 		bool postixPeriod;
+		bool rpnStack;
 
 		void Trace(std::string first, std::string msg2);
 		void PrintStep(std::string msg);

@@ -20,6 +20,7 @@ namespace internal{
 		semantic = NULL;
 		postixPeriod = false;
 		numOfSteps = 1;
+		rpnStack = RPN_STACK;
 		PrintStep("\n\nStarting");
 	}
 
@@ -232,47 +233,72 @@ namespace internal{
 			opStack.pop_back();
 		}
 
-		// print debug
+		std::vector<int> periods;
+		for (int i = 0; i < stack.size(); i++){
+			if (stack[i]->type == TOK){
+				ASTToken* tok = (ASTToken*) stack[i];
+				if (tok->value->value == PERIOD) periods.push_back(i); // push index
+			}
+		}
 
-		// for (int i = 0; i < stack.size(); i++){
-		// 	printf("d: Stack Size: %lu\n", stack.size());
-		// 	ASTNode* n = stack[i];
-		// 	if (n->type == TOK){
-		// 		ASTToken* tok = (ASTToken*) n;
-		// 		printf("d: %s\n", Token::ToString(tok->value->value).c_str());
-		// 	}
-		// 	else if (n->type == LITERAL){
-		// 		ASTLiteral* lit = (ASTLiteral*) n;
-		// 		printf("d: %s\n", lit->value.c_str());
-		// 	}
-		// 	else if (n->type == OBJECT_INSTANCE){
-		// 		ASTObjectInstance* obj = (ASTObjectInstance*) n;
-		// 		printf("d: %s\n", obj->base->name.c_str());
-		// 	}
-		// 	else{
-		// 		printf("dd: %s\n", Token::ToString(n->type).c_str());
-		// 	}
-		// }
+		// --rpn-stack flag
+		if (rpnStack){
+			printf("\nStack Size: %lu\n", stack.size());
+			for (int i = 0; i < stack.size(); i++){
+				ASTNode* n = stack[i];
+				if (n->type == TOK){
+					ASTToken* tok = (ASTToken*) n;
+					printf("[%d]: %s\n", i, Token::ToString(tok->value->value).c_str());
+				}
+				else if (n->type == LITERAL){
+					ASTLiteral* lit = (ASTLiteral*) n;
+					printf("[%d]: %s\n", i, lit->value.c_str());
+				}
+				else if (n->type == OBJECT_INSTANCE){
+					ASTObjectInstance* obj = (ASTObjectInstance*) n;
+					printf("[%d]: obj(%s)\n", i, obj->base->name.c_str());
+				}
+				else{
+					printf("dd: %s\n", Token::ToString(n->type).c_str());
+				}
+			}
+		}
+
+		if (rpnStack) printf("\n--- Evaluating ---\n");
 
 		// opStack is now the stack
-		bool justStack = false;
 		for (int i = 0; i < stack.size(); i++){
 			ASTNode* n = stack[i];
 
 			if (n->type == TOK){
 				ASTToken* tok = (ASTToken*) n;
+				if (rpnStack) printf("[%d]: %s\n", i, tok->value->String().c_str());
 				ASTLiteral* val = Calc(tok);
-				if (val != NULL) opStack.push_back(val);
+				if (val != NULL) {
+					opStack.push_back(val);
+					if (rpnStack && val->value.length() > 0) printf("[%d] - [%d, %d, %d] = %s\n", i, i - 2, i - 1, i, val->value.c_str());
+					else if (rpnStack) printf("[%d] - [%d, %d, %d] = [Object]\n",i,  i - 2, i - 1, i);
+				}
+				else throw Error::INVALID_OBJECT;
 			}
 			else if (n->type == LITERAL){
 				ASTLiteral* lit = NULL;
-				if (justStack) { // object oriented
+
+				bool next = false;
+				for (int j = 0; j < periods.size(); j++){
+					if (periods[j] == i + 1){
+						next = true;
+						break;
+					}
+				}
+				if (next) { // object oriented
 					lit = (ASTLiteral*) n;
+					if (rpnStack) printf("[%d]: %s (l)\n", i, lit->value.c_str());
 					lit->litType = LITERAL;
 					opStack.push_back(lit);
-					justStack = false;
 				}
 				else{
+					if (rpnStack) printf("[%d]: %s (g)\n", i, ((ASTLiteral*)n)->value.c_str());
 					lit = EvaluateValue(n);
 					SetCalc(lit);
 					opStack.push_back(lit);
@@ -280,8 +306,8 @@ namespace internal{
 			}
 			else if (n->type == OBJECT_INSTANCE){ // TODO: What about twice?
 				ASTObjectInstance* lit = (ASTObjectInstance*) n;
+				if (rpnStack) printf("[%d]: obj(%s)\n", i, lit->base->name.c_str());
 				opStack.push_back(lit);
-				justStack = true;
 			}
 			else{
 				printf("dd: %s\n", Token::ToString(n->type).c_str());
@@ -301,19 +327,18 @@ namespace internal{
 		ASTLiteral* second = (ASTLiteral*) opStack[opStack.size() - 1];
 		opStack.pop_back();
 		ASTLiteral* result = ASTLiteral::New(isolate);
+
 		result->litType = Binary::Compare(first->litType, second->litType, tok->value->value);
 
 		PrintStep("Calculating ('" + second->value + "' " + tok->value->String() + " '" + first->value + "')");
-		if (first->value == "class"){
-			int a = 10;
-		}
 
 		int litType = (int) result->litType;
 		switch (litType){
 			case LITERAL: { // object oriented
 				ASTObjectInstance* inst = (ASTObjectInstance*) second;
 				ASTVar* var = inst->GetProp(isolate, first->value);
-				return EvaluateValue(var);
+				ASTLiteral* val = EvaluateValue(var);
+				return val;
 			}
 			case INT: case DOUBLE: 
 			case FLOAT: case BOOLEAN: {
@@ -363,9 +388,6 @@ namespace internal{
 		switch (type){
 			case ASSIGN: {
 				ASTVar* var = GetVar(binary->left);
-				if (var->name == "class"){
-					int a = 10;
-				}
 				ASTLiteral* lit = EvaluateValue(binary->right);
 				if (var == NULL) {
 					SetRowCol(binary->left);
@@ -422,7 +444,7 @@ namespace internal{
 	}
 
 	void Execute::SetCalc(ASTLiteral* lit){
-		PrintStep("Set the calculated value (" + lit->value + ")");
+		PrintStep("Set the calculated value (" + lit->value + " | " + Token::ToString(lit->litType) + ")");
 		if (!lit->isCalc && lit->value.length() != 0 && (lit->litType == INT || lit->litType == DOUBLE || 
 											 lit->litType == FLOAT /** || lit->litType == BOOLEAN**/)) {
 			try{

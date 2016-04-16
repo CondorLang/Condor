@@ -158,7 +158,7 @@ namespace internal{
 			std::string src = executor->GetSource();
 			currentCode = &src;
 			msg = std::to_string(executor->row) + ":" + std::to_string(executor->col) + " - " + msg + " - \n\t" + absolutePath.c_str() + "\n\n" + GetSourceRow(executor->row, executor->col);
-			printf("\nExecution Error: \n%s\n", msg.c_str());
+			printf("\nRuntime Error: \n%s\n", msg.c_str());
 			msgs.push_back(msg);
 			return;
 		}

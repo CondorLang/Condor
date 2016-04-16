@@ -19,6 +19,7 @@ namespace internal{
 			else if (arg == "--trace-evaluation") Flags::traceEvaluation = true;
 			else if (arg == "--execution-time") Flags::executionTime = true;
 			else if (arg == "--execution-steps") Flags::evaluationSteps = true;
+			else if (arg == "--rpn-stack") Flags::rpnStack = true;
 			else if (arg == "-h" || arg == "--help"){
 				printf("\n\nCobraLang\n=========\n(C) 2015 Cobra Authors\n\n");
 				printf("--trace-parser\t\t%s\n", "Trace the path of the parser");
@@ -34,6 +35,7 @@ namespace internal{
 				printf("--expand-ast\t\t%s\n", "Expand the abstract syntax tree");
 				printf("--allow-native\t\t%s\n", "Allow native functions in code");
 				printf("--execution-steps\t%s\n", "Traces every execution step");
+				printf("--rpn-stack\t\t%s\n", "Prints the reverse polish notation stack");
 			}
 			else if (arg.find("-") != std::string::npos || arg.find("-") != std::string::npos){
 				printf("Unidentified flag\nExiting...\n");
@@ -55,6 +57,7 @@ namespace internal{
 	bool Flags::traceEvaluation = false;
 	bool Flags::executionTime = false;
 	bool Flags::evaluationSteps = false;
+	bool Flags::rpnStack = false;
 
 } // namespace internal
 } // namespace Cobra
