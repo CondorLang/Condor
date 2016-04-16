@@ -85,8 +85,7 @@ src/cobra/mem/isolate.o: src/cobra/mem/isolate.cc src/cobra/mem/isolate.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/stdexcept \
   /usr/include/math.h src/cobra/flags.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/cstdlib \
-  src/cobra/global.h src/cobra/mem/list.h src/cobra/mem/gc.h \
-  src/cobra/ast/context.h \
+  src/cobra/global.h src/cobra/mem/list.h src/cobra/ast/context.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/vector \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__bit_reference \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/climits \
@@ -142,7 +141,8 @@ src/cobra/mem/isolate.o: src/cobra/mem/isolate.cc src/cobra/mem/isolate.h \
   /usr/include/sys/_types/_errno_t.h \
   /usr/include/sys/_types/_fsblkcnt_t.h \
   /usr/include/sys/_types/_fsfilcnt_t.h /usr/include/_types/_nl_item.h \
-  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/bitset
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/bitset \
+  src/cobra/mem/gc.h
 
 src/cobra/mem/isolate.h:
 
@@ -408,8 +408,6 @@ src/cobra/global.h:
 
 src/cobra/mem/list.h:
 
-src/cobra/mem/gc.h:
-
 src/cobra/ast/context.h:
 
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/vector:
@@ -565,3 +563,5 @@ src/cobra/error/error.h:
 /usr/include/_types/_nl_item.h:
 
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/bitset:
+
+src/cobra/mem/gc.h:

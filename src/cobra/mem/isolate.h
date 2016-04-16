@@ -2,13 +2,15 @@
 #define ISOLATE_H_
 
 #include "allocate.h"
-#include "gc.h"
 #include "cobra/ast/context.h"
+#include "cobra/ast/scope.h"
+#include "cobra/ast/node.h"
 
 namespace Cobra {
 namespace internal{
 
 	class Context;
+	class GC;
 
 	class Isolate
 	{
@@ -30,6 +32,8 @@ namespace internal{
 		void FreeMemory(void* ptr, const size_t size);
 		void SetSelfPool(MemoryPool* mp){this->self = mp;}
 		void Dispose();
+		void RunGC(Scope* scope);
+		void RunGC(ASTNode* node);
 		
 	};
 

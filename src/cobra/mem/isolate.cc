@@ -1,4 +1,5 @@
 #include "isolate.h"
+#include "gc.h"
 
 namespace Cobra {
 namespace internal{
@@ -73,6 +74,14 @@ namespace internal{
 		else if (size < 80) medium->FreeMemory(ptr, size);
 		else if (size < 130) large->FreeMemory(ptr, size);
 		else xl->FreeMemory(ptr, size);
+	}
+
+	void Isolate::RunGC(Scope* scope){
+		gc->Dispose(this, scope);
+	}
+
+	void Isolate::RunGC(ASTNode* node){
+		gc->Dispose(this, node);
 	}
 
 } // namespace internal

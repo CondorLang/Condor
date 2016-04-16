@@ -94,8 +94,8 @@ src/cobra/ast/context.o: src/cobra/ast/context.cc src/cobra/ast/context.h \
   /usr/include/machine/types.h /usr/include/i386/types.h \
   /usr/include/math.h src/cobra/flags.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/cstdlib \
-  src/cobra/global.h src/cobra/mem/list.h src/cobra/mem/gc.h \
-  src/cobra/ast/node.h src/cobra/token/token.h src/cobra/ast/scope.h \
+  src/cobra/global.h src/cobra/mem/list.h src/cobra/ast/scope.h \
+  src/cobra/ast/node.h src/cobra/token/token.h \
   src/cobra/semantics/internal.h src/cobra/error/error.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iostream \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/ios \
@@ -433,13 +433,11 @@ src/cobra/global.h:
 
 src/cobra/mem/list.h:
 
-src/cobra/mem/gc.h:
+src/cobra/ast/scope.h:
 
 src/cobra/ast/node.h:
 
 src/cobra/token/token.h:
-
-src/cobra/ast/scope.h:
 
 src/cobra/semantics/internal.h:
 

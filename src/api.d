@@ -133,7 +133,7 @@ src/api.o: src/api.cc src/api.h src/../include/Cobra.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/istream \
   src/cobra/flags.h src/cobra/global.h src/cobra/mem/isolate.h \
   src/cobra/mem/allocate.h /usr/include/math.h src/cobra/mem/list.h \
-  src/cobra/mem/gc.h src/cobra/ast/context.h \
+  src/cobra/ast/context.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/vector \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__split_buffer \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/map \
@@ -556,8 +556,6 @@ src/cobra/mem/allocate.h:
 /usr/include/math.h:
 
 src/cobra/mem/list.h:
-
-src/cobra/mem/gc.h:
 
 src/cobra/ast/context.h:
 

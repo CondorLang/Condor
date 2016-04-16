@@ -36,3 +36,9 @@ println(fugi.name + ", Color: " + fugi.color);
 println("\n\n" + "The Moment of truth: " + "\n\n");
 println(fugi.name + " - Class: " + fugi.class.name);
 println("Circular " + fugi.class.name + " - " + fugi.class.class.class.class.class.name);
+
+// for (int i = 0; i < 4; i++){
+// 	var userFruit = new Fruit();
+// 	userFruit.name = Console.get("Fruit Name [" + i + "] >> ");
+// 	println(userFruit.name);
+// }

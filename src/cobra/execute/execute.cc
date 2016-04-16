@@ -536,6 +536,7 @@ namespace internal{
 			canBreak = true;
 			try {
 				Evaluate();
+				isolate->RunGC(GetCurrentScope());
 			}
 			catch (Error::ERROR e){
 				canBreak = cb;
@@ -562,6 +563,7 @@ namespace internal{
 			canBreak = true;
 			try {
 				Evaluate();
+				isolate->RunGC(GetCurrentScope());
 			}
 			catch (Error::ERROR e){
 				canBreak = cb;
@@ -584,6 +586,7 @@ namespace internal{
 			if (condition != expr->condition) condition->Free(isolate); // release condition memory
 			OpenScope(expr->scope);
 			Evaluate();
+			isolate->RunGC(GetCurrentScope());
 			return true;
 		}
 		else{
@@ -617,6 +620,7 @@ namespace internal{
 				canBreak = true;
 				try {
 					Evaluate();
+					isolate->RunGC(GetCurrentScope());
 				}
 				catch (Error::ERROR e){
 					canBreak = cb;

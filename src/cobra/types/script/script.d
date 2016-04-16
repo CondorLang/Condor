@@ -99,9 +99,9 @@ src/cobra/types/script/script.o: src/cobra/types/script/script.cc \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/ctime \
   src/cobra/shell.h src/cobra/ast/context.h src/cobra/mem/isolate.h \
   src/cobra/mem/allocate.h /usr/include/math.h src/cobra/global.h \
-  src/cobra/mem/list.h src/cobra/mem/gc.h src/cobra/ast/node.h \
-  src/cobra/token/token.h src/cobra/ast/scope.h \
-  src/cobra/semantics/internal.h src/cobra/error/error.h \
+  src/cobra/mem/list.h src/cobra/ast/scope.h src/cobra/ast/node.h \
+  src/cobra/token/token.h src/cobra/semantics/internal.h \
+  src/cobra/error/error.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iostream \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/ios \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__locale \
@@ -455,13 +455,11 @@ src/cobra/global.h:
 
 src/cobra/mem/list.h:
 
-src/cobra/mem/gc.h:
+src/cobra/ast/scope.h:
 
 src/cobra/ast/node.h:
 
 src/cobra/token/token.h:
-
-src/cobra/ast/scope.h:
 
 src/cobra/semantics/internal.h:
 

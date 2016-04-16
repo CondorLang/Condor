@@ -86,8 +86,7 @@ src/cobra/types/try_catch/exception.o: \
   /usr/include/machine/types.h /usr/include/i386/types.h \
   /usr/include/math.h src/cobra/flags.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/cstdlib \
-  src/cobra/global.h src/cobra/mem/list.h src/cobra/mem/gc.h \
-  src/cobra/ast/context.h \
+  src/cobra/global.h src/cobra/mem/list.h src/cobra/ast/context.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/vector \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__bit_reference \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/climits \
@@ -421,8 +420,6 @@ src/cobra/flags.h:
 src/cobra/global.h:
 
 src/cobra/mem/list.h:
-
-src/cobra/mem/gc.h:
 
 src/cobra/ast/context.h:
 
