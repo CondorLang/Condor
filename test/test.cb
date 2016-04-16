@@ -27,9 +27,12 @@ fugi.size = 20;
 fugi.color = "Red - Yellow";
 fugi.class = apple;
 
+apple.class = fugi;
+
 println("Name: " + apple.name + ", Color: " + apple.color);
 println(apple.name + ", Color: " + apple.color);
 println(banana.name + ", Color: " + banana.color);
 println(fugi.name + ", Color: " + fugi.color);
 println("\n\n" + "The Moment of truth: " + "\n\n");
 println(fugi.name + " - Class: " + fugi.class.name);
+println("Circular " + fugi.class.name + " - " + fugi.class.class.class.class.class.name);
