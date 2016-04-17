@@ -161,8 +161,8 @@ namespace internal{
 		bool group = false;
 		if (!Is(2, IMPORT, INCLUDE)) return;
 		Trace("Parsing", "Imports");
+		isImport = Is(1, IMPORT);
 		while (true){
-			isImport = Is(1, IMPORT);
 			if (Is(2, IMPORT, INCLUDE)) {
 				Next();
 				if (Is(1, LBRACE)) {
@@ -189,6 +189,7 @@ namespace internal{
 			}
 			if (group && !Is(2, COMMA, RBRACE)) throw Error::INVALID_INCLUDE_IMPORT;
 		}
+		if (Is(1, RBRACE)) Next(); // eat missed }
 	}
 
 	/**
@@ -391,7 +392,11 @@ namespace internal{
 			var->baseType = OBJECT;
 			var->name = tok->raw;
 			Next();
+			if (IsAssignment() && !Is(1, ASSIGN)) throw Error::INVALID_ASSIGNMENT;
+			else if (IsAssignment()) Next(); // eat =
 			var->value = ParseExpr();
+			if (var->value != NULL && var->value->type == FUNC_CALL && ((ASTFuncCall*)var->value)->isInit) var->isObject = true;
+			if (Is(1, SEMICOLON)) Next();
 			return var;
 		}
 		if (Is(1, SEMICOLON)) Next();

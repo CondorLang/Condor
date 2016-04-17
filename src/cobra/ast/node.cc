@@ -167,6 +167,8 @@ namespace internal{
 		n->isCast = false;
 		n->calc = '\0';
 		n->isCalc = false;
+		n->obj = NULL;
+		n->allowAccess = false;
 		return n;
 	}
 
@@ -297,6 +299,7 @@ namespace internal{
 		n->litType = OBJECT;
 		n->constructor = NULL;
 		n->base = NULL;
+		n->obj = NULL;
 		return n;
 	}
 
@@ -327,6 +330,15 @@ namespace internal{
 	void ASTObjectInstance::SetProp(Isolate* isolate, std::string name, ASTExpr* value){
 		ASTVar* var = GetProp(isolate, name);
 		var->value = value;
+	}
+
+	void ASTObjectInstance::PrintValues(){
+		for(std::map<std::string,ASTVar*>::iterator i = properties.begin(); i != properties.end(); ++i){
+			std::string k =  i->first;
+			ASTVar* var = i->second;
+			ASTLiteral* lit = (ASTLiteral*) var->local;
+			printf("Object: %s - %s\n", k.c_str(), lit->value.c_str());
+		}
 	}
 
 } // namespace internal

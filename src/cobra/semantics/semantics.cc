@@ -91,8 +91,8 @@ namespace internal{
 	}
 	
 	void Semantics::Evaluate(Scope* scope){
-		baseScope = scope;
-		ScanScope(baseScope);
+		if (baseScope == NULL) baseScope = scope;
+		ScanScope(scope);
 	}
 
 	void Semantics::ScanScope(Scope* scope){
@@ -103,7 +103,7 @@ namespace internal{
 		for (int i = 0; i < scope->Size(); i++){
 			ASTNode* node = scope->Get(i);
 			SetRowCol(node);
-			int type = (node->type);
+			int type = (int) node->type;
 			switch (type){
 				case VAR: ValidateVar((ASTVar*) node); break;
 				case FOR: ValidateFor((ASTForExpr*) node); break;
@@ -161,9 +161,6 @@ namespace internal{
 			ExpectNumber((ASTLiteral*) ary->members[0]);
 		}
 		ValidateBaseAndAssignment(var);
-		if (var->value != NULL){
-			var->assignmentType = ValidateExpr((ASTExpr*) var->value);
-		}
 		if (var->previouslyDeclared){
 			ASTLiteral* member = (ASTLiteral*) var->member;
 			ValidateLiteral(member);
@@ -280,9 +277,6 @@ namespace internal{
 			isThis = true;
 			return UNDEFINED;
 		}	
-		if (expr->name == "name"){
-			int a = 10;
-		}
 		std::vector<ASTNode*> nodes = s->Lookup(expr->name, !isThis);
 		if (nodes.size() == 1 && nodes[0] == expr) throw Error::UNDEFINED_VARIABLE;
 		if (nodes.size() == 0 && scopes.size() > 1) {
@@ -293,7 +287,7 @@ namespace internal{
 			if (nodes.size() == 0 || (nodes.size() == 1 && nodes[0] == expr)) throw Error::UNDEFINED_VARIABLE; 
 		}
 		for (int i = 0; i < nodes.size(); i++){
-			if (!isThis && nodes[i]->HasVisibility(PRIVATE)) throw Error::UNABLE_TO_ACCESS_PRIVATE_MEMBER;
+			if ((!isThis && !expr->allowAccess) && nodes[i]->HasVisibility(PRIVATE)) throw Error::UNABLE_TO_ACCESS_PRIVATE_MEMBER;
 			if ((nodes[i]->type == VAR || nodes[i]->type == OBJECT)) {
 				expr->var = (ASTVar*) nodes[i];
 				break;
@@ -312,31 +306,61 @@ namespace internal{
 		Trace("Validating Func Call", expr->name.c_str());
 		SetRowCol(expr);
 		if (expr->isInternal) return ValidateInternal(expr);
+		int funcs = 0;
 		std::vector<ASTNode*> nodes = GetCurrentScope()->Lookup(expr->name);
 		if (nodes.size() == 0 && !isConstructor) throw Error::UNDEFINED_FUNC;
+		for (int i = 0; i < nodes.size(); i++){ // count functions, if funcs > 1, then worry about the parameters
+			if (nodes[i]->type == FUNC) funcs++;
+		}
+
+		std::vector<TOKEN> params;
+		if (expr->name == "arg"){
+			HERE();
+		}
+		if (expr->params.size() > 0){
+			Trace("Validating Func Call Params For", expr->name.c_str());
+			for (int j = 0; j < expr->params.size(); j++) {
+				TOKEN type = ValidateExpr(expr->params[j]);
+				params.push_back(type);
+			}
+		}
+		SetRowCol(expr);
+
 		for (int i = 0; i < nodes.size(); i++){
 			if (nodes[i]->type == FUNC){
 				if (staticRequired && !nodes[i]->HasVisibility(STATIC)) continue;
 				ASTFunc* func = (ASTFunc*) nodes[i];
+				bool notIt = false;
+
+				if (funcs > 1){ // if more than one function exists in the object, then we'll check parameters
+					if (func->args.size() < params.size()) continue;
+					for (int j = 0; j < func->args.size(); j++){
+						if (j < params.size()){
+							if (func->args[j]->baseType != VAR && func->args[j]->baseType != params[j]) {
+								notIt = true;
+							}
+						}
+					}
+				}
+				if (notIt) continue;
+
 				expr->func = func;
 				indent++;
 				ValidateFunc(func, true, isConstructor);
-				indent--;
-				if (expr->params.size() > 0){
-					Trace("Validating Func Call Params For", expr->name.c_str());
-					for (int j = 0; j < expr->params.size(); j++) ValidateExpr(expr->params[j]);
-				}				
+				indent--;	
 				return expr->func->assignmentType;
 			}
 		}
+		if (expr->func == NULL) throw Error::OBJECT_CONSTRUCTOR_INVALID;
 		return UNDEFINED;
 	}
 
-	// TODO: Fix RemoveAllAfter in scope. 
 	void Semantics::ValidateFunc(ASTFunc* func, bool parse, bool isConstructor){
 		if (func->scope->IsParsed() || !parse) return;
 		Trace("Parsing Func", func->name.c_str());
 		func->scope = Parse(func->scope);
+		if (func->scope->outer == NULL) func->scope->outer = GetCurrentScope(); // this will happen ?
+		if (func->scope->owner == NULL) func->scope->owner = func;
 		for (int i = 0; i < func->args.size(); i++){
 			ASTVar* var = (ASTVar*) func->args[i];
 			var->isArg = true;
@@ -345,9 +369,6 @@ namespace internal{
 		}
 		ScanScope(func->scope);
 		std::vector<ASTNode*> returns = func->scope->Lookup("return", false);
-		// if (returns.size() == 1) {
-		// 	func->scope->RemoveAllAfter(returns[0]);
-		// }
 		if (returns.size() > 1) {
 			SetRowCol(returns[1]);
 			throw Error::MULTIPLE_RETURNS_NOT_ALLOWED;
@@ -443,9 +464,20 @@ namespace internal{
 
 	TOKEN Semantics::ValidateObjectChain(ASTBinaryExpr* expr){
 		SetRowCol(expr);
+		Scope* s = GetCurrentScope();
 		ValidateExpr(expr->left);
 		ASTObject* obj = GetObject(expr->left);
+		bool allowAccess = false;
+
 		if (obj == NULL) throw Error::UNDEFINED_OBJECT;
+		if (expr->left->type == LITERAL){
+			ASTLiteral* lit = (ASTLiteral*) expr->left;
+			lit->obj = obj;
+			if (lit->value == "this") {
+				lit->litType = OBJECT;
+				allowAccess = true;
+			}
+		}
 		if (!obj->scope->IsParsed()) {
 			obj->scope = Parse(obj->scope);
 			ScanScope(obj->scope);
@@ -456,8 +488,15 @@ namespace internal{
 		OpenScope(obj->scope);
 		TOKEN right = ValidateExpr(expr->right);
 		CloseScope();
+
+		if (expr->right->type == LITERAL){
+			ASTLiteral* lit = (ASTLiteral*) expr->right;
+			lit->allowAccess = allowAccess;
+		}
+
 		indent--;
 		inObject = false;
+		if (isThis) CloseScope();
 		isThis = false;
 		return right;
 	}
@@ -474,6 +513,7 @@ namespace internal{
 		switch (type){
 			case LITERAL: {
 				ASTLiteral* lit = (ASTLiteral*) node;
+				if (lit->obj != NULL) return lit->obj;
 				return GetObject(lit->var);
 			}
 			case VAR: {

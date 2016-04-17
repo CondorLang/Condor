@@ -1,22 +1,14 @@
 export object String{
+	public string raw;
+	public int length;
+
 	func String(){}
 	func String(string str){
-		this.base = str;
-		this.setSize();
+		this.raw = str;
+		this.length = strlen(this.raw);
 	}
-	func String(int val){
-		char v = (char) val;
-		this.base = (string) v;
-	}
-	func String(char val){
-		this.base = (string) val;
-	}
-	private func setSize(){
-		int spot = -1;
-		while (base[++spot]){
-			length++;
-		}
-	}
-	string base = "";
-	int length = 0;
+}
+
+export func strlen(string str){
+	return %getStringLength(str);
 }

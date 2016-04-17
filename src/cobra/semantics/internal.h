@@ -21,6 +21,7 @@ namespace internal{
 	public:
 		static ASTNode* PrintF(Isolate* iso, ASTNode* lit);
 		static ASTNode* ReadLine(Isolate* iso, ASTNode* lit);
+		static ASTNode* GetStringLength(Isolate* iso, ASTNode* lit);
 		static ASTNode* CallInternal(Isolate* iso, InternalFunctionCallback call, ASTNode* node){return call(iso, node);}
 		static TOKEN Bind(ASTFuncCall* call);
 	};

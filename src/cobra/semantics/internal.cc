@@ -21,6 +21,17 @@ namespace internal{
 		return l;
 	}
 
+	ASTNode* Internal::GetStringLength(Isolate* iso, ASTNode* lit){
+		if (lit == NULL && lit->type != LITERAL) return NULL;
+		ASTLiteral* v = (ASTLiteral*) lit;
+		ASTLiteral* l = ASTLiteral::New(iso);
+		l->litType = INT;
+		int len = (int) v->value.length();
+		l->value = std::to_string(len);
+		l->calc = (double) len;
+		return l;
+	}
+
 	// TODO: replace with a macro
 	TOKEN Internal::Bind(ASTFuncCall* call){
 		if (call->name == "printf") {
@@ -31,8 +42,11 @@ namespace internal{
 			call->callback = Internal::ReadLine;
 			return STRING;
 		}
+		else if (call->name == "getStringLength"){
+			call->callback = Internal::GetStringLength;
+			return INT;
+		}
 		else throw Error::UNDEFINED_FUNC;
-		return UNDEFINED;
 	}
 
 } // namespace internal

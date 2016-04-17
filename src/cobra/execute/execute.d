@@ -81,12 +81,12 @@ src/cobra/execute/execute.o: src/cobra/execute/execute.cc \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/map \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__tree \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/functional \
-  src/cobra/ast/node.h src/cobra/global.h src/cobra/token/token.h \
-  src/cobra/mem/isolate.h src/cobra/mem/allocate.h /usr/include/stdlib.h \
-  /usr/include/sys/wait.h /usr/include/sys/_types/_id_t.h \
-  /usr/include/sys/signal.h /usr/include/machine/signal.h \
-  /usr/include/i386/signal.h /usr/include/machine/_mcontext.h \
-  /usr/include/i386/_mcontext.h /usr/include/mach/i386/_structs.h \
+  src/cobra/execute/stack.h src/cobra/mem/isolate.h \
+  src/cobra/mem/allocate.h /usr/include/stdlib.h /usr/include/sys/wait.h \
+  /usr/include/sys/_types/_id_t.h /usr/include/sys/signal.h \
+  /usr/include/machine/signal.h /usr/include/i386/signal.h \
+  /usr/include/machine/_mcontext.h /usr/include/i386/_mcontext.h \
+  /usr/include/mach/i386/_structs.h \
   /usr/include/sys/_pthread/_pthread_attr_t.h \
   /usr/include/sys/_types/_sigaltstack.h \
   /usr/include/sys/_types/_ucontext.h /usr/include/sys/resource.h \
@@ -96,7 +96,8 @@ src/cobra/execute/execute.o: src/cobra/execute/execute.cc \
   /usr/include/machine/types.h /usr/include/i386/types.h \
   /usr/include/math.h src/cobra/flags.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/cstdlib \
-  src/cobra/mem/list.h src/cobra/ast/context.h src/cobra/ast/scope.h \
+  src/cobra/global.h src/cobra/mem/list.h src/cobra/ast/context.h \
+  src/cobra/ast/node.h src/cobra/token/token.h src/cobra/ast/scope.h \
   src/cobra/semantics/internal.h src/cobra/error/error.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iostream \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/ios \
@@ -388,11 +389,7 @@ src/cobra/execute/execute.h:
 
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/functional:
 
-src/cobra/ast/node.h:
-
-src/cobra/global.h:
-
-src/cobra/token/token.h:
+src/cobra/execute/stack.h:
 
 src/cobra/mem/isolate.h:
 
@@ -446,9 +443,15 @@ src/cobra/flags.h:
 
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/cstdlib:
 
+src/cobra/global.h:
+
 src/cobra/mem/list.h:
 
 src/cobra/ast/context.h:
+
+src/cobra/ast/node.h:
+
+src/cobra/token/token.h:
 
 src/cobra/ast/scope.h:
 

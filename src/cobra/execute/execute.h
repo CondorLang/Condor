@@ -5,6 +5,8 @@
 #include <vector>
 #include <map>
 
+#include "stack.h"
+
 #include "cobra/ast/node.h"
 #include "cobra/ast/scope.h"
 #include "cobra/mem/isolate.h"
@@ -22,8 +24,8 @@ namespace internal{
 	{
 	private:
 		std::vector<Scope*> scopes;
-		std::vector<ASTNode*> stack;
-		std::vector<ASTNode*> opStack;
+		std::vector<RPNStack*> stack;
+		std::vector<ASTObjectInstance*> objStack;
 		Isolate* isolate;
 		bool trace;
 		bool steps;
@@ -37,7 +39,13 @@ namespace internal{
 		void OpenScope(Scope* sc);
 		void CloseScope(){scopes.erase(scopes.begin());}
 		Scope* GetCurrentScope(){return scopes[0];}
+		void AddObject(ASTObjectInstance* obj){objStack.push_back(obj);}
+		void RemoveObject(){objStack.erase(objStack.begin());}
+		ASTObjectInstance* GetCurrentObject(){if (objStack.size() > 0) return objStack[0]; return NULL;}
 		void SetRowCol(ASTNode* node);
+		void NewStack(){stack.insert(stack.begin(), RPNStack::New(isolate));}
+		void CloseStack(){isolate->FreeMemory(stack[0], sizeof(RPNStack)); stack.erase(stack.begin());}
+		RPNStack* GetCurrentStack(){if (stack.size() == 0) return NULL; return stack[0];}
 
 		ASTLiteral* EvaluateFuncCall(ASTFuncCall* call);
 		ASTLiteral* EvaluateBinary(ASTBinaryExpr* binary); 
@@ -56,6 +64,7 @@ namespace internal{
 		ASTVar* GetVar(ASTNode* node);
 		void SetCalc(ASTLiteral* lit);
 		void EvaluateSwitch(ASTSwitch* expr);
+		ASTLiteral* StackCall(ASTFuncCall* call, ASTToken* tok, ASTLiteral* first);
 
 	public:
 		static Execute* New(Isolate* isolate, Scope* scope);

@@ -1,44 +1,11 @@
-import "console"
-
-object Fruit{
-	string name;
-	int size;
-	string color;
-	Fruit class;
-
-	func Fruit(){
-
-	}
+import {
+	"console",
+	"string"
 }
 
-var apple = new Fruit();
-apple.name = "Apple";
-apple.size = 20;
-apple.color = "Red";
-
-var banana = new Fruit();
-banana.name = "Banana";
-banana.size = 30;
-banana.color = "Yellow";
-
-var fugi = new Fruit();
-fugi.name = "Fugi Apple";
-fugi.size = 20;
-fugi.color = "Red - Yellow";
-fugi.class = apple;
-
-apple.class = fugi;
-
-println("Name: " + apple.name + ", Color: " + apple.color);
-println(apple.name + ", Color: " + apple.color);
-println(banana.name + ", Color: " + banana.color);
-println(fugi.name + ", Color: " + fugi.color);
-println("\n\n" + "The Moment of truth: " + "\n\n");
-println(fugi.name + " - Class: " + fugi.class.name);
-println("Circular " + fugi.class.name + " - " + fugi.class.class.class.class.class.name);
-
-// for (int i = 0; i < 4; i++){
-// 	var userFruit = new Fruit();
-// 	userFruit.name = Console.get("Fruit Name [" + i + "] >> ");
-// 	println(userFruit.name);
-// }
+var a = new String("This is a test");
+println(a.length);
+string c = a.raw; // access to raw returns nothing
+//println(c); // Check this error out
+int len = strlen(c);
+println(len);

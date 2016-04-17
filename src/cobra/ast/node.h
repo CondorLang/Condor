@@ -121,18 +121,29 @@ namespace internal{
 		size_t Size(){return sizeof(ASTBinaryExpr);}
 	};
 
+	class ASTObject : public ASTNode
+	{
+	public:
+		static ASTObject* New(Isolate* iso);
+		Scope* scope;
+		bool extend;
+		size_t Size(){return sizeof(ASTObject);}
+	};
+
 	class ASTLiteral : public ASTExpr
 	{
 	public:
 		static ASTLiteral* New(Isolate* iso);
 		std::string value;
 		ASTVar* var;
+		ASTObject* obj; // for this
 		TOKEN litType;
 		TOKEN unary;
 		double calc;
 		bool isCast;
 		bool isCalc;
 		int isPost;
+		bool allowAccess;
 		size_t Size(){return sizeof(ASTLiteral);}
 
 		template<typename T>
@@ -231,15 +242,6 @@ namespace internal{
 		size_t Size(){return sizeof(ASTSwitch);}
 	};
 
-	class ASTObject : public ASTNode
-	{
-	public:
-		static ASTObject* New(Isolate* iso);
-		Scope* scope;
-		bool extend;
-		size_t Size(){return sizeof(ASTObject);}
-	};
-
 	class ASTUndefined : public ASTLiteral
 	{
 	public:
@@ -267,6 +269,7 @@ namespace internal{
 		void SetProp(Isolate* isolate, std::string name, ASTExpr* value);
 		ASTFuncCall* constructor;
 		ASTObject* base;
+		void PrintValues();
 		size_t Size(){return sizeof(ASTObjectInstance);}		
 	};
 

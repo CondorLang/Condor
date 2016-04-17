@@ -114,6 +114,7 @@ namespace Error {
 			case INVALID_USE_OF_BREAK: return "Invalid use of break";
 			case INVALID_DEFAULT_STMT: return "Invalid default statement";
 			case INVALID_OBJECT: return "Invalid object";
+			case INVALID_ASSIGNMENT: return "Invalid assignment";
 			case SCANNER: {
 				if (tok != NULL){
 					return tok->raw;
