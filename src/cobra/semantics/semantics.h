@@ -63,6 +63,7 @@ namespace internal{
 		TOKEN ValidateInternal(ASTFuncCall* call);
 		void ValidateSwitch(ASTSwitch* expr);
 		void ValidateCase(ASTCase* expr);
+		std::string GetBaseName(ASTExpr* expr);
 
 	public:
 		Semantics(Isolate* iso);

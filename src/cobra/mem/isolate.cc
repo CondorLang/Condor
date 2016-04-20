@@ -31,10 +31,11 @@ namespace internal{
 			large->debug = true;
 			xl->debug = true;
 		}
-		gc = new GC();
+		gc = new GC(); // TODO: memory leak
 	}
 
 	Isolate::~Isolate(){
+
 	}
 
 	void Isolate::Dispose(){
@@ -76,12 +77,12 @@ namespace internal{
 		else xl->FreeMemory(ptr, size);
 	}
 
-	void Isolate::RunGC(Scope* scope){
-		gc->Dispose(this, scope);
+	void Isolate::RunGC(Scope* scope, bool deep){
+		gc->Dispose(this, scope, deep);
 	}
 
-	void Isolate::RunGC(ASTNode* node){
-		gc->Dispose(this, node);
+	void Isolate::RunGC(ASTNode* node, bool deep){
+		gc->Dispose(this, node, deep);
 	}
 
 } // namespace internal

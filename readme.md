@@ -49,17 +49,18 @@ See [Contributing](https://github.com/chaseWillden/CobraLang/wiki/Contributing) 
 
 Todo:
 ------
- - node.h 22 - Create a Expand() function which expands the node and the tree
+ - node.h 23 - Create a Expand() function which expands the node and the tree
  - execute.cc 51 - Erase values in all non return locals
- - execute.cc 170 - Set row and col for tracking
- - execute.cc 171 - String, Char, and other data types need to be implemented
- - execute.cc 416 - Implement setting object variables
- - execute.cc 417 - Implement bitwise
- - execute.cc 472 - confirm in all instances
- - execute.cc 648 - Attach the correct parent scope to the scope
+ - execute.cc 173 - Set row and col for tracking
+ - execute.cc 174 - String, Char, and other data types need to be implemented
+ - execute.cc 414 - Implement setting object variables
+ - execute.cc 415 - Implement bitwise
+ - execute.cc 470 - confirm in all instances
+ - execute.cc 655 - Attach the correct parent scope to the scope
+ - isolate.cc 34 - memory leak
  - parser.cc 371 - Account for variable declarations
  - parser.cc 799 - Disallow for allow-native on a non internal file
  - scanner.cc 462 - Include Octal, Hex, UTF-8, UTF-16, see https://msdn.microsoft.com/en-us/library/6aw8xdf2.aspx
  - internal.cc 35 - replace with a macro
- - semantics.cc 304 - add variable types
- - semantics.cc 554 - Compare the base type with the assignment type. Throw an error if they are not the same if hard typed.
+ - semantics.cc 332 - add variable types
+ - semantics.cc 595 - Compare the base type with the assignment type. Throw an error if they are not the same if hard typed.

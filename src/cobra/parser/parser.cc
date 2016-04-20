@@ -817,6 +817,7 @@ namespace internal{
 		var->name = tok->String();
 		Next();
 		var->value = ParseExpr();
+		if (var->value != NULL && var->value->type == FUNC_CALL && ((ASTFuncCall*)var->value)->isInit) var->isObject = true;
 		if (Is(1, SEMICOLON)) Next();
 		return var;
 	}

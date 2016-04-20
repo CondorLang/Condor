@@ -85,6 +85,7 @@ namespace internal{
 		for (unsigned int i = 0; i < kChunkCount; i++){
 			if (chunk != NULL){
 				chunk->used = 0;
+				chunk->size = kChunkSize;
 				kUsedSize -= kChunkSize;
 				kFreeSize += kChunkSize;
 				chunk = chunk->next;
@@ -103,7 +104,7 @@ namespace internal{
 
 	Chunk* MemoryPool::FindChunkSuitableToHoldMemory(const size_t size){
 		unsigned int chunkToSkip = 0;
-		Chunk* chunk = kCursorChunk;
+		Chunk* chunk = kFirstChunk; // used to be kCursorChunk
 		for (unsigned int i = 0; i < kChunkCount; i++){
 			if (chunk != NULL){
 				if (chunk == kLastChunk){
@@ -140,7 +141,6 @@ namespace internal{
 		}
 		size_t bestBlockSize = CalculateBestMemoryBlockSize(size);
 		Chunk* chunk = NULL;
-		int c = 0;
 		while (chunk == NULL){
 			chunk = FindChunkSuitableToHoldMemory(bestBlockSize);
 			if (chunk == NULL){

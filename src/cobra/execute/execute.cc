@@ -87,21 +87,24 @@ namespace internal{
 		else{
 			if (func == NULL) throw Error::UNDEFINED_FUNC;
 			for (int i = 0; i < func->args.size(); i++){
-				PrintStep("Evaluating Parameter (" + func->args[i]->name + ")"); // here
-				if (call->params.size() > i) func->args[i]->value = EvaluateValue(call->params[i]);
+				PrintStep("Evaluating Parameter (" + func->args[i]->name + ")");
+				if (call->params.size() > i) func->args[i]->local = EvaluateValue(call->params[i]);
 				else{
-					func->args[i]->value = ASTUndefined::New(isolate);
+					func->args[i]->local = ASTUndefined::New(isolate);
 				}
 			}
 			if (func->scope == GetCurrentScope()) throw Error::INTERNAL_SCOPE_ERROR;
 			OpenScope(func->scope);
 			Evaluate();
-			for (int i = 0; i < func->args.size(); i++){
-				func->args[i]->value->Free(isolate);
-			}
 		}
 		std::vector<ASTNode*> returns = func->scope->Lookup("return", false);
-		if (returns.size() > 0) return (ASTLiteral*) returns[0]->local;
+		if (returns.size() > 0) {
+			ASTLiteral* lit = (ASTLiteral*) returns[0]->local;
+			ASTLiteral* result = lit->Clone(isolate);
+			PrintStep("Cloning (" + call->name + ") return value");
+			isolate->RunGC(call, true);
+			return result;
+		}
 		return NULL;
 	}
 
@@ -282,6 +285,7 @@ namespace internal{
 				if (rpnStack) printf("[%d]: %s\n", i, tok->value->String().c_str());
 				ASTLiteral* val = Calc(tok);
 				if (val != NULL) {
+					PrintStep("Evaluated Value (" + val->value + ")");
 					stack->opStack.push_back(val);
 					if (rpnStack && val->value.length() > 0) printf("[%d] - [%d, %d, %d] = %s\n", i, i - 2, i - 1, i, val->value.c_str());
 					else if (rpnStack) printf("[%d] - [%d, %d, %d] = [Object]\n",i,  i - 2, i - 1, i);
@@ -352,28 +356,21 @@ namespace internal{
 		ASTLiteral* second = (ASTLiteral*) stack->opStack[stack->opStack.size() - 1];
 		stack->opStack.pop_back();
 		if (first->type == FUNC_CALL) return StackCall((ASTFuncCall*) first, tok, second);
-		ASTLiteral* result = ASTLiteral::New(isolate);
+		if (second->type == OBJECT_INSTANCE){
+			ASTObjectInstance* inst = (ASTObjectInstance*) second;
+			if ((inst->litType == OBJECT || inst->type == LITERAL) && inst->type != OBJECT_INSTANCE) inst = GetCurrentObject();
+			ASTVar* var = inst->GetProp(isolate, first->value);
+			ASTLiteral* val = EvaluateValue(var);
+			return val;
+		}
 
-		bool isLitObj = second->litType == OBJECT;
-		if (isLitObj){
-			result->litType = LITERAL;
-		}	
-		else result->litType = Binary::Compare(first->litType, second->litType, tok->value->value);
+		ASTLiteral* result = ASTLiteral::New(isolate);
+		result->litType = Binary::Compare(first->litType, second->litType, tok->value->value);
 
 		PrintStep("Calculating ('" + second->value + "' " + tok->value->String() + " '" + first->value + "')");
 
 		int litType = (int) result->litType;
 		switch (litType){
-			case LITERAL: { // object oriented
-				ASTObjectInstance* inst = (ASTObjectInstance*) second;
-				if (first->value == "length"){
-					int a = 10;
-				}
-				if ((isLitObj || inst->type == LITERAL) && inst->type != OBJECT_INSTANCE) inst = GetCurrentObject();
-				ASTVar* var = inst->GetProp(isolate, first->value);
-				ASTLiteral* val = EvaluateValue(var);
-				return val;
-			}
 			case INT: case DOUBLE: 
 			case FLOAT: case BOOLEAN: {
 				switch (type){
@@ -394,6 +391,7 @@ namespace internal{
 						printf("debug int: %s\n", Token::ToString(tok->value->value).c_str());
 					}
 				}
+				FormatLit(result);
 				break;
 			}
 			case STRING: case CHAR: {
@@ -487,6 +485,9 @@ namespace internal{
 		if (!lit->isCalc && lit->value.length() != 0 && (lit->litType == INT || lit->litType == DOUBLE || 
 											 lit->litType == FLOAT /** || lit->litType == BOOLEAN**/)) {
 			PrintStep("Set the calculated value (" + lit->value + " | " + Token::ToString(lit->litType) + ")");
+			if (lit->value == "2"){
+				int a = 10; // here
+			}
 			try{
 				if (lit->value == "true" || lit->value == "false") lit->value = lit->value == "true" ? "1" : "0";
 				lit->calc = std::stod(lit->value);
@@ -527,13 +528,12 @@ namespace internal{
 				}
 
 				if (value != NULL) return value;
-				ASTLiteral* l = (ASTLiteral*) lit;
-				SetCalc(l);
-				return l;
+				SetCalc(lit);
+				return lit;
 			}
 			case VAR: {
 				ASTVar* var = (ASTVar*) node;
-				if (var->local != NULL) return (ASTLiteral*) var->local; // check this if this is always true
+				if (var->local != NULL) return EvaluateValue(var->local); // check this if this is always true
 				return EvaluateValue(var->value);
 			}
 			case FUNC_CALL: {
@@ -549,16 +549,17 @@ namespace internal{
 		return NULL;
 	}
 
-	ASTLiteral* Execute::EvaluateVar(ASTVar* var){ // here
+	ASTLiteral* Execute::EvaluateVar(ASTVar* var){
 		PrintStep("Evaluating Var (" + var->name + ")");
 		SetRowCol(var);
 		Trace("Evaluating Var", var->name);
-		ASTLiteral* local = (ASTLiteral*) EvaluateValue(var->value);
+		ASTLiteral* local = (ASTLiteral*) EvaluateValue(var);
 		if (var->previouslyDeclared && var->op == ASSIGN){
 			if (var->local != NULL) var->local->Free(isolate);
 		}
 		if (local->type == OBJECT_INSTANCE){ // call constructor
 			ASTObjectInstance* inst = (ASTObjectInstance*) local;
+			PrintStep("Calling Constructor for " + inst->base->name);
 			AddObject(inst);
 			EvaluateFuncCall(inst->constructor);
 			RemoveObject();
@@ -578,12 +579,12 @@ namespace internal{
 		while (true){
 			ASTLiteral* condition = EvaluateValue(expr->condition);
 			if (condition->value != "true") break; // condition
-			if (condition != expr->condition) condition->Free(isolate); // release condition memory
+			if (condition != expr->condition) isolate->RunGC(condition, true);
 			bool cb = canBreak;
 			canBreak = true;
 			try {
 				Evaluate();
-				isolate->RunGC(GetCurrentScope());
+				isolate->RunGC(expr->scope, true);
 			}
 			catch (Error::ERROR e){
 				canBreak = cb;
@@ -605,12 +606,15 @@ namespace internal{
 		while (true){
 			ASTLiteral* condition = EvaluateValue(expr->condition);
 			if (condition->value != "true") break; // condition
-			if (condition != expr->condition) condition->Free(isolate); // release condition memory
+			if (condition != expr->condition) {
+				condition->Free(isolate); // release condition memory
+				isolate->RunGC(expr->condition, true);
+			}
 			bool cb = canBreak;
 			canBreak = true;
 			try {
 				Evaluate();
-				isolate->RunGC(GetCurrentScope());
+				isolate->RunGC(expr->scope, true);
 			}
 			catch (Error::ERROR e){
 				canBreak = cb;
@@ -629,11 +633,14 @@ namespace internal{
 		SetRowCol(expr);
 		Trace("Evaluating","If");
 		ASTLiteral* condition = EvaluateValue(expr->condition);
+		if (condition != NULL && condition != expr->condition) {
+			condition->Free(isolate); // release condition memory
+			isolate->RunGC(expr->condition, true);
+		}
 		if (condition == NULL || condition->value == "true"){
-			if (condition != expr->condition) condition->Free(isolate); // release condition memory
 			OpenScope(expr->scope);
 			Evaluate();
-			isolate->RunGC(GetCurrentScope());
+			isolate->RunGC(expr->scope, true);
 			return true;
 		}
 		else{
@@ -657,7 +664,7 @@ namespace internal{
 			SetRowCol(stmt);
 			if (condition == NULL && !stmt->isDefault) throw Error::INVALID_CASE_STMT;
 			if (stmt->isDefault || condition->value == value->value){
-				if (condition != stmt->condition) condition->Free(isolate);
+				if (condition != stmt->condition) isolate->RunGC(condition, true);
 				if (!stmt->scope->IsParsed()) {
 					stmt->scope->outer = GetCurrentScope();
 					stmt->scope = semantic->ParseAndScan(stmt->scope);
@@ -667,7 +674,7 @@ namespace internal{
 				canBreak = true;
 				try {
 					Evaluate();
-					isolate->RunGC(GetCurrentScope());
+					isolate->RunGC(stmt->scope, true);
 				}
 				catch (Error::ERROR e){
 					canBreak = cb;

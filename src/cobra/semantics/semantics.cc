@@ -138,6 +138,7 @@ namespace internal{
 
 	void Semantics::ValidateVar(ASTVar* var){
 		SetRowCol(var);
+		var->scopeId = GetCurrentScope()->scopeId;
 		if (var->isObject && var->value->type == FUNC_CALL){
 			ValidateObjectInit(var);
 			return;
@@ -166,7 +167,29 @@ namespace internal{
 			ValidateLiteral(member);
 			var->member = member->var;
 		}
+		if (var->baseType == VAR && var->assignmentType == ILLEGAL) {
+			var->assignmentType = OBJECT;
+			var->baseName = GetBaseName((ASTExpr*) var->value);
+		}
 		indent--;
+	}
+
+	std::string Semantics::GetBaseName(ASTExpr* expr){
+		if (expr == NULL) return NULL;
+		int type = (int) expr->type;
+		switch (type){
+			case FUNC_CALL: {
+				ASTFuncCall* call = (ASTFuncCall*) expr;
+				std::vector<ASTNode*> nodes = call->func->scope->Lookup("return", false);
+				if (nodes.size() == 0) return "";
+				ASTVar* returnVar = (ASTVar*) nodes[0];
+				return returnVar->baseName;
+			}
+			default: {
+				printf("ddd: %s\n", Token::ToString(expr->type).c_str());
+			}
+		}
+		return "";
 	}
 
 	TOKEN Semantics::ValidateExpr(ASTExpr* expr){
@@ -282,14 +305,19 @@ namespace internal{
 		if (nodes.size() == 0 && scopes.size() > 1) {
 			SwapScopes(); // used in object chains
 			s = GetCurrentScope();
-			nodes = s->Lookup(expr->name, isThis ? false : true);
+			nodes = s->Lookup(expr->name, !isThis);
 			SwapScopes();
-			if (nodes.size() == 0 || (nodes.size() == 1 && nodes[0] == expr)) throw Error::UNDEFINED_VARIABLE; 
+			if (nodes.size() == 0 || (nodes.size() == 1 && nodes[0] == expr)) {
+				SetRowCol(expr);
+				throw Error::UNDEFINED_VARIABLE; 
+			}
 		}
 		for (int i = 0; i < nodes.size(); i++){
 			if ((!isThis && !expr->allowAccess) && nodes[i]->HasVisibility(PRIVATE)) throw Error::UNABLE_TO_ACCESS_PRIVATE_MEMBER;
 			if ((nodes[i]->type == VAR || nodes[i]->type == OBJECT)) {
 				expr->var = (ASTVar*) nodes[i];
+				Scope* s = GetCurrentScope();
+				expr->allowGC = s->scopeId == expr->var->scopeId;
 				break;
 			}
 		}
@@ -303,20 +331,32 @@ namespace internal{
 
 	// TODO: add variable types
 	TOKEN Semantics::ValidateFuncCall(ASTFuncCall* expr, bool isConstructor){
+		if (!isConstructor) isConstructor = expr->isInit;
+		if (expr->isInit){
+			int a = 10;
+		}
 		Trace("Validating Func Call", expr->name.c_str());
 		SetRowCol(expr);
 		if (expr->isInternal) return ValidateInternal(expr);
 		int funcs = 0;
 		std::vector<ASTNode*> nodes = GetCurrentScope()->Lookup(expr->name);
-		if (nodes.size() == 0 && !isConstructor) throw Error::UNDEFINED_FUNC;
+		if (isConstructor){
+			for (int i = 0; i < nodes.size(); i++){
+				if (nodes[i]->type == OBJECT){
+					ASTObject* obj = (ASTObject*) nodes[i];
+					if (!obj->scope->IsParsed()) obj->scope = Parse(obj->scope);
+					nodes = obj->scope->Lookup(expr->name, false);
+					break;
+				}
+			}
+		}
+
+		if (nodes.size() == 0) throw Error::UNDEFINED_FUNC;
 		for (int i = 0; i < nodes.size(); i++){ // count functions, if funcs > 1, then worry about the parameters
 			if (nodes[i]->type == FUNC) funcs++;
 		}
 
 		std::vector<TOKEN> params;
-		if (expr->name == "arg"){
-			HERE();
-		}
 		if (expr->params.size() > 0){
 			Trace("Validating Func Call Params For", expr->name.c_str());
 			for (int j = 0; j < expr->params.size(); j++) {
@@ -351,7 +391,8 @@ namespace internal{
 				return expr->func->assignmentType;
 			}
 		}
-		if (expr->func == NULL) throw Error::OBJECT_CONSTRUCTOR_INVALID;
+		if (expr->func == NULL && isConstructor) throw Error::OBJECT_CONSTRUCTOR_INVALID;
+		else if (expr->func == NULL) throw Error::INVALID_FUNCTION_CALL;
 		return UNDEFINED;
 	}
 
@@ -538,7 +579,7 @@ namespace internal{
 			}
 			case OBJECT: return (ASTObject*) node;
 			default: {
-				printf("dd: %s - %s\n", Token::ToString(node->type).c_str(), node->name.c_str());
+				//printf("dd: %s - %s\n", Token::ToString(node->type).c_str(), node->name.c_str());
 				return NULL;
 			}
 		}

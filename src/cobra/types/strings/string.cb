@@ -2,10 +2,13 @@ export object String{
 	public string raw;
 	public int length;
 
-	func String(){}
+	func String(){
+		this.length = 0;
+		this.raw = "";
+	}
 	func String(string str){
 		this.raw = str;
-		this.length = strlen(this.raw);
+		this.length = strlen(str);
 	}
 }
 

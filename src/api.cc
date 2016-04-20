@@ -47,6 +47,7 @@ namespace Cobra{
 	void Isolate::Dispose(){
 		i::Isolate* isolate = CAST(i::Isolate*, this);
 		isolate->Dispose();
+		isolate->~Isolate();
 	}
 
 	Context* Isolate::CreateContext(){

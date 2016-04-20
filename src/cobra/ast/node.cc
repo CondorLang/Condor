@@ -17,6 +17,7 @@ namespace internal{
 		node->name = "";
 		node->isExport = false;
 		node->isInParen = false;
+		node->allowGC = true;
 		node->id = iso->GetContext()->GetNextAstId();
 	}
 
@@ -104,6 +105,7 @@ namespace internal{
 		n->order = -1;
 		n->previouslyDeclared = false;
 		n->op = UNDEFINED;
+		n->scopeId = -1;
 		return n;
 	}
 
@@ -121,6 +123,7 @@ namespace internal{
 		var->previouslyDeclared = previouslyDeclared;
 		var->op = op;
 		var->name = name;
+		var->scopeId = scopeId;
 		return var;
 	}
 
@@ -169,6 +172,24 @@ namespace internal{
 		n->isCalc = false;
 		n->obj = NULL;
 		n->allowAccess = false;
+		n->scopeId = -1;
+		return n;
+	}
+
+	ASTLiteral* ASTLiteral::Clone(Isolate* iso){
+		ASTLiteral* n = ASTLiteral::New(iso);
+		n->value = value;
+		n->type = type;
+		n->litType = litType;
+		n->unary = unary;
+		n->isPost = isPost;
+		n->var = var;
+		n->isCast = isCast;
+		n->calc = calc;
+		n->isCalc = isCalc;
+		n->obj = obj;
+		n->allowAccess = allowAccess;
+		n->scopeId = scopeId;
 		return n;
 	}
 
@@ -333,11 +354,15 @@ namespace internal{
 	}
 
 	void ASTObjectInstance::PrintValues(){
-		for(std::map<std::string,ASTVar*>::iterator i = properties.begin(); i != properties.end(); ++i){
-			std::string k =  i->first;
-			ASTVar* var = i->second;
-			ASTLiteral* lit = (ASTLiteral*) var->local;
-			printf("Object: %s - %s\n", k.c_str(), lit->value.c_str());
+		if (!properties.empty()){
+			for(std::map<std::string,ASTVar*>::iterator i = properties.begin(); i != properties.end(); ++i){
+				std::string k =  i->first;
+				ASTVar* var = i->second;
+				if (var->local != NULL){
+					ASTLiteral* lit = (ASTLiteral*) var->local;
+					printf("Object: %s - %s\n", k.c_str(), lit->value.c_str());
+				}
+			}
 		}
 	}
 

@@ -15,6 +15,7 @@ namespace internal{
 		void* pt = isolate->GetMemory(sizeof(Scope));
 		Scope* n = new(pt) Scope();
 		n->isolate = isolate;
+		n->scopeId = scopeIdInc++;
 		return n;
 	}
 

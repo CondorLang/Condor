@@ -3,6 +3,7 @@
 
 #include <string>
 #include <typeinfo>
+#include <map>
 
 #include "cobra/global.h"
 #include "cobra/token/token.h"
@@ -32,6 +33,7 @@ namespace internal{
 		int id;
 		bool isExport;
 		bool isInParen;
+		bool allowGC;
 		std::vector<TOKEN> visibility;
 		ASTNode* local;
 		static ASTNode* New(Isolate* iso);
@@ -74,6 +76,7 @@ namespace internal{
 		ASTNode* member;
 		TOKEN assignmentType;
 		TOKEN op;
+		int scopeId;
 		bool isArray;
 		bool isObject;
 		bool isArg;
@@ -81,7 +84,7 @@ namespace internal{
 		int order;
 		static ASTVar* New(Isolate* iso);		
 		size_t Size(){return sizeof(ASTVar);}
-		ASTVar* Clone(Isolate* isolate);
+		ASTVar* Clone(Isolate* iso);
 	};
 
 	class ASTFunc : public ASTNode
@@ -141,17 +144,12 @@ namespace internal{
 		TOKEN unary;
 		double calc;
 		bool isCast;
+		int scopeId;
 		bool isCalc;
 		int isPost;
 		bool allowAccess;
+		ASTLiteral* Clone(Isolate* isolate);
 		size_t Size(){return sizeof(ASTLiteral);}
-
-		template<typename T>
-		T To(){
-			std::string name(typeid(T).name());
-			if (name == "i") return std::stoi(value);
-			return 0;
-		}
 	};
 
 	class ASTFuncCall : public ASTExpr

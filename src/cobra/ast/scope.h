@@ -16,6 +16,8 @@ namespace internal{
 	class Type;
 	class Context;
 
+	static int scopeIdInc = 1;
+
 	class Scope
 	{
 	private:
@@ -30,6 +32,7 @@ namespace internal{
 		std::string raw;
 		std::string name;
 		Context* context;
+		int scopeId;
 		std::vector<ASTNode*> local;
 		ASTNode* owner;
 		static Scope* New(Isolate* isolate);

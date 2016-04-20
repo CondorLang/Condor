@@ -1,11 +1,32 @@
-import {
-	"console",
-	"string"
+// import {
+// 	"console",
+// 	"string"
+// }
+
+// func GetAsString(){
+// 	var a = Console.get(">> ");
+// 	return new String(a);
+// }
+
+// while (true){
+// 	var in = GetAsString();
+// 	//println(in.length);
+// 	// if (in.length > 1){
+// 	// 	break;
+// 	// }
+// }
+
+import "console"
+
+func add(int a, int b){
+	return a + b;
 }
 
-var a = new String("This is a test");
-println(a.length);
-string c = a.raw; // access to raw returns nothing
-//println(c); // Check this error out
-int len = strlen(c);
-println(len);
+int i = 10;
+while (true){
+	println(i);
+	i = add(i, 1);
+	if (i == 20){
+		break;
+	}
+}

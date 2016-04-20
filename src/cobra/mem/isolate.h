@@ -32,8 +32,8 @@ namespace internal{
 		void FreeMemory(void* ptr, const size_t size);
 		void SetSelfPool(MemoryPool* mp){this->self = mp;}
 		void Dispose();
-		void RunGC(Scope* scope);
-		void RunGC(ASTNode* node);
+		void RunGC(Scope* scope, bool deep = false);
+		void RunGC(ASTNode* node, bool deep = false);
 		
 	};
 
