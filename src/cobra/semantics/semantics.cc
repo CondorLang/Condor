@@ -388,6 +388,9 @@ namespace internal{
 				indent++;
 				ValidateFunc(func, true, isConstructor);
 				indent--;	
+				if (isConstructor) {
+					expr->func->assignmentType = OBJECT;
+				}
 				return expr->func->assignmentType;
 			}
 		}
@@ -510,7 +513,11 @@ namespace internal{
 		ASTObject* obj = GetObject(expr->left);
 		bool allowAccess = false;
 
-		if (obj == NULL) throw Error::UNDEFINED_OBJECT;
+		if (obj == NULL) {
+			ASTLiteral* lit = (ASTLiteral*) expr->left;
+			printf("d: %s\n", lit->value.c_str()); // here
+			throw Error::UNDEFINED_OBJECT;
+		}
 		if (expr->left->type == LITERAL){
 			ASTLiteral* lit = (ASTLiteral*) expr->left;
 			lit->obj = obj;
@@ -572,14 +579,29 @@ namespace internal{
 					}
 					return obj;
 				}
+				return obj;
 			}
 			case OBJECT_INSTANCE: {
 				ASTObjectInstance* instance = (ASTObjectInstance*) node;
 				return instance->base;
 			}
 			case OBJECT: return (ASTObject*) node;
+			case FUNC_CALL: {
+				ASTFuncCall* call = (ASTFuncCall*) node;
+				if (call->func == NULL) {
+					SetRowCol(call);
+					throw Error::UNDEFINED_FUNC;
+				}
+				if (!call->func->scope->IsParsed()) ValidateFunc(call->func);
+				std::vector<ASTNode*> lookup = call->func->scope->Lookup("return", false);
+				if (lookup.size() == 0) return NULL;
+				OpenScope(call->func->scope);
+				ASTObject* o = GetObject(lookup[0]);
+				CloseScope();
+				return o;
+			}
 			default: {
-				//printf("dd: %s - %s\n", Token::ToString(node->type).c_str(), node->name.c_str());
+				printf("dd: %s - %s\n", Token::ToString(node->type).c_str(), node->name.c_str());
 				return NULL;
 			}
 		}

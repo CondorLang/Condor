@@ -35,7 +35,7 @@ namespace internal{
 		bool isInParen;
 		bool allowGC;
 		std::vector<TOKEN> visibility;
-		ASTNode* local;
+		ASTLiteral* local;
 		static ASTNode* New(Isolate* iso);
 		static void SetDefaults(ASTNode* node, Isolate* iso);
 		void Free(Isolate* iso);
@@ -266,8 +266,10 @@ namespace internal{
 		ASTVar* GetProp(Isolate* isolate, std::string name);
 		void SetProp(Isolate* isolate, std::string name, ASTExpr* value);
 		ASTFuncCall* constructor;
+		bool constructorCalled;
 		ASTObject* base;
 		void PrintValues();
+		ASTObjectInstance* Clone(Isolate* iso);
 		size_t Size(){return sizeof(ASTObjectInstance);}		
 	};
 

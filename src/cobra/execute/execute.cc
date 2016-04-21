@@ -79,20 +79,35 @@ namespace internal{
 		Trace("Evaluating Func Call", call->name);
 		PrintStep("Function Call - " + call->name);
 		ASTFunc* func = call->func;
+		if (call->name == "println"){
+			int a = 10;
+		}
 		if (func == NULL && call->isInternal){ // internal
 			ASTLiteral* lit = NULL;
-			if (call->params.size() > 0) lit = EvaluateValue(call->params[0]);
+			if (call->params.size() > 0) {
+				lit = EvaluateValue(call->params[0]);
+				if (lit != NULL) {
+					lit = lit->Clone(isolate);
+					isolate->RunGC(call->params[0], true);
+				}
+			}
 			return (ASTLiteral*) Internal::CallInternal(isolate, call->callback, lit);
 		}
 		else{
 			if (func == NULL) throw Error::UNDEFINED_FUNC;
 			for (int i = 0; i < func->args.size(); i++){
 				PrintStep("Evaluating Parameter (" + func->args[i]->name + ")");
-				if (call->params.size() > i) func->args[i]->local = EvaluateValue(call->params[i]);
+				if (call->params.size() > i) {
+					ASTLiteral* lit = EvaluateValue(call->params[i]);
+					if (lit == NULL) func->args[i]->local = ASTUndefined::New(isolate);
+					else func->args[i]->local = lit->Clone(isolate);
+					isolate->RunGC(call->params[i], true);
+				}
 				else{
 					func->args[i]->local = ASTUndefined::New(isolate);
 				}
 			}
+			PrintStep("Evaluating Parameters...Done");
 			if (func->scope == GetCurrentScope()) throw Error::INTERNAL_SCOPE_ERROR;
 			OpenScope(func->scope);
 			Evaluate();
@@ -105,6 +120,7 @@ namespace internal{
 			isolate->RunGC(call, true);
 			return result;
 		}
+		// TODO: Do we need to implement isolate->RunGC(call, true); ?
 		return NULL;
 	}
 
@@ -162,6 +178,7 @@ namespace internal{
 
 	void Execute::TruncZeros(ASTLiteral* lit){
 		PrintStep("Truncating Zeros");
+		if (lit->value.empty()) return;
 		std::string::size_type loc = lit->value.find(".", 0);
 		if (loc == std::string::npos) return;
 		for (int i = lit->value.size() - 1; i >= loc; i--){
@@ -485,9 +502,6 @@ namespace internal{
 		if (!lit->isCalc && lit->value.length() != 0 && (lit->litType == INT || lit->litType == DOUBLE || 
 											 lit->litType == FLOAT /** || lit->litType == BOOLEAN**/)) {
 			PrintStep("Set the calculated value (" + lit->value + " | " + Token::ToString(lit->litType) + ")");
-			if (lit->value == "2"){
-				int a = 10; // here
-			}
 			try{
 				if (lit->value == "true" || lit->value == "false") lit->value = lit->value == "true" ? "1" : "0";
 				lit->calc = std::stod(lit->value);
@@ -559,12 +573,14 @@ namespace internal{
 		}
 		if (local->type == OBJECT_INSTANCE){ // call constructor
 			ASTObjectInstance* inst = (ASTObjectInstance*) local;
-			PrintStep("Calling Constructor for " + inst->base->name);
-			AddObject(inst);
-			EvaluateFuncCall(inst->constructor);
-			RemoveObject();
+			if (inst->base != NULL) PrintStep("Calling Constructor for " + inst->base->name);
+			if (inst->constructor != NULL && !inst->constructorCalled){
+				AddObject(inst);
+				EvaluateFuncCall(inst->constructor);
+				RemoveObject();
+				inst->constructorCalled = true;
+			}
 		}
-
 		return local;
 	}
 
@@ -578,8 +594,9 @@ namespace internal{
 		OpenScope(expr->scope);
 		while (true){
 			ASTLiteral* condition = EvaluateValue(expr->condition);
-			if (condition->value != "true") break; // condition
+			bool pass = condition->value == "true";
 			if (condition != expr->condition) isolate->RunGC(condition, true);
+			if (!pass) break;
 			bool cb = canBreak;
 			canBreak = true;
 			try {
@@ -588,7 +605,10 @@ namespace internal{
 			}
 			catch (Error::ERROR e){
 				canBreak = cb;
-				if (e == Error::INTERNAL_BREAK) break;
+				if (e == Error::INTERNAL_BREAK) {
+					isolate->RunGC(expr->scope, true);
+					break;
+				}
 				throw e;
 			}
 			canBreak = cb;
@@ -605,11 +625,12 @@ namespace internal{
 		OpenScope(expr->scope);
 		while (true){
 			ASTLiteral* condition = EvaluateValue(expr->condition);
-			if (condition->value != "true") break; // condition
+			bool pass = condition->value == "true";
 			if (condition != expr->condition) {
 				condition->Free(isolate); // release condition memory
 				isolate->RunGC(expr->condition, true);
 			}
+			if (!pass) break;
 			bool cb = canBreak;
 			canBreak = true;
 			try {
@@ -618,7 +639,10 @@ namespace internal{
 			}
 			catch (Error::ERROR e){
 				canBreak = cb;
-				if (e == Error::INTERNAL_BREAK) break;
+				if (e == Error::INTERNAL_BREAK) {
+					isolate->RunGC(expr->scope, true);
+					break;
+				}
 				throw e;
 			}
 			canBreak = cb;
@@ -633,14 +657,23 @@ namespace internal{
 		SetRowCol(expr);
 		Trace("Evaluating","If");
 		ASTLiteral* condition = EvaluateValue(expr->condition);
+		bool pass = condition == NULL || condition->value == "true";
 		if (condition != NULL && condition != expr->condition) {
 			condition->Free(isolate); // release condition memory
 			isolate->RunGC(expr->condition, true);
 		}
-		if (condition == NULL || condition->value == "true"){
+		if (pass){
 			OpenScope(expr->scope);
-			Evaluate();
-			isolate->RunGC(expr->scope, true);
+			try {
+				Evaluate();
+				isolate->RunGC(expr->scope, true);
+			}
+			catch (Error::ERROR e){
+				if (e == Error::INTERNAL_BREAK){
+					isolate->RunGC(expr->scope, true);
+					throw e;
+				}
+			}
 			return true;
 		}
 		else{
@@ -652,7 +685,6 @@ namespace internal{
 		return false;
 	}
 
-	// TODO: Attach the correct parent scope to the scope
 	void Execute::EvaluateSwitch(ASTSwitch* expr){
 		PrintStep("Evaluating Switch Stmt");
 		SetRowCol(expr);
@@ -678,7 +710,10 @@ namespace internal{
 				}
 				catch (Error::ERROR e){
 					canBreak = cb;
-					if (e == Error::INTERNAL_BREAK) return;
+					if (e == Error::INTERNAL_BREAK) {
+						isolate->RunGC(stmt->scope, true);
+						return;
+					}
 					throw e;
 				}
 				canBreak = cb;

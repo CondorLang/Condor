@@ -104,7 +104,7 @@ namespace internal{
 
 	Chunk* MemoryPool::FindChunkSuitableToHoldMemory(const size_t size){
 		unsigned int chunkToSkip = 0;
-		Chunk* chunk = kFirstChunk; // used to be kCursorChunk
+		Chunk* chunk = kCursorChunk;
 		for (unsigned int i = 0; i < kChunkCount; i++){
 			if (chunk != NULL){
 				if (chunk == kLastChunk){
@@ -241,8 +241,7 @@ namespace internal{
 		return a > b ? a : b;
 	}
 
-	// TODO:
-	// 		Release unused memory
+	// TODO: Release unused memory
 	void MemoryPool::FreeUnnecessaryMemory(){
 		if (kFreeSize >= kMinSize){
 			

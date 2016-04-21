@@ -27,8 +27,8 @@ namespace internal{
 		~GC(){}
 		static GC* New(Isolate* isolate);
 		void Run(MemoryPool* pool);
-		void Dispose(Isolate* isolate, Scope* scope, bool deep);
-		void Dispose(Isolate* isolate, ASTNode* node, bool deep);
+		void Dispose(Isolate* isolate, Scope* scope, bool deep, bool objKeys = false);
+		void Dispose(Isolate* isolate, ASTNode* node, bool deep, bool objKeys = false);
 	};
 
 } // namespace internal

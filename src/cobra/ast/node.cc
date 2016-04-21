@@ -124,6 +124,7 @@ namespace internal{
 		var->op = op;
 		var->name = name;
 		var->scopeId = scopeId;
+		if (local != NULL) var->local = local->Clone(isolate);
 		return var;
 	}
 
@@ -177,6 +178,10 @@ namespace internal{
 	}
 
 	ASTLiteral* ASTLiteral::Clone(Isolate* iso){
+		if (type == OBJECT_INSTANCE) {
+			ASTObjectInstance* inst = (ASTObjectInstance*) this;
+			return inst->Clone(iso);
+		}
 		ASTLiteral* n = ASTLiteral::New(iso);
 		n->value = value;
 		n->type = type;
@@ -321,6 +326,7 @@ namespace internal{
 		n->constructor = NULL;
 		n->base = NULL;
 		n->obj = NULL;
+		n->constructorCalled = false;
 		return n;
 	}
 
@@ -364,6 +370,31 @@ namespace internal{
 				}
 			}
 		}
+	}
+
+	ASTObjectInstance* ASTObjectInstance::Clone(Isolate* iso){
+		ASTObjectInstance* n = ASTObjectInstance::New(iso);
+		n->value = value;
+		n->type = type;
+		n->litType = litType;
+		n->unary = unary;
+		n->isPost = isPost;
+		n->var = var;
+		n->isCast = isCast;
+		n->calc = calc;
+		n->isCalc = isCalc;
+		n->obj = obj;
+		n->allowAccess = allowAccess;
+		n->scopeId = scopeId;
+		n->constructor = constructor;
+		n->base = base;
+		n->obj = obj;
+		n->constructorCalled = constructorCalled;
+		n->properties = properties;
+		for (std::map<std::string, ASTVar*>::iterator i = properties.begin(); i != properties.end(); ++i){
+			n->properties[i->first] = i->second->Clone(iso);	
+		}
+		return n;
 	}
 
 } // namespace internal

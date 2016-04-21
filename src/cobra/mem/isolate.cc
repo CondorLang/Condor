@@ -77,12 +77,12 @@ namespace internal{
 		else xl->FreeMemory(ptr, size);
 	}
 
-	void Isolate::RunGC(Scope* scope, bool deep){
-		gc->Dispose(this, scope, deep);
+	void Isolate::RunGC(Scope* scope, bool deep, bool objKeys){
+		gc->Dispose(this, scope, deep, objKeys);
 	}
 
-	void Isolate::RunGC(ASTNode* node, bool deep){
-		gc->Dispose(this, node, deep);
+	void Isolate::RunGC(ASTNode* node, bool deep, bool objKeys){
+		gc->Dispose(this, node, deep, objKeys);
 	}
 
 } // namespace internal
