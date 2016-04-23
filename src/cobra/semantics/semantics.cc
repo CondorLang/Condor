@@ -259,6 +259,9 @@ namespace internal{
 	TOKEN Semantics::ValidateBinary(ASTBinaryExpr* expr){
 		if (expr->op == PERIOD) return ValidateObjectChain(expr);;
 		SetRowCol(expr);
+		if (expr->op == DIV){
+			int a = 10;
+		}
 		TOKEN left = ValidateExpr(expr->left);
 
 		staticRequired = false;
@@ -276,14 +279,7 @@ namespace internal{
 			SwapScopes();
 			kThis = NULL;
 		}
-
-		try{
-			return Binary::Compare(left, right, expr->op);
-		}
-		catch (Error::ERROR e) {
-			SetRowCol(expr->left);
-			throw e;
-		}
+		return UNDEFINED;
 	}
 
 	TOKEN Semantics::ValidateIdent(ASTLiteral* expr){

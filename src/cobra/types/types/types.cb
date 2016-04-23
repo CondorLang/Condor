@@ -1,0 +1,3 @@
+export func type(var a){
+	return %getLitType(a);
+}

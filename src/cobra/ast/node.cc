@@ -109,7 +109,7 @@ namespace internal{
 		return n;
 	}
 
-	ASTVar* ASTVar::Clone(Isolate* isolate){
+	ASTVar* ASTVar::Clone(Isolate* isolate, bool shallow){
 		ASTVar* var = ASTVar::New(isolate);
 		var->baseName = baseName;
 		var->baseType = baseType;
@@ -124,7 +124,7 @@ namespace internal{
 		var->op = op;
 		var->name = name;
 		var->scopeId = scopeId;
-		if (local != NULL) var->local = local->Clone(isolate);
+		if (local != NULL) var->local = local->Clone(isolate, shallow);
 		return var;
 	}
 
@@ -177,10 +177,10 @@ namespace internal{
 		return n;
 	}
 
-	ASTLiteral* ASTLiteral::Clone(Isolate* iso){
+	ASTLiteral* ASTLiteral::Clone(Isolate* iso, bool shallow){
 		if (type == OBJECT_INSTANCE) {
 			ASTObjectInstance* inst = (ASTObjectInstance*) this;
-			return inst->Clone(iso);
+			return inst->Clone(iso, shallow);
 		}
 		ASTLiteral* n = ASTLiteral::New(iso);
 		n->value = value;
@@ -188,7 +188,7 @@ namespace internal{
 		n->litType = litType;
 		n->unary = unary;
 		n->isPost = isPost;
-		n->var = var;
+		n->var = shallow ? NULL : var;
 		n->isCast = isCast;
 		n->calc = calc;
 		n->isCalc = isCalc;
@@ -372,7 +372,7 @@ namespace internal{
 		}
 	}
 
-	ASTObjectInstance* ASTObjectInstance::Clone(Isolate* iso){
+	ASTObjectInstance* ASTObjectInstance::Clone(Isolate* iso, bool shallow){
 		ASTObjectInstance* n = ASTObjectInstance::New(iso);
 		n->value = value;
 		n->type = type;
@@ -392,7 +392,7 @@ namespace internal{
 		n->constructorCalled = constructorCalled;
 		n->properties = properties;
 		for (std::map<std::string, ASTVar*>::iterator i = properties.begin(); i != properties.end(); ++i){
-			n->properties[i->first] = i->second->Clone(iso);	
+			n->properties[i->first] = i->second->Clone(iso, shallow);	
 		}
 		return n;
 	}

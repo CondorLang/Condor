@@ -146,7 +146,6 @@ namespace internal{
 			case RETURN: return "return";
 			case STRUCT: return "struct";
 			case SWITCH: return "switch";
-			case TYPE: return "type";
 			case VAR: return "var";
 			case OBJECT: return "object";
 			case WHILE: return "while";
@@ -202,7 +201,6 @@ namespace internal{
 		if (str.empty()) return Token::New(iso, ILLEGAL);
 		else if (str == "var") return Token::New(iso, VAR);
 		else if (str == "null") return Token::New(iso, kNULL);
-		else if (str == "type") return Token::New(iso, TYPE);
 		else if (str == "switch") return Token::New(iso, SWITCH);
 		else if (str == "struct") return Token::New(iso, STRUCT);
 		else if (str == "return") return Token::New(iso, RETURN);

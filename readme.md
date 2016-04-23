@@ -54,14 +54,14 @@ Todo:
  - execute.cc 123 - Do we need to implement isolate->RunGC(call, true); ?
  - execute.cc 190 - Set row and col for tracking
  - execute.cc 191 - String, Char, and other data types need to be implemented
- - execute.cc 431 - Implement setting object variables
- - execute.cc 432 - Implement bitwise
- - execute.cc 487 - confirm in all instances
+ - execute.cc 438 - Implement setting object variables
+ - execute.cc 439 - Implement bitwise
+ - execute.cc 494 - confirm in all instances
  - allocate.cc 244 - Release unused memory
  - isolate.cc 34 - memory leak
  - parser.cc 371 - Account for variable declarations
  - parser.cc 799 - Disallow for allow-native on a non internal file
  - scanner.cc 462 - Include Octal, Hex, UTF-8, UTF-16, see https://msdn.microsoft.com/en-us/library/6aw8xdf2.aspx
- - internal.cc 35 - replace with a macro
- - semantics.cc 332 - add variable types
- - semantics.cc 617 - Compare the base type with the assignment type. Throw an error if they are not the same if hard typed.
+ - internal.cc 44 - replace with a macro
+ - semantics.cc 335 - add variable types
+ - semantics.cc 620 - Compare the base type with the assignment type. Throw an error if they are not the same if hard typed.

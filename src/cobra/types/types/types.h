@@ -1,14 +1,14 @@
-#ifndef CONSOLE_H_
-#define CONSOLE_H_
+#ifndef TYPES_H_
+#define TYPES_H_
 
 #include "cobra/types/script/script.h"
 #include "cobra/mem/isolate.h"
-#include "console-bytes.h"
+#include "types-bytes.h"
 
 namespace Cobra {
 namespace internal{
 
-	class Console
+	class Types
 	{
 	public:
 		static void CB(Isolate* isolate, std::string sub);
@@ -17,4 +17,4 @@ namespace internal{
 } // namespace internal
 }
 
-#endif // CONSOLE_H_
+#endif // TYPES_H_

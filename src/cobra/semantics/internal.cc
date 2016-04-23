@@ -32,6 +32,15 @@ namespace internal{
 		return l;
 	}
 
+	ASTNode* Internal::GetLiteralType(Isolate* iso, ASTNode* lit){
+		if (lit == NULL && lit->type != LITERAL) return NULL;
+		ASTLiteral* v = (ASTLiteral*) lit;
+		ASTLiteral* l = ASTLiteral::New(iso);
+		l->litType = STRING;
+		l->value = Token::ToString(v->litType);
+		return l;
+	}
+
 	// TODO: replace with a macro
 	TOKEN Internal::Bind(ASTFuncCall* call){
 		if (call->name == "printf") {
@@ -45,6 +54,10 @@ namespace internal{
 		else if (call->name == "getStringLength"){
 			call->callback = Internal::GetStringLength;
 			return INT;
+		}
+		else if (call->name == "getLitType"){
+			call->callback = Internal::GetLiteralType;
+			return STRING;
 		}
 		else throw Error::UNDEFINED_FUNC;
 	}

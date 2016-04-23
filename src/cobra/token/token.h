@@ -194,7 +194,6 @@ namespace internal{
 		SWITCH,
 		THROW,
 		TRY,
-		TYPE,
 		CATCH,
 		VAR,
 		WHILE,

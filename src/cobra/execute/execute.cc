@@ -57,9 +57,9 @@ namespace internal{
 			ASTNode* node = scope->Get(i);
 			int type = (int) node->type;
 			switch (type){
-				case FUNC_CALL: node->local = EvaluateFuncCall((ASTFuncCall*) node); break;
+				case FUNC_CALL: EvaluateFuncCall((ASTFuncCall*) node); break;
 				case BINARY: EvaluateBinary((ASTBinaryExpr*) node); break;
-				case VAR: node->local = EvaluateVar((ASTVar*) node); break;
+				case VAR: EvaluateVar((ASTVar*) node); break;
 				case FOR: EvaluateFor((ASTForExpr*) node); break;
 				case WHILE: EvaluateWhile((ASTWhileExpr*) node); break;
 				case IF: EvaluateIf((ASTIf*) node); break;
@@ -79,13 +79,11 @@ namespace internal{
 		Trace("Evaluating Func Call", call->name);
 		PrintStep("Function Call - " + call->name);
 		ASTFunc* func = call->func;
-		if (call->name == "println"){
-			int a = 10;
-		}
 		if (func == NULL && call->isInternal){ // internal
 			ASTLiteral* lit = NULL;
 			if (call->params.size() > 0) {
 				lit = EvaluateValue(call->params[0]);
+				SetLitType(lit);
 				if (lit != NULL) {
 					lit = lit->Clone(isolate);
 					isolate->RunGC(call->params[0], true);
@@ -99,9 +97,10 @@ namespace internal{
 				PrintStep("Evaluating Parameter (" + func->args[i]->name + ")");
 				if (call->params.size() > i) {
 					ASTLiteral* lit = EvaluateValue(call->params[i]);
+					SetLitType(lit);
 					if (lit == NULL) func->args[i]->local = ASTUndefined::New(isolate);
 					else func->args[i]->local = lit->Clone(isolate);
-					isolate->RunGC(call->params[i], true);
+					//isolate->RunGC(call->params[i], true);
 				}
 				else{
 					func->args[i]->local = ASTUndefined::New(isolate);
@@ -382,6 +381,9 @@ namespace internal{
 		}
 
 		ASTLiteral* result = ASTLiteral::New(isolate);
+		SetLitType(first);
+		SetLitType(second);
+
 		result->litType = Binary::Compare(first->litType, second->litType, tok->value->value);
 
 		PrintStep("Calculating ('" + second->value + "' " + tok->value->String() + " '" + first->value + "')");
@@ -428,6 +430,10 @@ namespace internal{
 		return result;
 	}
 
+	void Execute::SetLitType(ASTLiteral* lit){
+		if (lit->litType == UNDEFINED && lit->value.length() > 0) lit->litType = STRING;
+	}
+
 	// TODO: Implement setting object variables
 	// TODO: Implement bitwise
 	void Execute::Assign(ASTBinaryExpr* binary){
@@ -442,7 +448,7 @@ namespace internal{
 					SetRowCol(binary->left);
 					throw Error::INVALID_ASSIGNMENT_TO_TYPE;
 				}
-				if (var->local != NULL) var->local->Free(isolate);
+				if (var->local != NULL) isolate->RunGC(var, true);
 				var->local = lit;
 				break;
 			}
@@ -547,7 +553,7 @@ namespace internal{
 			}
 			case VAR: {
 				ASTVar* var = (ASTVar*) node;
-				if (var->local != NULL) return EvaluateValue(var->local); // check this if this is always true
+				if (var->local != NULL) return var->local; // check this if this is always true
 				return EvaluateValue(var->value);
 			}
 			case FUNC_CALL: {
@@ -567,9 +573,12 @@ namespace internal{
 		PrintStep("Evaluating Var (" + var->name + ")");
 		SetRowCol(var);
 		Trace("Evaluating Var", var->name);
+		if (var->name == "age2"){
+			int a = 10; // here
+		}
 		ASTLiteral* local = (ASTLiteral*) EvaluateValue(var);
 		if (var->previouslyDeclared && var->op == ASSIGN){
-			if (var->local != NULL) var->local->Free(isolate);
+			if (var->local != NULL) isolate->RunGC(var, false);
 		}
 		if (local->type == OBJECT_INSTANCE){ // call constructor
 			ASTObjectInstance* inst = (ASTObjectInstance*) local;
@@ -581,6 +590,7 @@ namespace internal{
 				inst->constructorCalled = true;
 			}
 		}
+		var->local = local->Clone(isolate, true);
 		return local;
 	}
 

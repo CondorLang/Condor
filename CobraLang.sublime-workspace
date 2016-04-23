@@ -4,6 +4,62 @@
 		"selected_items":
 		[
 			[
+				"ASTO",
+				"ASTObject"
+			],
+			[
+				"UN",
+				"UNDEFINED_FUNC"
+			],
+			[
+				"all",
+				"allowGC"
+			],
+			[
+				"lco",
+				"local"
+			],
+			[
+				"Eva",
+				"Evaluating"
+			],
+			[
+				"BR",
+				"INTERNAL_BREAK"
+			],
+			[
+				"OBJ",
+				"OBJECT_INSTANCE"
+			],
+			[
+				"secon",
+				"secondLit"
+			],
+			[
+				"scop",
+				"scopeId"
+			],
+			[
+				"retu",
+				"returnVar"
+			],
+			[
+				"base",
+				"baseType"
+			],
+			[
+				"ASTFu",
+				"ASTFuncCall"
+			],
+			[
+				"Print",
+				"PrintStep"
+			],
+			[
+				"PRint",
+				"PrintValues"
+			],
+			[
 				"OBJE",
 				"OBJECT_INSTANCE"
 			],
@@ -26,18 +82,6 @@
 			[
 				"Fun",
 				"EvaluateFuncCall"
-			],
-			[
-				"ASTO",
-				"ASTObject"
-			],
-			[
-				"base",
-				"baseName"
-			],
-			[
-				"Eva",
-				"Evaluating"
 			],
 			[
 				"Ev",
@@ -116,10 +160,6 @@
 				"LiteralInfo"
 			],
 			[
-				"UN",
-				"UNDEFINED"
-			],
-			[
 				"assi",
 				"assignmentType"
 			],
@@ -136,10 +176,6 @@
 				"ASTFuncCall"
 			],
 			[
-				"retu",
-				"returns"
-			],
-			[
 				"Evl",
 				"EvaluateValue"
 			],
@@ -150,10 +186,6 @@
 			[
 				"ASTOBj",
 				"ASTObjectInstance"
-			],
-			[
-				"OBJ",
-				"OBJECT_INSTANCE"
 			],
 			[
 				"isAr",
@@ -206,10 +238,6 @@
 			[
 				"catc",
 				"catchScope"
-			],
-			[
-				"all",
-				"allowNative"
 			],
 			[
 				"INVAL",
@@ -486,34 +514,6 @@
 			[
 				"txt",
 				"txtWords"
-			],
-			[
-				"ob",
-				"observation"
-			],
-			[
-				"high",
-				"highestItem"
-			],
-			[
-				"conte",
-				"contextId"
-			],
-			[
-				"note",
-				"noteId"
-			],
-			[
-				"cont",
-				"contextId"
-			],
-			[
-				"close",
-				"closeContext"
-			],
-			[
-				"pal",
-				"player"
 			]
 		]
 	},
@@ -523,15 +523,7 @@
 			"file": "test/test.cb",
 			"settings":
 			{
-				"buffer_size": 214,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/cobra/types/strings/string.cb",
-			"settings":
-			{
-				"buffer_size": 228,
+				"buffer_size": 467,
 				"line_ending": "Unix"
 			}
 		},
@@ -539,7 +531,39 @@
 			"file": "src/cobra/execute/execute.cc",
 			"settings":
 			{
-				"buffer_size": 21745,
+				"buffer_size": 22780,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/cobra/mem/gc.cc",
+			"settings":
+			{
+				"buffer_size": 2658,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/cobra/ast/node.cc",
+			"settings":
+			{
+				"buffer_size": 10692,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/cobra/ast/node.h",
+			"settings":
+			{
+				"buffer_size": 5765,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/cobra/mem/isolate.h",
+			"settings":
+			{
+				"buffer_size": 854,
 				"line_ending": "Unix"
 			}
 		}
@@ -712,9 +736,13 @@
 	"command_palette":
 	{
 		"height": 392.0,
-		"last_filter": "",
+		"last_filter": "au",
 		"selected_items":
 		[
+			[
+				"au",
+				"Auto indent"
+			],
 			[
 				"auto",
 				"Auto indent"
@@ -848,7 +876,7 @@
 				"Indent XML"
 			]
 		],
-		"width": 449.0
+		"width": 485.0
 	},
 	"console":
 	{
@@ -878,47 +906,47 @@
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/error",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/execute",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/token",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/console",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/script",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/strings",
 		"/Users/willdech/Documents/dev/CobraLang/test"
 	],
 	"file_history":
 	[
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/internal.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/execute/execute.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/semantics.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/gc.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/isolate.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/gc.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/node.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/node.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/allocate.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/isolate.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/parser.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/api.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/strings/string.cb",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/scope.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/scope.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/internal.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/semantics.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/execute/execute.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/execute/execute.h",
 		"/Users/willdech/Documents/dev/CobraLang/test/test.cb",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/script/script.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/parser.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/strings/string.cb",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/execute/execute.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/semantics.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/context.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/internal.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/console/console.cb",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/binary.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/node.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/execute/stack.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/execute/stack.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/error/error.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/error/error.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/gc.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/isolate.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/isolate.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/gc.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/flags.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/flags.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/token/token.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/parser.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/token/token.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/scope.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/script/script.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/scope.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/scanner/scanner.cc",
 		"/Users/willdech/Documents/dev/CobraLang/test/test.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/execute/shuntingyard.h",
@@ -936,16 +964,13 @@
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/array/array.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/console/console.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/strings/string.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/semantics.h",
 		"/Users/willdech/Documents/dev/CobraLang/.gitignore",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/scanner/scanner.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/global.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/api.cc",
 		"/Users/willdech/Documents/dev/CobraLang/test/shell.cc",
 		"/Users/willdech/Documents/dev/CobraLang/configure",
 		"/Users/willdech/Documents/dev/CobraLang/include/Cobra.h",
 		"/Users/willdech/Documents/dev/CobraLang/CobraLang.sublime-project",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/allocate.cc",
 		"/Users/willdech/Documents/dev/CobraLang/Makefile",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/codegen/codegen.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/codegen/symbols.h",
@@ -1027,6 +1052,7 @@
 		"height": 93.0,
 		"where_history":
 		[
+			"/Users/willdech/Documents/dev/CobraLang/src/cobra",
 			"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser",
 			"/Users/willdech/Documents/dev/CobraLang/src/cobra/token",
 			"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser",
@@ -1091,6 +1117,89 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"undefined_obje",
+			"clone",
+			"inst->",
+			", true);",
+			"evaluatefunccal",
+			"allowgc",
+			"value =",
+			"printf(\"d: %s",
+			"d: ",
+			"canBreak",
+			"formatl",
+			"d: ",
+			"evaluatefuncca",
+			"func",
+			"internal_sc",
+			"clone",
+			"validatefuncca",
+			"validatevar",
+			"\"return\"",
+			"evaluatevar",
+			"clone",
+			"<entry>",
+			"funccal",
+			"astliter",
+			"// here",
+			"rungc",
+			"f->",
+			"f",
+			"first",
+			"FindChunkSuitableToHoldMemory",
+			"astliter",
+			"here",
+			"validateident",
+			"parseident",
+			"GetCurrentScope",
+			"dec",
+			"inc",
+			"#",
+			"astliteral",
+			"inc",
+			"isinit",
+			"evaluateFunccal",
+			"evaluatefuncca",
+			"free",
+			"clone",
+			"astliter",
+			"validatefun",
+			"evaluate",
+			"invalid_oper",
+			":Evaluate",
+			"dd: ",
+			":validatevar",
+			"undefined_obje",
+			"\"return\"",
+			"GetObject",
+			"isobject",
+			"dd: ",
+			"isObject",
+			"validatevar",
+			"validateobjec",
+			"GetCurrentScope",
+			"undefined_var",
+			"validatevar",
+			"is(1, new",
+			"here",
+			"ValidateFuncCall",
+			"\"return",
+			"return",
+			"object_cons",
+			"isassign",
+			"// here",
+			"free",
+			"isassign",
+			"invalid_operat",
+			"astliteral",
+			"astliter",
+			"evaluatefuncc",
+			"evaluatefunca",
+			"validateliter",
+			"construct",
+			"gc",
+			"// here",
+			"astliter",
 			"calcul",
 			"calc",
 			"parseimp",
@@ -1135,90 +1244,7 @@
 			"dd: ",
 			"dd:",
 			"dd :",
-			"addobje",
-			"private",
-			"astlit",
-			"undefin",
-			": public astlit",
-			"astliter",
-			"astident",
-			"period",
-			"invalid_oper",
-			"isThis",
-			"kthis",
-			"validatefunc",
-			"close",
-			"invalid_opera",
-			"// here",
-			"validatefunc",
-			"object chain",
-			"invalid_usag",
-			"construct",
-			"isInit",
-			"isobje",
-			"validating var",
-			"type",
-			"objectinst",
-			"object_in",
-			"undefined_fu",
-			"reserved_",
-			"SetCalc",
-			"invalid_oper",
-			"free",
-			", ",
-			"compare",
-			"invalid_add",
-			"// here",
-			"GetVar",
-			"class",
-			"fugi",
-			"local->fre",
-			"undefined_object",
-			"chain",
-			"astobjectins",
-			"funccall",
-			"prinln",
-			"apple",
-			"astvar : ",
-			"ParseIdentStart",
-			"ParseVarList",
-			"parsevarlist",
-			"undefined_variable",
-			"invalid_opera",
-			"invalid_obj",
-			"GetVar",
-			"invalid_assign",
-			"getvar",
-			"// ehre",
-			"getvar",
-			"getProp",
-			"kThis",
-			"object",
-			"parseidentstar",
-			"ValidateBinary",
-			"binary",
-			", ",
-			"validatebinary",
-			"parseidentstar",
-			"astvar",
-			"evaluatevar",
-			"astvar::",
-			"astvar",
-			"validatevar",
-			"identstart",
-			"elseIfs",
-			"astif",
-			"validateif",
-			"validatecast",
-			"astliter",
-			"type cast",
-			"lit",
-			"v",
-			"inc)",
-			"inc",
-			" {",
-			"return result;",
-			"or,"
+			"addobje"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1299,15 +1325,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 214,
+						"buffer_size": 467,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								179,
-								179
+								459,
+								459
 							]
 						],
 						"settings":
@@ -1323,47 +1349,19 @@
 				},
 				{
 					"buffer": 1,
-					"file": "src/cobra/types/strings/string.cb",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 228,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								228,
-								228
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Go/Go.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
 					"file": "src/cobra/execute/execute.cc",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 21745,
+						"buffer_size": 22780,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								12069,
-								12069
+								3704,
+								3704
 							]
 						],
 						"settings":
@@ -1372,10 +1370,126 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 4702.0,
+						"translation.y": 1234.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/cobra/mem/gc.cc",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2658,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								862,
+								862
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 491.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "src/cobra/ast/node.cc",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 10692,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								10650,
+								10650
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 4973.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "src/cobra/ast/node.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5765,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								700,
+								700
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 11.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "src/cobra/mem/isolate.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 854,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								777,
+								777
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
 					"type": "text"
 				}
 			]

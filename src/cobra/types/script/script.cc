@@ -210,6 +210,7 @@ namespace internal{
 			else if (name == "string") String::CB(isolate, sub);
 			else if (name == "console") Console::CB(isolate, sub);
 			else if (name == "exception") Exception::CB(isolate, sub);
+			else if (name == "types") Types::CB(isolate, sub);
 			else {
 				parser->Row = import->row;
 				parser->Col = import->col;

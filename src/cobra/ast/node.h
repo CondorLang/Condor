@@ -84,7 +84,7 @@ namespace internal{
 		int order;
 		static ASTVar* New(Isolate* iso);		
 		size_t Size(){return sizeof(ASTVar);}
-		ASTVar* Clone(Isolate* iso);
+		ASTVar* Clone(Isolate* iso, bool shallow = false);
 	};
 
 	class ASTFunc : public ASTNode
@@ -148,7 +148,7 @@ namespace internal{
 		bool isCalc;
 		int isPost;
 		bool allowAccess;
-		ASTLiteral* Clone(Isolate* isolate);
+		ASTLiteral* Clone(Isolate* isolate, bool shallow = false);
 		size_t Size(){return sizeof(ASTLiteral);}
 	};
 
@@ -269,7 +269,7 @@ namespace internal{
 		bool constructorCalled;
 		ASTObject* base;
 		void PrintValues();
-		ASTObjectInstance* Clone(Isolate* iso);
+		ASTObjectInstance* Clone(Isolate* iso, bool shallow = false);
 		size_t Size(){return sizeof(ASTObjectInstance);}		
 	};
 

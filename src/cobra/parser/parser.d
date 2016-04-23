@@ -151,7 +151,8 @@ src/cobra/parser/parser.o: src/cobra/parser/parser.cc \
   src/cobra/types/console/console.h \
   src/cobra/types/console/console-bytes.h \
   src/cobra/types/try_catch/exception.h \
-  src/cobra/types/try_catch/exception-bytes.h
+  src/cobra/types/try_catch/exception-bytes.h \
+  src/cobra/types/types/types.h src/cobra/types/types/types-bytes.h
 
 src/cobra/parser/parser.h:
 
@@ -612,3 +613,7 @@ src/cobra/types/console/console-bytes.h:
 src/cobra/types/try_catch/exception.h:
 
 src/cobra/types/try_catch/exception-bytes.h:
+
+src/cobra/types/types/types.h:
+
+src/cobra/types/types/types-bytes.h:

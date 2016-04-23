@@ -151,7 +151,8 @@ src/api.o: src/api.cc src/api.h src/../include/Cobra.h \
   src/cobra/types/array/array-bytes.h src/cobra/types/console/console.h \
   src/cobra/types/console/console-bytes.h \
   src/cobra/types/try_catch/exception.h \
-  src/cobra/types/try_catch/exception-bytes.h
+  src/cobra/types/try_catch/exception-bytes.h \
+  src/cobra/types/types/types.h src/cobra/types/types/types-bytes.h
 
 src/api.h:
 
@@ -616,3 +617,7 @@ src/cobra/types/console/console-bytes.h:
 src/cobra/types/try_catch/exception.h:
 
 src/cobra/types/try_catch/exception-bytes.h:
+
+src/cobra/types/types/types.h:
+
+src/cobra/types/types/types-bytes.h:

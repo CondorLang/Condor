@@ -19,6 +19,7 @@
 #include "cobra/types/array/array.h"
 #include "cobra/types/console/console.h"
 #include "cobra/types/try_catch/exception.h"
+#include "cobra/types/types/types.h"
 
 namespace Cobra {
 namespace internal{
