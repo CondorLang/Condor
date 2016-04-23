@@ -48,7 +48,6 @@ namespace internal{
 		scopes.insert(scopes.begin(), sc);
 	}
 
-	// TODO: Erase values in all non return locals
 	void Execute::Evaluate(){
 		PrintStep("Evaluating Scope");
 		Scope* scope = GetCurrentScope();
@@ -106,6 +105,7 @@ namespace internal{
 				}
 			}
 			PrintStep("Evaluating Parameters...Done");
+			// TODO: Figure out how to implement recursion
 			//if (func->scope == GetCurrentScope()) throw Error::INTERNAL_SCOPE_ERROR;
 			OpenScope(func->scope);
 			Evaluate();
@@ -118,7 +118,6 @@ namespace internal{
 			isolate->RunGC(call, true);
 			return result;
 		}
-		// TODO: Do we need to implement isolate->RunGC(call, true); ?
 		return NULL;
 	}
 
@@ -186,7 +185,6 @@ namespace internal{
 	}
 
 	// TODO: Set row and col for tracking
-	// TODO: String, Char, and other data types need to be implemented
 	void Execute::FillPostix(ASTBinaryExpr* binary){
 		PrintStep("Filling Postix (Reverse Polish Notation)");
 		RPNStack* stack = GetCurrentStack();
@@ -495,7 +493,7 @@ namespace internal{
 				ASTVar* base = GetVar(binary->left);
 				ASTVar* prop = GetVar(binary->right);
 				ASTObjectInstance* inst = NULL;
-				if (base == NULL || (base->value != NULL && base->value->type != OBJECT_INSTANCE)){ // TODO: confirm in all instances
+				if (base == NULL || (base->value != NULL && base->value->type != OBJECT_INSTANCE)){
 					inst = GetCurrentObject();
 				}
 				else{

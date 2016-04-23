@@ -325,12 +325,8 @@ namespace internal{
 		return expr->var->assignmentType;
 	}
 
-	// TODO: add variable types
 	TOKEN Semantics::ValidateFuncCall(ASTFuncCall* expr, bool isConstructor){
 		if (!isConstructor) isConstructor = expr->isInit;
-		if (expr->isInit){
-			int a = 10;
-		}
 		Trace("Validating Func Call", expr->name.c_str());
 		SetRowCol(expr);
 		if (expr->isInternal) return ValidateInternal(expr);

@@ -31,7 +31,7 @@ namespace internal{
 			large->debug = true;
 			xl->debug = true;
 		}
-		gc = new GC(); // TODO: memory leak
+		gc = new GC();
 	}
 
 	Isolate::~Isolate(){

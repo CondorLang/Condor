@@ -50,18 +50,12 @@ See [Contributing](https://github.com/chaseWillden/CobraLang/wiki/Contributing) 
 Todo:
 ------
  - node.h 23 - Create a Expand() function which expands the node and the tree
- - execute.cc 51 - Erase values in all non return locals
- - execute.cc 123 - Do we need to implement isolate->RunGC(call, true); ?
- - execute.cc 190 - Set row and col for tracking
- - execute.cc 191 - String, Char, and other data types need to be implemented
- - execute.cc 438 - Implement setting object variables
- - execute.cc 439 - Implement bitwise
- - execute.cc 494 - confirm in all instances
+ - execute.cc 108 - Figure out how to implement recursion
+ - execute.cc 187 - Set row and col for tracking
+ - execute.cc 441 - Implement bitwise
  - allocate.cc 244 - Release unused memory
- - isolate.cc 34 - memory leak
- - parser.cc 371 - Account for variable declarations
- - parser.cc 799 - Disallow for allow-native on a non internal file
+ - parser.cc 359 - Fix saving the code
+ - parser.cc 384 - Account for variable declarations
+ - parser.cc 812 - Disallow for allow-native on a non internal file
  - scanner.cc 462 - Include Octal, Hex, UTF-8, UTF-16, see https://msdn.microsoft.com/en-us/library/6aw8xdf2.aspx
- - internal.cc 44 - replace with a macro
- - semantics.cc 335 - add variable types
- - semantics.cc 620 - Compare the base type with the assignment type. Throw an error if they are not the same if hard typed.
+ - semantics.cc 609 - Compare the base type with the assignment type. Throw an error if they are not the same if hard typed.

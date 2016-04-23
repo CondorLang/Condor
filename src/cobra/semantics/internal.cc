@@ -41,7 +41,6 @@ namespace internal{
 		return l;
 	}
 
-	// TODO: replace with a macro
 	TOKEN Internal::Bind(ASTFuncCall* call){
 		if (call->name == "printf") {
 			call->callback = Internal::PrintF;

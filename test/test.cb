@@ -4,28 +4,19 @@ import {
 	"types"
 }
 
-// string d = null;
-// println(d + "test");
-string a = "12";
-int age = (int)a;
-// string name = "Chase";
-// string color = "Blue";
-// println("Your age is: " + age + ", and half of your age is: " + (age / 2));
-// println("Your name is: " + name);
-// println("Your favorite color is: " + color);
-// println("Name: " + type(name));
-// println("Color: " + type(color));
-// println("Age: " + type(age));
+string a = "10";
+int age = (int) a;
+println("Age: " + age);
+println("Age Type: " + type(age) + ", a type: " + type(a));
 
-// double a = 10 + 10 / 10 * 10 + (2 + 2 + 2 + 2);
-// println(a);
+func test(){
+   func test1(){
+       func test2(){
+           return 1;
+       }
+       return test2();
+   }
+   return test1();
+}
 
-//if (type(age) == "string") println("Test");
-if ((type(age) == "string" ||
-		type(age) == "int" ||
-		type(age) == "double") &&
-		age == 12 && age < 30) println("Yes it is");
-
-
-// a = 10 * 10 / 10;
-// println(a + 10);
+println(test());
