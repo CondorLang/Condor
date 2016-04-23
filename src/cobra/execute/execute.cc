@@ -383,14 +383,16 @@ namespace internal{
 		SetLitType(first);
 		SetLitType(second);
 
-		if (first->litType == IDENT){
-			int a = 10; // here
-		}
 		result->litType = Binary::Compare(first->litType, second->litType, tok->value->value);
 
 		PrintStep("Calculating ('" + second->value + "' " + tok->value->String() + " '" + first->value + "')");
 
 		int litType = (int) result->litType;
+		if (litType == BOOLEAN){
+			litType = Binary::Compare(first->litType, second->litType, ADD);
+		}
+		// here
+		//printf("d: %s - %s - %s - %s\n", Token::ToString((TOKEN) litType).c_str(), second->value.c_str(), first->value.c_str(), tok->value->String().c_str());
 		switch (litType){
 			case INT: case DOUBLE: 
 			case FLOAT: case BOOLEAN: {
@@ -427,6 +429,7 @@ namespace internal{
 						printf("debug string: %s\n", Token::ToString(tok->value->value).c_str());
 					}
 				}
+				FormatLit(result);
 				break;
 			}
 		}
@@ -437,7 +440,6 @@ namespace internal{
 		if (lit != NULL && lit->litType == UNDEFINED && lit->value.length() > 0) lit->litType = STRING;
 	}
 
-	// TODO: Implement setting object variables
 	// TODO: Implement bitwise
 	void Execute::Assign(ASTBinaryExpr* binary){
 		PrintStep("Assignment value");

@@ -4,53 +4,28 @@ import {
 	"types"
 }
 
-// func GetAsString(){
-// 	var a = Console.get(">> ");
-// 	return new String(a);
-// }
-
-// while (true){
-// 	var in = GetAsString();
-// 	println(in.length);
-// 	if (in.length > 1){
-// 		break;
-// 	}
-// }
-
-// func GetAsString(string txt){
-// 	var s = new String(txt);
-// 	return s;
-// }
-
-// var s = GetAsString("Apple");
-// println(s.raw);
-// var d = GetAsString("Art");
-// println(d.raw);
-
-// string a = Console.get("What is your age: ");
-// int age = (int) a;
-// string name = Console.get("Enter your name: ");
-// string color = Console.get("What is your favorite color: ");
-string d = null;
-println(d + "test");
+// string d = null;
+// println(d + "test");
 string a = "12";
 int age = (int)a;
-string name = "Chase";
-string color = "Blue";
-println("Your age is: " + age + ", and half of your age is: " + (age / 2));
-println("Your name is: " + name);
-println("Your favorite color is: " + color);
-println("Name: " + type(name));
-println("Color: " + type(color));
-println("Age: " + type(age));
+// string name = "Chase";
+// string color = "Blue";
+// println("Your age is: " + age + ", and half of your age is: " + (age / 2));
+// println("Your name is: " + name);
+// println("Your favorite color is: " + color);
+// println("Name: " + type(name));
+// println("Color: " + type(color));
+// println("Age: " + type(age));
 
-// func add(int a, int b){
-// 	var c = a + b;
-// 	if (c > 10){
-// 		return c;
-// 	}
-// 	return add(c, 1);
-// }
+// double a = 10 + 10 / 10 * 10 + (2 + 2 + 2 + 2);
+// println(a);
 
-// println(add(1, 1));
+//if (type(age) == "string") println("Test");
+if ((type(age) == "string" ||
+		type(age) == "int" ||
+		type(age) == "double") &&
+		age == 12 && age < 30) println("Yes it is");
 
+
+// a = 10 * 10 / 10;
+// println(a + 10);

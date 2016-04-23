@@ -210,9 +210,12 @@ namespace internal{
 		return "";
 	}
 
-	void Parser::ParseShallowStmtList(TOKEN terminator){
+	void Parser::ParseShallowStmtList(TOKEN terminator, int total){
 		ASTNode* node = NULL;
-		while (tok->value != terminator){
+		int i = 0;
+		while (tok->value != terminator && tok->value != END){
+			if (i == total) break;
+			i++;
 			bool isExport = false;
 			std::vector<TOKEN> visibility;
 			node = NULL; // reset node
@@ -349,6 +352,16 @@ namespace internal{
 
 	Scope* Parser::LazyParseBody(){
 		Trace("Storing", "Body for later");
+		bool oneStmt = !Is(1, LBRACE);
+		if (oneStmt){
+			Scope* scope = Scope::New(isolate);
+			scope->SetParsed();
+			scope->raw = ""; // TODO: Fix saving the code
+			OpenScope(scope);
+			ParseShallowStmtList(SEMICOLON, 1); // here
+			CloseScope();
+			return scope;	
+		}
 		Expect(LBRACE);
 		Next();
 		int start = pos - tok->Length() + 1;

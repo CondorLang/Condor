@@ -45,7 +45,7 @@ namespace internal{
 		void Trace(const char* name, const char* value);
 		void ParseImportOrInclude();
 		std::string ParseAlias();
-		void ParseShallowStmtList(TOKEN terminator = END);
+		void ParseShallowStmtList(TOKEN terminator = END, int total = -1);
 		bool IsOperator();
 		bool IsBoolean();
 		bool IsAssignment();
