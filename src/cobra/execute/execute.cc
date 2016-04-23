@@ -100,14 +100,13 @@ namespace internal{
 					SetLitType(lit);
 					if (lit == NULL) func->args[i]->local = ASTUndefined::New(isolate);
 					else func->args[i]->local = lit->Clone(isolate);
-					//isolate->RunGC(call->params[i], true);
 				}
 				else{
 					func->args[i]->local = ASTUndefined::New(isolate);
 				}
 			}
 			PrintStep("Evaluating Parameters...Done");
-			if (func->scope == GetCurrentScope()) throw Error::INTERNAL_SCOPE_ERROR;
+			//if (func->scope == GetCurrentScope()) throw Error::INTERNAL_SCOPE_ERROR;
 			OpenScope(func->scope);
 			Evaluate();
 		}
@@ -342,7 +341,7 @@ namespace internal{
 				stack->opStack.push_back(call);
 			}
 			else{
-				printf("dd: %s\n", Token::ToString(n->type).c_str());
+				printf("RPN Stack: %s\n", Token::ToString(n->type).c_str());
 			}
 		}
 		if (stack->opStack.size() == 0) throw Error::INVALID_OPERATOR;
@@ -384,6 +383,9 @@ namespace internal{
 		SetLitType(first);
 		SetLitType(second);
 
+		if (first->litType == IDENT){
+			int a = 10; // here
+		}
 		result->litType = Binary::Compare(first->litType, second->litType, tok->value->value);
 
 		PrintStep("Calculating ('" + second->value + "' " + tok->value->String() + " '" + first->value + "')");
@@ -414,6 +416,7 @@ namespace internal{
 				break;
 			}
 			case STRING: case CHAR: {
+				if (second->litType == kNULL) second->value = "";
 				switch (type){
 					case ADD:	result->value = second->value + first->value; break;
 					case LOR:	result->value = second->value.length() > 0 || first->value.length() > 0; break;
@@ -431,7 +434,7 @@ namespace internal{
 	}
 
 	void Execute::SetLitType(ASTLiteral* lit){
-		if (lit->litType == UNDEFINED && lit->value.length() > 0) lit->litType = STRING;
+		if (lit != NULL && lit->litType == UNDEFINED && lit->value.length() > 0) lit->litType = STRING;
 	}
 
 	// TODO: Implement setting object variables
@@ -670,7 +673,7 @@ namespace internal{
 		bool pass = condition == NULL || condition->value == "true";
 		if (condition != NULL && condition != expr->condition) {
 			condition->Free(isolate); // release condition memory
-			isolate->RunGC(expr->condition, true);
+			isolate->RunGC(expr->condition, false);
 		}
 		if (pass){
 			OpenScope(expr->scope);

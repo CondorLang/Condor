@@ -31,6 +31,8 @@ import {
 // int age = (int) a;
 // string name = Console.get("Enter your name: ");
 // string color = Console.get("What is your favorite color: ");
+string d = null;
+println(d + "test");
 string a = "12";
 int age = (int)a;
 string name = "Chase";
@@ -41,3 +43,14 @@ println("Your favorite color is: " + color);
 println("Name: " + type(name));
 println("Color: " + type(color));
 println("Age: " + type(age));
+
+// func add(int a, int b){
+// 	var c = a + b;
+// 	if (c > 10){
+// 		return c;
+// 	}
+// 	return add(c, 1);
+// }
+
+// println(add(1, 1));
+
