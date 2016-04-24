@@ -1,5 +1,3 @@
-#mode "strict";
-
 export object Int{
 	static func Parse(string num){return (int)num;}
 	static func Parse(char num){return (int)num;}

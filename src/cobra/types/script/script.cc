@@ -90,6 +90,7 @@ namespace internal{
 				context->AddToInProgress(name);
 			}
 			LoadImports();
+			LoadIncludes();
 		}
 		catch (Error::ERROR e){
 			std::string msg = Error::String(e, parser->expected);
@@ -211,11 +212,29 @@ namespace internal{
 			else if (name == "console") Console::CB(isolate, sub);
 			else if (name == "exception") Exception::CB(isolate, sub);
 			else if (name == "types") Types::CB(isolate, sub);
+			else if (name == "path") Path::CB(isolate, sub);
 			else {
 				parser->Row = import->row;
 				parser->Col = import->col;
 				throw Error::INVALID_IMPORT;
 			}
+		}
+	}
+
+	void Script::LoadIncludes(){
+		if (absolutePath == "inline") return; // can't include inline
+		Path* path = Path::New(isolate);
+		path->SetBase(absolutePath);
+
+		for (int i = 0; i < parser->includes.size(); i++){
+			ASTInclude* include = parser->includes[i];
+			std::string c = path->GetFromBase(include->name);
+
+			Cobra::Isolate* iso = CAST(Cobra::Isolate*, isolate);
+			Cobra::Context* ctxt = CAST(Cobra::Context*, context);
+			Cobra::String* str = Cobra::String::NewFromFile(iso, c.c_str());
+			Cobra::Script* script = Cobra::Script::Compile(ctxt, str);
+			script->Run();
 		}
 	}
 

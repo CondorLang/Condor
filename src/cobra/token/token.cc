@@ -258,5 +258,15 @@ namespace internal{
 		if (raw.length() > 0) return (int) raw.length();
 		return String().length();
 	}
+
+	bool Token::IsRawNumber(){
+		if (raw.length() > 0) {
+			std::string::const_iterator it = raw.begin();
+	    while (it != raw.end() && std::isdigit(*it)) ++it;
+	    return !raw.empty() && it == raw.end();
+		}
+		return false;
+	}
+
 } // namespace internal
 } // namespace Cobra

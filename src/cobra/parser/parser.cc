@@ -155,8 +155,8 @@ namespace internal{
 	 * 		  "exception" as "e"
 	 *    }
 	 */
-	void Parser::ParseImportOrInclude(){
-		Next(); // first token
+	void Parser::ParseImportOrInclude(bool eatTok){
+		if (eatTok) Next(); // first token
 		bool isImport = false;
 		bool group = false;
 		if (!Is(2, IMPORT, INCLUDE)) return;
@@ -190,6 +190,7 @@ namespace internal{
 			if (group && !Is(2, COMMA, RBRACE)) throw Error::INVALID_INCLUDE_IMPORT;
 		}
 		if (Is(1, RBRACE)) Next(); // eat missed }
+		ParseImportOrInclude(false); // second wave
 	}
 
 	/**
@@ -253,7 +254,11 @@ namespace internal{
 				case CHAR: case STRING: 
 				case TRUE_LITERAL: 
 				case FALSE_LITERAL: 
-				case kNULL: case VAR: { // here
+				case kNULL: case VAR: {
+					if (tok->IsRawNumber()){ // for inline stmts
+						node = ParseExpr();
+						break;	
+					}
 					std::vector<ASTVar*> list = ParseVarList();
 					for (int i = 0; i < list.size(); i++){
 						list[i]->isExport = isExport;
@@ -356,9 +361,10 @@ namespace internal{
 		if (oneStmt){
 			Scope* scope = Scope::New(isolate);
 			scope->SetParsed();
-			scope->raw = ""; // TODO: Fix saving the code
+			int start = pos;
 			OpenScope(scope);
-			ParseShallowStmtList(SEMICOLON, 1); // here
+			ParseShallowStmtList(SEMICOLON, 1);
+			scope->raw = scanner->Substr(start, pos);
 			CloseScope();
 			return scope;	
 		}

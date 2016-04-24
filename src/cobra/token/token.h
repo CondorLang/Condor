@@ -230,6 +230,7 @@ namespace internal{
 		bool IsOperator(){return value > OPERATOR_BEGIN && value < OPERATOR_END;}
 		bool IsBinaryComparison(){return value > BOOLEAN_COMPARISON_START && value < BOOLEAN_COMPARISON_END;}
 		bool IsNumber(){return value > BEGIN_NUMBER && value < END_NUMBER;}
+		bool IsRawNumber();
 		bool IsString(){return value > BEGIN_STRING && value < END_STRING;}
 		bool IsAssign(){return value > BEGIN_ASSIGNMENT && value < END_ASSIGNMENT;}
 		static Token* GetToken(Isolate* iso, std::string str);

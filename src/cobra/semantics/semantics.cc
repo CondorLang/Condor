@@ -507,7 +507,6 @@ namespace internal{
 
 		if (obj == NULL) {
 			ASTLiteral* lit = (ASTLiteral*) expr->left;
-			printf("d: %s\n", lit->value.c_str()); // here
 			throw Error::UNDEFINED_OBJECT;
 		}
 		if (expr->left->type == LITERAL){

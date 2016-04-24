@@ -389,8 +389,7 @@ namespace internal{
 		if (litType == BOOLEAN){
 			litType = Binary::Compare(first->litType, second->litType, ADD);
 		}
-		// here
-		//printf("d: %s - %s - %s - %s\n", Token::ToString((TOKEN) litType).c_str(), second->value.c_str(), first->value.c_str(), tok->value->String().c_str());
+		
 		switch (litType){
 			case INT: case DOUBLE: 
 			case FLOAT: case BOOLEAN: {
@@ -576,9 +575,6 @@ namespace internal{
 		PrintStep("Evaluating Var (" + var->name + ")");
 		SetRowCol(var);
 		Trace("Evaluating Var", var->name);
-		if (var->name == "age2"){
-			int a = 10; // here
-		}
 		ASTLiteral* local = (ASTLiteral*) EvaluateValue(var);
 		if (var->previouslyDeclared && var->op == ASSIGN){
 			if (var->local != NULL) isolate->RunGC(var, false);

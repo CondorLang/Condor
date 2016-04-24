@@ -52,10 +52,9 @@ Todo:
  - node.h 23 - Create a Expand() function which expands the node and the tree
  - execute.cc 108 - Figure out how to implement recursion
  - execute.cc 187 - Set row and col for tracking
- - execute.cc 441 - Implement bitwise
+ - execute.cc 440 - Implement bitwise
  - allocate.cc 244 - Release unused memory
- - parser.cc 359 - Fix saving the code
- - parser.cc 384 - Account for variable declarations
- - parser.cc 812 - Disallow for allow-native on a non internal file
+ - parser.cc 390 - Account for variable declarations
+ - parser.cc 818 - Disallow for allow-native on a non internal file
  - scanner.cc 462 - Include Octal, Hex, UTF-8, UTF-16, see https://msdn.microsoft.com/en-us/library/6aw8xdf2.aspx
- - semantics.cc 609 - Compare the base type with the assignment type. Throw an error if they are not the same if hard typed.
+ - semantics.cc 608 - Compare the base type with the assignment type. Throw an error if they are not the same if hard typed.

@@ -4,19 +4,16 @@ import {
 	"types"
 }
 
-string a = "10";
-int age = (int) a;
-println("Age: " + age);
-println("Age Type: " + type(age) + ", a type: " + type(a));
+include "tests/int.cb"
 
-func test(){
-   func test1(){
-       func test2(){
-           return 1;
-       }
-       return test2();
-   }
-   return test1();
+func add(var a, var b){
+	return a + b;
 }
 
-println(test());
+string a = "12";
+int b = (int) a;
+println("Your age is: " + b);
+println("Your half age is: " + (b / 2));
+println("Type: " + type(b));
+
+println(add(1, 10) / 2);

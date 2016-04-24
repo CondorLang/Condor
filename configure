@@ -6,7 +6,7 @@ parser = optparse.OptionParser()
 
 parser.add_option('-f', '--internal-files',
     action="store_true", dest="internalFiles",
-    help="Internal files", default="spam")
+    help="Internal files", default=False)
 parser.add_option('-n', '--no-update-readme',
     action="store_true", dest="noUpdateReadme",
     help="Do not update the readme file", default=False)
@@ -97,7 +97,7 @@ namespace internal{
 } // namespace internal
 } // namespace Cobra
     '''
-    return fileContents
+    return fileContents.strip()
 
 def getCbFiles():
     rootdir = 'src/'
@@ -120,9 +120,8 @@ def start(name, className):
     toFile(bytesname, out)
 
 if __name__ == "__main__":
-    # if options.internalFiles:
-    if True:
+    if options.internalFiles:
         getCbFiles()
-        if not options.noUpdateReadme:
-            updateReadme()
+    if not options.noUpdateReadme:
+        updateReadme()
 

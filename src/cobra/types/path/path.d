@@ -1,5 +1,5 @@
-src/cobra/types/types/types.o: src/cobra/types/types/types.cc \
-  src/cobra/types/types/types.h src/cobra/types/script/script.h \
+src/cobra/types/path/path.o: src/cobra/types/path/path.cc \
+  src/cobra/types/path/path.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__config \
   /usr/include/unistd.h /usr/include/_types.h /usr/include/sys/_types.h \
@@ -70,6 +70,7 @@ src/cobra/types/types/types.o: src/cobra/types/types/types.cc \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/tuple \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/atomic \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/stdexcept \
+  src/cobra/types/script/script.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/map \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__tree \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/functional \
@@ -154,12 +155,10 @@ src/cobra/types/types/types.o: src/cobra/types/types/types.cc \
   src/cobra/types/console/console-bytes.h \
   src/cobra/types/try_catch/exception.h \
   src/cobra/types/try_catch/exception-bytes.h \
-  src/cobra/types/path/path.h src/cobra/types/path/path-bytes.h \
-  src/cobra/types/types/types-bytes.h
+  src/cobra/types/types/types.h src/cobra/types/types/types-bytes.h \
+  src/cobra/types/path/path-bytes.h
 
-src/cobra/types/types/types.h:
-
-src/cobra/types/script/script.h:
+src/cobra/types/path/path.h:
 
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:
 
@@ -368,6 +367,8 @@ src/cobra/types/script/script.h:
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/atomic:
 
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/stdexcept:
+
+src/cobra/types/script/script.h:
 
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/map:
 
@@ -619,8 +620,8 @@ src/cobra/types/try_catch/exception.h:
 
 src/cobra/types/try_catch/exception-bytes.h:
 
-src/cobra/types/path/path.h:
-
-src/cobra/types/path/path-bytes.h:
+src/cobra/types/types/types.h:
 
 src/cobra/types/types/types-bytes.h:
+
+src/cobra/types/path/path-bytes.h:

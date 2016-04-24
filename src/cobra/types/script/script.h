@@ -20,6 +20,7 @@
 #include "cobra/types/console/console.h"
 #include "cobra/types/try_catch/exception.h"
 #include "cobra/types/types/types.h"
+#include "cobra/types/path/path.h"
 
 namespace Cobra {
 namespace internal{
@@ -58,6 +59,7 @@ namespace internal{
 
 		std::string GetSourceRow(int row, int col);
 		void LoadImports();
+		void LoadIncludes();
 
 	public:
 		Script(Isolate* isolate, String* str, Context* con);

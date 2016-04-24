@@ -43,7 +43,7 @@ namespace internal{
 		bool Is(int argc, ...);
 		void PrintTok();
 		void Trace(const char* name, const char* value);
-		void ParseImportOrInclude();
+		void ParseImportOrInclude(bool eatTok = true);
 		std::string ParseAlias();
 		void ParseShallowStmtList(TOKEN terminator = END, int total = -1);
 		bool IsOperator();
