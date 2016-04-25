@@ -173,6 +173,7 @@ namespace internal{
 		n->isCalc = false;
 		n->obj = NULL;
 		n->allowAccess = false;
+		n->member = NULL;
 		n->scopeId = -1;
 		return n;
 	}
@@ -195,6 +196,7 @@ namespace internal{
 		n->obj = obj;
 		n->allowAccess = allowAccess;
 		n->scopeId = scopeId;
+		n->member = member;
 		return n;
 	}
 

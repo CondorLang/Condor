@@ -215,10 +215,13 @@ namespace internal{
 		SetRowCol(lit);
 		Trace("Literal Value", lit->value.c_str());
 		int type = (int) lit->litType;
+		TOKEN result = UNDEFINED;
 		switch (type){
-			case IDENT: return ValidateIdent(lit);
+			case IDENT: result = ValidateIdent(lit); break;
 		}
-		return lit->litType;
+		ValidateExpr(lit->member);
+		if (result == UNDEFINED) return lit->litType;
+		return result;
 	}
 
 	void Semantics::ValidateFor(ASTForExpr* expr){

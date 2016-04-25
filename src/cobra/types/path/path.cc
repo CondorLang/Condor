@@ -14,7 +14,7 @@ namespace internal{
 	}
 
 	void Path::CB(Isolate* isolate, std::string sub){
-		Script::RunInternalScript(isolate, ConsoleBytes, "path", sub);
+		Script::RunInternalScript(isolate, PathBytes, "path", sub);
 	}
 
 	// TODO: Implement path for Windows

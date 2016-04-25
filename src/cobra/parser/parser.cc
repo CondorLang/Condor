@@ -525,10 +525,19 @@ namespace internal{
 			}
 		}
 		if (Is(1, LBRACK)){
+			Next(); // eat [
 			Trace("Parsing", "Array");
+			if (expr != NULL){
+				ASTLiteral* var = ASTLiteral::New(isolate);
+				var->value = ((ASTLiteral*) expr)->value;
+				var->member = ParseExpr();
+				var->litType = IDENT;
+				Expect(RBRACK);
+				Next();
+				return var;
+			}
+
 			ASTArray* ary = ASTArray::New(isolate);
-			if (expr != NULL) ary->name = ((ASTLiteral*) expr)->value;
-			Next();
 			while (!Is(1, RBRACK)){
 				ary->members.push_back(ParseExpr());
 				if (Is(1, COMMA)) Next();
@@ -700,16 +709,14 @@ namespace internal{
 		SetRowCol(stmt);
 		if (Is(1, ELSE)){
 			Next();
-			if (Is(1, LBRACE)){
-				ASTLiteral* lit = ASTLiteral::New(isolate);
-				SetRowCol(lit);
-				lit->value = "true";
-				lit->litType = TRUE_LITERAL;
-				stmt->condition = lit;
-				stmt->scope = LazyParseBody();
-				stmt->isElse = true;
-				return stmt;
-			}
+			ASTLiteral* lit = ASTLiteral::New(isolate);
+			SetRowCol(lit);
+			lit->value = "true";
+			lit->litType = TRUE_LITERAL;
+			stmt->condition = lit;
+			stmt->scope = LazyParseBody();
+			stmt->isElse = true;
+			return stmt;
 		}
 		if (Is(1, IF)){
 			Next();
@@ -721,8 +728,10 @@ namespace internal{
 			stmt->scope = LazyParseBody();
 			stmt->scope->owner = stmt;
 			while (Is(2, ELSE, IF)){
+				bool el = Is(1, ELSE);
 				ASTIf* ifs = (ASTIf*) ParseIf();
 				stmt->elseIfs.push_back(ifs);
+				if (el) return stmt;
 			}
 			return stmt;
 		}

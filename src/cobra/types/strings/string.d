@@ -153,7 +153,10 @@ src/cobra/types/strings/string.o: src/cobra/types/strings/string.cc \
   src/cobra/types/try_catch/exception.h \
   src/cobra/types/try_catch/exception-bytes.h \
   src/cobra/types/types/types.h src/cobra/types/types/types-bytes.h \
-  src/cobra/types/path/path.h src/cobra/types/path/path-bytes.h
+  src/cobra/types/path/path.h src/cobra/types/path/path-bytes.h \
+  src/cobra/types/fs/fs.h \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/fstream \
+  src/cobra/types/fs/fs-bytes.h
 
 src/cobra/types/strings/string.h:
 
@@ -622,3 +625,9 @@ src/cobra/types/types/types-bytes.h:
 src/cobra/types/path/path.h:
 
 src/cobra/types/path/path-bytes.h:
+
+src/cobra/types/fs/fs.h:
+
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/fstream:
+
+src/cobra/types/fs/fs-bytes.h:

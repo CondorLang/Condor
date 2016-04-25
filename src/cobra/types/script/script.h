@@ -21,6 +21,7 @@
 #include "cobra/types/try_catch/exception.h"
 #include "cobra/types/types/types.h"
 #include "cobra/types/path/path.h"
+#include "cobra/types/fs/fs.h"
 
 namespace Cobra {
 namespace internal{

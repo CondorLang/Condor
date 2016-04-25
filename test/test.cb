@@ -1,7 +1,8 @@
 import {
 	"console",
 	"string",
-	"types"
+	"types",
+	"fs"
 }
 
 include "tests/int.cb"
@@ -10,10 +11,23 @@ func add(var a, var b){
 	return a + b;
 }
 
-string a = "12";
-int b = (int) a;
-println("Your age is: " + b);
-println("Your half age is: " + (b / 2));
-println("Type: " + type(b));
+// string a = "12";
+// int b = (int) a;
+// println("Your age is: " + b);
+// println("Your half age is: " + (b / 2));
+// println("Type: " + type(b));
 
-println(add(1, 10) / 2);
+// println(add(1, 10) / 2);
+
+
+// // bool yup = Int.IsInt("a");
+// // if (yup){
+// // 	println("Yes");
+// // }
+// // else println("No");
+
+string path = "./readme.md";
+string value = fs.readFile(path);
+String str = new String(value);
+println(str.length);
+fs.writeFile("test.txt", value);

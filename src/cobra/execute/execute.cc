@@ -79,16 +79,16 @@ namespace internal{
 		PrintStep("Function Call - " + call->name);
 		ASTFunc* func = call->func;
 		if (func == NULL && call->isInternal){ // internal
-			ASTLiteral* lit = NULL;
+			std::vector<ASTLiteral*> nodes;
 			if (call->params.size() > 0) {
-				lit = EvaluateValue(call->params[0]);
-				SetLitType(lit);
-				if (lit != NULL) {
-					lit = lit->Clone(isolate);
-					isolate->RunGC(call->params[0], true);
+				for (int i = 0; i < call->params.size(); i++){
+					ASTLiteral* lit = EvaluateValue(call->params[i]);
+					SetLitType(lit);
+					nodes.push_back(lit->Clone(isolate));
+					isolate->RunGC(call->params[i], true);
 				}
 			}
-			return (ASTLiteral*) Internal::CallInternal(isolate, call->callback, lit);
+			return (ASTLiteral*) Internal::CallInternal(isolate, call->callback, nodes);
 		}
 		else{
 			if (func == NULL) throw Error::UNDEFINED_FUNC;
@@ -549,6 +549,20 @@ namespace internal{
 					}
 				}
 
+				if (lit->member != NULL) {
+					ASTLiteral* member = EvaluateValue(lit->member);
+					SetCalc(member);
+					// TODO: Allow for all array types
+					if (value != NULL && value->litType == STRING) {
+						if (value->value.length() <= member->calc) throw Error::INVALID_ACCESS_TO_ARRAY;
+						ASTLiteral* result = ASTLiteral::New(isolate);
+						result->litType = CHAR;
+						result->value = value->value.at(member->calc);
+						return result;
+					}
+					throw Error::INVALID_ACCESS_TO_ARRAY;
+				}
+
 				if (value != NULL) return value;
 				SetCalc(lit);
 				return lit;
@@ -575,6 +589,9 @@ namespace internal{
 		PrintStep("Evaluating Var (" + var->name + ")");
 		SetRowCol(var);
 		Trace("Evaluating Var", var->name);
+		if (var->name == "b"){
+			int a = 10; // here
+		}
 		ASTLiteral* local = (ASTLiteral*) EvaluateValue(var);
 		if (var->previouslyDeclared && var->op == ASSIGN){
 			if (var->local != NULL) isolate->RunGC(var, false);
@@ -686,7 +703,6 @@ namespace internal{
 			return true;
 		}
 		else{
-			if (condition != expr->condition) condition->Free(isolate); // release condition memory
 			for (int i = 0; i < expr->elseIfs.size(); i++){
 				if (EvaluateIf(expr->elseIfs[i])) break;
 			}

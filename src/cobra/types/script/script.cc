@@ -213,6 +213,7 @@ namespace internal{
 			else if (name == "exception") Exception::CB(isolate, sub);
 			else if (name == "types") Types::CB(isolate, sub);
 			else if (name == "path") Path::CB(isolate, sub);
+			else if (name == "fs") FS::CB(isolate, sub);
 			else {
 				parser->Row = import->row;
 				parser->Col = import->col;

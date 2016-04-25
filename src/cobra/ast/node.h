@@ -18,7 +18,7 @@ namespace internal{
 	class ASTLiteral;
 	class Scope;
 
-	typedef ASTNode* (*InternalFunctionCallback)(Isolate* iso, ASTNode* node);
+	typedef ASTNode* (*InternalFunctionCallback)(Isolate* iso, std::vector<ASTLiteral*> lits);
 
 	// TODO: Create a Expand() function which expands the node and the tree
 	class ASTNode
@@ -140,6 +140,7 @@ namespace internal{
 		std::string value;
 		ASTVar* var;
 		ASTObject* obj; // for this
+		ASTExpr* member;
 		TOKEN litType;
 		TOKEN unary;
 		double calc;
