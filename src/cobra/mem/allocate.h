@@ -18,7 +18,7 @@ namespace internal{
 
 	const static size_t DEFAULT_MEMORY_POOL_SIZE = KB * 8; // 8kb
 	const static size_t DEFAULT_MEMORY_CHUNK_SIZE = 260;
-	const static size_t DEFAULT_MEMORY_SIZE_TO_ALLOCATE = DEFAULT_MEMORY_CHUNK_SIZE * 2;
+	const static size_t DEFAULT_MEMORY_SIZE_TO_ALLOCATE = DEFAULT_MEMORY_CHUNK_SIZE * 2.2; // used in XL
 
 	typedef struct Chunk {
 		void* data;

@@ -120,7 +120,7 @@ namespace internal{
     va_start(ap, argc);
     bool isInList = false;
     for(int i = 1; i <= argc; i++) {
-      if (!isInList) isInList = tok->value == va_arg(ap, int);
+      if (!isInList && tok != NULL) isInList = tok->value == va_arg(ap, int);
     }
     va_end(ap);
     return isInList;
@@ -159,6 +159,7 @@ namespace internal{
 		if (eatTok) Next(); // first token
 		bool isImport = false;
 		bool group = false;
+		bool includeBrace = true;
 		if (!Is(2, IMPORT, INCLUDE)) return;
 		Trace("Parsing", "Imports");
 		isImport = Is(1, IMPORT);
@@ -187,6 +188,11 @@ namespace internal{
 				include->alias = ParseAlias();
 				includes.push_back(include);
 			}
+			if (Is(1, COMMA)){
+				includeBrace = false;
+				group = true;
+			}
+			if (!includeBrace && group && !Is(1, COMMA)) break;
 			if (group && !Is(2, COMMA, RBRACE)) throw Error::INVALID_INCLUDE_IMPORT;
 		}
 		if (Is(1, RBRACE)) Next(); // eat missed }
@@ -201,7 +207,7 @@ namespace internal{
 	std::string Parser::ParseAlias(){
 		Next();
 		if (Is(1, AS)){
-			throw Error::NOT_IMPLEMENTED;
+			//throw Error::NOT_IMPLEMENTED;
 			Next();
 			Expect(IDENT);
 			std::string result = tok->raw;

@@ -1,9 +1,4 @@
-import {
-	"console",
-	"string",
-	"types",
-	"fs"
-}
+import "console", "fs", "string"
 
 include "tests/int.cb"
 
@@ -31,3 +26,7 @@ string value = fs.readFile(path);
 String str = new String(value);
 println(str.length);
 fs.writeFile("test.txt", value);
+
+// var a = Console.get(">> ");
+// int b = (int) a;
+// println("The number is: " + (b / 2));
