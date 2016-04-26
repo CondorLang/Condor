@@ -67,16 +67,17 @@ namespace Cobra{
 	}
 
 	String* String::NewFromFile(Isolate* isolate, const char* path){
-		//char* absolutePath = realpath(path, NULL); error on windows
-		//const char* absolutePath = path;
-		std::ifstream in(path);
+		std::string pth(path);
+		#ifdef _WIN32
+			std::replace(pth.begin(), pth.end(), '/', '\\');
+		#endif
+		std::ifstream in(pth);
 		if (!in){
-			printf("File, %s, was empty\n", path);
+			printf("File, %s, was empty\n", pth.c_str());
 			return String::New(isolate);
 		}
 		std::string fileStr((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
-		String* h = String::New(isolate, fileStr.c_str(), path);
-		//delete absolutePath;
+		String* h = String::New(isolate, fileStr.c_str(), pth.c_str());
 		return h;
 	}
 

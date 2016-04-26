@@ -1,5 +1,9 @@
 #include "path.h"
 
+#ifdef _WIN32
+	#include <Windows.h>
+#endif
+
 namespace Cobra {
 namespace internal{
 
@@ -17,29 +21,54 @@ namespace internal{
 		Script::RunInternalScript(isolate, PathBytes, "path", sub);
 	}
 
-	// TODO: Implement path for Windows
+	// TODO: Set Locale - http://askubuntu.com/questions/236924/matlab-not-working
 	void Path::SetBase(std::string str){
 		#ifdef _WIN32
-			
+			std::replace(str.begin(), str.end(), '/', '\\');
+			int BUFSIZE = 4096;
+			DWORD  retval=0;
+		    BOOL   success; 
+		    TCHAR  buffer[BUFSIZE]=TEXT(""); 
+		    TCHAR  buf[BUFSIZE]=TEXT(""); 
+		    TCHAR** lppPart={NULL};
+
+		    retval = GetFullPathName(str.c_str(), BUFSIZE, buffer, lppPart);
+		    std::string pth(buffer);
+		    base = pth;
 		#else
 			base = realpath(str.c_str(), NULL);
 		#endif
 	}
 
-	// TODO: Implement path for Windows
 	std::string Path::GetFromBase(std::string str){
+		char ch = '/';
 		#ifdef _WIN32
-			
-		#else
-			int idx = -1;
-			for (int i = base.length() - 1; i >= 0; i--){
-				if (base.at(i) == '/'){
-					idx = i;
-					break;
-				}
+			ch = '\\';
+		#endif
+		int idx = -1;
+		for (int i = base.length() - 1; i >= 0; i--){
+			if (base.at(i) == ch){
+				idx = i;
+				break;
 			}
-			std::string folder = base.substr(0, idx);
-			folder += "/" + str;
+		}
+		std::string folder = base.substr(0, idx);
+		folder += ch + str;
+
+
+		#ifdef _WIN32
+			std::replace(folder.begin(), folder.end(), '/', '\\');
+			int BUFSIZE = 4096;
+			DWORD  retval=0;
+		    BOOL   success; 
+		    TCHAR  buffer[BUFSIZE]=TEXT(""); 
+		    TCHAR  buf[BUFSIZE]=TEXT(""); 
+		    TCHAR** lppPart={NULL};
+
+		    retval = GetFullPathName(folder.c_str(), BUFSIZE, buffer, lppPart);
+		    std::string pth(buffer);
+		    return pth;
+		#else
 			return realpath(folder.c_str(), NULL);
 		#endif
 	}

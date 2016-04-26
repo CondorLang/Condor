@@ -4,272 +4,32 @@
 		"selected_items":
 		[
 			[
-				"Ev",
-				"EvaluateValue"
-			],
-			[
-				"Eva",
-				"Evaluated"
-			],
-			[
-				"Evaluat",
-				"EvaluateValue"
-			],
-			[
-				"RBR",
-				"RBRACK"
-			],
-			[
-				"yup",
-				"yup2"
-			],
-			[
-				"Forma",
-				"FormatLit"
-			],
-			[
-				"Set",
-				"SetLitType"
-			],
-			[
-				"ASTO",
-				"ASTObject"
-			],
-			[
-				"UN",
-				"UNDEFINED_FUNC"
-			],
-			[
 				"all",
-				"allowGC"
-			],
-			[
-				"lco",
-				"local"
-			],
-			[
-				"BR",
-				"INTERNAL_BREAK"
-			],
-			[
-				"OBJ",
-				"OBJECT_INSTANCE"
-			],
-			[
-				"secon",
-				"secondLit"
-			],
-			[
-				"scop",
-				"scopeId"
-			],
-			[
-				"retu",
-				"returnVar"
-			],
-			[
-				"base",
-				"baseType"
-			],
-			[
-				"ASTFu",
-				"ASTFuncCall"
-			],
-			[
-				"Print",
-				"PrintStep"
-			],
-			[
-				"PRint",
-				"PrintValues"
-			],
-			[
-				"OBJE",
-				"OBJECT_INSTANCE"
-			],
-			[
-				"Objec",
-				"AddObject"
-			],
-			[
-				"Evalua",
-				"EvaluateValue"
-			],
-			[
-				"GetCu",
-				"GetCurrentScope"
-			],
-			[
-				"EvaluateF",
-				"EvaluateFuncCall"
-			],
-			[
-				"Fun",
-				"EvaluateFuncCall"
-			],
-			[
-				"exec",
-				"execution-steps"
-			],
-			[
-				"Eval",
-				"EvaluateValue"
-			],
-			[
-				"Valid",
-				"Validating"
-			],
-			[
-				"lit",
-				"LITERAL"
-			],
-			[
-				"pri",
-				"printf	printf …"
-			],
-			[
-				"execu",
-				"execution-time"
-			],
-			[
-				"exe",
-				"executionTime"
-			],
-			[
-				"Validat",
-				"ValidateIf"
-			],
-			[
-				"else",
-				"elseIfs"
-			],
-			[
-				"Evlua",
-				"Evaluating"
-			],
-			[
-				"EV",
-				"EvaluateWhile"
-			],
-			[
-				"Cas",
-				"SetCast"
-			],
-			[
-				"isIn",
-				"isInParen"
-			],
-			[
-				"For",
-				"FormatLit"
-			],
-			[
-				"Un",
-				"Unknown"
-			],
-			[
-				"Evalu",
-				"EvaluateValue"
-			],
-			[
-				"Liter",
-				"LiteralBase"
-			],
-			[
-				"Lit",
-				"LiteralInfo"
-			],
-			[
-				"assi",
-				"assignmentType"
-			],
-			[
-				"sub",
-				"subModule"
-			],
-			[
-				"UND",
-				"UNDEFINED"
-			],
-			[
-				"ASTFU",
-				"ASTFuncCall"
-			],
-			[
-				"Evl",
-				"EvaluateValue"
-			],
-			[
-				"node",
-				"nodesz"
-			],
-			[
-				"ASTOBj",
-				"ASTObjectInstance"
-			],
-			[
-				"isAr",
-				"isArray"
-			],
-			[
-				"isC",
-				"isCast"
-			],
-			[
-				"Scan",
-				"ScanEscape"
-			],
-			[
-				"Get",
-				"GetCurrentScope"
-			],
-			[
-				"allo",
 				"allowNative"
-			],
-			[
-				"ASTFUNC",
-				"ASTFuncCall"
-			],
-			[
-				"int",
-				"internal"
-			],
-			[
-				"new",
-				"newString"
-			],
-			[
-				"baes",
-				"baseType"
-			],
-			[
-				"to",
-				"ToString"
-			],
-			[
-				"bas",
-				"baseType"
-			],
-			[
-				"INTN",
-				"INVALID_ASSIGNMENT_TO_TYPE"
-			],
-			[
-				"catc",
-				"catchScope"
 			],
 			[
 				"INVAL",
 				"INVALID_FUNCTION_CALL"
 			],
 			[
+				"ASTFU",
+				"ASTFuncCallExpr"
+			],
+			[
 				"PareFun",
 				"ParseFuncCall"
 			],
 			[
+				"UN",
+				"UNDEFINED_FUNC"
+			],
+			[
 				"GetObj",
 				"GetObjectInScope"
+			],
+			[
+				"OBJ",
+				"OBJECT"
 			],
 			[
 				"GetOb",
@@ -278,6 +38,14 @@
 			[
 				"obj",
 				"object"
+			],
+			[
+				"ASTO",
+				"ASTObjectMemberChainExpr"
+			],
+			[
+				"OBJE",
+				"OBJECT_MEMBER_CHAIN"
 			],
 			[
 				"FUNC",
@@ -296,8 +64,16 @@
 				"ASTObjectMemberChainExpr"
 			],
 			[
+				"RBR",
+				"RBRACE"
+			],
+			[
 				"LB",
 				"LBRACE"
+			],
+			[
+				"Set",
+				"SetRowCol"
 			],
 			[
 				"ASTArr",
@@ -380,6 +156,10 @@
 				"buildAll"
 			],
 			[
+				"sub",
+				"subs"
+			],
+			[
 				"resu",
 				"resultTxt"
 			],
@@ -448,6 +228,10 @@
 				"parentId"
 			],
 			[
+				"pri",
+				"print_r"
+			],
+			[
 				"sharedW",
 				"sharedWith"
 			],
@@ -514,123 +298,263 @@
 			[
 				"pro",
 				"processPair"
+			],
+			[
+				"sen",
+				"sentences"
+			],
+			[
+				"word",
+				"wordTotals"
+			],
+			[
+				"txt",
+				"txtWords"
+			],
+			[
+				"ob",
+				"observation"
+			],
+			[
+				"high",
+				"highestItem"
+			],
+			[
+				"conte",
+				"contextId"
+			],
+			[
+				"note",
+				"noteId"
+			],
+			[
+				"cont",
+				"contextId"
+			],
+			[
+				"close",
+				"closeContext"
+			],
+			[
+				"pal",
+				"player"
+			],
+			[
+				"pla",
+				"player1"
+			],
+			[
+				"setP",
+				"setPathsRecursive"
+			],
+			[
+				"Mod",
+				"ModuleId"
+			],
+			[
+				"Pos",
+				"PostEndDate"
+			],
+			[
+				"getDi",
+				"getDiscussionTopics"
+			],
+			[
+				"isCo",
+				"isContentItem"
+			],
+			[
+				"isC",
+				"isContentType"
+			],
+			[
+				"getM",
+				"getModulesAndTopicsRecursive"
+			],
+			[
+				"loop",
+				"loopThroughTopics"
+			],
+			[
+				"rep",
+				"replaceText"
+			],
+			[
+				"term",
+				"termGlobal"
+			],
+			[
+				"getSe",
+				"getSelectionText"
+			],
+			[
+				"creat",
+				"creationDate"
+			],
+			[
+				"isol",
+				"isolateId"
+			],
+			[
+				"iso",
+				"isolateId"
+			],
+			[
+				"rou",
+				"routeParams"
+			],
+			[
+				"create",
+				"createIsolateCtrl"
+			],
+			[
+				"crea",
+				"createIsolate"
+			],
+			[
+				"contex",
+				"contextsById"
+			],
+			[
+				"is",
+				"isolatesById"
+			],
+			[
+				"isoalte",
+				"isolateId"
+			],
+			[
+				"getCurr",
+				"getCurrentCode"
+			],
+			[
+				"wee",
+				"weekAsInt"
+			],
+			[
+				"str_rep",
+				"str_replace"
+			],
+			[
+				"time",
+				"timestamp"
+			],
+			[
+				"json",
+				"json_decode"
+			],
+			[
+				"isolat",
+				"isolateId"
+			],
+			[
+				"isola",
+				"isolateId"
+			],
+			[
+				"resl",
+				"relationships"
+			],
+			[
+				"que",
+				"queryTemplate"
+			],
+			[
+				"ce",
+				"checkKeys"
+			],
+			[
+				"check",
+				"checkKeys"
+			],
+			[
+				"aud",
+				"audit"
+			],
+			[
+				"che",
+				"checkKeys"
+			],
+			[
+				"pars",
+				"parsed"
+			],
+			[
+				"sel",
+				"selectedDay"
+			],
+			[
+				"_err",
+				"_error_in_progress"
+			],
+			[
+				"hea",
+				"headers"
+			],
+			[
+				"ut",
+				"utf-8"
+			],
+			[
+				"Get",
+				"GetFolderByServerRelativeUrl"
+			],
+			[
+				"error",
+				"errors"
+			],
+			[
+				"err",
+				"errXml"
+			],
+			[
+				"XMLHT",
+				"XMLHttpRequest"
+			],
+			[
+				"sele",
+				"selectedSurvey"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "test/test.cb",
+			"contents": "=SUBSTITUTE(IF(ISERR(TRIM(CLEAN(SUBSTITUTE(SUBSTITUTE(LEFT([@Title],FIND(\"-\",[@Title])-1),CHAR(160),\"\"),\" \",\"\")))), [@Title], TRIM(CLEAN(SUBSTITUTE(SUBSTITUTE(LEFT([@Title],FIND(\"-\",[@Title])-1),CHAR(160),\"\"),\" \",\"\")))), \" \", \"\")",
 			"settings":
 			{
-				"buffer_size": 636,
-				"line_ending": "Unix"
+				"buffer_size": 229,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/cobra/types/path/path.h",
+			"settings":
+			{
+				"buffer_size": 510,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/cobra/types/path/path.cc",
+			"settings":
+			{
+				"buffer_size": 1696,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/api.cc",
+			"settings":
+			{
+				"buffer_size": 3390,
+				"line_ending": "Windows"
 			}
 		}
 	],
-	"build_system": "Open",
+	"build_system": "",
 	"build_system_choices":
 	[
-		[
-			[
-				[
-					"All",
-					""
-				],
-				[
-					"Make Parser",
-					""
-				],
-				[
-					"Make Semantic",
-					""
-				],
-				[
-					"Open",
-					""
-				],
-				[
-					"Packages/C++/C++ Single File.sublime-build",
-					""
-				],
-				[
-					"Packages/C++/C++ Single File.sublime-build",
-					"Run"
-				],
-				[
-					"Packages/Makefile/Make.sublime-build",
-					""
-				],
-				[
-					"Packages/Makefile/Make.sublime-build",
-					"Clean"
-				]
-			],
-			[
-				"Open",
-				""
-			]
-		],
-		[
-			[
-				[
-					"All",
-					""
-				],
-				[
-					"Make Parser",
-					""
-				],
-				[
-					"Make Semantic",
-					""
-				],
-				[
-					"Open",
-					""
-				],
-				[
-					"Packages/Makefile/Make.sublime-build",
-					""
-				],
-				[
-					"Packages/Makefile/Make.sublime-build",
-					"Clean"
-				]
-			],
-			[
-				"Open",
-				""
-			]
-		],
-		[
-			[
-				[
-					"All",
-					""
-				],
-				[
-					"Make Parser",
-					""
-				],
-				[
-					"Make Semantic",
-					""
-				],
-				[
-					"Packages/Makefile/Make.sublime-build",
-					""
-				],
-				[
-					"Packages/Makefile/Make.sublime-build",
-					"Clean"
-				]
-			],
-			[
-				"Make Semantic",
-				""
-			]
-		],
 		[
 			[
 				[
@@ -695,14 +619,10 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 392.0,
+		"height": 27.0,
 		"last_filter": "",
 		"selected_items":
 		[
-			[
-				"au",
-				"Auto indent"
-			],
 			[
 				"auto",
 				"Auto indent"
@@ -859,101 +779,44 @@
 	},
 	"expanded_folders":
 	[
-		"/Users/willdech/Documents/dev/CobraLang",
-		"/Users/willdech/Documents/dev/CobraLang/src",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/error",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/execute",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics",
-		"/Users/willdech/Documents/dev/CobraLang/test",
-		"/Users/willdech/Documents/dev/CobraLang/test/tests"
+		"/E/dev/CobraLang",
+		"/E/dev/CobraLang/include",
+		"/E/dev/CobraLang/src",
+		"/E/dev/CobraLang/src/cobra",
+		"/E/dev/CobraLang/src/cobra/token",
+		"/E/dev/CobraLang/src/cobra/types",
+		"/E/dev/CobraLang/src/cobra/types/path",
+		"/E/dev/CobraLang/src/cobra/types/script",
+		"/E/dev/CobraLang/test"
 	],
 	"file_history":
 	[
-		"/Users/willdech/Documents/dev/CobraLang/test/test.cb",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/fs/fs.cb",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/internal.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/internal.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/fs/fs.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/fs/fs.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/execute/execute.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/parser.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/semantics.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/node.h",
-		"/Users/willdech/Documents/dev/CobraLang/test/tests/college.cb",
-		"/Users/willdech/Documents/dev/CobraLang/test/tests/array.cb",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/strings/string.cb",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/node.cc",
-		"/Users/willdech/Documents/dev/CobraLang/test/tests/int.cb",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/path/path.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/script/script.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/script/script.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/path/path.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/binary.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/path/path.cb",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/token/token.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/parser.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/token/token.h",
-		"/Users/willdech/Documents/dev/CobraLang/include/readme.md",
-		"/Users/willdech/Documents/dev/CobraLang/configure",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/isolate.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/types/types.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/console/console.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/types/types.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/execute/execute.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/types/types.cb",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/gc.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/isolate.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/gc.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/allocate.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/api.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/scope.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/scope.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/semantics.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/context.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/console/console.cb",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/execute/stack.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/execute/stack.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/error/error.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/error/error.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/flags.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/flags.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/scanner/scanner.cc",
-		"/Users/willdech/Documents/dev/CobraLang/test/test.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/execute/shuntingyard.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/execute/shuntingyard.cc",
-		"/Users/willdech/Documents/dev/CobraLang/test/s.cc",
-		"/Users/willdech/Documents/dev/CobraLang/test/s.h",
-		"/Users/willdech/Documents/dev/CobraLang/test/main.cc",
-		"/Users/willdech/Documents/dev/CobraLang/readme.md",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/context.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/try_catch/exception.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/try_catch/exception.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/strings/string.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/console/console.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/array/array.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/array/array.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/strings/string.h",
-		"/Users/willdech/Documents/dev/CobraLang/.gitignore",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/scanner/scanner.h",
+		"/E/dev/CobraLang/test/test.cb",
+		"/E/dev/CobraLang/include/Cobra.h",
+		"/E/dev/CobraLang/src/api.cc",
+		"/R/Curriculum/Resources/Systems/NBEW/pdat.laccdb",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/global.h",
-		"/Users/willdech/Documents/dev/CobraLang/test/shell.cc",
-		"/Users/willdech/Documents/dev/CobraLang/include/Cobra.h",
 		"/Users/willdech/Documents/dev/CobraLang/CobraLang.sublime-project",
-		"/Users/willdech/Documents/dev/CobraLang/Makefile",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/codegen/codegen.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/codegen/symbols.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/codegen/tmp.asm",
+		"/Users/willdech/Documents/dev/CobraLang/test/test.cb",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/codegen/codegen.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/codegen/hello.asm",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/parser.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/parser.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/check.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/internal.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/ast.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/internal.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/scope.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/scope.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/check.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/ast.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/flags.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/flags.h",
+		"/Users/willdech/Documents/dev/CobraLang/Makefile",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/allocate.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/allocate.h",
 		"/Users/willdech/Documents/dev/Systems/moe/projects/byui.js/test/index.html",
 		"/Applications/XAMPP/xamppfiles/htdocs/studim/api/index.php",
@@ -962,8 +825,17 @@
 		"/Users/willdech/Downloads/GeoLiteCity_20160301/GeoLiteCity-Blocks.csv",
 		"/Users/willdech/Downloads/GeoLiteCity_20160301/GeoLiteCity-Location.csv",
 		"/Users/willdech/Documents/dev/Systems/moe/projects/byui.js/src/csv.js",
+		"/Users/willdech/Documents/dev/CobraLang/test/tests/array.cb",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/array/array.cb",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/context.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/token/token.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/error/error.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/error/error.h",
+		"/Users/willdech/Documents/dev/CobraLang/test/tests/college.cb",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/script/script.cc",
+		"/Users/willdech/Documents/dev/CobraLang/test/main.cc",
 		"/Users/willdech/Documents/dev/CobraLang/test/tests/console.cb",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/strings/string.cb",
 		"/Users/willdech/Documents/dev/CobraLang/test/tests/string.cb",
 		"/Users/willdech/Desktop/Dashboard/css/style.css",
 		"/Users/willdech/Desktop/Dashboard/index.html",
@@ -999,18 +871,64 @@
 		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/css/src/button/button.css",
 		"/Applications/XAMPP/xamppfiles/htdocs/Old/dashboard/index.html",
 		"/Applications/XAMPP/xamppfiles/htdocs/Old/dashboard/js/ctrl.js",
-		"/Applications/XAMPP/xamppfiles/htdocs/studim/lib/folder.php"
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/lib/folder.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/lib/survey.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/js/build/ctrl.js",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/api/lib/survey.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/lib/user.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/api/lib/folder.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/js/src/modal/modal.js",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/css/src/modal/modal.css",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/index.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/login.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/css/src/login/login.css",
+		"/Users/willdech/Documents/dev/Systems/moe/projects/HTML-Query/Gruntfile.js",
+		"/Users/willdech/Documents/dev/Systems/moe/projects/HTML-Query/index.html",
+		"/Users/willdech/Documents/dev/Systems/moe/projects/HTML-Query/src/ctrl.js",
+		"/Users/willdech/Documents/dev/Systems/moe/.gitmodules",
+		"/Users/willdech/Documents/dev/Systems/moe/projects/HTML-Query/src/unzip.js",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/css/src/list/list.css",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/css/src/typeography/header.css",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/include/menu.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/css/src/breadcrum/breadcrum.css",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/css/src/sidebar/left.css",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/index.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/css/src/form/form.css",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/.htaccess",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/css/src/form/search.css",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/css/src/containers/container.css",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/Gruntfile.js",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/css/build/lms.css",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/vendor/slim/slim/tests/Middleware/SessionCookieTest.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/lib/db.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/api/lib/user.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/lib/cookie.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/UltraNotes/lib/note.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/UltraNotes/api/lib/isolate.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/tacit/api/v1/class/user.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/tacit/api/v1/class/cookie.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/api/lib/result.php",
+		"/Users/willdech/Documents/dev/Systems/moe/projects/PatternRecognitionApplication/src/string/trim.js",
+		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/include/menu.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/index.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/todo.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/profile.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/index.html",
+		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/css/src/card/card.css",
+		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/profile.html",
+		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/todo.html",
+		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/css/src/tiles/tiles.css",
+		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/css/src/sidebar/left.css"
 	],
 	"find":
 	{
-		"height": 35.0
+		"height": 34.0
 	},
 	"find_in_files":
 	{
 		"height": 93.0,
 		"where_history":
 		[
-			"/Users/willdech/Documents/dev/CobraLang/src/cobra",
 			"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser",
 			"/Users/willdech/Documents/dev/CobraLang/src/cobra/token",
 			"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser",
@@ -1075,134 +993,134 @@
 		"case_sensitive": false,
 		"find_history":
 		[
-			"ASTNode* lit",
-			"invalid_func",
-			"invalid_funct",
-			"array",
-			"validateliter",
-			"ValidateIdent",
-			"validateliter",
-			"astliter",
-			"invalid_objec",
-			"name",
-			"CONSOLE_H_",
-			"script",
-			"Script",
-			"CONSOLE_H_",
-			"parseimport",
-			"s.",
+			"str.",
+			"str",
+			"base",
+			"folder",
+			"pth",
+			"path",
+			"parsenative",
+			"ASTIdent",
+			"parseint",
+			"parseintn",
 			"// here",
-			"internal_scope",
-			":compa",
-			"invalid_assignm",
-			"dd: ",
-			"type",
-			"value +",
-			"case char",
-			"evaluatevalue(",
-			"EvaluateVar",
-			"astliter",
-			"clone",
-			"int a ",
-			"// here",
-			"EvaluateVar",
-			"astliter",
-			"// here",
+			"expect(rbrace",
+			"objectinit",
+			"memberchain",
+			"FreeUnnecessaryMemory",
+			"\",\"",
+			"assignment()",
 			"assign",
-			"return l->Clone(isolate);",
-			"cast",
-			"type",
-			"CONSOLE_H_",
-			"Console",
-			"cannot_div_int_from",
-			"second",
+			"validatefunc",
+			"kthis",
+			"// GetObjectInScope",
 			"// here",
-			"funccall",
-			"undefined_obje",
-			"clone",
-			"inst->",
-			", true);",
-			"evaluatefunccal",
-			"allowgc",
-			"value =",
-			"printf(\"d: %s",
-			"d: ",
-			"canBreak",
-			"formatl",
-			"d: ",
-			"evaluatefuncca",
-			"func",
-			"internal_sc",
-			"clone",
-			"validatefuncca",
-			"validatevar",
-			"\"return\"",
-			"evaluatevar",
-			"clone",
-			"<entry>",
-			"funccal",
-			"astliter",
-			"// here",
-			"rungc",
-			"f->",
-			"f",
-			"first",
-			"FindChunkSuitableToHoldMemory",
-			"astliter",
 			"here",
-			"validateident",
-			"parseident",
-			"GetCurrentScope",
-			"dec",
-			"inc",
-			"#",
-			"astliteral",
-			"inc",
-			"isinit",
-			"evaluateFunccal",
-			"evaluatefuncca",
-			"free",
-			"clone",
-			"astliter",
-			"validatefun",
-			"evaluate",
-			"invalid_oper",
-			":Evaluate",
-			"dd: ",
-			":validatevar",
-			"undefined_obje",
-			"\"return\"",
-			"GetObject",
-			"isobject",
-			"dd: ",
-			"isObject",
-			"validatevar",
-			"validateobjec",
-			"GetCurrentScope",
-			"undefined_var",
-			"validatevar",
-			"is(1, new",
-			"here",
-			"ValidateFuncCall",
-			"\"return",
-			"return",
-			"object_cons",
-			"isassign",
+			"here ",
+			"GetObjectInScope",
+			"array",
+			"->object = ",
+			"member->object = ",
+			"ParseFuncCall(expr);",
+			"array",
+			"astarray*",
+			"astarray",
+			"undefined_ob",
+			"IsBoolean",
+			"lt",
+			"INVALID_CONDITION_FOR_IF_STMT",
+			"ParseStmtList",
+			"parseblock",
+			"validateastn",
+			"astnot",
+			"not",
+			"validatenot",
 			"// here",
-			"free",
-			"isassign",
-			"invalid_operat",
-			"astliteral",
-			"astliter",
-			"evaluatefuncc",
-			"evaluatefunca",
-			"validateliter",
-			"construct",
+			"here",
+			"ValidateArrayMember",
+			"arrayini",
+			"d: ",
+			"d:",
+			"== COMMA",
+			"while \\(true",
+			"parsearray",
+			"astarray",
+			"parsearray",
+			"parsearray(",
+			"while \\(true\\)",
+			"astarray",
+			"validating ",
+			"// here",
+			"ValidateArrayMember",
+			"ASTArrayMemberExpr",
+			"astarray",
+			"arraymember",
+			":ParseExpr",
+			"parsesimplestmt",
+			" ParseExpr",
+			"ParseExpr(){",
+			"ParseExpr",
+			"astobject",
+			"this",
+			"memberchain",
+			"ValidateObjectChainMember",
+			"operator found",
+			"kthis = ",
+			"member",
 			"gc",
-			"// here",
-			"astliter",
-			"calcul",
-			"calc"
+			"type:",
+			"Var:",
+			"varclass",
+			"varclass = ",
+			"varclass =",
+			"setimports",
+			":cb",
+			"array",
+			"PrintExported",
+			"array",
+			"import",
+			"varClass",
+			"parser->export",
+			"array",
+			"length",
+			"varclass = ",
+			"varclass =",
+			"varclass",
+			"printf",
+			"(STRING){1,}",
+			"string",
+			"param",
+			"GetObjectInScope",
+			"GetObjectInScope(",
+			"array",
+			"INVALID_OBJECT_MEMBER",
+			"invalid_object_member",
+			"varclass = ",
+			"varclass =",
+			"type",
+			"print",
+			"astobject",
+			"members",
+			"validateobjectchainmember",
+			"college",
+			"program",
+			"papa",
+			"window",
+			"HoursStandard",
+			"3.5",
+			"* 3.5",
+			"props",
+			"API_H_",
+			"NODE_H_",
+			"ary",
+			"prototype",
+			" in ",
+			");",
+			"console.log(",
+			".c",
+			"c",
+			"{\n						exit = true;\n					}",
+			"zip"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1274,32 +1192,118 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 3,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "test/test.cb",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 636,
+						"buffer_size": 229,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								633,
-								633
+								0,
+								229
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Go/Go.sublime-syntax"
+							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/cobra/types/path/path.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 510,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								52,
+								52
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/cobra/types/path/path.cc",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1696,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								400,
+								400
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 225.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "src/api.cc",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3390,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2096,
+								2096
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 795.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -1341,7 +1345,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 266.0
+		"height": 120.0
 	},
 	"output.find_results":
 	{
@@ -1397,7 +1401,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 213.0,
+	"side_bar_width": 150.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

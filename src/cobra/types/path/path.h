@@ -2,9 +2,6 @@
 #define PATH_H_
 
 #include <string>
-#ifdef _WIN32
-	#include <windoww.h>
-#endif
 
 #include "cobra/types/script/script.h"
 #include "cobra/mem/isolate.h"

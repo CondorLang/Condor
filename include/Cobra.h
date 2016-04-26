@@ -2,6 +2,7 @@
 #define COBRA_H_
 
 #include <string>
+#include <algorithm>
 
 namespace Cobra {
 
