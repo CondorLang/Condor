@@ -289,6 +289,9 @@ namespace internal{
 		SetRowCol(expr);
 		expr->name = expr->value;
 		Trace("Validating Ident", expr->name.c_str());
+		if (expr->name == "platform"){
+			int a = 10;
+		}
 		Scope* s = GetCurrentScope();
 		if (expr->name == "this"){
 			if (s->outer == NULL) throw Error::INVALID_USAGE_OF_THIS;

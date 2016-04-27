@@ -1,3 +1,8 @@
 export func quit(){
-	%quit();
+	App.quit();
+}
+
+export object App{
+	static string platform = %getPlatform();
+	static func quit() %quit();
 }

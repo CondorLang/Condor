@@ -1,3 +1,4 @@
+![CobraLang Title](https://github.com/chaseWillden/CobraLang/blob/master/CobraLang%20Title.png)
 # CobraLang [![Build Status][travis-image]][travis-url]
 
 CobraLang is intended to be another simple and intuitive programming language. The syntax is familiar by design, but allows for the combining of a few concepts.
@@ -26,6 +27,10 @@ make all
 To build all and compile the main.cc found in test/main.cc
 ```
 make || make mt
+```
+To build and play around with the language in the shell
+```
+make shell
 ```
 To build and perform a memory test, requires [valgrind](http://valgrind.org/) to be installed
 ```
@@ -58,5 +63,5 @@ Todo:
  - parser.cc 398 - Account for variable declarations
  - parser.cc 836 - Disallow for allow-native on a non internal file
  - scanner.cc 462 - Include Octal, Hex, UTF-8, UTF-16, see https://msdn.microsoft.com/en-us/library/6aw8xdf2.aspx
- - semantics.cc 611 - Compare the base type with the assignment type. Throw an error if they are not the same if hard typed.
+ - semantics.cc 614 - Compare the base type with the assignment type. Throw an error if they are not the same if hard typed.
  - path.cc 24 - Set Locale - http://askubuntu.com/questions/236924/matlab-not-working

@@ -377,6 +377,9 @@ namespace internal{
 			ASTLiteral* val = EvaluateValue(var);
 			return val;
 		}
+		if (tok->value->value == PERIOD && first->var != NULL && first->var->HasVisibility(STATIC)){ // static variables
+			return EvaluateValue(first->var);
+		}
 
 		ASTLiteral* result = ASTLiteral::New(isolate);
 		SetLitType(first);
@@ -419,10 +422,10 @@ namespace internal{
 				if (second->litType == kNULL) second->value = "";
 				switch (type){
 					case ADD:	result->value = second->value + first->value; break;
-					case LOR:	result->value = second->value.length() > 0 || first->value.length() > 0; break;
-					case LAND:	result->value = second->value.length() != 0 && first->value.length() != 0; break;
-					case EQL:	result->value = second->value == first->value; break;
-					case NEQ: result->value = second->value != first->value; break;
+					case LOR:	result->calc = second->value.length() > 0 || first->value.length() > 0; break;
+					case LAND:	result->calc = second->value.length() != 0 && first->value.length() != 0; break;
+					case EQL:	result->calc = second->value == first->value; break;
+					case NEQ: result->calc = second->value != first->value; break;
 					default: {
 						printf("debug string: %s\n", Token::ToString(tok->value->value).c_str());
 					}

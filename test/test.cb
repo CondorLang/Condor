@@ -23,8 +23,13 @@ func add(var a, var b){
 string path = "./readme.md";
 string value = fs.readFile(path);
 String str = new String(value);
-println(str.length);
-fs.writeFile("test.txt", value);
+//println(str.length);
+//fs.writeFile("test.txt", value);
+
+string s = App.platform;
+if (s == "Mac"){
+	println("We are on a mac");
+}
 
 // var a = Console.get(">> ");
 // int b = (int) a;

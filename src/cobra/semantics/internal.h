@@ -28,6 +28,7 @@ namespace internal{
 		static ASTNode* FileExists(Isolate* iso, std::vector<ASTLiteral*> lits);
 		static ASTNode* WriteFile(Isolate* iso, std::vector<ASTLiteral*> lits);
 		static ASTNode* Quit(Isolate* iso, std::vector<ASTLiteral*> lits);
+		static ASTNode* GetPlatform(Isolate* iso, std::vector<ASTLiteral*> lits);
 		static ASTNode* CallInternal(Isolate* iso, InternalFunctionCallback call, std::vector<ASTLiteral*> nodes){return call(iso, nodes);}
 		static TOKEN Bind(ASTFuncCall* call);
 	};

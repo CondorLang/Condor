@@ -85,6 +85,37 @@ namespace internal{
 		return NULL;
 	}
 
+	ASTNode* Internal::GetPlatform(Isolate* iso, std::vector<ASTLiteral*> lits){
+		ASTLiteral* platform = ASTLiteral::New(iso);
+		platform->litType = STRING;
+		#ifdef _WIN32
+			platform->value = "Windows (32)";
+			#ifdef _WIN64
+		  	platform->value = "Windows (64)";
+		  #endif
+		#elif __APPLE__
+			#include "TargetConditionals.h"
+		    #if TARGET_IPHONE_SIMULATOR
+		     	platform->value = "IOS Simulator";
+		    #elif TARGET_OS_IPHONE
+		    	platform->value = "IOS";
+		    #elif TARGET_OS_MAC
+		    	platform->value = "Mac";
+		    #else
+		    	platform->value = "Unknown Apple Product";
+		    #endif
+		#elif __linux__
+			platform->value = "Linux";
+		#elif __unix__ // all unices not caught above
+			platform->value = "Unix";
+		#elif defined(_POSIX_VERSION)
+			platform->value = "Posix";
+		#else
+			platform->value = "Unknown";
+		#endif
+		return platform;
+	}
+
 	TOKEN Internal::Bind(ASTFuncCall* call){
 		if (call->name == "printf") {
 			call->callback = Internal::PrintF;
@@ -117,6 +148,10 @@ namespace internal{
 		else if (call->name == "quit"){
 			call->callback = Internal::Quit;
 			return UNDEFINED;
+		}
+		else if (call->name == "getPlatform"){
+			call->callback = Internal::GetPlatform;
+			return STRING;
 		}
 		else throw Error::UNDEFINED_FUNC;
 	}
