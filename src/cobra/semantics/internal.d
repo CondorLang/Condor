@@ -1,367 +1,382 @@
 src/cobra/semantics/internal.o: src/cobra/semantics/internal.cc \
- src/cobra/semantics/internal.h src/cobra/ast/node.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\string \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\mingw32\bits\c++config.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\mingw32\bits\os_defines.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\mingw32\bits\cpu_defines.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\stringfwd.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\memoryfwd.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\char_traits.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\stl_algobase.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\functexcept.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\exception_defines.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\cpp_type_traits.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\ext\type_traits.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\ext\numeric_traits.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\stl_pair.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\move.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\concept_check.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\type_traits \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\stl_iterator_base_types.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\stl_iterator_base_funcs.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\debug\debug.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\stl_iterator.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\ptr_traits.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\predefined_ops.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\postypes.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\cwchar \
- c:\mingw\include\wchar.h c:\mingw\include\_mingw.h \
- c:\mingw\include\wctype.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\stddef.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\stdarg.h \
- c:\mingw\include\parts\time.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\cstdint \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\stdint.h \
- c:\mingw\include\stdint.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\allocator.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\mingw32\bits\c++allocator.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\ext\new_allocator.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\new \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\exception \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\atomic_lockfree_defines.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\exception_ptr.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\nested_exception.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\localefwd.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\mingw32\bits\c++locale.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\clocale \
- c:\mingw\include\locale.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\iosfwd \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\cctype \
- c:\mingw\include\ctype.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\ostream_insert.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\cxxabi_forced.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\stl_function.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\backward\binders.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\range_access.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\basic_string.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\ext\atomicity.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\mingw32\bits\gthr.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\mingw32\bits\gthr-default.h \
- c:\mingw\include\errno.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\mingw32\bits\atomic_word.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\initializer_list \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\ext\string_conversions.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\cstdlib \
- c:\mingw\include\stdlib.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\cstdio \
- c:\mingw\include\stdio.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\cerrno \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\functional_hash.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\hash_bytes.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\basic_string.tcc \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\typeinfo \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\map \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\stl_tree.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\ext\alloc_traits.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\alloc_traits.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\ext\aligned_buffer.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\stl_map.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\tuple \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\utility \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\stl_relops.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\array \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\stdexcept \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\uses_allocator.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\stl_multimap.h \
- src/cobra/global.h c:\mingw\include\time.h src/cobra/token/token.h \
- src/cobra/mem/isolate.h src/cobra/mem/allocate.h c:\mingw\include\math.h \
- src/cobra/flags.h src/cobra/mem/list.h src/cobra/ast/context.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\vector \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\stl_construct.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\stl_uninitialized.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\stl_vector.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\stl_bvector.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\vector.tcc \
- src/cobra/ast/scope.h src/cobra/semantics/internal.h \
- src/cobra/error/error.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\iostream \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\ostream \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\ios \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\ios_base.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\locale_classes.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\locale_classes.tcc \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\streambuf \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\streambuf.tcc \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\basic_ios.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\locale_facets.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\cwctype \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\mingw32\bits\ctype_base.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\streambuf_iterator.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\mingw32\bits\ctype_inline.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\locale_facets.tcc \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\basic_ios.tcc \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\ostream.tcc \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\istream \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\istream.tcc \
- src/cobra/types/fs/fs.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\fstream \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\codecvt.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\mingw32\bits\basic_file.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\mingw32\bits\c++io.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\fstream.tcc \
- src/cobra/types/script/script.h src/cobra/clock.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\ctime src/cobra/shell.h \
- src/cobra/parser/parser.h src/cobra/scanner/scanner.h \
- src/cobra/types/vector/vector.h src/cobra/types/strings/string.h \
- src/../include/Cobra.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\algorithm \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\stl_algo.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\algorithmfwd.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\stl_heap.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\stl_tempbuf.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\random \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\cmath \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\limits \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\random.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\mingw32\bits\opt_random.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\x86intrin.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\ia32intrin.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\mmintrin.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\xmmintrin.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\mm_malloc.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\emmintrin.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\pmmintrin.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\tmmintrin.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\ammintrin.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\smmintrin.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\popcntintrin.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\wmmintrin.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\immintrin.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\avxintrin.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\avx2intrin.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\avx512fintrin.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\avx512erintrin.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\avx512pfintrin.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\avx512cdintrin.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\shaintrin.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\lzcntintrin.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\bmiintrin.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\bmi2intrin.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\fmaintrin.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\f16cintrin.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\rtmintrin.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\xtestintrin.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\mm3dnow.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\prfchwintrin.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\fma4intrin.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\xopintrin.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\lwpintrin.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\tbmintrin.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\rdseedintrin.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\fxsrintrin.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\xsaveintrin.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\xsaveoptintrin.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\adxintrin.h \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\random.tcc \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\numeric \
- c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\stl_numeric.h \
- src/cobra/types/strings/string-bytes.h src/cobra/semantics/semantics.h \
- src/cobra/semantics/binary.h src/cobra/assert.h \
- src/cobra/execute/execute.h src/cobra/execute/stack.h \
- src/cobra/semantics/binary.h src/cobra/types/array/array.h \
- src/cobra/types/array/array-bytes.h src/cobra/types/console/console.h \
- src/cobra/types/console/console-bytes.h \
- src/cobra/types/try_catch/exception.h \
- src/cobra/types/try_catch/exception-bytes.h \
- src/cobra/types/types/types.h src/cobra/types/types/types-bytes.h \
- src/cobra/types/path/path.h src/cobra/types/path/path-bytes.h \
- src/cobra/types/fs/fs-bytes.h
+  src/cobra/semantics/internal.h src/cobra/ast/node.h \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__config \
+  /usr/include/unistd.h /usr/include/_types.h /usr/include/sys/_types.h \
+  /usr/include/sys/cdefs.h /usr/include/sys/_symbol_aliasing.h \
+  /usr/include/sys/_posix_availability.h /usr/include/machine/_types.h \
+  /usr/include/i386/_types.h /usr/include/sys/_pthread/_pthread_types.h \
+  /usr/include/sys/unistd.h /usr/include/sys/_types/_posix_vdisable.h \
+  /usr/include/sys/_types/_seek_set.h /usr/include/sys/_types/_size_t.h \
+  /usr/include/_types/_uint64_t.h /usr/include/Availability.h \
+  /usr/include/AvailabilityInternal.h /usr/include/sys/_types/_ssize_t.h \
+  /usr/include/sys/_types/_uid_t.h /usr/include/sys/_types/_gid_t.h \
+  /usr/include/sys/_types/_intptr_t.h /usr/include/sys/_types/_off_t.h \
+  /usr/include/sys/_types/_pid_t.h /usr/include/sys/_types/_useconds_t.h \
+  /usr/include/sys/_types/_null.h /usr/include/sys/select.h \
+  /usr/include/sys/appleapiopts.h /usr/include/sys/_types/_fd_def.h \
+  /usr/include/sys/_types/_timespec.h /usr/include/sys/_types/_timeval.h \
+  /usr/include/sys/_types/_time_t.h \
+  /usr/include/sys/_types/_suseconds_t.h \
+  /usr/include/sys/_types/_sigset_t.h \
+  /usr/include/sys/_types/_fd_setsize.h \
+  /usr/include/sys/_types/_fd_set.h /usr/include/sys/_types/_fd_clr.h \
+  /usr/include/sys/_types/_fd_isset.h /usr/include/sys/_types/_fd_zero.h \
+  /usr/include/sys/_types/_fd_copy.h /usr/include/sys/_select.h \
+  /usr/include/sys/_types/_dev_t.h /usr/include/sys/_types/_mode_t.h \
+  /usr/include/sys/_types/_uuid_t.h /usr/include/gethostuuid.h \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iosfwd \
+  /usr/include/wchar.h /usr/include/sys/_types/_mbstate_t.h \
+  /usr/include/sys/_types/_ct_rune_t.h /usr/include/sys/_types/_rune_t.h \
+  /usr/include/sys/_types/_wchar_t.h \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.0.2/include/stdarg.h \
+  /usr/include/stdio.h /usr/include/sys/_types/_va_list.h \
+  /usr/include/sys/stdio.h /usr/include/time.h \
+  /usr/include/sys/_types/_clock_t.h /usr/include/_wctype.h \
+  /usr/include/sys/_types/_wint_t.h /usr/include/_types/_wctype_t.h \
+  /usr/include/ctype.h /usr/include/runetype.h \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/cstring \
+  /usr/include/string.h /usr/include/strings.h \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/cstdio \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/cwchar \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/cwctype \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/cctype \
+  /usr/include/wctype.h /usr/include/_types/_wctrans_t.h \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/algorithm \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/initializer_list \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/cstddef \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.0.2/include/stddef.h \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.0.2/include/__stddef_max_align_t.h \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/type_traits \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/utility \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__tuple \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/typeinfo \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/exception \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/cstdint \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.0.2/include/stdint.h \
+  /usr/include/stdint.h /usr/include/sys/_types/_int8_t.h \
+  /usr/include/sys/_types/_int16_t.h /usr/include/sys/_types/_int32_t.h \
+  /usr/include/sys/_types/_int64_t.h /usr/include/_types/_uint8_t.h \
+  /usr/include/_types/_uint16_t.h /usr/include/_types/_uint32_t.h \
+  /usr/include/sys/_types/_uintptr_t.h /usr/include/_types/_intmax_t.h \
+  /usr/include/_types/_uintmax_t.h \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/new \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/limits \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__undef_min_max \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__functional_base \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__debug \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/tuple \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/atomic \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/stdexcept \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/map \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__tree \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/functional \
+  src/cobra/global.h src/cobra/token/token.h src/cobra/mem/isolate.h \
+  src/cobra/mem/allocate.h /usr/include/stdlib.h /usr/include/sys/wait.h \
+  /usr/include/sys/_types/_id_t.h /usr/include/sys/signal.h \
+  /usr/include/machine/signal.h /usr/include/i386/signal.h \
+  /usr/include/machine/_mcontext.h /usr/include/i386/_mcontext.h \
+  /usr/include/mach/i386/_structs.h \
+  /usr/include/sys/_pthread/_pthread_attr_t.h \
+  /usr/include/sys/_types/_sigaltstack.h \
+  /usr/include/sys/_types/_ucontext.h /usr/include/sys/resource.h \
+  /usr/include/machine/endian.h /usr/include/i386/endian.h \
+  /usr/include/sys/_endian.h /usr/include/libkern/_OSByteOrder.h \
+  /usr/include/libkern/i386/_OSByteOrder.h /usr/include/alloca.h \
+  /usr/include/machine/types.h /usr/include/i386/types.h \
+  /usr/include/math.h src/cobra/flags.h \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/cstdlib \
+  src/cobra/mem/list.h src/cobra/ast/context.h \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/vector \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__bit_reference \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/climits \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.0.2/include/limits.h \
+  /usr/include/limits.h /usr/include/machine/limits.h \
+  /usr/include/i386/limits.h /usr/include/i386/_limits.h \
+  /usr/include/sys/syslimits.h \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__split_buffer \
+  src/cobra/ast/scope.h src/cobra/error/error.h \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iostream \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/ios \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__locale \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/mutex \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__mutex_base \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/chrono \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/ctime \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/ratio \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/system_error \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/cerrno \
+  /usr/include/errno.h /usr/include/sys/errno.h /usr/include/pthread.h \
+  /usr/include/pthread/pthread_impl.h /usr/include/pthread/sched.h \
+  /usr/include/sys/_pthread/_pthread_cond_t.h \
+  /usr/include/sys/_pthread/_pthread_condattr_t.h \
+  /usr/include/sys/_pthread/_pthread_key_t.h \
+  /usr/include/sys/_pthread/_pthread_mutex_t.h \
+  /usr/include/sys/_pthread/_pthread_mutexattr_t.h \
+  /usr/include/sys/_pthread/_pthread_once_t.h \
+  /usr/include/sys/_pthread/_pthread_rwlock_t.h \
+  /usr/include/sys/_pthread/_pthread_rwlockattr_t.h \
+  /usr/include/sys/_pthread/_pthread_t.h /usr/include/pthread/qos.h \
+  /usr/include/sys/qos.h /usr/include/sys/_types/_mach_port_t.h \
+  /usr/include/locale.h /usr/include/_locale.h /usr/include/xlocale.h \
+  /usr/include/_xlocale.h /usr/include/xlocale/_ctype.h \
+  /usr/include/xlocale/__wctype.h /usr/include/xlocale/_stdio.h \
+  /usr/include/xlocale/_stdlib.h /usr/include/xlocale/_string.h \
+  /usr/include/xlocale/_time.h /usr/include/xlocale/_wchar.h \
+  /usr/include/xlocale/_wctype.h \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/streambuf \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/istream \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/ostream \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/locale \
+  /usr/include/nl_types.h /usr/include/sys/types.h \
+  /usr/include/sys/_types/_blkcnt_t.h \
+  /usr/include/sys/_types/_blksize_t.h \
+  /usr/include/sys/_types/_in_addr_t.h \
+  /usr/include/sys/_types/_in_port_t.h /usr/include/sys/_types/_ino_t.h \
+  /usr/include/sys/_types/_ino64_t.h /usr/include/sys/_types/_key_t.h \
+  /usr/include/sys/_types/_nlink_t.h /usr/include/sys/_types/_rsize_t.h \
+  /usr/include/sys/_types/_errno_t.h \
+  /usr/include/sys/_types/_fsblkcnt_t.h \
+  /usr/include/sys/_types/_fsfilcnt_t.h /usr/include/_types/_nl_item.h \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/bitset \
+  src/cobra/types/fs/fs.h \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/fstream \
+  src/cobra/types/script/script.h src/cobra/clock.h src/cobra/shell.h \
+  src/cobra/parser/parser.h src/cobra/scanner/scanner.h \
+  src/cobra/types/vector/vector.h src/cobra/types/strings/string.h \
+  src/../include/Cobra.h src/cobra/types/strings/string-bytes.h \
+  src/cobra/semantics/semantics.h src/cobra/semantics/binary.h \
+  src/cobra/assert.h src/cobra/execute/execute.h \
+  src/cobra/execute/stack.h src/cobra/types/array/array.h \
+  src/cobra/types/array/array-bytes.h src/cobra/types/console/console.h \
+  src/cobra/types/console/console-bytes.h \
+  src/cobra/types/try_catch/exception.h \
+  src/cobra/types/try_catch/exception-bytes.h \
+  src/cobra/types/types/types.h src/cobra/types/types/types-bytes.h \
+  src/cobra/types/path/path.h src/cobra/types/path/path-bytes.h \
+  src/cobra/types/fs/fs-bytes.h
 
 src/cobra/semantics/internal.h:
 
 src/cobra/ast/node.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\string:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\mingw32\bits\c++config.h:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__config:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\mingw32\bits\os_defines.h:
+/usr/include/unistd.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\mingw32\bits\cpu_defines.h:
+/usr/include/_types.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\stringfwd.h:
+/usr/include/sys/_types.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\memoryfwd.h:
+/usr/include/sys/cdefs.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\char_traits.h:
+/usr/include/sys/_symbol_aliasing.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\stl_algobase.h:
+/usr/include/sys/_posix_availability.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\functexcept.h:
+/usr/include/machine/_types.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\exception_defines.h:
+/usr/include/i386/_types.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\cpp_type_traits.h:
+/usr/include/sys/_pthread/_pthread_types.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\ext\type_traits.h:
+/usr/include/sys/unistd.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\ext\numeric_traits.h:
+/usr/include/sys/_types/_posix_vdisable.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\stl_pair.h:
+/usr/include/sys/_types/_seek_set.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\move.h:
+/usr/include/sys/_types/_size_t.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\concept_check.h:
+/usr/include/_types/_uint64_t.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\type_traits:
+/usr/include/Availability.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\stl_iterator_base_types.h:
+/usr/include/AvailabilityInternal.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\stl_iterator_base_funcs.h:
+/usr/include/sys/_types/_ssize_t.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\debug\debug.h:
+/usr/include/sys/_types/_uid_t.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\stl_iterator.h:
+/usr/include/sys/_types/_gid_t.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\ptr_traits.h:
+/usr/include/sys/_types/_intptr_t.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\predefined_ops.h:
+/usr/include/sys/_types/_off_t.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\postypes.h:
+/usr/include/sys/_types/_pid_t.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\cwchar:
+/usr/include/sys/_types/_useconds_t.h:
 
-c:\mingw\include\wchar.h:
+/usr/include/sys/_types/_null.h:
 
-c:\mingw\include\_mingw.h:
+/usr/include/sys/select.h:
 
-c:\mingw\include\wctype.h:
+/usr/include/sys/appleapiopts.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\stddef.h:
+/usr/include/sys/_types/_fd_def.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\stdarg.h:
+/usr/include/sys/_types/_timespec.h:
 
-c:\mingw\include\parts\time.h:
+/usr/include/sys/_types/_timeval.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\cstdint:
+/usr/include/sys/_types/_time_t.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\stdint.h:
+/usr/include/sys/_types/_suseconds_t.h:
 
-c:\mingw\include\stdint.h:
+/usr/include/sys/_types/_sigset_t.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\allocator.h:
+/usr/include/sys/_types/_fd_setsize.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\mingw32\bits\c++allocator.h:
+/usr/include/sys/_types/_fd_set.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\ext\new_allocator.h:
+/usr/include/sys/_types/_fd_clr.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\new:
+/usr/include/sys/_types/_fd_isset.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\exception:
+/usr/include/sys/_types/_fd_zero.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\atomic_lockfree_defines.h:
+/usr/include/sys/_types/_fd_copy.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\exception_ptr.h:
+/usr/include/sys/_select.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\nested_exception.h:
+/usr/include/sys/_types/_dev_t.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\localefwd.h:
+/usr/include/sys/_types/_mode_t.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\mingw32\bits\c++locale.h:
+/usr/include/sys/_types/_uuid_t.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\clocale:
+/usr/include/gethostuuid.h:
 
-c:\mingw\include\locale.h:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iosfwd:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\iosfwd:
+/usr/include/wchar.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\cctype:
+/usr/include/sys/_types/_mbstate_t.h:
 
-c:\mingw\include\ctype.h:
+/usr/include/sys/_types/_ct_rune_t.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\ostream_insert.h:
+/usr/include/sys/_types/_rune_t.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\cxxabi_forced.h:
+/usr/include/sys/_types/_wchar_t.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\stl_function.h:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.0.2/include/stdarg.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\backward\binders.h:
+/usr/include/stdio.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\range_access.h:
+/usr/include/sys/_types/_va_list.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\basic_string.h:
+/usr/include/sys/stdio.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\ext\atomicity.h:
+/usr/include/time.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\mingw32\bits\gthr.h:
+/usr/include/sys/_types/_clock_t.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\mingw32\bits\gthr-default.h:
+/usr/include/_wctype.h:
 
-c:\mingw\include\errno.h:
+/usr/include/sys/_types/_wint_t.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\mingw32\bits\atomic_word.h:
+/usr/include/_types/_wctype_t.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\initializer_list:
+/usr/include/ctype.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\ext\string_conversions.h:
+/usr/include/runetype.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\cstdlib:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/cstring:
 
-c:\mingw\include\stdlib.h:
+/usr/include/string.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\cstdio:
+/usr/include/strings.h:
 
-c:\mingw\include\stdio.h:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/cstdio:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\cerrno:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/cwchar:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\functional_hash.h:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/cwctype:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\hash_bytes.h:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/cctype:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\basic_string.tcc:
+/usr/include/wctype.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\typeinfo:
+/usr/include/_types/_wctrans_t.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\map:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/algorithm:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\stl_tree.h:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/initializer_list:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\ext\alloc_traits.h:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/cstddef:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\alloc_traits.h:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.0.2/include/stddef.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\ext\aligned_buffer.h:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.0.2/include/__stddef_max_align_t.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\stl_map.h:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/type_traits:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\tuple:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/utility:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\utility:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__tuple:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\stl_relops.h:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\array:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/typeinfo:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\stdexcept:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/exception:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\uses_allocator.h:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/cstdint:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\stl_multimap.h:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.0.2/include/stdint.h:
+
+/usr/include/stdint.h:
+
+/usr/include/sys/_types/_int8_t.h:
+
+/usr/include/sys/_types/_int16_t.h:
+
+/usr/include/sys/_types/_int32_t.h:
+
+/usr/include/sys/_types/_int64_t.h:
+
+/usr/include/_types/_uint8_t.h:
+
+/usr/include/_types/_uint16_t.h:
+
+/usr/include/_types/_uint32_t.h:
+
+/usr/include/sys/_types/_uintptr_t.h:
+
+/usr/include/_types/_intmax_t.h:
+
+/usr/include/_types/_uintmax_t.h:
+
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/new:
+
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/limits:
+
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__undef_min_max:
+
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:
+
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__functional_base:
+
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__debug:
+
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/tuple:
+
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/atomic:
+
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/stdexcept:
+
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/map:
+
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__tree:
+
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/functional:
 
 src/cobra/global.h:
-
-c:\mingw\include\time.h:
 
 src/cobra/token/token.h:
 
@@ -369,87 +384,207 @@ src/cobra/mem/isolate.h:
 
 src/cobra/mem/allocate.h:
 
-c:\mingw\include\math.h:
+/usr/include/stdlib.h:
+
+/usr/include/sys/wait.h:
+
+/usr/include/sys/_types/_id_t.h:
+
+/usr/include/sys/signal.h:
+
+/usr/include/machine/signal.h:
+
+/usr/include/i386/signal.h:
+
+/usr/include/machine/_mcontext.h:
+
+/usr/include/i386/_mcontext.h:
+
+/usr/include/mach/i386/_structs.h:
+
+/usr/include/sys/_pthread/_pthread_attr_t.h:
+
+/usr/include/sys/_types/_sigaltstack.h:
+
+/usr/include/sys/_types/_ucontext.h:
+
+/usr/include/sys/resource.h:
+
+/usr/include/machine/endian.h:
+
+/usr/include/i386/endian.h:
+
+/usr/include/sys/_endian.h:
+
+/usr/include/libkern/_OSByteOrder.h:
+
+/usr/include/libkern/i386/_OSByteOrder.h:
+
+/usr/include/alloca.h:
+
+/usr/include/machine/types.h:
+
+/usr/include/i386/types.h:
+
+/usr/include/math.h:
 
 src/cobra/flags.h:
+
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/cstdlib:
 
 src/cobra/mem/list.h:
 
 src/cobra/ast/context.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\vector:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/vector:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\stl_construct.h:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__bit_reference:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\stl_uninitialized.h:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/climits:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\stl_vector.h:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.0.2/include/limits.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\stl_bvector.h:
+/usr/include/limits.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\vector.tcc:
+/usr/include/machine/limits.h:
+
+/usr/include/i386/limits.h:
+
+/usr/include/i386/_limits.h:
+
+/usr/include/sys/syslimits.h:
+
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__split_buffer:
 
 src/cobra/ast/scope.h:
 
-src/cobra/semantics/internal.h:
-
 src/cobra/error/error.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\iostream:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iostream:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\ostream:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/ios:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\ios:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__locale:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\ios_base.h:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/mutex:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\locale_classes.h:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__mutex_base:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\locale_classes.tcc:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/chrono:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\streambuf:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/ctime:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\streambuf.tcc:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/ratio:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\basic_ios.h:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/system_error:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\locale_facets.h:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/cerrno:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\cwctype:
+/usr/include/errno.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\mingw32\bits\ctype_base.h:
+/usr/include/sys/errno.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\streambuf_iterator.h:
+/usr/include/pthread.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\mingw32\bits\ctype_inline.h:
+/usr/include/pthread/pthread_impl.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\locale_facets.tcc:
+/usr/include/pthread/sched.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\basic_ios.tcc:
+/usr/include/sys/_pthread/_pthread_cond_t.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\ostream.tcc:
+/usr/include/sys/_pthread/_pthread_condattr_t.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\istream:
+/usr/include/sys/_pthread/_pthread_key_t.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\istream.tcc:
+/usr/include/sys/_pthread/_pthread_mutex_t.h:
+
+/usr/include/sys/_pthread/_pthread_mutexattr_t.h:
+
+/usr/include/sys/_pthread/_pthread_once_t.h:
+
+/usr/include/sys/_pthread/_pthread_rwlock_t.h:
+
+/usr/include/sys/_pthread/_pthread_rwlockattr_t.h:
+
+/usr/include/sys/_pthread/_pthread_t.h:
+
+/usr/include/pthread/qos.h:
+
+/usr/include/sys/qos.h:
+
+/usr/include/sys/_types/_mach_port_t.h:
+
+/usr/include/locale.h:
+
+/usr/include/_locale.h:
+
+/usr/include/xlocale.h:
+
+/usr/include/_xlocale.h:
+
+/usr/include/xlocale/_ctype.h:
+
+/usr/include/xlocale/__wctype.h:
+
+/usr/include/xlocale/_stdio.h:
+
+/usr/include/xlocale/_stdlib.h:
+
+/usr/include/xlocale/_string.h:
+
+/usr/include/xlocale/_time.h:
+
+/usr/include/xlocale/_wchar.h:
+
+/usr/include/xlocale/_wctype.h:
+
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/streambuf:
+
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/istream:
+
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/ostream:
+
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/locale:
+
+/usr/include/nl_types.h:
+
+/usr/include/sys/types.h:
+
+/usr/include/sys/_types/_blkcnt_t.h:
+
+/usr/include/sys/_types/_blksize_t.h:
+
+/usr/include/sys/_types/_in_addr_t.h:
+
+/usr/include/sys/_types/_in_port_t.h:
+
+/usr/include/sys/_types/_ino_t.h:
+
+/usr/include/sys/_types/_ino64_t.h:
+
+/usr/include/sys/_types/_key_t.h:
+
+/usr/include/sys/_types/_nlink_t.h:
+
+/usr/include/sys/_types/_rsize_t.h:
+
+/usr/include/sys/_types/_errno_t.h:
+
+/usr/include/sys/_types/_fsblkcnt_t.h:
+
+/usr/include/sys/_types/_fsfilcnt_t.h:
+
+/usr/include/_types/_nl_item.h:
+
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/bitset:
 
 src/cobra/types/fs/fs.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\fstream:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\codecvt.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\mingw32\bits\basic_file.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\mingw32\bits\c++io.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\fstream.tcc:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/fstream:
 
 src/cobra/types/script/script.h:
 
 src/cobra/clock.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\ctime:
 
 src/cobra/shell.h:
 
@@ -463,108 +598,6 @@ src/cobra/types/strings/string.h:
 
 src/../include/Cobra.h:
 
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\algorithm:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\stl_algo.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\algorithmfwd.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\stl_heap.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\stl_tempbuf.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\random:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\cmath:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\limits:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\random.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\mingw32\bits\opt_random.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\x86intrin.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\ia32intrin.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\mmintrin.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\xmmintrin.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\mm_malloc.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\emmintrin.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\pmmintrin.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\tmmintrin.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\ammintrin.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\smmintrin.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\popcntintrin.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\wmmintrin.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\immintrin.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\avxintrin.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\avx2intrin.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\avx512fintrin.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\avx512erintrin.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\avx512pfintrin.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\avx512cdintrin.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\shaintrin.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\lzcntintrin.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\bmiintrin.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\bmi2intrin.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\fmaintrin.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\f16cintrin.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\rtmintrin.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\xtestintrin.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\mm3dnow.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\prfchwintrin.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\fma4intrin.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\xopintrin.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\lwpintrin.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\tbmintrin.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\rdseedintrin.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\fxsrintrin.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\xsaveintrin.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\xsaveoptintrin.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\adxintrin.h:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\random.tcc:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\numeric:
-
-c:\mingw\lib\gcc\mingw32\4.9.3\include\c++\bits\stl_numeric.h:
-
 src/cobra/types/strings/string-bytes.h:
 
 src/cobra/semantics/semantics.h:
@@ -576,8 +609,6 @@ src/cobra/assert.h:
 src/cobra/execute/execute.h:
 
 src/cobra/execute/stack.h:
-
-src/cobra/semantics/binary.h:
 
 src/cobra/types/array/array.h:
 
