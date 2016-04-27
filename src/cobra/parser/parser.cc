@@ -263,6 +263,7 @@ namespace internal{
 				case kNULL: case VAR: {
 					if (tok->IsRawNumber()){ // for inline stmts
 						node = ParseExpr();
+						node->print = true;
 						break;	
 					}
 					std::vector<ASTVar*> list = ParseVarList();
@@ -316,6 +317,7 @@ namespace internal{
 				default: {
 					TOKEN t = tok->value;
 					node = ParseExpr();
+					if (node != NULL) node->print = true;
 					if (tok->value == t) throw Error::RESERVED_KEYWORD;
 				}
 			}
@@ -403,6 +405,7 @@ namespace internal{
 			binary->left = expr;
 			binary->cast = NULL;
 			binary->op = tok->value;
+			if (!tok->IsAssign()) binary->print = true;
 			Next();
 			binary->right = ParseExpr();
 			if (Is(1, SEMICOLON)) Next();

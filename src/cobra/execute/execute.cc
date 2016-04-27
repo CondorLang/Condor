@@ -143,6 +143,7 @@ namespace internal{
 				ASTLiteral* lit = Calculate();
 				FormatLit(lit);
 				CloseStack();
+				if (binary->print) printf("%s\n", lit->value.c_str());
 				return lit;
 			}
 		}

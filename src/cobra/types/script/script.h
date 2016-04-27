@@ -22,6 +22,7 @@
 #include "cobra/types/types/types.h"
 #include "cobra/types/path/path.h"
 #include "cobra/types/fs/fs.h"
+#include "cobra/types/app/app.h"
 
 namespace Cobra {
 namespace internal{

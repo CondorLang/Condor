@@ -14,7 +14,6 @@ func add(var a, var b){
 
 // println(add(1, 10) / 2);
 
-
 // // bool yup = Int.IsInt("a");
 // // if (yup){
 // // 	println("Yes");

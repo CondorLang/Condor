@@ -36,6 +36,7 @@ namespace internal{
 	}
 
 	void Script::RunInternalScript(Isolate* isolate, std::string hex, std::string _name, std::string sub){
+		if (isolate->GetContext()->IsIncluded(_name)) return;
 		Cobra::Isolate* iso = CAST(Cobra::Isolate*, isolate);
 		int len = hex.length();
 		std::string newString;
@@ -196,6 +197,12 @@ namespace internal{
 	}
 
 	void Script::LoadImports(){
+		// Load app by default
+		if (!App::Included){
+			App::Included = true;
+			App::CB(isolate, "");
+		}
+
 		for (int i = 0; i < parser->imports.size(); i++){
 			ASTImport* import = parser->imports[i];
 			std::vector<std::string> splits = String::Split(import->name, '.');

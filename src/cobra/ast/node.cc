@@ -18,6 +18,7 @@ namespace internal{
 		node->isExport = false;
 		node->isInParen = false;
 		node->allowGC = true;
+		node->print = false;
 		node->id = iso->GetContext()->GetNextAstId();
 	}
 

@@ -34,6 +34,7 @@ namespace internal{
 		bool isExport;
 		bool isInParen;
 		bool allowGC;
+		bool print;
 		std::vector<TOKEN> visibility;
 		ASTLiteral* local;
 		static ASTNode* New(Isolate* iso);

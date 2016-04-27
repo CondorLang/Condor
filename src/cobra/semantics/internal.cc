@@ -75,6 +75,16 @@ namespace internal{
 		return NULL;
 	}
 
+	ASTNode* Internal::Quit(Isolate* iso, std::vector<ASTLiteral*> lits){
+		if (lits.size() == 1){
+			ASTLiteral* code = (ASTLiteral*) lits[0];
+			exit((int)code->calc);
+			return NULL;
+		}
+		exit(0);
+		return NULL;
+	}
+
 	TOKEN Internal::Bind(ASTFuncCall* call){
 		if (call->name == "printf") {
 			call->callback = Internal::PrintF;
@@ -102,6 +112,10 @@ namespace internal{
 		}
 		else if (call->name == "writeFile"){
 			call->callback = Internal::WriteFile;
+			return UNDEFINED;
+		}
+		else if (call->name == "quit"){
+			call->callback = Internal::Quit;
 			return UNDEFINED;
 		}
 		else throw Error::UNDEFINED_FUNC;
