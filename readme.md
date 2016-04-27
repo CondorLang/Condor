@@ -1,3 +1,4 @@
+![CobraLang Title](https://github.com/chaseWillden/CobraLang/blob/master/CobraLang%20Title.png)
 # CobraLang [![Build Status][travis-image]][travis-url]
 
 CobraLang is intended to be another simple and intuitive programming language. The syntax is familiar by design, but allows for the combining of a few concepts.
