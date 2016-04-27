@@ -395,7 +395,6 @@ namespace internal{
 		return scope;
 	}
 
-	// TODO: Account for variable declarations
 	ASTNode* Parser::ParseIdentStart(){
 		Trace("Parsing", "Ident Start");
 		ASTExpr* expr = ParseExpr(false);

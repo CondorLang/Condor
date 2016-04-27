@@ -69,8 +69,6 @@ namespace internal{
 		void FreeChunks(Chunk* chunk);
 		bool debug;
 		std::string name;
-
-		void FreeUnnecessaryMemory();
 	};
 
 	class Allocate

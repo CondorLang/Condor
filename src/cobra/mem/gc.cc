@@ -7,7 +7,7 @@ namespace internal{
 	}
 
 	void GC::Run(MemoryPool* pool){
-		pool->FreeUnnecessaryMemory();
+		
 	}
 
 	GC* GC::New(Isolate* isolate){

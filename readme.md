@@ -59,9 +59,7 @@ Todo:
  - execute.cc 188 - Set row and col for tracking
  - execute.cc 444 - Implement bitwise
  - execute.cc 559 - Allow for all array types
- - allocate.cc 244 - Release unused memory
- - parser.cc 398 - Account for variable declarations
- - parser.cc 836 - Disallow for allow-native on a non internal file
+ - parser.cc 835 - Disallow for allow-native on a non internal file
  - scanner.cc 462 - Include Octal, Hex, UTF-8, UTF-16, see https://msdn.microsoft.com/en-us/library/6aw8xdf2.aspx
  - semantics.cc 614 - Compare the base type with the assignment type. Throw an error if they are not the same if hard typed.
  - path.cc 24 - Set Locale - http://askubuntu.com/questions/236924/matlab-not-working
