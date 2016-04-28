@@ -55,7 +55,7 @@ namespace internal{
 		ASTNode* ParseIdentStart();
 		std::vector<ASTVar*> ParseVarList();
 		ASTExpr* ParseExpr(bool semi = true);
-		ASTExpr* ParseBinaryExpr();
+		ASTExpr* ParseBinaryExpr(bool semi = true);
 		ASTExpr* ParseVarType();
 		ASTExpr* ParseFuncCall(ASTExpr* expr);
 		ASTExpr* ParseForExpr();

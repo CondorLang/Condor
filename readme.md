@@ -55,11 +55,14 @@ See [Contributing](https://github.com/chaseWillden/CobraLang/wiki/Contributing) 
 Todo:
 ------
  - node.h 23 - Create a Expand() function which expands the node and the tree
- - execute.cc 108 - Figure out how to implement recursion
- - execute.cc 188 - Set row and col for tracking
- - execute.cc 444 - Implement bitwise
- - execute.cc 559 - Allow for all array types
- - parser.cc 835 - Disallow for allow-native on a non internal file
+ - execute.cc 111 - Figure out how to implement recursion
+ - execute.cc 191 - Set row and col for tracking
+ - execute.cc 447 - Implement bitwise
+ - execute.cc 566 - Allow for all array types
+ - parser.cc 848 - Disallow for allow-native on a non internal file
  - scanner.cc 462 - Include Octal, Hex, UTF-8, UTF-16, see https://msdn.microsoft.com/en-us/library/6aw8xdf2.aspx
- - semantics.cc 614 - Compare the base type with the assignment type. Throw an error if they are not the same if hard typed.
+ - internal.cc 134 - Throw Error
+ - internal.cc 146 - Throw Error
+ - internal.cc 158 - Throw Error
+ - semantics.cc 617 - Compare the base type with the assignment type. Throw an error if they are not the same if hard typed.
  - path.cc 24 - Set Locale - http://askubuntu.com/questions/236924/matlab-not-working

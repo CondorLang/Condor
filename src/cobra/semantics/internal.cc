@@ -7,7 +7,7 @@ namespace internal{
 
 	ASTNode* Internal::PrintF(Isolate* iso, std::vector<ASTLiteral*> lits){
 		if (lits.size() == 0) return NULL;
-		ASTLiteral* v = (ASTLiteral*) lits[0];
+		ASTLiteral* v = lits[0];
 		if (v->type == LITERAL) {
 			printf("%s", v->value.c_str());
 		}
@@ -25,7 +25,7 @@ namespace internal{
 
 	ASTNode* Internal::GetStringLength(Isolate* iso, std::vector<ASTLiteral*> lits){
 		if (lits.size() == 0) return NULL;
-		ASTLiteral* v = (ASTLiteral*) lits[0];
+		ASTLiteral* v = lits[0];
 		if (v->type != LITERAL) return NULL;
 		ASTLiteral* l = ASTLiteral::New(iso);
 		l->litType = INT;
@@ -37,7 +37,7 @@ namespace internal{
 
 	ASTNode* Internal::GetLiteralType(Isolate* iso, std::vector<ASTLiteral*> lits){
 		if (lits.size() == 0) return NULL;
-		ASTLiteral* v = (ASTLiteral*) lits[0];
+		ASTLiteral* v = lits[0];
 		if (v->type != LITERAL) return NULL;
 		ASTLiteral* l = ASTLiteral::New(iso);
 		l->litType = STRING;
@@ -47,7 +47,7 @@ namespace internal{
 
 	ASTNode* Internal::ReadFile(Isolate* iso, std::vector<ASTLiteral*> lits){
 		if (lits.size() == 0) return NULL;
-		ASTLiteral* v = (ASTLiteral*) lits[0];
+		ASTLiteral* v = lits[0];
 		if (v->type != LITERAL) return NULL;
 		ASTLiteral* l = ASTLiteral::New(iso);
 		l->litType = STRING;
@@ -57,7 +57,7 @@ namespace internal{
 
 	ASTNode* Internal::FileExists(Isolate* iso, std::vector<ASTLiteral*> lits){
 		if (lits.size() == 0) return NULL;
-		ASTLiteral* v = (ASTLiteral*) lits[0];
+		ASTLiteral* v = lits[0];
 		if (v->type != LITERAL) return NULL;
 		ASTLiteral* l = ASTLiteral::New(iso);
 		l->litType = BOOLEAN;
@@ -69,15 +69,15 @@ namespace internal{
 
 	ASTNode* Internal::WriteFile(Isolate* iso, std::vector<ASTLiteral*> lits){
 		if (lits.size() < 2) return NULL;
-		ASTLiteral* path = (ASTLiteral*) lits[0];
-		ASTLiteral* contents = (ASTLiteral*) lits[1];
+		ASTLiteral* path = lits[0];
+		ASTLiteral* contents = lits[1];
 		FS::WriteFile(path->value, contents->value);
 		return NULL;
 	}
 
 	ASTNode* Internal::Quit(Isolate* iso, std::vector<ASTLiteral*> lits){
 		if (lits.size() == 1){
-			ASTLiteral* code = (ASTLiteral*) lits[0];
+			ASTLiteral* code = lits[0];
 			exit((int)code->calc);
 			return NULL;
 		}
@@ -116,6 +116,52 @@ namespace internal{
 		return platform;
 	}
 
+	ASTNode* Internal::GetClockId(Isolate* iso, std::vector<ASTLiteral*> lits){
+		ASTLiteral* result = ASTLiteral::New(iso);
+		result->litType = INT;
+		if (CBClockContainer::GlobalClockContainer == NULL){
+			CBClockContainer::GlobalClockContainer = CBClockContainer::New(iso);
+		}
+		result->calc = CBClockContainer::GlobalClockContainer->AddClock();
+		return result;
+	}
+
+	ASTNode* Internal::StartClock(Isolate* iso, std::vector<ASTLiteral*> lits){
+		if (lits.size() == 0) return NULL;
+		ASTLiteral* lit = lits[0];
+		Clock* clock = CBClockContainer::GlobalClockContainer->GetClock(lit->calc - 1);
+		if (clock == NULL) {
+			// TODO: Throw Error
+			return NULL;
+		}
+		clock->Start();
+		return NULL;
+	}
+
+	ASTNode* Internal::StopClock(Isolate* iso, std::vector<ASTLiteral*> lits){
+		if (lits.size() == 0) return NULL;
+		ASTLiteral* lit = lits[0];
+		Clock* clock = CBClockContainer::GlobalClockContainer->GetClock((int) (lit->calc - 1));
+		if (clock == NULL) {
+			// TODO: Throw Error
+			return NULL;
+		}
+		clock->Stop();
+		return NULL;
+	}
+
+	ASTNode* Internal::GetClockDuration(Isolate* iso, std::vector<ASTLiteral*> lits){
+		if (lits.size() == 0) return NULL;
+		ASTLiteral* lit = lits[0];
+		Clock* clock = CBClockContainer::GlobalClockContainer->GetClock((int) (lit->calc - 1));
+		if (clock == NULL) {
+			// TODO: Throw Error
+			return NULL;
+		}
+		lit->calc = clock->GetDuration();
+		return lit;
+	}
+
 	TOKEN Internal::Bind(ASTFuncCall* call){
 		if (call->name == "printf") {
 			call->callback = Internal::PrintF;
@@ -152,6 +198,22 @@ namespace internal{
 		else if (call->name == "getPlatform"){
 			call->callback = Internal::GetPlatform;
 			return STRING;
+		}
+		else if (call->name == "getClockId"){
+			call->callback = Internal::GetClockId;
+			return INT;
+		}
+		else if (call->name == "startClock"){
+			call->callback = Internal::StartClock;
+			return UNDEFINED;
+		}
+		else if (call->name == "stopClock"){
+			call->callback = Internal::StopClock;
+			return UNDEFINED;
+		}
+		else if (call->name == "getDuration"){
+			call->callback = Internal::GetClockDuration;
+			return DOUBLE;
 		}
 		else throw Error::UNDEFINED_FUNC;
 	}

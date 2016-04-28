@@ -23,6 +23,7 @@
 #include "cobra/types/path/path.h"
 #include "cobra/types/fs/fs.h"
 #include "cobra/types/app/app.h"
+#include "cobra/types/clock/clock.h"
 
 namespace Cobra {
 namespace internal{

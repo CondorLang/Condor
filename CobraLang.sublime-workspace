@@ -4,6 +4,34 @@
 		"selected_items":
 		[
 			[
+				"ASTB",
+				"ASTBinaryExpr"
+			],
+			[
+				"call",
+				"callback"
+			],
+			[
+				"Clo",
+				"Clocks"
+			],
+			[
+				"Form",
+				"FormatLit"
+			],
+			[
+				"clal",
+				"callback"
+			],
+			[
+				"CBClo",
+				"CBClockContainer"
+			],
+			[
+				"Eval",
+				"EvaluateValue"
+			],
+			[
 				"all",
 				"allowNative"
 			],
@@ -486,69 +514,73 @@
 			[
 				"_err",
 				"_error_in_progress"
-			],
-			[
-				"hea",
-				"headers"
-			],
-			[
-				"ut",
-				"utf-8"
-			],
-			[
-				"Get",
-				"GetFolderByServerRelativeUrl"
-			],
-			[
-				"error",
-				"errors"
-			],
-			[
-				"err",
-				"errXml"
-			],
-			[
-				"XMLHT",
-				"XMLHttpRequest"
-			],
-			[
-				"sele",
-				"selectedSurvey"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"contents": "=SUBSTITUTE(IF(ISERR(TRIM(CLEAN(SUBSTITUTE(SUBSTITUTE(LEFT([@Title],FIND(\"-\",[@Title])-1),CHAR(160),\"\"),\" \",\"\")))), [@Title], TRIM(CLEAN(SUBSTITUTE(SUBSTITUTE(LEFT([@Title],FIND(\"-\",[@Title])-1),CHAR(160),\"\"),\" \",\"\")))), \" \", \"\")",
+			"file": "src/cobra/types/clock/clock.h",
 			"settings":
 			{
-				"buffer_size": 229,
-				"line_ending": "Windows"
+				"buffer_size": 815,
+				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/cobra/types/path/path.h",
+			"file": "test/test.cb",
 			"settings":
 			{
-				"buffer_size": 510,
-				"line_ending": "Windows"
+				"buffer_size": 759,
+				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/cobra/types/path/path.cc",
+			"file": "src/cobra/types/clock/clock.cc",
 			"settings":
 			{
-				"buffer_size": 1696,
-				"line_ending": "Windows"
+				"buffer_size": 489,
+				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/api.cc",
+			"file": "src/cobra/semantics/internal.cc",
 			"settings":
 			{
-				"buffer_size": 3390,
-				"line_ending": "Windows"
+				"buffer_size": 5603,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/cobra/execute/execute.cc",
+			"settings":
+			{
+				"buffer_size": 23805,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/cobra/semantics/semantics.cc",
+			"settings":
+			{
+				"buffer_size": 18598,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/cobra/types/clock/clock.cb",
+			"settings":
+			{
+				"buffer_size": 189,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/cobra/semantics/internal.h",
+			"settings":
+			{
+				"buffer_size": 1559,
+				"line_ending": "Unix"
 			}
 		}
 	],
@@ -779,18 +811,48 @@
 	},
 	"expanded_folders":
 	[
-		"/E/dev/CobraLang",
-		"/E/dev/CobraLang/include",
-		"/E/dev/CobraLang/src",
-		"/E/dev/CobraLang/src/cobra",
-		"/E/dev/CobraLang/src/cobra/token",
-		"/E/dev/CobraLang/src/cobra/types",
-		"/E/dev/CobraLang/src/cobra/types/path",
-		"/E/dev/CobraLang/src/cobra/types/script",
-		"/E/dev/CobraLang/test"
+		"/Users/willdech/Documents/dev/CobraLang",
+		"/Users/willdech/Documents/dev/CobraLang/src",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/execute",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/clock",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/script",
+		"/Users/willdech/Documents/dev/CobraLang/test"
 	],
 	"file_history":
 	[
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/parser.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/parser.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/clock.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/internal.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/internal.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/clock/clock.cb",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/gc.cc",
+		"/Users/willdech/Documents/dev/CobraLang/test/test.cb",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/clock/clock.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/clock.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/clock/clock.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/script/script.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/script/script.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/allocate.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/allocate.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/execute/execute.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/semantics.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/app/app.cb",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/strings/string.cb",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/app/app.h",
+		"/Users/willdech/Documents/dev/CobraLang/readme.md",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/app/app.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/context.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/node.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/node.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/path/path.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/path/path.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/api.cc",
+		"/Users/willdech/Documents/dev/CobraLang/.gitignore",
 		"/E/dev/CobraLang/test/test.cb",
 		"/E/dev/CobraLang/include/Cobra.h",
 		"/E/dev/CobraLang/src/api.cc",
@@ -800,11 +862,8 @@
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/codegen/codegen.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/codegen/symbols.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/codegen/tmp.asm",
-		"/Users/willdech/Documents/dev/CobraLang/test/test.cb",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/codegen/codegen.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/codegen/hello.asm",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/parser.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/parser.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/check.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/internal.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/ast.h",
@@ -816,8 +875,6 @@
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/flags.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/flags.h",
 		"/Users/willdech/Documents/dev/CobraLang/Makefile",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/allocate.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/allocate.h",
 		"/Users/willdech/Documents/dev/Systems/moe/projects/byui.js/test/index.html",
 		"/Applications/XAMPP/xamppfiles/htdocs/studim/api/index.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/studim/api/geo/block.csv",
@@ -827,15 +884,12 @@
 		"/Users/willdech/Documents/dev/Systems/moe/projects/byui.js/src/csv.js",
 		"/Users/willdech/Documents/dev/CobraLang/test/tests/array.cb",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/array/array.cb",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/context.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/token/token.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/error/error.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/error/error.h",
 		"/Users/willdech/Documents/dev/CobraLang/test/tests/college.cb",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/script/script.cc",
 		"/Users/willdech/Documents/dev/CobraLang/test/main.cc",
 		"/Users/willdech/Documents/dev/CobraLang/test/tests/console.cb",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/strings/string.cb",
 		"/Users/willdech/Documents/dev/CobraLang/test/tests/string.cb",
 		"/Users/willdech/Desktop/Dashboard/css/style.css",
 		"/Users/willdech/Desktop/Dashboard/index.html",
@@ -897,32 +951,11 @@
 		"/Applications/XAMPP/xamppfiles/htdocs/studim/.htaccess",
 		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/css/src/form/search.css",
 		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/css/src/containers/container.css",
-		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/Gruntfile.js",
-		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/css/build/lms.css",
-		"/Applications/XAMPP/xamppfiles/htdocs/studim/vendor/slim/slim/tests/Middleware/SessionCookieTest.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/studim/lib/db.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/studim/api/lib/user.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/studim/lib/cookie.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/UltraNotes/lib/note.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/UltraNotes/api/lib/isolate.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/tacit/api/v1/class/user.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/tacit/api/v1/class/cookie.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/studim/api/lib/result.php",
-		"/Users/willdech/Documents/dev/Systems/moe/projects/PatternRecognitionApplication/src/string/trim.js",
-		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/include/menu.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/index.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/todo.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/profile.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/index.html",
-		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/css/src/card/card.css",
-		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/profile.html",
-		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/todo.html",
-		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/css/src/tiles/tiles.css",
-		"/Applications/XAMPP/xamppfiles/htdocs/lms/design1/css/src/sidebar/left.css"
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/Gruntfile.js"
 	],
 	"find":
 	{
-		"height": 34.0
+		"height": 35.0
 	},
 	"find_in_files":
 	{
@@ -993,6 +1026,26 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"undefined_func",
+			"parseidentst",
+			"// hee",
+			"AddObject",
+			"funccall",
+			"object_ins",
+			"object_insta",
+			"\"this",
+			"internal",
+			"(ASTLiteral*) lits",
+			"script",
+			"Script",
+			"iso",
+			"CONSOLE_H_",
+			"FormatLit",
+			"funccall",
+			"hasv",
+			"();\n",
+			"CONSOLE_H_",
+			"evaluatebinary",
 			"str.",
 			"str",
 			"base",
@@ -1100,27 +1153,7 @@
 			"type",
 			"print",
 			"astobject",
-			"members",
-			"validateobjectchainmember",
-			"college",
-			"program",
-			"papa",
-			"window",
-			"HoursStandard",
-			"3.5",
-			"* 3.5",
-			"props",
-			"API_H_",
-			"NODE_H_",
-			"ary",
-			"prototype",
-			" in ",
-			");",
-			"console.log(",
-			".c",
-			"c",
-			"{\n						exit = true;\n					}",
-			"zip"
+			"members"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1192,57 +1225,57 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 5,
 			"sheets":
 			[
 				{
 					"buffer": 0,
+					"file": "src/cobra/types/clock/clock.h",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 229,
+						"buffer_size": 815,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								229
+								721,
+								721
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
+							"syntax": "Packages/C++/C++.sublime-syntax"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "src/cobra/types/path/path.h",
+					"file": "test/test.cb",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 510,
+						"buffer_size": 759,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								52,
-								52
+								666,
+								666
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/Go/Go.sublime-syntax"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -1253,19 +1286,47 @@
 				},
 				{
 					"buffer": 2,
-					"file": "src/cobra/types/path/path.cc",
+					"file": "src/cobra/types/clock/clock.cc",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1696,
+						"buffer_size": 489,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								400,
-								400
+								462,
+								462
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "src/cobra/semantics/internal.cc",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5603,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4222,
+								4222
 							]
 						],
 						"settings":
@@ -1274,27 +1335,56 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 225.0,
+						"translation.y": 1580.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "src/cobra/execute/execute.cc",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 23805,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								18921,
+								18921
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 7641.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "src/api.cc",
+					"buffer": 5,
+					"file": "src/cobra/semantics/semantics.cc",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3390,
+						"buffer_size": 18598,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2096,
-								2096
+								9964,
+								9978
 							]
 						],
 						"settings":
@@ -1303,10 +1393,67 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 795.0,
+						"translation.y": 4537.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "src/cobra/types/clock/clock.cb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 189,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								159,
+								168
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Go/Go.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "src/cobra/semantics/internal.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1559,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1259,
+								1330
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 14.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
 					"type": "text"
 				}
 			]

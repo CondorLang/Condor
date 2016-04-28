@@ -5,6 +5,7 @@
 #include "cobra/token/token.h"
 #include "cobra/global.h"
 #include "cobra/error/error.h"
+#include "cobra/clock.h"
 
 #include <string>
 #include <iostream>
@@ -29,6 +30,10 @@ namespace internal{
 		static ASTNode* WriteFile(Isolate* iso, std::vector<ASTLiteral*> lits);
 		static ASTNode* Quit(Isolate* iso, std::vector<ASTLiteral*> lits);
 		static ASTNode* GetPlatform(Isolate* iso, std::vector<ASTLiteral*> lits);
+		static ASTNode* GetClockId(Isolate* iso, std::vector<ASTLiteral*> lits);
+		static ASTNode* StartClock(Isolate* iso, std::vector<ASTLiteral*> lits);
+		static ASTNode* StopClock(Isolate* iso, std::vector<ASTLiteral*> lits);
+		static ASTNode* GetClockDuration(Isolate* iso, std::vector<ASTLiteral*> lits);
 		static ASTNode* CallInternal(Isolate* iso, InternalFunctionCallback call, std::vector<ASTLiteral*> nodes){return call(iso, nodes);}
 		static TOKEN Bind(ASTFuncCall* call);
 	};

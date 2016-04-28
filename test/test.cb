@@ -1,4 +1,4 @@
-import "console", "fs", "string"
+import "console", "fs", "string", "clock"
 
 include "tests/int.cb"
 

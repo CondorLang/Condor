@@ -2,6 +2,9 @@
 #define CLOCK_H_
 
 #include <ctime>
+#include <map>
+
+#include "cobra/mem/isolate.h"
 
 namespace Cobra {
 namespace internal{
@@ -12,6 +15,7 @@ namespace internal{
 		double duration;
 		std::clock_t start;
 	public:
+		static Clock* New(Isolate* isolate);
 		Clock(){}
 		~Clock(){}
 		void Start();

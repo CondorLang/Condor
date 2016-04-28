@@ -1,0 +1,15 @@
+export object Clock{
+	private int _clockId;
+	func Clock(){
+		this._clockId = %getClockId();
+	}
+	func Start(){
+		%startClock(this._clockId);
+	}
+	func Stop(){
+		%stopClock(this._clockId);
+	}
+	func GetDuration(){
+		return %getDuration(this._clockId);
+	}
+}

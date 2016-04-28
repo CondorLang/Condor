@@ -508,6 +508,9 @@ namespace internal{
 		SetRowCol(expr);
 		Scope* s = GetCurrentScope();
 		ValidateExpr(expr->left);
+		if (expr->left->name == "c"){
+			int a =10;
+		}
 		ASTObject* obj = GetObject(expr->left);
 		bool allowAccess = false;
 

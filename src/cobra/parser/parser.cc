@@ -415,12 +415,25 @@ namespace internal{
 			ASTVar* var = ASTVar::New(isolate);
 			ASTLiteral* lit = (ASTLiteral*) expr;
 			var->baseName = lit->value;
-			lit->Free(isolate);
 			var->baseType = OBJECT;
 			var->name = tok->raw;
 			Next();
 			if (IsAssignment() && !Is(1, ASSIGN)) throw Error::INVALID_ASSIGNMENT;
 			else if (IsAssignment()) Next(); // eat =
+			else if (Is(1, PERIOD)){
+				ASTBinaryExpr* binary = ASTBinaryExpr::New(isolate);
+				SetRowCol(binary);
+				lit->value = var->name;
+				binary->left = lit;
+				var->Free(isolate);
+				binary->op = PERIOD;
+				Next();
+				binary->right = ParseExpr();
+				binary->cast = NULL;
+				Expect(SEMICOLON); // but don't eat
+				return binary;
+			}
+			lit->Free(isolate);
 			var->value = ParseExpr();
 			if (var->value != NULL && var->value->type == FUNC_CALL && ((ASTFuncCall*)var->value)->isInit) var->isObject = true;
 			if (Is(1, SEMICOLON)) Next();
@@ -483,12 +496,12 @@ namespace internal{
 
 	ASTExpr* Parser::ParseExpr(bool semi){
 		Trace("Parsing", "Expression");
-		ASTExpr* expr = ParseBinaryExpr();
+		ASTExpr* expr = ParseBinaryExpr(semi);
 		if (semi && Is(1, SEMICOLON)) Next(); // loose semicolon
 		return expr;
 	}
 
-	ASTExpr* Parser::ParseBinaryExpr(){
+	ASTExpr* Parser::ParseBinaryExpr(bool semi){
 		Trace("Parsing", "Binary Expression");
 		ASTExpr* expr = NULL;
 		bool pre = true;
@@ -563,7 +576,7 @@ namespace internal{
 			binary->isChain = Is(1, PERIOD);
 			Trace("Parsing Operator", Token::ToString(tok->value).c_str());
 			Next();
-			binary->right = ParseExpr();
+			binary->right = ParseExpr(semi);
 			return binary;
 		}
 		if (Is(1, NEW)){

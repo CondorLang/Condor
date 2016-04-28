@@ -82,6 +82,9 @@ namespace internal{
 			std::vector<ASTLiteral*> nodes;
 			if (call->params.size() > 0) {
 				for (int i = 0; i < call->params.size(); i++){
+					if (call->name == "startClock"){
+						int a = 10;
+					}
 					ASTLiteral* lit = EvaluateValue(call->params[i]);
 					SetLitType(lit);
 					nodes.push_back(lit->Clone(isolate));
@@ -353,6 +356,9 @@ namespace internal{
 			AddObject((ASTObjectInstance*) first);
 			ASTLiteral* result = EvaluateFuncCall(call);
 			RemoveObject();
+			if (result == NULL){
+				return ASTUndefined::New(isolate);
+			}
 			return result;	
 		}
 		SetRowCol(call);
@@ -450,6 +456,10 @@ namespace internal{
 			case ASSIGN: {
 				ASTVar* var = GetVar(binary->left);
 				ASTLiteral* lit = EvaluateValue(binary->right);
+				if (lit != NULL){
+					SetCalc(lit);
+					FormatLit(lit);
+				}
 				if (var == NULL) {
 					SetRowCol(binary->left);
 					throw Error::INVALID_ASSIGNMENT_TO_TYPE;
@@ -568,6 +578,9 @@ namespace internal{
 				}
 
 				if (value != NULL) return value;
+				if (lit->name == "this" && lit->local == NULL){
+					return GetCurrentObject();
+				}
 				SetCalc(lit);
 				return lit;
 			}
@@ -593,9 +606,6 @@ namespace internal{
 		PrintStep("Evaluating Var (" + var->name + ")");
 		SetRowCol(var);
 		Trace("Evaluating Var", var->name);
-		if (var->name == "b"){
-			int a = 10; // here
-		}
 		ASTLiteral* local = (ASTLiteral*) EvaluateValue(var);
 		if (var->previouslyDeclared && var->op == ASSIGN){
 			if (var->local != NULL) isolate->RunGC(var, false);
