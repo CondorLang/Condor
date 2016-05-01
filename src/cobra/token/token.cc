@@ -70,6 +70,7 @@ namespace internal{
 			case kNULL: return "null";
 			case FLOAT: return "float";
 			case DOUBLE: return "double";
+			case LONG: return "long";
 			case BOOLEAN: return "boolean";
 			case CHAR: return "char";
 			case STRING: return "string";
@@ -219,6 +220,7 @@ namespace internal{
 		else if (str == "case") return Token::New(iso, CASE);
 		else if (str == "break") return Token::New(iso, BREAK);
 		else if (str == "int") return Token::New(iso, INT);
+		else if (str == "long") return Token::New(iso, LONG);
 		else if (str == "bool") return Token::New(iso, BOOLEAN);
 		else if (str == "float") return Token::New(iso, FLOAT);
 		else if (str == "double") return Token::New(iso, DOUBLE);

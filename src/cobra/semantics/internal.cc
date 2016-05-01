@@ -32,6 +32,7 @@ namespace internal{
 		int len = (int) v->value.length();
 		l->value = std::to_string(len);
 		l->calc = (double) len;
+		l->isCalc = true;
 		return l;
 	}
 
@@ -123,6 +124,7 @@ namespace internal{
 			CBClockContainer::GlobalClockContainer = CBClockContainer::New(iso);
 		}
 		result->calc = CBClockContainer::GlobalClockContainer->AddClock();
+		result->isCalc = true;
 		return result;
 	}
 
@@ -159,6 +161,15 @@ namespace internal{
 			return NULL;
 		}
 		lit->calc = clock->GetDuration();
+		lit->isCalc = true;
+		return lit;
+	}
+
+	ASTNode* Internal::GetTime(Isolate* iso, std::vector<ASTLiteral*> lits){
+		ASTLiteral* lit = ASTLiteral::New(iso);
+		lit->calc = (double) Clock::GetTime();
+		lit->isCalc = true;
+		lit->litType = LONG;
 		return lit;
 	}
 
@@ -213,6 +224,10 @@ namespace internal{
 		}
 		else if (call->name == "getDuration"){
 			call->callback = Internal::GetClockDuration;
+			return DOUBLE;
+		}
+		else if (call->name == "getTime"){
+			call->callback = Internal::GetTime;
 			return DOUBLE;
 		}
 		else throw Error::UNDEFINED_FUNC;

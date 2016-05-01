@@ -82,9 +82,6 @@ namespace internal{
 			std::vector<ASTLiteral*> nodes;
 			if (call->params.size() > 0) {
 				for (int i = 0; i < call->params.size(); i++){
-					if (call->name == "startClock"){
-						int a = 10;
-					}
 					ASTLiteral* lit = EvaluateValue(call->params[i]);
 					SetLitType(lit);
 					nodes.push_back(lit->Clone(isolate));
@@ -95,11 +92,15 @@ namespace internal{
 		}
 		else{
 			if (func == NULL) throw Error::UNDEFINED_FUNC;
+			if (func->name == "println"){
+				int a = 10; // here
+			}
 			for (int i = 0; i < func->args.size(); i++){
 				PrintStep("Evaluating Parameter (" + func->args[i]->name + ")");
 				if (call->params.size() > i) {
 					ASTLiteral* lit = EvaluateValue(call->params[i]);
 					SetLitType(lit);
+					FormatLit(lit);
 					if (lit == NULL) func->args[i]->local = ASTUndefined::New(isolate);
 					else func->args[i]->local = lit->Clone(isolate);
 				}
@@ -129,7 +130,9 @@ namespace internal{
 		SetRowCol(binary);
 		if (binary->op == PERIOD && binary->right->type == FUNC_CALL && ((ASTFuncCall*) binary->right)->func->HasVisibility(STATIC)){
 			PrintStep("Static Function Call");
-			return (ASTLiteral*) EvaluateFuncCall((ASTFuncCall*) binary->right);
+			ASTLiteral* lit = (ASTLiteral*) EvaluateFuncCall((ASTFuncCall*) binary->right);
+			FormatLit(lit, true);
+			return lit;
 		}
 		else{
 			ASTToken* tok = ASTToken::New(isolate, binary->op);
@@ -167,13 +170,15 @@ namespace internal{
 		PrintStep("Formating Literal");
 		SetCalc(lit);
 		int type = (int) lit->litType;
+		bool casted = false;
 		switch (type){
 			case BOOLEAN: lit->value = (lit->calc == 0 ? "false" : "true"); break;
 			case DOUBLE: lit->value = std::to_string(lit->calc); break;
-			case FLOAT: lit->value = std::to_string((float) lit->calc); break;
+			case FLOAT:	lit->value = std::to_string(lit->calc); break;
+			case LONG: lit->value = std::to_string(lit->calc); break;
 			case INT: lit->value = std::to_string((int) lit->calc); break;
 		}
-		if (lit->calc - (int)lit->calc > 0.0 && !forceType) lit->value = std::to_string(lit->calc);
+		//if (lit->calc - (int)lit->calc > 0.0 && !forceType) lit->value = std::to_string(lit->calc);
 		TruncZeros(lit);
 	}
 
@@ -186,6 +191,7 @@ namespace internal{
 			if (lit->value[i] == '0') lit->value.erase(i);
 			else break;
 		}
+		if (lit->value[lit->value.size() - 1] == '.') lit->value.erase(lit->value.size() - 1);
 	}
 
 	// TODO: Set row and col for tracking
@@ -401,7 +407,8 @@ namespace internal{
 		}
 		
 		switch (litType){
-			case INT: case DOUBLE: 
+			case INT: case DOUBLE:
+			case LONG: 
 			case FLOAT: case BOOLEAN: {
 				switch (type){
 					case ADD:	result->calc = second->calc + first->calc; break;
@@ -527,6 +534,12 @@ namespace internal{
 			try{
 				if (lit->value == "true" || lit->value == "false") lit->value = lit->value == "true" ? "1" : "0";
 				lit->calc = std::stod(lit->value);
+				int type = (int) lit->litType;
+				switch (type){
+					case INT: lit->calc = (int) lit->calc; break;
+					case FLOAT: lit->calc = (float) lit->calc; break;
+					case LONG: lit->calc = (long) lit->calc; break;
+				}
 				lit->isCalc = true;
 			}
 			catch (...){
@@ -606,6 +619,9 @@ namespace internal{
 		PrintStep("Evaluating Var (" + var->name + ")");
 		SetRowCol(var);
 		Trace("Evaluating Var", var->name);
+		if (var->name == "dec"){
+			int a = 10;
+		}
 		ASTLiteral* local = (ASTLiteral*) EvaluateValue(var);
 		if (var->previouslyDeclared && var->op == ASSIGN){
 			if (var->local != NULL) isolate->RunGC(var, false);

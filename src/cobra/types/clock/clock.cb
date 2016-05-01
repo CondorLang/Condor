@@ -3,13 +3,16 @@ export object Clock{
 	func Clock(){
 		this._clockId = %getClockId();
 	}
-	func Start(){
+	func start(){
 		%startClock(this._clockId);
 	}
-	func Stop(){
+	func stop(){
 		%stopClock(this._clockId);
 	}
-	func GetDuration(){
+	func getDuration(){
 		return %getDuration(this._clockId);
+	}
+	static func getTime(){
+		return %getTime();
 	}
 }

@@ -75,6 +75,7 @@ namespace internal{
 		INT, // 1
 		FLOAT, // 1.0000000
 		DOUBLE, // 1.0000000000000000
+		LONG, 
 		BOOLEAN, // 1 or 0
 
 		BEGIN_STRING,

@@ -138,7 +138,7 @@ namespace internal{
 	}
 
 	bool Parser::IsVarType(){
-		return Is(10, INT, BOOLEAN, FLOAT, DOUBLE, CHAR, STRING, IDENT, TRUE_LITERAL, FALSE_LITERAL, kNULL);
+		return Is(11, INT, BOOLEAN, FLOAT, DOUBLE, LONG, CHAR, STRING, IDENT, TRUE_LITERAL, FALSE_LITERAL, kNULL);
 	}
 
 	bool Parser::IsBoolean(){
@@ -258,6 +258,7 @@ namespace internal{
 				case INT: case BOOLEAN: 
 				case FLOAT: case DOUBLE: 
 				case CHAR: case STRING: 
+				case LONG: 
 				case TRUE_LITERAL: 
 				case FALSE_LITERAL: 
 				case kNULL: case VAR: {
@@ -832,6 +833,7 @@ namespace internal{
 		obj->scope = LazyParseBody();
 		obj->scope->owner = obj;
 		obj->scope->name = obj->name;
+		obj->scope->outer = scope;
 		return obj;
 	}
 

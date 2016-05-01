@@ -34,6 +34,7 @@ namespace internal{
 		static ASTNode* StartClock(Isolate* iso, std::vector<ASTLiteral*> lits);
 		static ASTNode* StopClock(Isolate* iso, std::vector<ASTLiteral*> lits);
 		static ASTNode* GetClockDuration(Isolate* iso, std::vector<ASTLiteral*> lits);
+		static ASTNode* GetTime(Isolate* iso, std::vector<ASTLiteral*> lits);
 		static ASTNode* CallInternal(Isolate* iso, InternalFunctionCallback call, std::vector<ASTLiteral*> nodes){return call(iso, nodes);}
 		static TOKEN Bind(ASTFuncCall* call);
 	};

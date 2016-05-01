@@ -1,6 +1,3 @@
-// import "console", "date", "integer"
-import "console"
-
 long YEAR = 31556926;
 long MONTH = 2629743;
 long WEEK = 604800;
@@ -11,18 +8,12 @@ long BASE_YEAR = 1970;
 
 export object Date{
 	private long base;
-	private long decYear;
-	private long decMonth;
 	private int year;
-	private int month;
 
 	func Date(){
 		this.base = %getTime();
 		func toInt(var num) return (int) num;
-		this.decYear = this.base / YEAR + 1970;
-		this.year = toInt(this.decYear);
-		this.decMonth = (this.decYear - this.year) * 12;
-		this.month = toInt(this.decMonth) + 1;
+		this.year = toInt(this.base / YEAR) + 1970;
 	}
 	func Date(long time){
 		this.base = time;
@@ -32,9 +23,7 @@ export object Date{
 	}
 	func toString(string format){
 		func toInt(var num) return (int) num;
-		return this.year;
+		int month = toInt(this.base / MONTH) - (this.year - this.base);
+		return month / 12;
 	}
 }
-
-Date date = new Date();
-println(date.toString("s"));

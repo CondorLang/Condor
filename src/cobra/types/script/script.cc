@@ -222,6 +222,8 @@ namespace internal{
 			else if (name == "path") Path::CB(isolate, sub);
 			else if (name == "fs") FS::CB(isolate, sub);
 			else if (name == "clock") CBClock::CB(isolate, sub);
+			else if (name == "date") Date::CB(isolate, sub);
+			else if (name == "integer") Integer::CB(isolate, sub);
 			else {
 				parser->Row = import->row;
 				parser->Col = import->col;

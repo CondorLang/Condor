@@ -3,6 +3,7 @@
 
 #include <ctime>
 #include <map>
+#include <ctime>
 
 #include "cobra/mem/isolate.h"
 
@@ -22,6 +23,7 @@ namespace internal{
 		void Stop();
 		void Reset();
 		double GetDuration(){return duration;}
+		static long GetTime();
 	};
 
 } // namespace internal

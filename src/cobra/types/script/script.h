@@ -24,6 +24,8 @@
 #include "cobra/types/fs/fs.h"
 #include "cobra/types/app/app.h"
 #include "cobra/types/clock/clock.h"
+#include "cobra/types/date/date.h"
+#include "cobra/types/integer/integer.h"
 
 namespace Cobra {
 namespace internal{

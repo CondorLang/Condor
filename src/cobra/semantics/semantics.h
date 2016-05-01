@@ -64,6 +64,7 @@ namespace internal{
 		void ValidateSwitch(ASTSwitch* expr);
 		void ValidateCase(ASTCase* expr);
 		std::string GetBaseName(ASTExpr* expr);
+		TOKEN GetCastType(ASTNode* node);
 
 	public:
 		Semantics(Isolate* iso);

@@ -110,8 +110,16 @@ namespace internal{
 				case WHILE: ValidateWhile((ASTWhileExpr*) node); break;
 				case IF: ValidateIf((ASTIf*) node); break;
 				case SWITCH: ValidateSwitch((ASTSwitch*) node); break;
-				case FUNC: /**ValidateFunc((ASTFunc*) node);**/ break; // Part of JIT compiling
-				case OBJECT: /**ValidateObject((ASTObject*) node);**/ break; // Part of JIT compiling
+				case FUNC: {
+					ASTFunc* func = (ASTFunc*) node;
+					func->scope->outer = scope;
+					break;
+				}
+				case OBJECT: {
+					ASTObject* obj = (ASTObject*) node;
+					obj->scope->outer = scope;
+					break;
+				}
 				default: ValidateExpr((ASTExpr*) node); break;
 			}
 		}
@@ -145,6 +153,9 @@ namespace internal{
 		}
 		Trace("Validating Var", var->name.c_str());
 		indent++;
+		if (var->name == "month"){
+			int a = 10; // here
+		}
 		var->assignmentType = ValidateExpr((ASTExpr*) var->value);
 		if (var->name != "return" &&
 			  var->baseType == UNDEFINED &&
@@ -262,10 +273,8 @@ namespace internal{
 	TOKEN Semantics::ValidateBinary(ASTBinaryExpr* expr){
 		if (expr->op == PERIOD) return ValidateObjectChain(expr);;
 		SetRowCol(expr);
-		if (expr->op == DIV){
-			int a = 10;
-		}
 		TOKEN left = ValidateExpr(expr->left);
+		isThis = false; // TODO: Verify this is ok and always true
 
 		staticRequired = false;
 		if (expr->left->type == OBJECT) staticRequired = true;
@@ -289,14 +298,11 @@ namespace internal{
 		SetRowCol(expr);
 		expr->name = expr->value;
 		Trace("Validating Ident", expr->name.c_str());
-		if (expr->name == "platform"){
-			int a = 10;
-		}
 		Scope* s = GetCurrentScope();
-		if (expr->name == "this"){
+		if (expr->name == "this"){ // here
 			if (s->outer == NULL) throw Error::INVALID_USAGE_OF_THIS;
 			kThis = (ASTObject*) s->outer->owner;
-			OpenScope(s->outer);
+			//OpenScope(s->outer);
 			if (kThis == NULL) kThis = (ASTObject*) s->owner;
 			if (kThis == NULL) throw Error::INVALID_USAGE_OF_THIS;
 			isThis = true;
@@ -398,7 +404,23 @@ namespace internal{
 	}
 
 	void Semantics::ValidateFunc(ASTFunc* func, bool parse, bool isConstructor){
-		if (func->scope->IsParsed() || !parse) return;
+		if (func->scope->IsParsed() || !parse) {
+			for (int i = 0; i < func->args.size(); i++){ // validate args
+				ASTNode* arg = func->args[i];
+				bool found = false;
+				for (int j = 0; j < func->scope->Size(); j++){
+					if (func->scope->Get(j) == arg){
+						found = true;
+						break;
+					}
+				}
+				if (found) break;
+				func->scope->InsertBefore(arg);
+				// scan scope
+				ScanScope(func->scope);
+			}
+			return;
+		}
 		Trace("Parsing Func", func->name.c_str());
 		func->scope = Parse(func->scope);
 		if (func->scope->outer == NULL) func->scope->outer = GetCurrentScope(); // this will happen ?
@@ -416,7 +438,33 @@ namespace internal{
 			throw Error::MULTIPLE_RETURNS_NOT_ALLOWED;
 		}
 		else if (returns.size() == 1 && isConstructor) throw Error::NO_RETURN_STMTS_IN_CONSTRUCTOR;
-		else if (returns.size() == 1 && !isConstructor) func->assignmentType = ((ASTVar*) returns[0])->assignmentType;
+		else if (returns.size() == 1 && !isConstructor) {
+			ASTVar* r = (ASTVar*) returns[0];
+			TOKEN castType = GetCastType(r);
+			func->assignmentType = ((ASTVar*) returns[0])->assignmentType;
+		}
+	}
+
+	TOKEN Semantics::GetCastType(ASTNode* node){
+		if (node == NULL) return UNDEFINED;
+		int type = (int) node->type;
+		switch (type){
+			case VAR:{
+				ASTVar* var = (ASTVar*) node;
+				return GetCastType(var->value);
+			}
+			case LITERAL: {
+				ASTLiteral* lit = (ASTLiteral*) node;
+				if (lit->cast != NULL){
+					int a = 10;
+					HERE();
+				}
+			}
+			case BINARY: {
+				return UNDEFINED;
+			}
+		}
+		return UNDEFINED;
 	}
 
 	TOKEN Semantics::ValidateArray(ASTArray* expr){
@@ -508,9 +556,6 @@ namespace internal{
 		SetRowCol(expr);
 		Scope* s = GetCurrentScope();
 		ValidateExpr(expr->left);
-		if (expr->left->name == "c"){
-			int a =10;
-		}
 		ASTObject* obj = GetObject(expr->left);
 		bool allowAccess = false;
 
@@ -524,6 +569,7 @@ namespace internal{
 			if (lit->value == "this") {
 				lit->litType = OBJECT;
 				allowAccess = true;
+				isThis = true;
 			}
 		}
 		if (!obj->scope->IsParsed()) {
@@ -544,7 +590,7 @@ namespace internal{
 
 		indent--;
 		inObject = false;
-		if (isThis) CloseScope();
+		//if (isThis) CloseScope(); // here
 		isThis = false;
 		return right;
 	}
