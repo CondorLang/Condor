@@ -172,6 +172,12 @@ namespace internal{
 			ValidateExpr(ary->members[0]);
 			ExpectNumber((ASTLiteral*) ary->members[0]);
 		}
+		else if (var->isArray){
+			ASTArray* ary = (ASTArray*) var->value;
+			for (int i = 0; i < ary->members.size(); i++){
+				ValidateExpr(ary->members[i]);
+			}
+		}
 		ValidateBaseAndAssignment(var);
 		if (var->previouslyDeclared){
 			ASTLiteral* member = (ASTLiteral*) var->member;

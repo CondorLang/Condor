@@ -565,7 +565,7 @@ namespace internal{
 				if (Is(1, COMMA)) Next();
 			}
 			Next();
-			expr->cast = cast;
+			ary->cast = cast;
 			return ary;
 		}
 		if (IsOperator() || IsBoolean() || Is(1, PERIOD)) { // needs to be last to catch all lingering operators

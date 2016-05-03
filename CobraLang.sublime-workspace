@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"Valid",
+				"ValidateExpr"
+			],
+			[
+				"Getu",
+				"GetCurrentScope"
+			],
+			[
 				"ASTFU",
 				"ASTFunc"
 			],
@@ -506,14 +514,6 @@
 			[
 				"check",
 				"checkKeys"
-			],
-			[
-				"aud",
-				"audit"
-			],
-			[
-				"che",
-				"checkKeys"
 			]
 		]
 	},
@@ -523,7 +523,7 @@
 			"file": "test/test.cb",
 			"settings":
 			{
-				"buffer_size": 194,
+				"buffer_size": 1087,
 				"line_ending": "Unix"
 			}
 		},
@@ -531,15 +531,31 @@
 			"file": "src/cobra/execute/execute.cc",
 			"settings":
 			{
-				"buffer_size": 23975,
+				"buffer_size": 24664,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/cobra/semantics/semantics.cc",
+			"file": "src/cobra/ast/node.h",
 			"settings":
 			{
-				"buffer_size": 19507,
+				"buffer_size": 5938,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/cobra/ast/node.cc",
+			"settings":
+			{
+				"buffer_size": 11442,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/cobra/execute/execute.h",
+			"settings":
+			{
+				"buffer_size": 2481,
 				"line_ending": "Unix"
 			}
 		},
@@ -547,7 +563,7 @@
 			"file": "src/cobra/types/date/date.cb",
 			"settings":
 			{
-				"buffer_size": 441,
+				"buffer_size": 572,
 				"line_ending": "Unix"
 			}
 		}
@@ -783,6 +799,7 @@
 		"/Users/willdech/Documents/dev/CobraLang/src",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/execute",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types",
@@ -793,16 +810,19 @@
 	],
 	"file_history":
 	[
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/binary.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/flags.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/node.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/parser.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/semantics.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/execute/execute.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/integer/integer.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/integer/integer.cb",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/internal.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/semantics.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/semantics.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/integer/integer.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/script/script.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/script/script.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/binary.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/internal.h",
 		"/Users/willdech/Documents/dev/CobraLang/test/test.cb",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/clock/clock.cb",
@@ -826,7 +846,6 @@
 		"/Users/willdech/Documents/dev/CobraLang/readme.md",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/app/app.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/context.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/node.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/node.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/path/path.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/path/path.cc",
@@ -852,7 +871,6 @@
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/check.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/ast.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/flags.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/flags.h",
 		"/Users/willdech/Documents/dev/CobraLang/Makefile",
 		"/Users/willdech/Documents/dev/Systems/moe/projects/byui.js/test/index.html",
 		"/Applications/XAMPP/xamppfiles/htdocs/studim/api/index.php",
@@ -919,8 +937,7 @@
 		"/Users/willdech/Documents/dev/Systems/moe/projects/HTML-Query/src/ctrl.js",
 		"/Users/willdech/Documents/dev/Systems/moe/.gitmodules",
 		"/Users/willdech/Documents/dev/Systems/moe/projects/HTML-Query/src/unzip.js",
-		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/css/src/list/list.css",
-		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/css/src/typeography/header.css"
+		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/css/src/list/list.css"
 	],
 	"find":
 	{
@@ -995,6 +1012,18 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			":clone",
+			"astarray",
+			"invalid_access_to",
+			"validatevar",
+			"\"array\"",
+			"formatlit(",
+			"// here",
+			"validatevar",
+			"undefined_variab",
+			"funccall",
+			"\"this\"",
+			"validateident",
 			"funccal",
 			"// here",
 			":validatebinary",
@@ -1110,19 +1139,7 @@
 			"parsearray(",
 			"while \\(true\\)",
 			"astarray",
-			"validating ",
-			"// here",
-			"ValidateArrayMember",
-			"ASTArrayMemberExpr",
-			"astarray",
-			"arraymember",
-			":ParseExpr",
-			"parsesimplestmt",
-			" ParseExpr",
-			"ParseExpr(){",
-			"ParseExpr",
-			"astobject",
-			"this"
+			"validating "
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1194,7 +1211,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -1203,15 +1220,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 194,
+						"buffer_size": 1087,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								165,
-								90
+								188,
+								47
 							]
 						],
 						"settings":
@@ -1231,15 +1248,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 23975,
+						"buffer_size": 24664,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3710,
-								3710
+								18546,
+								18546
 							]
 						],
 						"settings":
@@ -1248,27 +1265,27 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1248.0,
+						"translation.y": 7643.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "src/cobra/semantics/semantics.cc",
+					"file": "src/cobra/ast/node.h",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 19507,
+						"buffer_size": 5938,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								9499,
-								9499
+								5198,
+								5147
 							]
 						],
 						"settings":
@@ -1277,7 +1294,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 4481.0,
+						"translation.y": 3064.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -1285,30 +1302,89 @@
 				},
 				{
 					"buffer": 3,
-					"file": "src/cobra/types/date/date.cb",
+					"file": "src/cobra/ast/node.cc",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 441,
+						"buffer_size": 11442,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								405,
-								405
+								9096,
+								9096
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Go/Go.sublime-syntax"
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 4160.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "src/cobra/execute/execute.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2481,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								89,
+								89
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "src/cobra/types/date/date.cb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 572,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								572
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Go/Go.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
 					"type": "text"
 				}
 			]

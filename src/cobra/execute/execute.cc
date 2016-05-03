@@ -555,7 +555,7 @@ namespace internal{
 		PrintStep("Evaluating Value (" + Token::ToString(node->type) + ")");
 		int type = (int) node->type;
 		switch (type){
-			case UNDEFINED: {
+			case UNDEFINED: case ARRAY: case OBJECT_INSTANCE: {
 				return (ASTLiteral*) node;
 			}
 			case LITERAL: {
@@ -580,12 +580,21 @@ namespace internal{
 					ASTLiteral* member = EvaluateValue(lit->member);
 					SetCalc(member);
 					// TODO: Allow for all array types
-					if (value != NULL && value->litType == STRING) {
+					if (value != NULL && value->litType == STRING) { // string array
 						if (value->value.length() <= member->calc) throw Error::INVALID_ACCESS_TO_ARRAY;
 						ASTLiteral* result = ASTLiteral::New(isolate);
 						result->litType = CHAR;
-						result->value = value->value.at(member->calc);
+						result->value = value->value.at((int) member->calc);
 						return result;
+					}
+					else if (value != NULL){
+						ASTLiteral* result = ASTLiteral::New(isolate);
+						ASTLiteral* value = EvaluateValue(lit->var); // reset value
+						result->litType = value->litType;
+						ASTArray* ary = (ASTArray*) value;
+						int spot = (int) member->calc;
+						ASTNode* n = ary->members.at(spot);
+						return EvaluateValue(n);
 					}
 					throw Error::INVALID_ACCESS_TO_ARRAY;
 				}
@@ -607,9 +616,6 @@ namespace internal{
 			}
 			case BINARY: {
 				return EvaluateBinary((ASTBinaryExpr*) node);
-			}
-			case OBJECT_INSTANCE: {
-				return (ASTLiteral*) node;
 			}
 		}
 		return NULL;

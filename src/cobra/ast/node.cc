@@ -184,6 +184,10 @@ namespace internal{
 			ASTObjectInstance* inst = (ASTObjectInstance*) this;
 			return inst->Clone(iso, shallow);
 		}
+		else if (type == ARRAY){
+			ASTArray* ary = (ASTArray*) this;
+			return ary->Clone(iso, shallow);
+		}
 		ASTLiteral* n = ASTLiteral::New(iso);
 		n->value = value;
 		n->type = type;
@@ -319,6 +323,27 @@ namespace internal{
 		n->type = ARRAY;
 		return n;
 	}
+
+	ASTArray* ASTArray::Clone(Isolate* iso, bool shallow){
+		ASTArray* n = ASTArray::New(iso);
+		n->value = value;
+		n->type = type;
+		n->litType = litType;
+		n->unary = unary;
+		n->isPost = isPost;
+		n->var = shallow ? NULL : var;
+		n->isCast = isCast;
+		n->calc = calc;
+		n->isCalc = isCalc;
+		n->obj = obj;
+		n->allowAccess = allowAccess;
+		n->scopeId = scopeId;
+		n->member = member;
+		for (int i = 0; i < this->members.size(); i++){
+			n->members.push_back(this->members[i]);
+		}
+		return n;
+	}	
 
 	ASTObjectInstance* ASTObjectInstance::New(Isolate* iso){
 		void* pt = iso->GetMemory(sizeof(ASTObjectInstance));

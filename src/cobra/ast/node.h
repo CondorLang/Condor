@@ -249,12 +249,13 @@ namespace internal{
 		size_t Size(){return sizeof(ASTUndefined);}
 	};
 
-	class ASTArray : public ASTExpr
+	class ASTArray : public ASTLiteral
 	{
 	public:
 		static ASTArray* New(Isolate* iso);
 		std::vector<ASTExpr*> members;
 		size_t Size(){return sizeof(ASTArray);}
+		ASTArray* Clone(Isolate* iso, bool shallow = false);
 	};
 
 	// Eventually we should do a linked list for properties

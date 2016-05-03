@@ -1,4 +1,4 @@
-// import "console", "date", "integer"
+//import "console", "date", "integer"
 import "console"
 
 long YEAR = 31556926;
@@ -8,6 +8,9 @@ long DAY = 86400;
 long HOUR = 3600;
 
 long BASE_YEAR = 1970;
+
+
+string[] months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 export object Date{
 	private long base;
@@ -30,9 +33,12 @@ export object Date{
 	func toString(){
 		return (string) this.base;
 	}
+	func getYear() {
+		return this.year;
+	}
 	func toString(string format){
 		func toInt(var num) return (int) num;
-		return this.year;
+		return months[this.month];
 	}
 }
 
