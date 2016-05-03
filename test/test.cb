@@ -18,6 +18,7 @@ export object Date{
 	private long decMonth;
 	private int year;
 	private int month;
+	private int day;
 
 	func Date(){
 		this.base = %getTime();
@@ -26,6 +27,7 @@ export object Date{
 		this.year = toInt(this.decYear);
 		this.decMonth = (this.decYear - this.year) * 12;
 		this.month = toInt(this.decMonth) + 1;
+		this.day = 10;
 	}
 	func Date(long time){
 		this.base = time;
@@ -38,7 +40,8 @@ export object Date{
 	}
 	func toString(string format){
 		func toInt(var num) return (int) num;
-		return months[this.month];
+		string result = months[this.month] + " " + this.day + ", " + this.year;
+		return result;
 	}
 }
 

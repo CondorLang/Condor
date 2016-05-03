@@ -556,23 +556,27 @@ namespace internal{
 				var->litType = IDENT;
 				Expect(RBRACK);
 				Next();
-				return var;
+				if (!IsOperator()) return var;
+				expr = var;
 			}
-
-			ASTArray* ary = ASTArray::New(isolate);
-			while (!Is(1, RBRACK)){
-				ary->members.push_back(ParseExpr());
-				if (Is(1, COMMA)) Next();
+			else{
+				ASTArray* ary = ASTArray::New(isolate);
+				while (!Is(1, RBRACK)){
+					ary->members.push_back(ParseExpr());
+					if (Is(1, COMMA)) Next();
+				}
+				Next();
+				ary->cast = cast;
+				if (!IsOperator()) return ary;
+				expr = ary;
 			}
-			Next();
-			ary->cast = cast;
-			return ary;
 		}
 		if (IsOperator() || IsBoolean() || Is(1, PERIOD)) { // needs to be last to catch all lingering operators
 			ASTBinaryExpr* binary = ASTBinaryExpr::New(isolate);
 			SetRowCol(binary);
+			if (expr == NULL) throw Error::INVALID_OPERATOR;
 			binary->left = expr;
-			expr->cast = cast;
+			if (expr->cast == NULL) expr->cast = cast;
 			binary->op = tok->value;
 			binary->isChain = Is(1, PERIOD);
 			Trace("Parsing Operator", Token::ToString(tok->value).c_str());
