@@ -1,5 +1,8 @@
 FROM ubuntu
 MAINTAINER Chase Willden <chase.willden@gmail.com>
 
-WORKDIR index.docker.io/chasewillden/cobralang
-RUN make
+RUN apt-get update && \
+    apt-get install -y build_essential && \
+    apt-get clean
+    
+CMD ["make"]
