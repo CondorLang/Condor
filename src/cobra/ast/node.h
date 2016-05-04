@@ -85,6 +85,7 @@ namespace internal{
 		bool isArray;
 		bool isObject;
 		bool isArg;
+		bool hasDefault;
 		bool previouslyDeclared;
 		int order;
 		static ASTVar* New(Isolate* iso);		

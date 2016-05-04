@@ -1,15 +1,7 @@
-// import "console"
+import "console"
 
-// object Array{
-// 	private var base[];
-
-// 	func Array(){}
-// 	func Array(var ary[]) this.base = ary;
-// 	int length = 0;
+// func test(bool isTest = true){
+// 	println(isTest);
 // }
 
-
-// var ary = new Array();
-// println(ary.length);
-
-
+// test();

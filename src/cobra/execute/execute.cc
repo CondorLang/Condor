@@ -612,7 +612,7 @@ namespace internal{
 			}
 			case VAR: {
 				ASTVar* var = (ASTVar*) node;
-				if (var->local != NULL) return var->local; // check this if this is always true
+				if (var->local != NULL && !var->hasDefault) return var->local; // check this if this is always true					
 				return EvaluateValue(var->value);
 			}
 			case FUNC_CALL: {

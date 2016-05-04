@@ -21,3 +21,7 @@ export func print(string msg){
 export func println(string msg){
 	print(msg + "\n");
 }
+
+export func readln(string msg){
+	return Console.get(msg);
+}

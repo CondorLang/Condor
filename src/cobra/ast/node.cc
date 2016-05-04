@@ -111,6 +111,7 @@ namespace internal{
 		n->previouslyDeclared = false;
 		n->op = UNDEFINED;
 		n->scopeId = -1;
+		n->hasDefault = false;
 		return n;
 	}
 
@@ -129,6 +130,7 @@ namespace internal{
 		var->op = op;
 		var->name = name;
 		var->scopeId = scopeId;
+		var->hasDefault = hasDefault;
 		if (local != NULL) var->local = local->Clone(isolate, shallow);
 		return var;
 	}

@@ -486,6 +486,12 @@ namespace internal{
 			Next();
 			Trace("Parsing Var", var->name.c_str());
 			var->op = tok->value;
+			if (Is(1, LBRACK)){
+				var->isArray = true;
+				Next();
+				Expect(RBRACK);
+				Next();
+			}
 			if (!IsAssignment() && !Is(1, SEMICOLON)) throw Error::INVALID_OPERATOR;
 			if (!Is(1, SEMICOLON)){
 				Next();
@@ -715,6 +721,19 @@ namespace internal{
 				var->name = second;
 				var->baseName = first;
 				var->baseType = firstType;
+				if (Is(1, LBRACK)){
+					var->isArray = true;
+					Next();
+					Expect(RBRACK);
+					Next();
+				}
+				if (Is(1, ASSIGN)){ // default parameters
+					var->op = tok->value;
+					Next(); // eat =
+					var->value = ParseExpr();
+					var->hasDefault = true;
+					var->isArg = true;
+				}	
 				vars.push_back(var);
 			}
 			if (Is(1, RPAREN)) break;

@@ -2,6 +2,11 @@ language: cpp
 compiler:
   - g++
 
+os:
+  - linux
+  - osx
+  - windows
+
 # Setup different environments to test
 env:
   - CPP14=1
