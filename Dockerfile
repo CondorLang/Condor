@@ -1,4 +1,4 @@
-FROM current
-MAINTAINER Chase Willde <chase.willden@gmail.com>
+FROM ubuntu
+MAINTAINER Chase Willden <chase.willden@gmail.com>
 
-CMD make
+RUN make
