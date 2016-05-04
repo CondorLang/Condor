@@ -1,3 +1,7 @@
+// Copyright 2016 Chase Willden and The CobraLang Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
+
 export object Integer{
 	static func parse(var num) return (int) num;
 	static func isInt(int a) return true;
