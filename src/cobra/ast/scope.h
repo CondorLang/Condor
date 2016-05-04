@@ -26,6 +26,7 @@ namespace internal{
 	{
 	private:
 		bool isParsed;
+		bool shallow;
 		std::vector<ASTNode*> nodes;
 		Isolate* isolate;
 		
@@ -43,8 +44,11 @@ namespace internal{
 		void Insert(ASTNode* node);
 		void InsertBefore(ASTNode* node);
 		int Size();
+		bool IsShallow(){return shallow;}
 		bool IsParsed(){return isParsed;}
+		void SetShallow(){shallow = true;}
 		void SetParsed(){isParsed = true;}
+		void UnsetShallow(){shallow = false;}
 		void Merge(Scope* scope);
 		void Destroy(ASTNode* node);
 		void Destroy();

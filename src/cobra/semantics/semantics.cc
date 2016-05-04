@@ -414,7 +414,7 @@ namespace internal{
 	}
 
 	void Semantics::ValidateFunc(ASTFunc* func, bool parse, bool isConstructor){
-		if (func->scope->IsParsed() || !parse) {
+		if ((func->scope->IsParsed() || !parse) && !func->scope->IsShallow()) {
 			for (int i = 0; i < func->args.size(); i++){ // validate args
 				ASTNode* arg = func->args[i];
 				bool found = false;
@@ -428,6 +428,7 @@ namespace internal{
 				func->scope->InsertBefore(arg);
 				// scan scope
 				ScanScope(func->scope);
+				func->scope->UnsetShallow();
 			}
 			return;
 		}
@@ -465,10 +466,7 @@ namespace internal{
 			}
 			case LITERAL: {
 				ASTLiteral* lit = (ASTLiteral*) node;
-				if (lit->cast != NULL){
-					int a = 10;
-					HERE();
-				}
+				if (lit->cast != NULL) return lit->cast->litType;
 			}
 			case BINARY: {
 				return UNDEFINED;

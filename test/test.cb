@@ -1,60 +1,15 @@
-//import "console", "date", "integer"
-import "console"
+// import "console"
 
-long YEAR = 31556926;
-long MONTH = 2629743;
-long WEEK = 604800;
-long DAY = 86400;
-long HOUR = 3600;
+// object Array{
+// 	private var base[];
 
-long BASE_YEAR = 1970;
+// 	func Array(){}
+// 	func Array(var ary[]) this.base = ary;
+// 	int length = 0;
+// }
 
 
-string[] MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-int[] DAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+// var ary = new Array();
+// println(ary.length);
 
-export object Date{
-	private long base;
-	private long decYear;
-	private long decMonth;
-	private long decDay;
-	private int year;
-	private int month;
-	private int days;
-	private int day;
 
-	func Date(){
-		this.base = %getTime();
-		this._setFields();
-	}
-	func Date(long time){
-		this.base = time;
-		this._setFields();
-	}
-	private func _setFields(){
-		func toInt(var num) return (int) num;
-		this.decYear = this.base / YEAR + 1970;
-		this.year = toInt(this.decYear);
-		this.decMonth = (this.decYear - this.year) * 12;
-		this.month = toInt(this.decMonth) + 1;
-		this.days = DAYS[this.month - 1];
-		this.decDay = (this.decMonth - (this.month - 1)) * this.days;
-		this.day = toInt(this.decDay) + 1;
-		println(this.decYear);
-	}
-	func toString(){
-		return (string) this.base;
-	}
-	func getYear() {
-		return this.year;
-	}
-	func toString(string format){
-		func toInt(var num) return (int) num;
-		string result = MONTHS[this.month - 1] + " " + this.day + ", " + this.year;
-		return result;
-	}
-}
-
-Date date = new Date();
-println(date.toString());
-println(date.toString("s"));

@@ -28,6 +28,7 @@ namespace internal{
 		void Reset();
 		double GetDuration(){return duration;}
 		static long GetTime();
+		static std::string GetDate(double epoch, std::string format);
 	};
 
 } // namespace internal

@@ -2,32 +2,18 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-long YEAR = 31556926;
-long MONTH = 2629743;
-long WEEK = 604800;
-long DAY = 86400;
-long HOUR = 3600;
-
-long BASE_YEAR = 1970;
-
+// for conversions, see http://linux.die.net/man/3/strftime
 export object Date{
 	private long base;
-	private int year;
 
-	func Date(){
-		this.base = %getTime();
-		func toInt(var num) return (int) num;
-		this.year = toInt(this.base / YEAR) + 1970;
-	}
-	func Date(long time){
-		this.base = time;
-	}
-	func toString(){
-		return (string) this.base;
-	}
-	func toString(string format){
-		func toInt(var num) return (int) num;
-		int month = toInt(this.base / MONTH) - (this.year - this.base);
-		return month / 12;
-	}
+	func Date() this.base = %getTime();
+	func Date(long time) this.base = time;
+	func getYear() return %getDate(this.base, "%Y");
+	func getMonth() return %getDate(this.base, "%m");
+	func getDay() return %getDate(this.base, "%d");
+	func getHours() return %getDate(this.base, "%H");
+	func getMinutes() return %getDate(this.base, "%M");
+	func getSeconds() return %getDate(this.base, "%S");
+	func toString() return %getDate(this.base);
+	func toString(string format) return %getDate(this.base, format);
 }

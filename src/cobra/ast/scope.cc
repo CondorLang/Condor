@@ -11,6 +11,7 @@ namespace internal{
 		isParsed = false;
 		outer = NULL;
 		owner = NULL;
+		shallow = false;
 	}
 
 	Scope::~Scope(){}

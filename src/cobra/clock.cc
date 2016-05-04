@@ -31,5 +31,14 @@ namespace internal{
     return result;
 	}
 
+	std::string Clock::GetDate(double epoch, std::string format){
+		std::time_t ti = static_cast<std::time_t>(epoch);
+		std::time_t t = std::time(&ti);
+		struct tm *tm = localtime(&t);
+		char date[180];
+		strftime(date, sizeof(date), format.c_str(), tm);
+		return date;
+	}
+
 } // namespace internal
 } // namespace Cobra

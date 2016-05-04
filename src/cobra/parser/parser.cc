@@ -374,6 +374,7 @@ namespace internal{
 		if (oneStmt){
 			Scope* scope = Scope::New(isolate);
 			scope->SetParsed();
+			scope->SetShallow();
 			int start = pos;
 			OpenScope(scope);
 			ParseShallowStmtList(SEMICOLON, 1);

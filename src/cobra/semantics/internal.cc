@@ -177,6 +177,16 @@ namespace internal{
 		return lit;
 	}
 
+	ASTNode* Internal::GetDate(Isolate* iso, std::vector<ASTLiteral*> lits){
+		if (lits.size() == 0) return ASTUndefined::New(iso);
+		ASTLiteral* lit = lits[0];
+		std::string format = "%a %b %d %H:%M:%S %Y";
+		if (lits.size() > 1) format = lits[1]->value;
+		ASTLiteral* result = ASTLiteral::New(iso);
+		result->value = Clock::GetDate(lit->calc, format);
+		return result;
+	}
+
 	TOKEN Internal::Bind(ASTFuncCall* call){
 		if (call->name == "printf") {
 			call->callback = Internal::PrintF;
@@ -229,6 +239,10 @@ namespace internal{
 		else if (call->name == "getDuration"){
 			call->callback = Internal::GetClockDuration;
 			return DOUBLE;
+		}
+		else if (call->name == "getDate"){
+			call->callback = Internal::GetDate;
+			return STRING;
 		}
 		else if (call->name == "getTime"){
 			call->callback = Internal::GetTime;
