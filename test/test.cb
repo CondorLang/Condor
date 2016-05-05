@@ -1,16 +1,12 @@
-import "console", "date", "clock"
+import "console"
 
-// func test(bool isTest = true){
-// 	println(isTest);
-// }
-
-// test();
-
-object Fruit{
-	private string _name;
-	func Fruit(string name) this._name = name;
-	func getName() return this._name;
+object Test{
+	func Test(){}
+	func defaultArgs(int a = 10){
+		println(a);
+	}
 }
 
-var apple = new Fruit("Apple");
-println(apple.getName());
+Test t = new Test();
+t.defaultArgs();
+t.defaultArgs(20);

@@ -36,11 +36,14 @@ namespace internal{
 			xl->debug = true;
 		}
 		gc = new GC();
+		Isolate::CurrentIsolate = this;
 	}
 
 	Isolate::~Isolate(){
 
 	}
+
+	Isolate* Isolate::CurrentIsolate = NULL;
 
 	void Isolate::Dispose(){
 		delete small;

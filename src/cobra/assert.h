@@ -6,6 +6,7 @@
 #define ASSERT_H_
 
 #include <stdlib.h> 
+#include "cobra/mem/isolate.h" 
 
 namespace Cobra {
 namespace internal{

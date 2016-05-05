@@ -30,6 +30,7 @@ namespace internal{
 	public:
 		Isolate();
 		~Isolate();
+		static Isolate* CurrentIsolate;
 		Context* CreateContext();
 		Context* GetContext(){return context;}
 		void* GetMemory(const size_t size);

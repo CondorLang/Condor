@@ -97,6 +97,9 @@ namespace internal{
 			return (ASTLiteral*) Internal::CallInternal(isolate, call->callback, nodes);
 		}
 		else{
+			if (func->name == "test"){
+				int a = 10;
+			}
 			if (func == NULL) throw Error::UNDEFINED_FUNC;
 			for (int i = 0; i < func->args.size(); i++){
 				PrintStep("Evaluating Parameter (" + func->args[i]->name + ")");
@@ -611,7 +614,7 @@ namespace internal{
 			}
 			case VAR: {
 				ASTVar* var = (ASTVar*) node;
-				if (var->local != NULL && !var->hasDefault) return var->local; // check this if this is always true					
+				if (var->local != NULL && (!var->hasDefault || var->local->type != UNDEFINED)) return var->local; // check this if this is always true					
 				return EvaluateValue(var->value);
 			}
 			case FUNC_CALL: {
