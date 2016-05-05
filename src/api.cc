@@ -12,6 +12,7 @@
 
 #include "cobra/flags.h"
 #include "cobra/global.h"
+#include "cobra/assert.h"
 #include "cobra/mem/isolate.h"
 #include "cobra/ast/context.h"
 #include "cobra/mem/allocate.h"

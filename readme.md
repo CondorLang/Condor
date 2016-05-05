@@ -52,7 +52,7 @@ Todo:
  - execute.cc 201 - Set row and col for tracking
  - execute.cc 461 - Implement bitwise
  - execute.cc 586 - Allow for all array types
- - parser.cc 859 - Disallow for allow-native on a non internal file
+ - parser.cc 878 - Disallow for allow-native on a non internal file
  - scanner.cc 466 - Include Octal, Hex, UTF-8, UTF-16, see https://msdn.microsoft.com/en-us/library/6aw8xdf2.aspx
  - internal.cc 140 - Throw Error
  - internal.cc 152 - Throw Error

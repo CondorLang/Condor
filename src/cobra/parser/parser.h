@@ -8,6 +8,7 @@
 #include <string>
 #include <stdarg.h>
 
+#include "cobra/assert.h"
 #include "cobra/mem/isolate.h"
 #include "cobra/token/token.h"
 #include "cobra/ast/node.h"

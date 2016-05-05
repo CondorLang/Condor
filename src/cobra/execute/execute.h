@@ -11,6 +11,7 @@
 
 #include "stack.h"
 
+#include "cobra/assert.h"
 #include "cobra/ast/node.h"
 #include "cobra/ast/scope.h"
 #include "cobra/mem/isolate.h"

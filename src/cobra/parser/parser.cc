@@ -49,6 +49,7 @@ namespace internal{
 	}
 
 	void Parser::SetRowCol(ASTNode* node){
+		CHECK(node != NULL);
 		node->row = row;
 		node->col = col;
 	}
@@ -77,6 +78,7 @@ namespace internal{
 			throw e;
 		}
 		Scope* result = p->GetBaseScope();
+		CHECK(result != NULL);
 		result->name = sc->name;
 		result->owner = sc->owner;
 		result->raw = sc->raw;
@@ -101,6 +103,7 @@ namespace internal{
 			Col = col;
 			Pos = pos;
 			if (tok != NULL) isolate->FreeMemory(tok, sizeof(Token));
+			CHECK(scanner != NULL);
 			tok = scanner->NextToken();
 			row = scanner->row;
 			col = scanner->col;
@@ -225,6 +228,10 @@ namespace internal{
 		ASTNode* node = NULL;
 		int i = 0;
 		while (tok->value != terminator && tok->value != END){
+			if (tok->value == SEMICOLON) {
+				Next();
+				continue; // eat left over ;
+			}
 			if (i == total) break;
 			i++;
 			bool isExport = false;
@@ -272,6 +279,7 @@ namespace internal{
 						break;	
 					}
 					std::vector<ASTVar*> list = ParseVarList();
+					CHECK(list.size() > 0);
 					for (int i = 0; i < list.size(); i++){
 						list[i]->isExport = isExport;
 						list[i]->visibility.insert(list[i]->visibility.end(), visibility.begin(), visibility.end());
@@ -363,6 +371,7 @@ namespace internal{
 		std::vector<ASTVar*> vars = ParseFuncArgs();
 		if (vars.size() > 0) func->args.insert(func->args.end(), vars.begin(), vars.end());
 		func->scope = LazyParseBody();
+		CHECK(func->scope != NULL);
 		func->scope->owner = func;
 		func->scope->name = func->name;
 		return func;
@@ -407,6 +416,7 @@ namespace internal{
 		if (IsAssignment()) {
 			ASTBinaryExpr* binary = ASTBinaryExpr::New(isolate);
 			SetRowCol(binary);
+			CHECK(expr != NULL);
 			binary->left = expr;
 			binary->cast = NULL;
 			binary->op = tok->value;
@@ -430,6 +440,7 @@ namespace internal{
 				ASTBinaryExpr* binary = ASTBinaryExpr::New(isolate);
 				SetRowCol(binary);
 				lit->value = var->name;
+				CHECK(lit != NULL);
 				binary->left = lit;
 				var->Free(isolate);
 				binary->op = PERIOD;
@@ -527,6 +538,7 @@ namespace internal{
 		if (Is(1, LPAREN)){ // type casting
 			Next();
 			ASTExpr* paren = ParseExpr();
+			CHECK(paren != NULL);
 			
 			if (paren->type == LITERAL && ((ASTLiteral*) paren)->isCast){
 				cast = (ASTLiteral*) paren;
@@ -538,6 +550,7 @@ namespace internal{
 			}
 			else{
 				expr = paren;
+				CHECK(expr != NULL);
 				expr->isInParen = true;
 				SetRowCol(expr);
 				Expect(RPAREN);
@@ -548,6 +561,7 @@ namespace internal{
 		if (Is(1, LPAREN)) expr = ParseFuncCall(expr);
 		if (Is(2, INC, DEC) || incdec){
 			ASTLiteral* lit = (ASTLiteral*) expr;
+			CHECK(lit != NULL);
 			if (!incdec) {
 				lit->unary = tok->value;
 				Next();
@@ -586,6 +600,7 @@ namespace internal{
 			ASTBinaryExpr* binary = ASTBinaryExpr::New(isolate);
 			SetRowCol(binary);
 			if (expr == NULL) throw Error::INVALID_OPERATOR;
+			CHECK(expr != NULL);
 			binary->left = expr;
 			if (expr->cast == NULL) expr->cast = cast;
 			binary->op = tok->value;
@@ -606,7 +621,7 @@ namespace internal{
 		if (Is(1, INTERNAL)){
 			return (ASTExpr*) ParseInternal();
 		}
-		if (expr != NULL){
+		if (expr != NULL){ // trailing casts
 			expr->cast = cast;
 		}
 		return expr;

@@ -1,7 +1,16 @@
-import "console"
+import "console", "date", "clock"
 
 // func test(bool isTest = true){
 // 	println(isTest);
 // }
 
 // test();
+
+object Fruit{
+	private string _name;
+	func Fruit(string name) this._name = name;
+	func getName() return this._name;
+}
+
+var apple = new Fruit("Apple");
+println(apple.getName());

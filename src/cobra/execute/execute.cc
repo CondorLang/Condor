@@ -15,6 +15,7 @@ namespace internal{
 	}
 
 	Execute::Execute(Scope* scope){
+		CHECK(scope != NULL);
 		OpenScope(scope);
 		trace = TRACE_EVALUATION;
 		steps = EVALUATION_STEPS;
@@ -54,6 +55,7 @@ namespace internal{
 
 	void Execute::Evaluate(){
 		PrintStep("Evaluating Scope");
+		CHECK(scopes.size() != 0);
 		Scope* scope = GetCurrentScope();
 		if (scope == NULL || scope->Size() == 0) return; // nothing to evaluate
 		for (int i = 0; i < scope->Size(); i++){
@@ -96,9 +98,6 @@ namespace internal{
 		}
 		else{
 			if (func == NULL) throw Error::UNDEFINED_FUNC;
-			if (func->name == "println"){
-				int a = 10; // here
-			}
 			for (int i = 0; i < func->args.size(); i++){
 				PrintStep("Evaluating Parameter (" + func->args[i]->name + ")");
 				if (call->params.size() > i) {

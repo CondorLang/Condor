@@ -5,16 +5,16 @@
 #ifndef ASSERT_H_
 #define ASSERT_H_
 
+#include <stdlib.h> 
 
 namespace Cobra {
 namespace internal{
 	
-	#define FETAL(msg1, msg2) \
-		printf("%s %s\n", #msg1, #msg2); exit(1);
+	void FATAL(const char* file, int line, const char* msg1, const char* msg2);
 
 	#define CHECK(condition) \
 		if (!(condition)){ \
-			FETAL("Fetal:", #condition); \
+			Cobra::internal::FATAL(__FILE__, __LINE__, "Fatal:", #condition); \
 		}		
 
 	#define BENCHMARK(node, name) \
