@@ -9,8 +9,6 @@
 
 #include "../include/Cobra.h"
 #include "cobra/mem/isolate.h"
-#include "string-bytes.h"
-#include "cobra/types/script/script.h"
 
 namespace Cobra {
 namespace internal{
@@ -27,7 +25,6 @@ namespace internal{
 		void SetDefaults(){internal = false;}
 		Isolate* isolate;
 		std::string name;
-		static void CB(Isolate* isolate, std::string sub);
 		static std::string Code;
 		void SetValue(const char* val){value = val;}
 		std::string GetValue(){return value;}

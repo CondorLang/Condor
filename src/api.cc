@@ -71,6 +71,11 @@ namespace Cobra{
 		isolate->FreeMemory(context, sizeof(Context));
 	}
 
+	String* String::NewFromBase(Isolate* isolate){
+		if (i::Flags::baseFile.empty()) return String::New(isolate);
+		return String::NewFromFile(isolate, i::Flags::baseFile.c_str());
+	}
+
 	String* String::NewFromFile(Isolate* isolate, const char* path){
 		std::string pth(path);
 		#ifdef _WIN32

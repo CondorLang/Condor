@@ -39,15 +39,20 @@ namespace internal{
 		currentCode = NULL;
 	}
 
-	void Script::RunInternalScript(Isolate* isolate, std::string hex, std::string _name, std::string sub){
+	void Script::RunInternalScript(Isolate* isolate, std::string hex, std::string _name, std::string sub, bool isHex){
 		if (isolate->GetContext()->IsIncluded(_name)) return;
 		Cobra::Isolate* iso = CAST(Cobra::Isolate*, isolate);
 		int len = hex.length();
 		std::string newString;
-		for (int i = 0; i < len; i += 2){
-		    std::string byte = hex.substr(i, 2);
-		    char chr = (char) (int) strtol(byte.c_str(), NULL, 16);
-		    newString.push_back(chr);
+		if (isHex){
+			for (int i = 0; i < len; i += 2){
+			    std::string byte = hex.substr(i, 2);
+			    char chr = (char) (int) strtol(byte.c_str(), NULL, 16);
+			    newString.push_back(chr);
+			}
+		}
+		else{
+			newString = hex;
 		}
 		Cobra::String* str = Cobra::String::New(iso, newString.c_str());
 		String* iStr = CAST(String*, str);
@@ -202,9 +207,11 @@ namespace internal{
 
 	void Script::LoadImports(){
 		// Load app by default
+		std::string libsDir = Path::GetLibDir();
 		if (!App::Included){
 			App::Included = true;
-			App::CB(isolate, "");
+			std::string path = libsDir + "app.cb";
+			RunInternalScript(isolate, FS::ReadFile(path), "app", "", false);
 		}
 
 		for (int i = 0; i < parser->imports.size(); i++){
@@ -218,20 +225,15 @@ namespace internal{
 				parser->Col = import->col;
 				throw Error::NOT_IMPLEMENTED;
 			}
-			if (name == "array") Array::CB(isolate, sub);
-			else if (name == "string") String::CB(isolate, sub);
-			else if (name == "console") Console::CB(isolate, sub);
-			else if (name == "exception") Exception::CB(isolate, sub);
-			else if (name == "types") Types::CB(isolate, sub);
-			else if (name == "path") Path::CB(isolate, sub);
-			else if (name == "fs") FS::CB(isolate, sub);
-			else if (name == "clock") CBClock::CB(isolate, sub);
-			else if (name == "date") Date::CB(isolate, sub);
-			else if (name == "integer") Integer::CB(isolate, sub);
-			else {
+
+			std::string path = libsDir + name + ".cb";
+			if (!FS::FileExists(path)){
 				parser->Row = import->row;
 				parser->Col = import->col;
 				throw Error::INVALID_IMPORT;
+			}
+			else{
+				RunInternalScript(isolate, FS::ReadFile(path), name, sub, false);
 			}
 		}
 	}

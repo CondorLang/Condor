@@ -48,15 +48,17 @@ string contents = fs.readFile("readme.md");
 Todo:
 ------
  - node.h 27 - Create a Expand() function which expands the node and the tree
- - execute.cc 116 - Figure out how to implement recursion
- - execute.cc 201 - Set row and col for tracking
- - execute.cc 461 - Implement bitwise
- - execute.cc 586 - Allow for all array types
- - parser.cc 878 - Disallow for allow-native on a non internal file
+ - execute.cc 118 - Figure out how to implement recursion
+ - execute.cc 204 - Set row and col for tracking
+ - execute.cc 464 - Implement bitwise
+ - execute.cc 589 - Allow for all array types
+ - parser.cc 893 - Disallow for allow-native on a non internal file
  - scanner.cc 466 - Include Octal, Hex, UTF-8, UTF-16, see https://msdn.microsoft.com/en-us/library/6aw8xdf2.aspx
  - internal.cc 140 - Throw Error
  - internal.cc 152 - Throw Error
  - internal.cc 164 - Throw Error
- - semantics.cc 287 - Verify this is ok and always true
- - semantics.cc 671 - Compare the base type with the assignment type. Throw an error if they are not the same if hard typed.
- - path.cc 28 - Set Locale - http://askubuntu.com/questions/236924/matlab-not-working
+ - internal.cc 197 - Move to a macro
+ - semantics.cc 300 - Verify this is ok and always true
+ - semantics.cc 699 - Compare the base type with the assignment type. Throw an error if they are not the same if hard typed.
+ - path.cc 24 - Set Locale - http://askubuntu.com/questions/236924/matlab-not-working
+ - path.cc 87 - Throw Error

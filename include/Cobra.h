@@ -44,6 +44,7 @@ namespace Cobra {
 		static String* New(Isolate* isolate, const char* string);
 		static String* New(Isolate* isolate, const char* string, const char* path);
 		static String* NewFromFile(Isolate* isolate, const char* path);
+		static String* NewFromBase(Isolate* isolate);
 		bool IsEmpty();
 	};
 

@@ -47,7 +47,7 @@ clean:
 
 test:
 	g++ $(FLAGS) -I ./ test/main.cc -Iinclude build/libcobra.a -o build/Cobra
-	./build/Cobra ${ARGS}
+	./build/Cobra ${ARGS} test/test.cb
 
 shell:
 	g++ $(FLAGS) -I ./ test/shell.cc -Iinclude build/libcobra.a -o build/Cobra

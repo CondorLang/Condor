@@ -27,6 +27,7 @@ namespace internal{
 	#define EXECUTION_TIME Flags::executionTime;
 	#define EVALUATION_STEPS Flags::evaluationSteps;
 	#define RPN_STACK Flags::rpnStack;
+	#define BASE_FILE Flags::baseFile;
 
 	class Flags
 	 {
@@ -45,6 +46,7 @@ namespace internal{
 	 		static bool executionTime;
 	 		static bool evaluationSteps;
 	 		static bool rpnStack;
+	 		static std::string baseFile;
 	 		static void SetCommandLineFlags(int argc, const char* argv[]);
 	 }; 
 

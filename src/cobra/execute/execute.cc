@@ -191,6 +191,7 @@ namespace internal{
 	void Execute::TruncZeros(ASTLiteral* lit){
 		PrintStep("Truncating Zeros");
 		if (lit->value.empty()) return;
+		if (lit->litType == STRING) return;
 		std::string::size_type loc = lit->value.find(".", 0);
 		if (loc == std::string::npos) return;
 		for (int i = lit->value.size() - 1; i >= loc; i--){

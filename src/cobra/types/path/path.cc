@@ -21,10 +21,6 @@ namespace internal{
 		return path;
 	}
 
-	void Path::CB(Isolate* isolate, std::string sub){
-		Script::RunInternalScript(isolate, PathBytes, "path", sub);
-	}
-
 	// TODO: Set Locale - http://askubuntu.com/questions/236924/matlab-not-working
 	void Path::SetBase(std::string str){
 		#ifdef _WIN32
@@ -75,6 +71,34 @@ namespace internal{
 		#else
 			return realpath(folder.c_str(), NULL);
 		#endif
+	}
+
+	std::string Path::GetCWD(){
+		#ifdef WINDOWS
+			#include <direct.h>
+			#define GetCurrentDir _getcwd
+		#else
+			#include <unistd.h>
+    	#define GetCurrentDir getcwd
+		#endif
+
+ 		char cCurrentPath[FILENAME_MAX];
+
+ 		if (!GetCurrentDir(cCurrentPath, sizeof(cCurrentPath))){} // TODO: Throw Error
+
+		cCurrentPath[sizeof(cCurrentPath) - 1] = '\0'; /* not really required */
+ 		std::string result(cCurrentPath);
+ 		return result;
+	}
+
+	std::string Path::GetLibDir(){
+		std::string path = Path::GetCWD();
+		#ifdef WINDOWS
+			path += "\\libs\\";
+		#else
+			path += "/libs/";
+		#endif
+		return path;
 	}
 
 } // namespace internal

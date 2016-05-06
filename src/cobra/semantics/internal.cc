@@ -187,6 +187,14 @@ namespace internal{
 		return result;
 	}
 
+	ASTNode* Internal::GetVersion(Isolate* iso, std::vector<ASTLiteral*> lits){
+		ASTLiteral* result = ASTLiteral::New(iso);
+		result->litType = STRING;
+		result->value = std::to_string(MAJOR) + "." + std::to_string(MINOR) + "." + std::to_string(BUILD);
+		return result;
+	}
+
+	// TODO: Move to a macro
 	TOKEN Internal::Bind(ASTFuncCall* call){
 		if (call->name == "printf") {
 			call->callback = Internal::PrintF;
@@ -247,6 +255,10 @@ namespace internal{
 		else if (call->name == "getTime"){
 			call->callback = Internal::GetTime;
 			return DOUBLE;
+		}
+		else if (call->name == "getVersion"){
+			call->callback = Internal::GetVersion;
+			return STRING;
 		}
 		else throw Error::UNDEFINED_FUNC;
 	}

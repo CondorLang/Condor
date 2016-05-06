@@ -10,3 +10,6 @@ object Test{
 Test t = new Test();
 t.defaultArgs();
 t.defaultArgs(20);
+t.defaultArgs(30);
+t.defaultArgs();
+println("CobraLang Version: " + App.version);

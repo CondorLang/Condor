@@ -6,10 +6,9 @@
 #define PATH_H_
 
 #include <string>
+#include <stdio.h>  /* defines FILENAME_MAX */
 
-#include "cobra/types/script/script.h"
 #include "cobra/mem/isolate.h"
-#include "path-bytes.h"
 
 namespace Cobra {
 namespace internal{
@@ -24,9 +23,10 @@ namespace internal{
 		Path(Isolate* iso);
 		~Path(){}
 		static Path* New(Isolate* iso);
-		static void CB(Isolate* isolate, std::string sub);
 		void SetBase(std::string str);
 		std::string GetFromBase(std::string str);
+		static std::string GetCWD();
+		static std::string GetLibDir();
 
 	};
 

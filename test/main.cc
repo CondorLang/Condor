@@ -14,7 +14,7 @@ int main(int argc, const char* argv[]){
 	Context* context = isolate->CreateContext();
 
 	context->Enter();
-	String* string = String::NewFromFile(isolate, "test/test.cb");
+	String* string = String::NewFromBase(isolate);
 	Script* script = Script::Compile(context, string);
 	script->Run();
 

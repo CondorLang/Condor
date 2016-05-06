@@ -20,16 +20,10 @@
 #include "cobra/execute/execute.h"
 
 #include "cobra/types/strings/string.h"	
-#include "cobra/types/array/array.h"
-#include "cobra/types/console/console.h"
-#include "cobra/types/try_catch/exception.h"
-#include "cobra/types/types/types.h"
 #include "cobra/types/path/path.h"
 #include "cobra/types/fs/fs.h"
 #include "cobra/types/app/app.h"
 #include "cobra/types/clock/clock.h"
-#include "cobra/types/date/date.h"
-#include "cobra/types/integer/integer.h"
 
 namespace Cobra {
 namespace internal{
@@ -74,7 +68,7 @@ namespace internal{
 		Script(Isolate* isolate, String* str, Context* con);
 		~Script(){}
 		static Script* New(Context* context, String* str);
-		static void RunInternalScript(Isolate* isolate, std::string hex, std::string _name, std::string sub);
+		static void RunInternalScript(Isolate* isolate, std::string hex, std::string _name, std::string sub, bool isHex = true);
 		void Run();
 		bool HasError(){return hasErr;}
 		std::string GetErrorMsg(){if (msgs.size() > 0) return msgs[0]; return "";}

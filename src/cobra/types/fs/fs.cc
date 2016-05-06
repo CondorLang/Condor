@@ -7,10 +7,6 @@
 namespace Cobra {
 namespace internal{
 
-	void FS::CB(Isolate* isolate, std::string sub){
-		Script::RunInternalScript(isolate, FsBytes, "fs", sub);
-	}
-
 	bool FS::FileExists(std::string path){
 		std::ifstream in(path);
 		return in.good();

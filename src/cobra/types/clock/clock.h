@@ -6,20 +6,12 @@
 #define TYPES_CLOCK_H_
 
 #include <vector>
-
-#include "cobra/types/script/script.h"
 #include "cobra/mem/isolate.h"
-#include "clock-bytes.h"
-#include "cobra/clock.h"
 
 namespace Cobra {
 namespace internal{
 
-	class CBClock // clashing names
-	{
-	public:
-		static void CB(Isolate* isolate, std::string sub);
-	};
+	class Clock;
 
 	class CBClockContainer
 	{
@@ -31,7 +23,7 @@ namespace internal{
 		~CBClockContainer(){}
 		static CBClockContainer* GlobalClockContainer;
 		std::vector<Clock*> Clocks;
-		int AddClock(){Clocks.push_back(Clock::New(isolate)); return (int)Clocks.size();}
+		int AddClock();
 		Clock* GetClock(int i){if (Clocks.size() <= i) return NULL; return Clocks[i];}
 	};
 

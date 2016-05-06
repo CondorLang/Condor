@@ -25,7 +25,8 @@ namespace internal{
 			else if (arg == "--execution-steps") Flags::evaluationSteps = true;
 			else if (arg == "--rpn-stack") Flags::rpnStack = true;
 			else if (arg == "-h" || arg == "--help"){
-				printf("\n\nCobraLang\n=========\n(C) 2015 Cobra Authors\n\n");
+				printf("\n\nCobraLang\n=========\n(C) 2016 Cobra Authors\n\n");
+				printf("[path-to-file]\t\t%s\n", "Execute the file");;
 				printf("--trace-parser\t\t%s\n", "Trace the path of the parser");
 				printf("--trace-semantic\t%s\n", "Trace the path of the ast semantic checker");
 				printf("--trace-evaluation\t%s\n", "Trace the evaluation of the code");
@@ -45,6 +46,9 @@ namespace internal{
 				printf("Unidentified flag\nExiting...\n");
 				exit(0);
 			}
+			else{
+				Flags::baseFile = arg;
+			}
 		}
 	}
 
@@ -62,6 +66,7 @@ namespace internal{
 	bool Flags::executionTime = false;
 	bool Flags::evaluationSteps = false;
 	bool Flags::rpnStack = false;
+	std::string Flags::baseFile;
 
 } // namespace internal
 } // namespace Cobra

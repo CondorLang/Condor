@@ -15,6 +15,7 @@
 #include "cobra/ast/scope.h"
 #include "cobra/scanner/scanner.h"
 #include "cobra/types/strings/string.h"
+#include "cobra/semantics/semantics.h"
 
 namespace Cobra {
 namespace internal{

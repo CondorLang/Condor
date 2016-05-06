@@ -227,6 +227,7 @@ namespace internal{
 	void Parser::ParseShallowStmtList(TOKEN terminator, int total){
 		ASTNode* node = NULL;
 		int i = 0;
+		if (tok == NULL) return;
 		while (tok->value != terminator && tok->value != END){
 			if (tok->value == SEMICOLON) {
 				Next();

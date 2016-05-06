@@ -6,7 +6,12 @@ export func quit(){
 	App.quit();
 }
 
+export func exit(){
+	App.quit();
+}
+
 export object App{
 	static string platform = %getPlatform();
 	static func quit() %quit();
+	static string version = %getVersion();
 }

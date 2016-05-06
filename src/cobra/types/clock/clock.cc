@@ -4,12 +4,10 @@
 
 #include "clock.h"
 
+#include "cobra/clock.h"
+
 namespace Cobra {
 namespace internal{
-
-	void CBClock::CB(Isolate* isolate, std::string sub){
-		Script::RunInternalScript(isolate, ClockBytes, "clock", sub);
-	}
 
 	CBClockContainer* CBClockContainer::New(Isolate* iso){
 		void* p = (CBClockContainer*) iso->GetMemory(sizeof(CBClockContainer));
@@ -18,6 +16,10 @@ namespace internal{
 	}
 
 	CBClockContainer* CBClockContainer::GlobalClockContainer = NULL;
+
+	int CBClockContainer::AddClock(){
+		Clocks.push_back(Clock::New(isolate)); return (int)Clocks.size();
+	}
 
 } // namespace internal
 }

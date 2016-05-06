@@ -10,6 +10,8 @@
 #include "cobra/global.h"
 #include "cobra/error/error.h"
 #include "cobra/clock.h"
+#include "cobra/types/clock/clock.h"
+#include "api.h"
 
 #include <string>
 #include <iostream>
@@ -40,6 +42,7 @@ namespace internal{
 		static ASTNode* GetClockDuration(Isolate* iso, std::vector<ASTLiteral*> lits);
 		static ASTNode* GetTime(Isolate* iso, std::vector<ASTLiteral*> lits);
 		static ASTNode* GetDate(Isolate* iso, std::vector<ASTLiteral*> lits);
+		static ASTNode* GetVersion(Isolate* iso, std::vector<ASTLiteral*> lits);
 		static ASTNode* CallInternal(Isolate* iso, InternalFunctionCallback call, std::vector<ASTLiteral*> nodes){return call(iso, nodes);}
 		static TOKEN Bind(ASTFuncCall* call);
 	};

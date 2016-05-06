@@ -120,8 +120,8 @@ def start(name, className):
     toFile(bytesname, out)
 
 if __name__ == "__main__":
-    if options.internalFiles:
-        getCbFiles()
+    # if options.internalFiles:
+    #     getCbFiles()
     if not options.noUpdateReadme:
         updateReadme()
 
