@@ -74,18 +74,8 @@ namespace internal{
 	}
 
 	std::string Path::GetCWD(){
-		#ifdef WINDOWS
-			#include <direct.h>
-			#define GetCurrentDir _getcwd
-		#else
-			#include <unistd.h>
-    	#define GetCurrentDir getcwd
-		#endif
-
  		char cCurrentPath[FILENAME_MAX];
-
  		if (!GetCurrentDir(cCurrentPath, sizeof(cCurrentPath))){} // TODO: Throw Error
-
 		cCurrentPath[sizeof(cCurrentPath) - 1] = '\0'; /* not really required */
  		std::string result(cCurrentPath);
  		return result;
