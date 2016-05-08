@@ -4,10 +4,10 @@
 
 export object Integer{
 	static func parse(var num) return (int) num;
-	static func isInt(int a) return true;
-	static func isInt(float a) return false;
-	static func isInt(double a) return false;
-	static func isInt(string a) return false;
+	static func isInt(var a){
+		string t = %getLitType(a);
+		return t == "int";
+	}
 	func Integer(int a){
 		this.base = a;
 	}

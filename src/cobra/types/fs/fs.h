@@ -18,6 +18,7 @@ namespace internal{
 		static bool FileExists(std::string path);
 		static std::string ReadFile(std::string path);
 		static void WriteFile(std::string path, std::string contents);
+		static bool DeleteFile(std::string path);
 	};
 
 } // namespace internal

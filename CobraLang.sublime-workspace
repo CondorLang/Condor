@@ -520,10 +520,18 @@
 	"buffers":
 	[
 		{
-			"file": "test/test.cb",
+			"file": "src/cobra/semantics/internal.h",
 			"settings":
 			{
-				"buffer_size": 284,
+				"buffer_size": 2456,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/cobra/semantics/internal.cc",
+			"settings":
+			{
+				"buffer_size": 7725,
 				"line_ending": "Unix"
 			}
 		}
@@ -796,60 +804,75 @@
 	"expanded_folders":
 	[
 		"/Users/willdech/Documents/dev/CobraLang",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/clock"
+		"/Users/willdech/Documents/dev/CobraLang/include",
+		"/Users/willdech/Documents/dev/CobraLang/src",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics",
+		"/Users/willdech/Documents/dev/CobraLang/test",
+		"/Users/willdech/Documents/dev/CobraLang/test/tests"
 	],
 	"file_history":
 	[
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/execute/execute.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/flags.cc",
+		"/Users/willdech/Documents/dev/CobraLang/test/main.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/api.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/strings/string.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/strings/string.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/path/path.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/path/path.cc",
+		"/Users/willdech/Documents/dev/CobraLang/Makefile",
+		"/Users/willdech/Documents/dev/CobraLang/configure",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/parser.cc",
+		"/Users/willdech/Documents/dev/CobraLang/include/Cobra.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/flags.h",
+		"/Users/willdech/Documents/dev/CobraLang/test/test.cb",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/internal.cc",
+		"/Users/willdech/Documents/dev/CobraLang/libs/app.cb",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/internal.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/execute/execute.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/api.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/clock/clock.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/clock/clock.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/parser.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/script/script.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/script/script.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/app/app.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/app/app.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/fs/fs.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/try_catch/exception.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/fs/fs.cc",
+		"/Users/willdech/Documents/dev/CobraLang/libs/Console.cb",
 		"/Users/willdech/Documents/dev/CobraLang/.travis.yml",
 		"/Users/willdech/Documents/dev/CobraLang/Dockerfile",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/node.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/node.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/console/console.cb",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/date/date.cb",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/internal.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/clock.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/clock.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/semantics.cc",
 		"/Users/willdech/Documents/dev/CobraLang/readme.md",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/internal.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/scope.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/scope.h",
-		"/Users/willdech/Documents/dev/CobraLang/include/Cobra.h",
 		"/Users/willdech/Documents/dev/CobraLang/test/shell.cc",
-		"/Users/willdech/Documents/dev/CobraLang/test/main.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/types/types.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/types/types.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/types/types.cb",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/vector/vector.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/vector/vector.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/try_catch/exception.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/try_catch/exception.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/try_catch/exception.cb",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/strings/string.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/strings/string.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/strings/string.cb",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/path/path.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/path/path.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/path/path.cb",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/script/script.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/script/script.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/app/app.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/app/app.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/app/app.cb",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/array/array.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/array/array.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/array/array.cb",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/clock/clock.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/clock/clock.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/clock/clock.cb",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/console/console.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/console/console.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/date/date.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/date/date.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/fs/fs.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/fs/fs.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/fs/fs.cb",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/integer/integer.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/integer/integer.cc",
@@ -861,7 +884,6 @@
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/binary.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/scanner/scanner.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/scanner/scanner.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/parser.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/isolate.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/gc.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/gc.cc",
@@ -874,16 +896,11 @@
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/execute/execute.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/error/error.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/error/error.cc",
-		"/Users/willdech/Documents/dev/CobraLang/test/test.cb",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/context.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/context.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/assert.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/flags.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/flags.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/global.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/shell.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/api.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/api.h",
 		"/Users/willdech/Desktop/all.js",
 		"/Users/willdech/Documents/dev/CobraLang/.gitignore",
 		"/E/dev/CobraLang/test/test.cb",
@@ -902,7 +919,6 @@
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/internal.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/check.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/ast.cc",
-		"/Users/willdech/Documents/dev/CobraLang/Makefile",
 		"/Users/willdech/Documents/dev/Systems/moe/projects/byui.js/test/index.html",
 		"/Applications/XAMPP/xamppfiles/htdocs/studim/api/index.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/studim/api/geo/block.csv",
@@ -924,10 +940,7 @@
 		"/Users/willdech/Documents/dev/Systems/moe/projects/duedateadjustment/new/lib/byui.js",
 		"/Applications/XAMPP/xamppfiles/htdocs/studim/www/test.php",
 		"/Users/willdech/Documents/dev/Systems/moe/projects/duedateadjustment/new/valence.js",
-		"/Users/willdech/Documents/dev/Systems/moe/projects/duedateadjustment/new/item.js",
-		"/Users/willdech/Desktop/word.js",
-		"/Users/willdech/Documents/dev/Systems/Data Suite/src/csv/csv.h",
-		"/Users/willdech/Documents/dev/Systems/Data Suite/src/main.cc"
+		"/Users/willdech/Documents/dev/Systems/moe/projects/duedateadjustment/new/item.js"
 	],
 	"find":
 	{
@@ -1002,6 +1015,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"T",
+			"cbclock",
+			"isolate",
 			"astvar",
 			"evaluatefunccal",
 			"validatefun",
@@ -1126,10 +1142,7 @@
 			"validateastn",
 			"astnot",
 			"not",
-			"validatenot",
-			"// here",
-			"here",
-			"ValidateArrayMember"
+			"validatenot"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1201,33 +1214,62 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "test/test.cb",
+					"file": "src/cobra/semantics/internal.h",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 284,
+						"buffer_size": 2456,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								33,
-								33
+								2401,
+								2277
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Go/Go.sublime-syntax",
+							"syntax": "Packages/C++/C++.sublime-syntax",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 304.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/cobra/semantics/internal.cc",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7725,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7486,
+								7360
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3216.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,

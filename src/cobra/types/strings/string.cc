@@ -22,6 +22,10 @@ namespace internal{
     return true;
 	}
 
+	void String::SetValue(const char* val){
+		value = val;
+	}
+
 	int String::NthSubStr(int n, const std::string& s, const std::string& p){
 		std::string::size_type i = s.find(p);
 		int j;

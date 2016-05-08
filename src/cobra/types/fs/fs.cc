@@ -26,5 +26,9 @@ namespace internal{
     file.close();
 	}
 
+	bool FS::DeleteFile(std::string path){
+		return remove(path.c_str()) == 0;
+	}
+
 } // namespace internal
 }

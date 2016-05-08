@@ -26,12 +26,13 @@ namespace internal{
 		Isolate* isolate;
 		std::string name;
 		static std::string Code;
-		void SetValue(const char* val){value = val;}
+		void SetValue(const char* val);
 		std::string GetValue(){return value;}
 		void SetPath(const char* path){filePath = path;}
 		const char* GetPath(){return filePath.c_str();}
 		std::string GetPathStr(){return filePath;}
 		int Length(){return value.length();}
+		bool IsEmpty(){return value.empty() || Length() == 0;}
 		static bool Replace(std::string& str, const std::string& from, const std::string& to);
 		static int NthSubStr(int n, const std::string& s, const std::string& p);
 		static std::vector<std::string> Split(std::string str, char delimiter);

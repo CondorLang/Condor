@@ -194,6 +194,19 @@ namespace internal{
 		return result;
 	}
 
+	ASTNode* Internal::DeleteFile(Isolate* iso, std::vector<ASTLiteral*> lits){
+		ASTLiteral* result = ASTLiteral::New(iso);
+		if (lits.size() == 0) {
+			result->calc = 0;
+			result->value = "false";
+			result->litType = FALSE_LITERAL;
+			return result;
+		}
+		ASTLiteral* lit = lits[0];
+		result->calc = (int) FS::DeleteFile(lit->value);
+		return result;
+	}
+
 	// TODO: Move to a macro
 	TOKEN Internal::Bind(ASTFuncCall* call){
 		if (call->name == "printf") {
@@ -260,7 +273,19 @@ namespace internal{
 			call->callback = Internal::GetVersion;
 			return STRING;
 		}
+		else if (call->name == "deleteFile"){
+			call->callback = Internal::DeleteFile;
+			return BOOLEAN;
+		}
 		else throw Error::UNDEFINED_FUNC;
+		// #define B(name, callback, type, str) str,
+		// 	const char* functions[NUM_BINDS] = {
+		// 	  BIND_LIST(B)
+		// 	};
+		// 	std::map<const char*, int> funcMap = {
+		// 		BIND_LIST(B)	
+		// 	};
+		// #undef B
 	}
 
 } // namespace internal

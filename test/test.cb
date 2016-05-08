@@ -1,15 +1,6 @@
 import "console"
 
-object Test{
-	func Test(){}
-	func defaultArgs(int a = 10){
-		println(a);
-	}
+for (int i = 0; i < 1000; i++){
+	var a = 10 + i;
+	println(a);
 }
-
-Test t = new Test();
-t.defaultArgs();
-t.defaultArgs(20);
-t.defaultArgs(30);
-t.defaultArgs();
-println("CobraLang Version: " + App.version);

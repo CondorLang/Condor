@@ -151,7 +151,15 @@ namespace internal{
 			else{
 				PrintStep("Calculation");
 				NewStack();
+
+				// Clock* c = Clock::New(isolate);
+				// c->Start(); // here
+
 				FillPostix(binary);
+				
+				// c->Stop();
+				// printf("d: %f\n", c->GetDuration());
+				
 				ASTLiteral* lit = Calculate();
 				FormatLit(lit);
 				CloseStack();
@@ -206,6 +214,7 @@ namespace internal{
 		PrintStep("Filling Postix (Reverse Polish Notation)");
 		RPNStack* stack = GetCurrentStack();
 		ASTLiteral* left = NULL;
+
 		if (postixPeriod){
 			left = (ASTLiteral*) binary->left;
 		}
@@ -661,13 +670,15 @@ namespace internal{
 		ASTLiteral* init = EvaluateVar(var);
 		var->local = init;
 		OpenScope(expr->scope);
-		while (true){
+		while (true){;
 			ASTLiteral* condition = EvaluateValue(expr->condition);
+
 			bool pass = condition->value == "true";
 			if (condition != expr->condition) isolate->RunGC(condition, true);
 			if (!pass) break;
 			bool cb = canBreak;
 			canBreak = true;
+
 			try {
 				Evaluate();
 				isolate->RunGC(expr->scope, true);

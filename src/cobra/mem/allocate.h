@@ -11,6 +11,8 @@
 #include <stdlib.h>
 #include <string>
 #include <math.h>
+#include <map>
+#include <vector>
 #include "cobra/flags.h"
 #include "cobra/global.h"
 #include "list.h"
@@ -46,6 +48,8 @@ namespace internal{
 		Chunk* kCursorChunk;
 		int kChunkCount;
 		int counter;
+		std::map<byte*, Chunk*> kChunkOrg;
+		std::vector<Chunk*> kUnused;
 
 	public:
 		MemoryPool(const size_t poolSize = DEFAULT_MEMORY_POOL_SIZE,
@@ -70,7 +74,6 @@ namespace internal{
 		size_t GetTotalSize(){return kTotalSize;}
 		void FreeMemory(void* ptr, const size_t size);
 		Chunk* FindChunkHoldingPointerTo(void* ptr);
-		void FreeChunks(Chunk* chunk);
 		bool debug;
 		std::string name;
 	};

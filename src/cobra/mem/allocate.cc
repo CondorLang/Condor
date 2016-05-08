@@ -58,7 +58,7 @@ namespace internal{
 	  while(chunk != NULL){
 			if(chunk->isAllocationChunk){	
 				if (chunkToDelete){
-					free((void*) chunkToDelete);
+					Allocate::Delete((void*) chunkToDelete);
 				}
 				chunkToDelete = chunk;
 			}
@@ -70,7 +70,7 @@ namespace internal{
 		Chunk* chunk = kFirstChunk;
 		while (chunk != NULL){
 			if (chunk->isAllocationChunk && chunk->data != NULL){
-				free((void*) chunk->data);
+				Allocate::Delete((void*) chunk->data);
 			}
 			chunk = chunk->next;
 		}
@@ -79,26 +79,18 @@ namespace internal{
 	void MemoryPool::FreeMemory(void* ptr, const size_t size){
 		Chunk* chunk = FindChunkHoldingPointerTo(ptr);
 		if (chunk != NULL){
-			FreeChunks(chunk);
+			chunk->used = 0;
+			chunk->size = kChunkSize;
+			kUsedSize -= kChunkSize;
+			kFreeSize += kChunkSize;
+			kUnused.push_back(chunk);
 		}
 		kChunkCount--;
 	}
 
-	void MemoryPool::FreeChunks(Chunk* chunk){
-		unsigned int kChunkCount = CalculateNeededChunks(chunk->used);
-		for (unsigned int i = 0; i < kChunkCount; i++){
-			if (chunk != NULL){
-				chunk->used = 0;
-				chunk->size = kChunkSize;
-				kUsedSize -= kChunkSize;
-				kFreeSize += kChunkSize;
-				chunk = chunk->next;
-			}
-		}
-	}
-
 	Chunk* MemoryPool::FindChunkHoldingPointerTo(void* ptr){
-		Chunk* chunk = kFirstChunk;
+		if (kChunkOrg.find((byte*) ptr) != kChunkOrg.end()) return kChunkOrg[(byte*) ptr]; // quick lookup
+		Chunk* chunk = kFirstChunk; // fail safe
 		while (chunk != NULL){
 			if (chunk->data == ((byte*) ptr)) break;
 			chunk = chunk->next;
@@ -144,17 +136,20 @@ namespace internal{
 			printf("%s - %lu\n", name.c_str(), size);
 		}
 		size_t bestBlockSize = CalculateBestMemoryBlockSize(size);
-		Chunk* chunk = NULL;
-		while (chunk == NULL){
-			chunk = FindChunkSuitableToHoldMemory(bestBlockSize);
-			if (chunk == NULL){
-				bestBlockSize = MaxValue(bestBlockSize, CalculateBestMemoryBlockSize(kMinSize));
-				AllocateMemory(bestBlockSize);
-			}
+
+		if (kUnused.size() == 0){
+			bestBlockSize = MaxValue(bestBlockSize, CalculateBestMemoryBlockSize(kMinSize));
+			AllocateMemory(bestBlockSize);
+			return GetMemory(size);
 		}
+
+		Chunk* chunk = kUnused.back();
+		kUnused.pop_back();
+
 		kUsedSize += bestBlockSize;
 		kFreeSize -= bestBlockSize;
 		SetMemoryChunkValues(chunk, bestBlockSize);
+		kChunkOrg[(byte*) chunk->data] = chunk;
 		return (void*) chunk->data;
 	}
 
@@ -167,8 +162,8 @@ namespace internal{
 	void MemoryPool::AllocateMemory(const size_t size){
 		size_t bestBlockSize = CalculateBestMemoryBlockSize(size);
 		unsigned int neededChunks = CalculateNeededChunks(size);
-		byte* ptrNewMemBlock = (byte*) malloc(bestBlockSize);
-		Chunk* ptrNewChunks = (Chunk*) malloc(neededChunks * sizeof(Chunk));
+		byte* ptrNewMemBlock = (byte*) Allocate::New(bestBlockSize);
+		Chunk* ptrNewChunks = (Chunk*) Allocate::New(neededChunks * sizeof(Chunk));
 		if (ptrNewMemBlock == NULL) Allocate::OutOfMemory();
 		if (ptrNewChunks == NULL) Allocate::OutOfMemory();
 		kTotalSize += bestBlockSize;
@@ -222,6 +217,7 @@ namespace internal{
 			chunk->isAllocationChunk = false;
 	    chunk->next = NULL;
 	    chunk->isLastChunk = false;
+	    kUnused.push_back(chunk);
 		}
 		return chunk;
 	}

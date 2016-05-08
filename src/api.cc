@@ -72,6 +72,7 @@ namespace Cobra{
 	}
 
 	String* String::NewFromBase(Isolate* isolate){
+		// TODO: Not returning empty if it is
 		if (i::Flags::baseFile.empty()) return String::New(isolate);
 		return String::NewFromFile(isolate, i::Flags::baseFile.c_str());
 	}
@@ -136,5 +137,10 @@ namespace Cobra{
 	std::string Script::GetErrorMsg(){
 		i::Script* script = CAST(i::Script*, this);
 		return script->GetErrorMsg();
+	}
+
+	bool String::IsEmpty(){
+		i::String* str = CAST(i::String*, this);
+		return str->IsEmpty();
 	}
 }

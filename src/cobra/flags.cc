@@ -47,7 +47,7 @@ namespace internal{
 				exit(0);
 			}
 			else{
-				Flags::baseFile = arg;
+				if (i != 0) Flags::baseFile = arg;
 			}
 		}
 	}
@@ -66,7 +66,7 @@ namespace internal{
 	bool Flags::executionTime = false;
 	bool Flags::evaluationSteps = false;
 	bool Flags::rpnStack = false;
-	std::string Flags::baseFile;
+	std::string Flags::baseFile = "";
 
 } // namespace internal
 } // namespace Cobra
