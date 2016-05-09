@@ -17,22 +17,22 @@ int main(int argc, const char* argv[]){
 	Context* context = isolate->CreateContext();
 
 	context->Enter();
-	String* string = String::NewFromBase(isolate);
-	//String* string = String::NewFromFile(isolate, "test/test.cb");
+	//String* string = String::NewFromBase(isolate);
+	String* string = String::NewFromFile(isolate, "test/test.cb");
 	if (string->IsEmpty()){
-		std::string input = "";
-		time_t theTime = time(NULL);
-		struct tm *aTime = localtime(&theTime);
-		int year = aTime->tm_year + 1900;
-		std::cout << "CobraLang (C) " + std::to_string(year) + "\n";
+		// std::string input = "";
+		// time_t theTime = time(NULL);
+		// struct tm *aTime = localtime(&theTime);
+		// int year = aTime->tm_year + 1900;
+		// std::cout << "CobraLang (C) " + std::to_string(year) + "\n";
 
-		while (true){
-			std::cout << ">> ";
-			getline(std::cin, input);
-			String* string = String::New(isolate, input.c_str());
-			Script* script = Script::Compile(context, string);
-			if (!script->HasError()) script->Run();
-		}
+		// while (true){
+		// 	std::cout << ">> ";
+		// 	getline(std::cin, input);
+		// 	String* string = String::New(isolate, input.c_str());
+		// 	Script* script = Script::Compile(context, string);
+		// 	if (!script->HasError()) script->Run();
+		// }
 	}
 	else{
 		Script* script = Script::Compile(context, string);
