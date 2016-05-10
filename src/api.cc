@@ -72,7 +72,6 @@ namespace Cobra{
 	}
 
 	String* String::NewFromBase(Isolate* isolate){
-		// TODO: Not returning empty if it is
 		if (i::Flags::baseFile.empty()) return String::New(isolate);
 		return String::NewFromFile(isolate, i::Flags::baseFile.c_str());
 	}

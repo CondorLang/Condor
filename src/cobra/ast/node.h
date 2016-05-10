@@ -13,6 +13,7 @@
 #include "cobra/token/token.h"
 #include "cobra/mem/isolate.h"
 #include "cobra/ast/scope.h"
+#include "cobra/assert.h"
 #include "cobra/semantics/internal.h"
 
 namespace Cobra {
@@ -259,6 +260,7 @@ namespace internal{
 	public:
 		static ASTArray* New(Isolate* iso);
 		std::vector<ASTExpr*> members;
+		bool Get;
 		size_t Size(){return sizeof(ASTArray);}
 		ASTArray* Clone(Isolate* iso, bool shallow = false);
 	};

@@ -25,13 +25,17 @@ namespace internal{
 		std::vector<Scope*> scopes;
 		Scope* baseScope;
 		Parser* parser;
-		ASTObject* kThis;
+		std::vector<ASTObject*> kThis;
 		bool trace;
 		int indent;
 		bool inObject;
 		bool isThis;
 		bool staticRequired;
 		bool expand;
+
+		void RemoveThis(){if (kThis.size() > 0) kThis.erase(kThis.begin());}
+		void AddThis(ASTObject* obj){kThis.insert(kThis.begin(), obj);}
+		ASTObject* GetThis(){if (kThis.size() > 0) {return kThis[0];} return NULL;}
 
 		void Trace(const char* first, const char* second);
 		void Trace(const char* first, TOKEN second);
@@ -55,6 +59,7 @@ namespace internal{
 		void ValidateObjectInit(ASTVar* var);
 		void ValidateExtend(ASTObject* base, ASTObject* extend);
 		ASTObject* GetObject(ASTNode* node);
+		ASTObject* GetObjectFromScope(Scope* scope);
 		TOKEN ValidateCast(ASTExpr* expr);
 		void OpenScope(Scope* scope){scopes.insert(scopes.begin(), scope);}
 		void CloseScope(){scopes.erase(scopes.begin());}

@@ -3,5 +3,16 @@
 // license that can be found in the LICENSE file.
 
 export object Path {
-	
+	private string _raw;
+
+	func Path(string raw) {
+		this._raw = raw;
+		this._parse();
+	}
+
+	private func _parse(){
+		if (App.platform != "Windows"){
+
+		}
+	}
 }

@@ -97,9 +97,6 @@ namespace internal{
 			return (ASTLiteral*) Internal::CallInternal(isolate, call->callback, nodes);
 		}
 		else{
-			if (func->name == "test"){
-				int a = 10;
-			}
 			if (func == NULL) throw Error::UNDEFINED_FUNC;
 			for (int i = 0; i < func->args.size(); i++){
 				PrintStep("Evaluating Parameter (" + func->args[i]->name + ")");
@@ -151,15 +148,10 @@ namespace internal{
 			else{
 				PrintStep("Calculation");
 				NewStack();
-
-				// Clock* c = Clock::New(isolate);
-				// c->Start(); // here
-
-				FillPostix(binary);
-				
-				// c->Stop();
-				// printf("d: %f\n", c->GetDuration());
-				
+				if (binary->right->name == "base"){
+					int a = 10;//here
+				}
+				FillPostix(binary);				
 				ASTLiteral* lit = Calculate();
 				FormatLit(lit);
 				CloseStack();
@@ -403,6 +395,12 @@ namespace internal{
 			if ((inst->litType == OBJECT || inst->type == LITERAL) && inst->type != OBJECT_INSTANCE) inst = GetCurrentObject();
 			ASTVar* var = inst->GetProp(isolate, first->value);
 			ASTLiteral* val = EvaluateValue(var);
+			if (val->type == ARRAY && first->member != NULL) {
+				ASTArray* ary = (ASTArray*) val;
+				ASTLiteral* mem = EvaluateValue(first->member);
+				if (ary->members.size() == 0 || ary->members.size() <= mem->calc) return ASTUndefined::New(isolate);
+				return EvaluateValue(ary->members[mem->calc]);
+			}
 			return val;
 		}
 		if (tok->value->value == PERIOD && first->var != NULL && first->var->HasVisibility(STATIC)){ // static variables
@@ -477,7 +475,7 @@ namespace internal{
 		int type = (int) binary->op;
 		switch (type){
 			case ASSIGN: {
-				ASTVar* var = GetVar(binary->left);
+				ASTVar* var = GetVar(binary->left); // here
 				ASTLiteral* lit = EvaluateValue(binary->right);
 				if (lit != NULL){
 					SetCalc(lit);
@@ -595,7 +593,6 @@ namespace internal{
 				if (lit->member != NULL) {
 					ASTLiteral* member = EvaluateValue(lit->member);
 					SetCalc(member);
-					// TODO: Allow for all array types
 					if (value != NULL && value->litType == STRING) { // string array
 						if (value->value.length() <= member->calc) throw Error::INVALID_ACCESS_TO_ARRAY;
 						ASTLiteral* result = ASTLiteral::New(isolate);
@@ -641,13 +638,11 @@ namespace internal{
 		PrintStep("Evaluating Var (" + var->name + ")");
 		SetRowCol(var);
 		Trace("Evaluating Var", var->name);
-		if (var->name == "dec"){
-			int a = 10;
-		}
 		ASTLiteral* local = (ASTLiteral*) EvaluateValue(var);
 		if (var->previouslyDeclared && var->op == ASSIGN){
 			if (var->local != NULL) isolate->RunGC(var, false);
 		}
+		if (local == NULL) return ASTUndefined::New(isolate);
 		if (local->type == OBJECT_INSTANCE){ // call constructor
 			ASTObjectInstance* inst = (ASTObjectInstance*) local;
 			if (inst->base != NULL) PrintStep("Calling Constructor for " + inst->base->name);

@@ -50,6 +50,11 @@ namespace internal{
 		static ASTNode* GetDate(Isolate* iso, std::vector<ASTLiteral*> lits);
 		static ASTNode* GetVersion(Isolate* iso, std::vector<ASTLiteral*> lits);
 		static ASTNode* DeleteFile(Isolate* iso, std::vector<ASTLiteral*> lits);
+		static ASTNode* GetArrayLength(Isolate* iso, std::vector<ASTLiteral*> lits);
+		static ASTNode* ArrayPush(Isolate* iso, std::vector<ASTLiteral*> lits);
+		static ASTNode* ArrayErase(Isolate* iso, std::vector<ASTLiteral*> lits);
+		static ASTNode* ArrayMerge(Isolate* iso, std::vector<ASTLiteral*> lits);
+		static ASTNode* GetObjectName(Isolate* iso, std::vector<ASTLiteral*> lits);
 		static ASTNode* CallInternal(Isolate* iso, InternalFunctionCallback call, std::vector<ASTLiteral*> nodes){return call(iso, nodes);}
 		static TOKEN Bind(ASTFuncCall* call);
 

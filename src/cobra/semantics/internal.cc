@@ -207,6 +207,68 @@ namespace internal{
 		return result;
 	}
 
+	ASTNode* Internal::GetArrayLength(Isolate* iso, std::vector<ASTLiteral*> lits){
+		ASTLiteral* result = ASTLiteral::New(iso);
+		result->litType = INT;
+		if (lits.size() == 0 || lits[0]->type != ARRAY) {
+			result->calc = 0;
+			result->value = "0";
+		}
+		else{
+			ASTArray* ary = (ASTArray*) lits[0];
+			result->calc = ary->members.size();
+		}
+		return result;
+	}
+
+	ASTNode* Internal::ArrayPush(Isolate* iso, std::vector<ASTLiteral*> lits){
+		if (lits.size() < 2 || lits[0]->type != ARRAY) {
+			return ASTUndefined::New(iso);
+		}
+		ASTArray* result = (ASTArray*) lits[0];
+		ASTLiteral* val = lits[1];
+		result->members.push_back(val);
+		return result;
+	}
+
+	ASTNode* Internal::ArrayErase(Isolate* iso, std::vector<ASTLiteral*> lits){
+		if (lits.size() < 2 || lits[0]->type != ARRAY) {
+			return ASTUndefined::New(iso);
+		}
+		ASTArray* result = (ASTArray*) lits[0];
+		ASTLiteral* val = lits[1];
+		if (result->members.size() <= val->calc) return result;
+		result->members.erase(result->members.begin() + ((int) val->calc));
+		return result;
+	}
+
+	ASTNode* Internal::ArrayMerge(Isolate* iso, std::vector<ASTLiteral*> lits){
+		if (lits.size() < 2 || lits[0]->type != ARRAY) {
+			return ASTUndefined::New(iso);
+		}
+		ASTArray* result = (ASTArray*) lits[0];
+		ASTLiteral* second = (ASTLiteral*) lits[1];
+		if (second->type == ARRAY){ // base []
+			ASTArray* ary = (ASTArray*) second;
+			result->members.insert(result->members.end(), ary->members.begin(), ary->members.end());
+		}
+		else{
+			result->members.insert(result->members.end(), second);
+		}
+		return result;
+	}
+
+	ASTNode* Internal::GetObjectName(Isolate* iso, std::vector<ASTLiteral*> lits){
+		if (lits.size() == 0) return ASTUndefined::New(iso);
+		if (lits[0]->type != OBJECT_INSTANCE) return ASTUndefined::New(iso);
+		ASTObjectInstance* obj = (ASTObjectInstance*) lits[0];
+		if (obj->base == NULL) return ASTUndefined::New(iso);
+		ASTLiteral* result = ASTLiteral::New(iso);
+		result->value = obj->base->name;
+		result->litType = STRING;
+		return result;
+	}
+
 	// TODO: Move to a macro
 	TOKEN Internal::Bind(ASTFuncCall* call){
 		if (call->name == "printf") {
@@ -276,6 +338,26 @@ namespace internal{
 		else if (call->name == "deleteFile"){
 			call->callback = Internal::DeleteFile;
 			return BOOLEAN;
+		}
+		else if (call->name == "getArrayLength"){
+			call->callback = Internal::GetArrayLength;
+			return INT;
+		}
+		else if (call->name == "arrayPush"){
+			call->callback = Internal::ArrayPush;
+			return ARRAY;
+		}
+		else if (call->name == "arrayErase"){
+			call->callback = Internal::ArrayErase;
+			return ARRAY;
+		}
+		else if (call->name == "arrayMerge"){
+			call->callback = Internal::ArrayMerge;
+			return ARRAY;
+		}
+		else if (call->name == "getObjectName"){
+			call->callback = Internal::GetObjectName;
+			return STRING;
 		}
 		else throw Error::UNDEFINED_FUNC;
 		// #define B(name, callback, type, str) str,

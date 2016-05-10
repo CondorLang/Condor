@@ -3,6 +3,50 @@
 // license that can be found in the LICENSE file.
 
 export object Array{
-	func Array(){}
+	private var[] base;
 	int length = 0;
+	
+	func Array(){}
+	func Array(var ary){
+		this.base = ary;
+		this._setLen();
+	}
+	func getRaw() return this.base;
+	private func _setLen() this.length = arylen(this.base);
+	func at(int idx) return this.base[idx];
+	
+	func push(var val) {
+		this.base = ary_push(this.base, val);
+		this._setLen();
+	}
+	func erase(int index){
+		this.base = ary_erase(this.base, index);
+		this._setLen();
+	}
+	func merge(var ary){
+		string objName = %getObjectName(ary);
+		if (objName == "Array"){
+			this.base = ary_merge(this.base, ary.getRaw());
+		}
+		else{
+			this.base = ary_merge(this.base, ary);
+		}
+		this._setLen();
+	}
+}
+
+export func arylen(var ary){
+	return %getArrayLength(ary);
+}
+
+export func ary_push(var ary, var val){
+	return %arrayPush(ary, val);
+}
+
+export func ary_erase(var ary, int index){
+	return %arrayErase(ary, index);
+}
+
+export func ary_merge(var ary1, var ary2){
+	return %arrayMerge(ary1, ary2);
 }

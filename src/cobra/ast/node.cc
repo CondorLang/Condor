@@ -327,6 +327,7 @@ namespace internal{
 		ASTArray* n = new(pt) ASTArray();
 		ASTNode::SetDefaults(n, iso);
 		n->type = ARRAY;
+		n->Get = false;
 		return n;
 	}
 
@@ -335,6 +336,7 @@ namespace internal{
 		n->value = value;
 		n->type = type;
 		n->litType = litType;
+		n->Get = Get;
 		n->unary = unary;
 		n->isPost = isPost;
 		n->var = shallow ? NULL : var;
@@ -367,9 +369,11 @@ namespace internal{
 	ASTVar* ASTObjectInstance::CreateProp(Isolate* isolate, std::string name){
 		if (HasProp(name)){
 			properties[name]->Free(isolate);
-			properties[name] = NULL; // implement merge instead of destroy
+			properties.erase(properties.find(name));
 		}
+		if (base == NULL) base = obj;
 		ASTVar* baseVar = NULL;
+		CHECK(base != NULL);
 		std::vector<ASTNode*> vars = base->scope->Lookup(name, false);
 		for (int i = 0; i < vars.size(); i++){
 			if (vars[i]->type == VAR){
@@ -379,7 +383,8 @@ namespace internal{
 		}
 		if (baseVar == NULL) return NULL;
 		ASTVar* clone = baseVar->Clone(isolate);
-		properties[name] = clone;
+		if (properties.size() == 0) properties.clear();
+		properties[name] = clone; // here
 		return clone;
 	}
 
@@ -413,7 +418,7 @@ namespace internal{
 		n->litType = litType;
 		n->unary = unary;
 		n->isPost = isPost;
-		n->var = var;
+		n->var = shallow ? NULL : var;
 		n->isCast = isCast;
 		n->calc = calc;
 		n->isCalc = isCalc;
@@ -424,7 +429,7 @@ namespace internal{
 		n->base = base;
 		n->obj = obj;
 		n->constructorCalled = constructorCalled;
-		n->properties = properties;
+		//n->properties = properties;
 		for (std::map<std::string, ASTVar*>::iterator i = properties.begin(); i != properties.end(); ++i){
 			n->properties[i->first] = i->second->Clone(iso, shallow);	
 		}

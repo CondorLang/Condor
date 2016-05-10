@@ -77,7 +77,7 @@ namespace internal{
 		ASTNode* ParseObject();
 		void OpenScope(Scope* sc);
 		void CloseScope();
-		ASTNode* ParseInternal();
+		ASTExpr* ParseInternal();
 		ASTNode* ParseReturn();
 		ASTNode* ParseBreak();
 

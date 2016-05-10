@@ -560,6 +560,7 @@ namespace internal{
 		}
 		if (IsVarType()) expr = ParseVarType();
 		if (Is(1, LPAREN)) expr = ParseFuncCall(expr);
+		if (Is(1, INTERNAL)) expr = ParseInternal();
 		if (Is(2, INC, DEC) || incdec){
 			ASTLiteral* lit = (ASTLiteral*) expr;
 			CHECK(lit != NULL);
@@ -618,9 +619,6 @@ namespace internal{
 			call->isInit = true;
 			call->cast = cast;
 			return call;
-		}
-		if (Is(1, INTERNAL)){
-			return (ASTExpr*) ParseInternal();
 		}
 		if (expr != NULL){ // trailing casts
 			expr->cast = cast;
@@ -892,7 +890,7 @@ namespace internal{
 	}
 
 	// TODO: Disallow for allow-native on a non internal file
-	ASTNode* Parser::ParseInternal(){
+	ASTExpr* Parser::ParseInternal(){
 		Trace("Parsing Internal Func Call", tok->raw.c_str());
 		ASTLiteral* expr = ASTLiteral::New(isolate);
 		SetRowCol(expr);
@@ -901,7 +899,6 @@ namespace internal{
 		call->isInternal = true;
 		if (call->name[0] == '%') call->name.erase(call->name.begin());
 		if (Is(1, SEMICOLON)) Next();
-		else throw Error::UNEXPECTED_CHARACTER;
 		return call;
 	}
 

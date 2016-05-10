@@ -5,3 +5,7 @@
 export func type(var a){
 	return %getLitType(a);
 }
+
+export func objName(var a){
+	return %getObjectName(a);
+}

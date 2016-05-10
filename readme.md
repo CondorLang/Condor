@@ -47,19 +47,19 @@ string contents = fs.readFile("readme.md");
 
 Todo:
 ------
- - api.cc 75 - Not returning empty if it is
- - node.h 27 - Create a Expand() function which expands the node and the tree
- - execute.cc 118 - Figure out how to implement recursion
+ - node.cc 375 - Find the bug from the properties segfault
+ - node.h 28 - Create a Expand() function which expands the node and the tree
+ - execute.cc 115 - Figure out how to implement recursion
  - execute.cc 204 - Set row and col for tracking
- - execute.cc 464 - Implement bitwise
- - execute.cc 589 - Allow for all array types
- - parser.cc 894 - Disallow for allow-native on a non internal file
+ - execute.cc 471 - Implement bitwise
+ - parser.cc 892 - Disallow for allow-native on a non internal file
  - scanner.cc 466 - Include Octal, Hex, UTF-8, UTF-16, see https://msdn.microsoft.com/en-us/library/6aw8xdf2.aspx
  - internal.cc 140 - Throw Error
  - internal.cc 152 - Throw Error
  - internal.cc 164 - Throw Error
- - internal.cc 197 - Move to a macro
- - semantics.cc 300 - Verify this is ok and always true
- - semantics.cc 699 - Compare the base type with the assignment type. Throw an error if they are not the same if hard typed.
+ - internal.cc 272 - Move to a macro
+ - semantics.cc 298 - Verify this is ok and always true
+ - semantics.cc 673 - Is this true always?
+ - semantics.cc 715 - Compare the base type with the assignment type. Throw an error if they are not the same if hard typed.
  - path.cc 24 - Set Locale - http://askubuntu.com/questions/236924/matlab-not-working
  - path.cc 78 - Throw Error

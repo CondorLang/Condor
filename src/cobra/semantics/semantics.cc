@@ -15,7 +15,6 @@ namespace internal{
 		trace = TRACE_SEMANTIC;
 		indent = 0;
 		inObject = false;
-		kThis = NULL;
 		isThis = false;
 		staticRequired = false;
 		expand = EXPAND_AST;
@@ -164,9 +163,6 @@ namespace internal{
 		}
 		Trace("Validating Var", var->name.c_str());
 		indent++;
-		if (var->name == "month"){
-			int a = 10; // here
-		}
 		var->assignmentType = ValidateExpr((ASTExpr*) var->value);
 		if (var->name != "return" &&
 			  var->baseType == UNDEFINED &&
@@ -186,8 +182,10 @@ namespace internal{
 		else if (var->isArray){
 			ASTArray* ary = (ASTArray*) var->value;
 			CHECK(ary != NULL);
-			for (int i = 0; i < ary->members.size(); i++){
-				ValidateExpr(ary->members[i]);
+			if (ary->type != UNDEFINED){
+				for (int i = 0; i < ary->members.size(); i++){
+					ValidateExpr(ary->members[i]);
+				}
 			}
 		}
 		ValidateBaseAndAssignment(var);
@@ -312,7 +310,7 @@ namespace internal{
 
 		if (working){
 			SwapScopes();
-			kThis = NULL;
+			RemoveThis();
 		}
 		return UNDEFINED;
 	}
@@ -323,16 +321,17 @@ namespace internal{
 		expr->name = expr->value;
 		Trace("Validating Ident", expr->name.c_str());
 		Scope* s = GetCurrentScope();
-		if (expr->name == "this"){ // here
+		if (expr->name == "this"){
 			if (s->outer == NULL) throw Error::INVALID_USAGE_OF_THIS;
-			kThis = (ASTObject*) s->outer->owner;
-			//OpenScope(s->outer);
-			if (kThis == NULL) kThis = (ASTObject*) s->owner;
-			if (kThis == NULL) throw Error::INVALID_USAGE_OF_THIS;
+			ASTObject* o = GetObjectFromScope(s->outer);
+			if (o != NULL) {
+				AddThis(o);
+			}
+			else throw Error::INVALID_USAGE_OF_THIS;
 			isThis = true;
 			return UNDEFINED;
 		}	
-		std::vector<ASTNode*> nodes = s->Lookup(expr->name, !isThis);
+		std::vector<ASTNode*> nodes = s->Lookup(expr->name, !isThis); 
 		if (nodes.size() == 1 && nodes[0] == expr) throw Error::UNDEFINED_VARIABLE;
 		if (nodes.size() == 0 && scopes.size() > 1) {
 			SwapScopes(); // used in object chains
@@ -374,6 +373,7 @@ namespace internal{
 				if (nodes[i]->type == OBJECT){
 					ASTObject* obj = (ASTObject*) nodes[i];
 					if (!obj->scope->IsParsed()) obj->scope = Parse(obj->scope);
+					CHECK(obj->scope != NULL);
 					nodes = obj->scope->Lookup(expr->name, false);
 					break;
 				}
@@ -570,6 +570,7 @@ namespace internal{
 		ASTObjectInstance* instance = ASTObjectInstance::New(isolate);
 		instance->constructor = (ASTFuncCall*) var->value;
 		instance->base = base;
+		CHECK(instance->base != NULL);
 		instance->litType = OBJECT;
 		var->value = instance;
 	}
@@ -623,18 +624,29 @@ namespace internal{
 
 		indent--;
 		inObject = false;
-		//if (isThis) CloseScope(); // here
 		isThis = false;
 		return right;
+	}
+
+	ASTObject* Semantics::GetObjectFromScope(Scope* scope){
+		if (scope == NULL) return NULL;
+		if (scope->owner == NULL) return NULL;
+		if (scope->owner->type == OBJECT) return (ASTObject*) scope->owner;
+		return GetObjectFromScope(scope->outer);
 	}
 
 	ASTObject* Semantics::GetObject(ASTNode* node){
 		if (node == NULL) return NULL;
 		SetRowCol(node);
 		if (isThis) {
-			CHECK(kThis != NULL);
-			ASTObject* o = kThis;
-			kThis = NULL;
+			if (kThis.size() == 0 && node->type == LITERAL){
+				ASTLiteral* lit = (ASTLiteral*) node;
+				CHECK(lit != NULL && lit->obj != NULL);
+				AddThis(lit->obj);
+			}
+			CHECK(kThis.size() > 0);
+			ASTObject* o = kThis[0];
+			RemoveThis();
 			return o;
 		}
 		int type = (int) node->type;
@@ -656,6 +668,9 @@ namespace internal{
 							obj = (ASTObject*) results[i];
 							break;
 						}
+					}
+					if (obj == NULL){ // TODO: Is this true always?
+						obj = GetObjectFromScope(GetCurrentScope());
 					}
 					return obj;
 				}

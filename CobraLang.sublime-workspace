@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"arry",
+				"ary_merge"
+			],
+			[
+				"Arr",
+				"ArrayErase"
+			],
+			[
 				"RB",
 				"RBRACK"
 			],
@@ -506,56 +514,56 @@
 			[
 				"json",
 				"json_decode"
-			],
-			[
-				"isolat",
-				"isolateId"
-			],
-			[
-				"isola",
-				"isolateId"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
+			"file": "src/cobra/semantics/internal.cc",
+			"settings":
+			{
+				"buffer_size": 10722,
+				"line_ending": "Unix"
+			}
+		},
+		{
 			"file": "test/test.cb",
 			"settings":
 			{
-				"buffer_size": 81,
+				"buffer_size": 123,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/cobra/execute/execute.cc",
+			"file": "libs/array.cb",
 			"settings":
 			{
-				"buffer_size": 25199,
+				"buffer_size": 1160,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/cobra/mem/allocate.cc",
+			"file": "src/cobra/semantics/semantics.cc",
 			"settings":
 			{
-				"buffer_size": 6727,
+				"buffer_size": 21172,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "test/main.cc",
+			"file": "src/cobra/semantics/semantics.h",
 			"settings":
 			{
-				"buffer_size": 1208,
+				"buffer_size": 2730,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/cobra/mem/allocate.h",
+			"file": "src/cobra/parser/parser.h",
 			"settings":
 			{
-				"buffer_size": 2574,
+				"buffer_size": 2629,
 				"line_ending": "Unix"
 			}
 		}
@@ -828,40 +836,47 @@
 	"expanded_folders":
 	[
 		"/Users/willdech/Documents/dev/CobraLang",
-		"/Users/willdech/Documents/dev/CobraLang/include",
 		"/Users/willdech/Documents/dev/CobraLang/libs",
 		"/Users/willdech/Documents/dev/CobraLang/src",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/execute",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics",
 		"/Users/willdech/Documents/dev/CobraLang/test"
 	],
 	"file_history":
 	[
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/execute/execute.cc",
+		"/Users/willdech/Documents/dev/CobraLang/libs/types.cb",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/node.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/internal.h",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/parser.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/semantics.cc",
+		"/Users/willdech/Documents/dev/CobraLang/libs/array.cb",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/node.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/allocate.h",
-		"/Users/willdech/Documents/dev/CobraLang/Makefile",
+		"/Users/willdech/Documents/dev/CobraLang/src/api.cc",
 		"/Users/willdech/Documents/dev/CobraLang/test/main.cc",
+		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/allocate.cc",
+		"/Users/willdech/Documents/dev/CobraLang/libs/fs.cb",
+		"/Users/willdech/Documents/dev/CobraLang/test/test.cb",
+		"/Users/willdech/Documents/dev/CobraLang/libs/path.cb",
+		"/Users/willdech/Documents/dev/CobraLang/Makefile",
 		"/Users/willdech/Documents/dev/CobraLang/libs/integer.cb",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/fs/fs.cc",
-		"/Users/willdech/Documents/dev/CobraLang/libs/fs.cb",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/fs/fs.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/internal.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/internal.h",
 		"/Users/willdech/Documents/dev/CobraLang/libs/clock.cb",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/flags.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/api.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/strings/string.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/strings/string.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/path/path.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/path/path.cc",
 		"/Users/willdech/Documents/dev/CobraLang/configure",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser/parser.cc",
 		"/Users/willdech/Documents/dev/CobraLang/include/Cobra.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/flags.h",
-		"/Users/willdech/Documents/dev/CobraLang/test/test.cb",
 		"/Users/willdech/Documents/dev/CobraLang/libs/app.cb",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/execute/execute.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/api.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/clock/clock.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/clock/clock.h",
@@ -874,13 +889,10 @@
 		"/Users/willdech/Documents/dev/CobraLang/libs/Console.cb",
 		"/Users/willdech/Documents/dev/CobraLang/.travis.yml",
 		"/Users/willdech/Documents/dev/CobraLang/Dockerfile",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/node.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/node.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/console/console.cb",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/types/date/date.cb",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/clock.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/clock.h",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/semantics/semantics.cc",
 		"/Users/willdech/Documents/dev/CobraLang/readme.md",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/scope.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast/scope.h",
@@ -917,7 +929,6 @@
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/isolate.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/gc.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/gc.cc",
-		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/allocate.cc",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/isolate.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/mem/list.h",
 		"/Users/willdech/Documents/dev/CobraLang/src/cobra/execute/stack.h",
@@ -963,10 +974,7 @@
 		"/Users/willdech/Desktop/Dashboard/index.html",
 		"/Users/willdech/Downloads/script.js",
 		"/Users/willdech/Desktop/Dashboard/sort.js",
-		"/Users/willdech/Documents/dev/Systems/moe/projects/byui.js/Gruntfile.js",
-		"/Users/willdech/Documents/dev/Systems/moe/projects/ims/Gruntfile.js",
-		"/Users/willdech/Documents/dev/Systems/moe/projects/byui.js/src/thread.js",
-		"/Users/willdech/Documents/dev/Systems/moe/projects/duedateadjustment/new/lib/byui.js"
+		"/Users/willdech/Documents/dev/Systems/moe/projects/byui.js/Gruntfile.js"
 	],
 	"find":
 	{
@@ -1041,6 +1049,25 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"// here",
+			"kthis",
+			"kThis",
+			"undefined_varia",
+			"astliteral ",
+			":astliteral",
+			"astliteral",
+			"aryerase",
+			"arypush",
+			"parseif",
+			"objectchain",
+			"// here",
+			"evaluatefunccal",
+			"validatefunccal",
+			"int a = ",
+			"chain",
+			"member",
+			"access",
+			"astarray",
 			"// here",
 			"clock",
 			"// here",
@@ -1149,26 +1176,7 @@
 			"parsenative",
 			"ASTIdent",
 			"parseint",
-			"parseintn",
-			"// here",
-			"expect(rbrace",
-			"objectinit",
-			"memberchain",
-			"FreeUnnecessaryMemory",
-			"\",\"",
-			"assignment()",
-			"assign",
-			"validatefunc",
-			"kthis",
-			"// GetObjectInScope",
-			"// here",
-			"here",
-			"here ",
-			"GetObjectInScope",
-			"array",
-			"->object = ",
-			"member->object = ",
-			"ParseFuncCall(expr);"
+			"parseintn"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1240,24 +1248,53 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 3,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "test/test.cb",
+					"file": "src/cobra/semantics/internal.cc",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 81,
+						"buffer_size": 10722,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								42,
-								42
+								6982,
+								6982
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3231.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "test/test.cb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 123,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								123,
+								123
 							]
 						],
 						"settings":
@@ -1268,62 +1305,33 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "src/cobra/execute/execute.cc",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 25199,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								21876,
-								21876
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 9201.0,
-						"zoom_level": 1.0
-					},
 					"stack_index": 3,
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "src/cobra/mem/allocate.cc",
+					"file": "libs/array.cb",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6727,
+						"buffer_size": 1160,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2261,
-								2261
+								763,
+								763
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C++.sublime-syntax",
+							"syntax": "Packages/Go/Go.sublime-syntax",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 897.0,
+						"translation.y": 80.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
@@ -1331,19 +1339,19 @@
 				},
 				{
 					"buffer": 3,
-					"file": "test/main.cc",
+					"file": "src/cobra/semantics/semantics.cc",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1208,
+						"buffer_size": 21172,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1062,
-								640
+								8846,
+								8846
 							]
 						],
 						"settings":
@@ -1352,27 +1360,56 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 4281.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "src/cobra/semantics/semantics.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2730,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1875,
+								1875
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 579.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "src/cobra/mem/allocate.h",
+					"buffer": 5,
+					"file": "src/cobra/parser/parser.h",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2574,
+						"buffer_size": 2629,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1209,
-								1202
+								1945,
+								1958
 							]
 						],
 						"settings":
@@ -1381,10 +1418,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 327.0,
+						"translation.y": 814.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 5,
 					"type": "text"
 				}
 			]
