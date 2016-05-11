@@ -4,7 +4,7 @@ LDFLAGS=
 SOURCES=$(wildcard src/*/*/*/*.cc) $(wildcard src/*/*/*.cc) $(wildcard src/*/*.cc) $(wildcard src/*.cc)
 
 OBJECTS=$(SOURCES:.cc=.o)
-EXECUTABLE=./build/Stone
+EXECUTABLE=./build/Condor
 
 mt:
 	make all
@@ -16,13 +16,13 @@ all:
 
 sem: 
 	make all
-	g++ $(FLAGS) -I ./ test/main.cc -Iinclude build/libstone.a -o build/Stone
-	./build/Stone --trace-semantic
+	g++ $(FLAGS) -I ./ test/main.cc -Iinclude build/libcondor.a -o build/Condor
+	./build/Condor --trace-semantic
 
 parser: 
 	make all
-	g++ $(FLAGS) -I ./ test/main.cc -Iinclude build/libstone.a -o build/Stone
-	./build/Stone --trace-parser
+	g++ $(FLAGS) -I ./ test/main.cc -Iinclude build/libcondor.a -o build/Condor
+	./build/Condor --trace-parser
 
 cb: 
 	./configure -f
@@ -35,7 +35,7 @@ $(EXECUTABLE): $(OBJECTS)
 -include $(OBJECTS:.o=.d)
 
 lib:
-	@ar cr ./build/libstone.a $(wildcard src/*/*/*/*.o) $(wildcard src/*/*/*.o) $(wildcard src/*/*.o) $(wildcard src/*.o)
+	@ar cr ./build/libcondor.a $(wildcard src/*/*/*/*.o) $(wildcard src/*/*/*.o) $(wildcard src/*/*.o) $(wildcard src/*.o)
 
 .cc.o: $(OBJS)
 	$(CC) $(CFLAGS) $< -o $@
@@ -46,18 +46,18 @@ clean:
 	rm -rf build/*
 
 test:
-	g++ $(FLAGS) -I ./ test/main.cc -Iinclude build/libstone.a -o build/Stone
+	g++ $(FLAGS) -I ./ test/main.cc -Iinclude build/libcondor.a -o build/Condor
 	make t
 
 t:
-	./build/Stone ${ARGS} test/test.cb
+	./build/Condor ${ARGS} test/test.cb
 
 shell:
-	g++ $(FLAGS) -I ./ test/shell.cc -Iinclude build/libstone.a -o build/Stone
-	./build/Stone ${ARGS}
+	g++ $(FLAGS) -I ./ test/shell.cc -Iinclude build/libcondor.a -o build/Condor
+	./build/Condor ${ARGS}
 
 mem:
-	valgrind --tool=memcheck --leak-check=full --track-origins=yes --dsymutil=yes ./build/Stone > log.txt 2>&1
+	valgrind --tool=memcheck --leak-check=full --track-origins=yes --dsymutil=yes ./build/Condor > log.txt 2>&1
 
 cmt:
 	make clean
@@ -66,13 +66,13 @@ cmt:
 	make test
 
 asm:
-	# as src/stone/codegen/test.asm -o src/stone/codegen/test.o
-	# ld src/stone/codegen/test.o -e main -o src/stone/codegen/test
-	# src/stone/codegen/test
-	/usr/local/bin/nasm -f macho64 src/stone/codegen/test.asm && ld -macosx_version_min 10.7.0 -e main -lSystem -o src/stone/codegen/test src/stone/codegen/test.o && ./src/stone/codegen/test
+	# as src/condor/codegen/test.asm -o src/condor/codegen/test.o
+	# ld src/condor/codegen/test.o -e main -o src/condor/codegen/test
+	# src/condor/codegen/test
+	/usr/local/bin/nasm -f macho64 src/condor/codegen/test.asm && ld -macosx_version_min 10.7.0 -e main -lSystem -o src/condor/codegen/test src/condor/codegen/test.o && ./src/condor/codegen/test
 
 d:
-	gdb ./build/Stone
+	gdb ./build/Condor
 
 docs:
 	doxygen documentation/doxygen.config

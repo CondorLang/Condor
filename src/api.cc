@@ -1,4 +1,4 @@
-// Copyright 2016 Chase Willden and The StoneLang Authors. All rights reserved.
+// Copyright 2016 Chase Willden and The CondorLang Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
@@ -10,16 +10,16 @@
 #include <ctime>
 #include <locale>
 
-#include "stone/flags.h"
-#include "stone/global.h"
-#include "stone/assert.h"
-#include "stone/mem/isolate.h"
-#include "stone/ast/context.h"
-#include "stone/mem/allocate.h"
-#include "stone/types/strings/string.h"
-#include "stone/types/script/script.h"
+#include "condor/flags.h"
+#include "condor/global.h"
+#include "condor/assert.h"
+#include "condor/mem/isolate.h"
+#include "condor/ast/context.h"
+#include "condor/mem/allocate.h"
+#include "condor/types/strings/string.h"
+#include "condor/types/script/script.h"
 
-namespace Stone{
+namespace Condor{
 
 	const char* Version(){
 		std::string result = "";

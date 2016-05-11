@@ -87,7 +87,7 @@ def toHex(s):
 
 def toOutputFile(hex, className):
     fileContents = '''
-namespace Stone{
+namespace Condor{
 namespace internal{
         static const char* '''
     fileContents += className
@@ -95,7 +95,7 @@ namespace internal{
     fileContents += hex
     fileContents += '''";
 } // namespace internal
-} // namespace Stone
+} // namespace Condor
     '''
     return fileContents.strip()
 
