@@ -269,6 +269,32 @@ namespace internal{
 		return result;
 	}
 
+	ASTNode* Internal::ReadDir(Isolate* iso, std::vector<ASTLiteral*> lits){
+		if (lits.size() == 0) return ASTUndefined::New(iso);
+		std::string dirPath = lits[0]->value;
+		bool recursive = false;
+		if (lits.size() > 1) recursive = lits[1]->value == "true";
+		std::vector<std::string> paths = FS::ReadDir(dirPath, recursive);
+		ASTArray* result = ASTArray::New(iso);
+		result->litType = ARRAY;
+		for (int i = 0; i < paths.size(); i++){
+			ASTLiteral* path = ASTLiteral::New(iso);
+			path->litType = STRING;
+			path->value = paths[i];
+			result->members.push_back(path);
+		}
+		return result;
+	}
+
+	ASTNode* Internal::IsDir(Isolate* iso, std::vector<ASTLiteral*> lits){
+		if (lits.size() == 0) return ASTUndefined::New(iso);
+		std::string dirPath = lits[0]->value;
+		ASTLiteral* result = ASTLiteral::New(iso);
+		result->calc = FS::IsDir(dirPath);
+		result->litType = BOOLEAN;
+		return result;
+	}
+
 	// TODO: Move to a macro
 	TOKEN Internal::Bind(ASTFuncCall* call){
 		if (call->name == "printf") {
@@ -358,6 +384,14 @@ namespace internal{
 		else if (call->name == "getObjectName"){
 			call->callback = Internal::GetObjectName;
 			return STRING;
+		}
+		else if (call->name == "readDir"){
+			call->callback = Internal::ReadDir;
+			return ARRAY;
+		}
+		else if (call->name == "isDir"){
+			call->callback = Internal::IsDir;
+			return BOOLEAN;
 		}
 		else throw Error::UNDEFINED_FUNC;
 		// #define B(name, callback, type, str) str,

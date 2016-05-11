@@ -30,5 +30,41 @@ namespace internal{
 		return remove(path.c_str()) == 0;
 	}
 
+	std::vector<std::string> FS::ReadDir(std::string path, bool recursive){
+		std::vector<std::string> result;
+		char ch = '/';
+		#ifdef _WIN32
+			ch = '\\';
+		#endif
+
+		if (path[path.length() - 1] != ch) path += ch;
+		DIR *dir;
+		struct dirent* ent;
+		if ((dir = opendir (path.c_str())) != NULL) {
+		  while ((ent = readdir (dir)) != NULL) {
+		  	std::string resultPath(ent->d_name);
+		  	if (resultPath == "." || resultPath == "..") continue;
+		  	resultPath = path + resultPath;
+		    result.push_back(resultPath);
+		    if (recursive &&  FS::IsDir(resultPath)){
+		    	std::vector<std::string> sub = FS::ReadDir(resultPath, recursive);
+		    	result.insert(result.end(), sub.begin(), sub.end());
+		    }
+		  }
+		  closedir(dir);
+		}
+		return result;
+	}
+
+	bool FS::IsDir(std::string path){
+		DIR *dir;
+		struct dirent* ent;
+		if ((dir = opendir (path.c_str())) != NULL) {
+		  closedir(dir);
+		  return true;
+		}
+		return false;
+	}
+
 } // namespace internal
 }

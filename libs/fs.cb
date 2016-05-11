@@ -7,4 +7,6 @@ export object fs{
 	public static func fileExists(string path) return %fileExists(path);
 	public static func writeFile(string path, string contents) %writeFile(path, contents);
 	public static func removeFile(string path) return %deleteFile(path);
+	public static func readDir(string path, bool recursive = false) return %readDir(path, recursive);
+	public static func isDir(string path) return %isDir(path);
 }

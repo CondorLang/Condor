@@ -1,4 +1,12 @@
-import "console", "array"
+import "console", "fs", "array"
+
+var dir = fs.readDir("./", true);
+
+for (int i = 0; i < arylen(dir); i++){
+	if (fs.isDir(dir[i])){
+		println(dir[i]);
+	}
+}
 
 // var a = new Array([1, 2, 3, 4]);
 // var b = new Array([5, 6, 7, 8]);

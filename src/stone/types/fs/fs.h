@@ -8,6 +8,8 @@
 #include <fstream>
 #include <streambuf>
 #include <iostream>
+#include <vector>
+#include <dirent.h>
 
 namespace Stone {
 namespace internal{
@@ -19,6 +21,8 @@ namespace internal{
 		static std::string ReadFile(std::string path);
 		static void WriteFile(std::string path, std::string contents);
 		static bool DeleteFile(std::string path);
+		static std::vector<std::string> ReadDir(std::string path, bool recursive);
+		static bool IsDir(std::string path);
 	};
 
 } // namespace internal
