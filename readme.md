@@ -1,19 +1,19 @@
-<!-- ![StoneLang Title](https://github.com/chaseWillden/StoneLang/blob/master/StoneLang%20Title.png) -->
-# StoneLang [![Build Status][travis-image]][travis-url]
+<!-- ![Stone Title](https://github.com/StoneLang/Stone/blob/master/Stone%20Title.png) -->
+# Stone [![Build Status][travis-image]][travis-url]
 
-StoneLang is intended to be another simple and intuitive programming language. The syntax is familiar by design, but allows for the combining of a few concepts.
+Stone is intended to be another simple and intuitive programming language. The syntax is familiar by design, but allows for the combining of a few concepts.
 
 Documentation
 -------------
-See [Wiki](https://github.com/chaseWillden/StoneLang/wiki) for documentation.
+See [Wiki](https://github.com/StoneLang/Stone/wiki) for documentation.
 
 Contributing:
 -------------
-See [Contributing](https://github.com/chaseWillden/StoneLang/wiki/Contributing) page in the wiki
-See [Developers](https://github.com/chaseWillden/StoneLang/wiki#developers) for building instructions.
+See [Contributing](https://github.com/StoneLang/Stone/wiki/Contributing) page in the wiki
+See [Developers](https://github.com/StoneLang/Stone/wiki#developers) for building instructions.
 
-[travis-url]: https://travis-ci.org/chaseWillden/StoneLang/
-[travis-image]: https://img.shields.io/travis/chaseWillden/StoneLang/master.svg?style=flat
+[travis-url]: https://travis-ci.org/StoneLang/Stone/
+[travis-image]: https://img.shields.io/travis/StoneLang/Stone/master.svg?style=flat
 
 Examples
 --------
