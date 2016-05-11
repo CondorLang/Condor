@@ -1,4 +1,4 @@
-// Copyright 2016 Chase Willden and The CobraLang Authors. All rights reserved.
+// Copyright 2016 Chase Willden and The StoneLang Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
@@ -10,16 +10,16 @@
 #include <ctime>
 #include <locale>
 
-#include "cobra/flags.h"
-#include "cobra/global.h"
-#include "cobra/assert.h"
-#include "cobra/mem/isolate.h"
-#include "cobra/ast/context.h"
-#include "cobra/mem/allocate.h"
-#include "cobra/types/strings/string.h"
-#include "cobra/types/script/script.h"
+#include "stone/flags.h"
+#include "stone/global.h"
+#include "stone/assert.h"
+#include "stone/mem/isolate.h"
+#include "stone/ast/context.h"
+#include "stone/mem/allocate.h"
+#include "stone/types/strings/string.h"
+#include "stone/types/script/script.h"
 
-namespace Cobra{
+namespace Stone{
 
 	const char* Version(){
 		std::string result = "";

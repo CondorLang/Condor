@@ -1,19 +1,19 @@
-![CobraLang Title](https://github.com/chaseWillden/CobraLang/blob/master/CobraLang%20Title.png)
-# CobraLang [![Build Status][travis-image]][travis-url]
+<!-- ![StoneLang Title](https://github.com/chaseWillden/StoneLang/blob/master/StoneLang%20Title.png) -->
+# StoneLang [![Build Status][travis-image]][travis-url]
 
-CobraLang is intended to be another simple and intuitive programming language. The syntax is familiar by design, but allows for the combining of a few concepts.
+StoneLang is intended to be another simple and intuitive programming language. The syntax is familiar by design, but allows for the combining of a few concepts.
 
 Documentation
 -------------
-See [Wiki](https://github.com/chaseWillden/CobraLang/wiki) for documentation.
+See [Wiki](https://github.com/chaseWillden/StoneLang/wiki) for documentation.
 
 Contributing:
 -------------
-See [Contributing](https://github.com/chaseWillden/CobraLang/wiki/Contributing) page in the wiki
-See [Developers](https://github.com/chaseWillden/CobraLang/wiki#developers) for building instructions.
+See [Contributing](https://github.com/chaseWillden/StoneLang/wiki/Contributing) page in the wiki
+See [Developers](https://github.com/chaseWillden/StoneLang/wiki#developers) for building instructions.
 
-[travis-url]: https://travis-ci.org/chaseWillden/CobraLang/
-[travis-image]: https://img.shields.io/travis/chaseWillden/CobraLang/master.svg?style=flat
+[travis-url]: https://travis-ci.org/chaseWillden/StoneLang/
+[travis-image]: https://img.shields.io/travis/chaseWillden/StoneLang/master.svg?style=flat
 
 Examples
 --------
@@ -47,7 +47,6 @@ string contents = fs.readFile("readme.md");
 
 Todo:
 ------
- - node.cc 375 - Find the bug from the properties segfault
  - node.h 28 - Create a Expand() function which expands the node and the tree
  - execute.cc 115 - Figure out how to implement recursion
  - execute.cc 204 - Set row and col for tracking
@@ -59,7 +58,7 @@ Todo:
  - internal.cc 164 - Throw Error
  - internal.cc 272 - Move to a macro
  - semantics.cc 298 - Verify this is ok and always true
- - semantics.cc 673 - Is this true always?
- - semantics.cc 715 - Compare the base type with the assignment type. Throw an error if they are not the same if hard typed.
+ - semantics.cc 672 - Is this true always?
+ - semantics.cc 714 - Compare the base type with the assignment type. Throw an error if they are not the same if hard typed.
  - path.cc 24 - Set Locale - http://askubuntu.com/questions/236924/matlab-not-working
  - path.cc 78 - Throw Error

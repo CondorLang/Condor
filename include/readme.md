@@ -1,2 +1,2 @@
-# Cobra.h
-Since CobraLang is a static c++ library, Cobra.h is the public facing API.
+# Stone.h
+Since StoneLang is a static c++ library, Stone.h is the public facing API.
