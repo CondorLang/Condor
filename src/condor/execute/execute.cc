@@ -96,7 +96,7 @@ namespace internal{
 					ASTLiteral* lit = EvaluateValue(call->params[i]);
 					SetLitType(lit);
 					nodes.push_back(lit->Clone(isolate));
-					isolate->RunGC(call->params[i], true);
+					isolate->RunGC(call->params[i], false);
 				}
 			}
 			return (ASTLiteral*) Internal::CallInternal(isolate, call->callback, nodes);
@@ -115,6 +115,7 @@ namespace internal{
 				else{
 					func->args[i]->local = ASTUndefined::New(isolate);
 				}
+				isolate->RunGC(call->params[i], false);
 			}
 			PrintStep("Evaluating Parameters...Done");
 			// TODO: Figure out how to implement recursion
@@ -132,17 +133,18 @@ namespace internal{
 			returnValue = NULL;
 			allowGC = true;
 		}
+
+		ASTLiteral* result = NULL;
 		if (returns.size() > 0) {
 			CHECK(returns[0] != NULL);
 			ASTLiteral* lit = (ASTLiteral*) returns[0]->local;
 			CHECK(lit != NULL);
-			ASTLiteral* result = lit->Clone(isolate);
+			result = lit->Clone(isolate);
 			if (allowGC) returns[0]->allowGC = true;
 			PrintStep("Cloning (" + call->name + ") return value");
-			isolate->RunGC(call, true);
-			return result;
 		}
-		return NULL;
+		isolate->RunGC(call, true);
+		return result;
 	}
 
 	ASTLiteral* Execute::EvaluateBinary(ASTBinaryExpr* binary){
@@ -676,6 +678,7 @@ namespace internal{
 			returnValue = var;
 			var->allowGC = false;
 		}
+		isolate->RunGC(local, true);
 		return local;
 	}
 
