@@ -29,6 +29,7 @@ namespace internal{
 		PrintStep("\n\nStarting");
 		isReturning = false;
 		returnValue = NULL;
+		isContinue = false;
 	}
 
 	void Execute::Trace(std::string first, std::string msg2){
@@ -72,12 +73,13 @@ namespace internal{
 				case IF: EvaluateIf((ASTIf*) node); break;
 				case LITERAL: node->local = EvaluateValue(node); break;
 				case SWITCH: EvaluateSwitch((ASTSwitch*) node); break;
+				case CONTINUE: isContinue = true; break;
 				case BREAK: {
 					if (canBreak) throw Error::INTERNAL_BREAK;
 					throw Error::INVALID_USE_OF_BREAK;
 				}
 			}
-			if (isReturning) return;
+			if (isReturning || isContinue) break;
 		}
 		CloseScope();
 	}
@@ -697,6 +699,7 @@ namespace internal{
 			try {
 				Evaluate();
 				isolate->RunGC(expr->scope, true);
+				if (isContinue) isContinue = false;
 				if (isReturning) return;
 			}
 			catch (Error::ERROR e){
@@ -732,6 +735,7 @@ namespace internal{
 			try {
 				Evaluate();
 				isolate->RunGC(expr->scope, true);
+				if (isContinue) isContinue = false;
 				if (isReturning) return;
 			}
 			catch (Error::ERROR e){

@@ -233,6 +233,7 @@ namespace internal{
 			case FUNC_CALL: return ValidateFuncCall((ASTFuncCall*) expr);
 			case ARRAY: return ValidateArray((ASTArray*) expr);
 			case BREAK: return UNDEFINED;
+			case CONTINUE: return UNDEFINED;
 			default: {
 				throw Error::NOT_IMPLEMENTED;
 			}

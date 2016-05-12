@@ -14,6 +14,7 @@ export object String{
 		this.raw = str;
 		this.length = strlen(str);
 	}
+	func indexOf(var ch) return indexOf(this.raw, ch);
 }
 
 export func strlen(string str){

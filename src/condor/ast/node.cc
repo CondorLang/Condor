@@ -56,6 +56,10 @@ namespace internal{
 			case UNDEFINED: iso->FreeMemory(this, sizeof(ASTUndefined)); break;
 			case ARRAY: iso->FreeMemory(this, sizeof(ASTArray)); break;
 			case OBJECT_INSTANCE: iso->FreeMemory(this, sizeof(ASTObjectInstance)); break;
+			case CONTINUE: iso->FreeMemory(this, sizeof(ASTContinue)); break;
+			default: {
+				printf("Node.cc: %s\n", Token::ToString(type).c_str());
+			}
 		}
 	}
 
@@ -149,6 +153,14 @@ namespace internal{
 		ASTBreak* n = new(pt) ASTBreak();
 		ASTNode::SetDefaults(n, iso);
 		n->type = BREAK;
+		return n;
+	}
+
+	ASTContinue* ASTContinue::New(Isolate* iso){
+		void* pt = iso->GetMemory(sizeof(ASTContinue));
+		ASTContinue* n = new(pt) ASTContinue();
+		ASTNode::SetDefaults(n, iso);
+		n->type = CONTINUE;
 		return n;
 	}
 

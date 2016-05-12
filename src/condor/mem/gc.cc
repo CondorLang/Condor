@@ -88,7 +88,7 @@ namespace internal{
 					break;
 				}
 				case OBJECT: case IF: case UNDEFINED: 
-				case BREAK: { // handled in execute.cc
+				case BREAK: case CONTINUE: { // handled in execute.cc
 					break;
 				}
 				case LITERAL: {

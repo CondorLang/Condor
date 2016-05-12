@@ -292,6 +292,10 @@ namespace internal{
 					node = ParseForExpr();
 					break;
 				}
+				case CONTINUE: {
+					node = ParseContinue();
+					break;
+				}
 				case WHILE: {
 					node = ParseWhile();
 					break;
@@ -347,6 +351,16 @@ namespace internal{
 		Trace("Parsing", "Break");
 		Expect(BREAK);
 		ASTBreak* b = ASTBreak::New(isolate);
+		Next();
+		Expect(SEMICOLON);
+		Next();
+		return b;
+	}
+
+	ASTNode* Parser::ParseContinue(){
+		Trace("Parsing", "Continue");
+		Expect(CONTINUE);
+		ASTContinue* b = ASTContinue::New(isolate);
 		Next();
 		Expect(SEMICOLON);
 		Next();

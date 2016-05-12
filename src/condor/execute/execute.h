@@ -39,6 +39,7 @@ namespace internal{
 		bool postixPeriod;
 		bool rpnStack;
 		bool isReturning;
+		bool isContinue;
 		ASTNode* returnValue;
 
 		void Trace(std::string first, std::string msg2);

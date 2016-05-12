@@ -119,6 +119,13 @@ namespace internal{
 		size_t Size(){return sizeof(ASTBreak);}		
 	};
 
+	class ASTContinue : public ASTExpr
+	{
+	public:
+		static ASTContinue* New(Isolate* iso);
+		size_t Size(){return sizeof(ASTContinue);}		
+	};
+
 	class ASTBinaryExpr : public ASTExpr
 	{
 	public:

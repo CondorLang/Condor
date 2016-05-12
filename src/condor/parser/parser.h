@@ -80,6 +80,7 @@ namespace internal{
 		ASTExpr* ParseInternal();
 		ASTNode* ParseReturn();
 		ASTNode* ParseBreak();
+		ASTNode* ParseContinue();
 
 	public:
 		Parser(Isolate* iso);
