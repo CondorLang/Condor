@@ -583,7 +583,7 @@ namespace internal{
 				var->litType = IDENT;
 				Expect(RBRACK);
 				Next();
-				if (!IsOperator()) return var;
+				if (!IsOperator() && !IsBoolean()) return var;
 				expr = var;
 			}
 			else{

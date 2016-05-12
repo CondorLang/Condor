@@ -96,6 +96,16 @@ namespace internal{
 					if (lit->allowGC) Dispose(isolate, lit->var, true, objKeys);
 					break;
 				}
+				case FOR: {
+					ASTForExpr* expr = (ASTForExpr*) node;
+					if (expr->allowGC) {
+						Dispose(isolate, expr->var, true);
+						Dispose(isolate, expr->condition, true);
+						Dispose(isolate, expr->tick, true);
+						Dispose(isolate, expr->scope, true);
+					}
+					break;
+				}
 				default: {
 					printf("GC: %s\n", Token::ToString(node->type).c_str());
 				}

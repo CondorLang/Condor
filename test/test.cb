@@ -1,12 +1,16 @@
-import "console", "fs", "array"
+import "console", "fs", "array", "string"
 
-var dir = fs.readDir("./", true);
+string val = "Apple";
 
-for (int i = 0; i < arylen(dir); i++){
-	if (fs.isDir(dir[i])){
-		println(dir[i]);
-	}
-}
+println(indexOf(val, 'l'));
+
+// var dir = fs.readDir("./", true);
+
+// for (int i = 0; i < arylen(dir); i++){
+// 	if (fs.isDir(dir[i])){
+// 		println(dir[i]);
+// 	}
+// }
 
 // var a = new Array([1, 2, 3, 4]);
 // var b = new Array([5, 6, 7, 8]);

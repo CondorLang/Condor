@@ -38,6 +38,8 @@ namespace internal{
 		bool canBreak;
 		bool postixPeriod;
 		bool rpnStack;
+		bool isReturning;
+		ASTNode* returnValue;
 
 		void Trace(std::string first, std::string msg2);
 		void PrintStep(std::string msg);

@@ -27,6 +27,8 @@ namespace internal{
 		numOfSteps = 1;
 		rpnStack = RPN_STACK;
 		PrintStep("\n\nStarting");
+		isReturning = false;
+		returnValue = NULL;
 	}
 
 	void Execute::Trace(std::string first, std::string msg2){
@@ -75,6 +77,7 @@ namespace internal{
 					throw Error::INVALID_USE_OF_BREAK;
 				}
 			}
+			if (isReturning) return;
 		}
 		CloseScope();
 	}
@@ -117,10 +120,22 @@ namespace internal{
 			OpenScope(func->scope);
 			Evaluate();
 		}
-		std::vector<ASTNode*> returns = func->scope->Lookup("return", false);
+		std::vector<ASTNode*> returns;
+		bool allowGC = false;
+		if (!isReturning) returns = func->scope->Lookup("return", false);
+		else {
+			CHECK(returnValue != NULL);
+			returns.push_back(returnValue);
+			isReturning = false;
+			returnValue = NULL;
+			allowGC = true;
+		}
 		if (returns.size() > 0) {
+			CHECK(returns[0] != NULL);
 			ASTLiteral* lit = (ASTLiteral*) returns[0]->local;
+			CHECK(lit != NULL);
 			ASTLiteral* result = lit->Clone(isolate);
+			if (allowGC) returns[0]->allowGC = true;
 			PrintStep("Cloning (" + call->name + ") return value");
 			isolate->RunGC(call, true);
 			return result;
@@ -475,7 +490,7 @@ namespace internal{
 		int type = (int) binary->op;
 		switch (type){
 			case ASSIGN: {
-				ASTVar* var = GetVar(binary->left); // here
+				ASTVar* var = GetVar(binary->left);
 				ASTLiteral* lit = EvaluateValue(binary->right);
 				if (lit != NULL){
 					SetCalc(lit);
@@ -654,6 +669,11 @@ namespace internal{
 			}
 		}
 		var->local = local->Clone(isolate, true);
+		if (var->name == "return") {
+			isReturning = true;
+			returnValue = var;
+			var->allowGC = false;
+		}
 		return local;
 	}
 
@@ -677,6 +697,7 @@ namespace internal{
 			try {
 				Evaluate();
 				isolate->RunGC(expr->scope, true);
+				if (isReturning) return;
 			}
 			catch (Error::ERROR e){
 				canBreak = cb;
@@ -711,6 +732,7 @@ namespace internal{
 			try {
 				Evaluate();
 				isolate->RunGC(expr->scope, true);
+				if (isReturning) return;
 			}
 			catch (Error::ERROR e){
 				canBreak = cb;
@@ -742,6 +764,7 @@ namespace internal{
 			try {
 				Evaluate();
 				isolate->RunGC(expr->scope, true);
+				if (isReturning) return true;
 			}
 			catch (Error::ERROR e){
 				if (e == Error::INTERNAL_BREAK){
@@ -781,6 +804,7 @@ namespace internal{
 				try {
 					Evaluate();
 					isolate->RunGC(stmt->scope, true);
+					if (isReturning) return;
 				}
 				catch (Error::ERROR e){
 					canBreak = cb;

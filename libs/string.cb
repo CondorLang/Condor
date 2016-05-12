@@ -19,3 +19,12 @@ export object String{
 export func strlen(string str){
 	return %getStringLength(str);
 }
+
+export func indexOf(string str, var val){
+	int len = strlen(str);
+	int value = -1;
+	for (int i = 0; i < len; i++){
+		if (str[i] == val) return i;
+	}
+	return value;
+}
