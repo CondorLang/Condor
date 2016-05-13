@@ -106,6 +106,13 @@ namespace internal{
 					}
 					break;
 				}
+				case ARRAY: {
+					ASTArray* ary = (ASTArray*) node;
+					for (int i = 0; i < ary->members.size(); i++){
+						Dispose(isolate, ary->members[i], true);
+					}
+					break;
+				}
 				default: {
 					printf("GC: %s\n", Token::ToString(node->type).c_str());
 				}

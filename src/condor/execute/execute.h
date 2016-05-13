@@ -74,6 +74,7 @@ namespace internal{
 		void EvaluateSwitch(ASTSwitch* expr);
 		ASTLiteral* StackCall(ASTFuncCall* call, ASTToken* tok, ASTLiteral* first);
 		void SetLitType(ASTLiteral* lit);
+		void SetNot(ASTExpr* expr);
 
 	public:
 		static Execute* New(Isolate* isolate, Scope* scope);

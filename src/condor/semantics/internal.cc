@@ -243,6 +243,7 @@ namespace internal{
 	}
 
 	ASTNode* Internal::ArrayMerge(Isolate* iso, std::vector<ASTLiteral*> lits){
+		//if (lits.size() == 0) return ASTUndefined::New(iso);
 		if (lits.size() < 2 || lits[0]->type != ARRAY) {
 			return ASTUndefined::New(iso);
 		}

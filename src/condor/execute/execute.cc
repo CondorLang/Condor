@@ -95,7 +95,8 @@ namespace internal{
 				for (int i = 0; i < call->params.size(); i++){
 					ASTLiteral* lit = EvaluateValue(call->params[i]);
 					SetLitType(lit);
-					nodes.push_back(lit->Clone(isolate));
+					if (lit != NULL) nodes.push_back(lit->Clone(isolate));
+					else nodes.push_back(ASTUndefined::New(isolate));
 					isolate->RunGC(call->params[i], false);
 				}
 			}
@@ -167,9 +168,6 @@ namespace internal{
 			else{
 				PrintStep("Calculation");
 				NewStack();
-				if (binary->right->name == "base"){
-					int a = 10;//here
-				}
 				FillPostix(binary);				
 				ASTLiteral* lit = Calculate();
 				FormatLit(lit);
@@ -402,40 +400,52 @@ namespace internal{
 		SetRowCol(tok);
 		RPNStack* stack = GetCurrentStack();
 		int type = (int) tok->value->value;
-		if (stack->opStack.size() < 2) throw Error::INVALID_OPERATOR;
-		ASTLiteral* first = (ASTLiteral*) stack->opStack[stack->opStack.size() - 1];
-		stack->opStack.pop_back();
-		if (tok->value->IsAssign()) return first;
-		ASTLiteral* second = (ASTLiteral*) stack->opStack[stack->opStack.size() - 1];
-		stack->opStack.pop_back();
-		if (first->type == FUNC_CALL) return StackCall((ASTFuncCall*) first, tok, second);
-		if (second->type == OBJECT_INSTANCE){
-			ASTObjectInstance* inst = (ASTObjectInstance*) second;
-			if ((inst->litType == OBJECT || inst->type == LITERAL) && inst->type != OBJECT_INSTANCE) inst = GetCurrentObject();
-			ASTVar* var = inst->GetProp(isolate, first->value);
-			ASTLiteral* val = EvaluateValue(var);
-			if (val->type == ARRAY && first->member != NULL) {
-				ASTArray* ary = (ASTArray*) val;
-				ASTLiteral* mem = EvaluateValue(first->member);
-				if (ary->members.size() == 0 || ary->members.size() <= mem->calc) return ASTUndefined::New(isolate);
-				return EvaluateValue(ary->members[mem->calc]);
-			}
-			return val;
+		if (stack->opStack.size() < 2 && tok->value->value != NOT) throw Error::INVALID_OPERATOR;
+		if (tok->value->value == NOT){
+			int a = 10;
 		}
-		if (tok->value->value == PERIOD && first->var != NULL && first->var->HasVisibility(STATIC)){ // static variables
-			return EvaluateValue(first->var);
+		ASTLiteral* first = (ASTLiteral*) stack->opStack[stack->opStack.size() - 1];
+		ASTLiteral* second = NULL;
+		stack->opStack.pop_back();
+
+		if (tok->value->value != NOT){
+			if (tok->value->IsAssign()) return first;
+			second = (ASTLiteral*) stack->opStack[stack->opStack.size() - 1];
+			stack->opStack.pop_back();
+			if (first->type == FUNC_CALL) return StackCall((ASTFuncCall*) first, tok, second);
+			if (second->type == OBJECT_INSTANCE){
+				ASTObjectInstance* inst = (ASTObjectInstance*) second;
+				if ((inst->litType == OBJECT || inst->type == LITERAL) && inst->type != OBJECT_INSTANCE) inst = GetCurrentObject();
+				ASTVar* var = inst->GetProp(isolate, first->value);
+				ASTLiteral* val = EvaluateValue(var);
+				if (val->type == ARRAY && first->member != NULL) {
+					ASTArray* ary = (ASTArray*) val;
+					ASTLiteral* mem = EvaluateValue(first->member);
+					if (ary->members.size() == 0 || ary->members.size() <= mem->calc) return ASTUndefined::New(isolate);
+					return EvaluateValue(ary->members[mem->calc]);
+				}
+				return val;
+			}
+			if (tok->value->value == PERIOD && first->var != NULL && first->var->HasVisibility(STATIC)){ // static variables
+				return EvaluateValue(first->var);
+			}
 		}
 
 		ASTLiteral* result = ASTLiteral::New(isolate);
 		SetLitType(first);
-		SetLitType(second);
+		if (tok->value->value != NOT) SetLitType(second);
 
-		result->litType = Binary::Compare(first->litType, second->litType, tok->value->value);
+		if (tok->value->value != NOT) result->litType = Binary::Compare(first->litType, second->litType, tok->value->value);
 
-		PrintStep("Calculating ('" + second->value + "' " + tok->value->String() + " '" + first->value + "')");
+		if (tok->value->value != NOT) PrintStep("Calculating ('" + second->value + "' " + tok->value->String() + " '" + first->value + "')");
+		else PrintStep("Calculating (" + tok->value->String() + " '" + first->value + "')");
 
 		int litType = (int) result->litType;
-		if (litType == BOOLEAN){
+		if (tok->value->value == NOT){
+			result->litType = BOOLEAN;
+			litType = (int) BOOLEAN;
+		}
+		else if (litType == BOOLEAN){
 			litType = Binary::Compare(first->litType, second->litType, ADD);
 		}
 		
@@ -457,6 +467,7 @@ namespace internal{
 					case LEQ: result->calc = second->calc <= first->calc; break;
 					case GEQ: result->calc = second->calc >= first->calc; break;
 					case NEQ: result->calc = second->calc != first->calc; break;
+					case NOT: result->calc = first->value == "true" ? 0 : 1; break; // TODO: Implement null, undefined, and other types
 					default: {
 						printf("debug int: %s\n", Token::ToString(tok->value->value).c_str());
 					}

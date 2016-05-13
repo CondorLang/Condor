@@ -58,7 +58,7 @@ namespace internal{
 			case OBJECT_INSTANCE: iso->FreeMemory(this, sizeof(ASTObjectInstance)); break;
 			case CONTINUE: iso->FreeMemory(this, sizeof(ASTContinue)); break;
 			default: {
-				printf("Node.cc: %s\n", Token::ToString(type).c_str());
+				//printf("Node.cc: %s\n", Token::ToString(type).c_str());
 			}
 		}
 	}

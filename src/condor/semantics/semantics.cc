@@ -299,7 +299,7 @@ namespace internal{
 		isThis = false; // TODO: Verify this is ok and always true
 
 		staticRequired = false;
-		if (expr->left->type == OBJECT) staticRequired = true;
+		if (expr->left != NULL && expr->left->type == OBJECT) staticRequired = true;
 
 		bool working = inObject; // used for object chains
 		if (inObject){

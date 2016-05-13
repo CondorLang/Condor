@@ -9,29 +9,29 @@ export object Array{
 	func Array(){}
 	func Array(var ary){
 		this.base = ary;
-		this._setLen();
+		this.length = arylen(this.base);
 	}
 	func getRaw() return this.base;
-	private func _setLen() this.length = arylen(this.base);
 	func at(int idx) return this.base[idx];
 	
 	func push(var val) {
 		this.base = ary_push(this.base, val);
-		this._setLen();
+		this.length = arylen(this.base);
 	}
 	func erase(int index){
 		this.base = ary_erase(this.base, index);
-		this._setLen();
+		this.length = arylen(this.base);
 	}
 	func merge(var ary){
 		string objName = %getObjectName(ary);
 		if (objName == "Array"){
+			%printf(%getLitType(this.base));
 			this.base = ary_merge(this.base, ary.getRaw());
 		}
 		else{
 			this.base = ary_merge(this.base, ary);
 		}
-		this._setLen();
+		this.length = arylen(this.base);
 	}
 }
 

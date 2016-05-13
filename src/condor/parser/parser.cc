@@ -149,7 +149,7 @@ namespace internal{
 	}
 
 	bool Parser::IsBoolean(){
-		return Is(11, LAND, LOR, EQL, LSS, GTR, NEQ, LEQ, GEQ, NOT, XOR, AND);
+		return Is(10, LAND, LOR, EQL, LSS, GTR, NEQ, LEQ, GEQ, XOR, AND);
 	}
 
 	/**
@@ -546,6 +546,14 @@ namespace internal{
 		TOKEN unary = UNDEFINED;
 		bool incdec = Is(2, INC, DEC);
 		ASTLiteral* cast = NULL;
+		if (Is(1, NOT)){
+			ASTBinaryExpr* binary = ASTBinaryExpr::New(isolate);
+			binary->op = tok->value;
+			Next();
+			binary->left = NULL;
+			binary->right = ParseExpr(true);
+			return binary;
+		}
 		if (incdec) {
 			unary = tok->value;
 			Next();

@@ -1,1 +1,1254 @@
-{}
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"firs",
+				"firstLine"
+			],
+			[
+				"return",
+				"returns"
+			],
+			[
+				"al",
+				"allowGC"
+			],
+			[
+				"push",
+				"push_back"
+			],
+			[
+				"Loo",
+				"LookupReturn"
+			],
+			[
+				"resu",
+				"resultPath"
+			],
+			[
+				"Che",
+				"CHECK"
+			],
+			[
+				"GetObj",
+				"GetObjectFromScope"
+			],
+			[
+				"arry",
+				"ary_merge"
+			],
+			[
+				"Arr",
+				"ArrayErase"
+			],
+			[
+				"RB",
+				"RBRACK"
+			],
+			[
+				"LB",
+				"LBRACK"
+			],
+			[
+				"ParseVar",
+				"ParseVarList"
+			],
+			[
+				"time",
+				"time_t"
+			],
+			[
+				"er",
+				"Error"
+			],
+			[
+				"INVA",
+				"INVALID_ASSIGNMENT"
+			],
+			[
+				"Valid",
+				"ValidateExpr"
+			],
+			[
+				"Getu",
+				"GetCurrentScope"
+			],
+			[
+				"ASTFU",
+				"ASTFunc"
+			],
+			[
+				"Scan",
+				"ScanScope"
+			],
+			[
+				"left",
+				"leftT"
+			],
+			[
+				"Forma",
+				"FormatLit"
+			],
+			[
+				"ASTB",
+				"ASTBinaryExpr"
+			],
+			[
+				"call",
+				"callback"
+			],
+			[
+				"Clo",
+				"Clocks"
+			],
+			[
+				"Form",
+				"FormatLit"
+			],
+			[
+				"clal",
+				"callback"
+			],
+			[
+				"CBClo",
+				"CBClockContainer"
+			],
+			[
+				"Eval",
+				"EvaluateValue"
+			],
+			[
+				"all",
+				"allowNative"
+			],
+			[
+				"INVAL",
+				"INVALID_FUNCTION_CALL"
+			],
+			[
+				"PareFun",
+				"ParseFuncCall"
+			],
+			[
+				"UN",
+				"UNDEFINED_FUNC"
+			],
+			[
+				"OBJ",
+				"OBJECT"
+			],
+			[
+				"GetOb",
+				"GetObjectInScope"
+			],
+			[
+				"obj",
+				"object"
+			],
+			[
+				"ASTO",
+				"ASTObjectMemberChainExpr"
+			],
+			[
+				"OBJE",
+				"OBJECT_MEMBER_CHAIN"
+			],
+			[
+				"FUNC",
+				"FUNC_CALL"
+			],
+			[
+				"ASTUn",
+				"ASTUnaryExpr"
+			],
+			[
+				"arra",
+				"arrayType"
+			],
+			[
+				"AST",
+				"ASTObjectMemberChainExpr"
+			],
+			[
+				"RBR",
+				"RBRACE"
+			],
+			[
+				"Set",
+				"SetRowCol"
+			],
+			[
+				"ASTArr",
+				"ASTArray"
+			],
+			[
+				"ASTAR",
+				"ASTArrayMemberExpr"
+			],
+			[
+				"ValidateArr",
+				"ValidateArrayMember"
+			],
+			[
+				"ARRAY",
+				"ARRAY_MEMBER"
+			],
+			[
+				"Strin",
+				"GetTokenString"
+			],
+			[
+				"Val",
+				"ValidateStmt"
+			],
+			[
+				"ParseArr",
+				"ParseArrayInit"
+			],
+			[
+				"memb",
+				"members"
+			],
+			[
+				"te",
+				"testCase"
+			],
+			[
+				"ASTFun",
+				"ASTFuncCallExpr"
+			],
+			[
+				"testb",
+				"testBool2"
+			],
+			[
+				"test",
+				"testBool"
+			],
+			[
+				"found",
+				"foundFunc"
+			],
+			[
+				"loo",
+				"lookupValue"
+			],
+			[
+				"cole",
+				"college"
+			],
+			[
+				"colleg",
+				"colleges"
+			],
+			[
+				"sec",
+				"sections"
+			],
+			[
+				"pr",
+				"proximity"
+			],
+			[
+				"proto",
+				"prototype"
+			],
+			[
+				"build",
+				"buildAll"
+			],
+			[
+				"sub",
+				"subs"
+			],
+			[
+				"group",
+				"group"
+			],
+			[
+				"out",
+				"outputSubs"
+			],
+			[
+				"input",
+				"inputSubs"
+			],
+			[
+				"outp",
+				"outputSubs"
+			],
+			[
+				"folder",
+				"folderId"
+			],
+			[
+				"share",
+				"shareFolderEmail"
+			],
+			[
+				"surve",
+				"surveys"
+			],
+			[
+				"surv",
+				"surveyId"
+			],
+			[
+				"survey",
+				"surveyId"
+			],
+			[
+				"sur",
+				"surveyEndDate"
+			],
+			[
+				"fold",
+				"folder"
+			],
+			[
+				"mod",
+				"modal"
+			],
+			[
+				"par",
+				"params"
+			],
+			[
+				"fol",
+				"folderId"
+			],
+			[
+				"pare",
+				"parents"
+			],
+			[
+				"parent",
+				"parentId"
+			],
+			[
+				"pri",
+				"print_r"
+			],
+			[
+				"sharedW",
+				"sharedWith"
+			],
+			[
+				"sharedWi",
+				"sharedWithId"
+			],
+			[
+				"Genera",
+				"GeneratePassword"
+			],
+			[
+				"border",
+				"border-top-right-radius"
+			],
+			[
+				"border-ra",
+				"border-top-left-radius"
+			],
+			[
+				"in",
+				"inline-block"
+			],
+			[
+				"border-rad",
+				"border-radius"
+			],
+			[
+				"pos",
+				"position"
+			],
+			[
+				"wid",
+				"width"
+			],
+			[
+				"border-bot",
+				"border-bottom-right-radius"
+			],
+			[
+				"border-radi",
+				"border-top-right-radius"
+			],
+			[
+				"border-to",
+				"border-top-right-radius"
+			],
+			[
+				"pat",
+				"patterns"
+			],
+			[
+				"case",
+				"caseCollect"
+			],
+			[
+				"cho",
+				"chosen"
+			],
+			[
+				"chos",
+				"chosenSize"
+			],
+			[
+				"pro",
+				"processPair"
+			],
+			[
+				"sen",
+				"sentences"
+			],
+			[
+				"word",
+				"wordTotals"
+			],
+			[
+				"txt",
+				"txtWords"
+			],
+			[
+				"ob",
+				"observation"
+			],
+			[
+				"high",
+				"highestItem"
+			],
+			[
+				"conte",
+				"contextId"
+			],
+			[
+				"note",
+				"noteId"
+			],
+			[
+				"cont",
+				"contextId"
+			],
+			[
+				"close",
+				"closeContext"
+			],
+			[
+				"pal",
+				"player"
+			],
+			[
+				"pla",
+				"player1"
+			],
+			[
+				"setP",
+				"setPathsRecursive"
+			],
+			[
+				"Mod",
+				"ModuleId"
+			],
+			[
+				"Pos",
+				"PostEndDate"
+			],
+			[
+				"getDi",
+				"getDiscussionTopics"
+			],
+			[
+				"isCo",
+				"isContentItem"
+			],
+			[
+				"isC",
+				"isContentType"
+			],
+			[
+				"getM",
+				"getModulesAndTopicsRecursive"
+			],
+			[
+				"loop",
+				"loopThroughTopics"
+			],
+			[
+				"rep",
+				"replaceText"
+			],
+			[
+				"term",
+				"termGlobal"
+			],
+			[
+				"getSe",
+				"getSelectionText"
+			],
+			[
+				"creat",
+				"creationDate"
+			],
+			[
+				"isol",
+				"isolateId"
+			],
+			[
+				"iso",
+				"isolateId"
+			],
+			[
+				"rou",
+				"routeParams"
+			],
+			[
+				"create",
+				"createIsolateCtrl"
+			],
+			[
+				"crea",
+				"createIsolate"
+			],
+			[
+				"contex",
+				"contextsById"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "test/test.cb",
+			"settings":
+			{
+				"buffer_size": 391,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"auto",
+				"Auto indent"
+			],
+			[
+				"beau",
+				"HTMLBeautify"
+			],
+			[
+				"html",
+				"Set Syntax: HTML"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"java",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"xml",
+				"Set Syntax: XML"
+			],
+			[
+				"jav",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"jac",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"set syntax: ja",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"python",
+				"Set Syntax: Python"
+			],
+			[
+				"remov",
+				"Package Control: Remove Package"
+			],
+			[
+				"js",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"",
+				"Auto indent"
+			],
+			[
+				"aut",
+				"Auto indent"
+			],
+			[
+				"xpath",
+				"XPath: Goto close tag"
+			],
+			[
+				"inde",
+				"Indent XML"
+			],
+			[
+				"git add",
+				"Git: Add..."
+			],
+			[
+				"json",
+				"Indent JSON"
+			],
+			[
+				"ind",
+				"Indent XML"
+			],
+			[
+				"index",
+				"Indent XML"
+			],
+			[
+				"sql",
+				"Set Syntax: SQL"
+			],
+			[
+				"inden",
+				"Auto indent"
+			],
+			[
+				"instl",
+				"Package Control: Install Package"
+			],
+			[
+				"enable",
+				"Package Control: Enable Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"iden",
+				"Indent XML"
+			],
+			[
+				"SublimeGDB",
+				"SublimeGDB: Show Input Field"
+			],
+			[
+				"gdb",
+				"SublimeGDB: Start Debugging"
+			],
+			[
+				"i",
+				"Indent XML"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"make",
+			"clear",
+			"import urllib.request,os,hashlib; h = 'eb2297e1a458f27d836c04bb0cbaf282' + 'd0e7a3098092775ccb37ca9d6b2e4b7d'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/willdech/Documents/dev/Condor",
+		"/Users/willdech/Documents/dev/Condor/src",
+		"/Users/willdech/Documents/dev/Condor/src/condor",
+		"/Users/willdech/Documents/dev/Condor/src/condor/ast",
+		"/Users/willdech/Documents/dev/Condor/src/condor/execute",
+		"/Users/willdech/Documents/dev/Condor/src/condor/semantics",
+		"/Users/willdech/Documents/dev/Condor/test"
+	],
+	"file_history":
+	[
+		"/Users/willdech/Documents/dev/Condor/src/condor/execute/execute.cc",
+		"/Users/willdech/Documents/dev/Condor/src/condor/parser/parser.cc",
+		"/Users/willdech/Documents/dev/Condor/src/condor/semantics/semantics.cc",
+		"/Users/willdech/Documents/dev/Condor/src/condor/ast/node.cc",
+		"/Users/willdech/Documents/dev/Condor/src/condor/ast/node.h",
+		"/Users/willdech/Documents/dev/Condor/src/condor/execute/execute.h",
+		"/Users/willdech/Documents/dev/Condor/src/condor/token/comment.h",
+		"/Users/willdech/Documents/dev/Condor/src/condor/token/token.h",
+		"/Users/willdech/Documents/dev/Condor/src/condor/ast/comment.h",
+		"/Users/willdech/Documents/dev/Condor/src/condor/scanner/scanner.h",
+		"/Users/willdech/Documents/dev/Condor/src/condor/semantics/semantics.h",
+		"/Users/willdech/Documents/dev/Condor/src/condor/mem/gc.cc",
+		"/Users/willdech/Documents/dev/Condor/src/condor/flags.cc",
+		"/Users/willdech/Documents/dev/Condor/src/condor/mem/gc.h",
+		"/Users/willdech/Documents/dev/Condor/src/condor/flags.h",
+		"/Users/willdech/Documents/dev/Condor/libs/string.cb",
+		"/Users/willdech/Documents/dev/Condor/src/condor/parser/parser.h",
+		"/Users/willdech/Documents/dev/Condor/src/condor/ast/scope.cc",
+		"/Users/willdech/Documents/dev/Condor/src/condor/ast/scope.h",
+		"/Users/willdech/Documents/dev/Condor/test/main.cc",
+		"/Users/willdech/Documents/dev/Condor/test/shell.cc",
+		"/Users/willdech/Documents/dev/Condor/src/stone/types/script/script.cc",
+		"/Users/willdech/Documents/dev/Condor/src/stone/mem/allocate.cc",
+		"/Users/willdech/Documents/dev/Condor/src/stone/flags.cc",
+		"/Users/willdech/Documents/dev/Condor/src/stone/assert.h",
+		"/Users/willdech/Documents/dev/Condor/src/api.cc",
+		"/Users/willdech/Documents/dev/Condor/src/stone/ast/context.h",
+		"/Users/willdech/Documents/dev/Condor/src/stone/ast/node.h",
+		"/Users/willdech/Documents/dev/Condor/src/stone/ast/scope.cc",
+		"/Users/willdech/Documents/dev/Condor/src/stone/ast/scope.h",
+		"/Users/willdech/Documents/dev/Condor/src/stone/clock.h",
+		"/Users/willdech/Documents/dev/Condor/src/stone/error/error.h",
+		"/Users/willdech/Documents/dev/Condor/src/stone/execute/execute.h",
+		"/Users/willdech/Documents/dev/Condor/src/stone/execute/stack.h",
+		"/Users/willdech/Documents/dev/Condor/src/stone/flags.h",
+		"/Users/willdech/Documents/dev/Condor/src/stone/mem/allocate.h",
+		"/Users/willdech/Documents/dev/Condor/src/stone/mem/gc.h",
+		"/Users/willdech/Documents/dev/Condor/src/stone/mem/isolate.h",
+		"/Users/willdech/Documents/dev/Condor/src/stone/parser/parser.cc",
+		"/Users/willdech/Documents/dev/Condor/src/stone/parser/parser.h",
+		"/Users/willdech/Documents/dev/Condor/src/stone/scanner/scanner.cc",
+		"/Users/willdech/Documents/dev/Condor/src/stone/scanner/scanner.h",
+		"/Users/willdech/Documents/dev/Condor/src/stone/semantics/binary.h",
+		"/Users/willdech/Documents/dev/Condor/src/stone/semantics/internal.cc",
+		"/Users/willdech/Documents/dev/Condor/src/stone/semantics/internal.h",
+		"/Users/willdech/Documents/dev/Condor/src/stone/semantics/semantics.h",
+		"/Users/willdech/Documents/dev/Condor/src/stone/token/token.cc",
+		"/Users/willdech/Documents/dev/Condor/src/stone/types/clock/clock.cc",
+		"/Users/willdech/Documents/dev/Condor/src/stone/types/clock/clock.h",
+		"/Users/willdech/Documents/dev/Condor/src/stone/types/path/path.h",
+		"/Users/willdech/Documents/dev/Condor/src/stone/types/script/script.h",
+		"/Users/willdech/Documents/dev/Condor/src/stone/types/strings/string.h",
+		"/Users/willdech/Documents/dev/Condor/src/stone/types/vector/vector.cc",
+		"/Users/willdech/Documents/dev/Condor/src/stone/types/vector/vector.h",
+		"/Users/willdech/Documents/dev/Condor/src/api.h",
+		"/Users/willdech/Documents/dev/Condor/libs/types.cb",
+		"/Users/willdech/Documents/dev/Condor/libs/path.cb",
+		"/Users/willdech/Documents/dev/Condor/libs/integer.cb",
+		"/Users/willdech/Documents/dev/Condor/libs/fs.cb",
+		"/Users/willdech/Documents/dev/Condor/libs/exception.cb",
+		"/Users/willdech/Documents/dev/Condor/libs/date.cb",
+		"/Users/willdech/Documents/dev/Condor/libs/console.cb",
+		"/Users/willdech/Documents/dev/Condor/libs/clock.cb",
+		"/Users/willdech/Documents/dev/Condor/libs/array.cb",
+		"/Users/willdech/Documents/dev/Condor/libs/app.cb",
+		"/Users/willdech/Documents/dev/Condor/src/stone/assert.cc",
+		"/Users/willdech/Documents/dev/Condor/src/stone/ast/context.cc",
+		"/Users/willdech/Documents/dev/Condor/src/stone/ast/node.cc",
+		"/Users/willdech/Documents/dev/Condor/src/stone/clock.cc",
+		"/Users/willdech/Documents/dev/Condor/src/stone/error/error.cc",
+		"/Users/willdech/Documents/dev/Condor/src/stone/execute/execute.cc",
+		"/Users/willdech/Documents/dev/Condor/src/stone/execute/stack.cc",
+		"/Users/willdech/Documents/dev/Condor/src/stone/global.h",
+		"/Users/willdech/Documents/dev/Condor/src/stone/mem/gc.cc",
+		"/Users/willdech/Documents/dev/Condor/src/stone/mem/isolate.cc",
+		"/Users/willdech/Documents/dev/Condor/src/stone/mem/list.h",
+		"/Users/willdech/Documents/dev/Condor/src/stone/semantics/binary.cc",
+		"/Users/willdech/Documents/dev/Condor/src/stone/semantics/semantics.cc",
+		"/Users/willdech/Documents/dev/Condor/src/stone/shell.h",
+		"/Users/willdech/Documents/dev/Condor/src/stone/token/token.h",
+		"/Users/willdech/Documents/dev/Condor/src/stone/types/app/app.cc",
+		"/Users/willdech/Documents/dev/Condor/src/stone/types/app/app.h",
+		"/Users/willdech/Documents/dev/Condor/src/stone/types/fs/fs.cc",
+		"/Users/willdech/Documents/dev/Condor/src/stone/types/fs/fs.h",
+		"/Users/willdech/Documents/dev/Condor/src/stone/types/path/path.cc",
+		"/Users/willdech/Documents/dev/Condor/src/stone/types/strings/string.cc",
+		"/Users/willdech/Documents/dev/Condor/include/Condor.h",
+		"/Users/willdech/Documents/dev/Condor/configure",
+		"/Users/willdech/Documents/dev/Condor/Makefile",
+		"/Users/willdech/Documents/dev/Condor/readme.md",
+		"/Users/willdech/Documents/dev/Condor/Condor.sublime-project",
+		"/Users/willdech/Documents/dev/Stone/src/stone/types/fs/fs.h",
+		"/Users/willdech/Documents/dev/Stone/src/stone/semantics/internal.h",
+		"/Users/willdech/Documents/dev/Stone/libs/fs.cb",
+		"/Users/willdech/Documents/dev/Stone/test/test.cb",
+		"/Users/willdech/Documents/dev/Stone/include/Stone.h",
+		"/Users/willdech/Documents/dev/Stone/include/readme.md",
+		"/Users/willdech/Documents/dev/Stone/readme.md",
+		"/Users/willdech/Documents/dev/Stone/test/shell.cc",
+		"/Users/willdech/Documents/dev/Stone/test/main.cc",
+		"/Users/willdech/Documents/dev/Stone/src/stone/types/script/script.cc",
+		"/Users/willdech/Documents/dev/Stone/src/stone/mem/allocate.cc",
+		"/Users/willdech/Documents/dev/Stone/src/stone/flags.cc",
+		"/Users/willdech/Documents/dev/Stone/src/stone/assert.h",
+		"/Users/willdech/Documents/dev/Stone/src/api.cc",
+		"/Users/willdech/Documents/dev/Stone/src/arrow/assert.h",
+		"/Users/willdech/Documents/dev/Stone/src/arrow/ast/context.h",
+		"/Users/willdech/Documents/dev/Stone/src/arrow/ast/node.h",
+		"/Users/willdech/Documents/dev/Stone/src/arrow/ast/scope.cc",
+		"/Users/willdech/Documents/dev/Stone/src/arrow/ast/scope.h",
+		"/Users/willdech/Documents/dev/Stone/src/arrow/clock.h",
+		"/Users/willdech/Documents/dev/Stone/src/arrow/error/error.h",
+		"/Users/willdech/Documents/dev/Stone/src/arrow/execute/execute.h",
+		"/Users/willdech/Documents/dev/Stone/src/arrow/execute/stack.h",
+		"/Users/willdech/Documents/dev/Stone/src/arrow/flags.h",
+		"/Users/willdech/Documents/dev/Stone/src/arrow/mem/allocate.h",
+		"/Users/willdech/Documents/dev/Stone/src/arrow/mem/gc.h",
+		"/Users/willdech/Documents/dev/Stone/src/arrow/mem/isolate.h",
+		"/Users/willdech/Documents/dev/Stone/src/arrow/parser/parser.cc",
+		"/Users/willdech/Documents/dev/Stone/src/arrow/parser/parser.h",
+		"/Users/willdech/Documents/dev/Stone/src/arrow/scanner/scanner.cc",
+		"/Users/willdech/Documents/dev/Stone/src/arrow/scanner/scanner.h",
+		"/Users/willdech/Documents/dev/Stone/src/arrow/semantics/binary.h",
+		"/Users/willdech/Documents/dev/Stone/src/arrow/semantics/internal.cc",
+		"/Users/willdech/Documents/dev/Stone/src/arrow/semantics/internal.h",
+		"/Users/willdech/Documents/dev/Stone/src/arrow/semantics/semantics.h",
+		"/Users/willdech/Documents/dev/Stone/src/arrow/token/token.cc",
+		"/Users/willdech/Documents/dev/Stone/src/arrow/types/clock/clock.cc"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			"/Users/willdech/Documents/dev/Condor/src",
+			"/Users/willdech/Documents/dev/Condor",
+			"/Users/willdech/Documents/dev/Stone",
+			"/Users/willdech/Documents/dev/Stone/src",
+			"/Users/willdech/Documents/dev/Stone",
+			"/Users/willdech/Documents/dev/Arrow/src",
+			"/Users/willdech/Documents/dev/Arrow/src/arrow",
+			"/Users/willdech/Documents/dev/Arrow/src",
+			"/Users/willdech/Documents/dev/Arrow",
+			"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser",
+			"/Users/willdech/Documents/dev/CobraLang/src/cobra/token",
+			"/Users/willdech/Documents/dev/CobraLang/src/cobra/parser",
+			"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast",
+			"/Users/willdech/Documents/dev/CobraLang/src/cobra",
+			"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast",
+			"/Users/willdech/Documents/dev/CobraLang/src/cobra",
+			"/Users/willdech/Documents/dev/Systems/moe/projects",
+			"/Applications/XAMPP/xamppfiles/htdocs/studim",
+			"/Users/willdech/Documents/dev/Systems/moe/projects/ims/src",
+			"/Users/willdech/Documents/dev/Systems/moe/projects/ims/src/admin",
+			"/Users/willdech/Documents/dev/Systems/moe/projects/duedateadjustment/src",
+			"/Users/willdech/Documents/dev/osjs/OS.js-v2/src/client/javascript",
+			"/Users/willdech/Documents/dev/Systems/moe/projects/ims",
+			"/Users/willdech/Documents/dev/Systems/moe/projects/ims/src/admin",
+			"/Users/willdech/Documents/dev/Systems/moe/projects/ims/src",
+			"/Users/willdech/Documents/dev/Systems/moe/projects/ims/src/admin",
+			"/Users/willdech/Documents/dev/Systems/moe/projects/ims/src",
+			"/Users/willdech/Documents/dev/Systems/moe/projects/duedateadjustment/src",
+			"/Users/willdech/Documents/dev/nwjs/src/content/nw/src",
+			"/Users/willdech/Documents/dev/nwjs/src/content/nw",
+			"/Users/willdech/Documents/dev/nwjs/src/content/nw/src",
+			"/Users/willdech/Documents/dev/nwjs/src/content/nw",
+			"/Users/willdech/Documents/dev/nwjs/src/chrome",
+			"/Users/willdech/Documents/dev/nwjs/src/components/gcm_driver",
+			"/Users/willdech/Documents/dev/Systems/ims/src",
+			"/Users/willdech/Documents/dev/Systems/ims/src/admin",
+			"/Users/willdech/Documents/dev/Systems/ims/src",
+			"/Users/willdech/Documents/dev/Systems/ims/src/admin",
+			"/Users/willdech/Documents/dev/Systems/ims/src",
+			"/Users/willdech/Documents/dev/Systems/ims/src/admin",
+			"/Users/willdech/Desktop/ier/src/ims",
+			"/Users/willdech/Documents/dev/Systems/IMS/src",
+			"/Users/willdech/Desktop/ier/src",
+			"/Users/willdech/Documents/dev/Systems/IMS/src",
+			"/Users/willdech/Desktop/ier/src/ims/data",
+			"/Users/willdech/Downloads/a",
+			"/Applications/XAMPP/xamppfiles/htdocs/is",
+			"/Users/willdech/Documents/dev/words",
+			"/Users/willdech/Desktop/ier/src/ims",
+			"/Users/willdech/Documents/dev/words",
+			"/Users/willdech/Desktop/ier/src/ims/data",
+			"/Users/willdech/Desktop/ier/src/ims",
+			"/Users/willdech/Desktop/ier/src",
+			"/Users/willdech/Desktop/ier/src/ims",
+			"/Users/willdech/Desktop/ier/src",
+			"/Users/willdech/Desktop/ier",
+			"/Users/willdech/Desktop/ier/src/js",
+			"/Users/willdech/Desktop/ier/src",
+			"/Users/willdech/Documents/dev/V8",
+			"/Users/willdech/Documents/dev/CobraLang/src",
+			"/Applications/XAMPP/xamppfiles/htdocs/neo/vendor",
+			"/Users/willdech/Documents/dev/CobraLang/src",
+			"/Users/willdech/Documents/dev/CobraLang/src/cobra/ast",
+			"/Users/willdech/Documents/dev/CobraLang/src/cobra",
+			"/Users/willdech/Documents/dev/V8/v8/src",
+			"/Users/willdech/Documents/dev/CobraLang/src"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"comment",
+			"Scope",
+			"CONTEXT_H_",
+			"delete ",
+			"sizeof(Parser)",
+			"FreeMemory(parser",
+			"delete",
+			"parser->",
+			"Semantics::Parse(",
+			"Parse(",
+			":parse",
+			"parseand",
+			"parser",
+			"semantic",
+			"close",
+			"->clone",
+			"debug string",
+			"if (isContinue){\n					isContinue = false;\n					continue;\n				}",
+			"here",
+			"parsecontinue",
+			"expected",
+			"BREAK",
+			"break:",
+			"ASTBreak",
+			"continue",
+			"returnValue",
+			"// here",
+			"\"return\"",
+			"scope",
+			"evaluatefunc",
+			"// here",
+			"\"return\"",
+			"\"array\"",
+			"StoneLang/Stone/",
+			"Stone::",
+			"Stone",
+			"stone",
+			"#include \"stone/",
+			"#include \"../include/Stone.h\"",
+			" and The StoneLang Authors",
+			"Stone",
+			"namespace Stone",
+			"STONE_H_",
+			"stone",
+			"libstone",
+			"ld/Stone",
+			"stone",
+			"Stone",
+			"path",
+			"pth",
+			"cobra",
+			"chaseWillden/StoneLang",
+			"Stonelang",
+			"chaseWillden",
+			"StoneLang",
+			"arro",
+			"Arrow::",
+			"arrow",
+			"#include \"arrow/",
+			"#include \"../include/Arrow.h\"",
+			"The ArrowLang Authors",
+			"Arrow",
+			"ARROW_H_",
+			"namespace Arrow",
+			"arrow",
+			"libarrow",
+			"d/Arrow",
+			"arrow",
+			"ArrowLang",
+			"Arrow",
+			"cobra",
+			"libcobra",
+			"ld/Cobra",
+			"./build/Cobra",
+			"cobra",
+			"Cobra::",
+			"cobra",
+			"#include \"cobra/",
+			"#include \"../include/Cobra.h\"",
+			"cobra",
+			"namespace Cobra",
+			"COBRA_H_",
+			"The CobraLang Authors",
+			"cobra",
+			"CobraLang",
+			"propertie",
+			"astarray",
+			"->base ",
+			"base",
+			"->base = ",
+			"base = ",
+			"->base =",
+			"AddThis",
+			"\"this\"",
+			"// here",
+			"kthis",
+			"kThis",
+			"undefined_varia",
+			"astliteral ",
+			":astliteral",
+			"astliteral",
+			"aryerase",
+			"arypush",
+			"parseif",
+			"objectchain",
+			"// here",
+			"evaluatefunccal",
+			"validatefunccal",
+			"int a = ",
+			"chain",
+			"member",
+			"access",
+			"astarray",
+			"// here",
+			"clock",
+			"// here",
+			"FreeChunks",
+			"free(",
+			"malloc",
+			"vector",
+			"free",
+			"lit",
+			"Lit",
+			"lit",
+			"Lit",
+			"lit",
+			"T",
+			"cbclock"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"#include \"condor/",
+			"#include \"../include/Condor.h\"",
+			" and The CondorLang Authors",
+			"namespace Condor",
+			"#include \"stone/",
+			"#include \"../include/Stone.h\"",
+			"The StoneLang Authors",
+			"namespace Stone",
+			"#include \"arrow/",
+			"#include \"../include/Arrow.h\"",
+			"namespace Arrow",
+			"The ArrowLang Authors",
+			"studim",
+			"",
+			"errAlert",
+			"",
+			"console.log",
+			"gcm_enabled()",
+			"nw13",
+			"Robert Oboso",
+			"Jimmy Stewart",
+			"Billy Ramus",
+			"Jill Smith",
+			"Steve Boxer",
+			"Robert Smith",
+			"Jane Smith",
+			"John Smith",
+			"hex",
+			"o",
+			"osprey",
+			"role.",
+			"name",
+			":",
+			"\"",
+			"elliot.jpg",
+			"img",
+			"parents(",
+			"'Apppple'",
+			"ims.semesters.getCurrentCode();",
+			"S17",
+			"S16",
+			"$_SERVER[\"DOCUMENT_ROOT\"]",
+			"$ROOT",
+			"Maybe",
+			"mysqli_",
+			"$scope['suggestions']",
+			"ims",
+			"email",
+			"ASTNode::SetDefaults(n);\n    return n;",
+			"ASTNode::SetDefaults(n);\nreturn n;",
+			"Token::New(iso, ",
+			"src->",
+			"src.",
+			"",
+			"Token::New(isolate, ",
+			"src.",
+			"",
+			"*) iso",
+			") iso",
+			".text()",
+			"#767676",
+			"",
+			"\\'",
+			"NewPointer(",
+			"target",
+			"\\'"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "test/test.cb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 391,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								124,
+								124
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Go/Go.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 22.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "Condor.sublime-project",
+	"replace":
+	{
+		"height": 40.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"messages.js",
+				"v8/src/js/messages.js"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"~/Documents/dev/Condor/Condor.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 392.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 701.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
