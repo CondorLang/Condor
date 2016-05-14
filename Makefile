@@ -4,7 +4,48 @@ LDFLAGS=
 SOURCES=$(wildcard src/*/*/*/*.cc) $(wildcard src/*/*/*.cc) $(wildcard src/*/*.cc) $(wildcard src/*.cc)
 
 OBJECTS=$(SOURCES:.cc=.o)
-EXECUTABLE=./build/Condor
+PLATFORM=$(shell uname)
+EXECUTABLE=./build/$(PLATFORM)/Condor
+
+ifeq ($(shell uname), Linux)
+  PLATFORM=linux
+endif
+ifeq ($(shell uname), linux)
+  PLATFORM=linux
+endif
+ifeq ($(shell uname), Darwin)
+  PLATFORM=darwin
+endif
+ifeq ($(shell uname), CYGWIN_NT-4.0)
+  PLATFORM=win32
+endif
+ifeq ($(shell uname), CYGWIN_NT-5.0)
+  PLATFORM=win32
+endif
+ifeq ($(shell uname), CYGWIN_NT-5.1)
+  PLATFORM=win32
+endif
+ifeq ($(shell uname), MINGW32_NT-4.0)
+  PLATFORM=win32
+endif
+ifeq ($(shell uname), MINGW32-5.0)
+  PLATFORM=win32
+endif
+ifeq ($(shell uname), MINGW32_NT-5.1)
+  PLATFORM=win32
+endif
+ifeq ($(shell uname -m), IP19)
+  PLATFORM=mips3
+endif
+ifeq ($(shell uname -m), IP22)
+  PLATFORM=mips3
+endif
+ifeq ($(shell uname -m), IP25)
+  PLATFORM=mips4
+endif
+ifeq ($(shell uname), IRIX64)
+  PLATFORM=mips4
+endif
 
 mt:
 	make all
@@ -16,13 +57,13 @@ all:
 
 sem: 
 	make all
-	g++ $(FLAGS) -I ./ test/main.cc -Iinclude build/libcondor.a -o build/Condor
-	./build/Condor --trace-semantic
+	g++ $(FLAGS) -I ./ test/main.cc -Iinclude build/libcondor.a -o build/$(PLATFORM)/Condor
+	./build/$(PLATFORM)/Condor --trace-semantic
 
 parser: 
 	make all
-	g++ $(FLAGS) -I ./ test/main.cc -Iinclude build/libcondor.a -o build/Condor
-	./build/Condor --trace-parser
+	g++ $(FLAGS) -I ./ test/main.cc -Iinclude build/libcondor.a -o build/$(PLATFORM)/Condor
+	./build/$(PLATFORM)/Condor --trace-parser
 
 cb: 
 	./configure -f
@@ -43,21 +84,21 @@ lib:
 clean:
 	find . -name "*.o" -type f -delete
 	find . -name "*.d" -type f -delete
-	rm -rf build/*
+	rm -rf build/*/*
 
 test:
-	g++ $(FLAGS) -I ./ test/main.cc -Iinclude build/libcondor.a -o build/Condor
+	g++ $(FLAGS) -I ./ test/main.cc -Iinclude build/libcondor.a -o build/$(PLATFORM)/Condor
 	make t
 
 t:
-	./build/Condor ${ARGS} test/test.cb
+	./build/$(PLATFORM)/Condor ${ARGS} test/test.cb
 
 shell:
-	g++ $(FLAGS) -I ./ test/shell.cc -Iinclude build/libcondor.a -o build/Condor
-	./build/Condor ${ARGS}
+	g++ $(FLAGS) -I ./ test/shell.cc -Iinclude build/libcondor.a -o build/$(PLATFORM)/Condor
+	./build/$(PLATFORM)/Condor ${ARGS}
 
 mem:
-	valgrind --tool=memcheck --leak-check=full --track-origins=yes --dsymutil=yes ./build/Condor > log.txt 2>&1
+	valgrind --tool=memcheck --leak-check=full --track-origins=yes --dsymutil=yes ./build/$(PLATFORM)/Condor > log.txt 2>&1
 
 cmt:
 	make clean
@@ -72,7 +113,7 @@ asm:
 	/usr/local/bin/nasm -f macho64 src/condor/codegen/test.asm && ld -macosx_version_min 10.7.0 -e main -lSystem -o src/condor/codegen/test src/condor/codegen/test.o && ./src/condor/codegen/test
 
 d:
-	gdb ./build/Condor
+	gdb ./build/$(PLATFORM)/Condor
 
 docs:
 	doxygen documentation/doxygen.config

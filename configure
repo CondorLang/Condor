@@ -7,9 +7,9 @@ parser = optparse.OptionParser()
 parser.add_option('-f', '--internal-files',
     action="store_true", dest="internalFiles",
     help="Internal files", default=False)
-parser.add_option('-n', '--no-update-readme',
+parser.add_option('-r', '--update-readme',
     action="store_true", dest="noUpdateReadme",
-    help="Do not update the readme file", default=False)
+    help="Update the readme file", default=False)
 
 options, args = parser.parse_args()
 
@@ -119,9 +119,17 @@ def start(name, className):
     out = toOutputFile(hexa, className)
     toFile(bytesname, out)
 
+def checkFolders():
+    dirs = ['win32', 'linux', 'darwin']
+    for directory in dirs:
+        directory = 'build/' + directory
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+
 if __name__ == "__main__":
     # if options.internalFiles:
     #     getCbFiles()
-    if not options.noUpdateReadme:
+    if options.noUpdateReadme:
         updateReadme()
+    checkFolders()
 

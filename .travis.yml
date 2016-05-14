@@ -18,7 +18,7 @@ install:
   - if [ "$CXX" == "g++" ]; then sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 50; fi
 
 script:
-  ./configure -n && make
+  ./configure && make
 
 deploy:
   skip_cleanup: true
