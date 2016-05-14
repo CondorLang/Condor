@@ -21,6 +21,7 @@ script:
   ./configure -n && make
 
 deploy:
+  skip_cleanup: true
   provider: heroku
   api_key:
     secure: 8ca003e4-2371-450f-8c8e-e2fb4bff43c5
