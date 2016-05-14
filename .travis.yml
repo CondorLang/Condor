@@ -19,3 +19,9 @@ install:
 
 script:
   ./configure -n && make
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: 8ca003e4-2371-450f-8c8e-e2fb4bff43c5
+  app: condorlang

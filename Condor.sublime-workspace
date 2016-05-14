@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"Calc",
+				"Calculating"
+			],
+			[
+				"isPar",
+				"isInParen"
+			],
+			[
 				"firs",
 				"firstLine"
 			],
@@ -506,14 +514,6 @@
 			[
 				"create",
 				"createIsolateCtrl"
-			],
-			[
-				"crea",
-				"createIsolate"
-			],
-			[
-				"contex",
-				"contextsById"
 			]
 		]
 	},
@@ -523,7 +523,31 @@
 			"file": "test/test.cb",
 			"settings":
 			{
-				"buffer_size": 391,
+				"buffer_size": 326,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "libs/array.cb",
+			"settings":
+			{
+				"buffer_size": 1189,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/condor/execute/execute.cc",
+			"settings":
+			{
+				"buffer_size": 26746,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/condor/semantics/internal.cc",
+			"settings":
+			{
+				"buffer_size": 11866,
 				"line_ending": "Unix"
 			}
 		}
@@ -696,6 +720,7 @@
 	"expanded_folders":
 	[
 		"/Users/willdech/Documents/dev/Condor",
+		"/Users/willdech/Documents/dev/Condor/libs",
 		"/Users/willdech/Documents/dev/Condor/src",
 		"/Users/willdech/Documents/dev/Condor/src/condor",
 		"/Users/willdech/Documents/dev/Condor/src/condor/ast",
@@ -705,10 +730,13 @@
 	],
 	"file_history":
 	[
-		"/Users/willdech/Documents/dev/Condor/src/condor/execute/execute.cc",
 		"/Users/willdech/Documents/dev/Condor/src/condor/parser/parser.cc",
+		"/Users/willdech/Documents/dev/Condor/src/condor/execute/execute.cc",
+		"/Users/willdech/Documents/dev/Condor/test/test.cb",
+		"/Users/willdech/Documents/dev/Condor/libs/array.cb",
 		"/Users/willdech/Documents/dev/Condor/src/condor/semantics/semantics.cc",
 		"/Users/willdech/Documents/dev/Condor/src/condor/ast/node.cc",
+		"/Users/willdech/Documents/dev/Condor/src/condor/mem/gc.cc",
 		"/Users/willdech/Documents/dev/Condor/src/condor/ast/node.h",
 		"/Users/willdech/Documents/dev/Condor/src/condor/execute/execute.h",
 		"/Users/willdech/Documents/dev/Condor/src/condor/token/comment.h",
@@ -716,7 +744,6 @@
 		"/Users/willdech/Documents/dev/Condor/src/condor/ast/comment.h",
 		"/Users/willdech/Documents/dev/Condor/src/condor/scanner/scanner.h",
 		"/Users/willdech/Documents/dev/Condor/src/condor/semantics/semantics.h",
-		"/Users/willdech/Documents/dev/Condor/src/condor/mem/gc.cc",
 		"/Users/willdech/Documents/dev/Condor/src/condor/flags.cc",
 		"/Users/willdech/Documents/dev/Condor/src/condor/mem/gc.h",
 		"/Users/willdech/Documents/dev/Condor/src/condor/flags.h",
@@ -768,7 +795,6 @@
 		"/Users/willdech/Documents/dev/Condor/libs/date.cb",
 		"/Users/willdech/Documents/dev/Condor/libs/console.cb",
 		"/Users/willdech/Documents/dev/Condor/libs/clock.cb",
-		"/Users/willdech/Documents/dev/Condor/libs/array.cb",
 		"/Users/willdech/Documents/dev/Condor/libs/app.cb",
 		"/Users/willdech/Documents/dev/Condor/src/stone/assert.cc",
 		"/Users/willdech/Documents/dev/Condor/src/stone/ast/context.cc",
@@ -831,8 +857,7 @@
 		"/Users/willdech/Documents/dev/Stone/src/arrow/semantics/internal.cc",
 		"/Users/willdech/Documents/dev/Stone/src/arrow/semantics/internal.h",
 		"/Users/willdech/Documents/dev/Stone/src/arrow/semantics/semantics.h",
-		"/Users/willdech/Documents/dev/Stone/src/arrow/token/token.cc",
-		"/Users/willdech/Documents/dev/Stone/src/arrow/types/clock/clock.cc"
+		"/Users/willdech/Documents/dev/Stone/src/arrow/token/token.cc"
 	],
 	"find":
 	{
@@ -843,6 +868,7 @@
 		"height": 93.0,
 		"where_history":
 		[
+			"/Users/willdech/Documents/dev/Condor/src/condor",
 			"/Users/willdech/Documents/dev/Condor/src",
 			"/Users/willdech/Documents/dev/Condor",
 			"/Users/willdech/Documents/dev/Stone",
@@ -916,6 +942,11 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"this._setLen();",
+			"node.cc:",
+			"NOT",
+			"invalid_oper",
+			"isnot",
 			"comment",
 			"Scope",
 			"CONTEXT_H_",
@@ -1038,12 +1069,7 @@
 			"vector",
 			"free",
 			"lit",
-			"Lit",
-			"lit",
-			"Lit",
-			"lit",
-			"T",
-			"cbclock"
+			"Lit"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1136,15 +1162,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 391,
+						"buffer_size": 326,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								124,
-								124
+								126,
+								126
 							]
 						],
 						"settings":
@@ -1156,6 +1182,93 @@
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "libs/array.cb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1189,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								221,
+								221
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Go/Go.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/condor/execute/execute.cc",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 26746,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3136,
+								3136
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1139.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "src/condor/semantics/internal.cc",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 11866,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7216,
+								7216
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3144.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
 					"type": "text"
 				}
 			]
