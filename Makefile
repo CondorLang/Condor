@@ -48,6 +48,7 @@ ifeq ($(shell uname), IRIX64)
 endif
 
 mt:
+	@echo $(PLATFORM)
 	make all
 	make test
 
