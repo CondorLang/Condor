@@ -11,6 +11,7 @@
 namespace Condor {
 
 	const char* Version();
+	void Initialize();
 
 	void SetCommandLineFlags(int argc, const char* argv[]);
 		

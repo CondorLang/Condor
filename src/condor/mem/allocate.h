@@ -76,6 +76,7 @@ namespace internal{
 		Chunk* FindChunkHoldingPointerTo(void* ptr);
 		bool debug;
 		std::string name;
+		int GetMemoryUsage();
 	};
 
 	class Allocate

@@ -57,6 +57,7 @@ namespace internal{
 		static ASTNode* GetObjectName(Isolate* iso, std::vector<ASTLiteral*> lits);
 		static ASTNode* ReadDir(Isolate* iso, std::vector<ASTLiteral*> lits);
 		static ASTNode* IsDir(Isolate* iso, std::vector<ASTLiteral*> lits);
+		static ASTNode* MemoryAudit(Isolate* iso, std::vector<ASTLiteral*> lits);
 		static ASTNode* CallInternal(Isolate* iso, InternalFunctionCallback call, std::vector<ASTLiteral*> nodes){return call(iso, nodes);}
 		static TOKEN Bind(ASTFuncCall* call);
 

@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <ctime>
 #include <locale>
+#include <signal.h>
 
 #include "condor/flags.h"
 #include "condor/global.h"
@@ -20,6 +21,10 @@
 #include "condor/types/script/script.h"
 
 namespace Condor{
+
+	void Initialize(){
+		signal(SIGINT, i::Isolate::ForceDispose);
+	}
 
 	const char* Version(){
 		std::string result = "";
@@ -36,6 +41,7 @@ namespace Condor{
 		void* p = mp->GetMemory(sizeof(i::Isolate));
 		i::Isolate* isolate = new(p) i::Isolate();
 		isolate->SetSelfPool(mp);
+		i::Isolate::GLOBAL_ISOLATE = isolate;
 		return CAST(Isolate*, isolate);
 	}
 
@@ -51,6 +57,7 @@ namespace Condor{
 
 	void Isolate::Dispose(){
 		i::Isolate* isolate = CAST(i::Isolate*, this);
+		if (i::Isolate::GLOBAL_ISOLATE == isolate) i::Isolate::GLOBAL_ISOLATE = NULL;
 		isolate->Dispose();
 		isolate->~Isolate();
 	}
@@ -68,6 +75,7 @@ namespace Condor{
 	void Context::Dispose(){
 		i::Context* context = CAST(i::Context*, this);
 		i::Isolate* isolate = context->GetIsolate();
+		context->~Context();
 		isolate->FreeMemory(context, sizeof(Context));
 	}
 

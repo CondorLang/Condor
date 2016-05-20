@@ -241,5 +241,9 @@ namespace internal{
 		return a > b ? a : b;
 	}
 
+	int MemoryPool::GetMemoryUsage(){
+		return (int) kUsedSize;
+	}
+
 } // namespace internal
 } // namespace Condor

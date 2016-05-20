@@ -100,7 +100,9 @@ namespace internal{
 					isolate->RunGC(call->params[i], false);
 				}
 			}
-			return (ASTLiteral*) Internal::CallInternal(isolate, call->callback, nodes);
+			ASTLiteral* result = (ASTLiteral*) Internal::CallInternal(isolate, call->callback, nodes);
+			isolate->RunGC(result, true);
+			return result;
 		}
 		else{
 			if (func == NULL) throw Error::UNDEFINED_FUNC;

@@ -83,6 +83,8 @@ namespace internal{
 		result->owner = sc->owner;
 		result->raw = sc->raw;
 		result->outer = sc->outer;
+		p->~Parser();
+		sc->~Scope();
 		iso->FreeMemory(p, sizeof(Parser));
 		iso->FreeMemory(sc, sizeof(Scope));
 		result->SetParsed();
@@ -102,7 +104,10 @@ namespace internal{
 			Row = row;
 			Col = col;
 			Pos = pos;
-			if (tok != NULL) isolate->FreeMemory(tok, sizeof(Token));
+			if (tok != NULL) {
+				tok->~Token();
+				isolate->FreeMemory(tok, sizeof(Token));
+			}
 			CHECK(scanner != NULL);
 			tok = scanner->NextToken();
 			row = scanner->row;
@@ -668,6 +673,7 @@ namespace internal{
 		SetRowCol(call);
 		ASTLiteral* lit = (ASTLiteral*) expr;
 		call->name = lit->value;
+		lit->~ASTLiteral();
 		isolate->FreeMemory(expr, sizeof(ASTExpr));
 		while (true){
 			ASTExpr* e = ParseExpr();
@@ -821,6 +827,7 @@ namespace internal{
 			}
 			return stmt;
 		}
+		stmt->~ASTIf();
 		isolate->FreeMemory(stmt, sizeof(ASTIf));
 		return NULL;
 	}
@@ -873,6 +880,7 @@ namespace internal{
 			expr->isDefault = true;
 		}
 		else {
+			expr->~ASTCase();
 			isolate->FreeMemory(expr, sizeof(ASTCase));
 			return NULL;
 		}

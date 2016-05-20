@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"Mem",
+				"MemoryPool"
+			],
+			[
+				"Get",
+				"GetMemoryUsage"
+			],
+			[
 				"Calc",
 				"Calculating"
 			],
@@ -506,51 +514,11 @@
 			[
 				"iso",
 				"isolateId"
-			],
-			[
-				"rou",
-				"routeParams"
-			],
-			[
-				"create",
-				"createIsolateCtrl"
 			]
 		]
 	},
 	"buffers":
 	[
-		{
-			"file": "test/test.cb",
-			"settings":
-			{
-				"buffer_size": 326,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "libs/array.cb",
-			"settings":
-			{
-				"buffer_size": 1189,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/condor/execute/execute.cc",
-			"settings":
-			{
-				"buffer_size": 26746,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/condor/semantics/internal.cc",
-			"settings":
-			{
-				"buffer_size": 11866,
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -696,7 +664,7 @@
 				"Indent XML"
 			]
 		],
-		"width": 449.0
+		"width": 485.0
 	},
 	"console":
 	{
@@ -719,22 +687,32 @@
 	},
 	"expanded_folders":
 	[
-		"/Users/willdech/Documents/dev/Condor",
-		"/Users/willdech/Documents/dev/Condor/libs",
-		"/Users/willdech/Documents/dev/Condor/src",
-		"/Users/willdech/Documents/dev/Condor/src/condor",
-		"/Users/willdech/Documents/dev/Condor/src/condor/ast",
-		"/Users/willdech/Documents/dev/Condor/src/condor/execute",
-		"/Users/willdech/Documents/dev/Condor/src/condor/semantics",
-		"/Users/willdech/Documents/dev/Condor/test"
+		"/Users/willdech/Documents/dev/v8",
+		"/Users/willdech/Documents/dev/v8/src",
+		"/Users/willdech/Documents/dev/v8/src/ast"
 	],
 	"file_history":
 	[
-		"/Users/willdech/Documents/dev/Condor/src/condor/parser/parser.cc",
-		"/Users/willdech/Documents/dev/Condor/src/condor/execute/execute.cc",
+		"/Users/willdech/Documents/dev/v8/src/parsing/scanner.cc",
+		"/Users/willdech/Documents/dev/v8/.clang-format",
+		"/Users/willdech/Documents/dev/Condor/test/main.cc",
+		"/Users/willdech/Documents/dev/v8/src/allocation.cc",
 		"/Users/willdech/Documents/dev/Condor/test/test.cb",
-		"/Users/willdech/Documents/dev/Condor/libs/array.cb",
+		"/Users/willdech/Documents/dev/Condor/src/condor/semantics/internal.cc",
+		"/Users/willdech/Documents/dev/Condor/src/condor/mem/allocate.cc",
+		"/Users/willdech/Documents/dev/Condor/src/condor/mem/allocate.h",
+		"/Users/willdech/Documents/dev/Condor/src/condor/mem/isolate.cc",
+		"/Users/willdech/Documents/dev/Condor/src/condor/mem/isolate.h",
+		"/Users/willdech/Documents/dev/Condor/libs/memory.cb",
+		"/Users/willdech/Documents/dev/Condor/src/condor/semantics/internal.h",
 		"/Users/willdech/Documents/dev/Condor/src/condor/semantics/semantics.cc",
+		"/Users/willdech/Documents/dev/Condor/.travis.yml",
+		"/Users/willdech/Documents/dev/Condor/Makefile",
+		"/Users/willdech/Documents/dev/Condor/web/index.php",
+		"/Users/willdech/Documents/dev/Condor/configure",
+		"/Users/willdech/Documents/dev/Condor/src/condor/execute/execute.cc",
+		"/Users/willdech/Documents/dev/Condor/libs/array.cb",
+		"/Users/willdech/Documents/dev/Condor/src/condor/parser/parser.cc",
 		"/Users/willdech/Documents/dev/Condor/src/condor/ast/node.cc",
 		"/Users/willdech/Documents/dev/Condor/src/condor/mem/gc.cc",
 		"/Users/willdech/Documents/dev/Condor/src/condor/ast/node.h",
@@ -751,7 +729,6 @@
 		"/Users/willdech/Documents/dev/Condor/src/condor/parser/parser.h",
 		"/Users/willdech/Documents/dev/Condor/src/condor/ast/scope.cc",
 		"/Users/willdech/Documents/dev/Condor/src/condor/ast/scope.h",
-		"/Users/willdech/Documents/dev/Condor/test/main.cc",
 		"/Users/willdech/Documents/dev/Condor/test/shell.cc",
 		"/Users/willdech/Documents/dev/Condor/src/stone/types/script/script.cc",
 		"/Users/willdech/Documents/dev/Condor/src/stone/mem/allocate.cc",
@@ -818,8 +795,6 @@
 		"/Users/willdech/Documents/dev/Condor/src/stone/types/path/path.cc",
 		"/Users/willdech/Documents/dev/Condor/src/stone/types/strings/string.cc",
 		"/Users/willdech/Documents/dev/Condor/include/Condor.h",
-		"/Users/willdech/Documents/dev/Condor/configure",
-		"/Users/willdech/Documents/dev/Condor/Makefile",
 		"/Users/willdech/Documents/dev/Condor/readme.md",
 		"/Users/willdech/Documents/dev/Condor/Condor.sublime-project",
 		"/Users/willdech/Documents/dev/Stone/src/stone/types/fs/fs.h",
@@ -845,19 +820,7 @@
 		"/Users/willdech/Documents/dev/Stone/src/arrow/error/error.h",
 		"/Users/willdech/Documents/dev/Stone/src/arrow/execute/execute.h",
 		"/Users/willdech/Documents/dev/Stone/src/arrow/execute/stack.h",
-		"/Users/willdech/Documents/dev/Stone/src/arrow/flags.h",
-		"/Users/willdech/Documents/dev/Stone/src/arrow/mem/allocate.h",
-		"/Users/willdech/Documents/dev/Stone/src/arrow/mem/gc.h",
-		"/Users/willdech/Documents/dev/Stone/src/arrow/mem/isolate.h",
-		"/Users/willdech/Documents/dev/Stone/src/arrow/parser/parser.cc",
-		"/Users/willdech/Documents/dev/Stone/src/arrow/parser/parser.h",
-		"/Users/willdech/Documents/dev/Stone/src/arrow/scanner/scanner.cc",
-		"/Users/willdech/Documents/dev/Stone/src/arrow/scanner/scanner.h",
-		"/Users/willdech/Documents/dev/Stone/src/arrow/semantics/binary.h",
-		"/Users/willdech/Documents/dev/Stone/src/arrow/semantics/internal.cc",
-		"/Users/willdech/Documents/dev/Stone/src/arrow/semantics/internal.h",
-		"/Users/willdech/Documents/dev/Stone/src/arrow/semantics/semantics.h",
-		"/Users/willdech/Documents/dev/Stone/src/arrow/token/token.cc"
+		"/Users/willdech/Documents/dev/Stone/src/arrow/flags.h"
 	],
 	"find":
 	{
@@ -942,6 +905,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"ary[i]",
+			"build/Condor",
+			"./build/Condor",
 			"this._setLen();",
 			"node.cc:",
 			"NOT",
@@ -1066,10 +1032,7 @@
 			"FreeChunks",
 			"free(",
 			"malloc",
-			"vector",
-			"free",
-			"lit",
-			"Lit"
+			"vector"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1153,124 +1116,8 @@
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "test/test.cb",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 326,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								126,
-								126
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Go/Go.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "libs/array.cb",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1189,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								221,
-								221
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Go/Go.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "src/condor/execute/execute.cc",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 26746,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3136,
-								3136
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1139.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "src/condor/semantics/internal.cc",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 11866,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								7216,
-								7216
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 3144.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				}
 			]
 		}
 	],
@@ -1322,6 +1169,10 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"scanner",
+				"v8/src/parsing/scanner.cc"
+			],
 			[
 				"messages.js",
 				"v8/src/js/messages.js"

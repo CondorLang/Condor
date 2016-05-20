@@ -22,6 +22,8 @@ namespace internal{
 	typedef uint8_t byte; // since byte doesn't exist
 	typedef byte* Address;
 
+	class Isolate;
+
 
 } // namespace internal
 } // namespace Condor

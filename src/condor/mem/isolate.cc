@@ -43,6 +43,21 @@ namespace internal{
 
 	}
 
+	Isolate* Isolate::GLOBAL_ISOLATE = NULL;
+
+	void Isolate::ForceDispose(int signum){
+		if (Isolate::GLOBAL_ISOLATE == NULL) return;
+		printf("\n%s", "Force disposing...");
+		Isolate* isolate = Isolate::GLOBAL_ISOLATE;
+		Context* context = isolate->GetContext();
+		Condor::Context* con = CAST(Condor::Context*, context);
+		con->Dispose();
+		Condor::Isolate* iso = CAST(Condor::Isolate*, isolate);
+		iso->Dispose();
+		printf("%s\n", "Done");
+		exit(signum);
+	}
+
 	Isolate* Isolate::CurrentIsolate = NULL;
 
 	void Isolate::Dispose(){
@@ -90,6 +105,14 @@ namespace internal{
 
 	void Isolate::RunGC(ASTNode* node, bool deep, bool objKeys){
 		gc->Dispose(this, node, deep, objKeys);
+	}
+
+	int Isolate::MemoryAudit(){
+		int total = small->GetMemoryUsage();
+		total += medium->GetMemoryUsage();
+		total += large->GetMemoryUsage();
+		total += xl->GetMemoryUsage();
+		return total;
 	}
 
 } // namespace internal

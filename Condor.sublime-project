@@ -1,32 +1,53 @@
 {
+	"build_systems":
+	[
+		{
+			"cmd":
+			[
+				"make"
+			],
+			"name": "All",
+			"working_dir": "${project_path}"
+		},
+		{
+			"cmd":
+			[
+				"make",
+				"sem"
+			],
+			"name": "Make Semantic",
+			"working_dir": "${project_path}"
+		},
+		{
+			"cmd":
+			[
+				"make",
+				"parser"
+			],
+			"name": "Make Parser",
+			"working_dir": "${project_path}"
+		},
+		{
+			"cmd":
+			[
+				"open",
+				"-a",
+				"Terminal",
+				"./"
+			],
+			"name": "Open",
+			"working_dir": "${project_path}"
+		}
+	],
 	"folders":
 	[
 		{
-			"path": ".",
-			"file_exclude_patterns": ["*.d", "*.0"]
-		}
-	],
-	"build_systems": 
-	[
-		{
-			"name": "All",
-			"cmd": ["make"],
-			"working_dir": "${project_path}"
-		},
-		{
-			"name": "Make Semantic",
-			"cmd": ["make", "sem"],
-			"working_dir": "${project_path}"
-		},
-		{
-			"name": "Make Parser",
-			"cmd": ["make", "parser"],
-			"working_dir": "${project_path}"
-		},
-		{
-			"name": "Open",
-			"working_dir": "${project_path}",
-			"cmd": ["open", "-a", "Terminal", "./"]
+			"file_exclude_patterns":
+			[
+				"*.d",
+				"*.0"
+			],
+			"path": "."
 		}
 	]
 }

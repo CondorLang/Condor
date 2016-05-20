@@ -296,6 +296,14 @@ namespace internal{
 		return result;
 	}
 
+	ASTNode* Internal::MemoryAudit(Isolate* iso, std::vector<ASTLiteral*> lits){
+		ASTLiteral* result = ASTLiteral::New(iso);
+		result->calc = iso->MemoryAudit();
+		result->value = std::to_string(result->calc);
+		result->litType = INT;
+		return result;
+	}
+
 	// TODO: Move to a macro
 	TOKEN Internal::Bind(ASTFuncCall* call){
 		if (call->name == "printf") {
@@ -393,6 +401,10 @@ namespace internal{
 		else if (call->name == "isDir"){
 			call->callback = Internal::IsDir;
 			return BOOLEAN;
+		}
+		else if (call->name == "memoryAudit"){
+			call->callback = Internal::MemoryAudit;
+			return INT;
 		}
 		else throw Error::UNDEFINED_FUNC;
 		// #define B(name, callback, type, str) str,

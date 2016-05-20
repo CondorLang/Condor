@@ -36,27 +36,132 @@ namespace internal{
 	void ASTNode::Free(Isolate* iso){
 		int t = (int) type;
 		switch (t){
-			case IMPORT: iso->FreeMemory(this, sizeof(ASTImport)); break;
-			case INCLUDE: iso->FreeMemory(this, sizeof(ASTInclude)); break;
-			case FUNC: iso->FreeMemory(this, sizeof(ASTFunc)); break;
-			case VAR: iso->FreeMemory(this, sizeof(ASTVar)); break;
-			case EXPR: iso->FreeMemory(this, sizeof(ASTExpr)); break;
-			case BINARY: iso->FreeMemory(this, sizeof(ASTBinaryExpr)); break;
-			case LITERAL: iso->FreeMemory(this, sizeof(ASTLiteral)); break;
-			case FUNC_CALL: iso->FreeMemory(this, sizeof(ASTFuncCall)); break;
-			case FOR: iso->FreeMemory(this, sizeof(ASTForExpr)); break;
-			case WHILE: iso->FreeMemory(this, sizeof(ASTWhileExpr)); break;
-			case TRY_CATCH: iso->FreeMemory(this, sizeof(ASTTryCatchExpr)); break;
-			case THROW: iso->FreeMemory(this, sizeof(ASTThrow)); break;
-			case IF: iso->FreeMemory(this, sizeof(ASTIf)); break;
-			case DELETE: iso->FreeMemory(this, sizeof(ASTDelete)); break;
-			case CASE: iso->FreeMemory(this, sizeof(ASTCase)); break;
-			case SWITCH: iso->FreeMemory(this, sizeof(ASTSwitch)); break;
-			case OBJECT: iso->FreeMemory(this, sizeof(ASTObject)); break;
-			case UNDEFINED: iso->FreeMemory(this, sizeof(ASTUndefined)); break;
-			case ARRAY: iso->FreeMemory(this, sizeof(ASTArray)); break;
-			case OBJECT_INSTANCE: iso->FreeMemory(this, sizeof(ASTObjectInstance)); break;
-			case CONTINUE: iso->FreeMemory(this, sizeof(ASTContinue)); break;
+			case IMPORT: {
+				ASTImport* import = (ASTImport*) this;
+				import->~ASTImport();
+				iso->FreeMemory(this, sizeof(ASTImport)); 
+				break;
+			}
+			case INCLUDE: {
+				ASTInclude* include = (ASTInclude*) this;
+				include->~ASTInclude();
+				iso->FreeMemory(this, sizeof(ASTInclude)); 
+				break;
+			}
+			case FUNC: {
+				ASTFunc* func = (ASTFunc*) this;
+				func->~ASTFunc();
+				iso->FreeMemory(this, sizeof(ASTFunc)); 
+				break;
+			}
+			case VAR: {
+				ASTVar* var = (ASTVar*) this;
+				var->~ASTVar();
+				iso->FreeMemory(this, sizeof(ASTVar)); 
+				break;
+			}
+			case EXPR: {
+				ASTExpr* expr = (ASTExpr*) this;
+				expr->~ASTExpr();
+				iso->FreeMemory(this, sizeof(ASTExpr)); 
+				break;
+			}
+			case BINARY: {
+				ASTBinaryExpr* binary = (ASTBinaryExpr*) this;
+				binary->~ASTBinaryExpr();
+				iso->FreeMemory(this, sizeof(ASTBinaryExpr)); 
+				break;
+			}
+			case LITERAL: {
+				ASTLiteral* lit = (ASTLiteral*) this;
+				lit->~ASTLiteral();
+				iso->FreeMemory(this, sizeof(ASTLiteral)); 
+				break;
+			}
+			case FUNC_CALL: {
+				ASTFuncCall* call = (ASTFuncCall*) this;
+				call->~ASTFuncCall();
+				iso->FreeMemory(this, sizeof(ASTFuncCall)); 
+				break;
+			}
+			case FOR: {
+				ASTForExpr* expr = (ASTForExpr*) this;
+				expr->~ASTForExpr();
+				iso->FreeMemory(this, sizeof(ASTForExpr)); 
+				break;
+			}
+			case WHILE: {
+				ASTWhileExpr* expr = (ASTWhileExpr*) this;
+				expr->~ASTWhileExpr();
+				iso->FreeMemory(this, sizeof(ASTWhileExpr)); 
+				break;
+			}
+			case TRY_CATCH: {
+				ASTTryCatchExpr* expr = (ASTTryCatchExpr*) this;
+				expr->~ASTTryCatchExpr();
+				iso->FreeMemory(this, sizeof(ASTTryCatchExpr)); 
+				break;
+			}
+			case THROW: {
+				ASTThrow* expr = (ASTThrow*) this;
+				expr->~ASTThrow();
+				iso->FreeMemory(this, sizeof(ASTThrow)); 
+				break;
+			}
+			case IF: {
+				ASTIf* expr = (ASTIf*) this;
+				expr->~ASTIf();
+				iso->FreeMemory(this, sizeof(ASTIf)); 
+				break;
+			}
+			case DELETE: {
+				ASTImport* import = (ASTImport*) this;
+				import->~ASTImport();
+				iso->FreeMemory(this, sizeof(ASTDelete)); 
+				break;
+			}
+			case CASE: {
+				ASTCase* expr = (ASTCase*) this;
+				expr->~ASTCase();
+				iso->FreeMemory(this, sizeof(ASTCase)); 
+				break;
+			}
+			case SWITCH: {
+				ASTSwitch* expr = (ASTSwitch*) this;
+				expr->~ASTSwitch();
+				iso->FreeMemory(this, sizeof(ASTSwitch)); 
+				break;
+			}
+			case OBJECT: {
+				ASTObject* obj = (ASTObject*) this;
+				obj->~ASTObject();
+				iso->FreeMemory(this, sizeof(ASTObject)); 
+				break;
+			}
+			case UNDEFINED: {
+				ASTUndefined* undef = (ASTUndefined*) this;
+				undef->~ASTUndefined();
+				iso->FreeMemory(this, sizeof(ASTUndefined)); 
+				break;
+			}
+			case ARRAY: {
+				ASTArray* ary = (ASTArray*) this;
+				ary->~ASTArray();
+				iso->FreeMemory(this, sizeof(ASTArray)); 
+				break;
+			}
+			case OBJECT_INSTANCE: {
+				ASTObjectInstance* inst = (ASTObjectInstance*) this;
+				inst->~ASTObjectInstance();
+				iso->FreeMemory(this, sizeof(ASTObjectInstance)); 
+				break;
+			}
+			case CONTINUE: {
+				ASTContinue* cont = (ASTContinue*) this;
+				cont->~ASTContinue();
+				iso->FreeMemory(this, sizeof(ASTContinue)); 
+				break;
+			}
 			default: {
 				//printf("Node.cc: %s\n", Token::ToString(type).c_str());
 			}

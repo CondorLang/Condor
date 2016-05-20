@@ -30,7 +30,12 @@ namespace internal{
 	public:
 		Isolate();
 		~Isolate();
+		static Isolate* GLOBAL_ISOLATE;
 		static Isolate* CurrentIsolate;
+		/**
+		 * Used to dispose memory that hasn't been released upon force kill
+		 */
+		static void ForceDispose(int signum);
 		Context* CreateContext();
 		Context* GetContext(){return context;}
 		void* GetMemory(const size_t size);
@@ -39,7 +44,7 @@ namespace internal{
 		void Dispose();
 		void RunGC(Scope* scope, bool deep = false, bool objKeys = false);
 		void RunGC(ASTNode* node, bool deep = false, bool objKeys = false);
-		
+		int MemoryAudit();
 	};
 
 } // namespace internal

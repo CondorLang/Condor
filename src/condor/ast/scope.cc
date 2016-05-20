@@ -74,6 +74,7 @@ namespace internal{
 	}
 
 	void Scope::Destroy(){
+		this->~Scope();
 		isolate->FreeMemory(this, sizeof(Scope));
 	}
 

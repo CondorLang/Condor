@@ -495,7 +495,7 @@ namespace internal{
 
 	TOKEN Semantics::ValidateArray(ASTArray* expr){
 		CHECK(expr != NULL);
-		CHECK(expr->members.size() != 0);
+		if (expr->members.size() == 0) return UNDEFINED;
 		TOKEN type = ValidateExpr(expr->members[0]);
 		for (int i = 1; i < expr->members.size(); i++){
 			TOKEN tmpType = ValidateExpr(expr->members[i]);

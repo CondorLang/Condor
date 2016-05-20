@@ -12,6 +12,7 @@
 using namespace Condor;
 
 int main(int argc, const char* argv[]){
+	Condor::Initialize();
 	SetCommandLineFlags(argc, argv);
 	Isolate* isolate = Isolate::New();
 	Context* context = isolate->CreateContext();
