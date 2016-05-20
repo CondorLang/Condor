@@ -136,6 +136,13 @@ namespace Condor{
 		script->Run();
 	}
 
+	void Script::Free(Isolate* isolate){
+		i::Script* script = CAST(i::Script*, this);
+		i::Isolate* iso = CAST(i::Isolate*, isolate);
+		script->~Script();
+		iso->FreeMemory(script, sizeof(i::Script));
+	}
+
 	bool Script::HasError(){
 		i::Script* script = CAST(i::Script*, this);
 		return script->HasError();

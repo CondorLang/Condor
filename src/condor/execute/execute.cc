@@ -103,13 +103,14 @@ namespace internal{
 				for (int i = 0; i < call->params.size(); i++){
 					ASTLiteral* lit = EvaluateValue(call->params[i]);
 					SetLitType(lit);
+					FormatLit(lit);
 					if (lit != NULL) nodes.push_back(lit->Clone(isolate));
 					else nodes.push_back(ASTUndefined::New(isolate));
 					isolate->RunGC(call->params[i], false);
 				}
 			}
 			ASTLiteral* result = (ASTLiteral*) Internal::CallInternal(isolate, call->callback, nodes);
-			isolate->RunGC(result, true);
+			isolate->RunGC(call, true);
 			return result;
 		}
 		else{
@@ -129,8 +130,6 @@ namespace internal{
 				isolate->RunGC(call->params[i], false);
 			}
 			PrintStep("Evaluating Parameters...Done");
-			// TODO: Figure out how to implement recursion
-			//if (func->scope == GetCurrentScope()) throw Error::INTERNAL_SCOPE_ERROR;
 			OpenScope(func->scope);
 			Evaluate();
 		}
@@ -164,7 +163,7 @@ namespace internal{
 		if (binary->op == PERIOD && binary->right->type == FUNC_CALL && ((ASTFuncCall*) binary->right)->func->HasVisibility(STATIC)){
 			PrintStep("Static Function Call");
 			ASTLiteral* lit = (ASTLiteral*) EvaluateFuncCall((ASTFuncCall*) binary->right);
-			FormatLit(lit, true);
+			FormatLit(lit);
 			return lit;
 		}
 		else{
@@ -194,16 +193,15 @@ namespace internal{
 			PrintStep("Casting value");
 			ASTLiteral* lit = expr->cast;
 			value->litType = lit->litType;
-			FormatLit(value, true);
+			FormatLit(value);
 		}
 	}
 
-	void Execute::FormatLit(ASTLiteral* lit, bool forceType){
+	void Execute::FormatLit(ASTLiteral* lit){
 		if (lit == NULL) return;
 		PrintStep("Formating Literal");
 		SetCalc(lit);
 		int type = (int) lit->litType;
-		bool casted = false;
 		switch (type){
 			case BOOLEAN: lit->value = (lit->calc == 0 ? "false" : "true"); break;
 			case DOUBLE: lit->value = std::to_string(lit->calc); break;
@@ -211,7 +209,6 @@ namespace internal{
 			case LONG: lit->value = std::to_string(lit->calc); break;
 			case INT: lit->value = std::to_string((int) lit->calc); break;
 		}
-		//if (lit->calc - (int)lit->calc > 0.0 && !forceType) lit->value = std::to_string(lit->calc);
 		TruncZeros(lit);
 	}
 
@@ -701,6 +698,9 @@ namespace internal{
 			returnValue = var;
 			var->allowGC = false;
 		}
+		if (var->name == "d"){
+			int a = 10; // here
+		}
 		isolate->RunGC(local, true);
 		return local;
 	}
@@ -713,9 +713,10 @@ namespace internal{
 		ASTLiteral* init = EvaluateVar(var);
 		var->local = init;
 		OpenScope(expr->scope);
-		while (true){;
+		int i = 0;
+		while (true){
+			i++;
 			ASTLiteral* condition = EvaluateValue(expr->condition);
-
 			bool pass = condition->value == "true";
 			if (condition != expr->condition) isolate->RunGC(condition, true);
 			if (!pass) break;

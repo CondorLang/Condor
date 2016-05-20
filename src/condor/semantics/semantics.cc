@@ -61,6 +61,8 @@ namespace internal{
 			std::string tabs = "";
 			for (int i = 0; i < indent; i++) tabs += "  ";
 			printf("%s%s - %s\n", tabs.c_str(), first, t->String().c_str());
+			t->~Token();
+			isolate->FreeMemory(t, sizeof(Token));
 		}
 	}
 
@@ -216,6 +218,7 @@ namespace internal{
 			}
 			default: {
 				printf("ddd: %s\n", Token::ToString(expr->type).c_str());
+				throw Error::NOT_IMPLEMENTED;
 			}
 		}
 		return "";

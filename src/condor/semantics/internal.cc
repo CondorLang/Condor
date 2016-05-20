@@ -166,6 +166,7 @@ namespace internal{
 		}
 		lit->calc = clock->GetDuration();
 		lit->isCalc = true;
+		lit->litType = DOUBLE;
 		return lit;
 	}
 

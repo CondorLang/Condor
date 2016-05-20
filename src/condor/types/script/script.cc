@@ -64,6 +64,8 @@ namespace internal{
 			Script* s = CAST(Script*, script);
 			s->SetSub(sub);
 			script->Run();
+			s->~Script();
+			isolate->FreeMemory(s, sizeof(Script));
 		}
 	}
 
@@ -172,9 +174,16 @@ namespace internal{
 			msgs.push_back(msg);
 			return;
 		}
-		// Free the executor and all the data
+		// Free the executor, semantics, and parser and all the data
 		executor->~Execute();
 		isolate->FreeMemory(executor, sizeof(Execute));
+		semantics->~Semantics();
+		isolate->FreeMemory(semantics, sizeof(Semantics));
+		parser->~Parser();
+		isolate->FreeMemory(parser, sizeof(Parser));
+		parser = NULL;
+		semantics = NULL;
+		executor = NULL;
 	}
 
 	std::string Script::GetSourceRow(int row, int col){
@@ -216,8 +225,8 @@ namespace internal{
 			RunInternalScript(isolate, FS::ReadFile(path), "app", "", false);
 		}
 
-		for (int i = 0; i < parser->imports.size(); i++){
-			ASTImport* import = parser->imports[i];
+		while (parser->imports.size() > 0){
+			ASTImport* import = parser->imports[0];
 			std::vector<std::string> splits = String::Split(import->name, '.');
 			std::string name = splits[0];
 			std::string sub = "";
@@ -237,6 +246,8 @@ namespace internal{
 			else{
 				RunInternalScript(isolate, FS::ReadFile(path), name, sub, false);
 			}
+			import->Free(isolate); // empty imports
+			parser->imports.erase(parser->imports.begin());
 		}
 	}
 
@@ -245,8 +256,8 @@ namespace internal{
 		Path* path = Path::New(isolate);
 		path->SetBase(absolutePath);
 
-		for (int i = 0; i < parser->includes.size(); i++){
-			ASTInclude* include = parser->includes[i];
+		while (parser->includes.size() > 0) {
+			ASTInclude* include = parser->includes[0];
 			std::string c = path->GetFromBase(include->name);
 
 			Condor::Isolate* iso = CAST(Condor::Isolate*, isolate);
@@ -254,6 +265,8 @@ namespace internal{
 			Condor::String* str = Condor::String::NewFromFile(iso, c.c_str());
 			Condor::Script* script = Condor::Script::Compile(ctxt, str);
 			script->Run();
+			include->Free(isolate);
+			parser->includes.erase(parser->includes.begin());
 		}
 	}
 

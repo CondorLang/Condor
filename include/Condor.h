@@ -55,6 +55,7 @@ namespace Condor {
 		static Script* Compile(Context* context, String* string);
 		void Run();
 		bool HasError();
+		void Free(Isolate* isolate);
 		std::string GetErrorMsg();
 	};
 

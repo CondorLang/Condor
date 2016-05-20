@@ -63,7 +63,7 @@ namespace internal{
 		void FillPostix(ASTBinaryExpr* binary);
 		ASTLiteral* Calculate();
 		ASTLiteral* Calc(ASTToken* tok);
-		void FormatLit(ASTLiteral* lit, bool forceType = false);
+		void FormatLit(ASTLiteral* lit);
 		void TruncZeros(ASTLiteral* lit);
 		void SetCast(ASTExpr* expr, ASTLiteral* value);
 		void EvaluateWhile(ASTWhileExpr* expr);
