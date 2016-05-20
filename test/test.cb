@@ -8,9 +8,10 @@
 
 import "console"
 
-string len = readln(">> ");
-int a = (int) len;
-for (int i = 0; i < a; i++){
-	println("[" + (i + 1) + "]");
+string a = readln(">> ");
+int len = (int) a;
+for (int i = 0; i < len; i++){
+	//println(i);
+	i;
 }
 readln(">> ");

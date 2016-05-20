@@ -84,6 +84,14 @@ namespace internal{
 		CloseScope();
 	}
 
+	void Execute::CloseScope(){
+		// Scope* currentScope = GetCurrentScope();
+		// for (int i = 0; i < currentScope->Size(); i++){
+		// 	isolate->RunGC(currentScope->Get(i), true);
+		// }
+		scopes.erase(scopes.begin());
+	}
+
 	ASTLiteral* Execute::EvaluateFuncCall(ASTFuncCall* call){
 		SetRowCol(call);
 		Trace("Evaluating Func Call", call->name);
@@ -419,6 +427,7 @@ namespace internal{
 				ASTObjectInstance* inst = (ASTObjectInstance*) second;
 				if ((inst->litType == OBJECT || inst->type == LITERAL) && inst->type != OBJECT_INSTANCE) inst = GetCurrentObject();
 				ASTVar* var = inst->GetProp(isolate, first->value);
+				CHECK(var != NULL);
 				ASTLiteral* val = EvaluateValue(var);
 				if (val->type == ARRAY && first->member != NULL) {
 					ASTArray* ary = (ASTArray*) val;
@@ -685,6 +694,7 @@ namespace internal{
 				inst->constructorCalled = true;
 			}
 		}
+		if (var->local != NULL) isolate->RunGC(var->local, true);
 		var->local = local->Clone(isolate, true);
 		if (var->name == "return") {
 			isReturning = true;
@@ -728,6 +738,7 @@ namespace internal{
 			}
 			canBreak = cb;
 			OpenScope(expr->scope);
+			isolate->RunGC(var, false);
 			var->local = EvaluateValue(expr->tick);	
 		}
 		CloseScope();

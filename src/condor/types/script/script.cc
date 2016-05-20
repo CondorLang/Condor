@@ -3,7 +3,6 @@
 // license that can be found in the LICENSE file.
 
 #include "script.h"
-#include <stdio.h> // printf doesn't work without this
 
 namespace Condor {
 namespace internal{
@@ -173,6 +172,9 @@ namespace internal{
 			msgs.push_back(msg);
 			return;
 		}
+		// Free the executor and all the data
+		executor->~Execute();
+		isolate->FreeMemory(executor, sizeof(Execute));
 	}
 
 	std::string Script::GetSourceRow(int row, int col){

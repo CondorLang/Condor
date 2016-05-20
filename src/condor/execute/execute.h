@@ -45,7 +45,7 @@ namespace internal{
 		void Trace(std::string first, std::string msg2);
 		void PrintStep(std::string msg);
 		void OpenScope(Scope* sc);
-		void CloseScope(){scopes.erase(scopes.begin());}
+		void CloseScope();
 		Scope* GetCurrentScope(){return scopes[0];}
 		void AddObject(ASTObjectInstance* obj){objStack.push_back(obj);}
 		void RemoveObject(){objStack.erase(objStack.begin());}
@@ -81,7 +81,7 @@ namespace internal{
 		Execute(Scope* scope);
 		~Execute(){}
 		void Evaluate();
-		std::string GetSource(){return GetCurrentScope()->raw;}
+		std::string GetSource(){CHECK(GetCurrentScope() != NULL); return GetCurrentScope()->raw;}
 		Semantics* semantic;
 
 		int row;

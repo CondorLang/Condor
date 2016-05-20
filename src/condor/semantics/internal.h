@@ -15,7 +15,6 @@
 
 #include <string>
 #include <iostream>
-// #include <map>
 
 namespace Condor {
 namespace internal{
@@ -24,11 +23,6 @@ namespace internal{
 	class ASTFuncCall;
 	class ASTLiteral;
 	typedef ASTNode* (*InternalFunctionCallback)(Isolate* iso, std::vector<ASTLiteral*> lits);
-
-	// #define BIND_LIST(B) \
-	// 	B(GET_VERSION, Internal::GetVersion, STRING, "getVersion") \
-	// 	B(GET_TIME, Internal::GetTime, DOUBLE, "getTime") \
-	// 	B(GET_DATE, Internal::GetDate, STRING, "getDate")
 
 	class Internal
 	{
@@ -58,15 +52,9 @@ namespace internal{
 		static ASTNode* ReadDir(Isolate* iso, std::vector<ASTLiteral*> lits);
 		static ASTNode* IsDir(Isolate* iso, std::vector<ASTLiteral*> lits);
 		static ASTNode* MemoryAudit(Isolate* iso, std::vector<ASTLiteral*> lits);
+		static ASTNode* PauseThread(Isolate* iso, std::vector<ASTLiteral*> lits);
 		static ASTNode* CallInternal(Isolate* iso, InternalFunctionCallback call, std::vector<ASTLiteral*> nodes){return call(iso, nodes);}
 		static TOKEN Bind(ASTFuncCall* call);
-
-		// #define B(name, callback, type, str) name,
-		//   enum Value {
-		//     BIND_LIST(B)
-		//     NUM_BINDS
-		//   };
-		// #undef B
 	};
 
 } // namespace internal

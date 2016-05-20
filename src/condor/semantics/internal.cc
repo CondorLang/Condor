@@ -304,6 +304,10 @@ namespace internal{
 		return result;
 	}
 
+	ASTNode* Internal::PauseThread(Isolate* iso, std::vector<ASTLiteral*> lits){
+		return ASTUndefined::New(iso); // TODO: Implement thread sleep
+	}
+
 	// TODO: Move to a macro
 	TOKEN Internal::Bind(ASTFuncCall* call){
 		if (call->name == "printf") {
@@ -406,15 +410,11 @@ namespace internal{
 			call->callback = Internal::MemoryAudit;
 			return INT;
 		}
+		else if (call->name == "pauseThread"){
+			call->callback = Internal::PauseThread;
+			return UNDEFINED;
+		}
 		else throw Error::UNDEFINED_FUNC;
-		// #define B(name, callback, type, str) str,
-		// 	const char* functions[NUM_BINDS] = {
-		// 	  BIND_LIST(B)
-		// 	};
-		// 	std::map<const char*, int> funcMap = {
-		// 		BIND_LIST(B)	
-		// 	};
-		// #undef B
 	}
 
 } // namespace internal

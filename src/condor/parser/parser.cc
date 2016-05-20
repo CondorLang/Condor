@@ -63,6 +63,8 @@ namespace internal{
 		catch (Error::ERROR e){
 			throw e;
 		}
+		scanner->~Scanner();
+		isolate->FreeMemory(scanner, sizeof(Scanner));
 	}
 
 	Scope* Parser::Parse(Isolate* iso, Scope* sc, Semantics* s){
@@ -256,22 +258,10 @@ namespace internal{
 			}
 			int type = tok->Int();
 			switch (type){
-				case LBRACE: { // for straggling braces
-					Next();
-					break;
-				}
-				case FUNC: {
-					node = ParseFunc(); 
-					break;
-				}
-				case INTERNAL: {
-					node = ParseInternal();
-					break;
-				}
-				case IDENT: {
-					node = ParseIdentStart();
-					break;
-				}
+				case LBRACE: Next(); break; // for straggling brace
+				case FUNC: node = ParseFunc();  break;
+				case INTERNAL: node = ParseInternal(); break;
+				case IDENT: node = ParseIdentStart(); break;
 				case INT: case BOOLEAN: 
 				case FLOAT: case DOUBLE: 
 				case CHAR: case STRING: 
@@ -293,50 +283,17 @@ namespace internal{
 					}
 					break;
 				}
-				case FOR: {
-					node = ParseForExpr();
-					break;
-				}
-				case CONTINUE: {
-					node = ParseContinue();
-					break;
-				}
-				case WHILE: {
-					node = ParseWhile();
-					break;
-				}
-				case TRY: {
-					node = ParseTryCatch();
-					break;
-				}
-				case THROW: {
-					node = ParseThrow();
-					break;
-				}
-				case IF: {
-					node = ParseIf();
-					break;
-				}
-				case DELETE: {
-					node = ParseDelete();
-					break;
-				}
-				case SWITCH: {
-					node = ParseSwitch();
-					break;
-				}
-				case OBJECT: {
-					node = ParseObject();
-					break;
-				}
-				case RETURN: {
-					node = ParseReturn();
-					break;
-				}
-				case BREAK: {
-					node = ParseBreak();
-					break;
-				}
+				case FOR: node = ParseForExpr(); break;
+				case CONTINUE: node = ParseContinue(); break;
+				case WHILE: node = ParseWhile(); break;
+				case TRY: node = ParseTryCatch(); break;
+				case THROW: node = ParseThrow(); break;
+				case IF: node = ParseIf(); break;
+				case DELETE: node = ParseDelete(); break;
+				case SWITCH: node = ParseSwitch(); break;
+				case OBJECT: node = ParseObject(); break;
+				case RETURN: node = ParseReturn(); break;
+				case BREAK: node = ParseBreak(); break;
 				default: {
 					TOKEN t = tok->value;
 					node = ParseExpr();

@@ -18,10 +18,11 @@ namespace internal{
 	class RPNStack
 	{
 	public:
+		RPNStack(){}
+		~RPNStack(){}
 		static RPNStack* New(Isolate* isolate);
 		std::vector<ASTNode*> opStack;
-		std::vector<ASTNode*> stack;
-		
+		std::vector<ASTNode*> stack;		
 	};
 
 } // namespace internal
