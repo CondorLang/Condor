@@ -13,12 +13,7 @@ namespace internal{
 	void* NewVectorItem(Isolate* isolate, size_t size){
 		if (isolate == NULL) P("Missing Isolate in vector");
 		void* v = isolate->GetMemory(size);
-		if (v == NULL) OutOfMemory();
 		return v;
-	}
-
-	void OutOfMemory(){
-		Allocate::OutOfMemory();
 	}
 
 	void InvalidVectorAccess(int idx, int size){

@@ -38,6 +38,8 @@ int main(int argc, const char* argv[]){
 	else{
 		Script* script = Script::Compile(context, string);
 		script->Run();
+		script->Free(isolate);
+		string->Free(isolate);
 	}
 
 	context->Exit();

@@ -59,7 +59,6 @@ namespace Condor{
 		i::Isolate* isolate = CAST(i::Isolate*, this);
 		if (i::Isolate::GLOBAL_ISOLATE == isolate) i::Isolate::GLOBAL_ISOLATE = NULL;
 		isolate->Dispose();
-		isolate->~Isolate();
 	}
 
 	Context* Isolate::CreateContext(){
@@ -121,6 +120,13 @@ namespace Condor{
 	    }
 		}
 		return CAST(String*, str);
+	}
+
+	void String::Free(Isolate* isolate){
+		i::String* string = CAST(i::String*, this);
+		i::Isolate* iso = CAST(i::Isolate*, isolate);
+		string->~String();
+		iso->FreeMemory(string, sizeof(i::String));
 	}
 
 	Script* Script::Compile(Context* context, String* string){

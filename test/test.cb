@@ -1,9 +1,9 @@
-// import "console", "string", "array", "memory"
+import "console", "string", "array"
 
-// int ary[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+// int ary[] = [1, 2, 3, 4, 5, 6];
+// int b[] = [7];
+// int c[] = array_merge(ary, b);
 
-// for (int i = 0; i < arylen(ary); i++){
-// 	println(ary[i] + ": " + getMemoryUsage());
-// }
-
-import "console"
+for (int i = 0; i < 10; i++){
+	println(i);
+}

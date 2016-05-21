@@ -61,12 +61,12 @@ namespace internal{
 	Isolate* Isolate::CurrentIsolate = NULL;
 
 	void Isolate::Dispose(){
+		this->~Isolate();
 		delete small;
 		delete medium;
 		delete large;
 		delete xl;
 		delete gc;
-		delete self;
 	}
 
 	Context* Isolate::CreateContext(){

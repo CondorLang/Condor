@@ -52,7 +52,8 @@ namespace internal{
 
 	void Execute::OpenScope(Scope* sc){
 		PrintStep("Opening Scope");
-		if (sc->outer == NULL && scopes.size() > 0) sc->outer = scopes[scopes.size() - 1];
+		CHECK(sc != NULL);
+		if (sc != NULL && sc->outer == NULL && scopes.size() > 0) sc->outer = scopes[scopes.size() - 1];
 		scopes.insert(scopes.begin(), sc);
 	}
 
@@ -697,9 +698,6 @@ namespace internal{
 			isReturning = true;
 			returnValue = var;
 			var->allowGC = false;
-		}
-		if (var->name == "d"){
-			int a = 10; // here
 		}
 		isolate->RunGC(local, true);
 		return local;

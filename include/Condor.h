@@ -47,6 +47,7 @@ namespace Condor {
 		static String* NewFromFile(Isolate* isolate, const char* path);
 		static String* NewFromBase(Isolate* isolate);
 		bool IsEmpty();
+		void Free(Isolate* isolate);
 	};
 
 	class Script

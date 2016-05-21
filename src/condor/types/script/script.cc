@@ -1,3 +1,4 @@
+
 // Copyright 2016 Chase Willden and The CondorLang Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
@@ -66,6 +67,8 @@ namespace internal{
 			script->Run();
 			s->~Script();
 			isolate->FreeMemory(s, sizeof(Script));
+			iStr->~String();
+			isolate->FreeMemory(iStr, sizeof(String));
 		}
 	}
 
@@ -268,6 +271,8 @@ namespace internal{
 			include->Free(isolate);
 			parser->includes.erase(parser->includes.begin());
 		}
+		path->~Path();
+		isolate->FreeMemory(path, sizeof(Path));
 	}
 
 } // namespace internal

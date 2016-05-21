@@ -360,7 +360,8 @@ namespace internal{
 		if (expr->var == NULL) {
 			throw Error::UNDEFINED_VARIABLE;
 		}
-		if (expr->var->assignmentType == UNDEFINED) return expr->var->baseType;
+		CHECK(expr->var != NULL);
+		if (expr->var != NULL && expr->var->assignmentType == UNDEFINED) return expr->var->baseType;
 		return expr->var->assignmentType;
 	}
 
@@ -371,6 +372,9 @@ namespace internal{
 		SetRowCol(expr);
 		if (expr->isInternal) return ValidateInternal(expr);
 		int funcs = 0;
+		if (expr->name == "array_merge"){
+			int a = 10;
+		}
 		std::vector<ASTNode*> nodes = GetCurrentScope()->Lookup(expr->name);
 		if (isConstructor){
 			for (int i = 0; i < nodes.size(); i++){

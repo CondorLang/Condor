@@ -17,7 +17,6 @@ namespace internal{
 
 	void* NewVectorItem(Isolate* isolate, size_t size);
 	void EraseVectorItem(Isolate* isolate, size_t size, void* ptr);
-	void OutOfMemory();
 	void InvalidVectorAccess(int idx, int size);
 	void InternalVectorError(int idx, int size);
 	void P(const char* msg);
@@ -48,6 +47,7 @@ namespace internal{
 		Isolate* isolate;
 	public:
 		Vector(){isolate = NULL; kFirst = NULL; kLast = NULL; kCursor = NULL; kCount = 0; kCursorLoc = 0;}
+		Vector(Isolate* iso){isolate = iso; kFirst = NULL; kLast = NULL; kCursor = NULL; kCount = 0; kCursorLoc = 0;}
 		~Vector(){}
 		void SetIsolate(Isolate* iso){isolate = iso;}
 		int size(){return kCount;}
@@ -57,14 +57,12 @@ namespace internal{
 				void* pt = NewVectorItem(isolate, sizeof(VectorItem<T>));
 				VectorItem<T>* p = new(pt) VectorItem<T>();
 				kFirst = p;
-				if (kFirst == NULL) OutOfMemory();
 				kFirst->data = t;
 				kCursor = kFirst;
 				kLast = kFirst;
 				kCount = 1;
 			}
 			else{
-				if (kLast == NULL) OutOfMemory();
 				void* pt = NewVectorItem(isolate, sizeof(VectorItem<T>));
 				VectorItem<T>* p = new(pt) VectorItem<T>();
 				kLast->next = p;
@@ -118,6 +116,7 @@ namespace internal{
 			if (kCursor && kCursor->next) kCursor->next->prev = kCursor->prev;
 			if (kCursor && kCursor->prev) kCursor->prev->next = kCursor->next;
 			kCount--;
+			item->~VectorItem();
 			EraseVectorItem(isolate, sizeof(VectorItem<T>), item);
 		}
 		void insert(VectorItem<T>* idx, T t){
@@ -130,24 +129,27 @@ namespace internal{
 				kFirst = kCursor;
 			}
 		}
+		void insert(VectorItem<T>* spot, VectorItem<T>* start, VectorItem<T>* end){
+			
+		}
 		T get(int idx){
 			if (idx >= size()){
 				InvalidVectorAccess(idx, size());
-				return NULL;
+				return -1;
 			}
 			kCursor = kFirst;
 			kCursorLoc = 0;
 			for (int i = 0; i < idx; i++){
 				if (kCursor == NULL){
 					InvalidVectorAccess(idx, size());
-					return NULL;
+					return -1;
 				}
 				kCursor = kCursor->next;
 				kCursorLoc++;
 			}
 			if (kCursor == NULL){
 				InternalVectorError(idx, size());
-				return NULL;
+				return -1;
 			}
 			return kCursor->data;
 		}

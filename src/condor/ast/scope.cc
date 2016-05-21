@@ -49,11 +49,14 @@ namespace internal{
 		}		
 		if (outer != NULL && deep) {
 			std::vector<ASTNode*> kNodes = outer->Lookup(name);
-			results.insert(results.end(), kNodes.begin(), kNodes.end());
+			if (kNodes.size() > 0) results.insert(results.end(), kNodes.begin(), kNodes.end());
 		}
 		else if (outer == NULL && deep) {
 			std::vector<ASTNode*> kNodes = isolate->GetContext()->Lookup(this, name);
-			results.insert(results.end(), kNodes.begin(), kNodes.end());
+			if (kNodes.size() > 0) results.insert(results.end(), kNodes.begin(), kNodes.end());
+		}
+		if (results.empty()){
+			int a = 10;
 		}
 		return results;
 	}

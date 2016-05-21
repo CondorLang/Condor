@@ -44,7 +44,7 @@ namespace internal{
 			Scope* s = root[i];
 			if (s == scope) continue;
 			std::vector<ASTNode*> tmp = root[i]->Lookup(name, false, true);
-			result.insert(result.end(), tmp.begin(), tmp.end());
+			if (tmp.size() > 0) result.insert(result.end(), tmp.begin(), tmp.end());
 		}
 		return result;
 	}
