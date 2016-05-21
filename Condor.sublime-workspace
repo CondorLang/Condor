@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"Inter",
+				"InternalCall"
+			],
+			[
 				"Mem",
 				"MemoryPool"
 			],
@@ -510,15 +514,19 @@
 			[
 				"isol",
 				"isolateId"
-			],
-			[
-				"iso",
-				"isolateId"
 			]
 		]
 	},
 	"buffers":
 	[
+		{
+			"file": "test/test.cb",
+			"settings":
+			{
+				"buffer_size": 417,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -687,36 +695,55 @@
 	},
 	"expanded_folders":
 	[
-		"/Users/willdech/Documents/dev/v8",
-		"/Users/willdech/Documents/dev/v8/src",
-		"/Users/willdech/Documents/dev/v8/src/ast"
+		"/Users/willdech/Documents/dev/Condor",
+		"/Users/willdech/Documents/dev/Condor/libs",
+		"/Users/willdech/Documents/dev/Condor/src",
+		"/Users/willdech/Documents/dev/Condor/src/condor",
+		"/Users/willdech/Documents/dev/Condor/src/condor/execute",
+		"/Users/willdech/Documents/dev/Condor/src/condor/mem",
+		"/Users/willdech/Documents/dev/Condor/src/condor/semantics",
+		"/Users/willdech/Documents/dev/Condor/test"
 	],
 	"file_history":
 	[
+		"/Users/willdech/Documents/dev/Condor/test/test.cb",
+		"/Users/willdech/Documents/dev/Condor/src/condor/execute/execute.cc",
+		"/Users/willdech/Documents/dev/Condor/src/condor/semantics/internal.cc",
+		"/Users/willdech/Documents/dev/Condor/src/condor/execute/execute.h",
+		"/Users/willdech/Documents/dev/Condor/src/condor/types/script/script.cc",
+		"/Users/willdech/Documents/dev/Condor/src/api.cc",
+		"/Users/willdech/Documents/dev/Condor/test/shell.cc",
+		"/Users/willdech/Documents/dev/Condor/include/Condor.h",
+		"/Users/willdech/Documents/dev/Condor/src/condor/semantics/semantics.cc",
+		"/Users/willdech/Documents/dev/Condor/src/condor/parser/parser.cc",
+		"/Users/willdech/Documents/dev/Condor/src/condor/mem/isolate.h",
+		"/Users/willdech/Documents/dev/Condor/src/condor/execute/stack.h",
+		"/Users/willdech/Documents/dev/v8/src/parsing/token.h",
+		"/Users/willdech/Documents/dev/Condor/src/condor/semantics/internal.h",
+		"/Users/willdech/Documents/dev/Condor/libs/thread.cb",
+		"/Users/willdech/Documents/dev/Condor/src/condor/mem/isolate.cc",
+		"/Users/willdech/Documents/dev/Condor/src/condor/global.h",
+		"/Users/willdech/Documents/dev/Condor/src/api.h",
+		"/Users/willdech/Documents/dev/Condor/test/main.cc",
+		"/Users/willdech/Documents/dev/Condor/src/condor/types/vector/vector.cc",
+		"/Users/willdech/Documents/dev/Condor/src/condor/ast/scope.cc",
+		"/Users/willdech/Documents/dev/Condor/src/condor/ast/node.cc",
+		"/Users/willdech/Documents/dev/Condor/src/condor/parser/parser.h",
+		"/Users/willdech/Documents/dev/v8/src/zone.cc",
+		"/Users/willdech/Documents/dev/v8/src/ast/ast.h",
 		"/Users/willdech/Documents/dev/v8/src/parsing/scanner.cc",
 		"/Users/willdech/Documents/dev/v8/.clang-format",
-		"/Users/willdech/Documents/dev/Condor/test/main.cc",
 		"/Users/willdech/Documents/dev/v8/src/allocation.cc",
-		"/Users/willdech/Documents/dev/Condor/test/test.cb",
-		"/Users/willdech/Documents/dev/Condor/src/condor/semantics/internal.cc",
 		"/Users/willdech/Documents/dev/Condor/src/condor/mem/allocate.cc",
 		"/Users/willdech/Documents/dev/Condor/src/condor/mem/allocate.h",
-		"/Users/willdech/Documents/dev/Condor/src/condor/mem/isolate.cc",
-		"/Users/willdech/Documents/dev/Condor/src/condor/mem/isolate.h",
 		"/Users/willdech/Documents/dev/Condor/libs/memory.cb",
-		"/Users/willdech/Documents/dev/Condor/src/condor/semantics/internal.h",
-		"/Users/willdech/Documents/dev/Condor/src/condor/semantics/semantics.cc",
 		"/Users/willdech/Documents/dev/Condor/.travis.yml",
 		"/Users/willdech/Documents/dev/Condor/Makefile",
 		"/Users/willdech/Documents/dev/Condor/web/index.php",
 		"/Users/willdech/Documents/dev/Condor/configure",
-		"/Users/willdech/Documents/dev/Condor/src/condor/execute/execute.cc",
 		"/Users/willdech/Documents/dev/Condor/libs/array.cb",
-		"/Users/willdech/Documents/dev/Condor/src/condor/parser/parser.cc",
-		"/Users/willdech/Documents/dev/Condor/src/condor/ast/node.cc",
 		"/Users/willdech/Documents/dev/Condor/src/condor/mem/gc.cc",
 		"/Users/willdech/Documents/dev/Condor/src/condor/ast/node.h",
-		"/Users/willdech/Documents/dev/Condor/src/condor/execute/execute.h",
 		"/Users/willdech/Documents/dev/Condor/src/condor/token/comment.h",
 		"/Users/willdech/Documents/dev/Condor/src/condor/token/token.h",
 		"/Users/willdech/Documents/dev/Condor/src/condor/ast/comment.h",
@@ -726,15 +753,11 @@
 		"/Users/willdech/Documents/dev/Condor/src/condor/mem/gc.h",
 		"/Users/willdech/Documents/dev/Condor/src/condor/flags.h",
 		"/Users/willdech/Documents/dev/Condor/libs/string.cb",
-		"/Users/willdech/Documents/dev/Condor/src/condor/parser/parser.h",
-		"/Users/willdech/Documents/dev/Condor/src/condor/ast/scope.cc",
 		"/Users/willdech/Documents/dev/Condor/src/condor/ast/scope.h",
-		"/Users/willdech/Documents/dev/Condor/test/shell.cc",
 		"/Users/willdech/Documents/dev/Condor/src/stone/types/script/script.cc",
 		"/Users/willdech/Documents/dev/Condor/src/stone/mem/allocate.cc",
 		"/Users/willdech/Documents/dev/Condor/src/stone/flags.cc",
 		"/Users/willdech/Documents/dev/Condor/src/stone/assert.h",
-		"/Users/willdech/Documents/dev/Condor/src/api.cc",
 		"/Users/willdech/Documents/dev/Condor/src/stone/ast/context.h",
 		"/Users/willdech/Documents/dev/Condor/src/stone/ast/node.h",
 		"/Users/willdech/Documents/dev/Condor/src/stone/ast/scope.cc",
@@ -763,7 +786,6 @@
 		"/Users/willdech/Documents/dev/Condor/src/stone/types/strings/string.h",
 		"/Users/willdech/Documents/dev/Condor/src/stone/types/vector/vector.cc",
 		"/Users/willdech/Documents/dev/Condor/src/stone/types/vector/vector.h",
-		"/Users/willdech/Documents/dev/Condor/src/api.h",
 		"/Users/willdech/Documents/dev/Condor/libs/types.cb",
 		"/Users/willdech/Documents/dev/Condor/libs/path.cb",
 		"/Users/willdech/Documents/dev/Condor/libs/integer.cb",
@@ -794,7 +816,6 @@
 		"/Users/willdech/Documents/dev/Condor/src/stone/types/fs/fs.h",
 		"/Users/willdech/Documents/dev/Condor/src/stone/types/path/path.cc",
 		"/Users/willdech/Documents/dev/Condor/src/stone/types/strings/string.cc",
-		"/Users/willdech/Documents/dev/Condor/include/Condor.h",
 		"/Users/willdech/Documents/dev/Condor/readme.md",
 		"/Users/willdech/Documents/dev/Condor/Condor.sublime-project",
 		"/Users/willdech/Documents/dev/Stone/src/stone/types/fs/fs.h",
@@ -812,15 +833,7 @@
 		"/Users/willdech/Documents/dev/Stone/src/stone/assert.h",
 		"/Users/willdech/Documents/dev/Stone/src/api.cc",
 		"/Users/willdech/Documents/dev/Stone/src/arrow/assert.h",
-		"/Users/willdech/Documents/dev/Stone/src/arrow/ast/context.h",
-		"/Users/willdech/Documents/dev/Stone/src/arrow/ast/node.h",
-		"/Users/willdech/Documents/dev/Stone/src/arrow/ast/scope.cc",
-		"/Users/willdech/Documents/dev/Stone/src/arrow/ast/scope.h",
-		"/Users/willdech/Documents/dev/Stone/src/arrow/clock.h",
-		"/Users/willdech/Documents/dev/Stone/src/arrow/error/error.h",
-		"/Users/willdech/Documents/dev/Stone/src/arrow/execute/execute.h",
-		"/Users/willdech/Documents/dev/Stone/src/arrow/execute/stack.h",
-		"/Users/willdech/Documents/dev/Stone/src/arrow/flags.h"
+		"/Users/willdech/Documents/dev/Stone/src/arrow/ast/context.h"
 	],
 	"find":
 	{
@@ -831,6 +844,8 @@
 		"height": 93.0,
 		"where_history":
 		[
+			"/Users/willdech/Documents/dev/Condor/src",
+			"/Users/willdech/Documents/dev/v8/src",
 			"/Users/willdech/Documents/dev/Condor/src/condor",
 			"/Users/willdech/Documents/dev/Condor/src",
 			"/Users/willdech/Documents/dev/Condor",
@@ -905,6 +920,62 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"formatlit",
+			"funccall",
+			"value",
+			"free",
+			":new",
+			"break;",
+			"invalid_opera",
+			"->local = ",
+			"Chunk",
+			":evaluatevar",
+			"evaluatevar",
+			"closescop",
+			"rungc",
+			"clone",
+			"ForceDispose",
+			"CallInternal",
+			"free",
+			"import",
+			"ASTImport",
+			"import",
+			"ASTImport",
+			"import",
+			"ASTImport",
+			"import",
+			"ASTImport",
+			"import",
+			"ASTImport",
+			"import",
+			"ASTImport",
+			"import",
+			"ASTImport",
+			"import",
+			"ASTImport",
+			"import",
+			"ASTImport",
+			"import",
+			"ASTImport",
+			"import",
+			"ASTImport",
+			"import",
+			"ASTImport",
+			"import",
+			"ASTImport",
+			"import",
+			"ASTImport",
+			"import",
+			"ASTImport",
+			"import",
+			"ASTImport",
+			"import",
+			"ASTImport",
+			"import",
+			"ASTImport",
+			"iso->",
+			"FreeMemory",
+			"class Segment",
 			"ary[i]",
 			"build/Condor",
 			"./build/Condor",
@@ -976,63 +1047,7 @@
 			"The ArrowLang Authors",
 			"Arrow",
 			"ARROW_H_",
-			"namespace Arrow",
-			"arrow",
-			"libarrow",
-			"d/Arrow",
-			"arrow",
-			"ArrowLang",
-			"Arrow",
-			"cobra",
-			"libcobra",
-			"ld/Cobra",
-			"./build/Cobra",
-			"cobra",
-			"Cobra::",
-			"cobra",
-			"#include \"cobra/",
-			"#include \"../include/Cobra.h\"",
-			"cobra",
-			"namespace Cobra",
-			"COBRA_H_",
-			"The CobraLang Authors",
-			"cobra",
-			"CobraLang",
-			"propertie",
-			"astarray",
-			"->base ",
-			"base",
-			"->base = ",
-			"base = ",
-			"->base =",
-			"AddThis",
-			"\"this\"",
-			"// here",
-			"kthis",
-			"kThis",
-			"undefined_varia",
-			"astliteral ",
-			":astliteral",
-			"astliteral",
-			"aryerase",
-			"arypush",
-			"parseif",
-			"objectchain",
-			"// here",
-			"evaluatefunccal",
-			"validatefunccal",
-			"int a = ",
-			"chain",
-			"member",
-			"access",
-			"astarray",
-			"// here",
-			"clock",
-			"// here",
-			"FreeChunks",
-			"free(",
-			"malloc",
-			"vector"
+			"namespace Arrow"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1116,8 +1131,37 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "test/test.cb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 417,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								417,
+								417
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Go/Go.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -1169,6 +1213,18 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"token",
+				"src/parsing/token.h"
+			],
+			[
+				"zone.cc",
+				"v8/src/zone.cc"
+			],
+			[
+				"ast.h",
+				"v8/src/ast/ast.h"
+			],
 			[
 				"scanner",
 				"v8/src/parsing/scanner.cc"

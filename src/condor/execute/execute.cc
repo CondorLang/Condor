@@ -85,10 +85,10 @@ namespace internal{
 	}
 
 	void Execute::CloseScope(){
-		// Scope* currentScope = GetCurrentScope();
-		// for (int i = 0; i < currentScope->Size(); i++){
-		// 	isolate->RunGC(currentScope->Get(i), true);
-		// }
+		Scope* currentScope = GetCurrentScope();
+		for (int i = 0; i < currentScope->Size(); i++){
+			isolate->RunGC(currentScope->Get(i), true);
+		}
 		scopes.erase(scopes.begin());
 	}
 

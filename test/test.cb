@@ -6,13 +6,4 @@
 // 	println(ary[i] + ": " + getMemoryUsage());
 // }
 
-import "console", "clock"
-	
-Clock c = new Clock();
-c.start();
-for (int i = 0; i < 10; i++){
-	int j = i + 1;
-}
-c.stop();
-double d = c.getDuration();
-println(d);
+import "console"
