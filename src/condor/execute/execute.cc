@@ -124,12 +124,13 @@ namespace internal{
 					FormatLit(lit);
 					if (lit == NULL) func->args[i]->local = ASTUndefined::New(isolate);
 					else func->args[i]->local = lit->Clone(isolate);
+					isolate->RunGC(call->params[i], false);
 				}
 				else{
 					func->args[i]->local = ASTUndefined::New(isolate);
 				}
-				isolate->RunGC(call->params[i], false);
 			}
+			stackTrace.push_back(call);
 			PrintStep("Evaluating Parameters...Done");
 			OpenScope(func->scope);
 			Evaluate();
@@ -155,6 +156,7 @@ namespace internal{
 			PrintStep("Cloning (" + call->name + ") return value");
 		}
 		isolate->RunGC(call, true);
+		stackTrace.pop_back();
 		return result;
 	}
 
@@ -456,6 +458,8 @@ namespace internal{
 		}
 		else if (litType == BOOLEAN){
 			litType = Binary::Compare(first->litType, second->litType, ADD);
+			SetCalc(first); // Bug fix where this wasn't set
+			SetCalc(second);
 		}
 		
 		switch (litType){
@@ -582,16 +586,17 @@ namespace internal{
 
 	void Execute::SetCalc(ASTLiteral* lit){
 		if (!lit->isCalc && lit->value.length() != 0 && (lit->litType == INT || lit->litType == DOUBLE || 
-											 lit->litType == FLOAT /** || lit->litType == BOOLEAN**/)) {
+											 lit->litType == FLOAT || lit->litType == TRUE_LITERAL || lit->litType == FALSE_LITERAL)) {
 			PrintStep("Set the calculated value (" + lit->value + " | " + Token::ToString(lit->litType) + ")");
 			try{
-				if (lit->value == "true" || lit->value == "false") lit->value = lit->value == "true" ? "1" : "0";
-				lit->calc = std::stod(lit->value);
+				if (lit->litType != TRUE_LITERAL && lit->litType != FALSE_LITERAL) lit->calc = std::stod(lit->value);
 				int type = (int) lit->litType;
 				switch (type){
 					case INT: lit->calc = (int) lit->calc; break;
 					case FLOAT: lit->calc = (float) lit->calc; break;
 					case LONG: lit->calc = (long) lit->calc; break;
+					case TRUE_LITERAL: lit->calc = 1; break;
+					case FALSE_LITERAL: lit->calc = 0; break;
 				}
 				lit->isCalc = true;
 			}

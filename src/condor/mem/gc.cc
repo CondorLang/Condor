@@ -106,6 +106,14 @@ namespace internal{
 					}
 					break;
 				}
+				case WHILE: {
+					ASTWhileExpr* expr = (ASTWhileExpr*) node;
+					if (expr->allowGC){
+						Dispose(isolate, expr->condition, true);
+						Dispose(isolate, expr->scope, true);
+					}
+					break;
+				}
 				case ARRAY: {
 					ASTArray* ary = (ASTArray*) node;
 					for (int i = 0; i < ary->members.size(); i++){

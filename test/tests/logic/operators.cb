@@ -1,0 +1,22 @@
+import "console", "assert"
+
+var name = "Operators";
+print("Test..." + name + "...");
+
+func printMsg(var name){
+	print("\n   Test..." + name + "...");
+}
+
+func add(var a, var b){
+	return a + b;
+}
+
+func subtract(var a, var b){
+	return a - b;
+}
+
+printMsg("Integer");
+assert(add(1, 1) == 2);
+
+
+println("Success");

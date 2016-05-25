@@ -1,0 +1,7 @@
+import "console"
+
+print("Test...If Statement...");
+
+if (true == true){
+	println("Success");
+}

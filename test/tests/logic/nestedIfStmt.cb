@@ -1,0 +1,15 @@
+import "console"
+
+print("Test...Nested If Statement...");
+
+if (true == true){
+	if (true == true){
+		if (true == true){
+			if (true == true){
+				if (true == true){
+					println("Success");
+				}
+			}
+		}
+	}
+}

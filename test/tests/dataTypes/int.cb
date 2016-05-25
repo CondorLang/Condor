@@ -1,0 +1,14 @@
+import "console"
+
+var name = "Integer Type";
+print("Test..." + name + "...");
+
+/**
+ * Test goes here
+ */
+int a = 10;
+int b = 10;
+int c = a + b;
+
+if (c == 20) println("Success");
+else println("Fail");

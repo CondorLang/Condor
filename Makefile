@@ -91,6 +91,10 @@ test:
 	g++ $(FLAGS) -I ./ test/main.cc -Iinclude build/libcondor.a -o build/$(PLATFORM)/Condor
 	make t
 
+tests:
+	g++ $(FLAGS) -I ./ test/automate.cc -Iinclude build/libcondor.a -o build/$(PLATFORM)/Condor
+	./build/$(PLATFORM)/Condor
+
 t:
 	./build/$(PLATFORM)/Condor ${ARGS} test/test.cb
 

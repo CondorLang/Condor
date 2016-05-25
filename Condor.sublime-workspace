@@ -4,6 +4,22 @@
 		"selected_items":
 		[
 			[
+				"kCu",
+				"kCursor"
+			],
+			[
+				"kCur",
+				"kCursor"
+			],
+			[
+				"Vecto",
+				"VectorItem"
+			],
+			[
+				"resul",
+				"results2"
+			],
+			[
 				"Inter",
 				"InternalCall"
 			],
@@ -498,32 +514,16 @@
 			[
 				"rep",
 				"replaceText"
-			],
-			[
-				"term",
-				"termGlobal"
-			],
-			[
-				"getSe",
-				"getSelectionText"
-			],
-			[
-				"creat",
-				"creationDate"
-			],
-			[
-				"isol",
-				"isolateId"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "test/test.cb",
+			"file": "libs/assert.cb",
 			"settings":
 			{
-				"buffer_size": 417,
+				"buffer_size": 290,
 				"line_ending": "Unix"
 			}
 		}
@@ -696,39 +696,62 @@
 	"expanded_folders":
 	[
 		"/Users/willdech/Documents/dev/Condor",
-		"/Users/willdech/Documents/dev/Condor/libs",
 		"/Users/willdech/Documents/dev/Condor/src",
 		"/Users/willdech/Documents/dev/Condor/src/condor",
 		"/Users/willdech/Documents/dev/Condor/src/condor/execute",
 		"/Users/willdech/Documents/dev/Condor/src/condor/mem",
 		"/Users/willdech/Documents/dev/Condor/src/condor/semantics",
-		"/Users/willdech/Documents/dev/Condor/test"
+		"/Users/willdech/Documents/dev/Condor/src/condor/types",
+		"/Users/willdech/Documents/dev/Condor/src/condor/types/script"
 	],
 	"file_history":
 	[
-		"/Users/willdech/Documents/dev/Condor/test/test.cb",
+		"/Users/willdech/Documents/dev/Condor/src/condor/types/script/script.cc",
+		"/Users/willdech/Documents/dev/Condor/src/condor/mem/isolate.h",
 		"/Users/willdech/Documents/dev/Condor/src/condor/execute/execute.cc",
 		"/Users/willdech/Documents/dev/Condor/src/condor/semantics/internal.cc",
 		"/Users/willdech/Documents/dev/Condor/src/condor/execute/execute.h",
-		"/Users/willdech/Documents/dev/Condor/src/condor/types/script/script.cc",
-		"/Users/willdech/Documents/dev/Condor/src/api.cc",
-		"/Users/willdech/Documents/dev/Condor/test/shell.cc",
-		"/Users/willdech/Documents/dev/Condor/include/Condor.h",
-		"/Users/willdech/Documents/dev/Condor/src/condor/semantics/semantics.cc",
-		"/Users/willdech/Documents/dev/Condor/src/condor/parser/parser.cc",
-		"/Users/willdech/Documents/dev/Condor/src/condor/mem/isolate.h",
-		"/Users/willdech/Documents/dev/Condor/src/condor/execute/stack.h",
-		"/Users/willdech/Documents/dev/v8/src/parsing/token.h",
 		"/Users/willdech/Documents/dev/Condor/src/condor/semantics/internal.h",
-		"/Users/willdech/Documents/dev/Condor/libs/thread.cb",
+		"/Users/willdech/Documents/dev/Condor/test/tests/dataTypes/string.cb",
+		"/Users/willdech/Documents/dev/Condor/test/tests/logic/elseStmt.cb",
+		"/Users/willdech/Documents/dev/Condor/test/tests/template.go",
+		"/Users/willdech/Documents/dev/Condor/test/tests/dataTypes/int.cb",
+		"/Users/willdech/Documents/dev/Condor/test/test.cb",
+		"/Users/willdech/Documents/dev/Condor/src/condor/ast/scope.cc",
+		"/Users/willdech/Documents/dev/Condor/src/condor/ast/scope.h",
+		"/Users/willdech/Documents/dev/Condor/src/condor/types/vector/vector.h",
+		"/Users/willdech/Documents/dev/Condor/src/condor/semantics/semantics.cc",
+		"/Users/willdech/Documents/dev/Condor/src/condor/ast/context.cc",
 		"/Users/willdech/Documents/dev/Condor/src/condor/mem/isolate.cc",
+		"/Users/willdech/Documents/dev/Condor/src/condor/mem/gc.cc",
+		"/Users/willdech/Documents/dev/Condor/src/condor/mem/gc.h",
+		"/Users/willdech/Documents/dev/Condor/src/condor/types/clock/clock.h",
+		"/Users/willdech/Documents/dev/Condor/src/condor/types/script/script.h",
+		"/Users/willdech/Documents/dev/Condor/src/condor/types/strings/string.cc",
+		"/Users/willdech/Documents/dev/Condor/src/condor/types/strings/string.h",
+		"/Users/willdech/Documents/dev/Condor/src/condor/types/fs/fs.cc",
+		"/Users/willdech/Documents/dev/Condor/src/condor/ast/node.cc",
+		"/Users/willdech/Documents/dev/Condor/src/condor/types/fs/fs.h",
+		"/Users/willdech/Documents/dev/Condor/src/condor/ast/node.h",
+		"/Users/willdech/Documents/dev/Condor/src/condor/semantics/semantics.h",
+		"/Users/willdech/Documents/dev/Condor/src/condor/ast/context.h",
+		"/Users/willdech/Documents/dev/Condor/src/condor/parser/parser.cc",
+		"/Users/willdech/Documents/dev/Condor/src/condor/parser/parser.h",
+		"/Users/willdech/Documents/dev/Condor/src/condor/scanner/scanner.cc",
+		"/Users/willdech/Documents/dev/Condor/src/condor/scanner/scanner.h",
+		"/Users/willdech/Documents/dev/Condor/src/condor/execute/stack.h",
+		"/Users/willdech/Documents/dev/Condor/src/condor/execute/stack.cc",
+		"/Users/willdech/Documents/dev/Condor/src/condor/types/vector/vector.cc",
+		"/Users/willdech/Documents/dev/Condor/log.txt",
+		"/Users/willdech/Documents/dev/Condor/src/api.cc",
+		"/Users/willdech/Documents/dev/Condor/test/main.cc",
+		"/Users/willdech/Documents/dev/Condor/include/Condor.h",
+		"/Users/willdech/Documents/dev/Condor/libs/clock.cb",
+		"/Users/willdech/Documents/dev/Condor/test/shell.cc",
+		"/Users/willdech/Documents/dev/v8/src/parsing/token.h",
+		"/Users/willdech/Documents/dev/Condor/libs/thread.cb",
 		"/Users/willdech/Documents/dev/Condor/src/condor/global.h",
 		"/Users/willdech/Documents/dev/Condor/src/api.h",
-		"/Users/willdech/Documents/dev/Condor/test/main.cc",
-		"/Users/willdech/Documents/dev/Condor/src/condor/types/vector/vector.cc",
-		"/Users/willdech/Documents/dev/Condor/src/condor/ast/scope.cc",
-		"/Users/willdech/Documents/dev/Condor/src/condor/ast/node.cc",
-		"/Users/willdech/Documents/dev/Condor/src/condor/parser/parser.h",
 		"/Users/willdech/Documents/dev/v8/src/zone.cc",
 		"/Users/willdech/Documents/dev/v8/src/ast/ast.h",
 		"/Users/willdech/Documents/dev/v8/src/parsing/scanner.cc",
@@ -742,18 +765,12 @@
 		"/Users/willdech/Documents/dev/Condor/web/index.php",
 		"/Users/willdech/Documents/dev/Condor/configure",
 		"/Users/willdech/Documents/dev/Condor/libs/array.cb",
-		"/Users/willdech/Documents/dev/Condor/src/condor/mem/gc.cc",
-		"/Users/willdech/Documents/dev/Condor/src/condor/ast/node.h",
 		"/Users/willdech/Documents/dev/Condor/src/condor/token/comment.h",
 		"/Users/willdech/Documents/dev/Condor/src/condor/token/token.h",
 		"/Users/willdech/Documents/dev/Condor/src/condor/ast/comment.h",
-		"/Users/willdech/Documents/dev/Condor/src/condor/scanner/scanner.h",
-		"/Users/willdech/Documents/dev/Condor/src/condor/semantics/semantics.h",
 		"/Users/willdech/Documents/dev/Condor/src/condor/flags.cc",
-		"/Users/willdech/Documents/dev/Condor/src/condor/mem/gc.h",
 		"/Users/willdech/Documents/dev/Condor/src/condor/flags.h",
 		"/Users/willdech/Documents/dev/Condor/libs/string.cb",
-		"/Users/willdech/Documents/dev/Condor/src/condor/ast/scope.h",
 		"/Users/willdech/Documents/dev/Condor/src/stone/types/script/script.cc",
 		"/Users/willdech/Documents/dev/Condor/src/stone/mem/allocate.cc",
 		"/Users/willdech/Documents/dev/Condor/src/stone/flags.cc",
@@ -793,7 +810,6 @@
 		"/Users/willdech/Documents/dev/Condor/libs/exception.cb",
 		"/Users/willdech/Documents/dev/Condor/libs/date.cb",
 		"/Users/willdech/Documents/dev/Condor/libs/console.cb",
-		"/Users/willdech/Documents/dev/Condor/libs/clock.cb",
 		"/Users/willdech/Documents/dev/Condor/libs/app.cb",
 		"/Users/willdech/Documents/dev/Condor/src/stone/assert.cc",
 		"/Users/willdech/Documents/dev/Condor/src/stone/ast/context.cc",
@@ -817,23 +833,7 @@
 		"/Users/willdech/Documents/dev/Condor/src/stone/types/path/path.cc",
 		"/Users/willdech/Documents/dev/Condor/src/stone/types/strings/string.cc",
 		"/Users/willdech/Documents/dev/Condor/readme.md",
-		"/Users/willdech/Documents/dev/Condor/Condor.sublime-project",
-		"/Users/willdech/Documents/dev/Stone/src/stone/types/fs/fs.h",
-		"/Users/willdech/Documents/dev/Stone/src/stone/semantics/internal.h",
-		"/Users/willdech/Documents/dev/Stone/libs/fs.cb",
-		"/Users/willdech/Documents/dev/Stone/test/test.cb",
-		"/Users/willdech/Documents/dev/Stone/include/Stone.h",
-		"/Users/willdech/Documents/dev/Stone/include/readme.md",
-		"/Users/willdech/Documents/dev/Stone/readme.md",
-		"/Users/willdech/Documents/dev/Stone/test/shell.cc",
-		"/Users/willdech/Documents/dev/Stone/test/main.cc",
-		"/Users/willdech/Documents/dev/Stone/src/stone/types/script/script.cc",
-		"/Users/willdech/Documents/dev/Stone/src/stone/mem/allocate.cc",
-		"/Users/willdech/Documents/dev/Stone/src/stone/flags.cc",
-		"/Users/willdech/Documents/dev/Stone/src/stone/assert.h",
-		"/Users/willdech/Documents/dev/Stone/src/api.cc",
-		"/Users/willdech/Documents/dev/Stone/src/arrow/assert.h",
-		"/Users/willdech/Documents/dev/Stone/src/arrow/ast/context.h"
+		"/Users/willdech/Documents/dev/Condor/Condor.sublime-project"
 	],
 	"find":
 	{
@@ -920,6 +920,49 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			":evaluatefunccall",
+			"==",
+			"import \"console\"\n\nprint(\"Test...For Loop...\");\n\nfor (int i = 0; i < 10; i++){\n	var j = i;\n}\n\nprintln(\"Success\");",
+			"] =",
+			"prev",
+			"validatefunccall",
+			"invalid_func",
+			"std::vector",
+			"std::v",
+			"std::vector<ASTLiteral*> lits){",
+			"std::v",
+			"parsing liter",
+			"vector",
+			"std::ve",
+			"tryc",
+			"std::v",
+			"ASTFunc",
+			"std::vec",
+			"return NULL",
+			"NULL",
+			"std::vector",
+			"std::vec",
+			"{\n",
+			"std::v",
+			"std::vec",
+			"vector",
+			"std::v",
+			"internalvectorerr",
+			"return -1;",
+			"FreeMemory",
+			"setbase",
+			"Script",
+			"script",
+			"Script",
+			"script",
+			"Script",
+			"script",
+			"validatefunccall",
+			"// here",
+			"return NULL;",
+			"NULL",
+			"results.push_back(nodes[i]);",
+			"// here",
 			"formatlit",
 			"funccall",
 			"value",
@@ -1004,50 +1047,7 @@
 			"if (isContinue){\n					isContinue = false;\n					continue;\n				}",
 			"here",
 			"parsecontinue",
-			"expected",
-			"BREAK",
-			"break:",
-			"ASTBreak",
-			"continue",
-			"returnValue",
-			"// here",
-			"\"return\"",
-			"scope",
-			"evaluatefunc",
-			"// here",
-			"\"return\"",
-			"\"array\"",
-			"StoneLang/Stone/",
-			"Stone::",
-			"Stone",
-			"stone",
-			"#include \"stone/",
-			"#include \"../include/Stone.h\"",
-			" and The StoneLang Authors",
-			"Stone",
-			"namespace Stone",
-			"STONE_H_",
-			"stone",
-			"libstone",
-			"ld/Stone",
-			"stone",
-			"Stone",
-			"path",
-			"pth",
-			"cobra",
-			"chaseWillden/StoneLang",
-			"Stonelang",
-			"chaseWillden",
-			"StoneLang",
-			"arro",
-			"Arrow::",
-			"arrow",
-			"#include \"arrow/",
-			"#include \"../include/Arrow.h\"",
-			"The ArrowLang Authors",
-			"Arrow",
-			"ARROW_H_",
-			"namespace Arrow"
+			"expected"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1136,19 +1136,19 @@
 			[
 				{
 					"buffer": 0,
-					"file": "test/test.cb",
+					"file": "libs/assert.cb",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 417,
+						"buffer_size": 290,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								417,
-								417
+								290,
+								290
 							]
 						],
 						"settings":

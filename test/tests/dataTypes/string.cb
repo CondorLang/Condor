@@ -1,0 +1,23 @@
+import "console", "assert"
+
+var name = "string Type";
+print("Test..." + name + "...");
+
+func printMsg(var name){
+	print("\n   Test..." + name + "...");
+}
+
+
+/**
+ * Concat Different types
+ */
+printMsg("Concat Types");
+string a = "a";
+string b = "b";
+char bc = 'b';
+int bi = 10;
+assert((a + b) == "ab", name);
+assert((a + bc) == "ab", name);
+assert((a + bi) == "a10", name);
+
+println("Success");

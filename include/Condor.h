@@ -6,6 +6,7 @@
 #define CONDOR_H_
 
 #include <string>
+#include <vector>
 #include <algorithm>
 
 namespace Condor {
@@ -58,6 +59,13 @@ namespace Condor {
 		bool HasError();
 		void Free(Isolate* isolate);
 		std::string GetErrorMsg();
+	};
+
+	class Directory
+	{
+	public:
+		static std::vector<std::string> ReadDir(std::string path, bool recursive);
+		static bool IsDir(std::string path);
 	};
 
 }

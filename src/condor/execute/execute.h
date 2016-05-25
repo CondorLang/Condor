@@ -83,6 +83,7 @@ namespace internal{
 		void Evaluate();
 		std::string GetSource(){CHECK(GetCurrentScope() != NULL); return GetCurrentScope()->raw;}
 		Semantics* semantic;
+		std::vector<ASTNode*> stackTrace;
 
 		int row;
 		int col;

@@ -19,6 +19,7 @@
 #include "condor/mem/allocate.h"
 #include "condor/types/strings/string.h"
 #include "condor/types/script/script.h"
+#include "condor/types/fs/fs.h"
 
 namespace Condor{
 
@@ -162,5 +163,13 @@ namespace Condor{
 	bool String::IsEmpty(){
 		i::String* str = CAST(i::String*, this);
 		return str->IsEmpty();
+	}
+
+	std::vector<std::string> Directory::ReadDir(std::string path, bool recursive){
+		return i::FS::ReadDir(path, recursive);
+	}
+
+	bool Directory::IsDir(std::string path){
+		return i::FS::IsDir(path);
 	}
 }

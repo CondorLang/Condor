@@ -1,0 +1,10 @@
+import "console"
+
+print("Test...Else Statement...");
+
+if (true == false){
+	println("Failed");
+}
+else{
+	println("Success");
+}

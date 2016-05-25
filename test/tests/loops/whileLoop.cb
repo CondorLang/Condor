@@ -1,0 +1,10 @@
+import "console"
+
+print("Test...While Loop...");
+
+int i = 0;
+while (i < 10){
+	i++;
+}
+
+println("Success");
