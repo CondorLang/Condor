@@ -1,4 +1,4 @@
-import "console"
+import "console", "colors"
 
 print("Test...For Loop...");
 
@@ -6,4 +6,4 @@ for (int i = 0; i < 10; i++){
 	var j = i;
 }
 
-println("Success");
+println(Color.green("Success"));

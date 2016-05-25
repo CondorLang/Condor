@@ -1,10 +1,10 @@
-import "console"
+import "console", "colors"
 
 print("Test...Else Statement...");
 
 if (true == false){
-	println("Failed");
+	println(Color.red("Fail"));
 }
 else{
-	println("Success");
+	println(Color.green("Success"));
 }

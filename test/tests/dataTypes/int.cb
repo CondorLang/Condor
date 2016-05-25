@@ -1,4 +1,4 @@
-import "console"
+import "console", "colors"
 
 var name = "Integer Type";
 print("Test..." + name + "...");
@@ -10,5 +10,5 @@ int a = 10;
 int b = 10;
 int c = a + b;
 
-if (c == 20) println("Success");
-else println("Fail");
+if (c == 20) println(Color.green("Success"));
+else println(Color.red("Fail"));

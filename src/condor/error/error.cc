@@ -119,6 +119,13 @@ namespace Error {
 			case INVALID_DEFAULT_STMT: return "Invalid default statement";
 			case INVALID_OBJECT: return "Invalid object";
 			case INVALID_ASSIGNMENT: return "Invalid assignment";
+			case ILLEGAL_OCTAL_CODE: return "Illegal octal code";
+			case INVALID_BOOLEAN_ASSIGNMENT: return "Invalid boolean assignment";
+			case INVALID_CHAR_ASSIGNMENT: return "Invalid char assignment";
+			case INVALID_INT_ASSIGNMENT: return "Invalid int assignment";
+			case INVALID_FLOAT_ASSIGNMENT: return "Invalid float assignment";
+			case INVALID_DOUBLE_ASSIGNMENT: return "Invalid double assignment";
+			case INVALID_ARRAY_ASSIGNMENT: return "Invalid array assignment";
 			case SCANNER: {
 				if (tok != NULL){
 					return tok->raw;

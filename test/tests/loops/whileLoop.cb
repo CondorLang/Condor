@@ -1,4 +1,4 @@
-import "console"
+import "console", "colors"
 
 print("Test...While Loop...");
 
@@ -7,4 +7,4 @@ while (i < 10){
 	i++;
 }
 
-println("Success");
+println(Color.green("Success"));

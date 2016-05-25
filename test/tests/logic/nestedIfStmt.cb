@@ -1,4 +1,4 @@
-import "console"
+import "console", "colors"
 
 print("Test...Nested If Statement...");
 
@@ -7,7 +7,7 @@ if (true == true){
 		if (true == true){
 			if (true == true){
 				if (true == true){
-					println("Success");
+					println(Color.green("Success"));
 				}
 			}
 		}

@@ -1,7 +1,7 @@
-import "console"
+import "console", "colors"
 
 print("Test...If Statement...");
 
 if (true == true){
-	println("Success");
+	println(Color.green("Success"));
 }

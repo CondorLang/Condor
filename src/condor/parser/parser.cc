@@ -43,6 +43,10 @@ namespace internal{
 		}
 	}
 
+	std::string* Parser::GetSource(){
+		return source == NULL ? scanner->src : source;
+	}
+
 	void Parser::SetDefaults(std::string* source){
 		source = source;
 		scanner = Scanner::New(isolate, source);

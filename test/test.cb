@@ -1,9 +1,18 @@
-import "console", "string", "array"
+import "console", "fs", "array", "string"
 
-// int ary[] = [1, 2, 3, 4, 5, 6];
-// int b[] = [7];
-// int c[] = array_merge(ary, b);
+// string[] files = fs.readDir("./src", false);
 
-for (int i = 0; i < 10; i++){
-	println(i);
-}
+// for (int i = 0; i < arylen(files); i++){
+// 	var file = files[i];
+// 	if (!fs.isDir(file)){
+// 		if (indexOf(file, ".h") > -1){
+// 			println(file);
+// 		}
+// 		string contents = fs.readFile(file);
+// 		string[] comments = extractComments(contents);
+// 	}
+// }
+
+// func extractComments(string contents){
+	
+// }

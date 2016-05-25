@@ -7,4 +7,4 @@ print("Test..." + name + "...");
  * Test goes here
  */
 
-println("Success");
+println(Color.green("Success"));

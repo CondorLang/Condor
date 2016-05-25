@@ -473,7 +473,16 @@ namespace internal{
 				case 'r': result += '\r'; break;
 				case 'v': result += '\v'; break;
 				case '\\': result += '\\'; break;
-				case '0': result += '\0'; break;
+				case '0': { // octal
+					Next();
+					if (ch == '8' || ch == '9') throw Error::ILLEGAL_OCTAL_CODE;
+					if (ch == '3'){
+						Next();
+						if (ch == '3'){
+							result += '\033'; break;
+						}
+					}
+				}
 				case '1': result += '\1'; break;
 				case '2': result += '\2'; break;
 				case '3': result += '\3'; break;

@@ -95,7 +95,7 @@ namespace internal{
 		void Parse();
 		static Scope* Parse(Isolate* iso, Scope* sc, Semantics* s);
 		Scope* GetBaseScope(){return rootScope;}
-		std::string* GetSource(){return source == NULL ? scanner->src : source;}
+		std::string* GetSource();
 
 		int Pos;
 		int Row;

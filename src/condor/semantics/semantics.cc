@@ -156,6 +156,9 @@ namespace internal{
 	}
 
 	void Semantics::ValidateVar(ASTVar* var){
+		if (var->name == "file"){
+			int a = 10; // here
+		}
 		SetRowCol(var);
 		CHECK(var != NULL);
 		var->scopeId = GetCurrentScope()->scopeId;
@@ -252,7 +255,10 @@ namespace internal{
 		switch (type){
 			case IDENT: result = ValidateIdent(lit); break;
 		}
-		ValidateExpr(lit->member);
+		if (lit->member != NULL){
+			ValidateExpr(lit->member);
+			if (lit->var != NULL) result = lit->var->baseType;
+		}
 		if (result == UNDEFINED) return lit->litType;
 		return result;
 	}
@@ -372,9 +378,6 @@ namespace internal{
 		SetRowCol(expr);
 		if (expr->isInternal) return ValidateInternal(expr);
 		int funcs = 0;
-		if (expr->name == "array_merge"){
-			int a = 10;
-		}
 		std::vector<ASTNode*> nodes = GetCurrentScope()->Lookup(expr->name);
 		if (isConstructor){
 			for (int i = 0; i < nodes.size(); i++){
@@ -414,6 +417,7 @@ namespace internal{
 					if (func->args.size() < params.size()) continue;
 					for (int j = 0; j < func->args.size(); j++){
 						if (j < params.size()){
+							ASTVar* base = func->args[j];
 							if (func->args[j]->baseType != VAR && func->args[j]->baseType != params[j]) {
 								notIt = true;
 							}
@@ -721,7 +725,30 @@ namespace internal{
 
 	// TODO: Compare the base type with the assignment type. Throw an error if they are not the same if hard typed.
 	void Semantics::ValidateBaseAndAssignment(ASTVar* var){
-		
+		CHECK(var != NULL);
+		Trace("Validating", "Base type and the assignment type");
+		int baseType = (int) var->baseType;
+		TOKEN assign = var->assignmentType;
+		switch (baseType){
+			case BOOLEAN: if (assign != FALSE_LITERAL && 
+												assign != TRUE_LITERAL && 
+												assign != BOOLEAN) throw Error::INVALID_BOOLEAN_ASSIGNMENT; break;
+			case CHAR: if (assign != INT && 
+										 assign != CHAR) throw Error::INVALID_CHAR_ASSIGNMENT; break;
+			case INT: if (assign != INT && 
+										assign != CHAR && 
+										assign != BOOLEAN && 
+										assign != TRUE_LITERAL &&
+										assign != FALSE_LITERAL) throw Error::INVALID_INT_ASSIGNMENT; break;
+			case FLOAT: if (assign != FLOAT &&
+											assign != INT &&
+											assign != BOOLEAN) throw Error::INVALID_FLOAT_ASSIGNMENT; break;
+			case DOUBLE: if (assign != DOUBLE && 
+											 assign != FLOAT &&
+											 assign != INT &&
+											 assign != BOOLEAN) throw Error::INVALID_DOUBLE_ASSIGNMENT; break;
+			case ARRAY: if (assign != ARRAY) throw Error::INVALID_ARRAY_ASSIGNMENT; break;
+		}
 	}
 
 	TOKEN Semantics::ValidateWhile(ASTWhileExpr* expr){

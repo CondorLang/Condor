@@ -1,4 +1,4 @@
-import "console", "assert"
+import "console", "assert", "colors"
 
 var name = "string Type";
 print("Test..." + name + "...");
@@ -20,4 +20,4 @@ assert((a + b) == "ab", name);
 assert((a + bc) == "ab", name);
 assert((a + bi) == "a10", name);
 
-println("Success");
+println(Color.green("Success"));

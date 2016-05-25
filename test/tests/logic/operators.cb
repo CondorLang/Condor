@@ -1,4 +1,4 @@
-import "console", "assert"
+import "console", "assert", "colors"
 
 var name = "Operators";
 print("Test..." + name + "...");
@@ -15,8 +15,27 @@ func subtract(var a, var b){
 	return a - b;
 }
 
+func multiply(var a, var b){
+	return a * b;
+}
+
+func divide(var a, var b){
+	return a / b;
+}
+
 printMsg("Integer");
-assert(add(1, 1) == 2);
+assert(add(1, 1) == 2, "Operators.cb");
+assert(subtract(2, 1) == 1, "Operators.cb");
+assert(multiply(2, 2) == 4, "Operators.cb");
+assert(divide(4, 2) == 2, "Operators.cb");
+print(Color.green("Success"));
 
+printMsg("Double or Float");
+assert(add(1.0, 1.0) == 2.0, "Operators.cb");
+assert(subtract(2.0, 1.0) == 1.0, "Operators.cb");
+assert(multiply(2.0, 2.0) == 4.0, "Operators.cb");
+assert(divide(4.0, 2.0) == 2.0, "Operators.cb");
+println(Color.green("Success"));
 
-println("Success");
+// printMsg("Boolean");
+// assert(add(false, false) == 2, "Operators.cb");
