@@ -1,18 +1,14 @@
 import "console", "fs", "array", "string"
 
-// string[] files = fs.readDir("./src", false);
+string[] files = fs.readDir("./src", false);
 
-// for (int i = 0; i < arylen(files); i++){
-// 	var file = files[i];
-// 	if (!fs.isDir(file)){
-// 		if (indexOf(file, ".h") > -1){
-// 			println(file);
-// 		}
-// 		string contents = fs.readFile(file);
-// 		string[] comments = extractComments(contents);
-// 	}
-// }
+for (int i = 0; i < arylen(files); i++){
+	// var file = files[i];
+	// if (!fs.isDir(file)){
+	// 	println(file);
+	// }
+}
 
-// func extractComments(string contents){
+func extractComments(string contents){
 	
-// }
+}

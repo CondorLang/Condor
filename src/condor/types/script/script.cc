@@ -137,8 +137,10 @@ namespace internal{
 		}
 
 		Scope* base = parser->GetBaseScope();
+		CHECK(base != NULL);
 		base->name = name;
-		context->AddScope(base);
+		if (parser->IsInternal()) context->injectedScopes.push_back(base); // don't set symbols global if import
+		else context->AddScope(base);
 	}
 
 	void Script::Run(){
@@ -174,6 +176,7 @@ namespace internal{
 			currentCode = &src;
 			msg = std::to_string(executor->row) + ":" + std::to_string(executor->col) + " - " + msg + " - \n\t" + absolutePath.c_str() + "\n\n" + GetSourceRow(executor->row, executor->col);
 			printf("\nRuntime Error: \n%s\n", msg.c_str());
+			currentCode = NULL;
 			msgs.push_back(msg);
 			return;
 		}
@@ -191,6 +194,7 @@ namespace internal{
 
 	std::string Script::GetSourceRow(int row, int col){
 		std::string src = "";
+		if (currentCode == NULL) return src;
 		src += currentCode->c_str();
 		std::string result = "";
 		std::string u = UNDERLINE_START;
@@ -220,12 +224,16 @@ namespace internal{
 	}
 
 	void Script::LoadImports(){
+		Scope* base = parser->GetBaseScope();
 		// Load app by default
 		std::string libsDir = Path::GetLibDir();
 		if (!App::Included){
 			App::Included = true;
 			std::string path = libsDir + "app.cb";
 			RunInternalScript(isolate, FS::ReadFile(path), "app", "", false);
+			CHECK(context->injectedScopes.size() > 0);
+			context->AddScope(context->injectedScopes[0]);
+			context->injectedScopes.pop_back();
 		}
 
 		while (parser->imports.size() > 0){
@@ -248,6 +256,10 @@ namespace internal{
 			}
 			else{
 				RunInternalScript(isolate, FS::ReadFile(path), name, sub, false);
+				CHECK(context->injectedScopes.size() > 0);
+				Scope* injected = context->injectedScopes[0];
+				base->Merge(injected);
+				context->injectedScopes.pop_back();
 			}
 			import->Free(isolate); // empty imports
 			parser->imports.erase(parser->imports.begin());

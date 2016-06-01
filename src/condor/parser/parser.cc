@@ -44,6 +44,11 @@ namespace internal{
 	}
 
 	std::string* Parser::GetSource(){
+		if (scanner->isolate == NULL) {
+			// doesn't exist
+			empty = "";
+			return &empty;
+		}
 		return source == NULL ? scanner->src : source;
 	}
 

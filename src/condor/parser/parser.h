@@ -41,6 +41,7 @@ namespace internal{
 		bool printVariables;
 		bool trace;
 		bool allowNative;
+		std::string empty;
 
 		void SetDefaults(std::string* source);
 		void SetRowCol(ASTNode* node);

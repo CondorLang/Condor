@@ -40,6 +40,7 @@ namespace internal{
 		void AddScope(Scope* scope);
 		bool IsIncluded(std::string name);
 		std::vector<ASTNode*> Lookup(Scope* scope, std::string name);
+		std::vector<Scope*> injectedScopes;
 	};
 
 } // namespace internal

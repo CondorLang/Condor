@@ -79,6 +79,7 @@ namespace internal{
 					if (canBreak) throw Error::INTERNAL_BREAK;
 					throw Error::INVALID_USE_OF_BREAK;
 				}
+				// case FUNC: case OBJECT don't need to be executed, the only need to be called
 			}
 			if (isReturning || isContinue) break;
 		}
@@ -180,6 +181,9 @@ namespace internal{
 			else{
 				PrintStep("Calculation");
 				NewStack();
+				if (binary->op == NOT){
+					int a = 10; // here
+				}
 				FillPostix(binary);				
 				ASTLiteral* lit = Calculate();
 				FormatLit(lit);

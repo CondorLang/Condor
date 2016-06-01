@@ -64,7 +64,7 @@ namespace internal{
 	void Scope::Merge(Scope* scope){
 		if (scope == NULL) return;
 		std::vector<ASTNode*> kNodes = scope->GetNodes();
-		nodes.insert(nodes.end(), kNodes.begin(), kNodes.end());
+		nodes.insert(nodes.begin(), kNodes.begin(), kNodes.end());
 	}
 
 	void Scope::Destroy(ASTNode* node){
