@@ -32,6 +32,15 @@ namespace internal{
 		return included.find(name) != included.end();
 	}
 
+	void Context::AddToRegistry(Scope* scope){
+		registry[scope->scopeId] = scope;
+	}
+
+	Scope* Context::GetFromRegistry(int scopeId){
+		if (registry.find(scopeId) == registry.end()) return NULL;
+		return registry[scopeId];
+	}
+
 	void Context::AddScope(Scope* scope){
 		scope->context = this;
 		root.push_back(scope);

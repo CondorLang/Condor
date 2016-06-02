@@ -65,9 +65,9 @@ namespace internal{
 			Script* s = CAST(Script*, script);
 			s->SetSub(sub);
 			script->Run();
-			s->~Script();
+			//s->~Script();
 			isolate->FreeMemory(s, sizeof(Script));
-			iStr->~String();
+			//iStr->~String();
 			isolate->FreeMemory(iStr, sizeof(String));
 		}
 	}
@@ -141,6 +141,7 @@ namespace internal{
 		base->name = name;
 		if (parser->IsInternal()) context->injectedScopes.push_back(base); // don't set symbols global if import
 		else context->AddScope(base);
+		context->AddToRegistry(base);
 	}
 
 	void Script::Run(){
@@ -181,11 +182,11 @@ namespace internal{
 			return;
 		}
 		// Free the executor, semantics, and parser and all the data
-		executor->~Execute();
+		//executor->~Execute();
 		isolate->FreeMemory(executor, sizeof(Execute));
-		semantics->~Semantics();
+		//semantics->~Semantics();
 		isolate->FreeMemory(semantics, sizeof(Semantics));
-		parser->~Parser();
+		//parser->~Parser();
 		isolate->FreeMemory(parser, sizeof(Parser));
 		parser = NULL;
 		semantics = NULL;
@@ -283,7 +284,7 @@ namespace internal{
 			include->Free(isolate);
 			parser->includes.erase(parser->includes.begin());
 		}
-		path->~Path();
+		//path->~Path();
 		isolate->FreeMemory(path, sizeof(Path));
 	}
 

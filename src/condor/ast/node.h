@@ -40,6 +40,7 @@ namespace internal{
 		bool isInParen;
 		bool allowGC;
 		bool print;
+		int importScopeId;
 		std::vector<TOKEN> visibility;
 		ASTLiteral* local;
 		static ASTNode* New(Isolate* iso);

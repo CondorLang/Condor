@@ -25,6 +25,7 @@ namespace internal{
 		Isolate* isolate;
 		std::vector<std::string> inProgress;
 		std::vector<Scope*> root;
+		std::map<int, Scope*> registry;
 		std::map<std::string, bool> included;
 		int nextAstId;
 
@@ -36,6 +37,8 @@ namespace internal{
 		void SetIsolate(Isolate* isolate);
 		Isolate* GetIsolate(){return this->isolate;}
 		void AddToInProgress(std::string str);
+		void AddToRegistry(Scope* scope);
+		Scope* GetFromRegistry(int scopeId);
 		int GetNextAstId();
 		void AddScope(Scope* scope);
 		bool IsIncluded(std::string name);

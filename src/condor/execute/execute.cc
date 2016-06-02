@@ -15,10 +15,10 @@ namespace internal{
 	}
 
 	Execute::Execute(Scope* scope){
-		CHECK(scope != NULL);
-		OpenScope(scope);
 		trace = TRACE_EVALUATION;
 		steps = EVALUATION_STEPS;
+		CHECK(scope != NULL);
+		OpenScope(scope);
 		row = -1;
 		col = -1;
 		canBreak = false;

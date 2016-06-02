@@ -9,7 +9,6 @@
 #include <vector>
 #include "condor/token/token.h"
 #include "condor/error/error.h"
-#include "condor/types/vector/vector.h"
 
 namespace Condor {
 namespace internal{

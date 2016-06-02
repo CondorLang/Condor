@@ -1,14 +1,17 @@
-import "console", "fs", "array", "string"
+import "console", "fs", "array", "string", "colors"
 
-string[] files = fs.readDir("./src", false);
+string txt = Color.red("This is a test");
+println(txt);
 
-for (int i = 0; i < arylen(files); i++){
-	// var file = files[i];
-	// if (!fs.isDir(file)){
-	// 	println(file);
-	// }
-}
+// string[] files = fs.readDir("./src", false);
 
-func extractComments(string contents){
+// for (int i = 0; i < arylen(files); i++){
+// 	// var file = files[i];
+// 	// if (!fs.isDir(file)){
+// 	// 	println(file);
+// 	// }
+// }
+
+// func extractComments(string contents){
 	
-}
+// }

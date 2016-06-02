@@ -14,7 +14,9 @@ namespace internal{
 		shallow = false;
 	}
 
-	Scope::~Scope(){}
+	Scope::~Scope(){
+		
+	}
 
 	Scope* Scope::New(Isolate* isolate){
 		void* pt = isolate->GetMemory(sizeof(Scope));
@@ -64,6 +66,9 @@ namespace internal{
 	void Scope::Merge(Scope* scope){
 		if (scope == NULL) return;
 		std::vector<ASTNode*> kNodes = scope->GetNodes();
+		for (int i = 0; i < kNodes.size(); i++){
+			kNodes[i]->importScopeId = scope->scopeId;
+		}
 		nodes.insert(nodes.begin(), kNodes.begin(), kNodes.end());
 	}
 
@@ -77,7 +82,7 @@ namespace internal{
 	}
 
 	void Scope::Destroy(){
-		this->~Scope();
+		//this->~Scope();
 		isolate->FreeMemory(this, sizeof(Scope));
 	}
 

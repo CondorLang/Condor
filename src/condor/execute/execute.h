@@ -52,7 +52,7 @@ namespace internal{
 		ASTObjectInstance* GetCurrentObject(){if (objStack.size() > 0) return objStack[0]; return NULL;}
 		void SetRowCol(ASTNode* node);
 		void NewStack(){stack.insert(stack.begin(), RPNStack::New(isolate));}
-		void CloseStack(){stack[0]->~RPNStack(); isolate->FreeMemory(stack[0], sizeof(RPNStack)); stack.erase(stack.begin());}
+		void CloseStack(){/*stack[0]->~RPNStack();*/ isolate->FreeMemory(stack[0], sizeof(RPNStack)); stack.erase(stack.begin());}
 		RPNStack* GetCurrentStack(){if (stack.size() == 0) return NULL; return stack[0];}
 
 		ASTLiteral* EvaluateFuncCall(ASTFuncCall* call);

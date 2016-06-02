@@ -61,7 +61,7 @@ namespace internal{
 			std::string tabs = "";
 			for (int i = 0; i < indent; i++) tabs += "  ";
 			printf("%s%s - %s\n", tabs.c_str(), first, t->String().c_str());
-			t->~Token();
+			//t->~Token();
 			isolate->FreeMemory(t, sizeof(Token));
 		}
 	}
@@ -375,6 +375,9 @@ namespace internal{
 		CHECK(expr != NULL);
 		if (!isConstructor) isConstructor = expr->isInit;
 		Trace("Validating Func Call", expr->name.c_str());
+		if (expr->name == "println"){
+			int a = 10; // here	
+		}
 		SetRowCol(expr);
 		if (expr->isInternal) return ValidateInternal(expr);
 		int funcs = 0;
@@ -463,6 +466,11 @@ namespace internal{
 		}
 		Trace("Parsing Func", func->name.c_str());
 		func->scope = Parse(func->scope);
+		if (func->importScopeId > -1) {
+			Scope* outer = isolate->GetContext()->GetFromRegistry(func->importScopeId);
+			CHECK(outer != NULL);
+			func->scope->outer = outer;
+		}
 		if (func->scope->outer == NULL) func->scope->outer = GetCurrentScope(); // this will happen ?
 		if (func->scope->owner == NULL) func->scope->owner = func;
 		for (int i = 0; i < func->args.size(); i++){

@@ -75,7 +75,7 @@ namespace Condor{
 	void Context::Dispose(){
 		i::Context* context = CAST(i::Context*, this);
 		i::Isolate* isolate = context->GetIsolate();
-		context->~Context();
+		//context->~Context();
 		isolate->FreeMemory(context, sizeof(Context));
 	}
 
@@ -126,7 +126,7 @@ namespace Condor{
 	void String::Free(Isolate* isolate){
 		i::String* string = CAST(i::String*, this);
 		i::Isolate* iso = CAST(i::Isolate*, isolate);
-		string->~String();
+		//string->~String();
 		iso->FreeMemory(string, sizeof(i::String));
 	}
 
@@ -146,7 +146,7 @@ namespace Condor{
 	void Script::Free(Isolate* isolate){
 		i::Script* script = CAST(i::Script*, this);
 		i::Isolate* iso = CAST(i::Isolate*, isolate);
-		script->~Script();
+		//script->~Script();
 		iso->FreeMemory(script, sizeof(i::Script));
 	}
 

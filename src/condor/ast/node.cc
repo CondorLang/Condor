@@ -23,6 +23,7 @@ namespace internal{
 		node->isInParen = false;
 		node->allowGC = true;
 		node->print = false;
+		node->importScopeId = -1;
 		node->id = iso->GetContext()->GetNextAstId();
 	}
 
@@ -38,127 +39,127 @@ namespace internal{
 		switch (t){
 			case IMPORT: {
 				ASTImport* import = (ASTImport*) this;
-				import->~ASTImport();
+				// import->~ASTImport();
 				iso->FreeMemory(this, sizeof(ASTImport)); 
 				break;
 			}
 			case INCLUDE: {
 				ASTInclude* include = (ASTInclude*) this;
-				include->~ASTInclude();
+				// include->~ASTInclude();
 				iso->FreeMemory(this, sizeof(ASTInclude)); 
 				break;
 			}
 			case FUNC: {
 				ASTFunc* func = (ASTFunc*) this;
-				func->~ASTFunc();
+				// func->~ASTFunc();
 				iso->FreeMemory(this, sizeof(ASTFunc)); 
 				break;
 			}
 			case VAR: {
 				ASTVar* var = (ASTVar*) this;
-				var->~ASTVar();
+				// var->~ASTVar();
 				iso->FreeMemory(this, sizeof(ASTVar)); 
 				break;
 			}
 			case EXPR: {
 				ASTExpr* expr = (ASTExpr*) this;
-				expr->~ASTExpr();
+				// expr->~ASTExpr();
 				iso->FreeMemory(this, sizeof(ASTExpr)); 
 				break;
 			}
 			case BINARY: {
 				ASTBinaryExpr* binary = (ASTBinaryExpr*) this;
-				binary->~ASTBinaryExpr();
+				// binary->~ASTBinaryExpr();
 				iso->FreeMemory(this, sizeof(ASTBinaryExpr)); 
 				break;
 			}
 			case LITERAL: {
 				ASTLiteral* lit = (ASTLiteral*) this;
-				lit->~ASTLiteral();
+				// lit->~ASTLiteral();
 				iso->FreeMemory(this, sizeof(ASTLiteral)); 
 				break;
 			}
 			case FUNC_CALL: {
 				ASTFuncCall* call = (ASTFuncCall*) this;
-				call->~ASTFuncCall();
+				// call->~ASTFuncCall();
 				iso->FreeMemory(this, sizeof(ASTFuncCall)); 
 				break;
 			}
 			case FOR: {
 				ASTForExpr* expr = (ASTForExpr*) this;
-				expr->~ASTForExpr();
+				// expr->~ASTForExpr();
 				iso->FreeMemory(this, sizeof(ASTForExpr)); 
 				break;
 			}
 			case WHILE: {
 				ASTWhileExpr* expr = (ASTWhileExpr*) this;
-				expr->~ASTWhileExpr();
+				// expr->~ASTWhileExpr();
 				iso->FreeMemory(this, sizeof(ASTWhileExpr)); 
 				break;
 			}
 			case TRY_CATCH: {
 				ASTTryCatchExpr* expr = (ASTTryCatchExpr*) this;
-				expr->~ASTTryCatchExpr();
+				// expr->~ASTTryCatchExpr();
 				iso->FreeMemory(this, sizeof(ASTTryCatchExpr)); 
 				break;
 			}
 			case THROW: {
 				ASTThrow* expr = (ASTThrow*) this;
-				expr->~ASTThrow();
+				// expr->~ASTThrow();
 				iso->FreeMemory(this, sizeof(ASTThrow)); 
 				break;
 			}
 			case IF: {
 				ASTIf* expr = (ASTIf*) this;
-				expr->~ASTIf();
+				// expr->~ASTIf();
 				iso->FreeMemory(this, sizeof(ASTIf)); 
 				break;
 			}
 			case DELETE: {
 				ASTImport* import = (ASTImport*) this;
-				import->~ASTImport();
+				// import->~ASTImport();
 				iso->FreeMemory(this, sizeof(ASTDelete)); 
 				break;
 			}
 			case CASE: {
 				ASTCase* expr = (ASTCase*) this;
-				expr->~ASTCase();
+				// expr->~ASTCase();
 				iso->FreeMemory(this, sizeof(ASTCase)); 
 				break;
 			}
 			case SWITCH: {
 				ASTSwitch* expr = (ASTSwitch*) this;
-				expr->~ASTSwitch();
+				// expr->~ASTSwitch();
 				iso->FreeMemory(this, sizeof(ASTSwitch)); 
 				break;
 			}
 			case OBJECT: {
 				ASTObject* obj = (ASTObject*) this;
-				obj->~ASTObject();
+				// obj->~ASTObject();
 				iso->FreeMemory(this, sizeof(ASTObject)); 
 				break;
 			}
 			case UNDEFINED: {
 				ASTUndefined* undef = (ASTUndefined*) this;
-				undef->~ASTUndefined();
+				// undef->~ASTUndefined();
 				iso->FreeMemory(this, sizeof(ASTUndefined)); 
 				break;
 			}
 			case ARRAY: {
 				ASTArray* ary = (ASTArray*) this;
-				ary->~ASTArray();
+				// ary->~ASTArray();
 				iso->FreeMemory(this, sizeof(ASTArray)); 
 				break;
 			}
 			case OBJECT_INSTANCE: {
 				ASTObjectInstance* inst = (ASTObjectInstance*) this;
-				inst->~ASTObjectInstance();
+				// inst->~ASTObjectInstance();
 				iso->FreeMemory(this, sizeof(ASTObjectInstance)); 
 				break;
 			}
 			case CONTINUE: {
 				ASTContinue* cont = (ASTContinue*) this;
-				cont->~ASTContinue();
+				// cont->~ASTContinue();
 				iso->FreeMemory(this, sizeof(ASTContinue)); 
 				break;
 			}

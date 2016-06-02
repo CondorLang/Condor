@@ -72,7 +72,7 @@ namespace internal{
 		catch (Error::ERROR e){
 			throw e;
 		}
-		scanner->~Scanner();
+		//scanner->~Scanner();
 		isolate->FreeMemory(scanner, sizeof(Scanner));
 	}
 
@@ -94,8 +94,8 @@ namespace internal{
 		result->owner = sc->owner;
 		result->raw = sc->raw;
 		result->outer = sc->outer;
-		p->~Parser();
-		sc->~Scope();
+		// p->~Parser();
+		// sc->~Scope();
 		iso->FreeMemory(p, sizeof(Parser));
 		iso->FreeMemory(sc, sizeof(Scope));
 		result->SetParsed();
@@ -116,7 +116,7 @@ namespace internal{
 			Col = col;
 			Pos = pos;
 			if (tok != NULL) {
-				tok->~Token();
+				//tok->~Token();
 				isolate->FreeMemory(tok, sizeof(Token));
 			}
 			CHECK(scanner != NULL);
@@ -639,7 +639,7 @@ namespace internal{
 		SetRowCol(call);
 		ASTLiteral* lit = (ASTLiteral*) expr;
 		call->name = lit->value;
-		lit->~ASTLiteral();
+		//lit->~ASTLiteral();
 		isolate->FreeMemory(expr, sizeof(ASTExpr));
 		while (true){
 			ASTExpr* e = ParseExpr();
@@ -793,7 +793,7 @@ namespace internal{
 			}
 			return stmt;
 		}
-		stmt->~ASTIf();
+		//stmt->~ASTIf();
 		isolate->FreeMemory(stmt, sizeof(ASTIf));
 		return NULL;
 	}
@@ -846,7 +846,7 @@ namespace internal{
 			expr->isDefault = true;
 		}
 		else {
-			expr->~ASTCase();
+			//expr->~ASTCase();
 			isolate->FreeMemory(expr, sizeof(ASTCase));
 			return NULL;
 		}

@@ -32,9 +32,7 @@ namespace internal{
 	 */
 	Token* Scanner::NextToken(){
 		Next();
-		
-		while (ch == '\n' || ch == ' ' || ch == '\t')
-			ScanWhiteSpaces();
+		while (ch == '\n' || ch == ' ' || ch == '\t') ScanWhiteSpaces();
 		switch (ch){
 			case -1: return Token::New(isolate, END);
 			case '\0': return Token::New(isolate, END);
@@ -55,15 +53,9 @@ namespace internal{
 					Next(); return Token::New(isolate, DIV);
 				}
 			}
-			case '@': {
-				return Token::New(isolate, CONSTRUCTOR);
-			}
-			case '`': {
-				return Token::New(isolate, TICK);
-			}
-			case '$': {
-				return Token::New(isolate, DOLLAR);
-			}
+			case '@':	return Token::New(isolate, CONSTRUCTOR);
+			case '`':	return Token::New(isolate, TICK);
+			case '$':	return Token::New(isolate, DOLLAR);
 			case '*': {
 				char p = Peek();
 				if (p == '=') {
@@ -476,12 +468,15 @@ namespace internal{
 				case '0': { // octal
 					Next();
 					if (ch == '8' || ch == '9') throw Error::ILLEGAL_OCTAL_CODE;
-					if (ch == '3'){
-						Next();
-						if (ch == '3'){
-							result += '\033'; break;
-						}
-					}
+					std::string num;
+					num += ch;
+					Next();
+					num += ch;
+					int times = std::stoi(num);
+
+					int octal = times - (((times - (times % 10)) / 10) * 2);
+					result += ((char) octal);
+					break;
 				}
 				case '1': result += '\1'; break;
 				case '2': result += '\2'; break;

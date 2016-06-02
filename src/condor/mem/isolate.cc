@@ -40,7 +40,12 @@ namespace internal{
 	}
 
 	Isolate::~Isolate(){
-
+		delete small;
+		delete medium;
+		delete large;
+		delete xl;
+		delete gc;
+		delete this->self;
 	}
 
 	Isolate* Isolate::GLOBAL_ISOLATE = NULL;
@@ -62,11 +67,6 @@ namespace internal{
 
 	void Isolate::Dispose(){
 		this->~Isolate();
-		delete small;
-		delete medium;
-		delete large;
-		delete xl;
-		delete gc;
 	}
 
 	Context* Isolate::CreateContext(){
@@ -92,12 +92,12 @@ namespace internal{
 		}
 	}
 
-	void Isolate::FreeMemory(void* ptr, const size_t size){
-		if (size < 35) small->FreeMemory(ptr, size);
-		else if (size < 80) medium->FreeMemory(ptr, size);
-		else if (size < 130) large->FreeMemory(ptr, size);
-		else xl->FreeMemory(ptr, size);
-	}
+	// void Isolate::FreeMemory(void* ptr, const size_t size){
+	// 	if (size < 35) small->FreeMemory(ptr, size);
+	// 	else if (size < 80) medium->FreeMemory(ptr, size);
+	// 	else if (size < 130) large->FreeMemory(ptr, size);
+	// 	else xl->FreeMemory(ptr, size);
+	// }
 
 	void Isolate::RunGC(Scope* scope, bool deep, bool objKeys){
 		gc->Dispose(this, scope, deep, objKeys);
