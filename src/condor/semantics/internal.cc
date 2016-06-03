@@ -309,6 +309,16 @@ namespace internal{
 		return ASTUndefined::New(iso); // TODO: Implement thread sleep
 	}
 
+	ASTNode* Internal::SetNumberPercision(Isolate* iso, std::vector<ASTLiteral*> lits){
+		if (lits.size() < 2) return ASTUndefined::New(iso);
+		ASTLiteral* val = lits[0];
+		ASTLiteral* percision = lits[1];
+		ASTLiteral* result = ASTLiteral::New(iso);
+		result->value = String::ToStringWithPercision(val->calc, (int) percision->calc);
+		result->litType = DOUBLE;
+		return result;
+	}
+
 	// TODO: Move to a macro
 	TOKEN Internal::Bind(ASTFuncCall* call){
 		if (call->name == "printf") {
@@ -414,6 +424,10 @@ namespace internal{
 		else if (call->name == "pauseThread"){
 			call->callback = Internal::PauseThread;
 			return UNDEFINED;
+		}
+		else if (call->name == "setNumberPercision"){
+			call->callback = Internal::SetNumberPercision;
+			return DOUBLE; // Is this true?
 		}
 		else throw Error::UNDEFINED_FUNC;
 	}

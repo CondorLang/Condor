@@ -6,6 +6,8 @@
 #define STRING_H_
 
 #include <string>
+#include <iomanip>
+#include <sstream>
 
 #include "../include/Condor.h"
 #include "condor/mem/isolate.h"
@@ -38,6 +40,14 @@ namespace internal{
 		static std::vector<std::string> Split(std::string str, char delimiter);
 		void SetInternal(){internal = true;}
 		bool IsInternal(){return internal;}
+
+		template <typename T>
+		static std::string ToStringWithPercision(const T val, const int n = 15){
+	    std::ostringstream out;
+	    out << std::fixed;
+	    out << std::setprecision(n) << val;
+	    return out.str();
+  	}
 	};
 
 	namespace Sizes{

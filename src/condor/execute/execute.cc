@@ -212,9 +212,7 @@ namespace internal{
 		int type = (int) lit->litType;
 		switch (type){
 			case BOOLEAN: lit->value = (lit->calc == 0 ? "false" : "true"); break;
-			case DOUBLE: lit->value = std::to_string(lit->calc); break;
-			case FLOAT:	lit->value = std::to_string(lit->calc); break;
-			case LONG: lit->value = std::to_string(lit->calc); break;
+			case DOUBLE: case FLOAT: case LONG: lit->value = String::ToStringWithPercision(lit->calc); break;
 			case INT: lit->value = std::to_string((int) lit->calc); break;
 		}
 		TruncZeros(lit);

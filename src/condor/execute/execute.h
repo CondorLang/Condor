@@ -19,6 +19,7 @@
 #include "condor/error/error.h"
 #include "condor/semantics/binary.h"
 #include "condor/semantics/semantics.h"
+#include "condor/types/strings/string.h"
 
 namespace Condor {
 namespace internal{

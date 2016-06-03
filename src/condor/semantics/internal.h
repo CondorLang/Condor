@@ -11,6 +11,7 @@
 #include "condor/error/error.h"
 #include "condor/clock.h"
 #include "condor/types/clock/clock.h"
+#include "condor/types/strings/string.h"
 #include "api.h"
 
 #include <string>
@@ -54,6 +55,7 @@ namespace internal{
 		static ASTNode* MemoryAudit(Isolate* iso, std::vector<ASTLiteral*> lits);
 		static ASTNode* PauseThread(Isolate* iso, std::vector<ASTLiteral*> lits);
 		static ASTNode* GetStackTrace(Isolate* iso, std::vector<ASTLiteral*> lits);
+		static ASTNode* SetNumberPercision(Isolate* iso, std::vector<ASTLiteral*> lits);
 		static ASTNode* CallInternal(Isolate* iso, InternalFunctionCallback call, std::vector<ASTLiteral*> nodes){return call(iso, nodes);}
 		static TOKEN Bind(ASTFuncCall* call);
 	};

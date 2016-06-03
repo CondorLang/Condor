@@ -1,3 +1,5 @@
 import "println" from "console"
+import "math"
 
-println("Test");
+println(Math.pi);
+println(Math.setPersion(Math.pi, 2));

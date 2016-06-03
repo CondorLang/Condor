@@ -3,5 +3,9 @@
 // license that can be found in the LICENSE file.
 
 export object Math {
-	static double pi = 3.1415926535897932;
+	static double pi = 3.141592653589793;
+	static func setPersion(var val, int percision = 2){
+		if (percision < 0) return ""; // TODO: Throw error
+		return %setNumberPercision(val, percision);
+	}
 }

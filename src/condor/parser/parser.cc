@@ -183,8 +183,8 @@ namespace internal{
 		if (!Is(2, IMPORT, INCLUDE)) return;
 		Trace("Parsing", "Imports");
 		isImport = Is(1, IMPORT);
-		std::vector<std::string> what;
 		while (true){
+			std::vector<std::string> what;
 			if (Is(2, IMPORT, INCLUDE)) {
 				Next();
 				if (Is(1, LBRACE)) {
@@ -209,7 +209,10 @@ namespace internal{
 			if (isImport) {
 				ASTImport* import = ASTImport::New(isolate);
 				SetRowCol(import);
-				if (!Is(1, FROM)) import->name = tok->raw;
+				if (!Is(1, FROM)) {
+					CHECK(what.size() > 0);
+					import->name = what[0];
+				}
 				else{
 					import->what.insert(import->what.begin(), what.begin(), what.end());
 					Expect(FROM);
