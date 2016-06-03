@@ -61,7 +61,6 @@ namespace internal{
 			std::string tabs = "";
 			for (int i = 0; i < indent; i++) tabs += "  ";
 			printf("%s%s - %s\n", tabs.c_str(), first, t->String().c_str());
-			//t->~Token();
 			isolate->FreeMemory(t, sizeof(Token));
 		}
 	}
@@ -156,9 +155,6 @@ namespace internal{
 	}
 
 	void Semantics::ValidateVar(ASTVar* var){
-		if (var->name == "file"){
-			int a = 10; // here
-		}
 		SetRowCol(var);
 		CHECK(var != NULL);
 		var->scopeId = GetCurrentScope()->scopeId;
@@ -375,9 +371,6 @@ namespace internal{
 		CHECK(expr != NULL);
 		if (!isConstructor) isConstructor = expr->isInit;
 		Trace("Validating Func Call", expr->name.c_str());
-		if (expr->name == "println"){
-			int a = 10; // here	
-		}
 		SetRowCol(expr);
 		if (expr->isInternal) return ValidateInternal(expr);
 		int funcs = 0;

@@ -1,0 +1,7 @@
+// Copyright 2016 Chase Willden and The CondorLang Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
+
+export object Math {
+	static double pi = 3.1415926535897932;
+}

@@ -180,6 +180,7 @@ namespace internal{
 		DEFAULT,
 		ELSE,
 		FOR,
+		FROM,
 
 		FUNC,
 		GO,

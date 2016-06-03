@@ -49,7 +49,7 @@ namespace internal{
 		void SetShallow(){shallow = true;}
 		void SetParsed(){isParsed = true;}
 		void UnsetShallow(){shallow = false;}
-		void Merge(Scope* scope);
+		void Merge(Scope* scope, bool exportedOnly = true);
 		void Destroy(ASTNode* node);
 		void Destroy();
 		void RemoveAllAfter(ASTNode* node);

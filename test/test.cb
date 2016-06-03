@@ -1,17 +1,3 @@
-import "console", "fs", "array", "string", "colors"
+import "println" from "console"
 
-string txt = Color.red("This is a test");
-println(txt);
-
-// string[] files = fs.readDir("./src", false);
-
-// for (int i = 0; i < arylen(files); i++){
-// 	// var file = files[i];
-// 	// if (!fs.isDir(file)){
-// 	// 	println(file);
-// 	// }
-// }
-
-// func extractComments(string contents){
-	
-// }
+println("Test");

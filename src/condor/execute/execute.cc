@@ -98,6 +98,7 @@ namespace internal{
 		SetRowCol(call);
 		Trace("Evaluating Func Call", call->name);
 		PrintStep("Function Call - " + call->name);
+
 		ASTFunc* func = call->func;
 		if (func == NULL && call->isInternal){ // internal
 			std::vector<ASTLiteral*> nodes;
@@ -546,12 +547,17 @@ namespace internal{
 					throw Error::INVALID_ASSIGNMENT_TO_TYPE;
 				}
 				ASTLiteral* local = (ASTLiteral*) var->local;
-				switch (type){
-					case SUB_ASSIGN: local->calc -= lit->calc; break;
-					case ADD_ASSIGN: local->calc += lit->calc; break;
-					case MUL_ASSIGN: local->calc *= lit->calc; break;
-					case DIV_ASSIGN: local->calc /= lit->calc; break;
+				CHECK(local != NULL);
+				Token litType(local->litType);
+				if (litType.IsNumber()) {
+					switch (type){
+						case SUB_ASSIGN: local->calc -= lit->calc; break;
+						case ADD_ASSIGN: local->calc += lit->calc; break;
+						case MUL_ASSIGN: local->calc *= lit->calc; break;
+						case DIV_ASSIGN: local->calc /= lit->calc; break;
+					}
 				}
+				else if (local->litType == STRING && type == ADD_ASSIGN) local->value += lit->value; // string concat
 				FormatLit(local);
 				break;
 			}

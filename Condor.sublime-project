@@ -48,6 +48,9 @@
 				"*.0"
 			],
 			"path": "."
+		},
+		{
+			"path": "/Users/willdech/Documents/dev/v8/src/js"
 		}
 	]
 }

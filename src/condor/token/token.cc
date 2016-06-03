@@ -140,6 +140,7 @@ namespace internal{
 			case DEFAULT: return "default";
 			case ELSE: return "else";
 			case FOR: return "for";
+			case FROM: return "from";
 			case FUNC: return "func";
 			case GO: return "go";
 			case GOTO: return "goto";
@@ -246,6 +247,7 @@ namespace internal{
 		else if (str == "delete") return Token::New(iso, DELETE);
 		else if (str == "catch") return Token::New(iso, CATCH);
 		else if (str == "undefined") return Token::New(iso, UNDEFINED);
+		else if (str == "from") return Token::New(iso, FROM);
 		else return Token::New(iso, IDENT);
 	}
 

@@ -63,13 +63,14 @@ namespace internal{
 		return results;
 	}
 
-	void Scope::Merge(Scope* scope){
+	void Scope::Merge(Scope* scope, bool exportedOnly){
 		if (scope == NULL) return;
 		std::vector<ASTNode*> kNodes = scope->GetNodes();
 		for (int i = 0; i < kNodes.size(); i++){
 			kNodes[i]->importScopeId = scope->scopeId;
+			if (exportedOnly && kNodes[i]->isExport) nodes.insert(nodes.begin(), kNodes[i]);
 		}
-		nodes.insert(nodes.begin(), kNodes.begin(), kNodes.end());
+		if (!exportedOnly) nodes.insert(nodes.begin(), kNodes.begin(), kNodes.end());
 	}
 
 	void Scope::Destroy(ASTNode* node){

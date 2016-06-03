@@ -127,8 +127,10 @@ namespace internal{
 			}
 		}
 		catch (Error::ERROR e){
+			std::string placeholder = "";
 			std::string msg = Error::String(e, NULL);
 			currentCode = semantics->GetSource();
+			if (currentCode == NULL) currentCode = &placeholder;
 			msg = std::to_string(semantics->row) + ":" + std::to_string(semantics->col) + " - " + msg + " - \n\t" + absolutePath.c_str() + "\n\n" + GetSourceRow(semantics->row, semantics->col);
 			printf("\nSemantic Error: \n%s\n", msg.c_str());
 			msgs.push_back(msg);
@@ -259,7 +261,17 @@ namespace internal{
 				RunInternalScript(isolate, FS::ReadFile(path), name, sub, false);
 				CHECK(context->injectedScopes.size() > 0);
 				Scope* injected = context->injectedScopes[0];
-				base->Merge(injected);
+				if (import->what.size() == 0 || import->what[0] == "*") base->Merge(injected);
+				else{
+					for (int i = 0; i < import->what.size(); i++){
+						for (int j = 0; j < injected->Size(); j++){
+							if (injected->Get(j)->name == import->what[i] && injected->Get(j)->isExport) {
+								injected->Get(j)->importScopeId = injected->scopeId;
+								base->InsertBefore(injected->Get(j));
+							}
+						}
+					}
+				}
 				context->injectedScopes.pop_back();
 			}
 			import->Free(isolate); // empty imports

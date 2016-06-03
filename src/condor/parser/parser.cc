@@ -49,6 +49,7 @@ namespace internal{
 			empty = "";
 			return &empty;
 		}
+		if (scanner->src == ((void*) 0x231)) return NULL;
 		return source == NULL ? scanner->src : source;
 	}
 
@@ -72,7 +73,6 @@ namespace internal{
 		catch (Error::ERROR e){
 			throw e;
 		}
-		//scanner->~Scanner();
 		isolate->FreeMemory(scanner, sizeof(Scanner));
 	}
 
@@ -94,8 +94,6 @@ namespace internal{
 		result->owner = sc->owner;
 		result->raw = sc->raw;
 		result->outer = sc->outer;
-		// p->~Parser();
-		// sc->~Scope();
 		iso->FreeMemory(p, sizeof(Parser));
 		iso->FreeMemory(sc, sizeof(Scope));
 		result->SetParsed();
@@ -116,7 +114,6 @@ namespace internal{
 			Col = col;
 			Pos = pos;
 			if (tok != NULL) {
-				//tok->~Token();
 				isolate->FreeMemory(tok, sizeof(Token));
 			}
 			CHECK(scanner != NULL);
@@ -186,6 +183,7 @@ namespace internal{
 		if (!Is(2, IMPORT, INCLUDE)) return;
 		Trace("Parsing", "Imports");
 		isImport = Is(1, IMPORT);
+		std::vector<std::string> what;
 		while (true){
 			if (Is(2, IMPORT, INCLUDE)) {
 				Next();
@@ -193,14 +191,32 @@ namespace internal{
 					group = true;
 					Next(); // eat {
 				}
-				else if (!Is(1, STRING)) throw Error::INVALID_INCLUDE_IMPORT;
+				//else if (!Is(1, STRING)) throw Error::INVALID_INCLUDE_IMPORT;
+				else{ // import * from "string"
+					if (!Is(1, STRING)) throw Error::INVALID_INCLUDE_IMPORT;
+					what.push_back(tok->raw);
+					Next();
+					while (tok->value == COMMA){
+						Next();
+						if (!Is(1, STRING)) throw Error::INVALID_INCLUDE_IMPORT;
+						what.push_back(tok->raw);
+					}
+					//Next();
+				}
 			}
 			else if (group && Is(1, COMMA)) Next(); // Eat ,
 			else break;
 			if (isImport) {
 				ASTImport* import = ASTImport::New(isolate);
 				SetRowCol(import);
-				import->name = tok->raw;
+				if (!Is(1, FROM)) import->name = tok->raw;
+				else{
+					import->what.insert(import->what.begin(), what.begin(), what.end());
+					Expect(FROM);
+					Next();
+					if (!Is(1, STRING)) throw Error::INVALID_INCLUDE_IMPORT;
+					import->name = tok->raw;
+				}
 				import->alias = ParseAlias();
 				imports.push_back(import);
 			}
@@ -626,8 +642,8 @@ namespace internal{
 		if (tok->raw.length() > 0) Trace("Parsing Literal", tok->raw.c_str());
 		else Trace("Parsing Literal", tok->String().c_str());
 		lit->litType = tok->value;
-		if (lit->value.size() == 0) lit->value = tok->String();
-		if (lit->value == Token::ToString(lit->litType)) lit->isCast = true;
+		//if (lit->value.size() == 0) lit->value = tok->String();
+		//if (lit->value == Token::ToString(lit->litType)) lit->isCast = true;
 		Next();
 		return lit;
 	}
@@ -639,7 +655,6 @@ namespace internal{
 		SetRowCol(call);
 		ASTLiteral* lit = (ASTLiteral*) expr;
 		call->name = lit->value;
-		//lit->~ASTLiteral();
 		isolate->FreeMemory(expr, sizeof(ASTExpr));
 		while (true){
 			ASTExpr* e = ParseExpr();
@@ -793,7 +808,6 @@ namespace internal{
 			}
 			return stmt;
 		}
-		//stmt->~ASTIf();
 		isolate->FreeMemory(stmt, sizeof(ASTIf));
 		return NULL;
 	}
@@ -846,7 +860,6 @@ namespace internal{
 			expr->isDefault = true;
 		}
 		else {
-			//expr->~ASTCase();
 			isolate->FreeMemory(expr, sizeof(ASTCase));
 			return NULL;
 		}

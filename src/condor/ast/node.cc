@@ -502,7 +502,7 @@ namespace internal{
 		if (baseVar == NULL) return NULL;
 		ASTVar* clone = baseVar->Clone(isolate);
 		if (properties.size() == 0) properties.clear();
-		properties[name] = clone; // here
+		properties[name] = clone;
 		return clone;
 	}
 
