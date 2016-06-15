@@ -461,9 +461,9 @@ namespace internal{
 		}
 		else if (litType == BOOLEAN){
 			litType = Binary::Compare(first->litType, second->litType, ADD);
-			SetCalc(first); // Bug fix where this wasn't set
-			SetCalc(second);
 		}
+		SetCalc(first); // Bug fix where this wasn't set
+		SetCalc(second);
 		
 		switch (litType){
 			case INT: case DOUBLE:
@@ -691,9 +691,7 @@ namespace internal{
 		SetRowCol(var);
 		Trace("Evaluating Var", var->name);
 		ASTLiteral* local = (ASTLiteral*) EvaluateValue(var);
-		if (var->previouslyDeclared && var->op == ASSIGN){
-			if (var->local != NULL) isolate->RunGC(var, false);
-		}
+		if (var->previouslyDeclared && var->op == ASSIGN && var->local != NULL) isolate->RunGC(var, false);
 		if (local == NULL) return ASTUndefined::New(isolate);
 		if (local->type == OBJECT_INSTANCE){ // call constructor
 			ASTObjectInstance* inst = (ASTObjectInstance*) local;

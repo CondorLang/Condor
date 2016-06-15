@@ -8,4 +8,9 @@ export object Math {
 		if (percision < 0) return ""; // TODO: Throw error
 		return %setNumberPercision(val, percision);
 	}
+	static func pow(var val, int numOfTimes = 2){ // squared is the default
+		var result = val;
+		for (int i = 1; i < numOfTimes; i++) result *= val;
+		return result;
+	}
 }

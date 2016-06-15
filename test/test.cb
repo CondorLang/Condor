@@ -3,3 +3,12 @@ import "math"
 
 println(Math.pi);
 println(Math.setPersion(Math.pi, 2));
+println(Math.setPersion(Math.pi, 2) * 2);
+println(Math.pow(3, 3));
+
+// var result = 2;
+// for (int i = 1; i < 11; i++){
+// 	result = Math.pow(result, i);
+// 	println(result);
+// }
+// println(result);

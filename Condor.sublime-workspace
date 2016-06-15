@@ -4,16 +4,28 @@
 		"selected_items":
 		[
 			[
-				"scop",
-				"scopeId"
+				"ary",
+				"ary_push"
+			],
+			[
+				"INC",
+				"INCLUDE"
 			],
 			[
 				"inje",
-				"injectedScopes"
+				"injected"
+			],
+			[
+				"exp",
+				"exportedOnly"
 			],
 			[
 				"inj",
-				"injectScopes"
+				"injected"
+			],
+			[
+				"scop",
+				"scopeId"
 			],
 			[
 				"isIn",
@@ -502,60 +514,32 @@
 			[
 				"pla",
 				"player1"
-			],
-			[
-				"setP",
-				"setPathsRecursive"
-			],
-			[
-				"Mod",
-				"ModuleId"
-			],
-			[
-				"Pos",
-				"PostEndDate"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "src/condor/scanner/scanner.cc",
-			"settings":
-			{
-				"buffer_size": 11588,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/condor/semantics/semantics.cc",
-			"settings":
-			{
-				"buffer_size": 22879,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/condor/types/script/script.cc",
-			"settings":
-			{
-				"buffer_size": 8414,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "test/test.cb",
 			"settings":
 			{
-				"buffer_size": 417,
+				"buffer_size": 284,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "libs/console.cb",
+			"file": "libs/math.cb",
 			"settings":
 			{
-				"buffer_size": 550,
+				"buffer_size": 569,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/condor/execute/execute.cc",
+			"settings":
+			{
+				"buffer_size": 27417,
 				"line_ending": "Unix"
 			}
 		}
@@ -728,46 +712,50 @@
 	"expanded_folders":
 	[
 		"/Users/willdech/Documents/dev/Condor",
+		"/Users/willdech/Documents/dev/Condor/libs",
 		"/Users/willdech/Documents/dev/Condor/src",
 		"/Users/willdech/Documents/dev/Condor/src/condor",
-		"/Users/willdech/Documents/dev/Condor/src/condor/ast",
-		"/Users/willdech/Documents/dev/Condor/src/condor/mem",
-		"/Users/willdech/Documents/dev/Condor/src/condor/parser",
-		"/Users/willdech/Documents/dev/Condor/src/condor/semantics",
-		"/Users/willdech/Documents/dev/Condor/src/condor/types",
-		"/Users/willdech/Documents/dev/Condor/src/condor/types/script",
-		"/Users/willdech/Documents/dev/Condor/test"
+		"/Users/willdech/Documents/dev/Condor/src/condor/execute",
+		"/Users/willdech/Documents/dev/Condor/test",
+		"/Users/willdech/Documents/dev/Condor/test/tests"
 	],
 	"file_history":
 	[
+		"/Users/willdech/Documents/dev/Condor/src/condor/semantics/semantics.cc",
+		"/Users/willdech/Documents/dev/Condor/src/condor/parser/parser.cc",
+		"/Users/willdech/Documents/dev/Condor/src/condor/types/script/script.cc",
+		"/Users/willdech/Documents/dev/Condor/src/condor/parser/parser.h",
+		"/Users/willdech/Documents/dev/Condor/test/main.cc",
+		"/Users/willdech/Documents/dev/Condor/src/condor/semantics/internal.cc",
+		"/Users/willdech/Documents/dev/Condor/src/condor/types/strings/string.h",
+		"/Users/willdech/Documents/dev/Condor/libs/math.cb",
+		"/Users/willdech/Documents/dev/Condor/src/condor/semantics/internal.h",
+		"/Users/willdech/Documents/dev/Condor/src/condor/execute/execute.cc",
+		"/Users/willdech/Documents/dev/Condor/src/condor/execute/execute.h",
+		"/Users/willdech/Documents/dev/Condor/src/condor/ast/node.cc",
+		"/Users/willdech/Documents/dev/Condor/src/condor/ast/scope.cc",
+		"/Users/willdech/Documents/dev/Condor/src/condor/ast/scope.h",
+		"/Users/willdech/Documents/dev/Condor/src/condor/token/token.cc",
+		"/Users/willdech/Documents/dev/Condor/src/condor/token/token.h",
+		"/Users/willdech/Documents/dev/Condor/src/condor/ast/node.h",
+		"/Users/willdech/Documents/dev/Condor/src/condor/scanner/scanner.cc",
+		"/Users/willdech/Documents/dev/Condor/libs/console.cb",
 		"/Users/willdech/Documents/dev/Condor/src/condor/ast/context.cc",
 		"/Users/willdech/Documents/dev/Condor/src/condor/ast/context.h",
-		"/Users/willdech/Documents/dev/Condor/src/condor/ast/scope.cc",
-		"/Users/willdech/Documents/dev/Condor/src/condor/ast/node.cc",
-		"/Users/willdech/Documents/dev/Condor/src/condor/ast/node.h",
 		"/Users/willdech/Documents/dev/v8/src/js/v8natives.js",
 		"/Users/willdech/Documents/dev/v8/src/conversions.cc",
 		"/Users/willdech/Documents/dev/v8/src/runtime/runtime-numbers.cc",
 		"/Users/willdech/Documents/dev/v8/src/conversions-inl.h",
 		"/Users/willdech/Documents/dev/v8/src/conversions.h",
 		"/Users/willdech/Documents/dev/Condor/src/condor/scanner/scanner.h",
-		"/Users/willdech/Documents/dev/Condor/src/condor/token/token.h",
-		"/Users/willdech/Documents/dev/Condor/src/condor/execute/execute.cc",
 		"/Users/willdech/Documents/dev/Condor/log.txt",
 		"/Users/willdech/Documents/dev/Condor/Makefile",
-		"/Users/willdech/Documents/dev/Condor/src/condor/parser/parser.cc",
 		"/Users/willdech/Documents/dev/Condor/src/condor/mem/isolate.cc",
 		"/Users/willdech/Documents/dev/Condor/src/condor/mem/allocate.cc",
-		"/Users/willdech/Documents/dev/Condor/src/condor/semantics/internal.cc",
-		"/Users/willdech/Documents/dev/Condor/src/condor/semantics/semantics.cc",
 		"/Users/willdech/Documents/dev/Condor/src/api.cc",
 		"/Users/willdech/Documents/dev/Condor/src/condor/mem/isolate.h",
-		"/Users/willdech/Documents/dev/Condor/src/condor/types/script/script.cc",
-		"/Users/willdech/Documents/dev/Condor/src/condor/execute/execute.h",
 		"/Users/willdech/Documents/dev/Condor/test/test.cb",
-		"/Users/willdech/Documents/dev/Condor/src/condor/scanner/scanner.cc",
 		"/Users/willdech/Documents/dev/Condor/src/condor/types/script/script.h",
-		"/Users/willdech/Documents/dev/Condor/src/condor/parser/parser.h",
 		"/Users/willdech/Documents/dev/Condor/libs/string.cb",
 		"/Users/willdech/Documents/dev/Condor/src/condor/error/error.cc",
 		"/Users/willdech/Documents/dev/Condor/src/condor/error/error.h",
@@ -784,21 +772,17 @@
 		"/Users/willdech/Documents/dev/Condor/test/tests/loops/whileLoop.cb",
 		"/Users/willdech/Documents/dev/Condor/libs/colors.cb",
 		"/Users/willdech/Documents/dev/Condor/libs/assert.cb",
-		"/Users/willdech/Documents/dev/Condor/src/condor/semantics/internal.h",
 		"/Users/willdech/Documents/dev/Condor/test/tests/template.go",
-		"/Users/willdech/Documents/dev/Condor/src/condor/ast/scope.h",
 		"/Users/willdech/Documents/dev/Condor/src/condor/types/vector/vector.h",
 		"/Users/willdech/Documents/dev/Condor/src/condor/mem/gc.cc",
 		"/Users/willdech/Documents/dev/Condor/src/condor/mem/gc.h",
 		"/Users/willdech/Documents/dev/Condor/src/condor/types/clock/clock.h",
 		"/Users/willdech/Documents/dev/Condor/src/condor/types/strings/string.cc",
-		"/Users/willdech/Documents/dev/Condor/src/condor/types/strings/string.h",
 		"/Users/willdech/Documents/dev/Condor/src/condor/types/fs/fs.cc",
 		"/Users/willdech/Documents/dev/Condor/src/condor/types/fs/fs.h",
 		"/Users/willdech/Documents/dev/Condor/src/condor/execute/stack.h",
 		"/Users/willdech/Documents/dev/Condor/src/condor/execute/stack.cc",
 		"/Users/willdech/Documents/dev/Condor/src/condor/types/vector/vector.cc",
-		"/Users/willdech/Documents/dev/Condor/test/main.cc",
 		"/Users/willdech/Documents/dev/Condor/include/Condor.h",
 		"/Users/willdech/Documents/dev/Condor/libs/clock.cb",
 		"/Users/willdech/Documents/dev/Condor/test/shell.cc",
@@ -858,16 +842,13 @@
 		"/Users/willdech/Documents/dev/Condor/libs/fs.cb",
 		"/Users/willdech/Documents/dev/Condor/libs/exception.cb",
 		"/Users/willdech/Documents/dev/Condor/libs/date.cb",
-		"/Users/willdech/Documents/dev/Condor/libs/console.cb",
 		"/Users/willdech/Documents/dev/Condor/libs/app.cb",
 		"/Users/willdech/Documents/dev/Condor/src/stone/assert.cc",
 		"/Users/willdech/Documents/dev/Condor/src/stone/ast/context.cc",
 		"/Users/willdech/Documents/dev/Condor/src/stone/ast/node.cc",
 		"/Users/willdech/Documents/dev/Condor/src/stone/clock.cc",
 		"/Users/willdech/Documents/dev/Condor/src/stone/error/error.cc",
-		"/Users/willdech/Documents/dev/Condor/src/stone/execute/execute.cc",
-		"/Users/willdech/Documents/dev/Condor/src/stone/execute/stack.cc",
-		"/Users/willdech/Documents/dev/Condor/src/stone/global.h"
+		"/Users/willdech/Documents/dev/Condor/src/stone/execute/execute.cc"
 	],
 	"find":
 	{
@@ -878,6 +859,7 @@
 		"height": 93.0,
 		"where_history":
 		[
+			"/Users/willdech/Documents/dev/Condor/src/condor",
 			"/Users/willdech/Documents/dev/v8/src",
 			"/Users/willdech/Documents/dev/v8/src/js",
 			"/Users/willdech/Documents/dev/Condor/src/condor",
@@ -957,6 +939,23 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"parseshallow",
+			"ParseShallowStmtList",
+			"parseimport",
+			"undefined_vari",
+			"15",
+			"a_value",
+			"// here",
+			"import",
+			"invalid_func",
+			"merge",
+			"for:",
+			"astimport",
+			"FROM",
+			"~",
+			"calc",
+			"// here",
+			"ADD_ASSIGN",
 			"invalid_func",
 			"InternalStringToInt",
 			"StringToInt",
@@ -1067,24 +1066,7 @@
 			"value",
 			"free",
 			":new",
-			"break;",
-			"invalid_opera",
-			"->local = ",
-			"Chunk",
-			":evaluatevar",
-			"evaluatevar",
-			"closescop",
-			"rungc",
-			"clone",
-			"ForceDispose",
-			"CallInternal",
-			"free",
-			"import",
-			"ASTImport",
-			"import",
-			"ASTImport",
-			"import",
-			"ASTImport"
+			"break;"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1168,111 +1150,24 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "src/condor/scanner/scanner.cc",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 11588,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								10610,
-								10610
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 6436.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "src/condor/semantics/semantics.cc",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 22879,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								13440,
-								13440
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 6193.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "src/condor/types/script/script.cc",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 8414,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4172,
-								4172
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1549.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
 					"file": "test/test.cb",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 417,
+						"buffer_size": 284,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								179,
-								179
+								265,
+								265
 							]
 						],
 						"settings":
@@ -1287,32 +1182,60 @@
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "libs/console.cb",
+					"buffer": 1,
+					"file": "libs/math.cb",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 550,
+						"buffer_size": 569,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								431,
-								431
+								547,
+								547
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Go/Go.sublime-syntax",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/Go/Go.sublime-syntax"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/condor/execute/execute.cc",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 27417,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								14897,
+								14897
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 6053.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
