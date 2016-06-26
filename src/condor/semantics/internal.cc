@@ -319,6 +319,15 @@ namespace internal{
 		return result;
 	}
 
+	ASTNode* Internal::Sqrt(Isolate* iso, std::vector<ASTLiteral*> lits){
+		if (lits.size() < 1) return ASTUndefined::New(iso);
+		ASTLiteral* val = lits[0];
+		ASTLiteral* result = ASTLiteral::New(iso);
+		result->litType = DOUBLE;
+		result->calc = sqrt(val->calc);
+		return result;
+	}
+
 	// TODO: Move to a macro
 	TOKEN Internal::Bind(ASTFuncCall* call){
 		if (call->name == "printf") {
@@ -428,6 +437,10 @@ namespace internal{
 		else if (call->name == "setNumberPercision"){
 			call->callback = Internal::SetNumberPercision;
 			return DOUBLE; // Is this true?
+		}
+		else if (call->name == "sqrt"){
+			call->callback = Internal::Sqrt;
+			return DOUBLE;
 		}
 		else throw Error::UNDEFINED_FUNC;
 	}

@@ -16,6 +16,7 @@
 
 #include <string>
 #include <iostream>
+#include <math.h> 
 
 namespace Condor {
 namespace internal{
@@ -56,6 +57,7 @@ namespace internal{
 		static ASTNode* PauseThread(Isolate* iso, std::vector<ASTLiteral*> lits);
 		static ASTNode* GetStackTrace(Isolate* iso, std::vector<ASTLiteral*> lits);
 		static ASTNode* SetNumberPercision(Isolate* iso, std::vector<ASTLiteral*> lits);
+		static ASTNode* Sqrt(Isolate* iso, std::vector<ASTLiteral*> lits);
 		static ASTNode* CallInternal(Isolate* iso, InternalFunctionCallback call, std::vector<ASTLiteral*> nodes){return call(iso, nodes);}
 		static TOKEN Bind(ASTFuncCall* call);
 	};

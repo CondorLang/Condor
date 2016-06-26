@@ -13,4 +13,14 @@ export object Math {
 		for (int i = 1; i < numOfTimes; i++) result *= val;
 		return result;
 	}
+	static func sqrt(var val){
+		return %sqrt(val);
+	}
+	static func seq(var fromVal, var toVal, var byVal = 1){
+		var[] result = [];
+		for (var i = fromVal; i <= toVal; i += byVal){
+			result = arrayPush(result, i);
+		}
+		return result;
+	}
 }

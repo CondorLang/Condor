@@ -523,7 +523,7 @@
 			"file": "test/test.cb",
 			"settings":
 			{
-				"buffer_size": 284,
+				"buffer_size": 302,
 				"line_ending": "Unix"
 			}
 		},
@@ -539,7 +539,7 @@
 			"file": "src/condor/execute/execute.cc",
 			"settings":
 			{
-				"buffer_size": 27417,
+				"buffer_size": 27407,
 				"line_ending": "Unix"
 			}
 		}
@@ -715,6 +715,7 @@
 		"/Users/willdech/Documents/dev/Condor/libs",
 		"/Users/willdech/Documents/dev/Condor/src",
 		"/Users/willdech/Documents/dev/Condor/src/condor",
+		"/Users/willdech/Documents/dev/Condor/src/condor/ast",
 		"/Users/willdech/Documents/dev/Condor/src/condor/execute",
 		"/Users/willdech/Documents/dev/Condor/test",
 		"/Users/willdech/Documents/dev/Condor/test/tests"
@@ -1150,7 +1151,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -1159,15 +1160,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 284,
+						"buffer_size": 302,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								265,
-								265
+								302,
+								174
 							]
 						],
 						"settings":
@@ -1178,7 +1179,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -1200,13 +1201,14 @@
 						],
 						"settings":
 						{
-							"syntax": "Packages/Go/Go.sublime-syntax"
+							"syntax": "Packages/Go/Go.sublime-syntax",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -1215,15 +1217,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 27417,
+						"buffer_size": 27407,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								14897,
-								14897
+								17633,
+								17633
 							]
 						],
 						"settings":
@@ -1231,11 +1233,11 @@
 							"syntax": "Packages/C++/C++.sublime-syntax",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 0.0,
-						"translation.y": 6053.0,
+						"translation.x": 1.0,
+						"translation.y": 7095.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
