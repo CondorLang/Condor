@@ -54,6 +54,7 @@ namespace internal{
 		else{
 			newString = hex;
 		}
+
 		Condor::String* str = Condor::String::New(iso, newString.c_str());
 		String* iStr = CAST(String*, str);
 		iStr->name = _name;
@@ -106,7 +107,7 @@ namespace internal{
 			LoadImports();
 			LoadIncludes();
 		}
-		catch (Error::ERROR e){
+		catch (Error::CB_ERROR e){
 			std::string msg = Error::String(e, parser->expected);
 			currentCode = parser->GetSource();
 			msg = std::to_string(parser->Row) + ":" + std::to_string(parser->Col) + " - " + msg + " - \n\t" + absolutePath.c_str() + "\n\n" + GetSourceRow(parser->Row, parser->Col);
@@ -126,7 +127,7 @@ namespace internal{
 					printf("Compile:  %f sec | %s\n", compileClock->GetDuration(), absolutePath.c_str());
 			}
 		}
-		catch (Error::ERROR e){
+		catch (Error::CB_ERROR e){
 			std::string placeholder = "";
 			std::string msg = Error::String(e, NULL);
 			currentCode = semantics->GetSource();
@@ -173,7 +174,7 @@ namespace internal{
 					printf("Execution:  %f sec | %s\n", clock->GetDuration(), absolutePath.c_str());
 			}
 		}
-		catch (Error::ERROR e){
+		catch (Error::CB_ERROR e){
 			std::string msg = Error::String(e, NULL);
 			std::string src = executor->GetSource();
 			currentCode = &src;
@@ -244,6 +245,7 @@ namespace internal{
 			std::vector<std::string> splits = String::Split(import->name, '.');
 			std::string name = splits[0];
 			std::string sub = "";
+
 			if (splits.size() > 1) sub = splits[1];
 			if (sub.length() > 0) {
 				parser->Row = import->row;

@@ -113,12 +113,7 @@ namespace Condor{
 		str->SetPath(path);
 		str->SetValue(string);
 		if (str->GetPathStr() == "inline"){ // unique name hack
-			std::locale::global(std::locale(""));
-	    std::time_t t = std::time(NULL);
-	    char mbstr[100];
-	    if (std::strftime(mbstr, sizeof(mbstr), "%A %c", std::localtime(&t))) {
-	        str->name = mbstr;
-	    }
+			str->SetUniqueName();
 		}
 		return CAST(String*, str);
 	}

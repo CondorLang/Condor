@@ -9,6 +9,8 @@
 #include <map>
 #include <vector>
 
+#include "platform/windows.h"
+
 #include "condor/flags.h"
 #include "condor/clock.h"
 #include "condor/shell.h"

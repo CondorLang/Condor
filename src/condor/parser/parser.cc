@@ -70,20 +70,20 @@ namespace internal{
 			ParseImportOrInclude();
 			ParseShallowStmtList();
 		}
-		catch (Error::ERROR e){
+		catch (Error::CB_ERROR e){
 			throw e;
 		}
 		isolate->FreeMemory(scanner, sizeof(Scanner));
 	}
 
 	Scope* Parser::Parse(Isolate* iso, Scope* sc, Semantics* s){
-		if (sc == NULL) throw Error::INTERNAL_SCOPE_ERROR;
+		if (sc == NULL) throw Error::INTERNAL_SCOPE_CB_ERROR;
 		if (sc->IsParsed()) return sc;
 		Parser* p = Parser::New(iso, &sc->raw);
 		try {
 			p->Parse();
 		}
-		catch (Error::ERROR e){
+		catch (Error::CB_ERROR e){
 			s->row = p->row;
 			s->col = p->col;
 			throw e;
@@ -122,7 +122,7 @@ namespace internal{
 			col = scanner->col;
 			pos = scanner->offset;
 		}
-		catch (Error::ERROR e){
+		catch (Error::CB_ERROR e){
 			throw e;
 		}
 	}
@@ -897,7 +897,7 @@ namespace internal{
 	}
 
 	void Parser::CloseScope(){
-		if (scope == NULL) throw Error::INTERNAL_SCOPE_ERROR;
+		if (scope == NULL) throw Error::INTERNAL_SCOPE_CB_ERROR;
 		scope = scope->outer;
 	}
 

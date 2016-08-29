@@ -32,7 +32,7 @@ namespace internal{
 	 */
 	Token* Scanner::NextToken(){
 		Next();
-		while (ch == '\n' || ch == ' ' || ch == '\t') ScanWhiteSpaces();
+		while (ch == '\n' || ch == ' ' || ch == '\t' || ch == '\r') ScanWhiteSpaces();
 		switch (ch){
 			case -1: return Token::New(isolate, END);
 			case '\0': return Token::New(isolate, END);
@@ -439,11 +439,11 @@ namespace internal{
 	 * @brief Eat white spaces
 	 */
 	void Scanner::ScanWhiteSpaces(){
-		if (ch == ' ' || ch == '\t' || ch == '\n'){
+		if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r'){
 			char p = Peek();
 			Next();
 			while (true){			
-				if (p != ' ' || p != '\t' || p != '\n' || p != -1)
+				if (p != ' ' || p != '\t' || p != '\n' || p != -1 || p != '\r')
 					break;
 				p = Peek();
 				Next();

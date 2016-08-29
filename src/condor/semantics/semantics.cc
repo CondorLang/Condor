@@ -69,7 +69,7 @@ namespace internal{
 		try {
 			return Parser::Parse(isolate, scope, this);
 		}
-		catch (Error::ERROR e){
+		catch (Error::CB_ERROR e){
 			OpenScope(scope);
 			throw e;
 		}

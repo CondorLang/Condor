@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-#ifndef ERROR_H_
-#define ERROR_H_
+#ifndef CB_ERROR_H_
+#define CB_ERROR_H_
 
 #include <string>
 #include "condor/token/token.h"
@@ -11,7 +11,7 @@
 namespace Condor {
 	namespace internal{
 	namespace Error {
-		enum ERROR {
+		enum CB_ERROR {
 			INVALID_MODE,
 			EXPECTED,
 			EXPECTED_MODE,
@@ -35,7 +35,7 @@ namespace Condor {
 			UNEXPECTED_RETURN,
 			EXPECTED_ARG_NAME,
 			MISSING_FUNC_BODY,
-			INTERNAL_SCOPE_ERROR,
+			INTERNAL_SCOPE_CB_ERROR,
 			INVALID_ARGUMENT_TYPE,
 			CANT_HAVE_NULL_FUNC_ARG,
 			CANNOT_CONCAT_TYPE,
@@ -49,7 +49,7 @@ namespace Condor {
 			UNDEFINED_OBJECT,
 			UNABLE_TO_ACCESS_PRIVATE_MEMBER,
 			DIFFERENT_TYPE_ALREADY_DEFINED_IN_SCOPE,
-			COMPILATION_ERROR,
+			COMPILATION_CB_ERROR,
 			MULTIPLE_DECL_OF_OBJECT,
 			CANNOT_ADD_TO_ARRAY,
 			INVALID_ADD_EXPR,
@@ -133,9 +133,9 @@ namespace Condor {
 			INVALID_ARRAY_ASSIGNMENT
 		};
 
-		std::string String(ERROR e, Token* tok);
+		std::string String(CB_ERROR e, Token* tok);
 	}
 } // namespace internal{
 }
 
-#endif // ERROR_H_
+#endif // CB_ERROR_H_

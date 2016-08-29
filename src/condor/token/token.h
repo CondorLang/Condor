@@ -6,6 +6,7 @@
 #define TOKEN_H_
 
 #include <string>
+#include "platform/windows.h"
 
 namespace Condor {
 namespace internal{

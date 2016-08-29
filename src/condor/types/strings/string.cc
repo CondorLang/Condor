@@ -26,6 +26,13 @@ namespace internal{
 		value = val;
 	}
 
+	void String::SetUniqueName(){
+		name = std::to_string(String::UniqueTotal);
+		String::UniqueTotal++;
+	}
+
+	int String::UniqueTotal = 1;
+
 	int String::NthSubStr(int n, const std::string& s, const std::string& p){
 		std::string::size_type i = s.find(p);
 		int j;

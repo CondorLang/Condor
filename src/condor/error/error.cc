@@ -7,7 +7,7 @@
 namespace Condor {
 namespace internal{
 namespace Error {
-	std::string String(ERROR e, Token* tok){
+	std::string String(CB_ERROR e, Token* tok){
 		int err = (int) e;
 		switch (err){
 			case INVALID_MODE: return "Invalid mode";
@@ -29,7 +29,7 @@ namespace Error {
 			case UNEXPECTED_RETURN: return "Unexpected return";
 			case EXPECTED_ARG_NAME: return "Expected argument name";
 			case MISSING_FUNC_BODY: return "Missing func body";
-			case INTERNAL_SCOPE_ERROR: return "Internal scope error";
+			case INTERNAL_SCOPE_CB_ERROR: return "Internal scope error";
 			case UNDEFINED_FUNC: return "Undefined func";
 			case INVALID_ARGUMENT_TYPE: return "Invalid argument type";
 			case CANT_HAVE_NULL_FUNC_ARG: return "Can't have null func arg";
@@ -44,7 +44,7 @@ namespace Error {
 			case UNDEFINED_OBJECT: return "Undefined object";
 			case UNABLE_TO_ACCESS_PRIVATE_MEMBER: return "Unable to access private member";
 			case DIFFERENT_TYPE_ALREADY_DEFINED_IN_SCOPE: return "Different type already defined in scope";
-			case COMPILATION_ERROR: return "Compilation error";
+			case COMPILATION_CB_ERROR: return "Compilation error";
 			case MULTIPLE_DECL_OF_OBJECT: return "Can't have multiple declarations of an object";
 			case CANNOT_ADD_TO_ARRAY: return "Cannot add to array";
 			case INVALID_ADD_EXPR: return "Invalid add expression";

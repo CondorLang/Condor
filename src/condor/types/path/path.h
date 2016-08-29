@@ -7,8 +7,11 @@
 
 #include <string>
 #include <stdio.h>  /* defines FILENAME_MAX */
-#ifdef WINDOWS
-	#include <direct.h>
+
+#include "platform/windows.h" // windows 
+
+#ifdef _WIN32
+	#include <Windows.h>
 	#define GetCurrentDir _getcwd
 #else
 	#include <unistd.h>

@@ -40,6 +40,8 @@ namespace internal{
 		static std::vector<std::string> Split(std::string str, char delimiter);
 		void SetInternal(){internal = true;}
 		bool IsInternal(){return internal;}
+		void SetUniqueName();
+		static int UniqueTotal;
 
 		template <typename T>
 		static std::string ToStringWithPercision(const T val, const int n = 15){

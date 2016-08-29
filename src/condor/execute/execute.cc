@@ -738,7 +738,7 @@ namespace internal{
 				if (isContinue) isContinue = false;
 				if (isReturning) return;
 			}
-			catch (Error::ERROR e){
+			catch (Error::CB_ERROR e){
 				canBreak = cb;
 				if (e == Error::INTERNAL_BREAK) {
 					isolate->RunGC(expr->scope, true);
@@ -775,7 +775,7 @@ namespace internal{
 				if (isContinue) isContinue = false;
 				if (isReturning) return;
 			}
-			catch (Error::ERROR e){
+			catch (Error::CB_ERROR e){
 				canBreak = cb;
 				if (e == Error::INTERNAL_BREAK) {
 					isolate->RunGC(expr->scope, true);
@@ -807,7 +807,7 @@ namespace internal{
 				isolate->RunGC(expr->scope, true);
 				if (isReturning) return true;
 			}
-			catch (Error::ERROR e){
+			catch (Error::CB_ERROR e){
 				if (e == Error::INTERNAL_BREAK){
 					isolate->RunGC(expr->scope, true);
 					throw e;
@@ -847,7 +847,7 @@ namespace internal{
 					isolate->RunGC(stmt->scope, true);
 					if (isReturning) return;
 				}
-				catch (Error::ERROR e){
+				catch (Error::CB_ERROR e){
 					canBreak = cb;
 					if (e == Error::INTERNAL_BREAK) {
 						isolate->RunGC(stmt->scope, true);

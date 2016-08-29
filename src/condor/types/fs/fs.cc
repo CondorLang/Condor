@@ -12,9 +12,13 @@ namespace internal{
 		return in.good();
 	}
 
-	std::string FS::ReadFile(std::string path){
+	std::string FS::ReadFile(std::string path){	
 		std::ifstream in(path);
-		if (!in) return "";
+		if (in.fail()) {
+			printf("d: %s\n", "File does not exist");
+			printf("d: %s\n", path.c_str());
+			return "";
+		}
 		std::string fileStr((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
 		return fileStr;
 	}

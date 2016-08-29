@@ -74,16 +74,25 @@ namespace internal{
 	}
 
 	std::string Path::GetCWD(){
- 		char cCurrentPath[FILENAME_MAX];
- 		if (!GetCurrentDir(cCurrentPath, sizeof(cCurrentPath))){} // TODO: Throw Error
-		cCurrentPath[sizeof(cCurrentPath) - 1] = '\0'; /* not really required */
- 		std::string result(cCurrentPath);
- 		return result;
+ 		#ifdef _WIN32
+ 			char buffer[MAX_PATH];
+	    GetModuleFileName(NULL, buffer, MAX_PATH);
+	    std::size_t found = std::string(buffer).rfind("\\Condor\\build");
+	    if (found != std::string::npos){
+	    	return std::string(buffer).substr(0, found) + "\\Condor";
+	    }
+	    return "";
+ 		#else
+ 			char cCurrentPath[FILENAME_MAX];
+ 			if (!GetCurrentDir(cCurrentPath, sizeof(cCurrentPath))){} // TODO: Throw Error
+ 			std::string result(cCurrentPath);
+	 		return result;
+ 		#endif
 	}
 
 	std::string Path::GetLibDir(){
 		std::string path = Path::GetCWD();
-		#ifdef WINDOWS
+		#ifdef _WIN32
 			path += "\\libs\\";
 		#else
 			path += "/libs/";

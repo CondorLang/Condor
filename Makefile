@@ -25,6 +25,9 @@ endif
 ifeq ($(shell uname), CYGWIN_NT-5.1)
   PLATFORM=win32
 endif
+ifeq ($(shell uname), CYGWIN_NT-10.0)
+	PLATFORM=win32
+endif
 ifeq ($(shell uname), MINGW32_NT-4.0)
   PLATFORM=win32
 endif
@@ -32,6 +35,9 @@ ifeq ($(shell uname), MINGW32-5.0)
   PLATFORM=win32
 endif
 ifeq ($(shell uname), MINGW32_NT-5.1)
+  PLATFORM=win32
+endif
+ifeq ($(shell uname), MINGW64_NT-10.0)
   PLATFORM=win32
 endif
 ifeq ($(shell uname -m), IP19)
