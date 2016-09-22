@@ -24,7 +24,17 @@ namespace internal{
 		node->allowGC = true;
 		node->print = false;
 		node->importScopeId = -1;
+		node->progressDepth = 0;
 		node->id = iso->GetContext()->GetNextAstId();
+	}
+
+	ASTLiteral* ASTNode::GetLocal(bool pop){
+		if (locals.size() > 0) {
+			ASTLiteral* result = locals.back();
+			if (pop) locals.pop_back();
+			return result;
+		}
+		return NULL;
 	}
 
 	bool ASTNode::HasVisibility(TOKEN tok){
@@ -241,7 +251,7 @@ namespace internal{
 		var->name = name;
 		var->scopeId = scopeId;
 		var->hasDefault = hasDefault;
-		if (local != NULL) var->local = local->Clone(isolate, shallow);
+		if (HasLocal()) var->AddLocal(GetLocal(false)->Clone(isolate, shallow));
 		return var;
 	}
 
@@ -521,8 +531,8 @@ namespace internal{
 			for(std::map<std::string,ASTVar*>::iterator i = properties.begin(); i != properties.end(); ++i){
 				std::string k =  i->first;
 				ASTVar* var = i->second;
-				if (var->local != NULL){
-					ASTLiteral* lit = (ASTLiteral*) var->local;
+				if (var->HasLocal()){
+					ASTLiteral* lit = (ASTLiteral*) var->GetLocal(false);
 					printf("Object: %s - %s\n", k.c_str(), lit->value.c_str());
 				}
 			}

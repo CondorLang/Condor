@@ -4,6 +4,30 @@
 		"selected_items":
 		[
 			[
+				"Grad",
+				"GradeObjectIdentifier"
+			],
+			[
+				"TOpic",
+				"topicId"
+			],
+			[
+				"Topi",
+				"topicId"
+			],
+			[
+				"class",
+				"classListSort"
+			],
+			[
+				"recu",
+				"recursiveTopics"
+			],
+			[
+				"replac",
+				"replace_href"
+			],
+			[
 				"ary",
 				"ary_push"
 			],
@@ -490,57 +514,33 @@
 			[
 				"high",
 				"highestItem"
-			],
-			[
-				"conte",
-				"contextId"
-			],
-			[
-				"note",
-				"noteId"
-			],
-			[
-				"cont",
-				"contextId"
-			],
-			[
-				"close",
-				"closeContext"
-			],
-			[
-				"pal",
-				"player"
-			],
-			[
-				"pla",
-				"player1"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "test/test.cb",
+			"file": "/C/Users/willdech/SharePoint/Willden, Chase/Work Documents/Projects/CS Developer Forum Success/Data/discussion.js",
 			"settings":
 			{
-				"buffer_size": 302,
-				"line_ending": "Unix"
+				"buffer_size": 10253,
+				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "libs/math.cb",
+			"file": "/C/Users/willdech/SharePoint/Willden, Chase/Work Documents/Projects/CS Developer Forum Success/Data/Query1.sql",
 			"settings":
 			{
-				"buffer_size": 569,
-				"line_ending": "Unix"
+				"buffer_size": 614,
+				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "src/condor/execute/execute.cc",
+			"contents": "-- MySQL Workbench Forward Engineering\n\nSET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;\nSET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;\nSET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';\n\n-- -----------------------------------------------------\n-- Schema DiscussionBoards\n-- -----------------------------------------------------\nDROP SCHEMA IF EXISTS `DiscussionBoards` ;\n\n-- -----------------------------------------------------\n-- Schema DiscussionBoards\n-- -----------------------------------------------------\nCREATE SCHEMA IF NOT EXISTS `DiscussionBoards` DEFAULT CHARACTER SET utf8 ;\nUSE `DiscussionBoards` ;\n\n-- -----------------------------------------------------\n-- Table `DiscussionBoards`.`Course`\n-- -----------------------------------------------------\nDROP TABLE IF EXISTS `DiscussionBoards`.`Course` ;\n\nCREATE TABLE IF NOT EXISTS `DiscussionBoards`.`Course` (\n  `CourseId` INT NOT NULL,\n  `name` VARCHAR(125) NULL,\n  PRIMARY KEY (`CourseId`))\nENGINE = InnoDB;\n\n\n-- -----------------------------------------------------\n-- Table `DiscussionBoards`.`Section`\n-- -----------------------------------------------------\nDROP TABLE IF EXISTS `DiscussionBoards`.`Section` ;\n\nCREATE TABLE IF NOT EXISTS `DiscussionBoards`.`Section` (\n  `SectionId` INT NOT NULL,\n  `number` VARCHAR(5) NOT NULL,\n  `domain` VARCHAR(6) NULL,\n  `CourseId` INT NOT NULL,\n  PRIMARY KEY (`SectionId`),\n  INDEX `fk_Section_Course1_idx` (`CourseId` ASC),\n  CONSTRAINT `fk_Section_Course1`\n    FOREIGN KEY (`CourseId`)\n    REFERENCES `DiscussionBoards`.`Course` (`CourseId`)\n    ON DELETE NO ACTION\n    ON UPDATE NO ACTION)\nENGINE = InnoDB;\n\n\n-- -----------------------------------------------------\n-- Table `DiscussionBoards`.`Forum`\n-- -----------------------------------------------------\nDROP TABLE IF EXISTS `DiscussionBoards`.`Forum` ;\n\nCREATE TABLE IF NOT EXISTS `DiscussionBoards`.`Forum` (\n  `ForumId` INT NOT NULL,\n  `name` VARCHAR(125) NULL,\n  `startDate` DATETIME NULL,\n  `endDate` DATETIME NULL,\n  `postStartDate` DATETIME NULL,\n  `postEndDate` DATETIME NULL,\n  `SectionId` INT NOT NULL,\n  PRIMARY KEY (`ForumId`),\n  INDEX `fk_Forum_Section1_idx` (`SectionId` ASC),\n  CONSTRAINT `fk_Forum_Section1`\n    FOREIGN KEY (`SectionId`)\n    REFERENCES `DiscussionBoards`.`Section` (`SectionId`)\n    ON DELETE NO ACTION\n    ON UPDATE NO ACTION)\nENGINE = InnoDB;\n\n\n-- -----------------------------------------------------\n-- Table `DiscussionBoards`.`User`\n-- -----------------------------------------------------\nDROP TABLE IF EXISTS `DiscussionBoards`.`User` ;\n\nCREATE TABLE IF NOT EXISTS `DiscussionBoards`.`User` (\n  `UserId` INT NOT NULL,\n  `name` VARCHAR(125) NULL,\n  PRIMARY KEY (`UserId`))\nENGINE = InnoDB;\n\n\n-- -----------------------------------------------------\n-- Table `DiscussionBoards`.`Module`\n-- -----------------------------------------------------\nDROP TABLE IF EXISTS `DiscussionBoards`.`Module` ;\n\nCREATE TABLE IF NOT EXISTS `DiscussionBoards`.`Module` (\n  `ModuleId` INT NOT NULL,\n  `name` VARCHAR(125) NULL,\n  `parentModuleId` INT NULL,\n  `CourseId` INT NOT NULL,\n  PRIMARY KEY (`ModuleId`),\n  INDEX `fk_Module_Module1_idx` (`parentModuleId` ASC),\n  INDEX `fk_Module_Course1_idx` (`CourseId` ASC),\n  CONSTRAINT `fk_Module_Module1`\n    FOREIGN KEY (`parentModuleId`)\n    REFERENCES `DiscussionBoards`.`Module` (`ModuleId`)\n    ON DELETE NO ACTION\n    ON UPDATE NO ACTION,\n  CONSTRAINT `fk_Module_Course1`\n    FOREIGN KEY (`CourseId`)\n    REFERENCES `DiscussionBoards`.`Course` (`CourseId`)\n    ON DELETE NO ACTION\n    ON UPDATE NO ACTION)\nENGINE = InnoDB;\n\n\n-- -----------------------------------------------------\n-- Table `DiscussionBoards`.`Topic`\n-- -----------------------------------------------------\nDROP TABLE IF EXISTS `DiscussionBoards`.`Topic` ;\n\nCREATE TABLE IF NOT EXISTS `DiscussionBoards`.`Topic` (\n  `TopicId` INT NOT NULL,\n  `Type` VARCHAR(45) NULL,\n  `name` VARCHAR(125) NULL,\n  `ModuleId` INT NULL,\n  `ForumId` INT NULL,\n  `adjustedName` VARCHAR(125) NULL,\n  PRIMARY KEY (`TopicId`),\n  INDEX `fk_Topic_Module1_idx` (`ModuleId` ASC),\n  INDEX `fk_Topic_Forum1_idx` (`ForumId` ASC),\n  CONSTRAINT `fk_Topic_Module1`\n    FOREIGN KEY (`ModuleId`)\n    REFERENCES `DiscussionBoards`.`Module` (`ModuleId`)\n    ON DELETE NO ACTION\n    ON UPDATE NO ACTION,\n  CONSTRAINT `fk_Topic_Forum1`\n    FOREIGN KEY (`ForumId`)\n    REFERENCES `DiscussionBoards`.`Forum` (`ForumId`)\n    ON DELETE NO ACTION\n    ON UPDATE NO ACTION)\nENGINE = InnoDB;\n\n\n-- -----------------------------------------------------\n-- Table `DiscussionBoards`.`Post`\n-- -----------------------------------------------------\nDROP TABLE IF EXISTS `DiscussionBoards`.`Post` ;\n\nCREATE TABLE IF NOT EXISTS `DiscussionBoards`.`Post` (\n  `PostId` INT NOT NULL,\n  `ThreadId` INT NULL,\n  `body` TEXT NULL,\n  `lastEditDate` DATETIME NULL,\n  `subject` VARCHAR(255) NULL,\n  `parentId` INT NULL,\n  `PostingUserId` INT NULL,\n  `TopicId` INT NOT NULL,\n  PRIMARY KEY (`PostId`),\n  INDEX `fk_Post_User1_idx` (`PostingUserId` ASC),\n  INDEX `fk_Post_Topic1_idx` (`TopicId` ASC),\n  CONSTRAINT `fk_Post_User1`\n    FOREIGN KEY (`PostingUserId`)\n    REFERENCES `DiscussionBoards`.`User` (`UserId`)\n    ON DELETE NO ACTION\n    ON UPDATE NO ACTION,\n  CONSTRAINT `fk_Post_Topic1`\n    FOREIGN KEY (`TopicId`)\n    REFERENCES `DiscussionBoards`.`Topic` (`TopicId`)\n    ON DELETE NO ACTION\n    ON UPDATE NO ACTION)\nENGINE = InnoDB;\n\n\n-- -----------------------------------------------------\n-- Table `DiscussionBoards`.`Grade`\n-- -----------------------------------------------------\nDROP TABLE IF EXISTS `DiscussionBoards`.`Grade` ;\n\nCREATE TABLE IF NOT EXISTS `DiscussionBoards`.`Grade` (\n  `GradeId` INT NOT NULL AUTO_INCREMENT,\n  `numerator` DOUBLE NULL,\n  `denominator` DOUBLE NULL,\n  `weightedDenominator` DOUBLE NULL,\n  `weightedNumerator` DOUBLE NULL,\n  `type` VARCHAR(45) NULL,\n  `gradeObjectId` INT NULL,\n  `UserId` INT NOT NULL,\n  PRIMARY KEY (`GradeId`),\n  INDEX `fk_Grade_User1_idx` (`UserId` ASC),\n  CONSTRAINT `fk_Grade_User1`\n    FOREIGN KEY (`UserId`)\n    REFERENCES `DiscussionBoards`.`User` (`UserId`)\n    ON DELETE NO ACTION\n    ON UPDATE NO ACTION)\nENGINE = InnoDB;\n\n\nSET SQL_MODE=@OLD_SQL_MODE;\nSET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;\nSET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;\n",
 			"settings":
 			{
-				"buffer_size": 27407,
-				"line_ending": "Unix"
+				"buffer_size": 6308,
+				"line_ending": "Windows"
 			}
 		}
 	],
@@ -551,10 +551,38 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 392.0,
-		"last_filter": "",
+		"height": 81.0,
+		"last_filter": "sql",
 		"selected_items":
 		[
+			[
+				"sql",
+				"Set Syntax: SQL"
+			],
+			[
+				"java",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"bab",
+				"Set Syntax: JavaScript (Babel)"
+			],
+			[
+				"preview",
+				"Markdown Preview: Preview in Browser"
+			],
+			[
+				"instl",
+				"Package Control: Install Package"
+			],
+			[
+				"javas",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"hrml",
+				"Set Syntax: HTML (Rails)"
+			],
 			[
 				"auto",
 				"Auto indent"
@@ -570,10 +598,6 @@
 			[
 				"instal",
 				"Package Control: Install Package"
-			],
-			[
-				"java",
-				"Set Syntax: JavaScript"
 			],
 			[
 				"xml",
@@ -644,16 +668,8 @@
 				"Indent XML"
 			],
 			[
-				"sql",
-				"Set Syntax: SQL"
-			],
-			[
 				"inden",
 				"Auto indent"
-			],
-			[
-				"instl",
-				"Package Control: Install Package"
 			],
 			[
 				"enable",
@@ -688,7 +704,7 @@
 				"Indent XML"
 			]
 		],
-		"width": 485.0
+		"width": 560.0
 	},
 	"console":
 	{
@@ -711,17 +727,65 @@
 	},
 	"expanded_folders":
 	[
-		"/Users/willdech/Documents/dev/Condor",
-		"/Users/willdech/Documents/dev/Condor/libs",
-		"/Users/willdech/Documents/dev/Condor/src",
-		"/Users/willdech/Documents/dev/Condor/src/condor",
-		"/Users/willdech/Documents/dev/Condor/src/condor/ast",
-		"/Users/willdech/Documents/dev/Condor/src/condor/execute",
-		"/Users/willdech/Documents/dev/Condor/test",
-		"/Users/willdech/Documents/dev/Condor/test/tests"
 	],
 	"file_history":
 	[
+		"/C/Users/willdech/Downloads/Wed Sep 21 2016 09-14-07 GMT-0600 (Mountain Daylight Time).sql",
+		"/C/Users/willdech/Downloads/Wed Sep 21 2016 09-10-11 GMT-0600 (Mountain Daylight Time).sql",
+		"/C/Users/willdech/Downloads/Wed Sep 21 2016 09-06-05 GMT-0600 (Mountain Daylight Time).sql",
+		"/C/Users/willdech/Downloads/Wed Sep 21 2016 09-01-31 GMT-0600 (Mountain Daylight Time).sql",
+		"/C/Users/willdech/Downloads/Wed Sep 21 2016 08-57-49 GMT-0600 (Mountain Daylight Time).sql",
+		"/C/Users/willdech/Downloads/Wed Sep 21 2016 08-57-16 GMT-0600 (Mountain Daylight Time).sql",
+		"/C/Users/willdech/SharePoint/Willden, Chase/Work Documents/Projects/CS Developer Forum Success/Data/Query1.sql",
+		"/C/Users/willdech/Downloads/Tue Sep 20 2016 16-25-12 GMT-0600 (Mountain Daylight Time).sql",
+		"/C/Users/willdech/SharePoint/Willden, Chase/Work Documents/Projects/CS Developer Forum Success/Data/discussion.js",
+		"/C/Users/willdech/Downloads/Tue Sep 20 2016 15-24-40 GMT-0600 (Mountain Daylight Time).sql",
+		"/C/Users/willdech/Downloads/Tue Sep 20 2016 16-23-21 GMT-0600 (Mountain Daylight Time).sql",
+		"/C/Users/willdech/Downloads/Tue Sep 20 2016 16-22-23 GMT-0600 (Mountain Daylight Time).sql",
+		"/C/Users/willdech/Downloads/Tue Sep 20 2016 15-20-06 GMT-0600 (Mountain Daylight Time).sql",
+		"/C/Users/willdech/Downloads/Tue Sep 20 2016 15-19-41 GMT-0600 (Mountain Daylight Time).sql",
+		"/C/Users/willdech/Downloads/Tue Sep 20 2016 15-18-08 GMT-0600 (Mountain Daylight Time).sql",
+		"/C/Users/willdech/Downloads/Tue Sep 20 2016 15-14-42 GMT-0600 (Mountain Daylight Time).sql",
+		"/C/Users/willdech/Downloads/Tue Sep 20 2016 15-12-24 GMT-0600 (Mountain Daylight Time).sql",
+		"/C/Users/willdech/Downloads/Tue Sep 20 2016 15-09-49 GMT-0600 (Mountain Daylight Time).sql",
+		"/C/Users/willdech/Downloads/Tue Sep 20 2016 15-05-25 GMT-0600 (Mountain Daylight Time).sql",
+		"/C/Users/willdech/Downloads/Tue Sep 20 2016 15-04-49 GMT-0600 (Mountain Daylight Time).sql",
+		"/C/Users/willdech/Downloads/Tue Sep 20 2016 10-52-29 GMT-0600 (Mountain Daylight Time).sql",
+		"/C/Users/willdech/Downloads/Tue Sep 20 2016 10-51-47 GMT-0600 (Mountain Daylight Time).sql",
+		"/C/Users/willdech/Downloads/Tue Sep 20 2016 10-50-35 GMT-0600 (Mountain Daylight Time).sql",
+		"/C/Users/willdech/Downloads/Tue Sep 20 2016 10-50-03 GMT-0600 (Mountain Daylight Time).sql",
+		"/C/Users/willdech/Downloads/Tue Sep 20 2016 10-48-49 GMT-0600 (Mountain Daylight Time).sql",
+		"/C/Users/willdech/Downloads/Tue Sep 20 2016 10-04-26 GMT-0600 (Mountain Daylight Time).sql",
+		"/C/Users/willdech/Documents/dev/TheConceptCenter2/src/containers/App.jsx",
+		"/C/Users/willdech/Documents/dev/TheConceptCenter2/src/components/Header.jsx",
+		"/C/Users/willdech/Documents/dev/TheConceptCenter2/src/reducers/courses.jsx",
+		"/C/Users/willdech/Documents/dev/TheConceptCenter2/src/index.js",
+		"/C/Users/willdech/Documents/dev/TheConceptCenter2/src/actions/index.jsx",
+		"/C/Users/willdech/Documents/dev/TheConceptCenter2/node_modules/moderncss/src/typeography.scss",
+		"/C/Users/willdech/Documents/dev/TheConceptCenter2/node_modules/moderncss/src/grid.scss",
+		"/C/Users/willdech/Documents/dev/TheConceptCenter2/src/constants/ActionTypes.jsx",
+		"/C/Users/willdech/Documents/dev/TheConceptCenter2/src/reducers/index.jsx",
+		"/C/Users/willdech/Documents/dev/TheConceptCenter2/src/index.jsx",
+		"/C/Users/willdech/Downloads/redux-master/redux-master/examples/todomvc/src/reducers/todos.js",
+		"/C/Users/willdech/Downloads/redux-master/redux-master/examples/todos/src/actions/index.js",
+		"/C/Users/willdech/Downloads/Mon Sep 19 2016 15-40-57 GMT-0600 (Mountain Daylight Time).sql",
+		"/C/Users/willdech/Downloads/Mon Sep 19 2016 15-05-21 GMT-0600 (Mountain Daylight Time).sql",
+		"/C/Users/willdech/Downloads/Mon Sep 19 2016 15-02-04 GMT-0600 (Mountain Daylight Time).sql",
+		"/C/Users/willdech/Documents/dev/TheConceptCenter2/src/Pages/Page.jsx",
+		"/C/Users/willdech/Documents/dev/TheConceptCenter2/src/Pages/Home/Home.jsx",
+		"/C/Users/willdech/Documents/dev/TheConceptCenter2/src/App/App.jsx",
+		"/C/Users/willdech/Documents/dev/TheConceptCenter2/src/Header/Header.jsx",
+		"/C/Users/willdech/Documents/dev/TheConceptCenter2/src/Components/Modal.jsx",
+		"/C/Users/willdech/Documents/dev/TheConceptCenter2/src/Pages/Menu.jsx",
+		"/C/Users/willdech/Documents/dev/TheConceptCenter2/node_modules/moderncss/src/menu.scss",
+		"/C/Users/willdech/Documents/dev/TheConceptCenter2/src/Page/Page.jsx",
+		"/C/Users/willdech/Documents/dev/TheConceptCenter2/node_modules/moderncss/init.sh",
+		"/C/Users/willdech/Documents/dev/TheConceptCenter2/node_modules/moderncss/src/global.scss",
+		"/C/Users/willdech/Documents/dev/TheConceptCenter2/index.html",
+		"/C/Users/willdech/Documents/dev/TheConceptCenter2/src/App/App.css",
+		"/C/Users/willdech/Documents/dev/Condor/test/test.cb",
+		"/C/Users/willdech/Documents/dev/Condor/libs/math.cb",
+		"/C/Users/willdech/Documents/dev/Condor/src/condor/execute/execute.cc",
 		"/Users/willdech/Documents/dev/Condor/src/condor/semantics/semantics.cc",
 		"/Users/willdech/Documents/dev/Condor/src/condor/parser/parser.cc",
 		"/Users/willdech/Documents/dev/Condor/src/condor/types/script/script.cc",
@@ -793,67 +857,11 @@
 		"/Users/willdech/Documents/dev/Condor/src/api.h",
 		"/Users/willdech/Documents/dev/v8/src/zone.cc",
 		"/Users/willdech/Documents/dev/v8/src/ast/ast.h",
-		"/Users/willdech/Documents/dev/v8/src/parsing/scanner.cc",
-		"/Users/willdech/Documents/dev/v8/.clang-format",
-		"/Users/willdech/Documents/dev/v8/src/allocation.cc",
-		"/Users/willdech/Documents/dev/Condor/src/condor/mem/allocate.h",
-		"/Users/willdech/Documents/dev/Condor/libs/memory.cb",
-		"/Users/willdech/Documents/dev/Condor/.travis.yml",
-		"/Users/willdech/Documents/dev/Condor/web/index.php",
-		"/Users/willdech/Documents/dev/Condor/configure",
-		"/Users/willdech/Documents/dev/Condor/src/condor/token/comment.h",
-		"/Users/willdech/Documents/dev/Condor/src/condor/ast/comment.h",
-		"/Users/willdech/Documents/dev/Condor/src/condor/flags.cc",
-		"/Users/willdech/Documents/dev/Condor/src/condor/flags.h",
-		"/Users/willdech/Documents/dev/Condor/src/stone/types/script/script.cc",
-		"/Users/willdech/Documents/dev/Condor/src/stone/mem/allocate.cc",
-		"/Users/willdech/Documents/dev/Condor/src/stone/flags.cc",
-		"/Users/willdech/Documents/dev/Condor/src/stone/assert.h",
-		"/Users/willdech/Documents/dev/Condor/src/stone/ast/context.h",
-		"/Users/willdech/Documents/dev/Condor/src/stone/ast/node.h",
-		"/Users/willdech/Documents/dev/Condor/src/stone/ast/scope.cc",
-		"/Users/willdech/Documents/dev/Condor/src/stone/ast/scope.h",
-		"/Users/willdech/Documents/dev/Condor/src/stone/clock.h",
-		"/Users/willdech/Documents/dev/Condor/src/stone/error/error.h",
-		"/Users/willdech/Documents/dev/Condor/src/stone/execute/execute.h",
-		"/Users/willdech/Documents/dev/Condor/src/stone/execute/stack.h",
-		"/Users/willdech/Documents/dev/Condor/src/stone/flags.h",
-		"/Users/willdech/Documents/dev/Condor/src/stone/mem/allocate.h",
-		"/Users/willdech/Documents/dev/Condor/src/stone/mem/gc.h",
-		"/Users/willdech/Documents/dev/Condor/src/stone/mem/isolate.h",
-		"/Users/willdech/Documents/dev/Condor/src/stone/parser/parser.cc",
-		"/Users/willdech/Documents/dev/Condor/src/stone/parser/parser.h",
-		"/Users/willdech/Documents/dev/Condor/src/stone/scanner/scanner.cc",
-		"/Users/willdech/Documents/dev/Condor/src/stone/scanner/scanner.h",
-		"/Users/willdech/Documents/dev/Condor/src/stone/semantics/binary.h",
-		"/Users/willdech/Documents/dev/Condor/src/stone/semantics/internal.cc",
-		"/Users/willdech/Documents/dev/Condor/src/stone/semantics/internal.h",
-		"/Users/willdech/Documents/dev/Condor/src/stone/semantics/semantics.h",
-		"/Users/willdech/Documents/dev/Condor/src/stone/token/token.cc",
-		"/Users/willdech/Documents/dev/Condor/src/stone/types/clock/clock.cc",
-		"/Users/willdech/Documents/dev/Condor/src/stone/types/clock/clock.h",
-		"/Users/willdech/Documents/dev/Condor/src/stone/types/path/path.h",
-		"/Users/willdech/Documents/dev/Condor/src/stone/types/script/script.h",
-		"/Users/willdech/Documents/dev/Condor/src/stone/types/strings/string.h",
-		"/Users/willdech/Documents/dev/Condor/src/stone/types/vector/vector.cc",
-		"/Users/willdech/Documents/dev/Condor/src/stone/types/vector/vector.h",
-		"/Users/willdech/Documents/dev/Condor/libs/types.cb",
-		"/Users/willdech/Documents/dev/Condor/libs/path.cb",
-		"/Users/willdech/Documents/dev/Condor/libs/integer.cb",
-		"/Users/willdech/Documents/dev/Condor/libs/fs.cb",
-		"/Users/willdech/Documents/dev/Condor/libs/exception.cb",
-		"/Users/willdech/Documents/dev/Condor/libs/date.cb",
-		"/Users/willdech/Documents/dev/Condor/libs/app.cb",
-		"/Users/willdech/Documents/dev/Condor/src/stone/assert.cc",
-		"/Users/willdech/Documents/dev/Condor/src/stone/ast/context.cc",
-		"/Users/willdech/Documents/dev/Condor/src/stone/ast/node.cc",
-		"/Users/willdech/Documents/dev/Condor/src/stone/clock.cc",
-		"/Users/willdech/Documents/dev/Condor/src/stone/error/error.cc",
-		"/Users/willdech/Documents/dev/Condor/src/stone/execute/execute.cc"
+		"/Users/willdech/Documents/dev/v8/src/parsing/scanner.cc"
 	],
 	"find":
 	{
-		"height": 35.0
+		"height": 34.0
 	},
 	"find_in_files":
 	{
@@ -940,6 +948,27 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"split",
+			"insert into topic",
+			"Insert into course",
+			"Title",
+			"grades",
+			"classlistsort",
+			"discussion",
+			"f",
+			"first",
+			"discussion",
+			"createForumSql",
+			"INSERT INTO",
+			"recursiveToc",
+			"34395",
+			"\\",
+			"Header",
+			"].",
+			"darken",
+			"grey",
+			"blue",
+			"Header",
 			"parseshallow",
 			"ParseShallowStmtList",
 			"parseimport",
@@ -1046,28 +1075,7 @@
 			"std::vec",
 			"vector",
 			"std::v",
-			"internalvectorerr",
-			"return -1;",
-			"FreeMemory",
-			"setbase",
-			"Script",
-			"script",
-			"Script",
-			"script",
-			"Script",
-			"script",
-			"validatefunccall",
-			"// here",
-			"return NULL;",
-			"NULL",
-			"results.push_back(nodes[i]);",
-			"// here",
-			"formatlit",
-			"funccall",
-			"value",
-			"free",
-			":new",
-			"break;"
+			"internalvectorerr"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1151,29 +1159,59 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "test/test.cb",
+					"file": "/C/Users/willdech/SharePoint/Willden, Chase/Work Documents/Projects/CS Developer Forum Success/Data/discussion.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 302,
+						"buffer_size": 10253,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								302,
-								174
+								456,
+								456
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Go/Go.sublime-syntax"
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/C/Users/willdech/SharePoint/Willden, Chase/Work Documents/Projects/CS Developer Forum Success/Data/Query1.sql",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 614,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								525,
+								525
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/SQL/SQL.sublime-syntax"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -1183,61 +1221,32 @@
 					"type": "text"
 				},
 				{
-					"buffer": 1,
-					"file": "libs/math.cb",
+					"buffer": 2,
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 569,
+						"buffer_size": 6308,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								547,
-								547
+								5217,
+								5223
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Go/Go.sublime-syntax",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/SQL/SQL.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1999.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "src/condor/execute/execute.cc",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 27407,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								17633,
-								17633
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 1.0,
-						"translation.y": 7095.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
 					"type": "text"
 				}
 			]
@@ -1344,7 +1353,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 150.0,
+	"side_bar_width": 261.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

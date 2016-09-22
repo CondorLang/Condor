@@ -72,7 +72,7 @@ namespace internal{
 				case FOR: EvaluateFor((ASTForExpr*) node); break;
 				case WHILE: EvaluateWhile((ASTWhileExpr*) node); break;
 				case IF: EvaluateIf((ASTIf*) node); break;
-				case LITERAL: node->local = EvaluateValue(node); break;
+				case LITERAL: node->AddLocal(EvaluateValue(node)); break;
 				case SWITCH: EvaluateSwitch((ASTSwitch*) node); break;
 				case CONTINUE: isContinue = true; break;
 				case BREAK: {
@@ -124,12 +124,12 @@ namespace internal{
 					ASTLiteral* lit = EvaluateValue(call->params[i]);
 					SetLitType(lit);
 					FormatLit(lit);
-					if (lit == NULL) func->args[i]->local = ASTUndefined::New(isolate);
-					else func->args[i]->local = lit->Clone(isolate);
+					if (lit == NULL) func->args[i]->AddLocal(ASTUndefined::New(isolate));
+					else func->args[i]->AddLocal(lit->Clone(isolate));
 					isolate->RunGC(call->params[i], false);
 				}
 				else{
-					func->args[i]->local = ASTUndefined::New(isolate);
+					func->args[i]->AddLocal(ASTUndefined::New(isolate));
 				}
 			}
 			stackTrace.push_back(call);
@@ -151,7 +151,7 @@ namespace internal{
 		ASTLiteral* result = NULL;
 		if (returns.size() > 0) {
 			CHECK(returns[0] != NULL);
-			ASTLiteral* lit = (ASTLiteral*) returns[0]->local;
+			ASTLiteral* lit = (ASTLiteral*) returns[0]->GetLocal(false);
 			CHECK(lit != NULL);
 			result = lit->Clone(isolate);
 			if (allowGC) returns[0]->allowGC = true;
@@ -182,9 +182,6 @@ namespace internal{
 			else{
 				PrintStep("Calculation");
 				NewStack();
-				if (binary->op == NOT){
-					int a = 10; // here
-				}
 				FillPostix(binary);				
 				ASTLiteral* lit = Calculate();
 				FormatLit(lit);
@@ -241,6 +238,7 @@ namespace internal{
 			left = (ASTLiteral*) binary->left;
 		}
 		else{
+			int a = 10;
 			left = EvaluateValue(binary->left);
 		}
 		ASTToken* tok = ASTToken::New(isolate, binary->op);
@@ -531,8 +529,8 @@ namespace internal{
 					SetRowCol(binary->left);
 					throw Error::INVALID_ASSIGNMENT_TO_TYPE;
 				}
-				if (var->local != NULL) isolate->RunGC(var, true);
-				var->local = lit;
+				if (var->HasLocal()) isolate->RunGC(var, true);
+				var->AddLocal(lit);
 				break;
 			}
 			case ADD_ASSIGN: case SUB_ASSIGN: 
@@ -540,11 +538,11 @@ namespace internal{
 				ASTVar* var = GetVar(binary->left);
 				ASTLiteral* l = (ASTLiteral*) binary->right;
 				ASTLiteral* lit = EvaluateValue(binary->right);
-				if (var == NULL || var->local == NULL) {
+				if (var == NULL || !var->HasLocal()) {
 					SetRowCol(binary->left);
 					throw Error::INVALID_ASSIGNMENT_TO_TYPE;
 				}
-				ASTLiteral* local = (ASTLiteral*) var->local;
+				ASTLiteral* local = (ASTLiteral*) var->GetLocal(false);
 				CHECK(local != NULL);
 				Token litType(local->litType);
 				if (litType.IsNumber()) {
@@ -630,7 +628,7 @@ namespace internal{
 				SetCast(lit, value);
 
 				if (value != NULL && lit->unary != UNDEFINED){
-					if (lit->unary == INC){
+					if (lit->unary == INC){	
 						value->calc++;
 						value->value = std::to_string(value->calc);
 						FormatLit(value);
@@ -665,7 +663,7 @@ namespace internal{
 				}
 
 				if (value != NULL) return value;
-				if (lit->name == "this" && lit->local == NULL){
+				if (lit->name == "this" && !lit->HasLocal()){
 					return GetCurrentObject();
 				}
 				SetCalc(lit);
@@ -673,7 +671,7 @@ namespace internal{
 			}
 			case VAR: {
 				ASTVar* var = (ASTVar*) node;
-				if (var->local != NULL && (!var->hasDefault || var->local->type != UNDEFINED)) return var->local; // check this if this is always true					
+				if (var->HasLocal() && (!var->hasDefault || var->GetLocal(false)->type != UNDEFINED)) return var->GetLocal(false); // check this if this is always true					
 				return EvaluateValue(var->value);
 			}
 			case FUNC_CALL: {
@@ -691,7 +689,7 @@ namespace internal{
 		SetRowCol(var);
 		Trace("Evaluating Var", var->name);
 		ASTLiteral* local = (ASTLiteral*) EvaluateValue(var);
-		if (var->previouslyDeclared && var->op == ASSIGN && var->local != NULL) isolate->RunGC(var, false);
+		if (var->previouslyDeclared && var->op == ASSIGN && var->HasLocal()) isolate->RunGC(var, false);
 		if (local == NULL) return ASTUndefined::New(isolate);
 		if (local->type == OBJECT_INSTANCE){ // call constructor
 			ASTObjectInstance* inst = (ASTObjectInstance*) local;
@@ -703,8 +701,8 @@ namespace internal{
 				inst->constructorCalled = true;
 			}
 		}
-		if (var->local != NULL) isolate->RunGC(var->local, true);
-		var->local = local->Clone(isolate, true);
+		if (var->HasLocal()) isolate->RunGC(var->GetLocal(), true);
+		var->AddLocal(local->Clone(isolate, true));
 		if (var->name == "return") {
 			isReturning = true;
 			returnValue = var;
@@ -720,7 +718,7 @@ namespace internal{
 		Trace("Evaluating", "For");
 		ASTVar* var = (ASTVar*) expr->var;
 		ASTLiteral* init = EvaluateVar(var);
-		var->local = init;
+		var->AddLocal(init);
 		OpenScope(expr->scope);
 		int i = 0;
 		while (true){
@@ -749,7 +747,7 @@ namespace internal{
 			canBreak = cb;
 			OpenScope(expr->scope);
 			isolate->RunGC(var, false);
-			var->local = EvaluateValue(expr->tick);	
+			var->AddLocal(EvaluateValue(expr->tick));	
 		}
 		CloseScope();
 	}

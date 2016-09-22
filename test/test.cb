@@ -1,8 +1,8 @@
 import "println" from "console"
 import "math"
 
-println("test");
-println("Test 2");
+// println("test");
+// println("Test 2");
 
 println(Math.pi);
 println(Math.setPersion(Math.pi, 2));
@@ -10,24 +10,15 @@ println(Math.setPersion(Math.pi, 2) * 2);
 println(Math.pow(3, 3));
 println(Math.sqrt(16));
 
-// func fib(var n){
+// func fib(int n){
+// 	println("-> " + n);
 // 	if (n == 0) return 0;
 // 	else if (n == 1) return 1;
 // 	else return fib(n - 1) + fib(n - 2);
 // }
 
-// println(fib(5));
-
-var prev = 1;
-var current = 1;
-var i = 0;
-while (i < 100){
-	prev = current;
-	current = prev + current;
-	i++;
-}
-
-println(current);
+// int val = fib(2);
+// println(val);
 
 //println(Math.seq(1, 10)); // TODO: Parser, check
 

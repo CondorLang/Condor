@@ -40,9 +40,13 @@ namespace internal{
 		bool isInParen;
 		bool allowGC;
 		bool print;
+		int progressDepth;
 		int importScopeId;
 		std::vector<TOKEN> visibility;
-		ASTLiteral* local;
+		std::vector<ASTLiteral*> locals;
+		void AddLocal(ASTLiteral* l) {locals.push_back(l);}
+		ASTLiteral* GetLocal(bool pop = true);
+		bool HasLocal(){return locals.size() > 0;}
 		static ASTNode* New(Isolate* iso);
 		static void SetDefaults(ASTNode* node, Isolate* iso);
 		void Free(Isolate* iso);

@@ -164,7 +164,8 @@ namespace internal{
 		}
 		Trace("Validating Var", var->name.c_str());
 		indent++;
-		var->assignmentType = ValidateExpr((ASTExpr*) var->value);
+		var->assignmentType = ValidateExpr((ASTExpr*) var->value); // here TODO: recursive
+
 		if (var->name != "return" &&
 			  var->baseType == UNDEFINED &&
 			  (var->assignmentType == UNDEFINED ||
@@ -439,6 +440,8 @@ namespace internal{
 
 	void Semantics::ValidateFunc(ASTFunc* func, bool parse, bool isConstructor){
 		CHECK(func != NULL);
+		func->progressDepth++;
+		if (func->progressDepth > 1) return;
 		if ((func->scope->IsParsed() || !parse) && !func->scope->IsShallow()) {
 			for (int i = 0; i < func->args.size(); i++){ // validate args
 				ASTNode* arg = func->args[i];
@@ -484,6 +487,7 @@ namespace internal{
 			TOKEN castType = GetCastType(r);
 			func->assignmentType = ((ASTVar*) returns[0])->assignmentType;
 		}
+		func->progressDepth--;
 	}
 
 	TOKEN Semantics::GetCastType(ASTNode* node){
@@ -730,6 +734,7 @@ namespace internal{
 		Trace("Validating", "Base type and the assignment type");
 		int baseType = (int) var->baseType;
 		TOKEN assign = var->assignmentType;
+		if (assign == UNDEFINED) return;
 		switch (baseType){
 			case BOOLEAN: if (assign != FALSE_LITERAL && 
 												assign != TRUE_LITERAL && 

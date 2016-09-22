@@ -37,12 +37,11 @@ namespace internal{
 
 	void GC::Dispose(Isolate* isolate, ASTNode* node, bool deep, bool objKeys){
 		if (node == NULL) return;
-		if (node->allowGC && node->local != NULL) {
-			if (node->local->type == OBJECT_INSTANCE){
-				Dispose(isolate, node->local, deep, true);
+		if (node->allowGC && node->HasLocal()) {
+			if (node->GetLocal(false)->type == OBJECT_INSTANCE){
+				Dispose(isolate, node->GetLocal(false), deep, true);
 			}
-			node->local->Free(isolate);
-			node->local = NULL;
+			node->GetLocal()->Free(isolate);
 		}
 		if (deep){
 			int type = (int) node->type;
@@ -80,7 +79,7 @@ namespace internal{
 					ASTFuncCall* call = (ASTFuncCall*) node;
 					if (call->func == NULL) return;
 					for (int i = 0; i < call->params.size(); i++){
-						if (i < call->func->args.size() && call->params[i] == call->func->args[i]->local){
+						if (i < call->func->args.size() && call->params[i] == call->func->args[i]->GetLocal(false)){
 							call->func->args[i]->allowGC = false;
 						}
 					}
