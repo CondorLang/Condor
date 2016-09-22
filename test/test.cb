@@ -1,24 +1,24 @@
 import "println" from "console"
-import "math"
+// import "math"
 
 // println("test");
 // println("Test 2");
 
-println(Math.pi);
-println(Math.setPersion(Math.pi, 2));
-println(Math.setPersion(Math.pi, 2) * 2);
-println(Math.pow(3, 3));
-println(Math.sqrt(16));
+// println(Math.pi);
+// println(Math.setPersion(Math.pi, 2));
+// println(Math.setPersion(Math.pi, 2) * 2);
+// println(Math.pow(3, 3));
+// println(Math.sqrt(16));
 
-// func fib(int n){
-// 	println("-> " + n);
-// 	if (n == 0) return 0;
-// 	else if (n == 1) return 1;
-// 	else return fib(n - 1) + fib(n - 2);
-// }
+func fib(int n){
+	println("-> " + n);
+	if (n == 0) return 0;
+	else if (n == 1) return 1;
+	else return fib(n - 1) + fib(n - 2);
+}
 
-// int val = fib(2);
-// println(val);
+int val = fib(2);
+println(val);
 
 //println(Math.seq(1, 10)); // TODO: Parser, check
 

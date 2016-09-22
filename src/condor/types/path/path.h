@@ -10,7 +10,7 @@
 
 #include "platform/windows.h" // windows 
 
-#ifdef _WIN32
+#ifdef WIN64 || WIN32 || _WIN32
 	#include <Windows.h>
 	#define GetCurrentDir _getcwd
 #else
