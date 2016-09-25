@@ -29,6 +29,7 @@ namespace internal{
 	#define EVALUATION_STEPS Flags::evaluationSteps;
 	#define RPN_STACK Flags::rpnStack;
 	#define BASE_FILE Flags::baseFile;
+	#define PRINT_GC_IDS Flags::printGCIds;
 
 	class Flags
 	 {
@@ -48,6 +49,7 @@ namespace internal{
 	 		static bool evaluationSteps;
 	 		static bool rpnStack;
 	 		static std::string baseFile;
+	 		static bool printGCIds;
 	 		static void SetCommandLineFlags(int argc, const char* argv[]);
 	 }; 
 

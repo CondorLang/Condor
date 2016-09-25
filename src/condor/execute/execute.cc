@@ -591,6 +591,7 @@ namespace internal{
 	}
 
 	void Execute::SetCalc(ASTLiteral* lit){
+		if (lit == NULL) return;
 		if (!lit->isCalc && lit->value.length() != 0 && (lit->litType == INT || lit->litType == DOUBLE || 
 											 lit->litType == FLOAT || lit->litType == TRUE_LITERAL || lit->litType == FALSE_LITERAL)) {
 			PrintStep("Set the calculated value (" + lit->value + " | " + Token::ToString(lit->litType) + ")");
@@ -601,8 +602,16 @@ namespace internal{
 					case INT: lit->calc = (int) lit->calc; break;
 					case FLOAT: lit->calc = (float) lit->calc; break;
 					case LONG: lit->calc = (long) lit->calc; break;
-					case TRUE_LITERAL: lit->calc = 1; break;
-					case FALSE_LITERAL: lit->calc = 0; break;
+					case TRUE_LITERAL: {
+						lit->calc = 1;
+						lit->value = "true";
+						break;
+					}
+					case FALSE_LITERAL: {
+						lit->calc = 0;
+						lit->value = "false";
+						break;
+					}
 				}
 				lit->isCalc = true;
 			}
@@ -610,6 +619,14 @@ namespace internal{
 				SetRowCol(lit);
 				throw Error::INVALID_CAST;
 			}
+		}
+		else if (lit->litType == TRUE_LITERAL){ // sometimes, the true value it not set.
+			lit->value = "true";
+			lit->calc = 1;
+		}
+		else if (lit->litType == FALSE_LITERAL){
+			lit->value = "false";
+			lit->calc = 0;
 		}
 	}
 

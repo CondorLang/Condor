@@ -4,10 +4,6 @@
 
 #include "path.h"
 
-#ifdef _WIN32
-	#include <Windows.h>
-#endif
-
 namespace Condor {
 namespace internal{
 

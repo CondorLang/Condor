@@ -328,6 +328,22 @@ namespace internal{
 		return result;
 	}
 
+	ASTNode* Internal::GetTotalLocals(Isolate* iso, std::vector<ASTLiteral*> lits){
+		if (lits.size() < 1) {
+			ASTLiteral* result = ASTLiteral::New(iso);
+			result->litType = INT;
+			result->calc = 0;
+			result->value = "0";
+			return result;
+		}
+		ASTLiteral* val = lits[0];
+		ASTLiteral* result = ASTLiteral::New(iso);
+		result->litType = INT;
+		result->calc = val->GetTotalLocals();
+		result->value = std::to_string(val->GetTotalLocals());
+		return result;
+	}
+
 	// TODO: Move to a macro
 	TOKEN Internal::Bind(ASTFuncCall* call){
 		if (call->name == "printf") {
@@ -441,6 +457,10 @@ namespace internal{
 		else if (call->name == "sqrt"){
 			call->callback = Internal::Sqrt;
 			return DOUBLE;
+		}
+		else if (call->name == "getTotalLocals"){
+			call->callback = Internal::GetTotalLocals;
+			return INT;
 		}
 		else throw Error::UNDEFINED_FUNC;
 	}

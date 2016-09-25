@@ -26,6 +26,8 @@ namespace internal{
 		MemoryPool* self;
 		GC* gc;
 		Context* context;
+		bool printGcIds;
+		int gcPassId;
 
 	public:
 		Isolate();

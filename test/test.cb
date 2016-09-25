@@ -1,4 +1,4 @@
-import "println" from "console"
+import {"println", "readln"} from "console"
 // import "math"
 
 // println("test");
@@ -10,15 +10,15 @@ import "println" from "console"
 // println(Math.pow(3, 3));
 // println(Math.sqrt(16));
 
-func fib(int n){
-	println("-> " + n);
-	if (n == 0) return 0;
-	else if (n == 1) return 1;
-	else return fib(n - 1) + fib(n - 2);
-}
+// func fib(int n){
+// 	println("-> " + n);
+// 	if (n == 0) return 0;
+// 	else if (n == 1) return 1;
+// 	else return fib(n - 1) + fib(n - 2);
+// }
 
-int val = fib(2);
-println(val);
+// int val = fib(3);
+// println(val);
 
 //println(Math.seq(1, 10)); // TODO: Parser, check
 
@@ -28,3 +28,29 @@ println(val);
 // 	println(result);
 // }
 // println(result);
+
+// while (true){
+// 	var input = readln(">> ");
+// 	if (input == "a"){
+// 		break;
+// 	}
+// }
+
+func test(){
+	
+}
+
+// func add(int a, int b){
+// 	println("- pre " + a);
+// 	if (a == 1) {
+// 		println("  - inside");
+// 		return add(2, b);
+// 	}
+// 	println(" - post " + (a + b));
+// 	return a + b;
+// }
+
+// for (var i = 0; i < 10; i++){
+// 	add(1, i);
+// 	// println("i: " + i + ", add: " + add(1, i));
+// }

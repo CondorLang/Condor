@@ -46,6 +46,7 @@ namespace internal{
 		std::vector<ASTLiteral*> locals;
 		void AddLocal(ASTLiteral* l) {locals.push_back(l);}
 		ASTLiteral* GetLocal(bool pop = true);
+		int GetTotalLocals(){return (int) locals.size();}
 		bool HasLocal(){return locals.size() > 0;}
 		static ASTNode* New(Isolate* iso);
 		static void SetDefaults(ASTNode* node, Isolate* iso);

@@ -23,6 +23,7 @@ namespace internal{
 			else if (arg == "--trace-evaluation") Flags::traceEvaluation = true;
 			else if (arg == "--execution-time") Flags::executionTime = true;
 			else if (arg == "--execution-steps") Flags::evaluationSteps = true;
+			else if (arg == "--print-gc-ids") Flags::printGCIds = true;
 			else if (arg == "--rpn-stack") Flags::rpnStack = true;
 			else if (arg == "-h" || arg == "--help"){
 				printf("\nCondorLang (c) The CondorLang Authors %c%c%c%c\n-----------------------------\n", BUILD_YEAR_CH0, BUILD_YEAR_CH1, BUILD_YEAR_CH2, BUILD_YEAR_CH3);
@@ -41,6 +42,7 @@ namespace internal{
 				printf("--allow-native\t\t%s\n", "Allow native functions in code");
 				printf("--execution-steps\t%s\n", "Traces every execution step");
 				printf("--rpn-stack\t\t%s\n", "Prints the reverse polish notation stack");
+				printf("--print-gc-ids\t\t%s\n", "Prints all the Ids of nodes from GC");
 			}
 			else if (arg.find("-") != std::string::npos || arg.find("-") != std::string::npos){
 				printf("Unidentified flag\nExiting...\n");
@@ -66,6 +68,7 @@ namespace internal{
 	bool Flags::executionTime = false;
 	bool Flags::evaluationSteps = false;
 	bool Flags::rpnStack = false;
+	bool Flags::printGCIds = false;
 	std::string Flags::baseFile = "";
 
 } // namespace internal

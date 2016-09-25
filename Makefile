@@ -5,7 +5,7 @@ SOURCES=$(wildcard src/*/*/*/*.cc) $(wildcard src/*/*/*.cc) $(wildcard src/*/*.c
 
 OBJECTS=$(SOURCES:.cc=.o)
 PLATFORM=$(shell uname)
-EXECUTABLE=./build/$(PLATFORM)/Condor
+EXECUTABLE=./build/$(PLATFORM)/condor
 
 ifeq ($(shell uname), Linux)
   PLATFORM=linux
@@ -64,13 +64,13 @@ all:
 
 sem: 
 	make all
-	g++ $(FLAGS) -I ./ test/main.cc -Iinclude build/libcondor.a -o build/$(PLATFORM)/Condor
-	./build/$(PLATFORM)/Condor --trace-semantic
+	g++ $(FLAGS) -I ./ test/main.cc -Iinclude build/libcondor.a -o build/$(PLATFORM)/condor
+	./build/$(PLATFORM)/condor --trace-semantic
 
 parser: 
 	make all
-	g++ $(FLAGS) -I ./ test/main.cc -Iinclude build/libcondor.a -o build/$(PLATFORM)/Condor
-	./build/$(PLATFORM)/Condor --trace-parser
+	g++ $(FLAGS) -I ./ test/main.cc -Iinclude build/libcondor.a -o build/$(PLATFORM)/condor
+	./build/$(PLATFORM)/condor --trace-parser
 
 cb: 
 	./configure -f
@@ -94,22 +94,22 @@ clean:
 	rm -rf build/*/*
 
 test:
-	g++ $(FLAGS) -I ./ test/main.cc -Iinclude build/libcondor.a -o build/$(PLATFORM)/Condor
+	g++ $(FLAGS) -I ./ test/main.cc -Iinclude build/libcondor.a -o build/$(PLATFORM)/condor
 	make t
 
 tests:
-	g++ $(FLAGS) -I ./ test/automate.cc -Iinclude build/libcondor.a -o build/$(PLATFORM)/Condor
-	./build/$(PLATFORM)/Condor
+	g++ $(FLAGS) -I ./ test/automate.cc -Iinclude build/libcondor.a -o build/$(PLATFORM)/condor
+	./build/$(PLATFORM)/condor
 
 t:
-	./build/$(PLATFORM)/Condor ${ARGS} test/test.cb
+	./build/$(PLATFORM)/condor ${ARGS} test/test.cb
 
 shell:
-	g++ $(FLAGS) -I ./ test/shell.cc -Iinclude build/libcondor.a -o build/$(PLATFORM)/Condor
-	./build/$(PLATFORM)/Condor ${ARGS}
+	g++ $(FLAGS) -I ./ test/shell.cc -Iinclude build/libcondor.a -o build/$(PLATFORM)/condor
+	./build/$(PLATFORM)/condor ${ARGS}
 
 mem:
-	valgrind --tool=memcheck --leak-check=full --track-origins=yes --dsymutil=yes ./build/$(PLATFORM)/Condor > log.txt 2>&1
+	valgrind --tool=memcheck --leak-check=full --track-origins=yes --dsymutil=yes ./build/$(PLATFORM)/condor > log.txt 2>&1
 
 cmt:
 	make clean
@@ -124,7 +124,7 @@ asm:
 	/usr/local/bin/nasm -f macho64 src/condor/codegen/test.asm && ld -macosx_version_min 10.7.0 -e main -lSystem -o src/condor/codegen/test src/condor/codegen/test.o && ./src/condor/codegen/test
 
 d:
-	gdb ./build/$(PLATFORM)/Condor
+	gdb ./build/$(PLATFORM)/condor
 
 docs:
 	doxygen documentation/doxygen.config

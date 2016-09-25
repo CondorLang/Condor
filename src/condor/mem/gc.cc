@@ -8,6 +8,7 @@ namespace Condor {
 namespace internal{
 
 	GC::GC(){
+		printIds = PRINT_GC_IDS;
 	}
 
 	void GC::Run(MemoryPool* pool){
@@ -27,6 +28,10 @@ namespace internal{
 		return false;
 	}
 
+	void GC::Clear(){
+		cleansed.clear();
+	}
+
 	void GC::Dispose(Isolate* isolate, Scope* scope, bool deep, bool objKeys){
 		OpenScope(scope);
 		for (int i = 0; i < scope->Size(); i++){
@@ -37,12 +42,15 @@ namespace internal{
 
 	void GC::Dispose(Isolate* isolate, ASTNode* node, bool deep, bool objKeys){
 		if (node == NULL) return;
+		if (cleansed.find(node->id) != cleansed.end()) return; // Already been cleansed
 		if (node->allowGC && node->HasLocal()) {
 			if (node->GetLocal(false)->type == OBJECT_INSTANCE){
 				Dispose(isolate, node->GetLocal(false), deep, true);
 			}
 			node->GetLocal()->Free(isolate);
 		}
+		if (node->allowGC && printIds) printf("  %d\n", node->id);
+		if (node->allowGC) cleansed[node->id] = true;
 		if (deep){
 			int type = (int) node->type;
 			switch (type){

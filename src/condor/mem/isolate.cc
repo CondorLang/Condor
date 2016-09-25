@@ -9,6 +9,8 @@ namespace Condor {
 namespace internal{
 
 	Isolate::Isolate(){
+		printGcIds = PRINT_GC_IDS;
+		gcPassId = 1;
 		const static size_t poolSize = KB * 8; // 8kb
 		const static size_t chunkSize2 = 35;
 		const static size_t sizeToAllocate2 = DEFAULT_MEMORY_CHUNK_SIZE * 2;
@@ -101,10 +103,14 @@ namespace internal{
 
 	void Isolate::RunGC(Scope* scope, bool deep, bool objKeys){
 		gc->Dispose(this, scope, deep, objKeys);
+		if (printGcIds) printf("gc Pass (%d) %s\n", gcPassId++, "------------");
+		gc->Clear();
 	}
 
 	void Isolate::RunGC(ASTNode* node, bool deep, bool objKeys){
 		gc->Dispose(this, node, deep, objKeys);
+		if (printGcIds) printf("gc Pass (%d) %s\n", gcPassId++, "------------");
+		gc->Clear();
 	}
 
 	int Isolate::MemoryAudit(){

@@ -191,20 +191,21 @@ namespace internal{
 					group = true;
 					Next(); // eat {
 				}
-				//else if (!Is(1, STRING)) throw Error::INVALID_INCLUDE_IMPORT;
-				else{ // import * from "string"
+				// import * from "string"
+				if (!Is(1, STRING)) throw Error::INVALID_INCLUDE_IMPORT;
+				what.push_back(tok->raw);
+				Next();
+				while (tok->value == COMMA){
+					Next();
 					if (!Is(1, STRING)) throw Error::INVALID_INCLUDE_IMPORT;
 					what.push_back(tok->raw);
+				}
+				if (group){
 					Next();
-					while (tok->value == COMMA){
-						Next();
-						if (!Is(1, STRING)) throw Error::INVALID_INCLUDE_IMPORT;
-						what.push_back(tok->raw);
-					}
-					//Next();
+					Expect(RBRACE);
+					Next();
 				}
 			}
-			else if (group && Is(1, COMMA)) Next(); // Eat ,
 			else break;
 			if (isImport) {
 				ASTImport* import = ASTImport::New(isolate);
@@ -230,12 +231,6 @@ namespace internal{
 				include->alias = ParseAlias();
 				includes.push_back(include);
 			}
-			if (Is(1, COMMA)){
-				includeBrace = false;
-				group = true;
-			}
-			if (!includeBrace && group && !Is(1, COMMA)) break;
-			if (group && !Is(2, COMMA, RBRACE)) throw Error::INVALID_INCLUDE_IMPORT;
 		}
 		if (Is(1, RBRACE)) Next(); // eat missed }
 		ParseImportOrInclude(false); // second wave
