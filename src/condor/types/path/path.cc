@@ -65,7 +65,12 @@ namespace internal{
 		    std::string pth(buffer);
 		    return pth;
 		#else
-			return realpath(folder.c_str(), NULL);
+			try {
+				return realpath(folder.c_str(), NULL);
+			}
+			catch (...){
+				return "-1";
+			}
 		#endif
 	}
 

@@ -76,6 +76,7 @@ namespace internal{
 	{
 	public:
 		std::string alias;
+		std::vector<std::string> what;
 		static ASTInclude* New(Isolate* iso);
 		size_t Size(){return sizeof(ASTInclude);}
 	};

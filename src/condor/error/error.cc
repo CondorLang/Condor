@@ -18,7 +18,7 @@ namespace Error {
 			case VAR_NOT_ALLOWED_IN_STRICT_MODE: return "var not allowed in strict mode";
 			case EXPECTED_VAR: return "Expected var";
 			case EXPECTED_OPERATOR: return "Expected operator";
-			case INVALID_FUNCTION_CALL: return "Invalid function call";
+			case INVALID_FUNCTION_CALL: return "Invalid function call, did you forget to \"export\" a function?";
 			case MISSING_EXPR: return "Missing Expression";
 			case INVALID_EXPR: return "Invalid Expression";
 			case INVALID_LEFT_EXPR: return "Invalid left expression";
@@ -97,6 +97,7 @@ namespace Error {
 			case EXPECTED_OBJECT_MEMBER_NAME: return "Expected object member name";
 			case UNMATCHED_FUNCTION_PARAMETERS: return "Unmatched function parameter";
 			case INVALID_IMPORT: return "Invalid import";
+			case INVALID_INCLUDE: return "Invalid include";
 			case UNDEFINED_VARIABLE_TYPE: return "Undefined variable type";
 			case CHECK_IMPORTS: return "Check imports";
 			case UNEXPECTED_CHARACTER: return "Unexpected character";
@@ -126,6 +127,7 @@ namespace Error {
 			case INVALID_FLOAT_ASSIGNMENT: return "Invalid float assignment";
 			case INVALID_DOUBLE_ASSIGNMENT: return "Invalid double assignment";
 			case INVALID_ARRAY_ASSIGNMENT: return "Invalid array assignment";
+			case FILE_DOES_NOT_EXIST: return "File does not exist";
 			case SCANNER: {
 				if (tok != NULL){
 					return tok->raw;

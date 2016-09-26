@@ -50,7 +50,8 @@ namespace internal{
 			return &empty;
 		}
 		if (scanner->src == ((void*) 0x231)) return NULL;
-		return source == NULL ? scanner->src : source;
+		return scanner->src;
+		// return source == NULL ? scanner->src : source;
 	}
 
 	void Parser::SetDefaults(std::string* source){
@@ -176,11 +177,11 @@ namespace internal{
 	 *    }
 	 */
 	void Parser::ParseImportOrInclude(bool eatTok){
-		if (eatTok) Next(); // first token
+		if (eatTok && !Is(2, IMPORT, INCLUDE)) Next(); // first token
+		if (!Is(2, IMPORT, INCLUDE)) return;
 		bool isImport = false;
 		bool group = false;
 		bool includeBrace = true;
-		if (!Is(2, IMPORT, INCLUDE)) return;
 		Trace("Parsing", "Imports");
 		isImport = Is(1, IMPORT);
 		while (true){
@@ -204,6 +205,7 @@ namespace internal{
 					Next();
 					Expect(RBRACE);
 					Next();
+					group = false;
 				}
 			}
 			else break;
@@ -227,10 +229,23 @@ namespace internal{
 			else {
 				ASTInclude* include = ASTInclude::New(isolate);
 				SetRowCol(include);
-				include->name = tok->raw;
-				include->alias = ParseAlias();
+				bool eat = true;
+				if (!Is(1, FROM)){
+					CHECK(what.size() > 0);
+					include->name = what[0].c_str();
+					eat = false;
+				}
+				else{
+					include->what.insert(include->what.begin(), what.begin(), what.end());
+					Expect(FROM);
+					Next();
+					if (!Is(1, STRING)) throw Error::INVALID_INCLUDE_IMPORT;
+					include->name = tok->raw;
+				}
+				include->alias = ParseAlias(eat);
 				includes.push_back(include);
 			}
+			isImport = Is(1, IMPORT);
 		}
 		if (Is(1, RBRACE)) Next(); // eat missed }
 		ParseImportOrInclude(false); // second wave
@@ -241,10 +256,10 @@ namespace internal{
 	 * 
 	 * 		as "string"
 	 */
-	std::string Parser::ParseAlias(){
-		Next();
+	std::string Parser::ParseAlias(bool eatTok){
+		if (eatTok) Next();
 		if (Is(1, AS)){
-			//throw Error::NOT_IMPLEMENTED;
+			// throw Error::NOT_IMPLEMENTED;
 			Next();
 			Expect(IDENT);
 			std::string result = tok->raw;
@@ -783,6 +798,7 @@ namespace internal{
 			ASTLiteral* lit = ASTLiteral::New(isolate);
 			SetRowCol(lit);
 			lit->value = "true";
+			lit->calc = 1;
 			lit->litType = TRUE_LITERAL;
 			stmt->condition = lit;
 			stmt->scope = LazyParseBody();

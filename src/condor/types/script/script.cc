@@ -110,6 +110,8 @@ namespace internal{
 		catch (Error::CB_ERROR e){
 			std::string msg = Error::String(e, parser->expected);
 			currentCode = parser->GetSource();
+			std::string emptyCode = "";
+			if (currentCode == NULL) currentCode = &emptyCode;
 			msg = std::to_string(parser->Row) + ":" + std::to_string(parser->Col) + " - " + msg + " - \n\t" + absolutePath.c_str() + "\n\n" + GetSourceRow(parser->Row, parser->Col);
 			msgs.push_back(msg);
 			printf("\nParser Error: \n%s\n", msg.c_str());
@@ -130,7 +132,8 @@ namespace internal{
 		catch (Error::CB_ERROR e){
 			std::string placeholder = "";
 			std::string msg = Error::String(e, NULL);
-			currentCode = semantics->GetSource();
+			// currentCode = semantics->GetSource();
+			currentCode = &sourceCode;
 			if (currentCode == NULL) currentCode = &placeholder;
 			msg = std::to_string(semantics->row) + ":" + std::to_string(semantics->col) + " - " + msg + " - \n\t" + absolutePath.c_str() + "\n\n" + GetSourceRow(semantics->row, semantics->col);
 			printf("\nSemantic Error: \n%s\n", msg.c_str());
@@ -286,9 +289,13 @@ namespace internal{
 		Path* path = Path::New(isolate);
 		path->SetBase(absolutePath);
 
+		int i = 0;
 		while (parser->includes.size() > 0) {
-			ASTInclude* include = parser->includes[0];
+			ASTInclude* include = parser->includes[i++];
+			if (include->name.length() < 1) throw Error::INVALID_INCLUDE;
+			if (include->name.find(".cb") == std::string::npos) include->name += ".cb";
 			std::string c = path->GetFromBase(include->name);
+			if (!FS::FileExists(c)) throw Error::FILE_DOES_NOT_EXIST;
 
 			Condor::Isolate* iso = CAST(Condor::Isolate*, isolate);
 			Condor::Context* ctxt = CAST(Condor::Context*, context);

@@ -1,7 +1,0 @@
-import "console", "colors"
-
-print("Test...If Statement...");
-
-if (true == true){
-	println(Color.green("Success"));
-}
