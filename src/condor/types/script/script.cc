@@ -308,6 +308,15 @@ namespace internal{
 		//path->~Path();
 		isolate->FreeMemory(path, sizeof(Path));
 	}
+	
+	/**
+     	* @description Added this to find a workout around for {@link https://github.com/CondorLang/Condor/issues/8}
+     	* @author Berkmann18
+     	* @since 29/10/16 19:45 BST
+     	*/
+	void Script::Free(Isolate* isolate){
+		script->Free(isolate);
+	}
 
 } // namespace internal
 }
