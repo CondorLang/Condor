@@ -1,6 +1,6 @@
 CC=g++
 CFLAGS=-std=c++11 -c -I src/ -g -MD -MP
-LDFLAGS=
+LDFLAGS=-std=c++11
 SOURCES=$(wildcard src/*/*/*/*.cc) $(wildcard src/*/*/*.cc) $(wildcard src/*/*.cc) $(wildcard src/*.cc)
 
 OBJECTS=$(SOURCES:.cc=.o)
@@ -105,7 +105,7 @@ t:
 	./build/$(PLATFORM)/condor ${ARGS} test/test.cb
 
 shell:
-	g++ $(CFLAGS) -I ./ test/shell.cc -Iinclude build/libcondor.a -o build/$(PLATFORM)/condor
+	g++ $(LDFLAGS) -I ./ test/shell.cc -Iinclude build/libcondor.a -o build/$(PLATFORM)/condor
 	./build/$(PLATFORM)/condor ${ARGS}
 
 mem:
