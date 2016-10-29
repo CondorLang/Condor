@@ -105,7 +105,7 @@ t:
 	./build/$(PLATFORM)/condor ${ARGS} test/test.cb
 
 shell:
-	g++ $(FLAGS) -I ./ test/shell.cc -Iinclude build/libcondor.a -o build/$(PLATFORM)/condor
+	g++ $(CFLAGS) -I ./ test/shell.cc -Iinclude build/libcondor.a -o build/$(PLATFORM)/condor
 	./build/$(PLATFORM)/condor ${ARGS}
 
 mem:
