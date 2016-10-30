@@ -39,6 +39,10 @@ namespace internal{
 		currentCode = NULL;
 	}
 
+	void Script::Free(Isolate* isolate){
+		isolate->FreeMemory(this, sizeof(Script));
+	}
+
 	void Script::RunInternalScript(Isolate* isolate, std::string hex, std::string _name, std::string sub, bool isHex){
 		if (isolate->GetContext()->IsIncluded(_name)) return;
 		Condor::Isolate* iso = CAST(Condor::Isolate*, isolate);

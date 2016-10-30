@@ -17,19 +17,29 @@ int main(int argc, const char* argv[]){
 	Context* context = isolate->CreateContext();
 
 	context->Enter();
-	std::string input = "";
-	time_t theTime = time(NULL);
-	struct tm *aTime = localtime(&theTime);
-	int year = aTime->tm_year + 1900;
-	std::cout << "CondorLang (C) " + std::to_string(year) + "\n";
 
-	while (true){
-		std::cout << ">> ";
-		getline(std::cin, input);
-		String* string = String::New(isolate, input.c_str());
+	std::string baseFile = GetBaseFile();
+	if (!baseFile.empty()){
+		String* string = String::NewFromBase(isolate);
 		Script* script = Script::Compile(context, string);
 		if (!script->HasError()) script->Run();
-		script->Free();
+		script->Free(isolate);
+	}
+	else{
+		std::string input = "";
+		time_t theTime = time(NULL);
+		struct tm *aTime = localtime(&theTime);
+		int year = aTime->tm_year + 1900;
+		std::cout << "CondorLang (C) " + std::to_string(year) + "\n";
+
+		while (true){
+			std::cout << ">> ";
+			getline(std::cin, input);
+			String* string = String::New(isolate, input.c_str());
+			Script* script = Script::Compile(context, string);
+			if (!script->HasError()) script->Run();
+			script->Free(isolate);
+		}
 	}
 
 	context->Exit();

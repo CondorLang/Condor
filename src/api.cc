@@ -72,6 +72,10 @@ namespace Condor{
 		i::Flags::SetCommandLineFlags(argc, argv);
 	}
 
+	std::string GetBaseFile(){
+		return i::Flags::baseFile;
+	}
+
 	void Context::Dispose(){
 		i::Context* context = CAST(i::Context*, this);
 		i::Isolate* isolate = context->GetIsolate();

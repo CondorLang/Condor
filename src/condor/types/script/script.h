@@ -76,6 +76,7 @@ namespace internal{
 		std::string GetErrorMsg(){if (msgs.size() > 0) return msgs[0]; return "";}
 		void Compile();
 		void SetSub(std::string sub){subModule = sub;}
+		void Free(Isolate* isolate);
 	};
 
 	namespace Sizes{

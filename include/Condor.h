@@ -15,6 +15,7 @@ namespace Condor {
 	void Initialize();
 
 	void SetCommandLineFlags(int argc, const char* argv[]);
+	std::string GetBaseFile();
 		
 	class Context
 	{
