@@ -1,4 +1,3 @@
-
 // Copyright 2016 Chase Willden and The CondorLang Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
@@ -310,12 +309,12 @@ namespace internal{
 	}
 	
 	/**
-     	* @description Added this to find a workout around for {@link https://github.com/CondorLang/Condor/issues/8}
-     	* @author Berkmann18
-     	* @since 29/10/16 19:45 BST
-     	*/
+ 	 * @description Added this to find a workout around for {@link https://github.com/CondorLang/Condor/issues/8}
+ 	 * @author Berkmann18
+ 	 * @since 29/10/16 19:45 BST
+ 	 */
 	void Script::Free(Isolate* isolate){
-		script->Free(isolate);
+		isolate->FreeMemory(this, sizeof(Script)); 
 	}
 
 } // namespace internal
