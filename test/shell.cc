@@ -29,7 +29,7 @@ int main(int argc, const char* argv[]){
 		String* string = String::New(isolate, input.c_str());
 		Script* script = Script::Compile(context, string);
 		if (!script->HasError()) script->Run();
-		script->Free();
+		script->Free(isolate);
 	}
 
 	context->Exit();

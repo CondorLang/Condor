@@ -65,6 +65,7 @@ namespace internal{
 		std::string GetSourceRow(int row, int col);
 		void LoadImports();
 		void LoadIncludes();
+		void Free(Isolate* isolate);
 
 	public:
 		Script(Isolate* isolate, String* str, Context* con);
