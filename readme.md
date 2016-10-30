@@ -45,6 +45,16 @@ import "fs"
 string contents = fs.readFile("readme.md");
 ```
 
+## Building Instructions
+CondorLang uses CMake to generate the Makefiles. The following commands build the project.
+### Build
+* ```make build``` - Builds the Condor program
+* ```make clean``` - Cleans all the object files
+
+## Running CondorLang
+The run CondorLang, use the following commands.
+```./build/condor [file]```
+
 Todo:
 ------
  - node.h 28 - Create a Expand() function which expands the node and the tree
