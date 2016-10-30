@@ -48,6 +48,7 @@ set(SOURCE_LIST
 )
 
 add_library(CondorLib STATIC ${SOURCE_LIST})
+target_include_directories(CondorLib PUBLIC ${SOURCE_DIR})
 include_directories(${INCLUDES})
 add_executable(condor ${SOURCE_DIR}/main.cc ${INCLUDES}/Condor.h)
 target_link_libraries(condor CondorLib)
