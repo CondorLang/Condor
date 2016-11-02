@@ -1,3 +1,15 @@
+import "println" from "console"
 include "./print"
 
+println("Simple math tests");
+println("=================\n");
+
 test("addition", ((1 + 1) == 2));
+test("subtraction", ((1 - 1) == 0));
+test("multiplication", ((2 * 2) == 4));
+test("division", (4 / 2) == 2);
+
+println("Order of Operations");
+println("===================\n");
+
+test("Parenthesis multiply then add", ((10 + 10) * 2 + 1) == 41);

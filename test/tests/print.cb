@@ -1,6 +1,7 @@
 import "println" from "console"
+import "Color" from "colors";
 
 export func test(string name, bool isSuccess){
-	if (isSuccess) println(name + " - Success");
-	else println(name + " - failed");
+	if (isSuccess) println(name + " - " + Color.green("Success"));
+	else println(name + " - " + Color.red("failed"));
 }
