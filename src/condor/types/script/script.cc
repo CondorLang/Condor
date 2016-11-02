@@ -22,6 +22,7 @@ namespace internal{
 		this->isolate = isolate;
 		compiled = false;
 		parser = NULL;
+		isInclude = false;
 		parsingTime = PARSING_TIME;
 		compileTime = COMPILE_TIME;
 		executionTime = EXECUTION_TIME;
@@ -120,6 +121,7 @@ namespace internal{
 			msgs.push_back(msg);
 			printf("\nParser Error: \n%s\n", msg.c_str());
 			hasErr = true;
+			if (isInclude) throw Error::INVALID_INCLUDE;
 			return;
 		}
 
@@ -143,6 +145,7 @@ namespace internal{
 			printf("\nSemantic Error: \n%s\n", msg.c_str());
 			msgs.push_back(msg);
 			hasErr = true;
+			if (isInclude) throw Error::INVALID_INCLUDE;
 			return;
 		}
 
@@ -152,10 +155,12 @@ namespace internal{
 		if (parser->IsInternal()) context->injectedScopes.push_back(base); // don't set symbols global if import
 		else context->AddScope(base);
 		context->AddToRegistry(base);
+		compiled = true;
 	}
 
 	void Script::Run(){
-		if (hasErr) return;
+		if (hasErr || !compiled) return;
+		CHECK(parser != NULL);
 		if (subModule.length() > 0) {
 			if (subModule != "*"){
 				Scope* s = parser->GetBaseScope();
@@ -189,6 +194,7 @@ namespace internal{
 			printf("\nRuntime Error: \n%s\n", msg.c_str());
 			currentCode = NULL;
 			msgs.push_back(msg);
+			if (isInclude) throw Error::INVALID_INCLUDE;
 			return;
 		}
 		// Free the executor, semantics, and parser and all the data
@@ -304,6 +310,10 @@ namespace internal{
 			Condor::Context* ctxt = CAST(Condor::Context*, context);
 			Condor::String* str = Condor::String::NewFromFile(iso, c.c_str());
 			Condor::Script* script = Condor::Script::Compile(ctxt, str);
+			
+			Script* internalScript = CAST(Script*, script);
+			internalScript->isInclude = true; // needed for throwing exceptions
+
 			script->Run();
 			include->Free(isolate);
 			parser->includes.erase(parser->includes.begin());

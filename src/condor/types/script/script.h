@@ -69,6 +69,7 @@ namespace internal{
 	public:
 		Script(Isolate* isolate, String* str, Context* con);
 		~Script(){}
+		bool isInclude; 
 		static Script* New(Context* context, String* str);
 		static void RunInternalScript(Isolate* isolate, std::string hex, std::string _name, std::string sub, bool isHex = true);
 		void Run();

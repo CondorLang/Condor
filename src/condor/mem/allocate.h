@@ -46,7 +46,7 @@ namespace internal{
 		Chunk* kFirstChunk;
 		Chunk* kLastChunk;
 		Chunk* kCursorChunk;
-		int kChunkCount;
+		unsigned int kChunkCount;
 		int counter;
 		std::map<byte*, Chunk*> kChunkOrg;
 		std::vector<Chunk*> kUnused;

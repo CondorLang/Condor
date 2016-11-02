@@ -22,7 +22,7 @@ namespace internal{
 	}
 
 	bool GC::InParentScopes(int id){
-		for (int i = 1; i < scopes.size(); i++){
+		for (unsigned int i = 1; i < scopes.size(); i++){
 			if (scopes[i]->scopeId == id) return true;
 		}
 		return false;
@@ -62,7 +62,7 @@ namespace internal{
 				}
 				case FUNC: {
 					ASTFunc* func = (ASTFunc*) node;
-					for (int i = 0; i < func->args.size(); i++){
+					for (unsigned int i = 0; i < func->args.size(); i++){
 						Dispose(isolate, func->args[i], true, objKeys);
 					}
 					Dispose(isolate, func->scope, true, objKeys);
@@ -86,7 +86,7 @@ namespace internal{
 				case FUNC_CALL: {
 					ASTFuncCall* call = (ASTFuncCall*) node;
 					if (call->func == NULL) return;
-					for (int i = 0; i < call->params.size(); i++){
+					for (unsigned int i = 0; i < call->params.size(); i++){
 						if (i < call->func->args.size() && call->params[i] == call->func->args[i]->GetLocal(false)){
 							call->func->args[i]->allowGC = false;
 						}
@@ -123,7 +123,7 @@ namespace internal{
 				}
 				case ARRAY: {
 					ASTArray* ary = (ASTArray*) node;
-					for (int i = 0; i < ary->members.size(); i++){
+					for (unsigned int i = 0; i < ary->members.size(); i++){
 						Dispose(isolate, ary->members[i], true);
 					}
 					break;

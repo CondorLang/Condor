@@ -1,1 +1,2 @@
 include "./tests/math"
+include "./tests/func.cb"

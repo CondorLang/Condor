@@ -1,0 +1,26 @@
+import "println" from "console"
+include "./print"
+
+println("\nTesting basic functions");
+println("=========================\n");
+
+func testA(){
+	return true;
+}
+
+func testB(bool val){
+	return val;
+}
+
+func testC(int a, int b){
+	return a + 1 == b;
+}
+
+func testD(string a, string b){
+	return a != b;
+}
+
+test("Function Call", testA());
+test("Function Call with Arguments", testB(true));
+test("Function Call with Arguments int type", testC(2, 3));
+test("Function Call with Arguments string type", testD("q", "r"));

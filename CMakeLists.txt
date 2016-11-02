@@ -18,6 +18,8 @@ macro(set_cpp_flag FLAG)
 endmacro()
 
 set_cpp_flag("--std=c++11")
+set_cpp_flag("-Wall")
+set_cpp_flag("-g")
 
 set(SOURCE_LIST
 	${SOURCE_DIR}/api.cc
