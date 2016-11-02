@@ -117,6 +117,7 @@ namespace internal{
 	public:
 		static ASTExpr* New(Isolate* iso);
 		ASTLiteral* cast;
+		bool isBoolean;
 		size_t Size(){return sizeof(ASTExpr);}
 	};
 
@@ -141,7 +142,6 @@ namespace internal{
 		ASTExpr* left;
 		ASTExpr* right;
 		TOKEN op;
-		bool isBoolean;
 		bool isChain;
 		size_t Size(){return sizeof(ASTBinaryExpr);}
 	};

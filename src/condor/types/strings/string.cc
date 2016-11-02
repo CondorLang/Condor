@@ -48,7 +48,7 @@ namespace internal{
 		std::vector<std::string> result;
 		int start = 0;
 		std::string tmp;
-		for (int i = 0; i < str.length(); i++){
+		for (unsigned int i = 0; i < str.length(); i++){
 			if (str[i] == delimiter){
 				tmp = str.substr(start, i - start);
 				result.push_back(tmp);

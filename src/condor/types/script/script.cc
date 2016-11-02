@@ -212,8 +212,7 @@ namespace internal{
 		std::string u2 = UNDERLINE_STOP;
 		int r = 1;
 		int c = 1;
-		bool carrot = false;
-		for (int i = 0; i < src.length(); i++){
+		for (unsigned int i = 0; i < src.length(); i++){
 			if (src[i] == '\t') src[i] = ' ';
 			if (r == row - 1 || r == row){
 				result += src[i];
@@ -272,7 +271,7 @@ namespace internal{
 				Scope* injected = context->injectedScopes[0];
 				if (import->what.size() == 0 || import->what[0] == "*") base->Merge(injected);
 				else{
-					for (int i = 0; i < import->what.size(); i++){
+					for (unsigned int i = 0; i < import->what.size(); i++){
 						for (int j = 0; j < injected->Size(); j++){
 							if (injected->Get(j)->name == import->what[i] && injected->Get(j)->isExport) {
 								injected->Get(j)->importScopeId = injected->scopeId;

@@ -24,7 +24,7 @@ namespace internal{
 		static CBClockContainer* GlobalClockContainer;
 		std::vector<Clock*> Clocks;
 		int AddClock();
-		Clock* GetClock(int i){if (Clocks.size() <= i) return NULL; return Clocks[i];}
+		Clock* GetClock(unsigned int i){if (Clocks.size() <= i) return NULL; return Clocks[i];}
 	};
 
 } // namespace internal

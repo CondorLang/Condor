@@ -149,7 +149,7 @@ namespace internal{
 		CHECK(expr != NULL);
 		SetRowCol(expr);
 		ValidateExpr((ASTExpr*) expr->value);
-		for (int i = 0; i < expr->cases.size(); i++){
+		for (unsigned int i = 0; i < expr->cases.size(); i++){
 			ValidateCase(expr->cases[i]);
 		}
 	}
@@ -185,7 +185,7 @@ namespace internal{
 			ASTArray* ary = (ASTArray*) var->value;
 			CHECK(ary != NULL);
 			if (ary->type != UNDEFINED){
-				for (int i = 0; i < ary->members.size(); i++){
+				for (unsigned int i = 0; i < ary->members.size(); i++){
 					ValidateExpr(ary->members[i]);
 				}
 			}
@@ -267,9 +267,9 @@ namespace internal{
 		indent++;
 		ValidateBoolean((ASTBinaryExpr*) expr->condition);
 		expr->scope = Parse(expr->scope);
-		expr->scope->InsertBefore(expr->tick);
-		expr->scope->InsertBefore(expr->condition);
-		expr->scope->InsertBefore(expr->var);
+		expr->scope->InsertBefore(expr->tick); // i++
+		expr->scope->InsertBefore(expr->condition); // i < 10;
+		expr->scope->InsertBefore(expr->var); // var i = 0;
 		ScanScope(expr->scope);
 		expr->scope->Remove(expr->tick);
 		expr->scope->Remove(expr->condition);
@@ -294,14 +294,14 @@ namespace internal{
 		expr->scope = Parse(expr->scope);
 		ScanScope(expr->scope);
 		indent--;
-		for (int i = 0; i < expr->elseIfs.size(); i++) ValidateIf(expr->elseIfs[i]);
+		for (unsigned int i = 0; i < expr->elseIfs.size(); i++) ValidateIf(expr->elseIfs[i]);
 	}
 
 	TOKEN Semantics::ValidateBinary(ASTBinaryExpr* expr){
 		CHECK(expr != NULL);
 		if (expr->op == PERIOD) return ValidateObjectChain(expr);;
 		SetRowCol(expr);
-		TOKEN left = ValidateExpr(expr->left);
+		ValidateExpr(expr->left);
 		isThis = false; // TODO: Verify this is ok and always true
 
 		staticRequired = false;
@@ -313,7 +313,7 @@ namespace internal{
 			inObject = false;
 		}
 
-		TOKEN right = ValidateExpr(expr->right);
+		ValidateExpr(expr->right);
 
 		if (working){
 			SwapScopes();
@@ -350,7 +350,7 @@ namespace internal{
 				throw Error::UNDEFINED_VARIABLE; 
 			}
 		}
-		for (int i = 0; i < nodes.size(); i++){
+		for (unsigned int i = 0; i < nodes.size(); i++){
 			if ((!isThis && !expr->allowAccess) && nodes[i]->HasVisibility(PRIVATE)) throw Error::UNABLE_TO_ACCESS_PRIVATE_MEMBER;
 			if ((nodes[i]->type == VAR || nodes[i]->type == OBJECT)) {
 				expr->var = (ASTVar*) nodes[i];
@@ -377,7 +377,7 @@ namespace internal{
 		int funcs = 0;
 		std::vector<ASTNode*> nodes = GetCurrentScope()->Lookup(expr->name);
 		if (isConstructor){
-			for (int i = 0; i < nodes.size(); i++){
+			for (unsigned int i = 0; i < nodes.size(); i++){
 				if (nodes[i]->type == OBJECT){
 					ASTObject* obj = (ASTObject*) nodes[i];
 					if (!obj->scope->IsParsed()) obj->scope = Parse(obj->scope);
@@ -389,21 +389,21 @@ namespace internal{
 		}
 
 		if (nodes.size() == 0) throw Error::UNDEFINED_FUNC;
-		for (int i = 0; i < nodes.size(); i++){ // count functions, if funcs > 1, then worry about the parameters
+		for (unsigned int i = 0; i < nodes.size(); i++){ // count functions, if funcs > 1, then worry about the parameters
 			if (nodes[i]->type == FUNC) funcs++;
 		}
 
 		std::vector<TOKEN> params;
 		if (expr->params.size() > 0){
 			Trace("Validating Func Call Params For", expr->name.c_str());
-			for (int j = 0; j < expr->params.size(); j++) {
+			for (unsigned int j = 0; j < expr->params.size(); j++) {
 				TOKEN type = ValidateExpr(expr->params[j]);
 				params.push_back(type);
 			}
 		}
 		SetRowCol(expr);
 
-		for (int i = 0; i < nodes.size(); i++){
+		for (unsigned int i = 0; i < nodes.size(); i++){
 			if (nodes[i]->type == FUNC){
 				if (staticRequired && !nodes[i]->HasVisibility(STATIC)) continue;
 				ASTFunc* func = (ASTFunc*) nodes[i];
@@ -412,9 +412,8 @@ namespace internal{
 
 				if (funcs > 1){ // if more than one function exists in the object, then we'll check parameters
 					if (func->args.size() < params.size()) continue;
-					for (int j = 0; j < func->args.size(); j++){
+					for (unsigned int j = 0; j < func->args.size(); j++){
 						if (j < params.size()){
-							ASTVar* base = func->args[j];
 							if (func->args[j]->baseType != VAR && func->args[j]->baseType != params[j]) {
 								notIt = true;
 							}
@@ -443,7 +442,7 @@ namespace internal{
 		func->progressDepth++;
 		if (func->progressDepth > 1) return;
 		if ((func->scope->IsParsed() || !parse) && !func->scope->IsShallow()) {
-			for (int i = 0; i < func->args.size(); i++){ // validate args
+			for (unsigned int i = 0; i < func->args.size(); i++){ // validate args
 				ASTNode* arg = func->args[i];
 				bool found = false;
 				for (int j = 0; j < func->scope->Size(); j++){
@@ -469,7 +468,7 @@ namespace internal{
 		}
 		if (func->scope->outer == NULL) func->scope->outer = GetCurrentScope(); // this will happen ?
 		if (func->scope->owner == NULL) func->scope->owner = func;
-		for (int i = 0; i < func->args.size(); i++){
+		for (unsigned int i = 0; i < func->args.size(); i++){
 			ASTVar* var = (ASTVar*) func->args[i];
 			var->isArg = true;
 			var->order = i;
@@ -484,7 +483,7 @@ namespace internal{
 		else if (returns.size() == 1 && isConstructor) throw Error::NO_RETURN_STMTS_IN_CONSTRUCTOR;
 		else if (returns.size() == 1 && !isConstructor) {
 			ASTVar* r = (ASTVar*) returns[0];
-			TOKEN castType = GetCastType(r);
+			GetCastType(r);
 			func->assignmentType = ((ASTVar*) returns[0])->assignmentType;
 		}
 		func->progressDepth--;
@@ -513,7 +512,7 @@ namespace internal{
 		CHECK(expr != NULL);
 		if (expr->members.size() == 0) return UNDEFINED;
 		TOKEN type = ValidateExpr(expr->members[0]);
-		for (int i = 1; i < expr->members.size(); i++){
+		for (unsigned int i = 1; i < expr->members.size(); i++){
 			TOKEN tmpType = ValidateExpr(expr->members[i]);
 			SetRowCol(expr->members[i]);
 			if (type != tmpType) throw Error::INVALID_ARRAY_MEMBER;
@@ -549,7 +548,7 @@ namespace internal{
 		std::vector<ASTNode*> nodes = GetCurrentScope()->Lookup(var->baseName);
 		ASTObject* base = NULL;
 		if (nodes.size() > 1){
-			for (int i = 0; i < nodes.size(); i++){ // get the base object
+			for (unsigned int i = 0; i < nodes.size(); i++){ // get the base object
 				ASTObject* obj = (ASTObject*) nodes[i];
 				if (obj->type == OBJECT && !obj->extend){
 					base = obj;
@@ -558,7 +557,7 @@ namespace internal{
 			CHECK(base != NULL);
 			base->scope = Parse(base->scope);
 			ScanScope(base->scope);
-			for (int i = 0; i < nodes.size(); i++){
+			for (unsigned int i = 0; i < nodes.size(); i++){
 				ASTObject* obj = (ASTObject*) nodes[i];
 				if (obj->type == OBJECT && obj->extend){
 					ValidateExtend(base, obj);
@@ -606,7 +605,7 @@ namespace internal{
 	TOKEN Semantics::ValidateObjectChain(ASTBinaryExpr* expr){
 		CHECK(expr != NULL);
 		SetRowCol(expr);
-		Scope* s = GetCurrentScope();
+		// Scope* s = GetCurrentScope();
 		ValidateExpr(expr->left);
 		ASTObject* obj = GetObject(expr->left);
 		bool allowAccess = false;
@@ -680,7 +679,7 @@ namespace internal{
 				if (obj == NULL && var->baseName.length() > 0){ // object chain (apple.class.name)
 					Scope* s = GetCurrentScope();
 					std::vector<ASTNode*> results = s->Lookup(var->baseName);
-					for (int i = 0; i < results.size(); i++){
+					for (unsigned int i = 0; i < results.size(); i++){
 						if (results[i]->type == OBJECT){
 							obj = (ASTObject*) results[i];
 							break;
@@ -774,7 +773,7 @@ namespace internal{
 	TOKEN Semantics::ValidateInternal(ASTFuncCall* call){
 		CHECK(call != NULL);
 		TOKEN t = Internal::Bind(call);
-		for (int i = 0; i < call->params.size(); i++) ValidateExpr(call->params[i]);
+		for (unsigned int i = 0; i < call->params.size(); i++) ValidateExpr(call->params[i]);
 		Trace("  Type: ", "Internal");
 		return t;
 	}

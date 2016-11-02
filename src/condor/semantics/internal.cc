@@ -279,7 +279,7 @@ namespace internal{
 		std::vector<std::string> paths = FS::ReadDir(dirPath, recursive);
 		ASTArray* result = ASTArray::New(iso);
 		result->litType = ARRAY;
-		for (int i = 0; i < paths.size(); i++){
+		for (unsigned int i = 0; i < paths.size(); i++){
 			ASTLiteral* path = ASTLiteral::New(iso);
 			path->litType = STRING;
 			path->value = paths[i];

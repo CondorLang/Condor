@@ -7,6 +7,7 @@
 
 namespace Condor{
 namespace internal{
+
 	Scope::Scope(){
 		isParsed = false;
 		outer = NULL;
@@ -17,6 +18,8 @@ namespace internal{
 	Scope::~Scope(){
 		
 	}
+
+	int Scope::scopeIdInc = 1;
 
 	Scope* Scope::New(Isolate* isolate){
 		void* pt = isolate->GetMemory(sizeof(Scope));
@@ -45,7 +48,7 @@ namespace internal{
 
 	std::vector<ASTNode*> Scope::Lookup(std::string name, bool deep, bool exported){
 		std::vector<ASTNode*> results;
-		for (int i = 0; i < nodes.size(); i++){
+		for (unsigned int i = 0; i < nodes.size(); i++){
 			if (exported && nodes[i]->name == name && nodes[i]->isExport) results.push_back(nodes[i]);
 			else if (!exported && nodes[i]->name == name) results.push_back(nodes[i]);
 		}		
@@ -57,16 +60,13 @@ namespace internal{
 			std::vector<ASTNode*> kNodes = isolate->GetContext()->Lookup(this, name);
 			if (kNodes.size() > 0) results.insert(results.end(), kNodes.begin(), kNodes.end());
 		}
-		if (results.empty()){
-			int a = 10;
-		}
 		return results;
 	}
 
 	void Scope::Merge(Scope* scope, bool exportedOnly){
 		if (scope == NULL) return;
 		std::vector<ASTNode*> kNodes = scope->GetNodes();
-		for (int i = 0; i < kNodes.size(); i++){
+		for (unsigned int i = 0; i < kNodes.size(); i++){
 			kNodes[i]->importScopeId = scope->scopeId;
 			if (exportedOnly && kNodes[i]->isExport) nodes.insert(nodes.begin(), kNodes[i]);
 		}
@@ -74,7 +74,7 @@ namespace internal{
 	}
 
 	void Scope::Destroy(ASTNode* node){
-		for (int i = 0; i < nodes.size(); i++){
+		for (unsigned int i = 0; i < nodes.size(); i++){
 			if (nodes[i] == node) {
 				node->Free(isolate);
 				nodes.erase(nodes.begin() + i);
@@ -89,16 +89,16 @@ namespace internal{
 
 	void Scope::RemoveAllAfter(ASTNode* node){
 		bool found = false;
-		int idx = -1;
-		for (int i = 0; i < nodes.size(); i++){
+		unsigned int idx = 0;
+		for (unsigned int i = 0; i < nodes.size(); i++){
 			if (nodes[i] == node) {
 				found = true;
 				idx = i + 1;
 				break;
 			}
 		}
-		if (idx != -1 && nodes.size() > idx){
-			for (int i = nodes.size(); i >= idx; i--){
+		if (found && nodes.size() > idx){
+			for (unsigned int i = nodes.size(); i >= idx; i--){
 				ASTNode* node = nodes[i];
 				node->Free(isolate);
 				if (nodes.size() == i){
@@ -112,7 +112,7 @@ namespace internal{
 	}
 
 	void Scope::Remove(ASTNode* node){
-		for (int i = 0; i < nodes.size(); i++){
+		for (unsigned int i = 0; i < nodes.size(); i++){
 			if (nodes[i] == node){
 				nodes.erase(nodes.begin() + i);
 				break;

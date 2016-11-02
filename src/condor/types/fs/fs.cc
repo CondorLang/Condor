@@ -62,7 +62,6 @@ namespace internal{
 
 	bool FS::IsDir(std::string path){
 		DIR *dir;
-		struct dirent* ent;
 		if ((dir = opendir (path.c_str())) != NULL) {
 		  closedir(dir);
 		  return true;

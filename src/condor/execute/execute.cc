@@ -35,7 +35,7 @@ namespace internal{
 	void Execute::Trace(std::string first, std::string msg2){
 		if (trace) {
 			std::string tabs = "";
-			for (int i = 0; i < scopes.size(); i++) tabs += "  ";
+			for (unsigned int i = 0; i < scopes.size(); i++) tabs += "  ";
 			printf("%s%s - %s\n", tabs.c_str(), first.c_str(), msg2.c_str());
 		}
 	}
@@ -103,7 +103,7 @@ namespace internal{
 		if (func == NULL && call->isInternal){ // internal
 			std::vector<ASTLiteral*> nodes;
 			if (call->params.size() > 0) {
-				for (int i = 0; i < call->params.size(); i++){
+				for (unsigned int i = 0; i < call->params.size(); i++){
 					ASTLiteral* lit = EvaluateValue(call->params[i]);
 					SetLitType(lit);
 					FormatLit(lit);
@@ -118,7 +118,7 @@ namespace internal{
 		}
 		else{
 			if (func == NULL) throw Error::UNDEFINED_FUNC;
-			for (int i = 0; i < func->args.size(); i++){
+			for (unsigned int i = 0; i < func->args.size(); i++){
 				PrintStep("Evaluating Parameter (" + func->args[i]->name + ")");
 				if (call->params.size() > i) {
 					ASTLiteral* lit = EvaluateValue(call->params[i]);
@@ -221,7 +221,7 @@ namespace internal{
 		if (lit->litType == STRING) return;
 		std::string::size_type loc = lit->value.find(".", 0);
 		if (loc == std::string::npos) return;
-		for (int i = lit->value.size() - 1; i >= loc; i--){
+		for (unsigned int i = lit->value.size() - 1; i >= loc; i--){
 			if (lit->value[i] == '0') lit->value.erase(i);
 			else break;
 		}
@@ -238,7 +238,6 @@ namespace internal{
 			left = (ASTLiteral*) binary->left;
 		}
 		else{
-			int a = 10;
 			left = EvaluateValue(binary->left);
 		}
 		ASTToken* tok = ASTToken::New(isolate, binary->op);
@@ -299,7 +298,7 @@ namespace internal{
 		}
 
 		std::vector<int> periods;
-		for (int i = 0; i < stack->stack.size(); i++){
+		for (unsigned int i = 0; i < stack->stack.size(); i++){
 			if (stack->stack[i]->type == TOK){
 				ASTToken* tok = (ASTToken*) stack->stack[i];
 				if (tok->value->value == PERIOD) periods.push_back(i); // push index
@@ -309,7 +308,7 @@ namespace internal{
 		// --rpn-stack flag
 		if (rpnStack){
 			printf("\nStack Size: %lu\n", stack->stack.size());
-			for (int i = 0; i < stack->stack.size(); i++){
+			for (unsigned int i = 0; i < stack->stack.size(); i++){
 				ASTNode* n = stack->stack[i];
 				if (n->type == TOK){
 					ASTToken* tok = (ASTToken*) n;
@@ -336,7 +335,7 @@ namespace internal{
 		if (rpnStack) printf("\n--- Evaluating ---\n");
 
 		// opStack is now the stack
-		for (int i = 0; i < stack->stack.size(); i++){
+		for (unsigned int i = 0; i < stack->stack.size(); i++){
 			ASTNode* n = stack->stack[i];
 
 			if (n->type == TOK){
@@ -355,8 +354,8 @@ namespace internal{
 				ASTLiteral* lit = NULL;
 
 				bool next = false;
-				for (int j = 0; j < periods.size(); j++){
-					if (periods[j] == i + 1){
+				for (unsigned int j = 0; j < periods.size(); j++){
+					if (periods[j] == ((int) i + 1)){
 						next = true;
 						break;
 					}
@@ -412,9 +411,6 @@ namespace internal{
 		RPNStack* stack = GetCurrentStack();
 		int type = (int) tok->value->value;
 		if (stack->opStack.size() < 2 && tok->value->value != NOT) throw Error::INVALID_OPERATOR;
-		if (tok->value->value == NOT){
-			int a = 10;
-		}
 		ASTLiteral* first = (ASTLiteral*) stack->opStack[stack->opStack.size() - 1];
 		ASTLiteral* second = NULL;
 		stack->opStack.pop_back();
@@ -536,7 +532,6 @@ namespace internal{
 			case ADD_ASSIGN: case SUB_ASSIGN: 
 			case DIV_ASSIGN: case MUL_ASSIGN: {
 				ASTVar* var = GetVar(binary->left);
-				ASTLiteral* l = (ASTLiteral*) binary->right;
 				ASTLiteral* lit = EvaluateValue(binary->right);
 				if (var == NULL || !var->HasLocal()) {
 					SetRowCol(binary->left);
@@ -831,7 +826,7 @@ namespace internal{
 			return true;
 		}
 		else{
-			for (int i = 0; i < expr->elseIfs.size(); i++){
+			for (unsigned int i = 0; i < expr->elseIfs.size(); i++){
 				if (EvaluateIf(expr->elseIfs[i])) break;
 			}
 		}
@@ -843,7 +838,7 @@ namespace internal{
 		SetRowCol(expr);
 		Trace("Evaluating", "Switch");
 		ASTLiteral* value = EvaluateValue(expr->value);
-		for (int i = 0; i < expr->cases.size(); i++){
+		for (unsigned int i = 0; i < expr->cases.size(); i++){
 			ASTLiteral* condition = EvaluateValue(expr->cases[i]->condition);
 			ASTCase* stmt = expr->cases[i];
 			SetRowCol(stmt);

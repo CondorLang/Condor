@@ -181,7 +181,6 @@ namespace internal{
 		if (!Is(2, IMPORT, INCLUDE)) return;
 		bool isImport = false;
 		bool group = false;
-		bool includeBrace = true;
 		Trace("Parsing", "Imports");
 		isImport = Is(1, IMPORT);
 		while (true){
@@ -314,7 +313,7 @@ namespace internal{
 					}
 					std::vector<ASTVar*> list = ParseVarList();
 					CHECK(list.size() > 0);
-					for (int i = 0; i < list.size(); i++){
+					for (unsigned int i = 0; i < list.size(); i++){
 						list[i]->isExport = isExport;
 						list[i]->visibility.insert(list[i]->visibility.end(), visibility.begin(), visibility.end());
 						scope->Insert(list[i]);
@@ -542,7 +541,6 @@ namespace internal{
 	ASTExpr* Parser::ParseBinaryExpr(bool semi){
 		Trace("Parsing", "Binary Expression");
 		ASTExpr* expr = NULL;
-		bool pre = true;
 		TOKEN unary = UNDEFINED;
 		bool incdec = Is(2, INC, DEC);
 		ASTLiteral* cast = NULL;
@@ -655,7 +653,7 @@ namespace internal{
 		if (tok->raw.length() > 0) Trace("Parsing Literal", tok->raw.c_str());
 		else Trace("Parsing Literal", tok->String().c_str());
 		lit->litType = tok->value;
-		//if (lit->value.size() == 0) lit->value = tok->String();
+		// if (lit->value.size() == 0) lit->value = tok->String();
 		//if (lit->value == Token::ToString(lit->litType)) lit->isCast = true;
 		Next();
 		return lit;

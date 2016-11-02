@@ -32,7 +32,7 @@ namespace internal{
 		Isolate* isolate;
 		char ch;
 		int offset;
-		int readOffset;
+		unsigned int readOffset;
 		int row;
 		int col;
 
@@ -44,6 +44,7 @@ namespace internal{
 		void Error(std::string err);
 		void ScanComments(bool star);
 		void ScanWhiteSpaces();
+		void CheckEOF(char c);
 		std::string ScanEscape();
 		std::string LookAhead(int len);
 		std::string Substr(int start, int end);

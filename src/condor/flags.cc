@@ -43,6 +43,7 @@ namespace internal{
 				printf("--execution-steps\t%s\n", "Traces every execution step");
 				printf("--rpn-stack\t\t%s\n", "Prints the reverse polish notation stack");
 				printf("--print-gc-ids\t\t%s\n", "Prints all the Ids of nodes from GC");
+				exit(0);
 			}
 			else if (arg.find("-") != std::string::npos || arg.find("-") != std::string::npos){
 				printf("Unidentified flag\nExiting...\n");

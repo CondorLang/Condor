@@ -20,8 +20,6 @@ namespace internal{
 	class Type;
 	class Context;
 
-	static int scopeIdInc = 1;
-
 	class Scope
 	{
 	private:
@@ -33,6 +31,7 @@ namespace internal{
 	public:
 		Scope();
 		~Scope();
+		static int scopeIdInc;
 		Scope* outer;
 		std::string raw;
 		std::string name;
