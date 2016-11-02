@@ -1,2 +1,1 @@
-import {"println", "readln"} from "console"
 include "./tests/math"

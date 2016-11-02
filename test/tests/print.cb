@@ -1,6 +1,8 @@
-import "println" from "console";
+import "println" from "console"
 
 export func test(string name, bool isSuccess){
 	if (isSuccess) println(name + " - Success");
 	else println(name + " - failed");
 }
+
+test("Apple", true);
