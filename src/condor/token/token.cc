@@ -269,9 +269,10 @@ namespace internal{
 
 	bool Token::IsRawNumber(){
 		if (raw.length() > 0) {
-			std::string::const_iterator it = raw.begin();
-	    while (it != raw.end() && std::isdigit(*it)) ++it;
-	    return !raw.empty() && it == raw.end();
+			for (unsigned int i = 0; i < raw.length(); i++){
+				if (!std::isdigit(raw[i]) && raw[i] != '.') return false;
+			}
+			return true;
 		}
 		return false;
 	}

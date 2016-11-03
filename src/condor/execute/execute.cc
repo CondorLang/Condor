@@ -468,7 +468,7 @@ namespace internal{
 					case DIV:	result->calc = second->calc / first->calc; break;
 					case MUL:	result->calc = second->calc * first->calc; break;
 					case SUB:	result->calc = second->calc - first->calc; break;
-					case MOD:	result->calc = (int) second->calc % (int) first->calc; break;
+					case MOD: 	result->calc = fmod(second->calc, first->calc); break;
 					case LOR:	result->calc = second->calc == 0 || first->calc == 0; break;
 					case LAND:  result->calc = second->calc != 0 && first->calc != 0; break;
 					case EQL:	result->calc = second->calc == first->calc; break;
