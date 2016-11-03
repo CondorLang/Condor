@@ -47,6 +47,7 @@ namespace internal{
 		ASTLiteral* l = ASTLiteral::New(iso);
 		l->litType = STRING;
 		l->value = Token::ToString(v->litType);
+		if (l->value == "false" || l->value == "true") l->value = "boolean";
 		return l;
 	}
 

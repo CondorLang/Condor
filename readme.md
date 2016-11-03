@@ -57,19 +57,21 @@ The run CondorLang, use the following commands.
 
 Todo:
 ------
- - node.h 28 - Create a Expand() function which expands the node and the tree
- - execute.cc 121 - Figure out how to implement recursion
- - execute.cc 220 - Set row and col for tracking
- - execute.cc 469 - Implement null, undefined, and other types
- - execute.cc 500 - Implement bitwise
- - parser.cc 914 - Disallow for allow-native on a non internal file
- - scanner.cc 466 - Include Octal, Hex, UTF-8, UTF-16, see https://msdn.microsoft.com/en-us/library/6aw8xdf2.aspx
+ - semantics.cc 167 - recursive
+ - semantics.cc 305 - Verify this is ok and always true
+ - semantics.cc 688 - Is this true always?
+ - semantics.cc 730 - Compare the base type with the assignment type. Throw an error if they are not the same if hard typed.
+ - semantics.cc 763 - Incomplete crawling of all types.
  - internal.cc 140 - Throw Error
  - internal.cc 152 - Throw Error
  - internal.cc 164 - Throw Error
- - internal.cc 298 - Move to a macro
- - semantics.cc 299 - Verify this is ok and always true
- - semantics.cc 673 - Is this true always?
- - semantics.cc 715 - Compare the base type with the assignment type. Throw an error if they are not the same if hard typed.
- - path.cc 24 - Set Locale - http://askubuntu.com/questions/236924/matlab-not-working
- - path.cc 78 - Throw Error
+ - internal.cc 309 - Implement thread sleep
+ - internal.cc 347 - Move to a macro
+ - execute.cc 231 - Set row and col for tracking
+ - execute.cc 480 - Implement null, undefined, and other types
+ - execute.cc 511 - Implement bitwise
+ - parser.cc 913 - Disallow for allow-native on a non internal file
+ - path.cc 20 - Set Locale - http://askubuntu.com/questions/236924/matlab-not-working
+ - path.cc 88 - Throw Error
+ - scanner.cc 482 - Include Octal, Hex, UTF-8, UTF-16, see https://msdn.microsoft.com/en-us/library/6aw8xdf2.aspx
+ - node.h 28 - Create a Expand() function which expands the node and the tree

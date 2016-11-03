@@ -470,14 +470,14 @@ namespace internal{
 					case SUB:	result->calc = second->calc - first->calc; break;
 					case MOD:	result->calc = (int) second->calc % (int) first->calc; break;
 					case LOR:	result->calc = second->calc == 0 || first->calc == 0; break;
-					case LAND:result->calc = second->calc != 0 && first->calc != 0; break;
+					case LAND:  result->calc = second->calc != 0 && first->calc != 0; break;
 					case EQL:	result->calc = second->calc == first->calc; break;
 					case LSS:	result->calc = second->calc < first->calc; break;
-					case GTR: result->calc = second->calc > first->calc; break;
-					case LEQ: result->calc = second->calc <= first->calc; break;
-					case GEQ: result->calc = second->calc >= first->calc; break;
-					case NEQ: result->calc = second->calc != first->calc; break;
-					case NOT: result->calc = first->value == "true" ? 0 : 1; break; // TODO: Implement null, undefined, and other types
+					case GTR: 	result->calc = second->calc > first->calc; break;
+					case LEQ: 	result->calc = second->calc <= first->calc; break;
+					case GEQ: 	result->calc = second->calc >= first->calc; break;
+					case NEQ: 	result->calc = second->calc != first->calc; break;
+					case NOT: 	result->calc = first->value == "true" ? 0 : 1; break; // TODO: Implement null, undefined, and other types
 					default: {
 						printf("debug int: %s\n", Token::ToString(tok->value->value).c_str());
 					}
@@ -492,7 +492,7 @@ namespace internal{
 					case LOR:	result->calc = second->value.length() > 0 || first->value.length() > 0; break;
 					case LAND:	result->calc = second->value.length() != 0 && first->value.length() != 0; break;
 					case EQL:	result->calc = second->value == first->value; break;
-					case NEQ: result->calc = second->value != first->value; break;
+					case NEQ: 	result->calc = second->value != first->value; break;
 					default: {
 						printf("debug string: %s\n", Token::ToString(tok->value->value).c_str());
 					}

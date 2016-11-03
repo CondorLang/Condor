@@ -74,6 +74,7 @@ namespace internal{
 		void ValidateCase(ASTCase* expr);
 		std::string GetBaseName(ASTExpr* expr);
 		TOKEN GetCastType(ASTNode* node);
+		void SetToType(TOKEN type, ASTNode* node);
 
 	public:
 		Semantics(Isolate* iso);

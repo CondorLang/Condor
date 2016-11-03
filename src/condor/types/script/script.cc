@@ -256,6 +256,7 @@ namespace internal{
 			ASTImport* import = parser->imports[0];
 			std::vector<std::string> splits = String::Split(import->name, '.');
 			std::string name = splits[0];
+			// if (isolate->GetContext()->IsIncluded(name)) continue; // don't import anything twice
 			std::string sub = "";
 
 			if (splits.size() > 1) sub = splits[1];
@@ -304,6 +305,7 @@ namespace internal{
 			if (include->name.length() < 1) throw Error::INVALID_INCLUDE;
 			if (include->name.find(".cb") == std::string::npos) include->name += ".cb";
 			std::string c = path->GetFromBase(include->name);
+			// if (isolate->GetContext()->IsIncluded(c)) continue; // don't include anything twice
 			if (!FS::FileExists(c)) throw Error::FILE_DOES_NOT_EXIST;
 
 			Condor::Isolate* iso = CAST(Condor::Isolate*, isolate);

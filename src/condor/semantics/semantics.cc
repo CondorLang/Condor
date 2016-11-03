@@ -754,6 +754,34 @@ namespace internal{
 											 assign != BOOLEAN) throw Error::INVALID_DOUBLE_ASSIGNMENT; break;
 			case ARRAY: if (assign != ARRAY) throw Error::INVALID_ARRAY_ASSIGNMENT; break;
 		}
+		if (var->baseType == DOUBLE && var->assignmentType == FLOAT){
+			var->assignmentType = DOUBLE;
+			SetToType(DOUBLE, var);
+		}
+	}
+
+	// TODO: Incomplete crawling of all types.
+	void Semantics::SetToType(TOKEN type, ASTNode* node){
+		CHECK(node != NULL);
+		int whichType = (int) node->type;
+		switch (whichType){
+			case LITERAL: {
+				ASTLiteral* lit = (ASTLiteral*) node;
+				lit->litType = type;
+				break;
+			}
+			case VAR: {
+				ASTVar* var = (ASTVar*) node;
+				SetToType(type, var->value);
+				break;
+			}
+			case BINARY: {
+				ASTBinaryExpr* binary = (ASTBinaryExpr*) node;
+				SetToType(type, binary->left);
+				SetToType(type, binary->right);
+				break;
+			}
+		}
 	}
 
 	TOKEN Semantics::ValidateWhile(ASTWhileExpr* expr){

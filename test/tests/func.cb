@@ -20,7 +20,18 @@ func testD(string a, string b){
 	return a != b;
 }
 
+func testE(){
+	return testC(2, 3) == testC(3, 4);
+}
+
+func testF(int num){
+	if (num > 10) return num > 10;
+	return testF(num + 1);
+}
+
 test("Function Call", testA());
 test("Function Call with Arguments", testB(true));
 test("Function Call with Arguments int type", testC(2, 3));
 test("Function Call with Arguments string type", testD("q", "r"));
+test("Multiple Function Call", testE());
+test("Recursive Function Call", testF(1));

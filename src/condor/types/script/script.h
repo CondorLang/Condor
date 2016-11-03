@@ -78,6 +78,7 @@ namespace internal{
 		void Compile();
 		void SetSub(std::string sub){subModule = sub;}
 		void Free(Isolate* isolate);
+		std::string GetName(){return name;}
 	};
 
 	namespace Sizes{

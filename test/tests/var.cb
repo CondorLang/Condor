@@ -1,0 +1,20 @@
+import {"println", "print"} from "console"
+import "type" from "types"
+include "./print"
+
+println("\nVariable Tests");
+println("================\n");
+
+string a = "10";
+int b = 10;
+double ccc = 11.0;
+float d = 10.0;
+bool e = false;
+char f = 'a';
+
+test("String", type(a) == "string");
+test("int", type(b) == "int");
+test("double", type(ccc) == "double");
+test("float", type(d) == "float");
+test("bool", type(e) == "boolean");
+test("char", type(f) == "char");
