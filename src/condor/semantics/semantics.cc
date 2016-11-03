@@ -108,6 +108,7 @@ namespace internal{
 		OpenScope(scope);
 		for (int i = 0; i < scope->Size(); i++){
 			ASTNode* node = scope->Get(i);
+			TRACK(node);
 			SetRowCol(node);
 			int type = (int) node->type;
 			switch (type){
@@ -137,6 +138,7 @@ namespace internal{
 
 	void Semantics::ValidateCase(ASTCase* expr){
 		Trace("Validating", "Case");
+		TRACK(expr);
 		CHECK(expr != NULL);
 		SetRowCol(expr);
 		if (expr->isDefault && expr->condition != NULL) throw Error::INVALID_DEFAULT_STMT;
@@ -146,6 +148,7 @@ namespace internal{
 
 	void Semantics::ValidateSwitch(ASTSwitch* expr){
 		Trace("Validating", "Switch");
+		TRACK(expr);
 		CHECK(expr != NULL);
 		SetRowCol(expr);
 		ValidateExpr((ASTExpr*) expr->value);
@@ -156,6 +159,7 @@ namespace internal{
 
 	void Semantics::ValidateVar(ASTVar* var){
 		SetRowCol(var);
+		TRACK(var);
 		CHECK(var != NULL);
 		var->scopeId = GetCurrentScope()->scopeId;
 		if (var->isObject && var->value->type == FUNC_CALL){
@@ -206,6 +210,7 @@ namespace internal{
 
 	std::string Semantics::GetBaseName(ASTExpr* expr){
 		if (expr == NULL) return NULL;
+		TRACK(expr);
 		int type = (int) expr->type;
 		switch (type){
 			case FUNC_CALL: {
@@ -227,6 +232,7 @@ namespace internal{
 	TOKEN Semantics::ValidateExpr(ASTExpr* expr){
 		SetRowCol(expr);
 		if (expr == NULL) return UNDEFINED;
+		TRACK(expr);
 		if (expr->cast != NULL) ValidateCast(expr);
 		int type = (int) expr->type;
 		switch (type){
@@ -246,6 +252,7 @@ namespace internal{
 
 	TOKEN Semantics::ValidateLiteral(ASTLiteral* lit){
 		SetRowCol(lit);
+		TRACK(lit);
 		Trace("Literal Value", lit->value.c_str());
 		int type = (int) lit->litType;
 		TOKEN result = UNDEFINED;
@@ -262,6 +269,7 @@ namespace internal{
 
 	void Semantics::ValidateFor(ASTForExpr* expr){
 		CHECK(expr != NULL);
+		TRACK(expr);
 		SetRowCol(expr);
 		Trace("Validating", "For");
 		indent++;
@@ -285,6 +293,7 @@ namespace internal{
 	void Semantics::ValidateIf(ASTIf* expr){
 		if (expr == NULL) return;
 		SetRowCol(expr);
+		TRACK(expr);
 		Trace("Validating", "If");
 		if (!expr->isElse){
 			ValidateExpr(expr->condition);
@@ -299,6 +308,7 @@ namespace internal{
 
 	TOKEN Semantics::ValidateBinary(ASTBinaryExpr* expr){
 		CHECK(expr != NULL);
+		TRACK(expr);
 		if (expr->op == PERIOD) return ValidateObjectChain(expr);;
 		SetRowCol(expr);
 		ValidateExpr(expr->left);
@@ -324,6 +334,7 @@ namespace internal{
 
 	TOKEN Semantics::ValidateIdent(ASTLiteral* expr){
 		CHECK(expr != NULL);
+		TRACK(expr);
 		SetRowCol(expr);
 		expr->name = expr->value;
 		Trace("Validating Ident", expr->name.c_str());
@@ -370,6 +381,7 @@ namespace internal{
 
 	TOKEN Semantics::ValidateFuncCall(ASTFuncCall* expr, bool isConstructor){
 		CHECK(expr != NULL);
+		TRACK(expr);
 		if (!isConstructor) isConstructor = expr->isInit;
 		Trace("Validating Func Call", expr->name.c_str());
 		SetRowCol(expr);
@@ -439,6 +451,7 @@ namespace internal{
 
 	void Semantics::ValidateFunc(ASTFunc* func, bool parse, bool isConstructor){
 		CHECK(func != NULL);
+		TRACK(func);
 		func->progressDepth++;
 		if (func->progressDepth > 1) return;
 		if ((func->scope->IsParsed() || !parse) && !func->scope->IsShallow()) {
@@ -491,6 +504,7 @@ namespace internal{
 
 	TOKEN Semantics::GetCastType(ASTNode* node){
 		if (node == NULL) return UNDEFINED;
+		TRACK(node);
 		int type = (int) node->type;
 		switch (type){
 			case VAR:{
@@ -522,6 +536,7 @@ namespace internal{
 
 	void Semantics::ExpectNumber(ASTLiteral* lit){
 		CHECK(lit != NULL);
+		TRACK(lit);
 		SetRowCol(lit);
 		int type = (int) lit->litType;
 		if (lit->var != NULL){
@@ -535,6 +550,7 @@ namespace internal{
 
 	void Semantics::ValidateObject(ASTObject* obj){
 		CHECK(obj != NULL);
+		TRACK(obj);
 		Trace("Validating Object", obj->name.c_str());
 	}
 
@@ -594,6 +610,8 @@ namespace internal{
 	void Semantics::ValidateExtend(ASTObject* base, ASTObject* extend){
 		CHECK(base != NULL);
 		CHECK(extend != NULL);
+		TRACK(base);
+		TRACK(extend);
 		Trace("Extending Object", base->name.c_str());
 		indent++;
 		extend->scope = Parse(extend->scope);
@@ -604,6 +622,7 @@ namespace internal{
 
 	TOKEN Semantics::ValidateObjectChain(ASTBinaryExpr* expr){
 		CHECK(expr != NULL);
+		TRACK(expr);
 		SetRowCol(expr);
 		// Scope* s = GetCurrentScope();
 		ValidateExpr(expr->left);
@@ -653,6 +672,7 @@ namespace internal{
 
 	ASTObject* Semantics::GetObject(ASTNode* node){
 		if (node == NULL) return NULL;
+		TRACK(node);
 		SetRowCol(node);
 		if (isThis) {
 			if (kThis.size() == 0 && node->type == LITERAL){
@@ -722,6 +742,7 @@ namespace internal{
 
 	TOKEN Semantics::ValidateCast(ASTExpr* expr){
 		CHECK(expr != NULL);
+		TRACK(expr);
 		Trace("Validating", "Cast");
 		ValidateLiteral((ASTLiteral*) expr->cast);
 		return expr->cast->litType;
@@ -730,6 +751,7 @@ namespace internal{
 	// TODO: Compare the base type with the assignment type. Throw an error if they are not the same if hard typed.
 	void Semantics::ValidateBaseAndAssignment(ASTVar* var){
 		CHECK(var != NULL);
+		TRACK(var);
 		Trace("Validating", "Base type and the assignment type");
 		int baseType = (int) var->baseType;
 		TOKEN assign = var->assignmentType;
@@ -763,6 +785,7 @@ namespace internal{
 	// TODO: Incomplete crawling of all types.
 	void Semantics::SetToType(TOKEN type, ASTNode* node){
 		CHECK(node != NULL);
+		TRACK(node);
 		int whichType = (int) node->type;
 		switch (whichType){
 			case LITERAL: {
@@ -786,6 +809,7 @@ namespace internal{
 
 	TOKEN Semantics::ValidateWhile(ASTWhileExpr* expr){
 		CHECK(expr != NULL);
+		TRACK(expr);
 		Trace("Validating", "While");
 		ValidateBoolean((ASTBinaryExpr*) expr->condition);
 		expr->scope = Parse(expr->scope);
@@ -800,6 +824,7 @@ namespace internal{
 	 */
 	TOKEN Semantics::ValidateInternal(ASTFuncCall* call){
 		CHECK(call != NULL);
+		TRACK(call);
 		TOKEN t = Internal::Bind(call);
 		for (unsigned int i = 0; i < call->params.size(); i++) ValidateExpr(call->params[i]);
 		Trace("  Type: ", "Internal");

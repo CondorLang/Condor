@@ -34,8 +34,7 @@ namespace internal{
 		Next();
 		while (ch == '\n' || ch == ' ' || ch == '\t' || ch == '\r') ScanWhiteSpaces();
 		switch (ch){
-			case -1: return Token::New(isolate, END);
-			case '\0': return Token::New(isolate, END);
+			case -1: case '\0': return Token::New(isolate, END);
 			case '/': {
 				char p = Peek();
 				if (p == '*'){

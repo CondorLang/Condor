@@ -64,6 +64,7 @@ namespace internal{
 		if (scope == NULL || scope->Size() == 0) return; // nothing to evaluate
 		for (int i = 0; i < scope->Size(); i++){
 			ASTNode* node = scope->Get(i);
+			TRACK(node);
 			int type = (int) node->type;
 			switch (type){
 				case FUNC_CALL: EvaluateFuncCall((ASTFuncCall*) node); break;
@@ -96,10 +97,12 @@ namespace internal{
 
 	ASTLiteral* Execute::EvaluateFuncCall(ASTFuncCall* call){
 		SetRowCol(call);
+		TRACK(call);
 		Trace("Evaluating Func Call", call->name);
 		PrintStep("Function Call - " + call->name);
 
 		ASTFunc* func = call->func;
+		TRACK(func);
 		if (func == NULL && call->isInternal){ // internal
 			std::vector<ASTLiteral*> nodes;
 			if (call->params.size() > 0) {
@@ -163,6 +166,7 @@ namespace internal{
 	}
 
 	ASTLiteral* Execute::EvaluateBinary(ASTBinaryExpr* binary){
+		TRACK(binary);
 		PrintStep("Binary Expression");
 		SetRowCol(binary);
 		if (binary->op == PERIOD && binary->right->type == FUNC_CALL && ((ASTFuncCall*) binary->right)->func->HasVisibility(STATIC)){
@@ -194,6 +198,8 @@ namespace internal{
 
 	void Execute::SetCast(ASTExpr* expr, ASTLiteral* value){
 		if (value == NULL) return;
+		TRACK(value);
+		TRACK(expr);
 		if (expr->cast != NULL){
 			PrintStep("Casting value");
 			ASTLiteral* lit = expr->cast;
@@ -206,6 +212,7 @@ namespace internal{
 		if (lit == NULL) return;
 		PrintStep("Formating Literal");
 		SetCalc(lit);
+		TRACK(lit);
 		int type = (int) lit->litType;
 		switch (type){
 			case BOOLEAN: lit->value = (lit->calc == 0 ? "false" : "true"); break;
@@ -217,6 +224,7 @@ namespace internal{
 
 	void Execute::TruncZeros(ASTLiteral* lit){
 		PrintStep("Truncating Zeros");
+		TRACK(lit);
 		if (lit->value.empty()) return;
 		if (lit->litType == STRING) return;
 		std::string::size_type loc = lit->value.find(".", 0);
@@ -231,6 +239,7 @@ namespace internal{
 	// TODO: Set row and col for tracking
 	void Execute::FillPostix(ASTBinaryExpr* binary){
 		PrintStep("Filling Postix (Reverse Polish Notation)");
+		TRACK(binary);
 		RPNStack* stack = GetCurrentStack();
 		ASTLiteral* left = NULL;
 
@@ -392,6 +401,9 @@ namespace internal{
 	}
 
 	ASTLiteral* Execute::StackCall(ASTFuncCall* call, ASTToken* tok, ASTLiteral* first){
+		TRACK(call);
+		TRACK(first);
+		TRACK(tok);
 		if (tok->value->value == PERIOD){ // object oriented function call
 			PrintStep("Calling object function (" + call->name + ")");
 			AddObject((ASTObjectInstance*) first);
@@ -408,6 +420,7 @@ namespace internal{
 
 	ASTLiteral* Execute::Calc(ASTToken* tok){
 		SetRowCol(tok);
+		TRACK(tok);
 		RPNStack* stack = GetCurrentStack();
 		int type = (int) tok->value->value;
 		if (stack->opStack.size() < 2 && tok->value->value != NOT) throw Error::INVALID_OPERATOR;
@@ -468,7 +481,7 @@ namespace internal{
 					case DIV:	result->calc = second->calc / first->calc; break;
 					case MUL:	result->calc = second->calc * first->calc; break;
 					case SUB:	result->calc = second->calc - first->calc; break;
-					case MOD: 	result->calc = fmod(second->calc, first->calc); break;
+					case MOD: 	result->calc = fmod(second->calc, first->calc); break; 
 					case LOR:	result->calc = second->calc == 0 || first->calc == 0; break;
 					case LAND:  result->calc = second->calc != 0 && first->calc != 0; break;
 					case EQL:	result->calc = second->calc == first->calc; break;
@@ -505,12 +518,14 @@ namespace internal{
 	}
 
 	void Execute::SetLitType(ASTLiteral* lit){
+		if (lit != NULL) TRACK(lit);
 		if (lit != NULL && lit->litType == UNDEFINED && lit->value.length() > 0) lit->litType = STRING;
 	}
 
 	// TODO: Implement bitwise
 	void Execute::Assign(ASTBinaryExpr* binary){
 		PrintStep("Assignment value");
+		TRACK(binary);
 		SetRowCol(binary);	
 		int type = (int) binary->op;
 		switch (type){
@@ -556,6 +571,7 @@ namespace internal{
 	}
 
 	ASTVar* Execute::GetVar(ASTNode* node){
+		TRACK(node);
 		PrintStep("Getting Variable (" + node->name + ")");
 		SetRowCol(node);
 		if (node == NULL) return NULL;
@@ -587,6 +603,7 @@ namespace internal{
 
 	void Execute::SetCalc(ASTLiteral* lit){
 		if (lit == NULL) return;
+		TRACK(lit);
 		if (!lit->isCalc && lit->value.length() != 0 && (lit->litType == INT || lit->litType == DOUBLE || 
 											 lit->litType == FLOAT || lit->litType == TRUE_LITERAL || lit->litType == FALSE_LITERAL)) {
 			PrintStep("Set the calculated value (" + lit->value + " | " + Token::ToString(lit->litType) + ")");
@@ -628,6 +645,7 @@ namespace internal{
 	ASTLiteral* Execute::EvaluateValue(ASTNode* node){
 		SetRowCol(node);
 		if (node == NULL) return NULL;
+		TRACK(node);
 		PrintStep("Evaluating Value (" + Token::ToString(node->type) + ")");
 		int type = (int) node->type;
 		switch (type){
@@ -697,6 +715,7 @@ namespace internal{
 	}
 
 	ASTLiteral* Execute::EvaluateVar(ASTVar* var){
+		TRACK(var);
 		PrintStep("Evaluating Var (" + var->name + ")");
 		SetRowCol(var);
 		Trace("Evaluating Var", var->name);
@@ -726,6 +745,7 @@ namespace internal{
 
 	void Execute::EvaluateFor(ASTForExpr* expr){
 		PrintStep("Evaluating For Loop");
+		TRACK(expr);
 		SetRowCol(expr);
 		Trace("Evaluating", "For");
 		ASTVar* var = (ASTVar*) expr->var;
@@ -766,6 +786,7 @@ namespace internal{
 
 	void Execute::EvaluateWhile(ASTWhileExpr* expr){
 		PrintStep("Evaluating While Loop");
+		TRACK(expr);
 		SetRowCol(expr);
 		Trace("Evaluating", "While");
 		OpenScope(expr->scope);
@@ -801,6 +822,7 @@ namespace internal{
 
 	bool Execute::EvaluateIf(ASTIf* expr){
 		if (expr == NULL) return false;
+		TRACK(expr);
 		PrintStep("Evaluating If Stmt");
 		SetRowCol(expr);
 		Trace("Evaluating","If");
@@ -835,6 +857,7 @@ namespace internal{
 
 	void Execute::EvaluateSwitch(ASTSwitch* expr){
 		PrintStep("Evaluating Switch Stmt");
+		TRACK(expr);
 		SetRowCol(expr);
 		Trace("Evaluating", "Switch");
 		ASTLiteral* value = EvaluateValue(expr->value);

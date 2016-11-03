@@ -10,6 +10,11 @@ namespace internal{
 	void Flags::SetCommandLineFlags(int argc, const char* argv[]){
 		for (int i = 0; i < argc; i++){
 			std::string arg = argv[i];
+			std::string value = "";
+			if (arg.find("=") != std::string::npos){
+				value = arg.substr(arg.find("=") + 1);
+				arg = arg.substr(0, arg.find("="));
+			}
 			if (arg == "--trace-parser") Flags::traceParser = true;
 			else if (arg == "--trace-semantic") Flags::traceSemantic = true;
 			else if (arg == "--print-variables") Flags::printVariables = true;
@@ -25,6 +30,7 @@ namespace internal{
 			else if (arg == "--execution-steps") Flags::evaluationSteps = true;
 			else if (arg == "--print-gc-ids") Flags::printGCIds = true;
 			else if (arg == "--rpn-stack") Flags::rpnStack = true;
+			else if (arg == "--track-node" && value.length() > 0) Flags::trackNode = std::stoi(value);
 			else if (arg == "-h" || arg == "--help"){
 				printf("\nCondorLang (c) The CondorLang Authors %c%c%c%c\n-----------------------------\n", BUILD_YEAR_CH0, BUILD_YEAR_CH1, BUILD_YEAR_CH2, BUILD_YEAR_CH3);
 				printf("[path-to-file]\t\t%s\n", "Execute the file");;
@@ -43,10 +49,11 @@ namespace internal{
 				printf("--execution-steps\t%s\n", "Traces every execution step");
 				printf("--rpn-stack\t\t%s\n", "Prints the reverse polish notation stack");
 				printf("--print-gc-ids\t\t%s\n", "Prints all the Ids of nodes from GC");
+				printf("--track-node=[nodeId]\t%s\n", "Tracks the node and the functions");
 				exit(0);
 			}
 			else if (arg.find("-") != std::string::npos || arg.find("-") != std::string::npos){
-				printf("Unidentified flag\nExiting...\n");
+				printf("Unidentified flag (%s)\nExiting...\n", arg.c_str());
 				exit(0);
 			}
 			else{
@@ -70,6 +77,7 @@ namespace internal{
 	bool Flags::evaluationSteps = false;
 	bool Flags::rpnStack = false;
 	bool Flags::printGCIds = false;
+	int Flags::trackNode = -1;
 	std::string Flags::baseFile = "";
 
 } // namespace internal

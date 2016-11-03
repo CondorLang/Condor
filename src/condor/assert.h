@@ -7,6 +7,7 @@
 
 #include <stdlib.h> 
 #include "condor/mem/isolate.h" 
+#include "condor/flags.h"
 
 namespace Condor {
 namespace internal{
@@ -21,6 +22,11 @@ namespace internal{
 	#define BENCHMARK(node, name) \
 		if (node != NULL){\
 			printf("Function: %s, NodeId: %d\n", name, node->id);\
+		}
+
+	#define TRACK(node) \
+		if (node != NULL && node->id == Flags::trackNode){ \
+			printf("%d - Passing Through - %s\n", node->id, __func__); \
 		}
 
 } // namespace internal

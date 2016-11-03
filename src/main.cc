@@ -30,7 +30,7 @@ int main(int argc, const char* argv[]){
 		time_t theTime = time(NULL);
 		struct tm *aTime = localtime(&theTime);
 		int year = aTime->tm_year + 1900;
-		std::cout << "CondorLang (C) " + std::to_string(year) + "\n";
+		std::cout << "CondorLang (C) " + std::to_string(year) + "\nUse quit() or exit() to terminate session\n";
 
 		while (true){
 			std::cout << ">> ";

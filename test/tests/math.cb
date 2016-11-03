@@ -8,6 +8,7 @@ test("addition", ((1 + 1) == 2));
 test("subtraction", ((1 - 1) == 0));
 test("multiplication", ((2 * 2) == 4));
 test("division", (4 / 2) == 2);
+test("mod", (2 % 2) == 0);
 
 println("\nAdvanced math tests");
 println("===================\n");

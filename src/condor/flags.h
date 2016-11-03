@@ -30,6 +30,7 @@ namespace internal{
 	#define RPN_STACK Flags::rpnStack;
 	#define BASE_FILE Flags::baseFile;
 	#define PRINT_GC_IDS Flags::printGCIds;
+	#define TRACK_NODE Flags::trackNode;
 
 	class Flags
 	 {
@@ -50,6 +51,7 @@ namespace internal{
 	 		static bool rpnStack;
 	 		static std::string baseFile;
 	 		static bool printGCIds;
+	 		static int trackNode;
 	 		static void SetCommandLineFlags(int argc, const char* argv[]);
 	 }; 
 
