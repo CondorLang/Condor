@@ -38,7 +38,6 @@ namespace internal{
 			case '\0': return Token::New(isolate, END);
 			case '/': {
 				char p = Peek();
-				CheckEOF(p);
 				if (p == '*'){
 					ScanComments(true);
 					return NextToken();
@@ -59,7 +58,6 @@ namespace internal{
 			case '$':	return Token::New(isolate, DOLLAR);
 			case '*': {
 				char p = Peek();
-				CheckEOF(p);
 				if (p == '=') {
 					Next(); 
 					return Token::New(isolate, MUL_ASSIGN);
@@ -68,7 +66,6 @@ namespace internal{
 			}
 			case '+': {
 				char p = Peek();
-				CheckEOF(p);
 				if (p == '+') {
 					Next(); 
 					return Token::New(isolate, INC);
@@ -81,7 +78,6 @@ namespace internal{
 			}
 			case '-': {
 				char p = Peek();
-				CheckEOF(p);
 				if (p == '=') {
 					Next(); 
 					return Token::New(isolate, SUB_ASSIGN);
@@ -97,7 +93,6 @@ namespace internal{
 				else if (IsNumber(p)){
 					result = ch;
 					char p = Peek();
-					CheckEOF(p);
 					bool isInt = true;
 					int count = 0;
 					while (IsNumber(p) || p == '.'){
@@ -118,7 +113,6 @@ namespace internal{
 			}
 			case '%': {
 				char p = Peek();
-				CheckEOF(p);
 				if (p == '=') {
 					Next(); 
 					return Token::New(isolate, MOD_ASSIGN);
@@ -139,7 +133,6 @@ namespace internal{
 			}
 			case '<': {
 				char p = Peek();
-				CheckEOF(p);
 				if (p == '-') {
 					Next(); 
 					return Token::New(isolate, LARROW);
@@ -162,7 +155,6 @@ namespace internal{
 			}
 			case '>': {
 				char p = Peek();
-				CheckEOF(p);
 				if (p == '=') {
 					Next(); 
 					return Token::New(isolate, GEQ);
@@ -181,7 +173,6 @@ namespace internal{
 			}
 			case '!': {
 				char p = Peek();
-				CheckEOF(p);
 				if (p == '='){
 					Next();
 					return Token::New(isolate, NEQ);
@@ -190,7 +181,6 @@ namespace internal{
 			}
 			case '&': {
 				char p = Peek();
-				CheckEOF(p);
 				if (p == '&') {
 					Next(); 
 					return Token::New(isolate, LAND);
@@ -212,7 +202,6 @@ namespace internal{
 			}
 			case '|': {
 				char p = Peek();
-				CheckEOF(p);
 				if (p == '|') {
 					Next(); 
 					return Token::New(isolate, LOR);
@@ -225,7 +214,6 @@ namespace internal{
 			}
 			case '^': {
 				char p = Peek();
-				CheckEOF(p);
 				if (p == '=') {
 					Next(); 
 					return Token::New(isolate, XOR_ASSIGN);
@@ -234,7 +222,6 @@ namespace internal{
 			}
 			case '=': {
 				char p = Peek();
-				CheckEOF(p);
 				if (p == '=') {
 					Next(); 
 					return Token::New(isolate, EQL);
@@ -246,7 +233,6 @@ namespace internal{
 			case ',': return Token::New(isolate, COMMA);
 			case '.': {
 				char p = Peek();
-				CheckEOF(p);
 				char p2 = src->at(readOffset + 1);
 				if (p == '.' && p2 == '.') {
 					Next();
@@ -310,7 +296,6 @@ namespace internal{
 				if (IsLetter(-1) || ch == '_' || ch == '$'){
 					result = ch;
 					char p = Peek();
-					CheckEOF(p);
 					while ((IsLetter(p) || IsNumber(p) || p == '_') && p != ' ' && p != 0){
 						Next();
 						result += ch;
@@ -326,7 +311,6 @@ namespace internal{
 				else if (IsNumber(-1)){
 					result = ch;
 					char p = Peek();
-					CheckEOF(p);
 					bool isInt = true;
 					int count = 0;
 					while (IsNumber(p) || p == '.'){
