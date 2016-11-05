@@ -10,6 +10,7 @@ namespace internal{
 	
 	Context::Context(){
 		isolate = NULL;
+		allExport = false;
 	}
 
 	Context::~Context(){
@@ -43,6 +44,7 @@ namespace internal{
 
 	void Context::AddScope(Scope* scope){
 		scope->context = this;
+		scope->AllExport(allExport);
 		root.push_back(scope);
 		included[scope->name] = true;
 	}

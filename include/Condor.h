@@ -22,7 +22,8 @@ namespace Condor {
 	public:
 		void Enter();
 		void Exit();
-		void Dispose();		
+		void Dispose();	
+		void AllExport();	
 	};
 		
 	/**

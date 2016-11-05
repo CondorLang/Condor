@@ -25,6 +25,7 @@ namespace internal{
 	private:
 		bool isParsed;
 		bool shallow;
+		bool allExport;
 		std::vector<ASTNode*> nodes;
 		Isolate* isolate;
 		
@@ -51,6 +52,7 @@ namespace internal{
 		void Merge(Scope* scope, bool exportedOnly = true);
 		void Destroy(ASTNode* node);
 		void Destroy();
+		void AllExport(bool isAllExport){allExport = isAllExport;}
 		void RemoveAllAfter(ASTNode* node);
 		void Remove(ASTNode* node);
 		std::vector<ASTNode*> GetNodes(){return nodes;}

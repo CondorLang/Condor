@@ -38,10 +38,10 @@ namespace internal{
 	class MemoryPool
 	{
 	private: 
-		size_t kChunkSize;
-		size_t kTotalSize;
-		size_t kUsedSize;
-		size_t kFreeSize;
+		size_t kChunkSize; // the size of each chunk
+		size_t kTotalSize; // the total size for the entire MemoryPool
+		size_t kUsedSize; // how much is used for the entire MemoryPool
+		size_t kFreeSize; // how much is free
 		size_t kMinSize;
 		Chunk* kFirstChunk;
 		Chunk* kLastChunk;

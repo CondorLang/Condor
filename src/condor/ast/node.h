@@ -59,8 +59,11 @@ namespace internal{
 	{
 	public:
 		static ASTToken* New(Isolate* iso, TOKEN tok);
+		~ASTToken();
 		Token* value;
 		int Precedence(){return value->Precedence();}
+	private:
+		Isolate* iso;
 	};
 
 	class ASTImport : public ASTNode

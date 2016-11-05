@@ -27,6 +27,7 @@ namespace internal{
 		std::vector<Scope*> root;
 		std::map<int, Scope*> registry;
 		std::map<std::string, bool> included;
+		bool allExport;
 		int nextAstId;
 
 	public:
@@ -36,6 +37,7 @@ namespace internal{
 		inline void Exit(){}
 		void SetIsolate(Isolate* isolate);
 		Isolate* GetIsolate(){return this->isolate;}
+		void AllExport(){allExport = true;}
 		void AddToInProgress(std::string str);
 		void AddToRegistry(Scope* scope);
 		Scope* GetFromRegistry(int scopeId);

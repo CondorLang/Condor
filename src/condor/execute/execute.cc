@@ -50,6 +50,12 @@ namespace internal{
 		col = node->col;
 	}
 
+	void Execute::CloseStack(){
+		RPNStack* s = stack[0];
+		isolate->FreeMemory(s, sizeof(RPNStack));
+		stack.erase(stack.begin());
+	}
+
 	void Execute::OpenScope(Scope* sc){
 		PrintStep("Opening Scope");
 		CHECK(sc != NULL);
@@ -191,6 +197,7 @@ namespace internal{
 				FormatLit(lit);
 				CloseStack();
 				if (binary->print) printf("%s\n", lit->value.c_str());
+				tok->Free(isolate);
 				return lit;
 			}
 		}
@@ -358,6 +365,8 @@ namespace internal{
 					else if (rpnStack) printf("[%d] - [%d, %d, %d] = [Object]\n",i,  i - 2, i - 1, i);
 				}
 				else throw Error::INVALID_OBJECT;
+				// free the Token, otherwise it eats the memory
+				tok->Free(isolate);
 			}
 			else if (n->type == LITERAL){
 				ASTLiteral* lit = NULL;
@@ -604,8 +613,14 @@ namespace internal{
 	void Execute::SetCalc(ASTLiteral* lit){
 		if (lit == NULL) return;
 		TRACK(lit);
-		if (!lit->isCalc && lit->value.length() != 0 && (lit->litType == INT || lit->litType == DOUBLE || 
-											 lit->litType == FLOAT || lit->litType == TRUE_LITERAL || lit->litType == FALSE_LITERAL)) {
+		if (!lit->isCalc && 
+			lit->value.length() != 0 && 
+				(lit->litType == INT || 
+				 lit->litType == DOUBLE || 
+				 lit->litType == FLOAT || 
+				 lit->litType == TRUE_LITERAL || 
+				 lit->litType == FALSE_LITERAL)) {
+
 			PrintStep("Set the calculated value (" + lit->value + " | " + Token::ToString(lit->litType) + ")");
 			try{
 				if (lit->litType != TRUE_LITERAL && lit->litType != FALSE_LITERAL) lit->calc = std::stod(lit->value);
@@ -737,7 +752,7 @@ namespace internal{
 		if (var->name == "return") {
 			isReturning = true;
 			returnValue = var;
-			var->allowGC = false;
+			var->allowGC = false; 
 		}
 		isolate->RunGC(local, true);
 		return local;
@@ -754,6 +769,7 @@ namespace internal{
 		OpenScope(expr->scope);
 		int i = 0;
 		while (true){
+			if (expr->scope->Size() == 0) break;
 			i++;
 			ASTLiteral* condition = EvaluateValue(expr->condition);
 			bool pass = condition->value == "true";

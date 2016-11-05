@@ -56,6 +56,11 @@ namespace Condor{
 		context->Exit();
 	}
 
+	void Context::AllExport(){
+		i::Context* context = CAST(i::Context*, this);
+		context->AllExport();
+	}
+
 	void Isolate::Dispose(){
 		i::Isolate* isolate = CAST(i::Isolate*, this);
 		if (i::Isolate::GLOBAL_ISOLATE == isolate) i::Isolate::GLOBAL_ISOLATE = NULL;

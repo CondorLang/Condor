@@ -94,13 +94,6 @@ namespace internal{
 		}
 	}
 
-	// void Isolate::FreeMemory(void* ptr, const size_t size){
-	// 	if (size < 35) small->FreeMemory(ptr, size);
-	// 	else if (size < 80) medium->FreeMemory(ptr, size);
-	// 	else if (size < 130) large->FreeMemory(ptr, size);
-	// 	else xl->FreeMemory(ptr, size);
-	// }
-
 	void Isolate::RunGC(Scope* scope, bool deep, bool objKeys){
 		gc->Dispose(this, scope, deep, objKeys);
 		if (printGcIds) printf("gc Pass (%d) %s\n", gcPassId++, "------------");

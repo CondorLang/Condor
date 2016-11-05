@@ -173,8 +173,14 @@ namespace internal{
 				iso->FreeMemory(this, sizeof(ASTContinue)); 
 				break;
 			}
+			case TOK: {
+				ASTToken* tok = (ASTToken*) this;
+				tok->~ASTToken();
+				iso->FreeMemory(this, sizeof(ASTToken));
+				break;
+			}
 			default: {
-				//printf("Node.cc: %s\n", Token::ToString(type).c_str());
+				printf("Node.cc: %s\n", Token::ToString(type).c_str());
 			}
 		}
 	}
@@ -185,7 +191,12 @@ namespace internal{
 		ASTNode::SetDefaults(n, iso);
 		n->type = TOK;
 		n->value = Token::New(iso, tok);
+		n->iso = iso;
 		return n;
+	}
+
+	ASTToken::~ASTToken(){
+		iso->FreeMemory(this->value, sizeof(Token));
 	}
 
 	ASTImport* ASTImport::New(Isolate* iso){

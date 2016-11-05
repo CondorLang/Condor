@@ -26,11 +26,12 @@ int main(int argc, const char* argv[]){
 		script->Free(isolate);
 	}
 	else{
+		context->AllExport();
 		std::string input = "";
 		time_t theTime = time(NULL);
 		struct tm *aTime = localtime(&theTime);
 		int year = aTime->tm_year + 1900;
-		std::cout << "CondorLang (C) " + std::to_string(year) + "\nUse quit() or exit() to terminate session\n";
+		std::cout << "CondorLang (C) " + std::to_string(year) + "\nUse quit() or exit() to terminate session\n\n";
 
 		while (true){
 			std::cout << ">> ";

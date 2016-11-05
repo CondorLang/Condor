@@ -48,6 +48,7 @@ namespace internal{
 
 	std::vector<ASTNode*> Scope::Lookup(std::string name, bool deep, bool exported){
 		std::vector<ASTNode*> results;
+		if (allExport) exported = false;
 		for (unsigned int i = 0; i < nodes.size(); i++){
 			if (exported && nodes[i]->name == name && nodes[i]->isExport) results.push_back(nodes[i]);
 			else if (!exported && nodes[i]->name == name) results.push_back(nodes[i]);
