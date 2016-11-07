@@ -42,11 +42,18 @@ namespace internal{
 		return registry[scopeId];
 	}
 
+	Scope* Context::GetFromRegistry(std::string name){
+		if (IsIncluded(name)){
+			return GetFromRegistry(included[name]);
+		}
+		return NULL;
+	}
+
 	void Context::AddScope(Scope* scope){
 		scope->context = this;
 		scope->AllExport(allExport);
 		root.push_back(scope);
-		included[scope->name] = true;
+		included[scope->name] = scope->scopeId;
 	}
 
 	std::vector<ASTNode*> Context::Lookup(Scope* scope, std::string name){

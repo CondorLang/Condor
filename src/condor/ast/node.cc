@@ -179,6 +179,7 @@ namespace internal{
 				iso->FreeMemory(this, sizeof(ASTToken));
 				break;
 			}
+			case 0: return;
 			default: {
 				printf("Node.cc: %s\n", Token::ToString(type).c_str());
 			}

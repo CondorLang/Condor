@@ -43,7 +43,7 @@ namespace internal{
 		int progressDepth;
 		int importScopeId;
 		std::vector<TOKEN> visibility;
-		std::vector<ASTLiteral*> locals;
+		std::vector<ASTLiteral*> locals; // used for recursion
 		void AddLocal(ASTLiteral* l) {locals.push_back(l);}
 		ASTLiteral* GetLocal(bool pop = true);
 		int GetTotalLocals(){return (int) locals.size();}

@@ -68,13 +68,14 @@ namespace internal{
 		CHECK(scopes.size() != 0);
 		Scope* scope = GetCurrentScope();
 		if (scope == NULL || scope->Size() == 0) return; // nothing to evaluate
+		ASTNode* trash = NULL;
 		for (int i = 0; i < scope->Size(); i++){
 			ASTNode* node = scope->Get(i);
 			TRACK(node);
 			int type = (int) node->type;
 			switch (type){
-				case FUNC_CALL: EvaluateFuncCall((ASTFuncCall*) node); break;
-				case BINARY: EvaluateBinary((ASTBinaryExpr*) node); break;
+				case FUNC_CALL: trash = EvaluateFuncCall((ASTFuncCall*) node); break;
+				case BINARY: trash = EvaluateBinary((ASTBinaryExpr*) node); break;
 				case VAR: EvaluateVar((ASTVar*) node); break;
 				case FOR: EvaluateFor((ASTForExpr*) node); break;
 				case WHILE: EvaluateWhile((ASTWhileExpr*) node); break;
@@ -89,6 +90,7 @@ namespace internal{
 				// case FUNC: case OBJECT don't need to be executed, the only need to be called
 			}
 			if (isReturning || isContinue) break;
+			if (trash != NULL) trash->Free(isolate); // GC
 		}
 		CloseScope();
 	}
@@ -134,7 +136,8 @@ namespace internal{
 					SetLitType(lit);
 					FormatLit(lit);
 					if (lit == NULL) func->args[i]->AddLocal(ASTUndefined::New(isolate));
-					else func->args[i]->AddLocal(lit->Clone(isolate));
+					else if (lit == call->params[i]) func->args[i]->AddLocal(lit->Clone(isolate));
+					else func->args[i]->AddLocal(lit);
 					isolate->RunGC(call->params[i], false);
 				}
 				else{
@@ -192,7 +195,7 @@ namespace internal{
 			else{
 				PrintStep("Calculation");
 				NewStack();
-				FillPostix(binary);				
+				FillPostix(binary);			
 				ASTLiteral* lit = Calculate();
 				FormatLit(lit);
 				CloseStack();
@@ -205,6 +208,7 @@ namespace internal{
 
 	void Execute::SetCast(ASTExpr* expr, ASTLiteral* value){
 		if (value == NULL) return;
+		CHECK(expr != NULL);
 		TRACK(value);
 		TRACK(expr);
 		if (expr->cast != NULL){
@@ -478,7 +482,7 @@ namespace internal{
 		else if (litType == BOOLEAN){
 			litType = Binary::Compare(first->litType, second->litType, ADD);
 		}
-		SetCalc(first); // Bug fix where this wasn't set
+		SetCalc(first); 
 		SetCalc(second);
 		
 		switch (litType){
