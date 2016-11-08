@@ -52,7 +52,6 @@ namespace internal{
 		static void SetDefaults(ASTNode* node, Isolate* iso);
 		void Free(Isolate* iso);
 		bool HasVisibility(TOKEN tok);
-		size_t Size(){return sizeof(ASTNode);}
 	};
 
 	class ASTToken : public ASTNode
@@ -72,7 +71,6 @@ namespace internal{
 		std::string alias;
 		std::vector<std::string> what;
 		static ASTImport* New(Isolate* iso);
-		size_t Size(){return sizeof(ASTImport);}
 	};
 
 	class ASTInclude : public ASTNode
@@ -81,7 +79,6 @@ namespace internal{
 		std::string alias;
 		std::vector<std::string> what;
 		static ASTInclude* New(Isolate* iso);
-		size_t Size(){return sizeof(ASTInclude);}
 	};
 
 	class ASTVar : public ASTNode
@@ -101,7 +98,6 @@ namespace internal{
 		bool previouslyDeclared;
 		int order;
 		static ASTVar* New(Isolate* iso);		
-		size_t Size(){return sizeof(ASTVar);}
 		ASTVar* Clone(Isolate* iso, bool shallow = false);
 	};
 
@@ -112,7 +108,6 @@ namespace internal{
 		std::vector<ASTVar*> args;
 		TOKEN assignmentType;
 		static ASTFunc* New(Isolate* iso);
-		size_t Size(){return sizeof(ASTFunc);}
 	};
 
 	class ASTExpr : public ASTNode
@@ -121,21 +116,18 @@ namespace internal{
 		static ASTExpr* New(Isolate* iso);
 		ASTLiteral* cast;
 		bool isBoolean;
-		size_t Size(){return sizeof(ASTExpr);}
 	};
 
 	class ASTBreak : public ASTExpr
 	{
 	public:
-		static ASTBreak* New(Isolate* iso);
-		size_t Size(){return sizeof(ASTBreak);}		
+		static ASTBreak* New(Isolate* iso);		
 	};
 
 	class ASTContinue : public ASTExpr
 	{
 	public:
-		static ASTContinue* New(Isolate* iso);
-		size_t Size(){return sizeof(ASTContinue);}		
+		static ASTContinue* New(Isolate* iso);		
 	};
 
 	class ASTBinaryExpr : public ASTExpr
@@ -146,7 +138,6 @@ namespace internal{
 		ASTExpr* right;
 		TOKEN op;
 		bool isChain;
-		size_t Size(){return sizeof(ASTBinaryExpr);}
 	};
 
 	class ASTObject : public ASTNode
@@ -155,7 +146,6 @@ namespace internal{
 		static ASTObject* New(Isolate* iso);
 		Scope* scope;
 		bool extend;
-		size_t Size(){return sizeof(ASTObject);}
 	};
 
 	class ASTLiteral : public ASTExpr
@@ -175,7 +165,6 @@ namespace internal{
 		int isPost;
 		bool allowAccess;
 		ASTLiteral* Clone(Isolate* isolate, bool shallow = false);
-		size_t Size(){return sizeof(ASTLiteral);}
 	};
 
 	class ASTFuncCall : public ASTExpr
@@ -187,7 +176,6 @@ namespace internal{
 		bool isInit;
 		ASTFunc* func;
 		InternalFunctionCallback callback;
-		size_t Size(){return sizeof(ASTFuncCall);}
 	};
 
 	class ASTForExpr : public ASTExpr
@@ -198,7 +186,6 @@ namespace internal{
 		ASTExpr* condition;
 		ASTExpr* tick;
 		Scope* scope; 		
-		size_t Size(){return sizeof(ASTForExpr);}
 	};
 
 	class ASTWhileExpr : public ASTExpr
@@ -207,7 +194,6 @@ namespace internal{
 		static ASTWhileExpr* New(Isolate* iso);
 		ASTExpr* condition;
 		Scope* scope;		
-		size_t Size(){return sizeof(ASTWhileExpr);}
 	};
 
 	class ASTTryCatchExpr : public ASTExpr
@@ -217,7 +203,6 @@ namespace internal{
 		Scope* tryScope;
 		Scope* catchScope;
 		std::vector<ASTVar*> catchParams;		
-		size_t Size(){return sizeof(ASTTryCatchExpr);}
 	};
 
 	class ASTThrow : public ASTExpr
@@ -225,7 +210,6 @@ namespace internal{
 	public:
 		static ASTThrow* New(Isolate* iso);
 		ASTExpr* expr;		
-		size_t Size(){return sizeof(ASTThrow);}
 	};
 
 	class ASTIf : public ASTExpr
@@ -235,8 +219,7 @@ namespace internal{
 		ASTExpr* condition;
 		Scope* scope;
 		bool isElse;
-		std::vector<ASTIf*> elseIfs;	
-		size_t Size(){return sizeof(ASTIf);}	
+		std::vector<ASTIf*> elseIfs;		
 	};
 
 	class ASTDelete : public ASTExpr
@@ -244,7 +227,6 @@ namespace internal{
 	public:
 		static ASTDelete* New(Isolate* iso);
 		ASTNode* node;		
-		size_t Size(){return sizeof(ASTDelete);}
 	};
 
 	class ASTCase : public ASTExpr
@@ -254,7 +236,6 @@ namespace internal{
 		ASTLiteral* condition;
 		Scope* scope;
 		bool isDefault;
-		size_t Size(){return sizeof(ASTCase);}
 	};
 
 	class ASTSwitch : public ASTExpr
@@ -263,14 +244,12 @@ namespace internal{
 		static ASTSwitch* New(Isolate* iso);
 		std::vector<ASTCase*> cases;
 		ASTNode* value;
-		size_t Size(){return sizeof(ASTSwitch);}
 	};
 
 	class ASTUndefined : public ASTLiteral
 	{
 	public:
 		static ASTUndefined* New(Isolate* iso);
-		size_t Size(){return sizeof(ASTUndefined);}
 	};
 
 	class ASTArray : public ASTLiteral
@@ -279,7 +258,6 @@ namespace internal{
 		static ASTArray* New(Isolate* iso);
 		std::vector<ASTExpr*> members;
 		bool Get;
-		size_t Size(){return sizeof(ASTArray);}
 		ASTArray* Clone(Isolate* iso, bool shallow = false);
 	};
 
@@ -297,8 +275,7 @@ namespace internal{
 		bool constructorCalled;
 		ASTObject* base;
 		void PrintValues();
-		ASTObjectInstance* Clone(Isolate* iso, bool shallow = false);
-		size_t Size(){return sizeof(ASTObjectInstance);}		
+		ASTObjectInstance* Clone(Isolate* iso, bool shallow = false);		
 	};
 
 } // namespace internal
