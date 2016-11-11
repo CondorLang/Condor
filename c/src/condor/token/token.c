@@ -1,0 +1,24 @@
+#include "token.h"
+
+struct TokensArray {
+	enum Tokens token;
+	char* str;
+} TokensArray[TOTAL_TOKENS] = {CREATE_TOKEN_LIST(T_ARRAY)};
+
+Token StringToToken(char* value){
+	if (value == NULL || strlen(value) == 0) return UNDEFINED;
+	for (int i = 0; i < (int) TOTAL_TOKENS; i++){
+		if (strlen(value) == strlen(TokensArray[i].str) && strcmp(value, TokensArray[i].str) == 0){
+			return TokensArray[i].token;
+		}
+	}
+	return UNDEFINED;
+}
+
+char* TokenToString(Token tok){
+	return TokensArray[tok].str;
+}
+
+bool IsAssignment(Token tok){
+	return tok > BEGIN_ASSIGNMENT && tok < END_ASSIGNMENT;
+}

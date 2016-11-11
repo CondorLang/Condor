@@ -1,0 +1,4 @@
+#!/usr/bin/python
+
+from subprocess import call
+call(['valgrind', '--leak-check=full', '--show-leak-kinds=all', '--track-origins=yes', './build/condor'])
