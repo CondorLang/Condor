@@ -17,7 +17,8 @@
 
 #include "ast.h"
 #include "condor/mem/allocate.h"
-#include "condor/lexer/lexer.h"
+
+typedef struct ASTNode ASTNode; // forward declare
 
 /**
  * A scope can be defined as a statment body. They include:
@@ -25,17 +26,24 @@
  *  - Function bodies
  *  - For, while, do/while bodies
  *  - If else if bodies
+ *
+ * All variables and ASTNodes are allocationed using the stack.
+ * The purpose for this is because the stack, at least on my 
+ * machine, runs 3000% faster than the heap (malloc).
  */
-typedef struct Scope{
-	ASTNodeMemoryAudit* audit;
-	int varSpot;
-	int binarySpot;
-	ASTVar* vars;
-	ASTBinaryExpr* binarys;
-	ASTLiteral* lits;
-} Scope;
+typedef struct Scope Scope;
+
+struct Scope{
+	int nodeSpot;
+	int nodeLength;
+	int scopeLength;
+	int scopeSpot;
+	ASTNode* nodes;
+	int* scopes;
+};
 
 void DestroyScope(Scope* scope);
 void InitScope(Scope* scope);
+void ExpandScope(Scope* scope, int tab);
 
 #endif // SCOPE_H_

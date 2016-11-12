@@ -36,8 +36,11 @@ typedef struct Syntax {
 } Syntax;
 
 void BuildTree(char* rawSourceCode);
-void ParseVar(Scope* scope, Lexer* lexer, Token dataType);
-void* ParseExpression(Scope* scope, Lexer* lexer);
+ASTNode* ParseVar(Scope* scope, Lexer* lexer, Token dataType);
+ASTNode* ParseExpression(Scope* scope, Lexer* lexer);
+ASTNode* ParseFor(Scope* scope, Lexer* lexer);
+int ParseBody(Scope* scope, Lexer* lexer);
+Token ParseStmtList(Scope* scope, Lexer* lexer, int scopeId, bool oneStmt);
 
 // TODO: Remove
 void Scan(char* rawSourceCode);

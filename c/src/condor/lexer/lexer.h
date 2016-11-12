@@ -37,13 +37,6 @@ typedef struct Lexer{
 	char* currentTokenString;
 } Lexer;
 
-typedef struct ASTNodeMemoryAudit{
-	int var; // ASTVar
-	int func; // ASTFunc
-	int binary; // ASTBinaryExpr
-	int lit; // ASTLiteral
-} ASTNodeMemoryAudit;
-
 /**
  * Public Functions
  */
@@ -51,9 +44,9 @@ void InitLexer(Lexer* lexer, char* rawSourceCode);
 void DestroyLexer(Lexer* lexer);
 Token GetNextToken(Lexer* lexer);
 char* GetCurrentTokenString(Lexer* lexer);
-void CountTotalASTTokens(Lexer* lexer, ASTNodeMemoryAudit* audit);
+int CountTotalASTTokens(Lexer* lexer);
+int CountTotalScopes(Lexer* lexer);
 void ResetLexer(Lexer* lexer);
-void InitAudit(ASTNodeMemoryAudit* audit);
 
 /**
  * Private Functions

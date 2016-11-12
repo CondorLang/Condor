@@ -1,5 +1,5 @@
 #include <Condor.h>
 
 int main(){
-	Scan("var a; var b = 10;");
+	Scan("for (int i = 0; i < 10; i++){var a = 10 + 10;}");
 }

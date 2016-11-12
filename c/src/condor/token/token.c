@@ -22,3 +22,11 @@ char* TokenToString(Token tok){
 bool IsAssignment(Token tok){
 	return tok > BEGIN_ASSIGNMENT && tok < END_ASSIGNMENT;
 }
+
+bool IsBinaryOperator(Token tok){
+	return tok > BEGIN_BINARY_OPERATOR && tok < END_BINARY_OPERATOR;
+}
+
+bool IsBooleanOperator(Token tok){
+	return tok > BEGIN_BOOLEAN_COMPARISON && tok < END_BOOLEAN_COMPARISON;
+}

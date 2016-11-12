@@ -12,5 +12,6 @@
 
 #define EXPECT_STRING(val) { printf("Expected: %s\n", val); exit(0); }
 #define NOT_IMPLEMENTED(val) { printf("Not Implemented (%s:%d): %s\n", __FUNCTION__, __LINE__, val); exit(0); }
+#define CHECK(condition) {if (!condition) {printf("Invalid Check: %s in %s:%d\n", #condition, __FUNCTION__, __LINE__);}}
 
 #endif // ASSERT_H_

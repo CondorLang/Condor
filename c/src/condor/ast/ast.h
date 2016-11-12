@@ -15,32 +15,111 @@
 #ifndef AST_H_
 #define AST_H_
 
+#include <stdio.h>
+
 #include "condor/token/token.h"
+#include "condor/mem/allocate.h"
+#include "condor/ast/scope.h"
+#include "utils/assert.h"
 
-typedef struct ASTMeta{
-	int id;
-} ASTMeta;
+extern int ASTNODE_ID_SPOT;
 
-typedef struct ASTLiteral{
-	char* value;
-	Token dataType;
-	ASTMeta meta;
-} ASTLiteral;
+typedef struct Scope Scope; // forward declare
+typedef struct ASTNode ASTNode;
 
-typedef struct ASTVar{
-	char* name;
-	void* value;
-	Token dataType;
-	ASTMeta meta; // meta information on every node
-} ASTVar;
+struct ASTNode {
+	Token type;
 
-typedef struct ASTBinaryExpr{
-	Token op; // operator
-	ASTMeta meta;
-} ASTBinaryExpr;
+	int id; // Node ID assigned by ASTNODE_ID_SPOT
+	int scopeId;
 
-void InitVars(ASTVar vars[], int len);
-void InitBinaryExprs(ASTBinaryExpr exprs[], int len);
-void InitLiterals(ASTLiteral lits[], int len);
+	/**
+	 * When looping through all the nodes, this flag 
+	 * helps identify if this node is a base node to be
+	 * executed. For example:
+	 *
+	 * var a = 10;
+	 *
+	 * You don't need to execute on the 10, but rather
+	 * on the var, then traverse through the tree.
+	 */
+	bool isStmt;
+
+	/**
+	 * A sneaky and memory efficent way to handle
+	 * inheritance. This way ASTNode* could be passed
+	 * by reference to functions.
+	 */
+	union {
+
+		struct {
+			bool value;
+		} booleanExpr;
+
+		struct {
+			signed char value;
+		} byteExpr;
+
+		struct {
+			short value;
+		} shortExpr;
+
+		struct {
+			int value;
+		} intExpr;
+
+		struct {
+			float value;
+		} floatExpr;
+
+		struct {
+			double value;
+		} doubleExpr;
+
+		struct {
+			long value;
+		} longExpr;
+
+		struct {
+			char value;
+		} charExpr;
+
+		struct {
+			char* value;
+		} stringExpr;
+
+		struct {
+			ASTNode* left;
+			ASTNode* right;
+			Token op;
+		} binaryExpr;
+
+		struct {
+			char* name;
+			ASTNode* value;
+			Token dataType;
+			/**
+			 * This can have one of three values.
+			 * INC or ++
+			 * DEC or --
+			 * UNDEFINED or unset
+			 */
+			Token inc;
+		} varExpr;
+
+		struct {
+			ASTNode* var;
+			ASTNode* condition;
+			ASTNode* inc;
+			int body;
+		} forExpr;
+
+	} meta;
+};
+
+void InitNodes(ASTNode nodes[], int len);
+void DestroyNodes(ASTNode nodes[], int len);
+void ExpandASTNode(ASTNode* node, int tab);
+ASTNode* FindSymbol(Scope* scope, char* name);
 
 #endif // AST_H_

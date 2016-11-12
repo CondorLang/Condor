@@ -22,17 +22,18 @@
 #define CREATE_TOKEN_LIST(T) \
 	T(IDENTIFIER, "@IDENTIFIER") \
 	T(NUMBER, "@NUMBER") \
-	T(STRING_LITERAL, "@STRING") \
 	T(BEGIN_OPERATOR, "#BEGIN_OPERATOR") \
 	T(SEMICOLON, ";") \
 	T(COLON, ";") \
 	T(CONSTRUCTOR, "@") \
+	T(BEGIN_BINARY_OPERATOR, "@BEGIN_BINARY_OPERATOR") \
 	T(ADD, "+") \
 	T(SUB, "-") \
 	T(MUL, "*") \
 	T(DIV, "/") \
 	T(MOD, "%") \
 	T(POW, "^") \
+	T(END_BINARY_OPERATOR, "@END_BINARY_OPERATOR") \
 	T(HASH, "#") \
 	T(DOLLAR, "$") \
 	T(TICK, "`") \
@@ -56,7 +57,7 @@
 	T(SHR_ASSIGN, ">>=") \
 	T(AND_NOT_ASSIGN, "&^=") \
 	T(END_ASSIGNMENT, "#END_ASSIGNMENT") \
-	T(BOOLEAN_COMPARISON_START, "#BOOLEAN_COMPARISON_START") \
+	T(BEGIN_BOOLEAN_COMPARISON, "#BEGIN_BOOLEAN_COMPARISON") \
 	T(LAND, "&&") \
 	T(LOR, "||") \
 	T(EQL, "==") \
@@ -66,7 +67,7 @@
 	T(NOT, "!") \
 	T(LESS, "<") \
 	T(GREATER, ">") \
-	T(BOOLEAN_COMPARISON_END, "#BOOLEAN_COMPARISON_END") \
+	T(END_BOOLEAN_COMPARISON, "#END_BOOLEAN_COMPARISON") \
 	T(LARROW, "<-") \
 	T(RARROW, "->") \
 	T(INC, "++") \
@@ -131,7 +132,8 @@
 	T(INTERNAL, "internal") \
 	T(DO, "do") \
 	T(KEYWORD_END, "#KEYWORD_END") \
-	T(UNDEFINED, "@UNDEFINED")
+	T(UNDEFINED, "undefined") \
+	T(BINARY, "@BINARY")
 
 #define T_ENUM(x, name) x, // {enum}
 #define T_ARRAY(x, name) {x, name}, // {enum, string value}
@@ -146,5 +148,7 @@ typedef enum Tokens Token;
 Token StringToToken(char* value);
 char* TokenToString(Token tok);
 bool IsAssignment(Token tok);
+bool IsBinaryOperator(Token tok);
+bool IsBooleanOperator(Token tok);
 
 #endif // TOKEN_H_

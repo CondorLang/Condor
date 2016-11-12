@@ -16,13 +16,6 @@ void DestroyLexer(Lexer* lexer){
 	if (lexer->currentTokenString != NULL) Free(lexer->currentTokenString);
 }
 
-void InitAudit(ASTNodeMemoryAudit* audit){
-	audit->var = 0;
-	audit->func = 0;
-	audit->binary = 0;
-	audit->lit = 0;
-}
-
 Token GetNextToken(Lexer* lexer){
 	SetNextTokenRange(lexer);
 	if (lexer->tracker.tokenEnd - lexer->tracker.tokenStart == 0) return UNDEFINED;
@@ -40,7 +33,7 @@ Token GetNextToken(Lexer* lexer){
 		return NUMBER;
 	}
 	else if (tok == UNDEFINED && containsChars && (token[0] == '\'' || token[0] == '"')){
-		return STRING_LITERAL;
+		return STRING;
 	}
 	else if (tok == UNDEFINED && containsChars){
 		return IDENTIFIER;
@@ -56,16 +49,31 @@ Token GetNextToken(Lexer* lexer){
  * 	If VAR appears, allocate 1 ASTVar slot
  * 	If ASSIGN appears, allocate 1 ASTBinaryExpr slot var a = 10;
  */
-void CountTotalASTTokens(Lexer* lexer, ASTNodeMemoryAudit* audit){
-	audit->var = 0;
-	audit->func = 0;
+int CountTotalASTTokens(Lexer* lexer){
+	int total = 0;
 	Token tok = GetNextToken(lexer);
 	while (tok != UNDEFINED){
-		if (tok == VAR) audit->var++;
-		else if (tok == ASSIGN) audit->binary++;
+		if (tok == VAR ||
+			tok == FOR ||
+			tok == ASSIGN ||
+			tok == NUMBER ||
+			tok == STRING || 
+			IsBinaryOperator(tok) ||
+			IsBooleanOperator(tok)) total++;
 		tok = GetNextToken(lexer);
 	}
 	DestroyLexer(lexer);
+	return total;
+}
+
+int CountTotalScopes(Lexer* lexer){
+	int total = 0;
+	int len = strlen(lexer->rawSourceCode);
+	for (int i = 0; i < len; i++){
+		if (lexer->rawSourceCode[i] == '{') total++;
+	}
+	DestroyLexer(lexer);
+	return total;
 }
 
 void ResetLexer(Lexer* lexer){
@@ -206,7 +214,7 @@ bool CrawlNumbers(Lexer* lexer){
 			GetNextCharacter(lexer);
 			inside = true;
 		}
-		if (!inside) GetCurrentCharacter(lexer);
+		if (!inside) GetNextCharacter(lexer);
 		SetTokenEnd(lexer);
 		return true;
 	}

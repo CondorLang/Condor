@@ -1,18 +1,23 @@
 #include "scope.h"
 
 void DestroyScope(Scope* scope){
-	for (int i = 0; i < scope->audit->var; i++){
-		if (scope->vars[i].name != NULL) Free(scope->vars[i].name);
-	}
-	for (int i = 0; i < scope->audit->lit; i++){
-		if (scope->lits[i].value != NULL) Free(scope->lits[i].value);
-	}
+	
 }
 
 void InitScope(Scope* scope){
-	scope->vars = NULL;
-	scope->binarys = NULL;
-	scope->varSpot = 0;
-	scope->binarySpot = 0;
-	scope->audit = NULL;
+	scope->nodeSpot = 0;
+	scope->scopeLength = 0;
+	scope->nodeLength = 0;
+	scope->scopeSpot = 0;
+}
+
+void ExpandScope(Scope* scope, int tab){
+	for (int i = 0; i < scope->scopeLength; i++){
+		for (int j = 0; j < scope->nodeLength; j++){
+			if (scope->nodes[i].isStmt && scope->nodes[j].scopeId == scope->scopes[i]){
+				printf("\n");
+				ExpandASTNode(&scope->nodes[j], tab);
+			}
+		}
+	}
 }

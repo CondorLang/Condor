@@ -13,7 +13,8 @@
 
 #include "condor/token/token.h"
 #include "utils/assert.h"
+#include "condor/ast/ast.h"
 
-Token GetNumberType(char* value);
+void SetNumberType(ASTNode* node, char* value);
 
 #endif // NUMBER_H_
