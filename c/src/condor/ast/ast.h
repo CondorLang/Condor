@@ -114,12 +114,17 @@ struct ASTNode {
 			int body;
 		} forExpr;
 
+		struct {
+			ASTNode* condition;
+			int body;
+		} ifExpr;
+
 	} meta;
 };
 
 void InitNodes(ASTNode nodes[], int len);
 void DestroyNodes(ASTNode nodes[], int len);
-void ExpandASTNode(ASTNode* node, int tab);
+void ExpandASTNode(Scope* scope, ASTNode* node, int tab);
 ASTNode* FindSymbol(Scope* scope, char* name);
 
 #endif // AST_H_

@@ -20,7 +20,7 @@ void DestroyNodes(ASTNode nodes[], int len){
 	}
 }
 
-void ExpandASTNode(ASTNode* node, int tab){
+void ExpandASTNode(Scope* scope, ASTNode* node, int tab){
 	if (node == NULL) return;
 	char tabs[(tab * 2) + 1];
 	for (int i = 0; i < tab * 2; i++) tabs[i] = ' ';
@@ -31,8 +31,8 @@ void ExpandASTNode(ASTNode* node, int tab){
 	int type = (int) node->type;
 	switch (type){
 		case VAR: {
-			printf(" %s-name: %s\n %s-value:\n %s-inc: %s\n", tabs, node->meta.varExpr.name, tabs, tabs, TokenToString(node->meta.varExpr.inc));
-			ExpandASTNode(node->meta.varExpr.value, tab + 2);
+			printf(" %s-name: %s\n %s-inc: %s\n %s-value\n", tabs, node->meta.varExpr.name, tabs, TokenToString(node->meta.varExpr.inc), tabs);
+			ExpandASTNode(scope, node->meta.varExpr.value, tab + 2);
 			break;	
 		}
 		case STRING: {
@@ -41,9 +41,9 @@ void ExpandASTNode(ASTNode* node, int tab){
 		}
 		case BINARY: {
 			printf(" %s-operator: %s\n %s-left:\n", tabs, TokenToString(node->meta.binaryExpr.op), tabs);
-			ExpandASTNode(node->meta.binaryExpr.left, tab + 2);
+			ExpandASTNode(scope, node->meta.binaryExpr.left, tab + 2);
 			printf(" %s-right:\n", tabs);
-			ExpandASTNode(node->meta.binaryExpr.right, tab + 2);
+			ExpandASTNode(scope, node->meta.binaryExpr.right, tab + 2);
 			break;
 		}
 		case BOOLEAN: {
@@ -76,14 +76,20 @@ void ExpandASTNode(ASTNode* node, int tab){
 		}
 		case FOR: {
 			printf(" %s-var:\n", tabs);
-			ExpandASTNode(node->meta.forExpr.var, tab + 2);
+			ExpandASTNode(scope, node->meta.forExpr.var, tab + 2);
 			printf(" %s-condition:\n", tabs);
-			ExpandASTNode(node->meta.forExpr.condition, tab + 2);
+			ExpandASTNode(scope, node->meta.forExpr.condition, tab + 2);
 			printf(" %s-incrementor:\n", tabs);
-			ExpandASTNode(node->meta.forExpr.inc, tab + 2);
+			ExpandASTNode(scope, node->meta.forExpr.inc, tab + 2);
 			printf(" %s-body:\n", tabs);
-			ExpandScope(node->meta.forExpr.body, tab + 2);
+			ExpandSubScope(scope, node->meta.forExpr.body, tab + 2);
 			break;
+		}
+		case IF: {
+			printf(" %s-condition:\n", tabs);
+			ExpandASTNode(scope, node->meta.ifExpr.condition, tab + 2);
+			printf(" %s-body:\n", tabs);
+			ExpandSubScope(scope, node->meta.ifExpr.body, tab + 2);
 		}
 	}
 }

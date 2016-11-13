@@ -39,11 +39,22 @@ struct Scope{
 	int scopeLength;
 	int scopeSpot;
 	ASTNode* nodes;
+
+	/**
+	 * Since we are trying to reduce the amount of heap
+	 * memory we will allocate, we are using an array of
+	 * scope ids. Each statement node will be assigned
+	 * an ID from this scopes array. We will determine if
+	 * a certain node belongs to a certain scope. This
+	 * reduces the amount of memory required to build
+	 * each scope.
+	 */
 	int* scopes;
 };
 
 void DestroyScope(Scope* scope);
 void InitScope(Scope* scope);
 void ExpandScope(Scope* scope, int tab);
+void ExpandSubScope(Scope* scope, int id, int tab);
 
 #endif // SCOPE_H_

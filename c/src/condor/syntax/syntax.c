@@ -36,7 +36,7 @@ void BuildTree(char* rawSourceCode){
 	scope.scopes = scopes;
 
 	// Let's build the tree
-	ParseStmtList(&scope, &lexer, scope.scopes[0], false);
+	ParseStmtList(&scope, &lexer, scope.scopes[scope.scopeSpot++], false);
 
 	ExpandScope(&scope, 0);
 
@@ -77,6 +77,19 @@ ASTNode* ParseFor(Scope* scope, Lexer* lexer){
 	return forExpr;
 }
 
+ASTNode* ParseIf(Scope* scope, Lexer* lexer){
+	int loc = scope->nodeSpot++;
+	ASTNode* ifExpr = &scope->nodes[loc];
+	ifExpr->isStmt = true;
+	ifExpr->type = IF;
+
+	Token tok = GetNextToken(lexer);
+	EXPECT_TOKEN(tok, LPAREN);
+	ifExpr->meta.ifExpr.condition = ParseExpression(scope, lexer);
+	ifExpr->meta.ifExpr.body = ParseBody(scope, lexer);
+	return ifExpr;
+}
+
 Token ParseStmtList(Scope* scope, Lexer* lexer, int scopeId, bool oneStmt){
 	Token tok = GetNextToken(lexer);
 	while (tok != UNDEFINED){
@@ -92,6 +105,10 @@ Token ParseStmtList(Scope* scope, Lexer* lexer, int scopeId, bool oneStmt){
 			}
 			case FOR: {
 				node = ParseFor(scope, lexer);
+				break;
+			}
+			case IF: {
+				node = ParseIf(scope, lexer);
 				break;
 			}
 		}
@@ -167,14 +184,12 @@ ASTNode* ParseExpression(Scope* scope, Lexer* lexer){
 	if (tok == NUMBER){
 		int loc = scope->nodeSpot++;
 
+		result = &scope->nodes[loc];
+
 		// Build the ASTLiteral node
-		SetNumberType(&scope->nodes[loc], value);
+		SetNumberType(result, value);
 
 		tok = GetNextToken(lexer);
-
-		if (tok == SEMICOLON) { // var a = 10;
-			result = &scope->nodes[loc];
-		}
 	}
 	else if (tok == STRING){
 		int loc = scope->nodeSpot++;
