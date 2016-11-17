@@ -119,6 +119,11 @@ struct ASTNode {
 			int body;
 		} ifExpr;
 
+		struct {
+			ASTNode* condition;
+			int body;
+		} whileExpr;
+
 	} meta;
 };
 

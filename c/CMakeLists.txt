@@ -30,6 +30,7 @@ set(SOURCE_LIST
 	${SOURCE_DIR}/condor/ast/scope.c
 	${SOURCE_DIR}/condor/number/number.c
 	${SOURCE_DIR}/utils/clock.c
+	${SOURCE_DIR}/condor/codegen/codegen.c
 )
 
 add_library(CondorLib STATIC ${SOURCE_LIST})

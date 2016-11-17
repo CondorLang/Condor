@@ -59,6 +59,7 @@ int CountTotalASTTokens(Lexer* lexer){
 			tok == NUMBER ||
 			tok == STRING || 
 			tok == IF ||
+			tok == BREAK ||
 			IsBinaryOperator(tok) ||
 			IsBooleanOperator(tok)) total++;
 		tok = GetNextToken(lexer);

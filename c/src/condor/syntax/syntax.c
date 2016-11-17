@@ -49,11 +49,17 @@ void BuildTree(char* rawSourceCode){
 	EndClock(&clock);
 	SetClockDifference(&clock);
 	printf("Time: %llu nanoseconds\n", GetClockNanosecond(&clock));
+	CodeGen_DeclareVariable("apple", INT);
+}
+
+ASTNode* GetNextNode(Scope* scope){
+	int loc = scope->nodeSpot++;
+	return &scope->nodes[loc];
 }
 
 ASTNode* ParseFor(Scope* scope, Lexer* lexer){
-	int loc = scope->nodeSpot++;
-	ASTNode* forExpr = &scope->nodes[loc];
+	TRACK();
+	ASTNode* forExpr = GetNextNode(scope);
 	forExpr->isStmt = true;
 	forExpr->type = FOR;
 
@@ -78,8 +84,8 @@ ASTNode* ParseFor(Scope* scope, Lexer* lexer){
 }
 
 ASTNode* ParseIf(Scope* scope, Lexer* lexer){
-	int loc = scope->nodeSpot++;
-	ASTNode* ifExpr = &scope->nodes[loc];
+	TRACK();
+	ASTNode* ifExpr = GetNextNode(scope);
 	ifExpr->isStmt = true;
 	ifExpr->type = IF;
 
@@ -88,6 +94,19 @@ ASTNode* ParseIf(Scope* scope, Lexer* lexer){
 	ifExpr->meta.ifExpr.condition = ParseExpression(scope, lexer);
 	ifExpr->meta.ifExpr.body = ParseBody(scope, lexer);
 	return ifExpr;
+}
+
+ASTNode* ParseWhile(Scope* scope, Lexer* lexer){
+	TRACK();
+	ASTNode* whileStmt = GetNextNode(scope);
+	whileStmt->isStmt = true;
+	whileStmt->type = WHILE;
+
+	Token tok = GetNextToken(lexer);
+	EXPECT_TOKEN(tok, LPAREN);
+	whileStmt->meta.whileExpr.condition = ParseExpression(scope, lexer);
+	whileStmt->meta.whileExpr.body = ParseBody(scope, lexer);
+	return whileStmt;
 }
 
 Token ParseStmtList(Scope* scope, Lexer* lexer, int scopeId, bool oneStmt){
@@ -111,6 +130,10 @@ Token ParseStmtList(Scope* scope, Lexer* lexer, int scopeId, bool oneStmt){
 				node = ParseIf(scope, lexer);
 				break;
 			}
+			case WHILE: {
+				node = ParseWhile(scope, lexer);
+				break;
+			}
 		}
 		if (node != NULL) node->scopeId = scopeId;
 		if (oneStmt) break;
@@ -121,6 +144,7 @@ Token ParseStmtList(Scope* scope, Lexer* lexer, int scopeId, bool oneStmt){
 }
 
 int ParseBody(Scope* scope, Lexer* lexer){
+	TRACK();
 	int loc = scope->scopeSpot++;
 	Token tok = GetNextToken(lexer);
 
@@ -139,16 +163,16 @@ int ParseBody(Scope* scope, Lexer* lexer){
 }
 
 ASTNode* ParseVar(Scope* scope, Lexer* lexer, Token dataType){
-	int loc = scope->nodeSpot++;
-	scope->nodes[loc].type = VAR;
-	scope->nodes[loc].meta.varExpr.dataType = dataType;
+	TRACK();
+	ASTNode* var = GetNextNode(scope);
+	var->type = VAR;
+	var->meta.varExpr.dataType = dataType;
 
 	Token tok = GetNextToken(lexer);
 	EXPECT_TOKEN(tok, IDENTIFIER);
 
 	// Set the name of the variable
 	char* name = lexer->currentTokenString;
-	ASTNode* var = &scope->nodes[loc];
 	var->meta.varExpr.name = Allocate((sizeof(char) * strlen(name)) + sizeof(char));
 	var->meta.varExpr.value = NULL; // mem issue prevention
 	var->isStmt = true; // is statement node
@@ -182,9 +206,7 @@ ASTNode* ParseExpression(Scope* scope, Lexer* lexer){
 	char* value = lexer->currentTokenString;
 
 	if (tok == NUMBER){
-		int loc = scope->nodeSpot++;
-
-		result = &scope->nodes[loc];
+		result = GetNextNode(scope);
 
 		// Build the ASTLiteral node
 		SetNumberType(result, value);
@@ -192,8 +214,7 @@ ASTNode* ParseExpression(Scope* scope, Lexer* lexer){
 		tok = GetNextToken(lexer);
 	}
 	else if (tok == STRING){
-		int loc = scope->nodeSpot++;
-		ASTNode* str = &scope->nodes[loc];
+		ASTNode* str = GetNextNode(scope);
 		str->type = STRING;
 		strcpy(str->meta.stringExpr.value, value);
 
@@ -229,6 +250,15 @@ ASTNode* ParseExpression(Scope* scope, Lexer* lexer){
 		if (tok == INC || tok == DEC){
 			symbol->meta.varExpr.inc = tok;
 		}
+	}
+	else if (tok == TRUE_LITERAL || tok == FALSE_LITERAL){
+		result = GetNextNode(scope);
+		result->type = BOOLEAN;
+
+		// Build the ASTLiteral node
+		result->meta.booleanExpr.value = tok == TRUE_LITERAL;
+
+		tok = GetNextToken(lexer);
 	}
 
 	if (IsBinaryOperator(tok) || IsBooleanOperator(tok)){

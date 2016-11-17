@@ -30,16 +30,19 @@
 #include "condor/ast/scope.h"
 #include "condor/ast/ast.h"
 #include "condor/number/number.h"
+#include "condor/codegen/codegen.h" // TODO: Remove
 
 typedef struct Syntax {
 
 } Syntax;
 
 void BuildTree(char* rawSourceCode);
+ASTNode* GetNextNode(Scope* scope);
 ASTNode* ParseVar(Scope* scope, Lexer* lexer, Token dataType);
 ASTNode* ParseExpression(Scope* scope, Lexer* lexer);
 ASTNode* ParseFor(Scope* scope, Lexer* lexer);
 ASTNode* ParseIf(Scope* scope, Lexer* lexer);
+ASTNode* ParseWhile(Scope* scope, Lexer* lexer);
 int ParseBody(Scope* scope, Lexer* lexer);
 Token ParseStmtList(Scope* scope, Lexer* lexer, int scopeId, bool oneStmt);
 

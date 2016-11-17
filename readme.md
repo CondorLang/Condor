@@ -3,6 +3,10 @@
 
 Condor is intended to be another simple and intuitive programming language. The syntax is familiar by design, but allows for the combining of a few concepts.
 
+Download
+--------
+[Linux Binary (64-bit)](https://github.com/CondorLang/Condor/releases/tag/v0.1.0)
+
 Documentation
 -------------
 See [Wiki](https://github.com/CondorLang/Condor/wiki) for documentation.
