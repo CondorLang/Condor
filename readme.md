@@ -54,3 +54,6 @@ CondorLang uses CMake to generate the Makefiles. The following commands build th
 ## Running CondorLang
 The run CondorLang, use the following commands.
 ```./build/condor [file]```
+
+## Todo Items
+For a list of TODO items, see [issues](https://github.com/CondorLang/Condor/issues)
