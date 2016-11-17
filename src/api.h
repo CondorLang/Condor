@@ -15,7 +15,7 @@ namespace Condor {
 
 	#define MAJOR 0
 	#define MINOR 6
-	#define BUG 0
+	#define BUG 1
 
 } // namespace Condor
 
