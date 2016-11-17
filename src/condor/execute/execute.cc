@@ -627,12 +627,11 @@ namespace internal{
 
 			PrintStep("Set the calculated value (" + lit->value + " | " + Token::ToString(lit->litType) + ")");
 			try{
-				if (lit->litType != TRUE_LITERAL && lit->litType != FALSE_LITERAL) lit->calc = std::stod(lit->value);
 				int type = (int) lit->litType;
 				switch (type){
-					case INT: lit->calc = (int) lit->calc; break;
-					case FLOAT: lit->calc = (float) lit->calc; break;
-					case LONG: lit->calc = (long) lit->calc; break;
+					case INT: lit->calc = std::stoi(lit->value); break;
+					case FLOAT: lit->calc = std::stod(lit->value); break;
+					case LONG: lit->calc = std::stol(lit->value); break;
 					case TRUE_LITERAL: {
 						lit->calc = 1;
 						lit->value = "true";

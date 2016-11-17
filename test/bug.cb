@@ -1,0 +1,11 @@
+import "println" from "console"
+
+int ten1 = 10;
+float tenf = 10.1;
+double tend = 10.1;
+long tenl = 10.1;
+
+println(ten1 + 10);
+println(tenf + 10);
+println(tend + 10);
+println(tenl + 10);
