@@ -1,5 +1,5 @@
 <!-- ![Condor Title](https://github.com/CondorLang/Condor/blob/master/Condor%20Title.png) -->
-# Condor [![Build Status][travis-image]][travis-url]
+# <img src='https://github.com/CondorLang/Condor/blob/master/web/images/CondorLogo.png' width='40px' />Condor [![Build Status][travis-image]][travis-url]
 
 Condor is intended to be another simple and intuitive programming language. The syntax is familiar by design, but allows for the combining of a few concepts.
 
