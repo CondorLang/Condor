@@ -222,7 +222,7 @@ namespace internal{
 					if (!Is(1, STRING)) throw Error::INVALID_INCLUDE_IMPORT;
 					import->name = tok->raw;
 				}
-				import->alias = ParseAlias();
+				import->alias = ParseAlias(tok->value == STRING);
 				imports.push_back(import);
 			}
 			else {
@@ -440,7 +440,7 @@ namespace internal{
 			if (Is(1, SEMICOLON)) Next();
 			return binary;
 		}
-		if (Is(1, IDENT)){ 
+		if (Is(1, IDENT) && expr != NULL && expr->type != FUNC_CALL){ // TODO: Fix this hack
 			Trace("Parsing Var", tok->raw.c_str());
 			ASTVar* var = ASTVar::New(isolate);
 			ASTLiteral* lit = (ASTLiteral*) expr;
