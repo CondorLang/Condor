@@ -192,7 +192,7 @@ namespace internal{
 	ASTNode* Internal::GetVersion(Isolate* iso, std::vector<ASTLiteral*> lits){
 		ASTLiteral* result = ASTLiteral::New(iso);
 		result->litType = STRING;
-		result->value = std::to_string(MAJOR) + "." + std::to_string(MINOR) + "." + std::to_string(BUILD);
+		result->value = std::to_string(MAJOR) + "." + std::to_string(MINOR) + "." + std::to_string(BUG);
 		return result;
 	}
 

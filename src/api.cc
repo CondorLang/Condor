@@ -33,7 +33,7 @@ namespace Condor{
 		result += ".";
 		result += std::to_string(MINOR);
 		result += ".";
-		result += std::to_string(BUILD);
+		result += std::to_string(BUG);
 		return result.c_str();
 	}
 

@@ -15,10 +15,10 @@ namespace Condor {
 
 	#define MAJOR 0
 	#define MINOR 6
-	#define BUILD 0
+	#define BUG 0
 
 } // namespace Condor
 
 namespace i = Condor::internal;
 
-#endif // API_H_
+#endif
