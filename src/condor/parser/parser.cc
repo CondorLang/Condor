@@ -123,6 +123,7 @@ namespace internal{
 			}
 			CHECK(scanner != NULL);
 			tok = scanner->NextToken();
+			if (tok == NULL) throw Error::UNEXPECTED_END_OF_FILE;
 			row = scanner->row;
 			col = scanner->col;
 			pos = scanner->offset;
