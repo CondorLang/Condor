@@ -24,6 +24,7 @@
 #include "condor/semantics/binary.h"
 #include "condor/semantics/semantics.h"
 #include "condor/types/strings/string.h"
+#include "condor/clock.h"
 
 namespace Condor {
 namespace internal{

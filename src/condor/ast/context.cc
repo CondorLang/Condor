@@ -14,7 +14,12 @@ namespace internal{
 	}
 
 	Context::~Context(){
-		
+		for (unsigned int i = 0; i < root.size(); i++){
+			isolate->FreeMemory(root[i], sizeof(Scope));
+		}	
+		for (unsigned int i = 0; i < injectedScopes.size(); i++){
+			isolate->FreeMemory(injectedScopes[i], sizeof(Scope));
+		}
 	}
 
 	void Context::SetIsolate(Isolate* isolate){

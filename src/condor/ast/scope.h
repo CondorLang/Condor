@@ -38,7 +38,6 @@ namespace internal{
 		std::string name;
 		Context* context;
 		int scopeId;
-		std::vector<ASTNode*> local;
 		ASTNode* owner;
 		static Scope* New(Isolate* isolate);
 		void Insert(ASTNode* node);

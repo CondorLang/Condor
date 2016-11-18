@@ -30,6 +30,9 @@
 *.out
 *.app
 
+# Logs
+*Logs.txt
+
 # CMake
 CMakeCache.txt
 CMakeFiles

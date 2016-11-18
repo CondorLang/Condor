@@ -34,6 +34,11 @@ namespace internal{
 		trace = TRACE_PARSER;
 	}
 
+	Parser::~Parser(){
+		if (tok != NULL) isolate->FreeMemory(tok, sizeof(Token));
+		if (expected != NULL) isolate->FreeMemory(expected, sizeof(Token));
+	}
+
 	void Parser::SetInteral(bool isInternal){
 		this->isInternal = isInternal;
 		if (isInternal){
@@ -51,7 +56,6 @@ namespace internal{
 		}
 		if (scanner->src == ((void*) 0x231)) return NULL;
 		return scanner->src;
-		// return source == NULL ? scanner->src : source;
 	}
 
 	void Parser::SetDefaults(std::string* source){

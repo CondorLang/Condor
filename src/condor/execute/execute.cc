@@ -774,15 +774,23 @@ namespace internal{
 		while (true){
 			if (expr->scope->Size() == 0) break;
 			i++;
+			Clock clock;
+			clock.Start();
 			ASTLiteral* condition = EvaluateValue(expr->condition);
+			clock.Stop();
+			printf("Condition: %f\n", clock.GetDuration());
 			bool pass = condition->value == "true";
-			if (condition != expr->condition) isolate->RunGC(condition, true);
+			if (condition != expr->condition) condition->Free(isolate);
 			if (!pass) break;
 			bool cb = canBreak;
 			canBreak = true;
 
 			try {
+				Clock clock;
+				clock.Start();
 				Evaluate();
+				clock.Stop();
+				printf("Evalaution: %f\n", clock.GetDuration());
 				isolate->RunGC(expr->scope, true);
 				if (isContinue) isContinue = false;
 				if (isReturning) return;
@@ -812,10 +820,7 @@ namespace internal{
 		while (true){
 			ASTLiteral* condition = EvaluateValue(expr->condition);
 			bool pass = condition->value == "true";
-			if (condition != expr->condition) {
-				condition->Free(isolate); // release condition memory
-				isolate->RunGC(expr->condition, true);
-			}
+			if (condition != expr->condition) condition->Free(isolate); // release condition memory
 			if (!pass) break;
 			bool cb = canBreak;
 			canBreak = true;

@@ -47,7 +47,7 @@ namespace internal{
 		delete large;
 		delete xl;
 		delete gc;
-		delete this->self;
+		delete self;
 	}
 
 	Isolate* Isolate::GLOBAL_ISOLATE = NULL;

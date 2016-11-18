@@ -25,6 +25,7 @@ namespace internal{
 	class Scanner {
 	public:
 		Scanner(){}
+		~Scanner(){}
 		static Scanner* New(Isolate* iso, std::string* source);
 		std::string* src;
 		std::vector<std::string> errors;

@@ -85,7 +85,7 @@ namespace internal{
 
 	public:
 		Parser(Isolate* iso);
-		~Parser(){}
+		~Parser();
 		static Parser* New(Isolate* isolate, std::string* source);
 		std::vector<ASTImport*> imports;
 		std::vector<ASTInclude*> includes;

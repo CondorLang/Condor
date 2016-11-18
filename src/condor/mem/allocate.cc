@@ -54,16 +54,18 @@ namespace internal{
 
 	void MemoryPool::DeallocateAllChunks(){
 		Chunk* chunk = kFirstChunk;
-	  Chunk* chunkToDelete = NULL;
-	  while(chunk != NULL){
-			if(chunk->isAllocationChunk){	
+	  	Chunk* chunkToDelete = NULL;
+	  	while (chunk != NULL){
+			if (chunk->isAllocationChunk){	
 				if (chunkToDelete){
 					Allocate::Delete((void*) chunkToDelete);
+					chunkToDelete = NULL;
 				}
 				chunkToDelete = chunk;
 			}
 			chunk = chunk->next;
-	  }
+	  	}
+	  	if (chunkToDelete) Allocate::Delete((void*) chunkToDelete); // catch the trailing chunk
 	}
 
 	void MemoryPool::FreeAllAllocatedMemory(){

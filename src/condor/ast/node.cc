@@ -46,130 +46,131 @@ namespace internal{
 
 	void ASTNode::Free(Isolate* iso){
 		int t = (int) type;
+		// this->~ASTNode();
 		switch (t){
 			case IMPORT: {
-				//ASTImport* import = (ASTImport*) this;
-				//import->~ASTImport();
+				ASTImport* import = (ASTImport*) this;
+				import->~ASTImport();
 				iso->FreeMemory(this, sizeof(ASTImport)); 
 				break;
 			}
 			case INCLUDE: {
-				//ASTInclude* include = (ASTInclude*) this;
-				//include->~ASTInclude();
+				ASTInclude* include = (ASTInclude*) this;
+				include->~ASTInclude();
 				iso->FreeMemory(this, sizeof(ASTInclude)); 
 				break;
 			}
 			case FUNC: {
-				//ASTFunc* func = (ASTFunc*) this;
-				//func->~ASTFunc();
+				ASTFunc* func = (ASTFunc*) this;
+				func->~ASTFunc();
 				iso->FreeMemory(this, sizeof(ASTFunc)); 
 				break;
 			}
 			case VAR: {
-				//ASTVar* var = (ASTVar*) this;
-				//var->~ASTVar();
+				ASTVar* var = (ASTVar*) this;
+				var->~ASTVar();
 				iso->FreeMemory(this, sizeof(ASTVar)); 
 				break;
 			}
 			case EXPR: {
-				//ASTExpr* expr = (ASTExpr*) this;
-				//expr->~ASTExpr();
+				ASTExpr* expr = (ASTExpr*) this;
+				expr->~ASTExpr();
 				iso->FreeMemory(this, sizeof(ASTExpr)); 
 				break;
 			}
 			case BINARY: {
-				//ASTBinaryExpr* binary = (ASTBinaryExpr*) this;
-				//binary->~ASTBinaryExpr();
+				ASTBinaryExpr* binary = (ASTBinaryExpr*) this;
+				binary->~ASTBinaryExpr();
 				iso->FreeMemory(this, sizeof(ASTBinaryExpr)); 
 				break;
 			}
 			case LITERAL: {
-				//ASTLiteral* lit = (ASTLiteral*) this;
-				//lit->~ASTLiteral();
+				ASTLiteral* lit = (ASTLiteral*) this;
+				lit->~ASTLiteral();
 				iso->FreeMemory(this, sizeof(ASTLiteral)); 
 				break;
 			}
 			case FUNC_CALL: {
-				//ASTFuncCall* call = (ASTFuncCall*) this;
-				//call->~ASTFuncCall();
+				ASTFuncCall* call = (ASTFuncCall*) this;
+				call->~ASTFuncCall();
 				iso->FreeMemory(this, sizeof(ASTFuncCall)); 
 				break;
 			}
 			case FOR: {
-				//ASTForExpr* expr = (ASTForExpr*) this;
-				//expr->~ASTForExpr();
+				ASTForExpr* expr = (ASTForExpr*) this;
+				expr->~ASTForExpr();
 				iso->FreeMemory(this, sizeof(ASTForExpr)); 
 				break;
 			}
 			case WHILE: {
-				//ASTWhileExpr* expr = (ASTWhileExpr*) this;
-				//expr->~ASTWhileExpr();
+				ASTWhileExpr* expr = (ASTWhileExpr*) this;
+				expr->~ASTWhileExpr();
 				iso->FreeMemory(this, sizeof(ASTWhileExpr)); 
 				break;
 			}
 			case TRY_CATCH: {
-				//ASTTryCatchExpr* expr = (ASTTryCatchExpr*) this;
-				//expr->~ASTTryCatchExpr();
+				ASTTryCatchExpr* expr = (ASTTryCatchExpr*) this;
+				expr->~ASTTryCatchExpr();
 				iso->FreeMemory(this, sizeof(ASTTryCatchExpr)); 
 				break;
 			}
 			case THROW: {
-				//ASTThrow* expr = (ASTThrow*) this;
-				//expr->~ASTThrow();
+				ASTThrow* expr = (ASTThrow*) this;
+				expr->~ASTThrow();
 				iso->FreeMemory(this, sizeof(ASTThrow)); 
 				break;
 			}
 			case IF: {
-				//ASTIf* expr = (ASTIf*) this;
-				//expr->~ASTIf();
+				ASTIf* expr = (ASTIf*) this;
+				expr->~ASTIf();
 				iso->FreeMemory(this, sizeof(ASTIf)); 
 				break;
 			}
 			case DELETE: {
-				//ASTImport* import = (ASTImport*) this;
-				//import->~ASTImport();
+				ASTImport* import = (ASTImport*) this;
+				import->~ASTImport();
 				iso->FreeMemory(this, sizeof(ASTDelete)); 
 				break;
 			}
 			case CASE: {
-				//ASTCase* expr = (ASTCase*) this;
-				//expr->~ASTCase();
+				ASTCase* expr = (ASTCase*) this;
+				expr->~ASTCase();
 				iso->FreeMemory(this, sizeof(ASTCase)); 
 				break;
 			}
 			case SWITCH: {
-				//ASTSwitch* expr = (ASTSwitch*) this;
-				//expr->~ASTSwitch();
+				ASTSwitch* expr = (ASTSwitch*) this;
+				expr->~ASTSwitch();
 				iso->FreeMemory(this, sizeof(ASTSwitch)); 
 				break;
 			}
 			case OBJECT: {
-				//ASTObject* obj = (ASTObject*) this;
-				//obj->~ASTObject();
+				ASTObject* obj = (ASTObject*) this;
+				obj->~ASTObject();
 				iso->FreeMemory(this, sizeof(ASTObject)); 
 				break;
 			}
 			case UNDEFINED: {
-				//ASTUndefined* undef = (ASTUndefined*) this;
-				//undef->~ASTUndefined();
+				ASTUndefined* undef = (ASTUndefined*) this;
+				undef->~ASTUndefined();
 				iso->FreeMemory(this, sizeof(ASTUndefined)); 
 				break;
 			}
 			case ARRAY: {
-				//ASTArray* ary = (ASTArray*) this;
-				//ary->~ASTArray();
+				ASTArray* ary = (ASTArray*) this;
+				ary->~ASTArray();
 				iso->FreeMemory(this, sizeof(ASTArray)); 
 				break;
 			}
 			case OBJECT_INSTANCE: {
-				//ASTObjectInstance* inst = (ASTObjectInstance*) this;
-				//inst->~ASTObjectInstance();
+				ASTObjectInstance* inst = (ASTObjectInstance*) this;
+				inst->~ASTObjectInstance();
 				iso->FreeMemory(this, sizeof(ASTObjectInstance)); 
 				break;
 			}
 			case CONTINUE: {
-				//ASTContinue* cont = (ASTContinue*) this;
-				//cont->~ASTContinue();
+				ASTContinue* cont = (ASTContinue*) this;
+				cont->~ASTContinue();
 				iso->FreeMemory(this, sizeof(ASTContinue)); 
 				break;
 			}

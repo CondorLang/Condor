@@ -16,7 +16,9 @@ namespace internal{
 	}
 
 	Scope::~Scope(){
-		
+		for (unsigned int i = 0; i < nodes.size(); i++){
+			nodes[i]->Free(isolate);
+		}
 	}
 
 	int Scope::scopeIdInc = 1;

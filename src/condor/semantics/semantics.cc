@@ -233,7 +233,9 @@ namespace internal{
 		SetRowCol(expr);
 		if (expr == NULL) return UNDEFINED;
 		TRACK(expr);
-		if (expr->cast != NULL) ValidateCast(expr);
+		if (expr->cast != NULL) {
+			ValidateCast(expr);
+		}
 		int type = (int) expr->type;
 		switch (type){
 			case UNDEFINED: return UNDEFINED;

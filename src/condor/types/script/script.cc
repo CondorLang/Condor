@@ -319,7 +319,6 @@ namespace internal{
 			include->Free(isolate);
 			parser->includes.erase(parser->includes.begin());
 		}
-		//path->~Path();
 		isolate->FreeMemory(path, sizeof(Path));
 	}
 
