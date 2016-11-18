@@ -161,6 +161,9 @@ namespace internal{
 		SetRowCol(var);
 		TRACK(var);
 		CHECK(var != NULL);
+		std::vector<ASTNode*> existingNodes = GetCurrentScope()->Lookup(var->name, false); // check if current var exists in the current scope
+		if (existingNodes.size() > 1 && existingNodes[0] != var) throw Error::NAME_ALREADY_EXISTS; // don't show the first variable
+
 		var->scopeId = GetCurrentScope()->scopeId;
 		if (var->isObject && var->value->type == FUNC_CALL){
 			ValidateObjectInit(var);

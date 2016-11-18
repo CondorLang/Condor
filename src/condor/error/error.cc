@@ -128,6 +128,7 @@ namespace Error {
 			case INVALID_DOUBLE_ASSIGNMENT: return "Invalid double assignment";
 			case INVALID_ARRAY_ASSIGNMENT: return "Invalid array assignment";
 			case FILE_DOES_NOT_EXIST: return "File does not exist";
+			case NAME_ALREADY_EXISTS: return "The name already exists in the current scope";
 			case SCANNER: {
 				if (tok != NULL){
 					return tok->raw;
