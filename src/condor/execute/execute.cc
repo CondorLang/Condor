@@ -630,7 +630,8 @@ namespace internal{
 				int type = (int) lit->litType;
 				switch (type){
 					case INT: lit->calc = std::stoi(lit->value); break;
-					case FLOAT: lit->calc = std::stod(lit->value); break;
+					case DOUBLE: lit->calc = std::stod(lit->value); break;
+					case FLOAT: lit->calc = std::stof(lit->value); break;
 					case LONG: lit->calc = std::stol(lit->value); break;
 					case TRUE_LITERAL: {
 						lit->calc = 1;
