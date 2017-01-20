@@ -5,8 +5,10 @@
 #ifndef ASSERT_H_
 #define ASSERT_H_
 
-#define EXPECT_TOKEN(got, tok) if (tok != got) { \
-	printf("Parse error: Expected: %s\n", #tok); \
+#include "condor/token/token.h"
+
+#define EXPECT_TOKEN(got, tok, lexer) if (tok != got) { \
+	printf("Parse error: Expected: %s, but got: %s, at %d:%d\n", #tok, TokenToString(got), lexer->tracker.row, lexer->tracker.col + lexer->tracker.currentTokenPosition - 1); \
 	exit(0); \
 }
 

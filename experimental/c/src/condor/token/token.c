@@ -30,3 +30,11 @@ bool IsBinaryOperator(Token tok){
 bool IsBooleanOperator(Token tok){
 	return tok > BEGIN_BOOLEAN_COMPARISON && tok < END_BOOLEAN_COMPARISON;
 }
+
+bool IsNumber(Token tok){
+	return tok > BEGIN_NUMBER && tok < END_NUMBER;
+}
+
+bool IsString(Token tok){
+	return tok > BEGIN_STRING && tok < END_STRING;
+}

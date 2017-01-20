@@ -27,6 +27,13 @@ extern int ASTNODE_ID_SPOT;
 typedef struct Scope Scope; // forward declare
 typedef struct ASTNode ASTNode;
 
+#define GET_VAR(node) node->meta.varExpr
+#define GET_VAR_VALUE(node) node->meta.varExpr.value
+#define GET_BINARY(node) node->meta.binaryExpr;
+#define GET_BIN_LEFT(node) node->meta.binaryExpr.left;
+#define GET_BIN_RIGHT(node) node->meta.binaryExpr.right;
+#define GET_BIN_OP(node) node->meta.binaryExpr.op;
+
 struct ASTNode {
 	Token type;
 

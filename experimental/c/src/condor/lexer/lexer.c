@@ -10,6 +10,8 @@ void InitLexer(Lexer* lexer, char* rawSourceCode){
 	lexer->tracker.currentTokenPosition = 0;
 	lexer->tracker.tokenStart = 0;
 	lexer->tracker.tokenEnd = 0;
+	lexer->tracker.row = 1;
+	lexer->tracker.col = 1;
 }
 
 void DestroyLexer(Lexer* lexer){
@@ -253,6 +255,11 @@ bool CrawlSpaces(Lexer* lexer){
 		char nextChar = PeekNextCharacter(lexer);
 		char* checkCharacters = " \n\r";
 		while (IsCharacter(nextChar, checkCharacters)){
+			if (nextChar == '\n'){
+				lexer->tracker.row++;
+				lexer->tracker.col = 1;
+			}
+
 			nextChar = PeekNextCharacter(lexer);
 			GetNextCharacter(lexer);
 		}

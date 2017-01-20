@@ -18,8 +18,17 @@ macro(set_c_flag FLAG)
 endmacro()
 
 set_c_flag("-Wall")
+set_c_flag("-std=gnu11")
 
-set(CMAKE_BUILD_TYPE Debug)
+if(CMAKE_BUILD_TYPE MATCHES Debug)
+	set_c_flag("-DDEBUG=1")
+elseif(CMAKE_BUILD_TYPE MATCHES Release)
+	set_c_flag("-DDEBUG=0")
+endif()
+
+if(DEBUG_NAMESPACE)
+	set_c_flag('-DDEBUG_NAMESPACE=\"${DEBUG_NAMESPACE}\"')
+endif()
 
 set(SOURCE_LIST
 	${SOURCE_DIR}/condor/lexer/lexer.c
@@ -30,7 +39,7 @@ set(SOURCE_LIST
 	${SOURCE_DIR}/condor/ast/scope.c
 	${SOURCE_DIR}/condor/number/number.c
 	${SOURCE_DIR}/utils/clock.c
-	${SOURCE_DIR}/condor/codegen/codegen.c
+	${SOURCE_DIR}/condor/semantic/semantic.c
 )
 
 add_library(CondorLib STATIC ${SOURCE_LIST})

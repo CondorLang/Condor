@@ -150,5 +150,7 @@ char* TokenToString(Token tok);
 bool IsAssignment(Token tok);
 bool IsBinaryOperator(Token tok);
 bool IsBooleanOperator(Token tok);
+bool IsNumber(Token tok);
+bool IsString(Token tok);
 
 #endif // TOKEN_H_

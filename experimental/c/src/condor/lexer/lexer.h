@@ -28,6 +28,8 @@ typedef struct LexerTracker{
 	int tokenStart; // substr
 	int tokenEnd; // substr
 	int currentTokenPosition; // If -1, is EOF
+	int row;
+	int col;
 } LexerTracker;
 
 typedef struct Lexer{

@@ -1,59 +1,8 @@
 #include "syntax.h"
 
-void BuildTree(char* rawSourceCode){
-	Clock clock;
-	StartClock(&clock);
-
-	// Build Lexer
-	Lexer lexer;
-	InitLexer(&lexer, rawSourceCode);
-
-	// Pre-allocate memory
-	// The heap is 3,000% slower than just using stack
-	// memory. So we are pre-allocating the memory
-	// using the stack
-	int totalNodes = CountTotalASTTokens(&lexer);
-	ResetLexer(&lexer);
-	int totalScopes = CountTotalScopes(&lexer);
-	ResetLexer(&lexer);
-
-	// Pre-allocate the different variable types
-	ASTNode nodes[totalNodes];
-	InitNodes(nodes, totalNodes);
-
-	// Pre-allocate the different scopes
-	int scopes[totalScopes + 1];
-	for (int i = 0; i < totalScopes + 1; i++){
-		scopes[i] = i + 1;
-	}
-
-	// Build the scope
-	Scope scope;
-	InitScope(&scope);
-	scope.nodeLength = totalNodes;
-	scope.nodes = nodes;
-	scope.scopeLength = totalScopes;
-	scope.scopes = scopes;
-
-	// Let's build the tree
-	ParseStmtList(&scope, &lexer, scope.scopes[scope.scopeSpot++], false);
-
-	ExpandScope(&scope, 0);
-
-
-	// Cleanup
-	DestroyLexer(&lexer);
-	DestroyNodes(nodes, totalNodes);
-	// DestroyScope(&scope);
-
-	EndClock(&clock);
-	SetClockDifference(&clock);
-	printf("Time: %llu nanoseconds\n", GetClockNanosecond(&clock));
-	CodeGen_DeclareVariable("apple", INT);
-}
-
 ASTNode* GetNextNode(Scope* scope){
 	int loc = scope->nodeSpot++;
+	if (loc >= scope->nodeLength) return NULL;
 	return &scope->nodes[loc];
 }
 
@@ -64,7 +13,7 @@ ASTNode* ParseFor(Scope* scope, Lexer* lexer){
 	forExpr->type = FOR;
 
 	Token tok = GetNextToken(lexer);
-	EXPECT_TOKEN(tok, LPAREN);
+	EXPECT_TOKEN(tok, LPAREN, lexer);
 	tok = GetNextToken(lexer);
 
 	/**
@@ -78,7 +27,7 @@ ASTNode* ParseFor(Scope* scope, Lexer* lexer){
 	forExpr->meta.forExpr.inc = ParseExpression(scope, lexer);
 
 	tok = GetNextToken(lexer);
-	EXPECT_TOKEN(tok, RPAREN);
+	EXPECT_TOKEN(tok, RPAREN, lexer);
 	forExpr->meta.forExpr.body = ParseBody(scope, lexer);
 	return forExpr;
 }
@@ -90,7 +39,7 @@ ASTNode* ParseIf(Scope* scope, Lexer* lexer){
 	ifExpr->type = IF;
 
 	Token tok = GetNextToken(lexer);
-	EXPECT_TOKEN(tok, LPAREN);
+	EXPECT_TOKEN(tok, LPAREN, lexer);
 	ifExpr->meta.ifExpr.condition = ParseExpression(scope, lexer);
 	ifExpr->meta.ifExpr.body = ParseBody(scope, lexer);
 	return ifExpr;
@@ -103,7 +52,7 @@ ASTNode* ParseWhile(Scope* scope, Lexer* lexer){
 	whileStmt->type = WHILE;
 
 	Token tok = GetNextToken(lexer);
-	EXPECT_TOKEN(tok, LPAREN);
+	EXPECT_TOKEN(tok, LPAREN, lexer);
 	whileStmt->meta.whileExpr.condition = ParseExpression(scope, lexer);
 	whileStmt->meta.whileExpr.body = ParseBody(scope, lexer);
 	return whileStmt;
@@ -157,7 +106,7 @@ int ParseBody(Scope* scope, Lexer* lexer){
 	if (oneStmt) tok = GetNextToken(lexer); // eat
 	tok = ParseStmtList(scope, lexer, scope->scopes[loc], oneStmt);
 	if (!oneStmt){
-		EXPECT_TOKEN(tok, RBRACE);
+		EXPECT_TOKEN(tok, RBRACE, lexer);
 	}
 	return scope->scopes[loc];
 }
@@ -169,7 +118,7 @@ ASTNode* ParseVar(Scope* scope, Lexer* lexer, Token dataType){
 	var->meta.varExpr.dataType = dataType;
 
 	Token tok = GetNextToken(lexer);
-	EXPECT_TOKEN(tok, IDENTIFIER);
+	EXPECT_TOKEN(tok, IDENTIFIER, lexer);
 
 	// Set the name of the variable
 	char* name = lexer->currentTokenString;
@@ -273,8 +222,4 @@ ASTNode* ParseExpression(Scope* scope, Lexer* lexer){
 	}
 
 	return result;
-}
-
-void Scan(char* rawSourceCode){
-	BuildTree(rawSourceCode);
 }
