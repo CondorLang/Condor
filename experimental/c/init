@@ -21,6 +21,10 @@ parser.add_option('-n', '--namespace',
     dest='namespace',
     help='Which debug file should be included', default='All')
 
+parser.add_option('-m', '--memory',
+    action='store_true', dest='memory',
+    help='Run valgrind', default=False)
+
 options, args = parser.parse_args()
 
 def runBuild():
@@ -45,6 +49,9 @@ def runBuild():
 
     if options.execute:
     	call(['./build/condor'])
+
+    if options.memory:
+        call(['valgrind', '--leak-check=full', '--show-leak-kinds=all', '--track-origins=yes', '--log-file=mem.dump', './build/condor'])
 
 if __name__ == "__main__":
     runBuild()

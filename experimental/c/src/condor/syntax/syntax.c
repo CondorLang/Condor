@@ -165,6 +165,8 @@ ASTNode* ParseExpression(Scope* scope, Lexer* lexer){
 	else if (tok == STRING){
 		ASTNode* str = GetNextNode(scope);
 		str->type = STRING;
+		str->meta.stringExpr.value = Allocate((sizeof(char) * strlen(value)) + sizeof(char));
+
 		strcpy(str->meta.stringExpr.value, value);
 
 		// Remove the quotes around the string.
@@ -179,9 +181,7 @@ ASTNode* ParseExpression(Scope* scope, Lexer* lexer){
 
 		tok = GetNextToken(lexer);
 
-		if (tok == SEMICOLON){
-			result = str;
-		}
+		result = str;
 	}
 	else if (tok == IDENTIFIER){
 		ASTNode* symbol = FindSymbol(scope, value);
@@ -212,7 +212,7 @@ ASTNode* ParseExpression(Scope* scope, Lexer* lexer){
 
 	if (IsBinaryOperator(tok) || IsBooleanOperator(tok)){
 		int loc = scope->nodeSpot++;
-		ASTNode* left = &scope->nodes[loc - 1]; // Is this a safe assumption?
+		ASTNode* left = result; // Is this a safe assumption?
 		ASTNode* binary = &scope->nodes[loc];
 		binary->type = BINARY;
 		binary->meta.binaryExpr.op = tok;

@@ -29,10 +29,14 @@ typedef struct ASTNode ASTNode;
 
 #define GET_VAR(node) node->meta.varExpr
 #define GET_VAR_VALUE(node) node->meta.varExpr.value
+#define GET_VAR_TYPE(node) node->meta.varExpr.dataType;
 #define GET_BINARY(node) node->meta.binaryExpr;
 #define GET_BIN_LEFT(node) node->meta.binaryExpr.left;
 #define GET_BIN_RIGHT(node) node->meta.binaryExpr.right;
 #define GET_BIN_OP(node) node->meta.binaryExpr.op;
+#define GET_FOR_BODY(node) node->meta.forExpr.body
+#define GET_FOR_VAR(node) node->meta.forExpr.var
+#define GET_FOR_CONDITION(node) node->meta.forExpr.condition
 
 struct ASTNode {
 	Token type;

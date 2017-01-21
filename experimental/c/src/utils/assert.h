@@ -16,5 +16,7 @@
 #define NOT_IMPLEMENTED(val) { printf("Not Implemented (%s:%d): %s\n", __FUNCTION__, __LINE__, val); exit(0); }
 #define CHECK(condition) {if (!condition) {printf("Invalid Check: %s in %s:%d\n", #condition, __FUNCTION__, __LINE__);}}
 #define TRACK() {if (false) {printf("%s:%d\n", __FUNCTION__, __LINE__);}}
+#define SEMANTIC_ERROR(msg) {printf("%s\n", msg); exit(0);}
+#define SEMANTIC_OP_ERROR(msg, op) {printf("%s - %s\n", msg, TokenToString(op)); exit(0);}
 
 #endif // ASSERT_H_

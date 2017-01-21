@@ -10,6 +10,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h> // for not_implemented function
+#include <limits.h>
+#include <float.h>
 
 #include "condor/token/token.h"
 #include "utils/assert.h"

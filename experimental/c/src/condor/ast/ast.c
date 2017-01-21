@@ -16,6 +16,7 @@ void DestroyNodes(ASTNode nodes[], int len){
 		int type = (int) nodes[i].type;
 		switch (type){
 			case VAR: Free(nodes[i].meta.varExpr.name); break;
+			case STRING: Free(nodes[i].meta.stringExpr.value); break;
 		}
 	}
 }
@@ -31,7 +32,7 @@ void ExpandASTNode(Scope* scope, ASTNode* node, int tab){
 	int type = (int) node->type;
 	switch (type){
 		case VAR: {
-			printf(" %s-name: %s\n %s-inc: %s\n %s-value\n", tabs, node->meta.varExpr.name, tabs, TokenToString(node->meta.varExpr.inc), tabs);
+			printf(" %s-name: %s\n %s-inc: %s\n %s-dataType: %s\n %s-value\n", tabs, node->meta.varExpr.name, tabs, TokenToString(node->meta.varExpr.inc), tabs, TokenToString(node->meta.varExpr.dataType), tabs);
 			ExpandASTNode(scope, node->meta.varExpr.value, tab + 2);
 			break;	
 		}

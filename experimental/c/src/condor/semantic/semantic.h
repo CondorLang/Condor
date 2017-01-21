@@ -11,8 +11,9 @@
 #include "../ast/scope.h"
 #include "../syntax/syntax.h"
 #include "../token/token.h"
+#include "typechecker.h"
 
-void EnsureSemantics(Scope* scope);
+void EnsureSemantics(Scope* scope, int scopeId);
 
 /**
  * Used to predict VAR type. Algorithm goes as follows:
@@ -20,7 +21,6 @@ void EnsureSemantics(Scope* scope);
  * 	2. number literal = number
  */
 void PredictVarType(ASTNode* node);
-Token GetBinaryType(ASTNode* node);
 
 // TODO: Remove
 void Scan(char* rawSourceCode);

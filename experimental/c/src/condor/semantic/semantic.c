@@ -8,6 +8,8 @@ void BuildTree(char* rawSourceCode){
 	Clock clock;
 	StartClock(&clock);
 
+	DEBUG_PRINT("\n\n------Starting Program------\n");
+
 	// Build Lexer
 	Lexer lexer;
 	InitLexer(&lexer, rawSourceCode);
@@ -42,7 +44,7 @@ void BuildTree(char* rawSourceCode){
 	// Let's build the tree
 	ParseStmtList(&scope, &lexer, scope.scopes[scope.scopeSpot++], false);
 	scope.nodeSpot = 0;
-	EnsureSemantics(&scope);
+	EnsureSemantics(&scope, 1);
 
 	// ExpandScope(&scope, 0);
 
@@ -57,17 +59,26 @@ void BuildTree(char* rawSourceCode){
 	printf("Time: %llu nanoseconds\n", GetClockNanosecond(&clock));
 }
 
-void EnsureSemantics(Scope* scope){
+void EnsureSemantics(Scope* scope, int scopeId){
 	ASTNode* node = GetNextNode(scope);
 
 	if (node == NULL) return; // Done
 
 	while (node != NULL){
-		int type = (int) node->type;
-		switch (type){
-			case VAR: {
-				PredictVarType(node);
-				break;
+
+		if (node->scopeId == scopeId){
+			int type = (int) node->type;
+			switch (type){
+				case VAR: {
+					PredictVarType(node);
+					break;
+				}
+				case FOR: {
+					PredictVarType(GET_FOR_VAR(node));
+					PredictVarType(GET_FOR_CONDITION(node));
+					EnsureSemantics(scope, GET_FOR_BODY(node));
+					break;
+				}
 			}
 		}
 
@@ -87,12 +98,6 @@ void PredictVarType(ASTNode* node){
 	}
 	else if (value->type == BINARY){
 		GET_VAR(node).dataType = GetBinaryType(value);
+		DEBUG_PRINT2("Variable Type Set", TokenToString(GET_VAR(node).dataType));
 	}
-}
-
-Token GetBinaryType(ASTNode* node){
-	// ASTNode* left = GET_BIN_LEFT(node);
-	// ASTNode* right = GET_BIN_RIGHT(node);
-	// Token op = GET_BIN_OP(node);
-	return UNDEFINED;
 }

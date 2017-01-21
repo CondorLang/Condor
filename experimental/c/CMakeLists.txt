@@ -40,6 +40,7 @@ set(SOURCE_LIST
 	${SOURCE_DIR}/condor/number/number.c
 	${SOURCE_DIR}/utils/clock.c
 	${SOURCE_DIR}/condor/semantic/semantic.c
+	${SOURCE_DIR}/condor/semantic/typechecker.c
 )
 
 add_library(CondorLib STATIC ${SOURCE_LIST})
