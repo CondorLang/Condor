@@ -7,6 +7,7 @@ ASTNode* GetNextNode(Scope* scope){
 }
 
 ASTNode* ParseFor(Scope* scope, Lexer* lexer){
+	DEBUG_PRINT_SYNTAX("For");
 	TRACK();
 	ASTNode* forExpr = GetNextNode(scope);
 	forExpr->isStmt = true;
@@ -33,6 +34,7 @@ ASTNode* ParseFor(Scope* scope, Lexer* lexer){
 }
 
 ASTNode* ParseIf(Scope* scope, Lexer* lexer){
+	DEBUG_PRINT_SYNTAX("If");
 	TRACK();
 	ASTNode* ifExpr = GetNextNode(scope);
 	ifExpr->isStmt = true;
@@ -46,6 +48,7 @@ ASTNode* ParseIf(Scope* scope, Lexer* lexer){
 }
 
 ASTNode* ParseWhile(Scope* scope, Lexer* lexer){
+	DEBUG_PRINT_SYNTAX("While");
 	TRACK();
 	ASTNode* whileStmt = GetNextNode(scope);
 	whileStmt->isStmt = true;
@@ -93,6 +96,7 @@ Token ParseStmtList(Scope* scope, Lexer* lexer, int scopeId, bool oneStmt){
 }
 
 int ParseBody(Scope* scope, Lexer* lexer){
+	DEBUG_PRINT_SYNTAX("Body");
 	TRACK();
 	int loc = scope->scopeSpot++;
 	Token tok = GetNextToken(lexer);
@@ -112,6 +116,7 @@ int ParseBody(Scope* scope, Lexer* lexer){
 }
 
 ASTNode* ParseVar(Scope* scope, Lexer* lexer, Token dataType){
+	DEBUG_PRINT_SYNTAX("Var");
 	TRACK();
 	ASTNode* var = GetNextNode(scope);
 	var->type = VAR;
@@ -127,6 +132,7 @@ ASTNode* ParseVar(Scope* scope, Lexer* lexer, Token dataType){
 	var->isStmt = true; // is statement node
 	var->meta.varExpr.inc = UNDEFINED;
 	strcpy(var->meta.varExpr.name, name);
+	DEBUG_PRINT_SYNTAX2("Var", name);
 
 	tok = GetNextToken(lexer);
 
@@ -150,6 +156,7 @@ ASTNode* ParseVar(Scope* scope, Lexer* lexer, Token dataType){
  * This function guides to what is actually being parsed
  */
 ASTNode* ParseExpression(Scope* scope, Lexer* lexer){
+	DEBUG_PRINT_SYNTAX("Expression");
 	Token tok = GetNextToken(lexer);
 	ASTNode* result = NULL;
 	char* value = lexer->currentTokenString;

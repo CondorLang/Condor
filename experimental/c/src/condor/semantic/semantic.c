@@ -1,5 +1,7 @@
 #include "semantic.h"
 
+#include <stdio.h>
+
 void Scan(char* rawSourceCode){
 	BuildTree(rawSourceCode);
 }
@@ -46,16 +48,18 @@ void BuildTree(char* rawSourceCode){
 	scope.nodeSpot = 0;
 	EnsureSemantics(&scope, 1);
 
-	// ExpandScope(&scope, 0);
+	ExpandScope(&scope, 0);
 
 
 	// Cleanup
 	DestroyLexer(&lexer);
 	DestroyNodes(nodes, totalNodes);
-	// DestroyScope(&scope);
+	DestroyScope(&scope);
 
 	EndClock(&clock);
 	SetClockDifference(&clock);
+	DEBUG_PRINT("\n\n------Program Completed------\n");
+	DEBUG_PRINT("\n\n------Program Stats------\n");
 	printf("Time: %llu nanoseconds\n", GetClockNanosecond(&clock));
 }
 
@@ -75,9 +79,14 @@ void EnsureSemantics(Scope* scope, int scopeId){
 				}
 				case FOR: {
 					PredictVarType(GET_FOR_VAR(node));
-					PredictVarType(GET_FOR_CONDITION(node));
+					if (GetBinaryType(GET_FOR_CONDITION(node)) != BOOLEAN) {
+						SEMANTIC_ERROR("Invalid For loop condition");
+					}
 					EnsureSemantics(scope, GET_FOR_BODY(node));
 					break;
+				}
+				case WHILE: {
+
 				}
 			}
 		}
@@ -89,7 +98,7 @@ void EnsureSemantics(Scope* scope, int scopeId){
 void PredictVarType(ASTNode* node){
 	DEBUG_PRINT3("Predicting Variable Type", GET_VAR(node).name, TokenToString(GET_VAR(node).dataType));
 
-	if (GET_VAR(node).dataType != VAR) return; // already assigned
+	if (node->type != VAR) return; // already assigned
 
 	ASTNode* value = GET_VAR_VALUE(node);
 	if (IsNumber(value->type) || IsString(value->type)){

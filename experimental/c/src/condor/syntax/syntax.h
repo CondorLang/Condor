@@ -29,6 +29,7 @@
 #include "condor/ast/scope.h"
 #include "condor/ast/ast.h"
 #include "condor/number/number.h"
+#include "utils/debug.h"
 
 typedef struct Syntax {
 

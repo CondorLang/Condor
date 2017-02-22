@@ -18,5 +18,8 @@
 #define TRACK() {if (false) {printf("%s:%d\n", __FUNCTION__, __LINE__);}}
 #define SEMANTIC_ERROR(msg) {printf("%s\n", msg); exit(0);}
 #define SEMANTIC_OP_ERROR(msg, op) {printf("%s - %s\n", msg, TokenToString(op)); exit(0);}
+#define FAILED_TEST(msg){printf("Failed Test - %s - %s:%d\n", msg, __FUNCTION__, __LINE__); exit(0);}
+#define FAILED_TEST3(msg, msg2, msg3){printf("Failed Test - %s %s %s - %s:%d\n", msg, msg2, msg3, __FUNCTION__, __LINE__); exit(0);}
+#define SUCCESS_TEST(msg){printf("Success Test - %s\n", msg);}
 
 #endif // ASSERT_H_

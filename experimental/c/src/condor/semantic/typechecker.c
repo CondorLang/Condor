@@ -25,6 +25,36 @@ Token GetBinaryType(ASTNode* node){
 		return STRING; // string dominates
 	}
 
+	if (IsBooleanOperator(op)) return BOOLEAN;
+
 	NOT_IMPLEMENTED(TokenToString(op));
 	return UNDEFINED;
 }
+
+#ifdef IS_TEST
+	void Test_GetBinaryType(){
+		ASTNode node;
+		node.type = BINARY;
+
+		ASTNode left;
+		ASTNode right;
+
+		Token numberTypes[] = {BOOLEAN, BYTE, SHORT, INT, FLOAT, DOUBLE, LONG, DOUBLE, CHAR, STRING};
+		Token operators[] = {LAND, LOR, EQL, NEQ, LEQ, GEQ, NOT, LESS, GREATER};
+
+		for (int i = 0; i < 8; i++){
+			for (int j = 0; j < 8; j++){
+				left.type = numberTypes[i];
+				right.type = numberTypes[j];
+				node.meta.binaryExpr.left = &left;
+				node.meta.binaryExpr.right = &right;
+				for (int k = 0; k < 9; k++){
+					node.meta.binaryExpr.op = operators[k];
+					Token result = GetBinaryType(&node);
+					if (result != BOOLEAN || result == UNDEFINED) FAILED_TEST3(TokenToString(numberTypes[i]), TokenToString(numberTypes[j]), TokenToString(operators[k]));
+				}
+			}
+		}
+		SUCCESS_TEST("Binary Types")
+	}
+#endif

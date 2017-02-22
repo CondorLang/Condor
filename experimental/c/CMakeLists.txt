@@ -30,6 +30,14 @@ if(DEBUG_NAMESPACE)
 	set_c_flag('-DDEBUG_NAMESPACE=\"${DEBUG_NAMESPACE}\"')
 endif()
 
+if(DEBUG_SYNTAX)
+	set_c_flag('-DDEBUG_SYNTAX=1')
+endif()
+
+if(TEST)
+	set_c_flag('-DTEST=1')
+endif()
+
 set(SOURCE_LIST
 	${SOURCE_DIR}/condor/lexer/lexer.c
 	${SOURCE_DIR}/condor/mem/allocate.c

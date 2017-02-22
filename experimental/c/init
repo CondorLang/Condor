@@ -25,6 +25,14 @@ parser.add_option('-m', '--memory',
     action='store_true', dest='memory',
     help='Run valgrind', default=False)
 
+parser.add_option('-s', '--debug-syntax',
+    action='store_true', dest='syntax',
+    help='Debug Syntax Analysis', default=False)
+
+parser.add_option('-t', '--test',
+    action='store_true', dest='test',
+    help='Run Tests', default=False)
+
 options, args = parser.parse_args()
 
 def runBuild():
@@ -39,6 +47,12 @@ def runBuild():
         cmakeOptions.append('-DCMAKE_BUILD_TYPE=Release')
 
     cmakeOptions.append('-DDEBUG_NAMESPACE=' + options.namespace)
+
+    if options.syntax:
+        cmakeOptions.append('-DDEBUG_SYNTAX=1')
+
+    if options.test:
+        cmakeOptions.append('-DTEST=1')
 
     call(cmakeOptions)
 
