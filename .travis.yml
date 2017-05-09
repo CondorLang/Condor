@@ -23,7 +23,10 @@ install:
   - if [ "$CXX" == "g++" ]; then sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 50; fi
 
 script:
-  ./configure && cmake . && make && ./build/condor test/bug.cb
+  ./configure
+  cmake .
+  make
+  ./build/condor test/bug.cb
 
 deploy:
   skip_cleanup: true
