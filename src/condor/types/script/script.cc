@@ -184,6 +184,8 @@ namespace internal{
 				clock->Stop();
 				if (!parser->IsInternal())
 					printf("Execution:  %f sec | %s\n", clock->GetDuration(), absolutePath.c_str());
+
+				delete clock;
 			}
 		}
 		catch (Error::CB_ERROR e){
@@ -298,9 +300,8 @@ namespace internal{
 		Path* path = Path::New(isolate);
 		path->SetBase(absolutePath);
 
-		int i = 0;
 		while (parser->includes.size() > 0) {
-			ASTInclude* include = parser->includes[i++];
+			ASTInclude* include = parser->includes[0];
 			if (include->name.length() < 1) throw Error::INVALID_INCLUDE;
 			if (include->name.find(".cb") == std::string::npos) include->name += ".cb";
 			std::string c = path->GetFromBase(include->name);

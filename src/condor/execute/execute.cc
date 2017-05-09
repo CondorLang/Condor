@@ -238,7 +238,7 @@ namespace internal{
 		TRACK(lit);
 		if (lit->value.empty()) return;
 		if (lit->litType == STRING) return;
-		std::string::size_type loc = lit->value.find(".", 0);
+		std::string::size_type loc = lit->value.find(".", 0);	
 		if (loc == std::string::npos) return;
 		for (unsigned int i = lit->value.size() - 1; i >= loc; i--){
 			if (lit->value[i] == '0') lit->value.erase(i);
@@ -545,6 +545,9 @@ namespace internal{
 			case ASSIGN: {
 				ASTVar* var = GetVar(binary->left);
 				ASTLiteral* lit = EvaluateValue(binary->right);
+
+				if (EvaluateValue(var)->id == lit->id) return; // If you are setting the variable to the same variable (e.g i = i)
+
 				if (lit != NULL){
 					SetCalc(lit);
 					FormatLit(lit);
@@ -775,11 +778,7 @@ namespace internal{
 		while (true){
 			if (expr->scope->Size() == 0) break;
 			i++;
-			Clock clock;
-			clock.Start();
 			ASTLiteral* condition = EvaluateValue(expr->condition);
-			clock.Stop();
-			printf("Condition: %f\n", clock.GetDuration());
 			bool pass = condition->value == "true";
 			if (condition != expr->condition) condition->Free(isolate);
 			if (!pass) break;
@@ -787,11 +786,7 @@ namespace internal{
 			canBreak = true;
 
 			try {
-				Clock clock;
-				clock.Start();
 				Evaluate();
-				clock.Stop();
-				printf("Evalaution: %f\n", clock.GetDuration());
 				isolate->RunGC(expr->scope, true);
 				if (isContinue) isContinue = false;
 				if (isReturning) return;
