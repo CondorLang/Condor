@@ -20,7 +20,6 @@ namespace internal{
 		s->col = 0;
 		s->ch = -1;
 		s->isolate = iso;
-		s->isolate = iso;
 		return s;
 	}
 
