@@ -288,7 +288,7 @@ namespace internal{
 				}
 				context->injectedScopes.pop_back();
 			}
-			import->Free(isolate); // empty imports
+			// import->Free(isolate); // empty imports
 			parser->imports.erase(parser->imports.begin());
 		}
 	}
@@ -316,7 +316,7 @@ namespace internal{
 			internalScript->isInclude = true; // needed for throwing exceptions
 
 			script->Run();
-			include->Free(isolate);
+			// include->Free(isolate);
 			parser->includes.erase(parser->includes.begin());
 		}
 		isolate->FreeMemory(path, sizeof(Path));

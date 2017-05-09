@@ -48,6 +48,9 @@
 				"*.0"
 			],
 			"path": "."
+		},
+		{
+			"path": "C:\\Users\\willdech\\Documents\\dev\\the-concept-center\\Micro Studies"
 		}
 	]
 }

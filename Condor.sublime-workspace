@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"total",
+				"totalPages"
+			],
+			[
+				"tot",
+				"total"
+			],
+			[
+				"tota",
+				"totalPages"
+			],
+			[
 				"Grad",
 				"GradeObjectIdentifier"
 			],
@@ -502,44 +514,35 @@
 			[
 				"word",
 				"wordTotals"
-			],
-			[
-				"txt",
-				"txtWords"
-			],
-			[
-				"ob",
-				"observation"
-			],
-			[
-				"high",
-				"highestItem"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "/C/Users/willdech/SharePoint/Willden, Chase/Work Documents/Projects/CS Developer Forum Success/Data/discussion.js",
+			"file": "test/bug.cb",
 			"settings":
 			{
-				"buffer_size": 10253,
+				"buffer_size": 11,
+				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/C/Users/willdech/SharePoint/Willden, Chase/Work Documents/Projects/CS Developer Forum Success/Data/Query1.sql",
+			"file": "src/condor/assert.h",
 			"settings":
 			{
-				"buffer_size": 614,
+				"buffer_size": 884,
+				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"contents": "-- MySQL Workbench Forward Engineering\n\nSET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;\nSET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;\nSET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';\n\n-- -----------------------------------------------------\n-- Schema DiscussionBoards\n-- -----------------------------------------------------\nDROP SCHEMA IF EXISTS `DiscussionBoards` ;\n\n-- -----------------------------------------------------\n-- Schema DiscussionBoards\n-- -----------------------------------------------------\nCREATE SCHEMA IF NOT EXISTS `DiscussionBoards` DEFAULT CHARACTER SET utf8 ;\nUSE `DiscussionBoards` ;\n\n-- -----------------------------------------------------\n-- Table `DiscussionBoards`.`Course`\n-- -----------------------------------------------------\nDROP TABLE IF EXISTS `DiscussionBoards`.`Course` ;\n\nCREATE TABLE IF NOT EXISTS `DiscussionBoards`.`Course` (\n  `CourseId` INT NOT NULL,\n  `name` VARCHAR(125) NULL,\n  PRIMARY KEY (`CourseId`))\nENGINE = InnoDB;\n\n\n-- -----------------------------------------------------\n-- Table `DiscussionBoards`.`Section`\n-- -----------------------------------------------------\nDROP TABLE IF EXISTS `DiscussionBoards`.`Section` ;\n\nCREATE TABLE IF NOT EXISTS `DiscussionBoards`.`Section` (\n  `SectionId` INT NOT NULL,\n  `number` VARCHAR(5) NOT NULL,\n  `domain` VARCHAR(6) NULL,\n  `CourseId` INT NOT NULL,\n  PRIMARY KEY (`SectionId`),\n  INDEX `fk_Section_Course1_idx` (`CourseId` ASC),\n  CONSTRAINT `fk_Section_Course1`\n    FOREIGN KEY (`CourseId`)\n    REFERENCES `DiscussionBoards`.`Course` (`CourseId`)\n    ON DELETE NO ACTION\n    ON UPDATE NO ACTION)\nENGINE = InnoDB;\n\n\n-- -----------------------------------------------------\n-- Table `DiscussionBoards`.`Forum`\n-- -----------------------------------------------------\nDROP TABLE IF EXISTS `DiscussionBoards`.`Forum` ;\n\nCREATE TABLE IF NOT EXISTS `DiscussionBoards`.`Forum` (\n  `ForumId` INT NOT NULL,\n  `name` VARCHAR(125) NULL,\n  `startDate` DATETIME NULL,\n  `endDate` DATETIME NULL,\n  `postStartDate` DATETIME NULL,\n  `postEndDate` DATETIME NULL,\n  `SectionId` INT NOT NULL,\n  PRIMARY KEY (`ForumId`),\n  INDEX `fk_Forum_Section1_idx` (`SectionId` ASC),\n  CONSTRAINT `fk_Forum_Section1`\n    FOREIGN KEY (`SectionId`)\n    REFERENCES `DiscussionBoards`.`Section` (`SectionId`)\n    ON DELETE NO ACTION\n    ON UPDATE NO ACTION)\nENGINE = InnoDB;\n\n\n-- -----------------------------------------------------\n-- Table `DiscussionBoards`.`User`\n-- -----------------------------------------------------\nDROP TABLE IF EXISTS `DiscussionBoards`.`User` ;\n\nCREATE TABLE IF NOT EXISTS `DiscussionBoards`.`User` (\n  `UserId` INT NOT NULL,\n  `name` VARCHAR(125) NULL,\n  PRIMARY KEY (`UserId`))\nENGINE = InnoDB;\n\n\n-- -----------------------------------------------------\n-- Table `DiscussionBoards`.`Module`\n-- -----------------------------------------------------\nDROP TABLE IF EXISTS `DiscussionBoards`.`Module` ;\n\nCREATE TABLE IF NOT EXISTS `DiscussionBoards`.`Module` (\n  `ModuleId` INT NOT NULL,\n  `name` VARCHAR(125) NULL,\n  `parentModuleId` INT NULL,\n  `CourseId` INT NOT NULL,\n  PRIMARY KEY (`ModuleId`),\n  INDEX `fk_Module_Module1_idx` (`parentModuleId` ASC),\n  INDEX `fk_Module_Course1_idx` (`CourseId` ASC),\n  CONSTRAINT `fk_Module_Module1`\n    FOREIGN KEY (`parentModuleId`)\n    REFERENCES `DiscussionBoards`.`Module` (`ModuleId`)\n    ON DELETE NO ACTION\n    ON UPDATE NO ACTION,\n  CONSTRAINT `fk_Module_Course1`\n    FOREIGN KEY (`CourseId`)\n    REFERENCES `DiscussionBoards`.`Course` (`CourseId`)\n    ON DELETE NO ACTION\n    ON UPDATE NO ACTION)\nENGINE = InnoDB;\n\n\n-- -----------------------------------------------------\n-- Table `DiscussionBoards`.`Topic`\n-- -----------------------------------------------------\nDROP TABLE IF EXISTS `DiscussionBoards`.`Topic` ;\n\nCREATE TABLE IF NOT EXISTS `DiscussionBoards`.`Topic` (\n  `TopicId` INT NOT NULL,\n  `Type` VARCHAR(45) NULL,\n  `name` VARCHAR(125) NULL,\n  `ModuleId` INT NULL,\n  `ForumId` INT NULL,\n  `adjustedName` VARCHAR(125) NULL,\n  PRIMARY KEY (`TopicId`),\n  INDEX `fk_Topic_Module1_idx` (`ModuleId` ASC),\n  INDEX `fk_Topic_Forum1_idx` (`ForumId` ASC),\n  CONSTRAINT `fk_Topic_Module1`\n    FOREIGN KEY (`ModuleId`)\n    REFERENCES `DiscussionBoards`.`Module` (`ModuleId`)\n    ON DELETE NO ACTION\n    ON UPDATE NO ACTION,\n  CONSTRAINT `fk_Topic_Forum1`\n    FOREIGN KEY (`ForumId`)\n    REFERENCES `DiscussionBoards`.`Forum` (`ForumId`)\n    ON DELETE NO ACTION\n    ON UPDATE NO ACTION)\nENGINE = InnoDB;\n\n\n-- -----------------------------------------------------\n-- Table `DiscussionBoards`.`Post`\n-- -----------------------------------------------------\nDROP TABLE IF EXISTS `DiscussionBoards`.`Post` ;\n\nCREATE TABLE IF NOT EXISTS `DiscussionBoards`.`Post` (\n  `PostId` INT NOT NULL,\n  `ThreadId` INT NULL,\n  `body` TEXT NULL,\n  `lastEditDate` DATETIME NULL,\n  `subject` VARCHAR(255) NULL,\n  `parentId` INT NULL,\n  `PostingUserId` INT NULL,\n  `TopicId` INT NOT NULL,\n  PRIMARY KEY (`PostId`),\n  INDEX `fk_Post_User1_idx` (`PostingUserId` ASC),\n  INDEX `fk_Post_Topic1_idx` (`TopicId` ASC),\n  CONSTRAINT `fk_Post_User1`\n    FOREIGN KEY (`PostingUserId`)\n    REFERENCES `DiscussionBoards`.`User` (`UserId`)\n    ON DELETE NO ACTION\n    ON UPDATE NO ACTION,\n  CONSTRAINT `fk_Post_Topic1`\n    FOREIGN KEY (`TopicId`)\n    REFERENCES `DiscussionBoards`.`Topic` (`TopicId`)\n    ON DELETE NO ACTION\n    ON UPDATE NO ACTION)\nENGINE = InnoDB;\n\n\n-- -----------------------------------------------------\n-- Table `DiscussionBoards`.`Grade`\n-- -----------------------------------------------------\nDROP TABLE IF EXISTS `DiscussionBoards`.`Grade` ;\n\nCREATE TABLE IF NOT EXISTS `DiscussionBoards`.`Grade` (\n  `GradeId` INT NOT NULL AUTO_INCREMENT,\n  `numerator` DOUBLE NULL,\n  `denominator` DOUBLE NULL,\n  `weightedDenominator` DOUBLE NULL,\n  `weightedNumerator` DOUBLE NULL,\n  `type` VARCHAR(45) NULL,\n  `gradeObjectId` INT NULL,\n  `UserId` INT NOT NULL,\n  PRIMARY KEY (`GradeId`),\n  INDEX `fk_Grade_User1_idx` (`UserId` ASC),\n  CONSTRAINT `fk_Grade_User1`\n    FOREIGN KEY (`UserId`)\n    REFERENCES `DiscussionBoards`.`User` (`UserId`)\n    ON DELETE NO ACTION\n    ON UPDATE NO ACTION)\nENGINE = InnoDB;\n\n\nSET SQL_MODE=@OLD_SQL_MODE;\nSET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;\nSET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;\n",
+			"file": "src/condor/execute/execute.cc",
 			"settings":
 			{
-				"buffer_size": 6308,
+				"buffer_size": 28675,
+				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		}
@@ -551,10 +554,14 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 81.0,
-		"last_filter": "sql",
+		"height": 392.0,
+		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"go",
+				"Set Syntax: Go"
+			],
 			[
 				"sql",
 				"Set Syntax: SQL"
@@ -704,7 +711,7 @@
 				"Indent XML"
 			]
 		],
-		"width": 560.0
+		"width": 400.0
 	},
 	"console":
 	{
@@ -727,18 +734,40 @@
 	},
 	"expanded_folders":
 	[
+		"/C/Users/willdech/Documents/dev/Condor",
+		"/C/Users/willdech/Documents/dev/Condor/src",
+		"/C/Users/willdech/Documents/dev/Condor/src/condor",
+		"/C/Users/willdech/Documents/dev/Condor/src/condor/ast",
+		"/C/Users/willdech/Documents/dev/Condor/src/condor/mem",
+		"/C/Users/willdech/Documents/dev/Condor/src/platform",
+		"/C/Users/willdech/Documents/dev/Condor/test"
 	],
 	"file_history":
 	[
+		"/C/Users/willdech/Documents/dev/Condor/experimental/c/src/utils/assert.h",
+		"/C/Users/willdech/Documents/dev/Condor/src/condor/semantics/semantics.cc",
+		"/C/Users/willdech/Documents/dev/Condor/src/condor/execute/execute.cc",
+		"/C/Users/willdech/Documents/dev/Condor/src/condor/mem/gc.cc",
+		"/C/Users/willdech/Documents/dev/Condor/src/condor/assert.h",
+		"/C/Users/willdech/Documents/dev/Condor/src/condor/ast/scope.cc",
+		"/C/Users/willdech/Documents/dev/Condor/src/condor/mem/isolate.cc",
+		"/C/Users/willdech/Documents/dev/Condor/src/main.cc",
+		"/C/Users/willdech/Documents/dev/Condor/src/condor/mem/gc.h",
+		"/C/Users/willdech/Documents/dev/the-concept-center/Micro Studies/node_modules/jsdom/lib/jsdom/living/generated/NavigatorConcurrentHardware.js",
+		"/C/Users/willdech/Documents/dev/the-concept-center/Micro Studies/Restaurants/rest.js",
+		"/C/Users/willdech/Documents/dev/Condor/test/test.cb",
+		"/C/Users/willdech/Documents/dev/Condor/test/tests/math.cb",
+		"/C/Users/willdech/Documents/dev/Condor/test/tests/print.cb",
+		"/C/Users/willdech/Documents/dev/Condor/Dockerfile",
+		"/C/Users/willdech/SharePoint/Willden, Chase/Work Documents/Projects/CS Developer Forum Success/Data/Query1.sql",
+		"/C/Users/willdech/SharePoint/Willden, Chase/Work Documents/Projects/CS Developer Forum Success/Data/discussion.js",
 		"/C/Users/willdech/Downloads/Wed Sep 21 2016 09-14-07 GMT-0600 (Mountain Daylight Time).sql",
 		"/C/Users/willdech/Downloads/Wed Sep 21 2016 09-10-11 GMT-0600 (Mountain Daylight Time).sql",
 		"/C/Users/willdech/Downloads/Wed Sep 21 2016 09-06-05 GMT-0600 (Mountain Daylight Time).sql",
 		"/C/Users/willdech/Downloads/Wed Sep 21 2016 09-01-31 GMT-0600 (Mountain Daylight Time).sql",
 		"/C/Users/willdech/Downloads/Wed Sep 21 2016 08-57-49 GMT-0600 (Mountain Daylight Time).sql",
 		"/C/Users/willdech/Downloads/Wed Sep 21 2016 08-57-16 GMT-0600 (Mountain Daylight Time).sql",
-		"/C/Users/willdech/SharePoint/Willden, Chase/Work Documents/Projects/CS Developer Forum Success/Data/Query1.sql",
 		"/C/Users/willdech/Downloads/Tue Sep 20 2016 16-25-12 GMT-0600 (Mountain Daylight Time).sql",
-		"/C/Users/willdech/SharePoint/Willden, Chase/Work Documents/Projects/CS Developer Forum Success/Data/discussion.js",
 		"/C/Users/willdech/Downloads/Tue Sep 20 2016 15-24-40 GMT-0600 (Mountain Daylight Time).sql",
 		"/C/Users/willdech/Downloads/Tue Sep 20 2016 16-23-21 GMT-0600 (Mountain Daylight Time).sql",
 		"/C/Users/willdech/Downloads/Tue Sep 20 2016 16-22-23 GMT-0600 (Mountain Daylight Time).sql",
@@ -783,9 +812,7 @@
 		"/C/Users/willdech/Documents/dev/TheConceptCenter2/node_modules/moderncss/src/global.scss",
 		"/C/Users/willdech/Documents/dev/TheConceptCenter2/index.html",
 		"/C/Users/willdech/Documents/dev/TheConceptCenter2/src/App/App.css",
-		"/C/Users/willdech/Documents/dev/Condor/test/test.cb",
 		"/C/Users/willdech/Documents/dev/Condor/libs/math.cb",
-		"/C/Users/willdech/Documents/dev/Condor/src/condor/execute/execute.cc",
 		"/Users/willdech/Documents/dev/Condor/src/condor/semantics/semantics.cc",
 		"/Users/willdech/Documents/dev/Condor/src/condor/parser/parser.cc",
 		"/Users/willdech/Documents/dev/Condor/src/condor/types/script/script.cc",
@@ -844,20 +871,7 @@
 		"/Users/willdech/Documents/dev/Condor/src/condor/types/clock/clock.h",
 		"/Users/willdech/Documents/dev/Condor/src/condor/types/strings/string.cc",
 		"/Users/willdech/Documents/dev/Condor/src/condor/types/fs/fs.cc",
-		"/Users/willdech/Documents/dev/Condor/src/condor/types/fs/fs.h",
-		"/Users/willdech/Documents/dev/Condor/src/condor/execute/stack.h",
-		"/Users/willdech/Documents/dev/Condor/src/condor/execute/stack.cc",
-		"/Users/willdech/Documents/dev/Condor/src/condor/types/vector/vector.cc",
-		"/Users/willdech/Documents/dev/Condor/include/Condor.h",
-		"/Users/willdech/Documents/dev/Condor/libs/clock.cb",
-		"/Users/willdech/Documents/dev/Condor/test/shell.cc",
-		"/Users/willdech/Documents/dev/v8/src/parsing/token.h",
-		"/Users/willdech/Documents/dev/Condor/libs/thread.cb",
-		"/Users/willdech/Documents/dev/Condor/src/condor/global.h",
-		"/Users/willdech/Documents/dev/Condor/src/api.h",
-		"/Users/willdech/Documents/dev/v8/src/zone.cc",
-		"/Users/willdech/Documents/dev/v8/src/ast/ast.h",
-		"/Users/willdech/Documents/dev/v8/src/parsing/scanner.cc"
+		"/Users/willdech/Documents/dev/Condor/src/condor/types/fs/fs.h"
 	],
 	"find":
 	{
@@ -948,6 +962,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"cleansed = ",
 			"split",
 			"insert into topic",
 			"Insert into course",
@@ -1024,7 +1039,7 @@
 			",",
 			"\"\", \"\") \\",
 			",",
-			"		",
+			"\t\t",
 			"IsRawNumber",
 			"->~",
 			"pop_back",
@@ -1050,7 +1065,7 @@
 			"int",
 			":evaluatefunccall",
 			"==",
-			"import \"console\"\n\nprint(\"Test...For Loop...\");\n\nfor (int i = 0; i < 10; i++){\n	var j = i;\n}\n\nprintln(\"Success\");",
+			"import \"console\"\n\nprint(\"Test...For Loop...\");\n\nfor (int i = 0; i < 10; i++){\n\tvar j = i;\n}\n\nprintln(\"Success\");",
 			"] =",
 			"prev",
 			"validatefunccall",
@@ -1074,8 +1089,7 @@
 			"std::v",
 			"std::vec",
 			"vector",
-			"std::v",
-			"internalvectorerr"
+			"std::v"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1159,59 +1173,58 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/C/Users/willdech/SharePoint/Willden, Chase/Work Documents/Projects/CS Developer Forum Success/Data/discussion.js",
+					"file": "test/bug.cb",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 10253,
+						"buffer_size": 11,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								456,
-								456
+								11,
+								11
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/Go/Go.sublime-syntax"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "/C/Users/willdech/SharePoint/Willden, Chase/Work Documents/Projects/CS Developer Forum Success/Data/Query1.sql",
+					"file": "src/condor/assert.h",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 614,
+						"buffer_size": 884,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								525,
-								525
+								670,
+								670
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/SQL/SQL.sublime-syntax"
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -1222,31 +1235,31 @@
 				},
 				{
 					"buffer": 2,
+					"file": "src/condor/execute/execute.cc",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6308,
+						"buffer_size": 28675,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5217,
-								5223
+								1623,
+								1623
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/SQL/SQL.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1999.0,
+						"translation.y": 632.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
@@ -1300,6 +1313,34 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"execut",
+				"Condor\\src\\condor\\execute\\execute.cc"
+			],
+			[
+				"seman",
+				"Condor\\src\\condor\\semantics\\semantics.cc"
+			],
+			[
+				"semant",
+				"Condor\\src\\condor\\semantics\\semantics.cc"
+			],
+			[
+				"gc.cc",
+				"Condor\\src\\condor\\mem\\gc.cc"
+			],
+			[
+				"main.c",
+				"Condor\\src\\main.cc"
+			],
+			[
+				"gcc.h",
+				"Micro Studies\\node_modules\\jsdom\\lib\\jsdom\\living\\generated\\NavigatorConcurrentHardware.js"
+			],
+			[
+				"gc",
+				"Condor\\src\\condor\\mem\\gc.cc"
+			],
 			[
 				"token",
 				"src/parsing/token.h"

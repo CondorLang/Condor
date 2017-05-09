@@ -16,9 +16,11 @@ namespace internal{
 	}
 
 	Scope::~Scope(){
-		for (unsigned int i = 0; i < nodes.size(); i++){
-			nodes[i]->Free(isolate);
+		while (nodes.begin() != nodes.end()){
+			nodes[0]->Free(isolate);
+			nodes.erase(nodes.begin());
 		}
+		raw.erase();
 	}
 
 	int Scope::scopeIdInc = 1;

@@ -8,7 +8,7 @@ namespace Condor {
 namespace internal{
 
 	void* Allocate::New(size_t size){
-		void* addr = malloc(size);
+		void* addr = calloc(1, size);
 		if (addr == NULL) OutOfMemory();
 		return addr;
 	}
@@ -56,14 +56,14 @@ namespace internal{
 		Chunk* chunk = kFirstChunk;
 	  	Chunk* chunkToDelete = NULL;
 	  	while (chunk != NULL){
-			if (chunk->isAllocationChunk){	
-				if (chunkToDelete){
-					Allocate::Delete((void*) chunkToDelete);
-					chunkToDelete = NULL;
+				if (chunk->isAllocationChunk){	
+					if (chunkToDelete){
+						Allocate::Delete((void*) chunkToDelete);
+						chunkToDelete = NULL;
+					}
+					chunkToDelete = chunk;
 				}
-				chunkToDelete = chunk;
-			}
-			chunk = chunk->next;
+				chunk = chunk->next;
 	  	}
 	  	if (chunkToDelete) Allocate::Delete((void*) chunkToDelete); // catch the trailing chunk
 	}

@@ -24,7 +24,7 @@ namespace Error {
 			case INVALID_LEFT_EXPR: return "Invalid left expression";
 			case UNDEFINED_VARIABLE: return "Undefined variable";
 			case INVALID_OBJECT_MEMBER: return "Invalid object member";
-			case INVALID_CHAR_VALUE: return "Invalid char value";
+			case INVALID_CHAR_VALUE: return "Invalid char value, did you mean a string? Double Quotes.";
 			case EXPECTED_PARAMETER: return "Expected parameter";
 			case UNEXPECTED_RETURN: return "Unexpected return";
 			case EXPECTED_ARG_NAME: return "Expected argument name";

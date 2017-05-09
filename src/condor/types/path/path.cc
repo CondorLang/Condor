@@ -32,7 +32,8 @@ namespace internal{
 		    std::string pth(buffer);
 		    base = pth;
 		#else
-			base = realpath(str.c_str(), NULL);
+		  char buffer[PATH_MAX + 1];
+			base = realpath(str.c_str(),  buffer);
 		#endif
 	}
 

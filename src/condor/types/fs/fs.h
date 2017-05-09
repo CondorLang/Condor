@@ -10,6 +10,7 @@
 #include <iostream>
 #include <vector>
 #include <dirent.h>
+#include "condor/error/error.h"
 
 namespace Condor {
 namespace internal{

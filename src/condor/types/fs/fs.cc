@@ -17,7 +17,7 @@ namespace internal{
 		if (in.fail()) {
 			printf("d: %s\n", "File does not exist");
 			printf("d: %s\n", path.c_str());
-			return "";
+			throw Error::FILE_DOES_NOT_EXIST;
 		}
 		std::string fileStr((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
 		return fileStr;

@@ -15,6 +15,7 @@
 	#define GetCurrentDir _getcwd
 #else
 	#include <unistd.h>
+	#include <limits.h> /* PATH_MAX */	
 	#define GetCurrentDir getcwd
 #endif
 
