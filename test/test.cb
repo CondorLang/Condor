@@ -1,4 +1,4 @@
 include "./tests/math"
-// include "./tests/func"
-// include "./tests/var"
-// include "./tests/object"
+include "./tests/func"
+include "./tests/var"
+include "./tests/object"

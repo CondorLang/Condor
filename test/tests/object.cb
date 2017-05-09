@@ -1,16 +1,16 @@
-import "println" from "console"
+// import "println" from "console"
 include "./print"
 
 println("\nObject Tests");
 println("================\n");
 
-object Fruit{
-	private string name;
-	func Fruit(string name){
-		this.name = name;
-	}
-	func getName() return this.name;
-}
+// object Fruit{
+// 	private string name;
+// 	func Fruit(string name){
+// 		this.name = name;
+// 	}
+// 	func getName() return this.name;
+// }
 
-Fruit apple = new Fruit("Apple");
+// Fruit apple = new Fruit("Apple");
 // test("Object creation", apple.getName() == "Apple");
