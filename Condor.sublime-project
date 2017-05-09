@@ -1,56 +1,8 @@
 {
-	"build_systems":
-	[
-		{
-			"cmd":
-			[
-				"make"
-			],
-			"name": "All",
-			"working_dir": "${project_path}"
-		},
-		{
-			"cmd":
-			[
-				"make",
-				"sem"
-			],
-			"name": "Make Semantic",
-			"working_dir": "${project_path}"
-		},
-		{
-			"cmd":
-			[
-				"make",
-				"parser"
-			],
-			"name": "Make Parser",
-			"working_dir": "${project_path}"
-		},
-		{
-			"cmd":
-			[
-				"open",
-				"-a",
-				"Terminal",
-				"./"
-			],
-			"name": "Open",
-			"working_dir": "${project_path}"
-		}
-	],
 	"folders":
 	[
 		{
-			"file_exclude_patterns":
-			[
-				"*.d",
-				"*.0"
-			],
 			"path": "."
-		},
-		{
-			"path": "C:\\Users\\willdech\\Documents\\dev\\the-concept-center\\Micro Studies"
 		}
 	]
 }
