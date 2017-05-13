@@ -39,7 +39,7 @@ namespace internal{
 		for (j = 1; j < n && i != std::string::npos; ++j)
 		  i = s.find(p, i+1); 
 		if (j == n)
-		 	return(i);
+		 	return (int) (i);
 		else
 		 	return(-1);
 	}
@@ -50,12 +50,12 @@ namespace internal{
 		std::string tmp;
 		for (unsigned int i = 0; i < str.length(); i++){
 			if (str[i] == delimiter){
-				tmp = str.substr(start, i - start);
+				tmp = str.substr((unsigned long long int) start, i - start);
 				result.push_back(tmp);
 				start = i + 1;
 			}
 		}
-		result.push_back(str.substr(start, str.size() - start));
+		result.push_back(str.substr((unsigned long long int) start, str.size() - start));
 		return result;
 	}
 

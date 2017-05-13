@@ -30,7 +30,7 @@ namespace internal{
 		internal = str->IsInternal();
 		sourceCode += str->GetValue();
 		absolutePath = str->GetPath();
-		if (absolutePath == "inline"){
+		if (absolutePath == "inline"){ // Used for command line
 			name = str->name;
 		}
 		else{
@@ -47,11 +47,11 @@ namespace internal{
 	void Script::RunInternalScript(Isolate* isolate, std::string hex, std::string _name, std::string sub, bool isHex){
 		if (isolate->GetContext()->IsIncluded(_name)) return;
 		Condor::Isolate* iso = CAST(Condor::Isolate*, isolate);
-		int len = hex.length();
+		int len = (int) hex.length();
 		std::string newString;
 		if (isHex){
 			for (int i = 0; i < len; i += 2){
-			    std::string byte = hex.substr(i, 2);
+			    std::string byte = hex.substr((unsigned long long int) i, 2);
 			    char chr = (char) (int) strtol(byte.c_str(), NULL, 16);
 			    newString.push_back(chr);
 			}
@@ -138,7 +138,6 @@ namespace internal{
 		catch (Error::CB_ERROR e){
 			std::string placeholder = "";
 			std::string msg = Error::String(e, NULL);
-			// currentCode = semantics->GetSource();
 			currentCode = &sourceCode;
 			if (currentCode == NULL) currentCode = &placeholder;
 			msg = std::to_string(semantics->row) + ":" + std::to_string(semantics->col) + " - " + msg + " - \n\t" + absolutePath.c_str() + "\n\n" + GetSourceRow(semantics->row, semantics->col);
@@ -165,8 +164,7 @@ namespace internal{
 			if (subModule != "*"){
 				Scope* s = parser->GetBaseScope();
 				for (int i = 0; i < s->Size(); i++){
-					if (s->Get(i)->name == subModule) s->Get(i)->isExport = true;
-					else s->Get(i)->isExport = false;
+					s->Get(i)->isExport = s->Get(i)->name == subModule;
 				}
 			}
 		}
@@ -241,6 +239,9 @@ namespace internal{
 		return result;
 	}
 
+	/**
+	 *
+	 */
 	void Script::LoadImports(){
 		Scope* base = parser->GetBaseScope();
 		// Load app by default
@@ -309,9 +310,9 @@ namespace internal{
 			if (!FS::FileExists(c)) throw Error::FILE_DOES_NOT_EXIST;
 
 			Condor::Isolate* iso = CAST(Condor::Isolate*, isolate);
-			Condor::Context* ctxt = CAST(Condor::Context*, context);
+			Condor::Context* ctx= CAST(Condor::Context*, context);
 			Condor::String* str = Condor::String::NewFromFile(iso, c.c_str());
-			Condor::Script* script = Condor::Script::Compile(ctxt, str);
+			Condor::Script* script = Condor::Script::Compile(ctx, str);
 			
 			Script* internalScript = CAST(Script*, script);
 			internalScript->isInclude = true; // needed for throwing exceptions

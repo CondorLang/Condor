@@ -30,7 +30,7 @@ namespace internal{
 	{
 	public:
 		ASTNode(){}
-		~ASTNode(){}
+		virtual ~ASTNode(){}
 		std::string name;
 		TOKEN type;
 		int row;
@@ -164,7 +164,7 @@ namespace internal{
 		bool isCalc;
 		int isPost;
 		bool allowAccess;
-		ASTLiteral* Clone(Isolate* isolate, bool shallow = false);
+		virtual ASTLiteral* Clone(Isolate* isolate, bool shallow = false);
 	};
 
 	class ASTFuncCall : public ASTExpr
@@ -270,12 +270,12 @@ namespace internal{
 		bool HasProp(std::string name){return properties.find(name) != properties.end();}
 		ASTVar* CreateProp(Isolate* isolate, std::string name);
 		ASTVar* GetProp(Isolate* isolate, std::string name);
-		void SetProp(Isolate* isolate, std::string name, ASTExpr* value);
+
 		ASTFuncCall* constructor;
 		bool constructorCalled;
 		ASTObject* base;
-		void PrintValues();
-		ASTObjectInstance* Clone(Isolate* iso, bool shallow = false);		
+
+		ASTObjectInstance* Clone(Isolate* iso, bool shallow = false);
 	};
 
 } // namespace internal

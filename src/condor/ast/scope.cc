@@ -3,7 +3,6 @@
 // license that can be found in the LICENSE file.
 
 #include "scope.h"
-#include "condor/mem/isolate.h"
 
 namespace Condor{
 namespace internal{
@@ -39,11 +38,11 @@ namespace internal{
 	}
 
 	int Scope::Size(){
-		return nodes.size();
+		return (int) nodes.size();
 	}
 
 	ASTNode* Scope::Get(int idx){
-		return nodes.at(idx);
+		return nodes.at((unsigned long long int) idx);
 	}
 
 	void Scope::InsertBefore(ASTNode* node){
@@ -90,30 +89,6 @@ namespace internal{
 	void Scope::Destroy(){
 		//this->~Scope();
 		isolate->FreeMemory(this, sizeof(Scope));
-	}
-
-	void Scope::RemoveAllAfter(ASTNode* node){
-		bool found = false;
-		unsigned int idx = 0;
-		for (unsigned int i = 0; i < nodes.size(); i++){
-			if (nodes[i] == node) {
-				found = true;
-				idx = i + 1;
-				break;
-			}
-		}
-		if (found && nodes.size() > idx){
-			for (unsigned int i = nodes.size(); i >= idx; i--){
-				ASTNode* node = nodes[i];
-				node->Free(isolate);
-				if (nodes.size() == i){
-					nodes.erase(nodes.end() - 1);
-				}
-				else{
-					nodes.erase(nodes.begin() + i);
-				}
-			}
-		}
 	}
 
 	void Scope::Remove(ASTNode* node){

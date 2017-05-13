@@ -35,11 +35,9 @@ namespace internal{
 
 		void RemoveThis(){if (kThis.size() > 0) kThis.erase(kThis.begin());}
 		void AddThis(ASTObject* obj){kThis.insert(kThis.begin(), obj);}
-		ASTObject* GetThis(){if (kThis.size() > 0) {return kThis[0];} return NULL;}
 
 		void Trace(const char* first, const char* second);
 		void Trace(const char* first, TOKEN second);
-		void Expand(bool idt, ASTNode* node);
 		void SetRowCol(ASTNode* node);
 		void ScanScope(Scope* scope);
 		void ValidateVar(ASTVar* var);
@@ -55,8 +53,8 @@ namespace internal{
 		TOKEN ValidateArray(ASTArray* expr);
 		TOKEN ValidateObjectChain(ASTBinaryExpr* expr);
 		void ExpectNumber(ASTLiteral* lit);
-		void ValidateObject(ASTObject* obj);
-		void ValidateObjectInit(ASTVar* var);
+
+        void ValidateObjectInit(ASTVar* var);
 		void ValidateExtend(ASTObject* base, ASTObject* extend);
 		ASTObject* GetObject(ASTNode* node);
 		ASTObject* GetObjectFromScope(Scope* scope);
@@ -64,7 +62,6 @@ namespace internal{
 		void OpenScope(Scope* scope){scopes.insert(scopes.begin(), scope);}
 		void CloseScope(){scopes.erase(scopes.begin());}
 		Scope* GetCurrentScope();
-		Scope* GetPreviousScope();
 		void SwapScopes();
 		void ValidateBaseAndAssignment(ASTVar* var);
 		TOKEN ValidateWhile(ASTWhileExpr* expr);
@@ -83,7 +80,7 @@ namespace internal{
 		int row;
 		int col;
 		void Evaluate(Scope* scope);
-		std::string* GetSource();
+
 		Scope* ParseAndScan(Scope* scope);
 		
 	};

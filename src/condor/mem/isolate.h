@@ -44,10 +44,10 @@ namespace internal{
 		template<class T>
 		void FreeMemory(T* ptr, const size_t size){
 			ptr->~T();
-			if (size < 35) small->FreeMemory(ptr, size);
-			else if (size < 80) medium->FreeMemory(ptr, size);
-			else if (size < 130) large->FreeMemory(ptr, size);
-			else xl->FreeMemory(ptr, size);
+			if (size < 35) small->FreeMemory(ptr);
+			else if (size < 80) medium->FreeMemory(ptr);
+			else if (size < 130) large->FreeMemory(ptr);
+			else xl->FreeMemory(ptr);
 		}
 		void SetSelfPool(MemoryPool* mp){this->self = mp;}
 		void Dispose();

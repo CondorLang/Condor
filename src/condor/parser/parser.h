@@ -26,7 +26,6 @@ namespace internal{
 	{
 	private:
 		Isolate* isolate;
-		std::string* source;
 		Scanner* scanner;
 		Token* tok;
 		Scope* rootScope;

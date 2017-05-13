@@ -41,7 +41,7 @@ namespace internal{
 		void AddToInProgress(std::string str);
 		void AddToRegistry(Scope* scope);
 		Scope* GetFromRegistry(int scopeId);
-		Scope* GetFromRegistry(std::string name);
+
 		int GetNextAstId();
 		void AddScope(Scope* scope);
 		bool IsIncluded(std::string name);

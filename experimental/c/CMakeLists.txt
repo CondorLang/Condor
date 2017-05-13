@@ -7,7 +7,7 @@ set(SOURCE_DIR ${CMAKE_SOURCE_DIR}/src)
 set(BUILD_DIR ${CMAKE_SOURCE_DIR}/build)
 set(INCLUDES ${CMAKE_SOURCE_DIR}/include)
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "build/")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "build")
 
 macro(set_c_flag FLAG)
     if(${ARGC} GREATER 1)

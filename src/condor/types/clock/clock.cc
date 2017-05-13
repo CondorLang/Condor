@@ -4,8 +4,6 @@
 
 #include "clock.h"
 
-#include "condor/clock.h"
-
 namespace Condor {
 namespace internal{
 

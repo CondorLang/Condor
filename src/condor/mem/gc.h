@@ -28,12 +28,12 @@ namespace internal{
 		Scope* GetCurrentScope(){if (scopes.size() == 0) return NULL; return scopes[0];}
 		void OpenScope(Scope* scope){scopes.insert(scopes.begin(), scope);}
 		void CloseScope(){scopes.erase(scopes.begin());}
-		bool InParentScopes(int id);
+
 	public:
 		GC();
 		~GC(){}
 		static GC* New(Isolate* isolate);
-		void Run(MemoryPool* pool);
+
 		void Clear();
 		void Dispose(Isolate* isolate, Scope* scope, bool deep, bool objKeys = false);
 		void Dispose(Isolate* isolate, ASTNode* node, bool deep, bool objKeys = false);

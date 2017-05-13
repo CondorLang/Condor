@@ -11,7 +11,7 @@
 #include "platform/windows.h" // windows 
 
 #ifdef _WIN32
-	#include <Windows.h>
+	#include <windows.h>
 	#define GetCurrentDir _getcwd
 #else
 	#include <unistd.h>

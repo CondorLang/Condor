@@ -11,21 +11,10 @@ namespace internal{
 		printIds = PRINT_GC_IDS;
 	}
 
-	void GC::Run(MemoryPool* pool){
-		
-	}
-
 	GC* GC::New(Isolate* isolate){
 		void* p = isolate->GetMemory(sizeof(GC));
 		GC* gc = new(p) GC();
 		return gc;
-	}
-
-	bool GC::InParentScopes(int id){
-		for (unsigned int i = 1; i < scopes.size(); i++){
-			if (scopes[i]->scopeId == id) return true;
-		}
-		return false;
 	}
 
 	void GC::Clear(){

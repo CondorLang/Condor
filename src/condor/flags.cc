@@ -77,7 +77,7 @@ namespace internal{
 	bool Flags::evaluationSteps = false;
 	bool Flags::rpnStack = false;
 	bool Flags::printGCIds = false;
-	int Flags::trackNode = -1;
+	int Flags::trackNode = -1; // Node Number
 	std::string Flags::baseFile = "";
 
 } // namespace internal

@@ -22,13 +22,10 @@ namespace internal{
 		#ifdef _WIN32
 			std::replace(str.begin(), str.end(), '/', '\\');
 			int BUFSIZE = 4096;
-			DWORD  retval=0;
-		    BOOL   success; 
-		    TCHAR  buffer[BUFSIZE]=TEXT(""); 
-		    TCHAR  buf[BUFSIZE]=TEXT(""); 
-		    TCHAR** lppPart={NULL};
+		    TCHAR  buffer[BUFSIZE];
+		    TCHAR** lppPart = {NULL};
 
-		    retval = GetFullPathName(str.c_str(), BUFSIZE, buffer, lppPart);
+		 	GetFullPathName(str.c_str(), (DWORD) BUFSIZE, buffer, lppPart);
 		    std::string pth(buffer);
 		    base = pth;
 		#else
@@ -43,26 +40,23 @@ namespace internal{
 			ch = '\\';
 		#endif
 		int idx = -1;
-		for (int i = base.length() - 1; i >= 0; i--){
-			if (base.at(i) == ch){
+		for (int i = (int) base.length() - 1; i >= 0; i--){
+			if (base.at((unsigned long long int) i) == ch){
 				idx = i;
 				break;
 			}
 		}
-		std::string folder = base.substr(0, idx);
+		std::string folder = base.substr(0, (unsigned long long int) idx);
 		folder += ch + str;
 
 
 		#ifdef _WIN32
 			std::replace(folder.begin(), folder.end(), '/', '\\');
 			int BUFSIZE = 4096;
-			DWORD  retval=0;
-		    BOOL   success; 
-		    TCHAR  buffer[BUFSIZE]=TEXT(""); 
-		    TCHAR  buf[BUFSIZE]=TEXT(""); 
+		    TCHAR  buffer[BUFSIZE];
 		    TCHAR** lppPart={NULL};
 
-		    retval = GetFullPathName(folder.c_str(), BUFSIZE, buffer, lppPart);
+		    GetFullPathName(folder.c_str(), (DWORD) BUFSIZE, buffer, lppPart);
 		    std::string pth(buffer);
 		    return pth;
 		#else

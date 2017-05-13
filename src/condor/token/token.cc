@@ -264,7 +264,7 @@ namespace internal{
 
 	int Token::Length(){
 		if (raw.length() > 0) return (int) raw.length();
-		return String().length();
+		return (int) String().length();
 	}
 
 	bool Token::IsRawNumber(){

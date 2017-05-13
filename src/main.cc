@@ -4,7 +4,6 @@
 
 #include <stdio.h>
 #include <Condor.h>
-#include <string>
 #include <sstream>
 #include <iostream>
 #include <time.h>

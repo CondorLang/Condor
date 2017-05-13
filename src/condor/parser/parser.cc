@@ -59,7 +59,6 @@ namespace internal{
 	}
 
 	void Parser::SetDefaults(std::string* source){
-		source = source;
 		scanner = Scanner::New(isolate, source);
 	}
 
@@ -311,7 +310,7 @@ namespace internal{
 				case TRUE_LITERAL: 
 				case FALSE_LITERAL: 
 				case kNULL: case VAR: {
-					if (tok->IsRawNumber()){ // for inline stmts
+					if (tok->IsRawNumber()){ // for inline statements
 						node = ParseExpr();
 						node->print = true;
 						break;	
@@ -639,7 +638,7 @@ namespace internal{
 		}
 		if (Is(1, NEW)){
 			Next();
-			ASTExpr* expr = ParseVarType();
+			expr = ParseVarType();
 			ASTFuncCall* call = (ASTFuncCall*) ParseFuncCall(expr);
 			call->isInit = true;
 			call->cast = cast;

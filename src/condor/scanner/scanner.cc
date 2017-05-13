@@ -3,7 +3,6 @@
 // license that can be found in the LICENSE file.
 
 #include "scanner.h"
-#include "condor/token/token.h"
 #include "condor/mem/isolate.h"
 
 namespace Condor{
@@ -90,15 +89,15 @@ namespace internal{
 				}
 				else if (IsNumber(p)){
 					result = ch;
-					char p = Peek();
+					char peek = Peek();
 					bool isInt = true;
 					int count = 0;
-					while (IsNumber(p) || p == '.'){
+					while (IsNumber(peek) || peek == '.'){
 						if (!isInt) count++;
 						if (ch == '.') isInt = false;
 						Next();
 						result += ch;
-						p = Peek();
+						peek = Peek();
 					}
 					Token* tok = NULL;
 					if (isInt) tok = Token::New(isolate, INT);
@@ -387,18 +386,18 @@ namespace internal{
 			if (ch == '\n') {
 				row++;
 				col = 1;
-				ch = src->at(offset);
+				ch = src->at((unsigned long long int) offset);
 				readOffset++;
 			}
 			else{
-				ch = src->at(offset);
+				ch = src->at((unsigned long long int) offset);
 				if (ch == 0) Error("Illegal null");
 				readOffset++;
 				col++;
 			}
 		}
 		else{
-			offset = src->length();
+			offset = (int) src->length();
 			if (ch == '\n') row++;
 			ch = -1; // EOF
 		}
@@ -501,7 +500,7 @@ namespace internal{
 	}
 
 	std::string Scanner::Substr(int start, int end){
-		return src->substr(start, end - start);
+		return src->substr((unsigned long long int) start, (unsigned long long int) (end - start));
 	}
 
 	std::string Scanner::LookAhead(int len){

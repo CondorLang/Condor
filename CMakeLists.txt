@@ -22,36 +22,35 @@ set_cpp_flag("-Wall")
 set_cpp_flag("-g")
 
 set(SOURCE_LIST
-	${SOURCE_DIR}/api.cc
-	${SOURCE_DIR}/condor/assert.cc
-	${SOURCE_DIR}/condor/clock.cc
-	${SOURCE_DIR}/condor/flags.cc
-	${SOURCE_DIR}/condor/ast/context.cc
-	${SOURCE_DIR}/condor/ast/node.cc
-	${SOURCE_DIR}/condor/ast/scope.cc
-	${SOURCE_DIR}/condor/error/error.cc
-	${SOURCE_DIR}/condor/execute/execute.cc
-	${SOURCE_DIR}/condor/execute/stack.cc
-	${SOURCE_DIR}/condor/mem/allocate.cc
-	${SOURCE_DIR}/condor/mem/gc.cc
-	${SOURCE_DIR}/condor/mem/isolate.cc
-	${SOURCE_DIR}/condor/parser/parser.cc
-	${SOURCE_DIR}/condor/scanner/scanner.cc
-	${SOURCE_DIR}/condor/semantics/binary.cc
-	${SOURCE_DIR}/condor/semantics/internal.cc
-	${SOURCE_DIR}/condor/semantics/semantics.cc
-	${SOURCE_DIR}/condor/token/token.cc
-	${SOURCE_DIR}/condor/types/app/app.cc
-	${SOURCE_DIR}/condor/types/clock/clock.cc
-	${SOURCE_DIR}/condor/types/fs/fs.cc
-	${SOURCE_DIR}/condor/types/path/path.cc
-	${SOURCE_DIR}/condor/types/script/script.cc
-	${SOURCE_DIR}/condor/types/strings/string.cc
-)
+        ${SOURCE_DIR}/api.cc
+        ${SOURCE_DIR}/condor/assert.cc
+        ${SOURCE_DIR}/condor/clock.cc
+        ${SOURCE_DIR}/condor/flags.cc
+        ${SOURCE_DIR}/condor/ast/context.cc
+        ${SOURCE_DIR}/condor/ast/node.cc
+        ${SOURCE_DIR}/condor/ast/scope.cc
+        ${SOURCE_DIR}/condor/error/error.cc
+        ${SOURCE_DIR}/condor/execute/execute.cc
+        ${SOURCE_DIR}/condor/execute/stack.cc
+        ${SOURCE_DIR}/condor/mem/allocate.cc
+        ${SOURCE_DIR}/condor/mem/gc.cc
+        ${SOURCE_DIR}/condor/mem/isolate.cc
+        ${SOURCE_DIR}/condor/parser/parser.cc
+        ${SOURCE_DIR}/condor/scanner/scanner.cc
+        ${SOURCE_DIR}/condor/semantics/binary.cc
+        ${SOURCE_DIR}/condor/semantics/internal.cc
+        ${SOURCE_DIR}/condor/semantics/semantics.cc
+        ${SOURCE_DIR}/condor/token/token.cc
+        ${SOURCE_DIR}/condor/types/app/app.cc
+        ${SOURCE_DIR}/condor/types/clock/clock.cc
+        ${SOURCE_DIR}/condor/types/fs/fs.cc
+        ${SOURCE_DIR}/condor/types/path/path.cc
+        ${SOURCE_DIR}/condor/types/script/script.cc
+        ${SOURCE_DIR}/condor/types/strings/string.cc
+        )
 
 add_library(CondorLib STATIC ${SOURCE_LIST})
 target_include_directories(CondorLib PUBLIC ${SOURCE_DIR})
 include_directories(${INCLUDES})
 add_executable(condor ${SOURCE_DIR}/main.cc ${INCLUDES}/Condor.h)
 target_link_libraries(condor CondorLib)
-

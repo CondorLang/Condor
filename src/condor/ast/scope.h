@@ -52,8 +52,8 @@ namespace internal{
 		void Destroy(ASTNode* node);
 		void Destroy();
 		void AllExport(bool isAllExport){allExport = isAllExport;}
-		void RemoveAllAfter(ASTNode* node);
-		void Remove(ASTNode* node);
+
+        void Remove(ASTNode* node);
 		std::vector<ASTNode*> GetNodes(){return nodes;}
 		ASTNode* Get(int idx);
 		std::vector<ASTNode*> Lookup(std::string name, bool deep = true, bool exported = false);

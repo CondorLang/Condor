@@ -42,11 +42,11 @@ namespace internal{
 		if (memoryAudit){
 			printf("\nCondorLang (c) %c%c%c%c\n-----------------------------\n", BUILD_YEAR_CH0, BUILD_YEAR_CH1, BUILD_YEAR_CH2, BUILD_YEAR_CH3);
 			printf("Name: %s\n", name.c_str());
-			printf("Total Memory Used: \t%zu bytes\n", (kUsedSize));
-			printf("Total Memory Unused: \t%lukb\n",  (kFreeSize / KB));
-			printf("Total Memory Size: \t%lukb\n", (kTotalSize / KB));
+			printf("Total Memory Used: \t%lu bytes\n", ((long unsigned int)(kUsedSize)));
+			printf("Total Memory Unused: \t%lukb\n",  ((long unsigned int)(kFreeSize / KB)));
+			printf("Total Memory Size: \t%lukb\n", ((long unsigned int)(kTotalSize / KB)));
 			printf("Total Chunks Used: \t%d\n", kChunkCount);
-			printf("Chunk Size: \t\t%lu bytes\n", kChunkSize);
+			printf("Chunk Size: \t\t%lu bytes\n", (long unsigned int) kChunkSize);
 		}
 		FreeAllAllocatedMemory();
 		DeallocateAllChunks();
@@ -72,13 +72,13 @@ namespace internal{
 		Chunk* chunk = kFirstChunk;
 		while (chunk != NULL){
 			if (chunk->isAllocationChunk && chunk->data != NULL){
-				Allocate::Delete((void*) chunk->data);
+				Allocate::Delete(chunk->data);
 			}
 			chunk = chunk->next;
 		}
 	}
 
-	void MemoryPool::FreeMemory(void* ptr, const size_t size){
+	void MemoryPool::FreeMemory(void *ptr) {
 		Chunk* chunk = FindChunkHoldingPointerTo(ptr);
 		if (chunk != NULL){
 			chunk->used = 0;
@@ -100,42 +100,9 @@ namespace internal{
 		return chunk;
 	}
 
-	Chunk* MemoryPool::FindChunkSuitableToHoldMemory(const size_t size){
-		unsigned int chunkToSkip = 0;
-		Chunk* chunk = kCursorChunk;
-		for (unsigned int i = 0; i < kChunkCount; i++){
-			if (chunk != NULL){
-				if (chunk == kLastChunk){
-					chunk = kFirstChunk;
-				}
-				if (chunk->size >= size && chunk->used == 0){
-					kCursorChunk = chunk;
-					return chunk;
-				}
-				chunkToSkip = CalculateNeededChunks(chunk->used);
-				if (chunkToSkip == 0) chunkToSkip = 1;
-				chunk = SkipChunks(chunk, chunkToSkip);
-			}
-		}
-		return NULL;
-	}
-
-	Chunk* MemoryPool::SkipChunks(Chunk* chunk, unsigned int chunkToSkip){
-		Chunk* currentChunk = chunk;
-		for (unsigned int i = 0; i < chunkToSkip; i++){
-			if (currentChunk != NULL){
-				currentChunk = currentChunk->next;
-			}
-			else{
-				break;
-			}
-		}
-		return currentChunk;
-	}
-
 	void* MemoryPool::GetMemory(const size_t size){
 		if (debug){
-			printf("%s - %lu\n", name.c_str(), size);
+			printf("%s - %lu\n", name.c_str(), (long unsigned int) size);
 		}
 		size_t bestBlockSize = CalculateBestMemoryBlockSize(size);
 
@@ -152,7 +119,7 @@ namespace internal{
 		kFreeSize -= bestBlockSize;
 		SetMemoryChunkValues(chunk, bestBlockSize);
 		kChunkOrg[(byte*) chunk->data] = chunk;
-		return (void*) chunk->data;
+		return chunk->data;
 	}
 
 	void MemoryPool::SetMemoryChunkValues(Chunk* chunk, const size_t size){
@@ -180,7 +147,7 @@ namespace internal{
 	}
 
 	unsigned int MemoryPool::CalculateNeededChunks(const size_t size){
-		float f = (float) ((float) size / (float) kChunkSize);
+		float f = (float) size / (float) kChunkSize;
 		return ((unsigned int) ceil(f));
 	}
 
@@ -246,6 +213,5 @@ namespace internal{
 	int MemoryPool::GetMemoryUsage(){
 		return (int) kUsedSize;
 	}
-
 } // namespace internal
 } // namespace Condor

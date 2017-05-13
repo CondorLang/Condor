@@ -535,24 +535,6 @@ namespace internal{
 		return CreateProp(isolate, name);
 	}
 
-	void ASTObjectInstance::SetProp(Isolate* isolate, std::string name, ASTExpr* value){
-		ASTVar* var = GetProp(isolate, name);
-		var->value = value;
-	}
-
-	void ASTObjectInstance::PrintValues(){
-		if (!properties.empty()){
-			for(std::map<std::string,ASTVar*>::iterator i = properties.begin(); i != properties.end(); ++i){
-				std::string k =  i->first;
-				ASTVar* var = i->second;
-				if (var->HasLocal()){
-					ASTLiteral* lit = (ASTLiteral*) var->GetLocal(false);
-					printf("Object: %s - %s\n", k.c_str(), lit->value.c_str());
-				}
-			}
-		}
-	}
-
 	ASTObjectInstance* ASTObjectInstance::Clone(Isolate* iso, bool shallow){
 		ASTObjectInstance* n = ASTObjectInstance::New(iso);
 		n->value = value;

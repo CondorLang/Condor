@@ -15,7 +15,6 @@
 #include <vector>
 #include "condor/flags.h"
 #include "condor/global.h"
-#include "list.h"
 
 namespace Condor {
 namespace internal{
@@ -24,7 +23,7 @@ namespace internal{
 
 	const static size_t DEFAULT_MEMORY_POOL_SIZE = KB * 8; // 8kb
 	const static size_t DEFAULT_MEMORY_CHUNK_SIZE = 260;
-	const static size_t DEFAULT_MEMORY_SIZE_TO_ALLOCATE = DEFAULT_MEMORY_CHUNK_SIZE * 2.2; // used in XL
+	const static size_t DEFAULT_MEMORY_SIZE_TO_ALLOCATE = (const size_t) (DEFAULT_MEMORY_CHUNK_SIZE * 2.2); // used in XL
 
 	typedef struct Chunk {
 		void* data;
@@ -47,7 +46,6 @@ namespace internal{
 		Chunk* kLastChunk;
 		Chunk* kCursorChunk;
 		unsigned int kChunkCount;
-		int counter;
 		std::map<byte*, Chunk*> kChunkOrg;
 		std::vector<Chunk*> kUnused;
 
@@ -65,14 +63,9 @@ namespace internal{
 		void FreeAllAllocatedMemory();
 		void DeallocateAllChunks();
 		void* GetMemory(const size_t size);
-		Chunk* FindChunkSuitableToHoldMemory(const size_t size);
-		Chunk* SkipChunks(Chunk* chunk, unsigned int chunkToSkip);
 		size_t MaxValue(const size_t a, const size_t b);
 		void SetMemoryChunkValues(Chunk* chunk, const size_t size);
-		size_t GetFreeSize(){return kFreeSize;}
-		size_t GetUsedSize(){return kUsedSize;}
-		size_t GetTotalSize(){return kTotalSize;}
-		void FreeMemory(void* ptr, const size_t size);
+		void FreeMemory(void *ptr);
 		Chunk* FindChunkHoldingPointerTo(void* ptr);
 		bool debug;
 		std::string name;

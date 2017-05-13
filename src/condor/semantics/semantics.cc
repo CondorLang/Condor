@@ -38,15 +38,6 @@ namespace internal{
 		col = node->col;
 	}
 
-	std::string* Semantics::GetSource(){
-		CHECK(scopes.size() != 0);
-		Scope* s = GetCurrentScope();
-		if (s == baseScope) {
-			return parser->GetSource();
-		}
-		return &s->raw;
-	}
-
 	void Semantics::Trace(const char* first, const char* second){
 		if (trace) {
 			std::string tabs = "";
@@ -78,11 +69,6 @@ namespace internal{
 	Scope* Semantics::GetCurrentScope(){
 		if (scopes.size() == 0) return NULL;
 		return scopes[0];
-	}
-
-	Scope* Semantics::GetPreviousScope(){
-		if (scopes.size() < 2) return NULL;
-		return scopes[1];
 	}
 
 	void Semantics::SwapScopes(){
@@ -263,6 +249,7 @@ namespace internal{
 		TOKEN result = UNDEFINED;
 		switch (type){
 			case IDENT: result = ValidateIdent(lit); break;
+			default:break;
 		}
 		if (lit->member != NULL){
 			ValidateExpr(lit->member);
@@ -370,8 +357,8 @@ namespace internal{
 			if ((!isThis && !expr->allowAccess) && nodes[i]->HasVisibility(PRIVATE)) throw Error::UNABLE_TO_ACCESS_PRIVATE_MEMBER;
 			if ((nodes[i]->type == VAR || nodes[i]->type == OBJECT)) {
 				expr->var = (ASTVar*) nodes[i];
-				Scope* s = GetCurrentScope();
-				expr->allowGC = s->scopeId == expr->var->scopeId;
+				Scope* currentScope = GetCurrentScope();
+				expr->allowGC = currentScope->scopeId == expr->var->scopeId;
 				break;
 			}
 		}
@@ -523,6 +510,7 @@ namespace internal{
 			case BINARY: {
 				return UNDEFINED;
 			}
+			default:break;
 		}
 		return UNDEFINED;
 	}
@@ -549,14 +537,9 @@ namespace internal{
 		}
 		switch (type){
 			case BOOLEAN: case INT: case DOUBLE: case FLOAT: return;
+			default:break;
 		}
 		throw Error::INVALID_ACCESS_TO_ARRAY;
-	}
-
-	void Semantics::ValidateObject(ASTObject* obj){
-		CHECK(obj != NULL);
-		TRACK(obj);
-		Trace("Validating Object", obj->name.c_str());
 	}
 
 	void Semantics::ValidateObjectInit(ASTVar* var){
@@ -749,7 +732,7 @@ namespace internal{
 		CHECK(expr != NULL);
 		TRACK(expr);
 		Trace("Validating", "Cast");
-		ValidateLiteral((ASTLiteral*) expr->cast);
+		ValidateLiteral(expr->cast);
 		return expr->cast->litType;
 	}
 
@@ -780,6 +763,7 @@ namespace internal{
 											 assign != INT &&
 											 assign != BOOLEAN) throw Error::INVALID_DOUBLE_ASSIGNMENT; break;
 			case ARRAY: if (assign != ARRAY) throw Error::INVALID_ARRAY_ASSIGNMENT; break;
+			default:break;
 		}
 		if (var->baseType == DOUBLE && var->assignmentType == FLOAT){
 			var->assignmentType = DOUBLE;
@@ -809,6 +793,7 @@ namespace internal{
 				SetToType(type, binary->right);
 				break;
 			}
+			default:break;
 		}
 	}
 

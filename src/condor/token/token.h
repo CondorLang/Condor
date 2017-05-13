@@ -13,8 +13,8 @@ namespace internal{
 
 	class Isolate;
 
-	/**
-	 * @brief The basic enum of all Tokens
+	/*
+	 * The converted tokens
 	 */
 	enum TOKEN{
 		// Internal
@@ -33,6 +33,7 @@ namespace internal{
 		OBJECT_MEMBER_CHAIN,
 		CLASS,
 		SCRIPT,
+		// Used for the abstract syntax tree
 		ASTFILE,
 		ASTFOR,
 		ASTWHILE,
@@ -73,10 +74,10 @@ namespace internal{
 
 		// Literals
 		LITERAL_BEGIN,
-		kNULL,
+		kNULL, // NULL clashes with predefined globals
 		IDENT, // identifier
 
-		BEGIN_NUMBER,
+		BEGIN_NUMBER, // Allow for a range
 		INT, // 1
 		FLOAT, // 1.0000000
 		DOUBLE, // 1.0000000000000000
@@ -226,7 +227,7 @@ namespace internal{
 		static Token* New(Isolate* iso, TOKEN val);
 		~Token(){}
 		TOKEN value;
-		std::string raw;
+		std::string raw; // raw token data
 
 		std::string String();
 		int Int(){return (int) value;}
