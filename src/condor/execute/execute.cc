@@ -96,6 +96,11 @@ namespace Condor {
 			CloseScope();
 		}
 
+		Scope* Execute::GetCurrentScope(){
+			if (scopes.size() > 0) return scopes[0];
+			return NULL;
+		}
+
 		void Execute::CloseScope(){
 			Scope* currentScope = GetCurrentScope();
 			for (int i = 0; i < currentScope->Size(); i++){
@@ -676,6 +681,7 @@ namespace Condor {
 			if (node == NULL) return NULL;
 			TRACK(node);
 			PrintStep("Evaluating Value (" + Token::ToString(node->type) + ")");
+
 			int type = (int) node->type;
 			switch (type){
 				case UNDEFINED: case ARRAY: case OBJECT_INSTANCE: {
@@ -683,6 +689,9 @@ namespace Condor {
 				}
 				case LITERAL: {
 					ASTLiteral* lit = (ASTLiteral*) node;
+
+					if (lit->isCalc) return lit;
+
 					ASTLiteral* value = EvaluateValue(lit->var);
 					SetCast(lit, value);
 
@@ -725,6 +734,7 @@ namespace Condor {
 					if (lit->name == "this" && !lit->HasLocal()){
 						return GetCurrentObject();
 					}
+
 					SetCalc(lit);
 					return lit;
 				}
@@ -749,7 +759,13 @@ namespace Condor {
 			PrintStep("Evaluating Var (" + var->name + ")");
 			SetRowCol(var);
 			Trace("Evaluating Var", var->name);
+			if (numOfSteps == 136){
+				int a = 10;
+			}
 			ASTLiteral* local = EvaluateValue(var);
+			if (numOfSteps == 138){
+				int a = 10;
+			}
 			if (var->previouslyDeclared && var->op == ASSIGN && var->HasLocal()) isolate->RunGC(var, false);
 			if (local == NULL) return ASTUndefined::New(isolate);
 			if (local->type == OBJECT_INSTANCE){ // call constructor
@@ -763,7 +779,9 @@ namespace Condor {
 				}
 			}
 			if (var->HasLocal()) isolate->RunGC(var->GetLocal(), true);
-			var->AddLocal(local->Clone(isolate, true));
+			ASTLiteral* clone = local->Clone(isolate, true);
+			CHECK(clone != NULL);
+			var->AddLocal(clone);
 			if (var->name == "return") {
 				isReturning = true;
 				returnValue = var;

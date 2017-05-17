@@ -185,6 +185,9 @@ namespace internal{
 
 				delete clock;
 			}
+
+			Compile::New(isolate)->Run(parser->GetBaseScope());
+
 		}
 		catch (Error::CB_ERROR e){
 			std::string msg = Error::String(e, NULL);

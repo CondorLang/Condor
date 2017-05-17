@@ -86,6 +86,14 @@ namespace internal{
 		}
 	}
 
+	std::string Scope::ToString(int tabs){
+		std::string results;
+		for (unsigned int i = 0; i < nodes.size(); i++){
+			results += nodes[i]->ToString(tabs);
+		}
+		return results;
+	}
+
 	void Scope::Destroy(){
 		//this->~Scope();
 		isolate->FreeMemory(this, sizeof(Scope));

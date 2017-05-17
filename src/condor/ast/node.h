@@ -52,6 +52,7 @@ namespace internal{
 		static void SetDefaults(ASTNode* node, Isolate* iso);
 		void Free(Isolate* iso);
 		bool HasVisibility(TOKEN tok);
+		virtual std::string ToString(int tabs);
 	};
 
 	class ASTToken : public ASTNode
@@ -99,6 +100,7 @@ namespace internal{
 		int order;
 		static ASTVar* New(Isolate* iso);		
 		ASTVar* Clone(Isolate* iso, bool shallow = false);
+		std::string ToString(int tabs);
 	};
 
 	class ASTFunc : public ASTNode
@@ -108,6 +110,7 @@ namespace internal{
 		std::vector<ASTVar*> args;
 		TOKEN assignmentType;
 		static ASTFunc* New(Isolate* iso);
+		std::string ToString(int tabs);
 	};
 
 	class ASTExpr : public ASTNode
@@ -116,6 +119,7 @@ namespace internal{
 		static ASTExpr* New(Isolate* iso);
 		ASTLiteral* cast;
 		bool isBoolean;
+		std::string ToString(int tabs);
 	};
 
 	class ASTBreak : public ASTExpr
@@ -138,6 +142,7 @@ namespace internal{
 		ASTExpr* right;
 		TOKEN op;
 		bool isChain;
+		std::string ToString(int tabs);
 	};
 
 	class ASTObject : public ASTNode
@@ -146,6 +151,7 @@ namespace internal{
 		static ASTObject* New(Isolate* iso);
 		Scope* scope;
 		bool extend;
+		std::string ToString(int tabs);
 	};
 
 	class ASTLiteral : public ASTExpr
@@ -164,7 +170,8 @@ namespace internal{
 		bool isCalc;
 		int isPost;
 		bool allowAccess;
-		virtual ASTLiteral* Clone(Isolate* isolate, bool shallow = false);
+		ASTLiteral* Clone(Isolate* isolate, bool shallow = false);
+		std::string ToString(int tabs);
 	};
 
 	class ASTFuncCall : public ASTExpr
@@ -176,6 +183,7 @@ namespace internal{
 		bool isInit;
 		ASTFunc* func;
 		InternalFunctionCallback callback;
+		std::string ToString(int tabs);
 	};
 
 	class ASTForExpr : public ASTExpr
@@ -276,6 +284,7 @@ namespace internal{
 		ASTObject* base;
 
 		ASTObjectInstance* Clone(Isolate* iso, bool shallow = false);
+		std::string ToString(int tabs);
 	};
 
 } // namespace internal

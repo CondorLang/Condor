@@ -52,7 +52,7 @@ namespace internal{
 		void PrintStep(std::string msg);
 		void OpenScope(Scope* sc);
 		void CloseScope();
-		Scope* GetCurrentScope(){return scopes[0];}
+		Scope* GetCurrentScope();
 		void AddObject(ASTObjectInstance* obj){objStack.push_back(obj);}
 		void RemoveObject(){objStack.erase(objStack.begin());}
 		ASTObjectInstance* GetCurrentObject(){if (objStack.size() > 0) return objStack[0]; return NULL;}

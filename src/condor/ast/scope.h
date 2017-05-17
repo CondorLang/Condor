@@ -52,6 +52,7 @@ namespace internal{
 		void Destroy(ASTNode* node);
 		void Destroy();
 		void AllExport(bool isAllExport){allExport = isAllExport;}
+		std::string ToString(int tabs);
 
         void Remove(ASTNode* node);
 		std::vector<ASTNode*> GetNodes(){return nodes;}

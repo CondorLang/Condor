@@ -173,6 +173,12 @@
 		<Unit filename="C:/Users/willdech/CLionProjects/Condor/src/condor/clock.h">
 			<Option target="CondorLib"/>
 		</Unit>
+		<Unit filename="C:/Users/willdech/CLionProjects/Condor/src/condor/compile/compile.cc">
+			<Option target="CondorLib"/>
+		</Unit>
+		<Unit filename="C:/Users/willdech/CLionProjects/Condor/src/condor/compile/compile.h">
+			<Option target="CondorLib"/>
+		</Unit>
 		<Unit filename="C:/Users/willdech/CLionProjects/Condor/src/condor/error/error.cc">
 			<Option target="CondorLib"/>
 		</Unit>

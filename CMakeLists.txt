@@ -47,6 +47,7 @@ set(SOURCE_LIST
         ${SOURCE_DIR}/condor/types/path/path.cc
         ${SOURCE_DIR}/condor/types/script/script.cc
         ${SOURCE_DIR}/condor/types/strings/string.cc
+        ${SOURCE_DIR}/condor/compile/compile.cc
         )
 
 add_library(CondorLib STATIC ${SOURCE_LIST})

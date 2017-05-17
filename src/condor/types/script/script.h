@@ -20,6 +20,7 @@
 #include "condor/parser/parser.h"
 #include "condor/semantics/semantics.h"
 #include "condor/execute/execute.h"
+#include "condor/compile/compile.h"
 
 #include "condor/types/strings/string.h"	
 #include "condor/types/path/path.h"
@@ -34,6 +35,7 @@ namespace internal{
 	class Parser;
 	class Semantics;
 	class Execute;
+	class Compile;
 
 	class Script
 	{

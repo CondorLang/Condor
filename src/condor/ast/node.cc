@@ -28,6 +28,170 @@ namespace internal{
 		node->id = iso->GetContext()->GetNextAstId();
 	}
 
+	std::string ASTNode::ToString(int tabs) {
+		std::string tabStr;
+		for (int i = 0; i < tabs; i++) tabStr += " ";
+		std::string results;
+
+		results += tabStr + "Node: " + Token::ToString(type) + " {\n";
+		tabStr += " ";
+		results += tabStr + "row: " + std::to_string(row) + "\n";
+		results += tabStr + "col: " + std::to_string(col) + "\n";
+		results += tabStr + "name: " + name + "\n";
+		results += tabStr + "isExport: " + std::to_string(isExport) + "\n";
+		results += tabStr + "isInParen: " + std::to_string(isInParen) + "\n";
+		results += tabStr + "allowGc: " + std::to_string(allowGC) + "\n";
+		results += tabStr + "print: " + std::to_string(print) + "\n";
+		results += tabStr + "importScopeId: " + std::to_string(importScopeId) + "\n";
+		results += tabStr + "progressDepth: " + std::to_string(progressDepth) + "\n";
+		results += tabStr + "id: " + std::to_string(id) + "\n";
+
+		return results;
+	}
+
+	std::string ASTFunc::ToString(int tabs) {
+		std::string results = ASTNode::ToString(tabs);
+
+		std::string tabStr;
+		for (int i = 0; i < tabs + 1; i++) tabStr += " ";
+		results += tabStr + "assignmentType: " + Token::ToString(assignmentType) + "\n";
+		results += tabStr + "totalArgs: " + std::to_string(args.size()) + "\n";
+		results += tabStr + "args: \n";
+		for (unsigned long long int i = 0; i < args.size(); i++){
+			results += args[i]->ToString(tabs + 3);
+		}
+
+		results += tabStr + "scope: \n";
+		results += scope->ToString(tabs + 3);
+
+		results += tabStr + "}\n";
+		return results;
+	}
+
+    std::string ASTObjectInstance::ToString(int tabs) {
+		std::string results = ASTNode::ToString(tabs);
+
+		std::string tabStr;
+		for (int i = 0; i < tabs + 1; i++) tabStr += " ";
+		results += tabStr + "base: \n";
+		if (base != NULL) results += base->ToString(tabs + 3);
+		else results += tabStr + "base: NULL\n";
+		if (constructor != NULL) results += constructor->ToString(tabs + 3);
+		else results += tabStr + "constructor: NULL\n";
+
+		for (std::map<std::string, ASTVar*>::iterator it = properties.begin(); it != properties.end(); it++){
+			results += tabStr + "key: " + it->first + ", value: \n";
+			results += it->second->ToString(tabs + 3);
+		}
+		results += tabStr + "}\n";
+		return results;
+	}
+
+	std::string ASTObject::ToString(int tabs) {
+		std::string results = ASTNode::ToString(tabs);
+
+		std::string tabStr;
+		for (int i = 0; i < tabs + 1; i++) tabStr += " ";
+		results += tabStr + "extend: " + std::to_string(extend) + "\n";
+		results += tabStr + "Scope: \n";
+		results += scope->ToString(tabs + 3);
+		results += tabStr + "}\n";
+		return results;
+	}
+
+	std::string ASTVar::ToString(int tabs) {
+		std::string results = ASTNode::ToString(tabs);
+
+		std::string tabStr;
+		for (int i = 0; i < tabs + 1; i++) tabStr += " ";
+		results += tabStr + "baseName: " + baseName + "\n";
+		results += tabStr + "baseType: " + Token::ToString(baseType) + "\n";
+		results += tabStr + "assignmentType: " + Token::ToString(assignmentType) + "\n";
+		results += tabStr + "op: " + Token::ToString(op) + "\n";
+		results += tabStr + "scopeId: " + std::to_string(scopeId) + "\n";
+		results += tabStr + "isArray: " + std::to_string(isArray) + "\n";
+		results += tabStr + "isObject: " + std::to_string(isObject) + "\n";
+		results += tabStr + "isArg: " + std::to_string(isArg) + "\n";
+		results += tabStr + "hasDefault: " + std::to_string(hasDefault) + "\n";
+		results += tabStr + "previouslyDeclared: " + std::to_string(previouslyDeclared) + "\n";
+		results += tabStr + "order: " + std::to_string(order) + "\n";
+		if (member != NULL) results += tabStr + "member: \n" + member->ToString(tabs + 3);
+		else results += tabStr + "member: NULL\n";
+		if (value != NULL) results += tabStr + "value: \n" + value->ToString(tabs + 3);
+		else results += tabStr + "value: NULL\n";
+		results += tabStr + "}\n";
+		return results;
+	}
+
+	std::string ASTExpr::ToString(int tabs) {
+		std::string results = ASTNode::ToString(tabs);
+
+		std::string tabStr;
+		for (int i = 0; i < tabs + 1; i++) tabStr += " ";
+		results += tabStr + "isBoolean: " + std::to_string(isBoolean) + "\n";
+		if (cast != NULL) results += tabStr + "cast: \n" + cast->ToString(tabs + 3);
+		else results += tabStr + "cast: NULL\n";
+		results += tabStr + "}\n";
+		return results;
+	}
+
+	std::string ASTFuncCall::ToString(int tabs) {
+		std::string results = ASTExpr::ToString(tabs);
+
+		std::string tabStr;
+		for (int i = 0; i < tabs + 1; i++) tabStr += " ";
+		results += tabStr + "isInternal: " + std::to_string(isInternal) + "\n";
+		results += tabStr + "isInit: " + std::to_string(isInit) + "\n";
+		results += tabStr + "params: \n";
+		for (unsigned long long int i = 0; i < params.size(); i++) results += params[i]->ToString(tabs + 3);
+		if (func != NULL) results += tabStr + "funcName: " + func->name + "\n";
+		else results += tabStr + "func: NULL\n";
+
+		results += tabStr + "}\n";
+		return results;
+	}
+
+	std::string ASTBinaryExpr::ToString(int tabs) {
+		std::string results = ASTExpr::ToString(tabs);
+
+		std::string tabStr;
+		for (int i = 0; i < tabs + 1; i++) tabStr += " ";
+		results += tabStr + "op: " + Token::ToString(op) + "\n";
+		results += tabStr + "isChain: " + std::to_string(isChain) + "\n";
+		if (left != NULL) results += tabStr + "left: \n" + left->ToString(tabs + 3);
+		else results += tabStr + "left: NULL\n";
+		if (right != NULL) results += tabStr + "right: \n" + right->ToString(tabs + 3);
+		else results += tabStr + "right: NULL\n";
+
+		results += tabStr + "}\n";
+		return results;
+	}
+
+	std::string ASTLiteral::ToString(int tabs) {
+		std::string results = ASTExpr::ToString(tabs);
+
+		std::string tabStr;
+		for (int i = 0; i < tabs + 1; i++) tabStr += " ";
+		results += tabStr + "value: " + value + "\n";
+		results += tabStr + "litType: " + Token::ToString(litType) + "\n";
+		results += tabStr + "unary: " + Token::ToString(unary) + "\n";
+		results += tabStr + "calc: " + std::to_string(calc) + "\n";
+		results += tabStr + "isCast: " + std::to_string(isCalc) + "\n";
+		results += tabStr + "scopeId: " + std::to_string(scopeId) + "\n";
+		results += tabStr + "isCalc: " + std::to_string(isCalc) + "\n";
+		results += tabStr + "isPost: " + std::to_string(isPost) + "\n";
+		results += tabStr + "allowAccess: " + std::to_string(allowAccess) + "\n";
+		if (member != NULL) results += tabStr + "member: \n" + member->ToString(tabs + 3);
+		else results += tabStr + "member: NULL\n";
+		if (obj != NULL && obj->name != "this") results += tabStr + "obj: " + obj->name + "\n";
+		else results += tabStr + "obj: NULL\n";
+		if (var != NULL) results += tabStr + "varName: " + var->name + "\n";
+		else results += tabStr + "var: NULL\n";
+
+		results += tabStr + "}\n";
+		return results;
+	}
+
 	ASTLiteral* ASTNode::GetLocal(bool pop){
 		if (locals.size() > 0) {
 			ASTLiteral* result = locals.back();
