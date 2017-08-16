@@ -24,7 +24,7 @@
 	T(NUMBER, "@NUMBER") \
 	T(BEGIN_OPERATOR, "#BEGIN_OPERATOR") \
 	T(SEMICOLON, ";") \
-	T(COLON, ";") \
+	T(COLON, ":") \
 	T(CONSTRUCTOR, "@") \
 	T(BEGIN_BINARY_OPERATOR, "@BEGIN_BINARY_OPERATOR") \
 	T(ADD, "+") \
@@ -141,6 +141,11 @@
 enum Tokens {CREATE_TOKEN_LIST(T_ENUM) TOTAL_TOKENS};
 
 typedef enum Tokens Token;
+
+typedef struct PeekedToken {
+	Token token;
+	char* raw;
+} PeekedToken;
 
 /**
  * Convert a char* to a TOKEN.

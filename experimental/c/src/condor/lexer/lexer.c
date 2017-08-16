@@ -42,6 +42,17 @@ Token GetNextToken(Lexer* lexer){
 	}
 	return tok;
 }
+
+void PeekNextToken(Lexer* lexer, PeekedToken* peeked){
+	peeked->token = GetNextToken(lexer);
+	peeked->raw = lexer->currentTokenString;
+	BackOneToken(lexer);
+}
+
+Token GetCurrentToken(Lexer* lexer){
+	BackOneToken(lexer);
+	return GetNextToken(lexer);
+}
 	
 /**
  * This function is key in allocation the correct number of 
@@ -62,6 +73,8 @@ int CountTotalASTTokens(Lexer* lexer){
 			tok == STRING || 
 			tok == IF ||
 			tok == BREAK ||
+			tok == SWITCH ||
+			tok == CASE ||
 			IsBinaryOperator(tok) ||
 			IsBooleanOperator(tok)) total++;
 		tok = GetNextToken(lexer);
@@ -78,6 +91,10 @@ int CountTotalScopes(Lexer* lexer){
 	}
 	DestroyLexer(lexer);
 	return total;
+}
+
+void BackOneToken(Lexer* lexer){
+	lexer->tracker.currentTokenPosition -= strlen(lexer->currentTokenString);
 }
 
 void ResetLexer(Lexer* lexer){

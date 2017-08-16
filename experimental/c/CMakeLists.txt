@@ -34,7 +34,7 @@ if(DEBUG_SYNTAX)
 	set_c_flag('-DDEBUG_SYNTAX=1')
 endif()
 
-if(TEST)
+if(IS_TEST)
 	set_c_flag('-DTEST=1')
 endif()
 

@@ -41,6 +41,8 @@ ASTNode* ParseExpression(Scope* scope, Lexer* lexer);
 ASTNode* ParseFor(Scope* scope, Lexer* lexer);
 ASTNode* ParseIf(Scope* scope, Lexer* lexer);
 ASTNode* ParseWhile(Scope* scope, Lexer* lexer);
+ASTNode* ParseSwitch(Scope* scope, Lexer* lexer);
+ASTNode* ParseCase(Scope* scope, Lexer* lexer);
 int ParseBody(Scope* scope, Lexer* lexer);
 Token ParseStmtList(Scope* scope, Lexer* lexer, int scopeId, bool oneStmt);
 

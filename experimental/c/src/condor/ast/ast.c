@@ -86,7 +86,7 @@ void ExpandASTNode(Scope* scope, ASTNode* node, int tab){
 			ExpandSubScope(scope, node->meta.forExpr.body, tab + 2);
 			break;
 		}
-		case WHILE: case IF: {
+		case WHILE: case IF: case SWITCH: case CASE: {
 			printf(" %s-condition:\n", tabs);
 			ExpandASTNode(scope, node->meta.ifExpr.condition, tab + 2);
 			printf(" %s-body:\n", tabs);

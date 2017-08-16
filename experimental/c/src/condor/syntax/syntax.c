@@ -61,6 +61,36 @@ ASTNode* ParseWhile(Scope* scope, Lexer* lexer){
 	return whileStmt;
 }
 
+ASTNode* ParseSwitch(Scope* scope, Lexer* lexer){
+	DEBUG_PRINT_SYNTAX("Switch");
+	TRACK();
+	ASTNode* switchStmt = GetNextNode(scope);
+	switchStmt->isStmt = true;
+	switchStmt->type = SWITCH;
+
+	Token tok = GetNextToken(lexer);
+	EXPECT_TOKEN(tok, LPAREN, lexer);
+	switchStmt->meta.switchExpr.condition = ParseExpression(scope, lexer);
+	switchStmt->meta.whileExpr.body = ParseBody(scope, lexer);
+
+	return switchStmt;
+}
+
+ASTNode* ParseCase(Scope* scope, Lexer* lexer){
+	DEBUG_PRINT_SYNTAX("Case");
+	TRACK();
+	ASTNode* caseStmt = GetNextNode(scope);
+	caseStmt->isStmt = true;
+	caseStmt->type = CASE;
+
+	caseStmt->meta.caseStmt.condition = ParseExpression(scope, lexer);
+	Token tok = GetCurrentToken(lexer);
+	EXPECT_TOKEN(tok, COLON, lexer);
+	caseStmt->meta.caseStmt.body = ParseBody(scope, lexer);
+
+	return caseStmt;
+}
+
 Token ParseStmtList(Scope* scope, Lexer* lexer, int scopeId, bool oneStmt){
 	Token tok = GetNextToken(lexer);
 	while (tok != UNDEFINED){
@@ -84,6 +114,14 @@ Token ParseStmtList(Scope* scope, Lexer* lexer, int scopeId, bool oneStmt){
 			}
 			case WHILE: {
 				node = ParseWhile(scope, lexer);
+				break;
+			}
+			case SWITCH: {
+				node = ParseSwitch(scope, lexer);
+				break;
+			}
+			case CASE: {
+				node = ParseCase(scope, lexer);
 				break;
 			}
 		}
@@ -118,21 +156,36 @@ int ParseBody(Scope* scope, Lexer* lexer){
 ASTNode* ParseVar(Scope* scope, Lexer* lexer, Token dataType){
 	DEBUG_PRINT_SYNTAX("Var");
 	TRACK();
-	ASTNode* var = GetNextNode(scope);
-	var->type = VAR;
-	var->meta.varExpr.dataType = dataType;
 
-	Token tok = GetNextToken(lexer);
-	EXPECT_TOKEN(tok, IDENTIFIER, lexer);
+	// Check if next token is identifier, if it isn't, we 
+	// lookup the variable name. If it is, we can assume a 
+	// type was declared
+	PeekedToken peeked;
+	char* currentTokenString = lexer->currentTokenString;
+	PeekNextToken(lexer, &peeked);
+	ASTNode* var;
+	Token tok;
+	if (peeked.token != IDENTIFIER){
+		var = FindSymbol(scope, currentTokenString);
+		if (var == NULL) SYMBOL_NOT_FOUND(lexer->currentTokenString, lexer);
+	}
+	else{
+		var = GetNextNode(scope);
+		var->type = VAR;
+		var->meta.varExpr.dataType = dataType;
 
-	// Set the name of the variable
-	char* name = lexer->currentTokenString;
-	var->meta.varExpr.name = Allocate((sizeof(char) * strlen(name)) + sizeof(char));
-	var->meta.varExpr.value = NULL; // mem issue prevention
-	var->isStmt = true; // is statement node
-	var->meta.varExpr.inc = UNDEFINED;
-	strcpy(var->meta.varExpr.name, name);
-	DEBUG_PRINT_SYNTAX2("Var", name);
+		tok = GetNextToken(lexer);
+		EXPECT_TOKEN(tok, IDENTIFIER, lexer);
+
+		// Set the name of the variable
+		char* name = lexer->currentTokenString;
+		var->meta.varExpr.name = Allocate((sizeof(char) * strlen(name)) + sizeof(char));
+		var->meta.varExpr.value = NULL; // mem issue prevention
+		var->isStmt = true; // is statement node
+		var->meta.varExpr.inc = UNDEFINED;
+		strcpy(var->meta.varExpr.name, name);
+		DEBUG_PRINT_SYNTAX2("Var", name);
+	}
 
 	tok = GetNextToken(lexer);
 

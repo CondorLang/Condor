@@ -6,7 +6,7 @@ to be portable for any operating system.
 
 ## Building
 ```
-./init [-d|--debug] [-e|--execute] [-c|--clean] [-n|--namespace fileName] [-t|--test]
+./init [-d|--debug] [-e|--execute] [-c|--clean] [-n|--namespace fileName] [-t|--test] [-s|--debug-syntax]
 ```
 
 ### Arguments

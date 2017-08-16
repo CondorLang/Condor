@@ -135,6 +135,16 @@ struct ASTNode {
 			int body;
 		} whileExpr;
 
+		struct {
+			ASTNode* condition;
+			int body;
+		} caseStmt;
+
+		struct {
+			ASTNode* condition;
+			int body;
+		} switchExpr;
+
 	} meta;
 };
 
