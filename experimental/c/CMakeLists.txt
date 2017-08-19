@@ -34,8 +34,16 @@ if(DEBUG_SYNTAX)
 	set_c_flag('-DDEBUG_SYNTAX=1')
 endif()
 
+if(DEBUG_TRACK)
+	set_c_flag('-DDEBUG_TRACK=1')
+endif()
+
 if(IS_TEST)
 	set_c_flag('-DTEST=1')
+endif()
+
+if(EXPAND_AST)
+	set_c_flags(-DEXPAND_AST=1)
 endif()
 
 set(SOURCE_LIST
@@ -44,11 +52,14 @@ set(SOURCE_LIST
 	${SOURCE_DIR}/condor/syntax/syntax.c
 	${SOURCE_DIR}/condor/token/token.c
 	${SOURCE_DIR}/condor/ast/ast.c
+	${SOURCE_DIR}/condor/ast/astlist.c
 	${SOURCE_DIR}/condor/ast/scope.c
 	${SOURCE_DIR}/condor/number/number.c
 	${SOURCE_DIR}/utils/clock.c
 	${SOURCE_DIR}/condor/semantic/semantic.c
 	${SOURCE_DIR}/condor/semantic/typechecker.c
+	${SOURCE_DIR}/utils/string/string.c
+	${SOURCE_DIR}/utils/file/file.c
 )
 
 add_library(CondorLib STATIC ${SOURCE_LIST})

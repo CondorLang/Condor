@@ -48,9 +48,12 @@ Token GetNextToken(Lexer* lexer);
 char* GetCurrentTokenString(Lexer* lexer);
 int CountTotalASTTokens(Lexer* lexer);
 int CountTotalScopes(Lexer* lexer);
+int CountTotalFuncs(Lexer* lexer);
+int CountTotalParamItems(Lexer* lexer);
 void ResetLexer(Lexer* lexer);
 void PeekNextToken(Lexer* lexer, PeekedToken* peeked);
 Token GetCurrentToken(Lexer* lexer);
+void BackOneToken(Lexer* lexer);
 
 /**
  * Private Functions
@@ -66,7 +69,6 @@ bool CrawlSpaces(Lexer* lexer);
 bool CrawlOperators(Lexer* lexer);
 bool CrawlNumbers(Lexer* lexer);
 bool CrawlString(Lexer* lexer);
-void BackOneToken(Lexer* lexer);
 
 void SetTokenStart(Lexer* lexer);
 void SetTokenEnd(Lexer* lexer);

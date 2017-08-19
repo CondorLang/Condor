@@ -16,9 +16,12 @@
 #define SCOPE_H_
 
 #include "ast.h"
+#include "astlist.h"
 #include "condor/mem/allocate.h"
 
 typedef struct ASTNode ASTNode; // forward declare
+typedef struct ASTList ASTList; // forward declare
+typedef struct ASTListItem ASTListItem; // forward declare
 
 /**
  * A scope can be defined as a statment body. They include:
@@ -38,6 +41,10 @@ struct Scope{
 	int nodeLength;
 	int scopeLength;
 	int scopeSpot;
+	int paramsLength;
+	int paramsSpot;
+	int paramItemsLength;
+	int paramItemsSpot;
 	ASTNode* nodes;
 
 	/**
@@ -50,11 +57,18 @@ struct Scope{
 	 * each scope.
 	 */
 	int* scopes;
+
+	/**
+	 * This will be the storage of all params in the 
+	 * form of list items
+	 */
+	ASTList* params;
+	ASTListItem* paramItems;
 };
 
 void DestroyScope(Scope* scope);
 void InitScope(Scope* scope);
-void ExpandScope(Scope* scope, int tab);
-void ExpandSubScope(Scope* scope, int id, int tab);
+char* ExpandScope(Scope* scope, int tab);
+char* ExpandSubScope(Scope* scope, int id, int tab);
 
 #endif // SCOPE_H_

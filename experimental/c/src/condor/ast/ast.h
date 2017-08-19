@@ -20,12 +20,15 @@
 #include "condor/token/token.h"
 #include "condor/mem/allocate.h"
 #include "condor/ast/scope.h"
+#include "condor/ast/astlist.h"
 #include "utils/assert.h"
+#include "utils/string/string.h"
 
 extern int ASTNODE_ID_SPOT;
 
 typedef struct Scope Scope; // forward declare
-typedef struct ASTNode ASTNode;
+typedef struct ASTNode ASTNode; // forward declare
+typedef struct ASTList ASTList; // forward declare
 
 #define GET_VAR(node) node->meta.varExpr
 #define GET_VAR_VALUE(node) node->meta.varExpr.value
@@ -145,12 +148,26 @@ struct ASTNode {
 			int body;
 		} switchExpr;
 
+		struct {
+			ASTNode* value;
+		} returnStmt;
+
+		struct {
+			int body;
+			char* name;
+			// This is the returning data type
+			Token dataType;
+			ASTList* params;
+		} funcExpr;
+
+		// ADD bodies to CountTotalScopes
+
 	} meta;
 };
 
 void InitNodes(ASTNode nodes[], int len);
 void DestroyNodes(ASTNode nodes[], int len);
-void ExpandASTNode(Scope* scope, ASTNode* node, int tab);
+char* ExpandASTNode(Scope* scope, ASTNode* node, int tab);
 ASTNode* FindSymbol(Scope* scope, char* name);
 
 #endif // AST_H_

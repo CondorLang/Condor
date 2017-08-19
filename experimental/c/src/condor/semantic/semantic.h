@@ -5,13 +5,16 @@
 #ifndef SEMANTIC_H_
 #define SEMANTIC_H_
 
+#include <stdio.h>
 #include "utils/clock.h" // For debugging
 #include "utils/debug.h"
 
 #include "../ast/scope.h"
 #include "../syntax/syntax.h"
 #include "../token/token.h"
+#include "../ast/astlist.h"
 #include "typechecker.h"
+#include "utils/file/file.h"
 
 void EnsureSemantics(Scope* scope, int scopeId);
 

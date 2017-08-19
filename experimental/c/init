@@ -33,6 +33,14 @@ parser.add_option('-t', '--test',
     action='store_true', dest='test',
     help='Run Tests', default=False)
 
+parser.add_option('-r', '--track',
+    action='store_true', dest='track',
+    help='Track each function call', default=False)
+
+parser.add_option('-a', '--expand-ast',
+    action='store_true', dest='ast',
+    help='Expand the ast', default=False)
+
 options, args = parser.parse_args()
 
 def runBuild():
@@ -48,11 +56,17 @@ def runBuild():
 
     cmakeOptions.append('-DDEBUG_NAMESPACE=' + options.namespace)
 
+    if options.track:
+        cmakeOptions.append('-DDEBUG_TRACK=1')
+
     if options.syntax:
         cmakeOptions.append('-DDEBUG_SYNTAX=1')
 
     if options.test:
         cmakeOptions.append('-DTEST=1')
+
+    if options.ast:
+        cmakeOptions.append('-DEXPAND_AST=1')
 
     call(cmakeOptions)
 

@@ -24,6 +24,16 @@ void BuildTree(char* rawSourceCode){
 	ResetLexer(&lexer);
 	int totalScopes = CountTotalScopes(&lexer);
 	ResetLexer(&lexer);
+	int totalFuncs = CountTotalFuncs(&lexer);
+	ResetLexer(&lexer);
+	int totalParamItems = CountTotalParamItems(&lexer);
+	ResetLexer(&lexer);
+
+	// Pre-allocate the different param lists
+	ASTList params[totalFuncs];
+	ASTListItem paramItems[totalParamItems];
+	InitParams(params, totalFuncs);
+	InitParamItems(paramItems, totalParamItems);
 
 	// Pre-allocate the different variable types
 	ASTNode nodes[totalNodes];
@@ -31,9 +41,7 @@ void BuildTree(char* rawSourceCode){
 
 	// Pre-allocate the different scopes
 	int scopes[totalScopes + 1];
-	for (int i = 0; i < totalScopes + 1; i++){
-		scopes[i] = i + 1;
-	}
+	for (int i = 0; i < totalScopes + 1; i++) scopes[i] = i + 1;
 
 	// Build the scope
 	Scope scope;
@@ -43,12 +51,18 @@ void BuildTree(char* rawSourceCode){
 	scope.scopeLength = totalScopes;
 	scope.scopes = scopes;
 
+	scope.params = params;
+	scope.paramItems = paramItems;
+	scope.paramsLength = totalFuncs;
+	scope.paramItemsLength = totalParamItems;
+
 	// Let's build the tree
 	ParseStmtList(&scope, &lexer, scope.scopes[scope.scopeSpot++], false);
 	scope.nodeSpot = 0;
 	EnsureSemantics(&scope, 1);
 
-	ExpandScope(&scope, 0);
+	char* json = ExpandScope(&scope, 0);
+	WriteToFile("compiled.cd", json);
 
 
 	// Cleanup
@@ -61,6 +75,8 @@ void BuildTree(char* rawSourceCode){
 	DEBUG_PRINT("\n\n------Program Completed------\n");
 	DEBUG_PRINT("\n\n------Program Stats------\n");
 	printf("Time: %llu nanoseconds\n", GetClockNanosecond(&clock));
+	// char a_word[10];
+	// scanf("%s", a_word);
 }
 
 void EnsureSemantics(Scope* scope, int scopeId){

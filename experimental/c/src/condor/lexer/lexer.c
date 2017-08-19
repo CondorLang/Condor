@@ -75,19 +75,67 @@ int CountTotalASTTokens(Lexer* lexer){
 			tok == BREAK ||
 			tok == SWITCH ||
 			tok == CASE ||
+			tok == RETURN ||
+			tok == FUNC ||
 			IsBinaryOperator(tok) ||
-			IsBooleanOperator(tok)) total++;
+			IsBooleanOperator(tok) ||
+			IsNumber(tok) || 
+			IsString(tok)) total++;
 		tok = GetNextToken(lexer);
 	}
 	DestroyLexer(lexer);
 	return total;
 }
 
+/**
+ * TODO: Count the scopes properly
+ */
 int CountTotalScopes(Lexer* lexer){
+	int total = 1;
+	Token tok = GetNextToken(lexer);
+	while (tok != UNDEFINED){
+		if (tok == CASE ||
+			tok == SWITCH ||
+			tok == FOR ||
+			tok == IF ||
+			tok == WHILE ||
+			tok == FUNC) total++;
+		tok = GetNextToken(lexer);
+	}
+	DestroyLexer(lexer);
+	return total;
+}
+
+/**
+ * This counts every function that
+ */
+int CountTotalFuncs(Lexer* lexer){	
 	int total = 0;
-	int len = strlen(lexer->rawSourceCode);
-	for (int i = 0; i < len; i++){
-		if (lexer->rawSourceCode[i] == '{') total++;
+	Token tok = GetNextToken(lexer);
+	while (tok != UNDEFINED){
+		if (tok == FUNC) total++;
+		tok = GetNextToken(lexer);
+	}
+	DestroyLexer(lexer);
+	return total;
+}
+
+/**
+ * Count the total number of param items,
+ * assuming that there aren't any mis-parsed
+ * itemd
+ */
+int CountTotalParamItems(Lexer* lexer){
+	int total = 0;
+	bool inFunc = false;
+	Token tok = GetNextToken(lexer);
+	while (tok != UNDEFINED){
+		if (tok == FUNC) inFunc = true;
+		if (IsString(tok) ||
+			IsNumber(tok) ||
+			tok == VAR) total++;
+		if (tok == RPAREN && inFunc) inFunc = false;
+		tok = GetNextToken(lexer);
 	}
 	DestroyLexer(lexer);
 	return total;

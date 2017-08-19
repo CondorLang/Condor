@@ -15,12 +15,12 @@
 #define EXPECT_STRING(val) { printf("Expected: %s\n", val); exit(0); }
 #define NOT_IMPLEMENTED(val) { printf("Not Implemented (%s:%d): %s\n", __FUNCTION__, __LINE__, val); exit(0); }
 #define CHECK(condition) {if (condition == false) {printf("Invalid Check: %s in %s:%d\n", #condition, __FUNCTION__, __LINE__);}}
-#define TRACK() {if (false) {printf("%s:%d\n", __FUNCTION__, __LINE__);}}
 #define SEMANTIC_ERROR(msg) {printf("%s\n", msg); exit(0);}
 #define SYMBOL_NOT_FOUND(symbol, lexer) {printf("Symbol not found: \"%s\", at %d:%d\n", symbol, lexer->tracker.row, lexer->tracker.col + lexer->tracker.currentTokenPosition - 1); exit(0);}
 #define SEMANTIC_OP_ERROR(msg, op) {printf("%s - %s\n", msg, TokenToString(op)); exit(0);}
 #define FAILED_TEST(msg){printf("Failed Test - %s - %s:%d\n", msg, __FUNCTION__, __LINE__); exit(0);}
 #define FAILED_TEST3(msg, msg2, msg3){printf("Failed Test - %s %s %s - %s:%d\n", msg, msg2, msg3, __FUNCTION__, __LINE__); exit(0);}
 #define SUCCESS_TEST(msg){printf("Success Test - %s\n", msg);}
+#define FETAL_CRASH(){printf("%s (%s:%d)\n", "Miscalculated memory, please report.", __FUNCTION__, __LINE__); exit(0);}
 
 #endif // ASSERT_H_

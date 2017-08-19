@@ -6,6 +6,27 @@ ASTNode* GetNextNode(Scope* scope){
 	return &scope->nodes[loc];
 }
 
+ASTList* GetNextASTList(Scope* scope){
+	int loc = scope->paramsSpot++;
+	if (loc >= scope->paramsLength) return NULL;
+	return &scope->params[loc];
+}
+
+ASTListItem* GetNextASTListItem(Scope* scope){
+	int loc = scope->paramItemsSpot++;
+	if (loc >= scope->paramItemsLength) return NULL;
+	return &scope->paramItems[loc];
+}
+
+int GetCurrentScopeId(Scope* scope){
+	int loc = scope->scopeSpot - 1;
+	return loc;
+}
+
+/**
+ * Syntax:
+ * 	for ([var], [expr], [inc]) {...}
+ */
 ASTNode* ParseFor(Scope* scope, Lexer* lexer){
 	DEBUG_PRINT_SYNTAX("For");
 	TRACK();
@@ -33,6 +54,10 @@ ASTNode* ParseFor(Scope* scope, Lexer* lexer){
 	return forExpr;
 }
 
+/**
+ * Syntax:
+ * 	if (expr) {...}
+ */
 ASTNode* ParseIf(Scope* scope, Lexer* lexer){
 	DEBUG_PRINT_SYNTAX("If");
 	TRACK();
@@ -47,6 +72,10 @@ ASTNode* ParseIf(Scope* scope, Lexer* lexer){
 	return ifExpr;
 }
 
+/**
+ * Syntax:
+ * 	while ([expr]) {...}
+ */
 ASTNode* ParseWhile(Scope* scope, Lexer* lexer){
 	DEBUG_PRINT_SYNTAX("While");
 	TRACK();
@@ -61,6 +90,10 @@ ASTNode* ParseWhile(Scope* scope, Lexer* lexer){
 	return whileStmt;
 }
 
+/**
+ * Syntax:
+ * 	switch ([expr]): {...}
+ */
 ASTNode* ParseSwitch(Scope* scope, Lexer* lexer){
 	DEBUG_PRINT_SYNTAX("Switch");
 	TRACK();
@@ -76,6 +109,10 @@ ASTNode* ParseSwitch(Scope* scope, Lexer* lexer){
 	return switchStmt;
 }
 
+/**
+ * Syntax:
+ * 	case [expr]: {...}
+ */
 ASTNode* ParseCase(Scope* scope, Lexer* lexer){
 	DEBUG_PRINT_SYNTAX("Case");
 	TRACK();
@@ -91,8 +128,79 @@ ASTNode* ParseCase(Scope* scope, Lexer* lexer){
 	return caseStmt;
 }
 
+/**
+ * Syntax:
+ * 	return [expr]
+ */
+ASTNode* ParseReturn(Scope* scope, Lexer* lexer){
+	DEBUG_PRINT_SYNTAX("Return");
+	TRACK();
+	ASTNode* var = GetNextNode(scope);
+	var->type = RETURN;
+	var->meta.returnStmt.value = ParseExpression(scope, lexer);
+	var->isStmt = true;
+	return var;
+}
+
+/**
+ * Syntax:
+ * 	break;
+ */
+ASTNode* ParseBreak(Scope* scope, Lexer* lexer){
+	DEBUG_PRINT_SYNTAX("Break");
+	TRACK();
+	ASTNode* Break = GetNextNode(scope);
+	Break->type = BREAK;
+	Break->isStmt = true;
+	return Break;
+}
+
+/**
+ * Syntax:
+ * 	func [name]([var], [var], ...) {...}
+ */
+ASTNode* ParseFunc(Scope* scope, Lexer* lexer){
+	TRACK();
+	ASTNode* func = GetNextNode(scope);
+	func->type = FUNC;
+	Token tok = GetNextToken(lexer);
+	EXPECT_TOKEN(tok, IDENTIFIER, lexer);
+	DEBUG_PRINT_SYNTAX2("Func", lexer->currentTokenString);
+
+	func->meta.funcExpr.name = Allocate((sizeof(char) * strlen(lexer->currentTokenString)) + sizeof(char));
+	strcpy(func->meta.funcExpr.name, lexer->currentTokenString);
+
+	func->meta.funcExpr.params = ParseParams(scope, lexer);
+	func->meta.funcExpr.body = ParseBody(scope, lexer);
+	func->isStmt = true;
+	return func;
+}
+
+ASTList* ParseParams(Scope* scope, Lexer* lexer){
+	DEBUG_PRINT_SYNTAX("Func Param");
+	TRACK();
+	Token tok = GetNextToken(lexer);
+	EXPECT_TOKEN(tok, LPAREN, lexer);
+	ASTList* list = GetNextASTList(scope);
+	while (tok != RPAREN){
+		tok = GetNextToken(lexer);
+		ASTListItem* item = GetNextASTListItem(scope);
+		item->node = ParseVar(scope, lexer, tok);
+		item->prev = list->current;
+
+		if (list->current != NULL) list->current->next = item;
+
+		list->current = item;
+		if (list->first == NULL) list->first = item;
+		tok = GetCurrentToken(lexer);
+	}
+	list->last = list->current;
+	return list;
+}
+
 Token ParseStmtList(Scope* scope, Lexer* lexer, int scopeId, bool oneStmt){
 	Token tok = GetNextToken(lexer);
+	bool breakOut = false;
 	while (tok != UNDEFINED){
 		int type = (int) tok;
 		ASTNode* node = NULL;
@@ -124,6 +232,20 @@ Token ParseStmtList(Scope* scope, Lexer* lexer, int scopeId, bool oneStmt){
 				node = ParseCase(scope, lexer);
 				break;
 			}
+			case RETURN: {
+				node = ParseReturn(scope, lexer);
+				breakOut = true;
+				break;
+			}
+			case BREAK: {
+				node = ParseBreak(scope, lexer);
+				breakOut = true;
+				break;
+			}
+			case FUNC: {
+				node = ParseFunc(scope, lexer);
+				break;
+			}
 		}
 		if (node != NULL) node->scopeId = scopeId;
 		if (oneStmt) break;
@@ -133,6 +255,13 @@ Token ParseStmtList(Scope* scope, Lexer* lexer, int scopeId, bool oneStmt){
 	return tok;
 }
 
+/**
+ * Syntax: 
+ * 	{...}
+ *
+ * Brackets are optional. If body contains more than one statements,
+ * then the brackets are required
+ */
 int ParseBody(Scope* scope, Lexer* lexer){
 	DEBUG_PRINT_SYNTAX("Body");
 	TRACK();
@@ -145,7 +274,8 @@ int ParseBody(Scope* scope, Lexer* lexer){
 	 * isn't a LBRACE, only 1 statement is allowed
 	 */
 	bool oneStmt = tok != LBRACE;
-	if (oneStmt) tok = GetNextToken(lexer); // eat
+	// if (oneStmt) tok = GetNextToken(lexer); // eat
+	if (oneStmt) BackOneToken(lexer);
 	tok = ParseStmtList(scope, lexer, scope->scopes[loc], oneStmt);
 	if (!oneStmt){
 		EXPECT_TOKEN(tok, RBRACE, lexer);
@@ -153,6 +283,10 @@ int ParseBody(Scope* scope, Lexer* lexer){
 	return scope->scopes[loc];
 }
 
+/**
+ * Syntax:
+ * 	var [name] = [expr];
+ */
 ASTNode* ParseVar(Scope* scope, Lexer* lexer, Token dataType){
 	DEBUG_PRINT_SYNTAX("Var");
 	TRACK();
@@ -191,7 +325,7 @@ ASTNode* ParseVar(Scope* scope, Lexer* lexer, Token dataType){
 
 	// For empty variable declarations:
 	// e.g: var a; or var b;
-	if (tok == SEMICOLON) return var;
+	if (tok == SEMICOLON || tok == COMMA || tok == RPAREN) return var;
 
 	// Only assignment operators are valid after a VAR declaration
 	if (!IsAssignment(tok)) EXPECT_STRING("Assignment Operator");
