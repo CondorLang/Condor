@@ -417,10 +417,8 @@ namespace internal{
 				if (funcs > 1){ // if more than one function exists in the object, then we'll check parameters
 					if (func->args.size() < params.size()) continue;
 					for (unsigned int j = 0; j < func->args.size(); j++){
-						if (j < params.size()){
-							if (func->args[j]->baseType != VAR && func->args[j]->baseType != params[j]) {
-								notIt = true;
-							}
+						if (j < params.size() && func->args[j]->baseType != VAR && func->args[j]->baseType != params[j]){
+							notIt = true;
 						}
 					}
 				}
@@ -437,7 +435,9 @@ namespace internal{
 			}
 		}
 		if (expr->func == NULL && isConstructor) throw Error::OBJECT_CONSTRUCTOR_INVALID;
-		else if (expr->func == NULL) throw Error::INVALID_FUNCTION_CALL;
+		else if (expr->func == NULL) {
+			throw Error::INVALID_FUNCTION_CALL;
+		}
 		return UNDEFINED;
 	}
 

@@ -39,10 +39,7 @@ namespace Condor {
 	};
 
 	class String
-	{
-	private:
-		const char* fileName;
-		
+	{		
 	public:
 		static String* New(Isolate* isolate);
 		static String* New(Isolate* isolate, const char* string);

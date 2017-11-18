@@ -26,6 +26,9 @@ namespace internal{
 	typedef ASTNode* (*InternalFunctionCallback)(Isolate* iso, std::vector<ASTLiteral*> lits);
 
 	// TODO: Create a Expand() function which expands the node and the tree
+	/**
+	 * ASTNode is designed to be the container for a node on the Abstract Syntax Tree
+	 */
 	class ASTNode
 	{
 	public:
@@ -33,8 +36,16 @@ namespace internal{
 		virtual ~ASTNode(){}
 		std::string name;
 		TOKEN type;
+
+		/**
+		 * Used for error handling
+		 */
 		int row;
 		int col;
+
+		/**
+		 * Used for debugging
+		 */
 		int id;
 		bool isExport;
 		bool isInParen;

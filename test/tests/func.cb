@@ -29,9 +29,26 @@ func testF(int num){
 	return testF(num + 1);
 }
 
+func testG(int num){
+	func nestedFunc(int a){
+		return a + 1;
+	}
+	return nestedFunc(num - 1) == num;
+}
+
+func testH(int num){
+	func nestedFunc(int num){
+		return num + 1;
+	}
+	// println(nestedFunc(num - 1));
+	return nestedFunc(num - 1) == num;
+}
+
 test("Function Call", testA());
 test("Function Call with Arguments", testB(true));
 test("Function Call with Arguments int type", testC(2, 3));
 test("Function Call with Arguments string type", testD("q", "r"));
 test("Multiple Function Call", testE());
 test("Recursive Function Call", testF(1));
+test("Nested Function Call", testG(10));
+test("Nested Function Call Same Variable Name", testH(10));

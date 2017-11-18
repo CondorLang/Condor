@@ -69,7 +69,6 @@ namespace internal{
 			case ASTPARAM_VAR: return "kASTParamVar";
 			case TRY_CATCH: return "kTryCatch";
 			case POINTER: return "kPointer";
-
 			case INT: return "int";
 			case kNULL: return "null";
 			case FLOAT: return "float";

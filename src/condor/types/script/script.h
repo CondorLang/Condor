@@ -40,8 +40,6 @@ namespace internal{
 	class Script
 	{
 	private:
-		String* raw;
-
 		//flags
 		bool parsingTime;
 		bool compileTime;
@@ -56,7 +54,6 @@ namespace internal{
 		bool hasErr;
 		std::vector<std::string> msgs;
 		std::string name;
-		const char* basePath;
 		std::string absolutePath;
 		std::string sourceCode;
 		Isolate* isolate;

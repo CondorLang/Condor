@@ -334,7 +334,7 @@ namespace Condor {
 
 			// --rpn-stack flag
 			if (rpnStack){
-				printf("\nStack Size: %llu\n", stack->stack.size());
+				printf("\nStack Size: %lu\n", stack->stack.size());
 				for (unsigned int i = 0; i < stack->stack.size(); i++){
 					ASTNode* n = stack->stack[i];
 					if (n->type == TOK){
@@ -759,13 +759,7 @@ namespace Condor {
 			PrintStep("Evaluating Var (" + var->name + ")");
 			SetRowCol(var);
 			Trace("Evaluating Var", var->name);
-			if (numOfSteps == 136){
-				int a = 10;
-			}
 			ASTLiteral* local = EvaluateValue(var);
-			if (numOfSteps == 138){
-				int a = 10;
-			}
 			if (var->previouslyDeclared && var->op == ASSIGN && var->HasLocal()) isolate->RunGC(var, false);
 			if (local == NULL) return ASTUndefined::New(isolate);
 			if (local->type == OBJECT_INSTANCE){ // call constructor

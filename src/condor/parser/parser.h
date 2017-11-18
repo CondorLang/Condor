@@ -91,7 +91,7 @@ namespace internal{
 		
 		void SetInteral(bool isInternal);
 		bool IsInternal(){return isInternal;}
-		void SetInline(bool isInline){isInline = isInline;}
+		void SetInline(bool isInline){this->isInline = isInline;}
 		void Parse();
 		static Scope* Parse(Isolate* iso, Scope* sc, Semantics* s);
 		Scope* GetBaseScope(){return rootScope;}
