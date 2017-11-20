@@ -45,6 +45,9 @@ options, args = parser.parse_args()
 
 def runBuild():
 
+    if options.clean: 
+        call(['rm', '-rf', './CMakeCache.txt'])
+
     cmakeOptions = ['cmake']
 
     cmakeOptions.append('.')
@@ -63,7 +66,7 @@ def runBuild():
         cmakeOptions.append('-DDEBUG_SYNTAX=1')
 
     if options.test:
-        cmakeOptions.append('-DTEST=1')
+        cmakeOptions.append('-DRUN_TESTS=1')
 
     if options.ast:
         cmakeOptions.append('-DEXPAND_AST=1')

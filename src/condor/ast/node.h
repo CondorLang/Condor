@@ -108,6 +108,7 @@ namespace internal{
 		bool isArg;
 		bool hasDefault;
 		bool previouslyDeclared;
+		bool fromObject;
 		int order;
 		static ASTVar* New(Isolate* iso);		
 		ASTVar* Clone(Isolate* iso, bool shallow = false);
@@ -269,6 +270,7 @@ namespace internal{
 	{
 	public:
 		static ASTUndefined* New(Isolate* iso);
+		std::string value = "value";
 	};
 
 	class ASTArray : public ASTLiteral
@@ -286,9 +288,11 @@ namespace internal{
 	public:
 		static ASTObjectInstance* New(Isolate* iso);
 		std::map<std::string, ASTVar*> properties;
+		std::map<std::string, ASTLiteral*> propValues;
 		bool HasProp(std::string name){return properties.find(name) != properties.end();}
 		ASTVar* CreateProp(Isolate* isolate, std::string name);
 		ASTVar* GetProp(Isolate* isolate, std::string name);
+		void SetProp(std::string name, ASTLiteral* value);
 
 		ASTFuncCall* constructor;
 		bool constructorCalled;

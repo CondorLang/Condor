@@ -1,5 +1,8 @@
 #include "typechecker.h"
 
+/**
+ * Get the binary type
+ */
 Token GetBinaryType(ASTNode* node){
 	CHECK(node->type == BINARY);
 	ASTNode* leftNode = GET_BIN_LEFT(node);

@@ -40,6 +40,10 @@ typedef struct ASTList ASTList; // forward declare
 #define GET_FOR_BODY(node) node->meta.forExpr.body
 #define GET_FOR_VAR(node) node->meta.forExpr.var
 #define GET_FOR_CONDITION(node) node->meta.forExpr.condition
+#define GET_WHILE_CONDITION(node) node->meta.whileExpr.condition
+#define GET_WHILE_BODY(node) node->meta.whileExpr.body
+#define GET_IF_CONDITION(node) node->meta.ifExpr.condition
+#define GET_IF_BODY(node) node->meta.ifExpr.body
 
 struct ASTNode {
 	Token type;

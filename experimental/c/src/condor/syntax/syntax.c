@@ -1,5 +1,8 @@
 #include "syntax.h"
 
+/**
+ * Helper functions
+ */
 ASTNode* GetNextNode(Scope* scope){
 	int loc = scope->nodeSpot++;
 	if (loc >= scope->nodeLength) return NULL;

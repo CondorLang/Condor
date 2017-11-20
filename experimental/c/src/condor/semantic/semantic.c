@@ -6,6 +6,9 @@ void Scan(char* rawSourceCode){
 	BuildTree(rawSourceCode);
 }
 
+/**
+ * Build the abstract syntax tree for saving
+ */
 void BuildTree(char* rawSourceCode){
 	Clock clock;
 	StartClock(&clock);
@@ -75,10 +78,11 @@ void BuildTree(char* rawSourceCode){
 	DEBUG_PRINT("\n\n------Program Completed------\n");
 	DEBUG_PRINT("\n\n------Program Stats------\n");
 	printf("Time: %llu nanoseconds\n", GetClockNanosecond(&clock));
-	// char a_word[10];
-	// scanf("%s", a_word);
 }
 
+/**
+ * Ensure that the semantics of the inserted code is correct
+ */
 void EnsureSemantics(Scope* scope, int scopeId){
 	ASTNode* node = GetNextNode(scope);
 
@@ -86,24 +90,43 @@ void EnsureSemantics(Scope* scope, int scopeId){
 
 	while (node != NULL){
 
-		if (node->scopeId == scopeId){
-			int type = (int) node->type;
-			switch (type){
-				case VAR: {
-					PredictVarType(node);
-					break;
-				}
-				case FOR: {
-					PredictVarType(GET_FOR_VAR(node));
-					if (GetBinaryType(GET_FOR_CONDITION(node)) != BOOLEAN) {
-						SEMANTIC_ERROR("Invalid For loop condition");
-					}
-					EnsureSemantics(scope, GET_FOR_BODY(node));
-					break;
-				}
-				case WHILE: {
+		// wrong scope
+		if (node->scopeId != scopeId) {
+			node = GetNextNode(scope);
+			continue;
+		}
 
+		int type = (int) node->type;
+
+		switch (type){
+			case VAR: {
+				PredictVarType(node);
+				break;
+			}
+			case FOR: {
+				DEBUG_PRINT("Ensuring semantics for FOR loop");
+				PredictVarType(GET_FOR_VAR(node));
+				if (GetBinaryType(GET_FOR_CONDITION(node)) != BOOLEAN){
+					SEMANTIC_ERROR("Invalid For loop condition");
 				}
+				EnsureSemanticsForBody(scope, GET_FOR_BODY(node));
+				break;
+			}
+			case WHILE: {
+				DEBUG_PRINT("Ensuring semantics for WHILE loop");
+				if (GetBinaryType(GET_WHILE_CONDITION(node)) != BOOLEAN){
+					SEMANTIC_ERROR("Invalid While loop condition");
+				}
+				EnsureSemanticsForBody(scope, GET_WHILE_BODY(node));
+				break;
+			}
+			case IF: {
+				DEBUG_PRINT("Ensuring semantics for IF statement");
+				if (GetBinaryType(GET_IF_CONDITION(node)) != BOOLEAN){
+					SEMANTIC_ERROR("Invalid If condition");
+				}
+				EnsureSemanticsForBody(scope, GET_IF_BODY(node));
+				break;
 			}
 		}
 
@@ -111,13 +134,28 @@ void EnsureSemantics(Scope* scope, int scopeId){
 	}
 }
 
+/**
+ * Crawl for the body and reset the location when completed
+ */
+void EnsureSemanticsForBody(Scope* scope, int scopeId){
+	int loc = scope->nodeSpot;
+	EnsureSemantics(scope, scopeId);
+	scope->nodeSpot = loc;
+}
+
+/**
+ * Predict the variable type, if possible
+ */
 void PredictVarType(ASTNode* node){
 	DEBUG_PRINT3("Predicting Variable Type", GET_VAR(node).name, TokenToString(GET_VAR(node).dataType));
 
 	if (node->type != VAR) return; // already assigned
 
 	ASTNode* value = GET_VAR_VALUE(node);
-	if (IsNumber(value->type) || IsString(value->type)){
+	if (value == NULL) {
+		DEBUG_PRINT("Unable to predict variable type");
+	}
+	else if (IsNumber(value->type) || IsString(value->type)){
 		GET_VAR(node).dataType = value->type;
 		DEBUG_PRINT2("Variable Type Set", TokenToString(GET_VAR(node).dataType));
 	}

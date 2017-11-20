@@ -38,12 +38,12 @@ if(DEBUG_TRACK)
 	set_c_flag('-DDEBUG_TRACK=1')
 endif()
 
-if(IS_TEST)
+if(RUN_TESTS)
 	set_c_flag('-DTEST=1')
 endif()
 
 if(EXPAND_AST)
-	set_c_flags(-DEXPAND_AST=1)
+	set_c_flag(-DEXPAND_AST=1)
 endif()
 
 set(SOURCE_LIST

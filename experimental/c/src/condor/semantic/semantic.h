@@ -17,6 +17,7 @@
 #include "utils/file/file.h"
 
 void EnsureSemantics(Scope* scope, int scopeId);
+void EnsureSemanticsForBody(Scope* scope, int scopeId);
 
 /**
  * Used to predict VAR type. Algorithm goes as follows:

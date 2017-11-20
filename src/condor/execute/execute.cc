@@ -564,14 +564,37 @@ namespace Condor {
 						SetRowCol(binary->left);
 						throw Error::INVALID_ASSIGNMENT_TO_TYPE;
 					}
-					if (var->HasLocal()) isolate->RunGC(var, true);
-					var->AddLocal(lit);
+
+					if (var->fromObject){
+						ASTLiteral* l = (ASTLiteral*) binary->right;
+						ASTNode* n = NULL;
+						n->id = 10;
+						printf("dd: %s\n", l->value.c_str()); // here
+						ASTObjectInstance* inst = GetCurrentObject();
+						inst->SetProp(var->name, lit);
+					}
+					else{
+						if (var->HasLocal()) isolate->RunGC(var, true);
+						var->AddLocal(lit);
+					}
 					break;
 				}
 				case ADD_ASSIGN: case SUB_ASSIGN:
 				case DIV_ASSIGN: case MUL_ASSIGN: {
 					ASTVar* var = GetVar(binary->left);
 					ASTLiteral* lit = EvaluateValue(binary->right);
+
+					if (var->fromObject){
+						throw Error::NOT_IMPLEMENTED;
+						// TODO:
+						// Get the property value
+						// Append value to it
+						// Set property value
+						ASTObjectInstance* inst = GetCurrentObject();
+						inst->SetProp(var->name, lit);
+						break;
+					}
+
 					if (var == NULL || !var->HasLocal()) {
 						SetRowCol(binary->left);
 						throw Error::INVALID_ASSIGNMENT_TO_TYPE;
@@ -621,7 +644,9 @@ namespace Condor {
 					}
 					SetRowCol(binary->left);
 					if (inst == NULL) throw Error::INVALID_OBJECT;
-					return inst->GetProp(isolate, prop->name);
+					ASTVar* var = inst->GetProp(isolate, prop->name);
+					var->fromObject = true;
+					return var;
 				}
 				default:break;
 			}

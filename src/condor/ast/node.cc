@@ -113,6 +113,7 @@ namespace internal{
 		results += tabStr + "isObject: " + std::to_string(isObject) + "\n";
 		results += tabStr + "isArg: " + std::to_string(isArg) + "\n";
 		results += tabStr + "hasDefault: " + std::to_string(hasDefault) + "\n";
+		results += tabStr + "fromObject: " + std::to_string(fromObject) + "\n";
 		results += tabStr + "previouslyDeclared: " + std::to_string(previouslyDeclared) + "\n";
 		results += tabStr + "order: " + std::to_string(order) + "\n";
 		if (member != NULL) results += tabStr + "member: \n" + member->ToString(tabs + 3);
@@ -327,9 +328,9 @@ namespace internal{
 				break;
 			}
 			case OBJECT_INSTANCE: {
-				ASTObjectInstance* inst = (ASTObjectInstance*) this;
-				inst->~ASTObjectInstance();
-				iso->FreeMemory(this, sizeof(ASTObjectInstance)); 
+				// ASTObjectInstance* inst = (ASTObjectInstance*) this;
+				// inst->~ASTObjectInstance();
+				// iso->FreeMemory(this, sizeof(ASTObjectInstance)); 
 				break;
 			}
 			case CONTINUE: {
@@ -409,6 +410,7 @@ namespace internal{
 		n->op = UNDEFINED;
 		n->scopeId = -1;
 		n->hasDefault = false;
+		n->fromObject = false;
 		return n;
 	}
 
@@ -428,6 +430,7 @@ namespace internal{
 		var->name = name;
 		var->scopeId = scopeId;
 		var->hasDefault = hasDefault;
+		var->fromObject = fromObject;
 		if (HasLocal()) var->AddLocal(GetLocal(false)->Clone(isolate, shallow));
 		return var;
 	}
@@ -722,6 +725,10 @@ namespace internal{
 			n->properties[i->first] = i->second->Clone(iso, shallow);	
 		}
 		return n;
+	}
+
+	void ASTObjectInstance::SetProp(std::string name, ASTLiteral* value){
+		propValues[name] = value; // No scoping necessary
 	}
 
 } // namespace internal

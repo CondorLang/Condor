@@ -8,6 +8,6 @@ WORKDIR /Condor
 RUN apt-get update
 
 # Install Git, Python, make and build tools
-RUN apt-get install -y git python make gcc-multilib g++-multilib clang curl jq
+RUN apt-get install -y build-essential git python cmake make gcc-multilib g++-multilib clang curl jq gdb
 
 ADD ./ /Condor

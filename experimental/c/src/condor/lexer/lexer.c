@@ -88,7 +88,7 @@ int CountTotalASTTokens(Lexer* lexer){
 }
 
 /**
- * TODO: Count the scopes properly
+ * Count the total number of scopes
  */
 int CountTotalScopes(Lexer* lexer){
 	int total = 1;
