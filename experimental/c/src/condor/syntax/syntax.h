@@ -50,6 +50,7 @@ ASTNode* ParseReturn(Scope* scope, Lexer* lexer);
 ASTNode* ParseBreak(Scope* scope, Lexer* lexer);
 ASTNode* ParseFunc(Scope* scope, Lexer* lexer);
 ASTList* ParseParams(Scope* scope, Lexer* lexer);
+ASTNode* ParseIdent(Scope* scope, Lexer* lexer);
 int ParseBody(Scope* scope, Lexer* lexer);
 Token ParseStmtList(Scope* scope, Lexer* lexer, int scopeId, bool oneStmt);
 

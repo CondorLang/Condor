@@ -249,6 +249,10 @@ Token ParseStmtList(Scope* scope, Lexer* lexer, int scopeId, bool oneStmt){
 				node = ParseFunc(scope, lexer);
 				break;
 			}
+			case IDENTIFIER: {
+				node = ParseIdent(scope, lexer);
+				break;
+			}
 		}
 		if (node != NULL) node->scopeId = scopeId;
 		if (oneStmt) break;
@@ -256,6 +260,17 @@ Token ParseStmtList(Scope* scope, Lexer* lexer, int scopeId, bool oneStmt){
 		tok = GetNextToken(lexer);
 	}
 	return tok;
+}
+
+/**
+ * All statements beginning with an identifier must be
+ * part of an expression. 
+ */
+ASTNode* ParseIdent(Scope* scope, Lexer* lexer){
+	DEBUG_PRINT_SYNTAX("Ident");
+	TRACK();
+	BackOneToken(lexer);
+	return ParseExpression(scope, lexer);
 }
 
 /**
@@ -291,7 +306,7 @@ int ParseBody(Scope* scope, Lexer* lexer){
  * 	var [name] = [expr];
  */
 ASTNode* ParseVar(Scope* scope, Lexer* lexer, Token dataType){
-	DEBUG_PRINT_SYNTAX("Var");
+	DEBUG_PRINT_SYNTAX(TokenToString(dataType));
 	TRACK();
 
 	// Check if next token is identifier, if it isn't, we 
@@ -321,7 +336,7 @@ ASTNode* ParseVar(Scope* scope, Lexer* lexer, Token dataType){
 		var->isStmt = true; // is statement node
 		var->meta.varExpr.inc = UNDEFINED;
 		strcpy(var->meta.varExpr.name, name);
-		DEBUG_PRINT_SYNTAX2("Var", name);
+		DEBUG_PRINT_SYNTAX2(TokenToString(dataType), name);
 	}
 
 	tok = GetNextToken(lexer);
@@ -353,7 +368,7 @@ ASTNode* ParseExpression(Scope* scope, Lexer* lexer){
 
 	if (tok == NUMBER){
 		result = GetNextNode(scope);
-
+		printf("dd: %d - %d\n", scope->nodeLength, scope->nodeSpot);
 		// Build the ASTLiteral node
 		SetNumberType(result, value);
 

@@ -20,8 +20,8 @@
 #include <stdbool.h>
 
 #define CREATE_TOKEN_LIST(T) \
-	T(IDENTIFIER, "@IDENTIFIER") \
-	T(NUMBER, "@NUMBER") \
+	T(IDENTIFIER, "IDENTIFIER") \
+	T(NUMBER, "NUMBER") \
 	T(BEGIN_OPERATOR, "#BEGIN_OPERATOR") \
 	T(SEMICOLON, ";") \
 	T(COLON, ":") \

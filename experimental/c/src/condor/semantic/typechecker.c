@@ -4,6 +4,9 @@
  * Get the binary type
  */
 Token GetBinaryType(ASTNode* node){
+
+	if (node->type == BOOLEAN) return BOOLEAN;
+
 	CHECK(node->type == BINARY);
 	ASTNode* leftNode = GET_BIN_LEFT(node);
 	ASTNode* rightNode = GET_BIN_RIGHT(node);

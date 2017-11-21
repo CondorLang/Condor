@@ -1,6 +1,8 @@
 #include "number.h"
 
 void SetNumberType(ASTNode* node, char* value){
+	if (node == NULL) return;
+	
 	double val = atof(value);
 
 	bool hasDecimal = false;

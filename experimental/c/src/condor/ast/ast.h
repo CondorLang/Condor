@@ -33,6 +33,7 @@ typedef struct ASTList ASTList; // forward declare
 #define GET_VAR(node) node->meta.varExpr
 #define GET_VAR_VALUE(node) node->meta.varExpr.value
 #define GET_VAR_TYPE(node) node->meta.varExpr.dataType;
+#define GET_VAR_NAME(node) node->meta.varExpr.name
 #define GET_BINARY(node) node->meta.binaryExpr;
 #define GET_BIN_LEFT(node) node->meta.binaryExpr.left;
 #define GET_BIN_RIGHT(node) node->meta.binaryExpr.right;

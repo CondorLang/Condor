@@ -74,10 +74,9 @@ void BuildTree(char* rawSourceCode){
 	DestroyScope(&scope);
 
 	EndClock(&clock);
-	SetClockDifference(&clock);
 	DEBUG_PRINT("\n\n------Program Completed------\n");
 	DEBUG_PRINT("\n\n------Program Stats------\n");
-	printf("Time: %llu nanoseconds\n", GetClockNanosecond(&clock));
+	printf("Time: %lld nanoseconds\n", GetClockNanosecond(&clock));
 }
 
 /**
@@ -147,13 +146,15 @@ void EnsureSemanticsForBody(Scope* scope, int scopeId){
  * Predict the variable type, if possible
  */
 void PredictVarType(ASTNode* node){
-	DEBUG_PRINT3("Predicting Variable Type", GET_VAR(node).name, TokenToString(GET_VAR(node).dataType));
+	DEBUG_PRINT3("Predicting Variable Type", GET_VAR_NAME(node), TokenToString(GET_VAR(node).dataType));
 
 	if (node->type != VAR) return; // already assigned
 
 	ASTNode* value = GET_VAR_VALUE(node);
 	if (value == NULL) {
-		DEBUG_PRINT("Unable to predict variable type");
+		ASTNode* n = NULL;
+		n->id = 10;
+		DEBUG_PRINT2("Unable to predict variable type for variable", GET_VAR_NAME(node));
 	}
 	else if (IsNumber(value->type) || IsString(value->type)){
 		GET_VAR(node).dataType = value->type;

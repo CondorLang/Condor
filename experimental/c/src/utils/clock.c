@@ -5,17 +5,15 @@ void GetClockTime(struct timespec* time){
 }
 
 void StartClock(Clock* clock){
-	GetClockTime(&clock->start);
+	GetClockTime(&clock->begin);
+	clock->start = clock->begin.tv_sec * NANOS + clock->begin.tv_nsec;
 }
 
 void EndClock(Clock* clock){
 	GetClockTime(&clock->end);
+	clock->elapsed = clock->end.tv_sec * NANOS + clock->end.tv_nsec - clock->start;
 }
 
-void SetClockDifference(Clock* clock){
-	clock->diff = BILLION * (clock->end.tv_sec - clock->start.tv_sec) + (clock->end.tv_nsec - clock->start.tv_nsec);
-}
-
-long long unsigned int GetClockNanosecond(Clock* clock){
-	return (long long unsigned int) clock->diff;
+long long GetClockNanosecond(Clock* clock){
+	return clock->elapsed;
 }

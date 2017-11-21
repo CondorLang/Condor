@@ -68,6 +68,7 @@ int CountTotalASTTokens(Lexer* lexer){
 	while (tok != UNDEFINED){
 		if (tok == VAR ||
 			tok == FOR ||
+			tok == WHILE ||
 			tok == ASSIGN ||
 			tok == NUMBER ||
 			tok == STRING || 
