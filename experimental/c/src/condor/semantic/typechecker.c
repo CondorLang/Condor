@@ -6,6 +6,13 @@
 Token GetBinaryType(ASTNode* node){
 
 	if (node->type == BOOLEAN) return BOOLEAN;
+	else if (node->type == VAR){
+		if (GET_VAR_TYPE(node) == UNDEFINED) {
+			NOT_IMPLEMENTED("GetBinaryType, var, undefined type");
+			return UNDEFINED;
+		}
+		return GET_VAR_TYPE(node);
+	}
 
 	CHECK(node->type == BINARY);
 	ASTNode* leftNode = GET_BIN_LEFT(node);

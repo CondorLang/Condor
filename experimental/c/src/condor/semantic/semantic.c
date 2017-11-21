@@ -64,8 +64,8 @@ void BuildTree(char* rawSourceCode){
 	scope.nodeSpot = 0;
 	EnsureSemantics(&scope, 1);
 
-	char* json = ExpandScope(&scope, 0);
-	WriteToFile("compiled.cd", json);
+	// char* json = ExpandScope(&scope, 0);
+	// WriteToFile("compiled.cd", json);
 
 
 	// Cleanup
@@ -95,41 +95,78 @@ void EnsureSemantics(Scope* scope, int scopeId){
 			continue;
 		}
 
-		int type = (int) node->type;
-
-		switch (type){
-			case VAR: {
-				PredictVarType(node);
-				break;
-			}
-			case FOR: {
-				DEBUG_PRINT("Ensuring semantics for FOR loop");
-				PredictVarType(GET_FOR_VAR(node));
-				if (GetBinaryType(GET_FOR_CONDITION(node)) != BOOLEAN){
-					SEMANTIC_ERROR("Invalid For loop condition");
-				}
-				EnsureSemanticsForBody(scope, GET_FOR_BODY(node));
-				break;
-			}
-			case WHILE: {
-				DEBUG_PRINT("Ensuring semantics for WHILE loop");
-				if (GetBinaryType(GET_WHILE_CONDITION(node)) != BOOLEAN){
-					SEMANTIC_ERROR("Invalid While loop condition");
-				}
-				EnsureSemanticsForBody(scope, GET_WHILE_BODY(node));
-				break;
-			}
-			case IF: {
-				DEBUG_PRINT("Ensuring semantics for IF statement");
-				if (GetBinaryType(GET_IF_CONDITION(node)) != BOOLEAN){
-					SEMANTIC_ERROR("Invalid If condition");
-				}
-				EnsureSemanticsForBody(scope, GET_IF_BODY(node));
-				break;
-			}
-		}
+		EnsureSemanticsForNode(scope, node);
 
 		node = GetNextNode(scope);
+	}
+}
+
+/**
+ * Ensure the semantics for a given node
+ */
+void EnsureSemanticsForNode(Scope* scope, ASTNode* node){
+	int type = (int) node->type;
+
+	switch (type){
+		case VAR: {
+			PredictVarType(node);
+			break;
+		}
+		case FOR: {
+			DEBUG_PRINT("Ensuring semantics for FOR loop");
+			PredictVarType(GET_FOR_VAR(node));
+			if (GetBinaryType(GET_FOR_CONDITION(node)) != BOOLEAN){
+				SEMANTIC_ERROR("Invalid For loop condition");
+			}
+			EnsureSemanticsForBody(scope, GET_FOR_BODY(node));
+			break;
+		}
+		case WHILE: {
+			DEBUG_PRINT("Ensuring semantics for WHILE loop");
+			if (GetBinaryType(GET_WHILE_CONDITION(node)) != BOOLEAN){
+				SEMANTIC_ERROR("Invalid While loop condition");
+			}
+			EnsureSemanticsForBody(scope, GET_WHILE_BODY(node));
+			break;
+		}
+		case IF: {
+			DEBUG_PRINT("Ensuring semantics for IF statement");
+			if (GetBinaryType(GET_IF_CONDITION(node)) != BOOLEAN){
+				SEMANTIC_ERROR("Invalid If condition");
+			}
+			EnsureSemanticsForBody(scope, GET_IF_BODY(node));
+			break;
+		}
+		case SWITCH: {
+			DEBUG_PRINT("Ensuring semantics for SWITCH statement");
+			if (GetBinaryType(GET_SWITCH_CONDITION(node)) != BOOLEAN){
+				SEMANTIC_ERROR("Invalid Switch condition");
+			}
+			EnsureSemanticsForBody(scope, GET_SWITCH_BODY(node));
+			break;
+		}
+		case CASE: {
+			DEBUG_PRINT("Ensuring semantics for CASE statement");
+			EnsureSemanticsForBody(scope, GET_CASE_BODY(node));
+			break;
+		}
+		case RETURN: {
+			DEBUG_PRINT("Ensuring semantics for RETURN statement");
+			PredictReturnType(node);
+			break;
+		}	
+		case FUNC: {
+			DEBUG_PRINT2("Ensuring semantics for FUNC", GET_FUNC_NAME(node));
+			ASTList* list = GET_FUNC_PARAMS(node);
+			FOREACH_AST(list){
+				EnsureSemanticsForNode(scope, item->node);
+			}
+			EnsureSemanticsForBody(scope, GET_FUNC_BODY(node));
+			break;
+		}
+		default: {
+			break;
+		}
 	}
 }
 
@@ -143,6 +180,29 @@ void EnsureSemanticsForBody(Scope* scope, int scopeId){
 }
 
 /**
+ * Predict the return type of a scope
+ */
+void PredictReturnType(ASTNode* node){
+	DEBUG_PRINT("Predicting return type");
+
+	if (node->type != RETURN) return;
+
+	ASTNode* value = GET_RETURN_VALUE(node);
+	if (value == NULL){
+		DEBUG_PRINT("Return type is undefined");
+		SET_RETURN_TYPE(node, UNDEFINED);
+	}
+	else if (IsNumber(value->type) || IsString(value->type)){
+		SET_RETURN_TYPE(node, value->type);
+		DEBUG_PRINT2("Return Type Set", TokenToString(value->type));
+	}
+	else if (value->type == BINARY){
+		SET_RETURN_TYPE(node, GetBinaryType(GET_RETURN_VALUE(node)));
+		DEBUG_PRINT2("Return Type Set", TokenToString(GET_RETURN_TYPE(node)));
+	}
+}
+
+/**
  * Predict the variable type, if possible
  */
 void PredictVarType(ASTNode* node){
@@ -152,9 +212,9 @@ void PredictVarType(ASTNode* node){
 
 	ASTNode* value = GET_VAR_VALUE(node);
 	if (value == NULL) {
-		ASTNode* n = NULL;
-		n->id = 10;
-		DEBUG_PRINT2("Unable to predict variable type for variable", GET_VAR_NAME(node));
+		if (GET_VAR(node).dataType == UNDEFINED){
+			DEBUG_PRINT2("Unable to predict variable type for variable", GET_VAR_NAME(node));
+		}
 	}
 	else if (IsNumber(value->type) || IsString(value->type)){
 		GET_VAR(node).dataType = value->type;

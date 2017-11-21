@@ -43,9 +43,11 @@ char* ExpandASTNode(Scope* scope, ASTNode* node, int tab){
 				printf(" %s-name: %s\n %s-inc: %s\n %s-dataType: %s\n %s-value\n", tabs, node->meta.varExpr.name, tabs, TokenToString(node->meta.varExpr.inc), tabs, TokenToString(node->meta.varExpr.dataType), tabs);
 			#endif
 			char* value = ExpandASTNode(scope, node->meta.varExpr.value, tab + 2);
-			char temp2[300];
-			sprintf(temp2, ",\"name\": \"%s\", \"inc\": \"%s\", \"dataType\": \"%s\", \"value\": ", node->meta.varExpr.name, TokenToString(node->meta.varExpr.inc), TokenToString(node->meta.varExpr.dataType));
+			char temp2[500];
+			bool nothing = strlen(value) == 0;
+			sprintf(temp2, ",\"name\": \"%s\", \"inc\": \"%s\", \"dataType\": \"%s\", \"value\": %s", node->meta.varExpr.name, TokenToString(node->meta.varExpr.inc), TokenToString(node->meta.varExpr.dataType), nothing ? "\"" : " ");
 			char* result = Concat(temp2, value);
+			if (nothing) result = Concat(result, "\"");
 			json = Concat(json, result);
 			break;	
 		}
@@ -62,7 +64,7 @@ char* ExpandASTNode(Scope* scope, ASTNode* node, int tab){
 				printf(" %s-value: \"%s\"\n", tabs, node->meta.stringExpr.value);
 			#endif
 			char temp2[strlen(node->meta.stringExpr.value) + 15];
-			sprintf(temp2, ", \"value\": %s", node->meta.stringExpr.value);
+			sprintf(temp2, ", \"value\": \"%s\"", node->meta.stringExpr.value);
 			json = Concat(json, temp2);
 			break;
 		}
@@ -90,7 +92,7 @@ char* ExpandASTNode(Scope* scope, ASTNode* node, int tab){
 				printf(" %s-value: %d\n", tabs, node->meta.booleanExpr.value);
 			#endif
 			char temp2[15];
-			sprintf(temp2, ", \"value\": %d", node->meta.booleanExpr.value);
+			sprintf(temp2, ", \"value\": \"%d\"", node->meta.booleanExpr.value);
 			json = Concat(json, temp2);
 			break;	
 		}
@@ -99,7 +101,7 @@ char* ExpandASTNode(Scope* scope, ASTNode* node, int tab){
 				printf(" %s-value: %d\n", tabs, node->meta.byteExpr.value);
 			#endif
 			char temp2[30];
-			sprintf(temp2, ", \"value\": %d", node->meta.byteExpr.value);
+			sprintf(temp2, ", \"value\": \"%d\"", node->meta.byteExpr.value);
 			json = Concat(json, temp2);
 			break;	
 		}
@@ -108,7 +110,7 @@ char* ExpandASTNode(Scope* scope, ASTNode* node, int tab){
 				printf(" %s-value: %d\n", tabs, node->meta.shortExpr.value);
 			#endif
 			char temp2[30];
-			sprintf(temp2, ", \"value\": %d", node->meta.shortExpr.value);
+			sprintf(temp2, ", \"value\": \"%d\"", node->meta.shortExpr.value);
 			json = Concat(json, temp2);
 			break;	
 		}
@@ -117,7 +119,7 @@ char* ExpandASTNode(Scope* scope, ASTNode* node, int tab){
 				printf(" %s-value: %d\n", tabs, node->meta.intExpr.value);
 			#endif
 			char temp2[60];
-			sprintf(temp2, ", \"value\": %d", node->meta.intExpr.value);
+			sprintf(temp2, ", \"value\": \"%d\"", node->meta.intExpr.value);
 			json = Concat(json, temp2);
 			break;	
 		}
@@ -126,7 +128,7 @@ char* ExpandASTNode(Scope* scope, ASTNode* node, int tab){
 				printf(" %s-value: %f\n", tabs, node->meta.floatExpr.value);
 			#endif
 			char temp2[60];
-			sprintf(temp2, ", \"value\": %f", node->meta.floatExpr.value);
+			sprintf(temp2, ", \"value\": \"%f\"", node->meta.floatExpr.value);
 			json = Concat(json, temp2);
 			break;	
 		}
@@ -135,7 +137,7 @@ char* ExpandASTNode(Scope* scope, ASTNode* node, int tab){
 				printf(" %s-value: %f\n", tabs, node->meta.doubleExpr.value);
 			#endif
 			char temp2[60];
-			sprintf(temp2, ", \"value\": %f", node->meta.doubleExpr.value);
+			sprintf(temp2, ", \"value\": \"%f\"", node->meta.doubleExpr.value);
 			json = Concat(json, temp2);
 			break;	
 		}
@@ -144,7 +146,7 @@ char* ExpandASTNode(Scope* scope, ASTNode* node, int tab){
 				printf(" %s-value: %ld\n", tabs, node->meta.longExpr.value);
 			#endif
 			char temp2[60];
-			sprintf(temp2, ", \"value\": %ld", node->meta.longExpr.value);
+			sprintf(temp2, ", \"value\": \"%ld\"", node->meta.longExpr.value);
 			json = Concat(json, temp2);
 			break;	
 		}

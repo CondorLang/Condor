@@ -269,6 +269,12 @@ Token ParseStmtList(Scope* scope, Lexer* lexer, int scopeId, bool oneStmt){
 ASTNode* ParseIdent(Scope* scope, Lexer* lexer){
 	DEBUG_PRINT_SYNTAX("Ident");
 	TRACK();
+	PeekedToken peeked;
+	PeekNextToken(lexer, &peeked);
+	printf("ddd: %s\n", );
+	if (peeked.token == LPAREN){
+		NOT_IMPLEMENTED("Starting Function Call");
+	}
 	BackOneToken(lexer);
 	return ParseExpression(scope, lexer);
 }
@@ -368,7 +374,6 @@ ASTNode* ParseExpression(Scope* scope, Lexer* lexer){
 
 	if (tok == NUMBER){
 		result = GetNextNode(scope);
-		printf("dd: %d - %d\n", scope->nodeLength, scope->nodeSpot);
 		// Build the ASTLiteral node
 		SetNumberType(result, value);
 
@@ -396,21 +401,35 @@ ASTNode* ParseExpression(Scope* scope, Lexer* lexer){
 		result = str;
 	}
 	else if (tok == IDENTIFIER){
-		ASTNode* symbol = FindSymbol(scope, value);
-		if (symbol == NULL){
-			EXPECT_STRING("Invalid identifier");
-		}
-		result = symbol;
+		PeekedToken peeked;
+		PeekNextToken(lexer, &peeked);
+		
+		if (peeked.token == LPAREN){ // Function Call
+			DEBUG_PRINT_SYNTAX("Function Call");
+			ASTNode* call = GetNextNode(scope);
+			ASTNode* func = FindSymbol(scope, value);
 
-		tok = GetNextToken(lexer);
+			call->type = FUNC_CALL;
+			call->meta.funcCallExpr.func = func;
+			call->meta.funcCallExpr.params = ParseParams(scope, lexer);
+			result = call;
+		}	
 
-		if (tok == SEMICOLON){
+		else {
+			ASTNode* symbol = FindSymbol(scope, value);
+			if (symbol == NULL){
+				EXPECT_STRING("Invalid identifier");
+			}
 			result = symbol;
 		}
 
+		tok = GetNextToken(lexer);
+
 		if (tok == INC || tok == DEC){
-			symbol->meta.varExpr.inc = tok;
+			result->meta.varExpr.inc = tok;
 		}
+
+		return result;
 	}
 	else if (tok == TRUE_LITERAL || tok == FALSE_LITERAL){
 		result = GetNextNode(scope);

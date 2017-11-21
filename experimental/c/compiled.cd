@@ -1,1 +1,1 @@
-[{"type": "while", "id": 1, "condition": {"type": "BINARY", "id": 3, "operator": "||", "left": {"type": "bool", "id": 2, "value": 1}, "right": {"type": "BINARY", "id": 5, "operator": "==", "left": {"type": "bool", "id": 4, "value": 1}, "right": {"type": "bool", "id": 6, "value": 1}}}, "body": [{"type": "var", "id": 7,"name": "a", "inc": "undefined", "dataType": "byte", "value": {"type": "byte", "id": 8, "value": 10}}]}]
+[{"type": "var", "id": 1,"name": "a", "inc": "undefined", "dataType": "float", "value":  {"type": "float", "id": 2, "value": "10.000000"}}]

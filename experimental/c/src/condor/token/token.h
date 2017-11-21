@@ -133,7 +133,8 @@
 	T(DO, "do") \
 	T(KEYWORD_END, "#KEYWORD_END") \
 	T(UNDEFINED, "undefined") \
-	T(BINARY, "BINARY")
+	T(BINARY, "BINARY") \
+	T(FUNC_CALL, "FUNC_CALL")
 
 #define T_ENUM(x, name) x, // {enum}
 #define T_ARRAY(x, name) {x, name}, // {enum, string value}

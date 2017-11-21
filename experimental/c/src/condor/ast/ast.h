@@ -30,14 +30,15 @@ typedef struct Scope Scope; // forward declare
 typedef struct ASTNode ASTNode; // forward declare
 typedef struct ASTList ASTList; // forward declare
 
+// Getters
 #define GET_VAR(node) node->meta.varExpr
 #define GET_VAR_VALUE(node) node->meta.varExpr.value
-#define GET_VAR_TYPE(node) node->meta.varExpr.dataType;
+#define GET_VAR_TYPE(node) node->meta.varExpr.dataType
 #define GET_VAR_NAME(node) node->meta.varExpr.name
 #define GET_BINARY(node) node->meta.binaryExpr;
-#define GET_BIN_LEFT(node) node->meta.binaryExpr.left;
-#define GET_BIN_RIGHT(node) node->meta.binaryExpr.right;
-#define GET_BIN_OP(node) node->meta.binaryExpr.op;
+#define GET_BIN_LEFT(node) node->meta.binaryExpr.left
+#define GET_BIN_RIGHT(node) node->meta.binaryExpr.right
+#define GET_BIN_OP(node) node->meta.binaryExpr.op
 #define GET_FOR_BODY(node) node->meta.forExpr.body
 #define GET_FOR_VAR(node) node->meta.forExpr.var
 #define GET_FOR_CONDITION(node) node->meta.forExpr.condition
@@ -45,6 +46,17 @@ typedef struct ASTList ASTList; // forward declare
 #define GET_WHILE_BODY(node) node->meta.whileExpr.body
 #define GET_IF_CONDITION(node) node->meta.ifExpr.condition
 #define GET_IF_BODY(node) node->meta.ifExpr.body
+#define GET_SWITCH_CONDITION(node) node->meta.switchExpr.condition
+#define GET_SWITCH_BODY(node) node->meta.switchExpr.body
+#define GET_CASE_BODY(node) node->meta.caseStmt.body
+#define GET_RETURN_VALUE(node) node->meta.returnStmt.value
+#define GET_RETURN_TYPE(node) node->meta.returnStmt.type
+#define GET_FUNC_NAME(node) node->meta.funcExpr.name
+#define GET_FUNC_PARAMS(node) node->meta.funcExpr.params
+#define GET_FUNC_BODY(node) node->meta.funcExpr.body
+
+// Setters
+#define SET_RETURN_TYPE(node, t) node->meta.returnStmt.type = t
 
 struct ASTNode {
 	Token type;
@@ -155,6 +167,7 @@ struct ASTNode {
 
 		struct {
 			ASTNode* value;
+			Token type; // Return type
 		} returnStmt;
 
 		struct {
@@ -165,7 +178,10 @@ struct ASTNode {
 			ASTList* params;
 		} funcExpr;
 
-		// ADD bodies to CountTotalScopes
+		struct {
+			ASTNode* func;
+			ASTList* params;
+		} funcCallExpr;
 
 	} meta;
 };

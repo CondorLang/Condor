@@ -19,12 +19,20 @@
 void EnsureSemantics(Scope* scope, int scopeId);
 void EnsureSemanticsForBody(Scope* scope, int scopeId);
 
+void EnsureSemanticsForNode(Scope* scope, ASTNode* node);
+
 /**
  * Used to predict VAR type. Algorithm goes as follows:
  * 	1. String literal = string
  * 	2. number literal = number
  */
 void PredictVarType(ASTNode* node);
+
+/**
+ * Used to predict RETURN type. Return type will
+ * determine what the function return type is.
+ */
+void PredictReturnType(ASTNode* node);
 
 // TODO: Remove
 void Scan(char* rawSourceCode);

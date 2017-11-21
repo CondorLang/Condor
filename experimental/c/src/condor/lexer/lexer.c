@@ -64,9 +64,15 @@ Token GetCurrentToken(Lexer* lexer){
  */
 int CountTotalASTTokens(Lexer* lexer){
 	int total = 0;
+	PeekedToken peeked;
 	Token tok = GetNextToken(lexer);
 	while (tok != UNDEFINED){
-		if (tok == VAR ||
+
+		if (tok == IDENTIFIER){
+			PeekNextToken(lexer, &peeked);
+			if (peeked.token == LPAREN) total++;
+		}
+		else if (tok == VAR ||
 			tok == FOR ||
 			tok == WHILE ||
 			tok == ASSIGN ||
@@ -81,7 +87,9 @@ int CountTotalASTTokens(Lexer* lexer){
 			IsBinaryOperator(tok) ||
 			IsBooleanOperator(tok) ||
 			IsNumber(tok) || 
-			IsString(tok)) total++;
+			IsString(tok)) {
+			total++;
+		}
 		tok = GetNextToken(lexer);
 	}
 	DestroyLexer(lexer);
@@ -100,7 +108,9 @@ int CountTotalScopes(Lexer* lexer){
 			tok == FOR ||
 			tok == IF ||
 			tok == WHILE ||
-			tok == FUNC) total++;
+			tok == FUNC) {
+			total++;
+		}
 		tok = GetNextToken(lexer);
 	}
 	DestroyLexer(lexer);
