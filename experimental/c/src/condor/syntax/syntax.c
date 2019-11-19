@@ -179,6 +179,41 @@ ASTNode* ParseFunc(Scope* scope, Lexer* lexer){
 	return func;
 }
 
+/**
+ * Syntax
+ * 	func [name]([var],[var],...);
+ */
+ASTNode* ParseFuncCall(Scope* scope, Lexer* lexer){
+	DEBUG_PRINT_SYNTAX("Func Call");
+	TRACK();
+	Token tok = GetCurrentToken(lexer);
+	EXPECT_TOKEN(tok, IDENTIFIER, lexer);
+
+	ASTNode* funcCall = GetNextNode(scope);
+	funcCall->type = FUNC_CALL;
+	funcCall->meta.funcCallExpr.func = FindSymbol(scope, lexer->currentTokenString);
+	funcCall->isStmt = true;
+
+	tok = GetNextToken(lexer);
+	EXPECT_TOKEN(tok, LPAREN, lexer);
+	ASTList* list = GetNextASTList(scope);
+
+	while (tok != RPAREN){
+		ASTListItem* item = GetNextASTListItem(scope);
+		item->node = ParseExpression(scope, lexer);
+		item->prev = list->current;
+
+		if (list->current != NULL) list->current->next = item;
+
+		list->current = item;
+		if (list->first == NULL) list->first = item;
+		tok = GetCurrentToken(lexer);
+	}
+
+	funcCall->meta.funcCallExpr.params = list;
+	return funcCall;
+}
+
 ASTList* ParseParams(Scope* scope, Lexer* lexer){
 	DEBUG_PRINT_SYNTAX("Func Param");
 	TRACK();
@@ -271,9 +306,8 @@ ASTNode* ParseIdent(Scope* scope, Lexer* lexer){
 	TRACK();
 	PeekedToken peeked;
 	PeekNextToken(lexer, &peeked);
-	printf("ddd: %s\n", );
 	if (peeked.token == LPAREN){
-		NOT_IMPLEMENTED("Starting Function Call");
+		return ParseFuncCall(scope, lexer);
 	}
 	BackOneToken(lexer);
 	return ParseExpression(scope, lexer);
@@ -428,8 +462,6 @@ ASTNode* ParseExpression(Scope* scope, Lexer* lexer){
 		if (tok == INC || tok == DEC){
 			result->meta.varExpr.inc = tok;
 		}
-
-		return result;
 	}
 	else if (tok == TRUE_LITERAL || tok == FALSE_LITERAL){
 		result = GetNextNode(scope);

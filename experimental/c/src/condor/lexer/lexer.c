@@ -12,24 +12,56 @@ void InitLexer(Lexer* lexer, char* rawSourceCode){
 	lexer->tracker.tokenEnd = 0;
 	lexer->tracker.row = 1;
 	lexer->tracker.col = 1;
+	lexer->previousTrackerSpot = -1;
+	lexer->totalTrackers = 5;
+
+	for (int i = 0; i < lexer->totalTrackers; i++) {
+		lexer->previousTrackers[i].col = 0;
+		lexer->previousTrackers[i].row = 0;
+		lexer->previousTrackers[i].tokenEnd = 0;
+		lexer->previousTrackers[i].tokenStart = 0;
+		lexer->previousTrackers[i].currentTokenPosition = 0;
+	}
 }
 
 void DestroyLexer(Lexer* lexer){
 	if (lexer->currentTokenString != NULL) Free(lexer->currentTokenString);
 }
 
+void SetPreviousTracker(Lexer* lexer){
+
+	lexer->previousTrackerSpot++;
+	if (lexer->previousTrackerSpot >= lexer->totalTrackers){
+		lexer->previousTrackerSpot = 0;
+	}
+
+	LexerTracker* previous = &lexer->previousTrackers[lexer->previousTrackerSpot];
+
+	previous->col = lexer->tracker.col;
+	previous->currentTokenPosition = lexer->tracker.currentTokenPosition;
+	previous->row = lexer->tracker.row;
+	previous->tokenEnd = lexer->tracker.tokenEnd;
+	previous->tokenStart = lexer->tracker.tokenStart;
+}
+
 Token GetNextToken(Lexer* lexer){
+	SetPreviousTracker(lexer);
+
+	// Reset token locations
+	lexer->tracker.tokenStart = 0;
+	lexer->tracker.tokenEnd = 0;
+
 	SetNextTokenRange(lexer);
 	if (lexer->tracker.tokenEnd - lexer->tracker.tokenStart == 0) return UNDEFINED;
 	char* token = GetTokenString(lexer);
+
+
 	if (lexer->currentTokenString != NULL) {
 		Free(lexer->currentTokenString);
 	}
 	lexer->currentTokenString = token;
 	Token tok = StringToToken(token);
-	// Reset token locations
-	lexer->tracker.tokenStart = 0;
-	lexer->tracker.tokenEnd = 0;
+	
 	bool containsChars = strlen(token) > 0;
 	if (tok == UNDEFINED && containsChars && (token[0] == '.' || isdigit(token[0]))) {
 		return NUMBER;
@@ -123,8 +155,31 @@ int CountTotalScopes(Lexer* lexer){
 int CountTotalFuncs(Lexer* lexer){	
 	int total = 0;
 	Token tok = GetNextToken(lexer);
+
 	while (tok != UNDEFINED){
 		if (tok == FUNC) total++;
+		tok = GetNextToken(lexer);
+	}
+	DestroyLexer(lexer);
+	return total;
+}
+
+/**
+ * Count the total number of func calls
+ */
+int CountTotalFuncCalls(Lexer* lexer){
+	int total = 0;
+	bool inFunc = false;
+	bool isIdent = false;
+	Token tok = GetNextToken(lexer);
+	while (tok != UNDEFINED){
+		if (tok == FUNC) inFunc = true;
+		if (tok == RPAREN && inFunc) inFunc = false;
+
+		if (tok == IDENTIFIER && !inFunc) isIdent = true;
+		if (tok == RPAREN && isIdent) total++;
+		if (tok == COMMA && isIdent) total++;
+		if (tok == RPAREN && isIdent) isIdent = false;
 		tok = GetNextToken(lexer);
 	}
 	DestroyLexer(lexer);
@@ -139,6 +194,7 @@ int CountTotalFuncs(Lexer* lexer){
 int CountTotalParamItems(Lexer* lexer){
 	int total = 0;
 	bool inFunc = false;
+	bool isIdent = false;
 	Token tok = GetNextToken(lexer);
 	while (tok != UNDEFINED){
 		if (tok == FUNC) inFunc = true;
@@ -146,6 +202,11 @@ int CountTotalParamItems(Lexer* lexer){
 			IsNumber(tok) ||
 			tok == VAR) total++;
 		if (tok == RPAREN && inFunc) inFunc = false;
+
+		if (tok == IDENTIFIER && !inFunc) isIdent = true;
+		if (tok == RPAREN && isIdent) total++;
+		if (tok == COMMA && isIdent) total++;
+		if (tok == RPAREN && isIdent) isIdent = false;
 		tok = GetNextToken(lexer);
 	}
 	DestroyLexer(lexer);
@@ -153,7 +214,27 @@ int CountTotalParamItems(Lexer* lexer){
 }
 
 void BackOneToken(Lexer* lexer){
-	lexer->tracker.currentTokenPosition -= strlen(lexer->currentTokenString);
+
+	LexerTracker* previous = &lexer->previousTrackers[lexer->previousTrackerSpot];
+
+	lexer->previousTrackerSpot--;
+	if (lexer->previousTrackerSpot < 0) {
+		lexer->previousTrackerSpot = lexer->totalTrackers - 1;
+	}
+	
+	lexer->tracker.col = previous->col;
+	lexer->tracker.currentTokenPosition = previous->currentTokenPosition;
+	lexer->tracker.row = previous->row;
+	lexer->tracker.tokenEnd = previous->tokenEnd;
+	lexer->tracker.tokenStart = previous->tokenStart;
+
+	char* token = GetTokenString(lexer);
+
+	if (lexer->currentTokenString != NULL) {
+		Free(lexer->currentTokenString);
+	}
+
+	lexer->currentTokenString = token;
 }
 
 void ResetLexer(Lexer* lexer){

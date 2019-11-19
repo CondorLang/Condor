@@ -39,6 +39,7 @@ typedef struct Syntax {
 ASTNode* GetNextNode(Scope* scope);
 ASTList* GetNextASTList(Scope* scope);
 ASTListItem* GetNextASTListItem(Scope* scope);
+
 ASTNode* ParseVar(Scope* scope, Lexer* lexer, Token dataType);
 ASTNode* ParseExpression(Scope* scope, Lexer* lexer);
 ASTNode* ParseFor(Scope* scope, Lexer* lexer);
@@ -49,6 +50,7 @@ ASTNode* ParseCase(Scope* scope, Lexer* lexer);
 ASTNode* ParseReturn(Scope* scope, Lexer* lexer);
 ASTNode* ParseBreak(Scope* scope, Lexer* lexer);
 ASTNode* ParseFunc(Scope* scope, Lexer* lexer);
+ASTNode* ParseFuncCall(Scope* scope, Lexer* lexer);
 ASTList* ParseParams(Scope* scope, Lexer* lexer);
 ASTNode* ParseIdent(Scope* scope, Lexer* lexer);
 int ParseBody(Scope* scope, Lexer* lexer);

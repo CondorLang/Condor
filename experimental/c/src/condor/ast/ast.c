@@ -32,9 +32,9 @@ char* ExpandASTNode(Scope* scope, ASTNode* node, int tab){
 	sprintf(tmp1, "{\"type\": \"%s\", \"id\": %d", TokenToString(node->type), node->id);
 	json = Concat(json, tmp1);
 
-			#ifdef EXPAND_AST
-	printf("	%s[%s]: \n %s-id: %d\n", tabs, TokenToString(node->type), tabs, node->id);
-#endif
+	#ifdef EXPAND_AST
+	printf("%s[%s]: \n %s-id: %d\n", tabs, TokenToString(node->type), tabs, node->id);
+	#endif
 
 	int type = (int) node->type;
 	switch (type){
@@ -243,6 +243,30 @@ char* ExpandASTNode(Scope* scope, ASTNode* node, int tab){
 				printf(" %s-body:\n", tabs);
 			#endif
 			results = ExpandSubScope(scope, node->meta.caseStmt.body, tab);
+			json2 = Concat(json2, results);
+			json = Concat(json, json2);
+			break;
+		}
+		case FUNC_CALL: {
+			char* json2 = "";
+			char* funcName = node->meta.funcCallExpr.func->meta.funcExpr.name;
+			json2 = Concat(json2, ", \"name\": \"");
+			json2 = Concat(json2, funcName);
+			json2 = Concat(json2, "\", \"params\": [");
+			#ifdef EXPAND_AST
+				printf(" %s-name: %s\n %s-Params:\n", tabs, funcName, tabs);
+			#endif
+
+			bool first = true;
+			char* results = "";
+			FOREACH_AST(node->meta.funcCallExpr.params){
+				results = ExpandASTNode(scope, item->node, tab + 2);
+				if (first) first = false;
+				else json2 = Concat(json2, ",");
+				json2 = Concat(json2, results);
+			}
+
+			json2 = Concat(json2, "]");
 			json2 = Concat(json2, results);
 			json = Concat(json, json2);
 			break;

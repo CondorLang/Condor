@@ -63,6 +63,7 @@ struct ASTNode {
 
 	int id; // Node ID assigned by ASTNODE_ID_SPOT
 	int scopeId;
+	int parentScopeId;
 
 	/**
 	 * When looping through all the nodes, this flag 

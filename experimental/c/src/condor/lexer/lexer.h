@@ -34,6 +34,10 @@ typedef struct LexerTracker{
 
 typedef struct Lexer{
 	LexerTracker tracker;
+	LexerTracker previousTrackers[5];
+	int previousTrackerSpot;
+	int totalTrackers;
+
 	char* rawSourceCode;
 	int length;
 	char* currentTokenString;
@@ -49,6 +53,7 @@ char* GetCurrentTokenString(Lexer* lexer);
 int CountTotalASTTokens(Lexer* lexer);
 int CountTotalScopes(Lexer* lexer);
 int CountTotalFuncs(Lexer* lexer);
+int CountTotalFuncCalls(Lexer* lexer);
 int CountTotalParamItems(Lexer* lexer);
 void ResetLexer(Lexer* lexer);
 void PeekNextToken(Lexer* lexer, PeekedToken* peeked);
@@ -72,5 +77,7 @@ bool CrawlString(Lexer* lexer);
 
 void SetTokenStart(Lexer* lexer);
 void SetTokenEnd(Lexer* lexer);
+
+void SetPreviousTracker(Lexer* lexer);
 
 #endif // LEXER_H_

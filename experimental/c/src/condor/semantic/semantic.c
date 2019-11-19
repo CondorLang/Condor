@@ -29,13 +29,15 @@ void BuildTree(char* rawSourceCode){
 	ResetLexer(&lexer);
 	int totalFuncs = CountTotalFuncs(&lexer);
 	ResetLexer(&lexer);
+	int totalFuncCalls = CountTotalFuncCalls(&lexer);
+	ResetLexer(&lexer);
 	int totalParamItems = CountTotalParamItems(&lexer);
 	ResetLexer(&lexer);
 
 	// Pre-allocate the different param lists
-	ASTList params[totalFuncs];
+	ASTList params[totalFuncs + totalFuncCalls];
 	ASTListItem paramItems[totalParamItems];
-	InitParams(params, totalFuncs);
+	InitParams(params, totalFuncs + totalFuncCalls);
 	InitParamItems(paramItems, totalParamItems);
 
 	// Pre-allocate the different variable types
@@ -56,7 +58,7 @@ void BuildTree(char* rawSourceCode){
 
 	scope.params = params;
 	scope.paramItems = paramItems;
-	scope.paramsLength = totalFuncs;
+	scope.paramsLength = totalFuncs + totalFuncCalls;
 	scope.paramItemsLength = totalParamItems;
 
 	// Let's build the tree
@@ -64,8 +66,10 @@ void BuildTree(char* rawSourceCode){
 	scope.nodeSpot = 0;
 	EnsureSemantics(&scope, 1);
 
-	// char* json = ExpandScope(&scope, 0);
-	// WriteToFile("compiled.cd", json);
+	#if EXPAND_AST
+	char* json = ExpandScope(&scope, 0);
+	WriteToFile("compiled.json", json);
+	#endif
 
 
 	// Cleanup
