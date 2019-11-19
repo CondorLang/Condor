@@ -1,5 +1,7 @@
 {
   "files.associations": {
-    "__node_handle": "c"
+    "__node_handle": "c",
+    "locale": "cpp",
+    "algorithm": "cpp"
   }
 }

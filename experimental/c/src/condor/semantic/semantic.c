@@ -71,6 +71,18 @@ void BuildTree(char* rawSourceCode){
 	WriteToFile("compiled.json", json);
 	#endif
 
+	int totalVars = 0;
+	for (int i = 0; i < scope.nodeLength; i++){
+		if (scope.nodes[i].type == VAR) totalVars++;
+	}
+
+	Runner runner;
+	RunnerContext runnerContexts[totalVars];
+	runner.contexts = runnerContexts;
+	runner.totalContexts = totalVars;
+	InitRunner(&runner, &scope);
+	Run(&runner);
+
 
 	// Cleanup
 	DestroyLexer(&lexer);
@@ -166,6 +178,27 @@ void EnsureSemanticsForNode(Scope* scope, ASTNode* node){
 				EnsureSemanticsForNode(scope, item->node);
 			}
 			EnsureSemanticsForBody(scope, GET_FUNC_BODY(node));
+			break;
+		}
+		case FUNC_CALL: {
+			DEBUG_PRINT2("Ensuring semantics for FUNC_CALL", GET_FUNC_CALL_NAME(node));
+			ASTList* list = GET_FUNC_CALL_PARAMS(node);
+			int totalParams = 0;
+			FOREACH_AST(list){
+				EnsureSemanticsForNode(scope, item->node);
+				totalParams++;
+			}
+			
+			int totalArgs = 0;
+			ASTList* argList = GET_FUNC_CALL_FUNC_PARAMS(node);
+			FOREACH_AST(argList){
+				totalArgs++;
+			}
+
+			if (totalParams != totalArgs){
+				SEMANTIC_ERROR("Number of params/arguments don't match");
+			}
+
 			break;
 		}
 		default: {

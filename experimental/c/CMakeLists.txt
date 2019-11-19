@@ -55,6 +55,7 @@ set(SOURCE_LIST
 	${SOURCE_DIR}/condor/ast/astlist.c
 	${SOURCE_DIR}/condor/ast/scope.c
 	${SOURCE_DIR}/condor/number/number.c
+	${SOURCE_DIR}/condor/runner/runner.c
 	${SOURCE_DIR}/utils/clock.c
 	${SOURCE_DIR}/condor/semantic/semantic.c
 	${SOURCE_DIR}/condor/semantic/typechecker.c

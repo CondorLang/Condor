@@ -52,7 +52,11 @@ typedef struct ASTList ASTList; // forward declare
 #define GET_RETURN_VALUE(node) node->meta.returnStmt.value
 #define GET_RETURN_TYPE(node) node->meta.returnStmt.type
 #define GET_FUNC_NAME(node) node->meta.funcExpr.name
+#define GET_FUNC_CALL_NAME(node) GET_FUNC_NAME(node->meta.funcCallExpr.func)
 #define GET_FUNC_PARAMS(node) node->meta.funcExpr.params
+#define GET_FUNC_CALL_PARAMS(node) node->meta.funcCallExpr.params
+#define GET_FUNC_CALL_FUNC(node) node->meta.funcCallExpr.func
+#define GET_FUNC_CALL_FUNC_PARAMS(node) GET_FUNC_PARAMS(node->meta.funcCallExpr.func)
 #define GET_FUNC_BODY(node) node->meta.funcExpr.body
 
 // Setters

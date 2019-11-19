@@ -6,7 +6,7 @@
  * The end user will not interact with this library.
  * This file is used to tokenize the code string
  *
- * User:
+ * Use:
  * 	Syntax Analysis Only
  * 
  * Usage:
@@ -21,8 +21,8 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdbool.h>
-#include "condor/mem/allocate.h"
-#include "condor/token/token.h"
+#include "../mem/allocate.h"
+#include "../token/token.h"
 
 typedef struct LexerTracker{
 	int tokenStart; // substr

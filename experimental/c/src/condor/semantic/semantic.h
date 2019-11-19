@@ -13,6 +13,7 @@
 #include "../syntax/syntax.h"
 #include "../token/token.h"
 #include "../ast/astlist.h"
+#include "../runner/runner.h"
 #include "typechecker.h"
 #include "utils/file/file.h"
 

@@ -35,6 +35,8 @@
 	#define DEBUG_PRINT(a) if (SHOULD_PRINT(__FILENAME__)) printf("%s:%d - %s\n", __FILENAME__, __LINE__, a);
 	#define DEBUG_PRINT2(a, b) if (SHOULD_PRINT(__FILENAME__)) printf("%s:%d - %s - %s\n", __FILENAME__, __LINE__, a, b);
 	#define DEBUG_PRINT3(a, b, c) if (SHOULD_PRINT(__FILENAME__)) printf("%s:%d - %s - %s - %s\n", __FILENAME__, __LINE__, a, b, c);
+	#define DEBUG_PRINT_RUNNER(a) if (SHOULD_PRINT(__FILENAME__)) {printf("Running: %s:%d\n", a, __LINE__); }
+	#define DEBUG_PRINT_RUNNER2(a, b) if (SHOULD_PRINT(__FILENAME__)) {printf("Running: %s %s:%d\n", a, b, __LINE__); }
 	#define DEBUG_PRINT_SYNTAX(a) if (SHOULD_PRINT_SYNTAX) {printf("Parsing: %s:%d\n", a, __LINE__); }
 	#define DEBUG_PRINT_SYNTAX2(a, b) if(SHOULD_PRINT_SYNTAX) {printf("Parsing: %s %s:%d\n", a, b, __LINE__); }
 	#define TRACK() {if (true) {printf("%s : %d\n", __FUNCTION__, __LINE__);}}
@@ -44,6 +46,8 @@
 	#define DEBUG_PRINT2(a, b)
 	#define DEBUG_PRINT3(a, b, c)
 	#define DEBUG_PRINT_SYNTAX(a)
+	#define DEBUG_PRINT_RUNNER(a)
+	#define DEBUG_PRINT_RUNNER2(a, b)
 	#define DEBUG_PRINT_SYNTAX2(a, b)
 	#define TRACK() {}
 #endif
