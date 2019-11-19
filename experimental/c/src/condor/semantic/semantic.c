@@ -73,7 +73,8 @@ void BuildTree(char* rawSourceCode){
 
 	int totalVars = 0;
 	for (int i = 0; i < scope.nodeLength; i++){
-		if (scope.nodes[i].type == VAR) totalVars++;
+		if (scope.nodes[i].type == VAR ||
+				scope.nodes[i].type == RETURN) totalVars++;
 	}
 
 	Runner runner;
@@ -81,7 +82,7 @@ void BuildTree(char* rawSourceCode){
 	runner.contexts = runnerContexts;
 	runner.totalContexts = totalVars;
 	InitRunner(&runner, &scope);
-	Run(&runner);
+	Run(&runner, scope.scopes[0]);
 
 
 	// Cleanup

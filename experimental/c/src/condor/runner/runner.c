@@ -2,16 +2,15 @@
 
 void InitRunner(Runner* runner, Scope* scope) {
   runner->scope = scope;
-  runner->totalContexts = 0;
   runner->contextSpot = 0;
 }
 
-void Run(Runner* runner) {
+void Run(Runner* runner, int scopeId) {
   DEBUG_PRINT_RUNNER("Scope")
   Scope* scope = runner->scope;
   for (int i = 0; i < scope->nodeLength; i++){
     ASTNode* node = &scope->nodes[i];
-    if (node->isStmt && node->scopeId == scope->scopes[0]){
+    if (node->isStmt && node->scopeId == scopeId){
       runner->currentNode = node;
       RunStatement(runner);
     }
@@ -42,6 +41,8 @@ void RunFuncWithArgs(Runner* runner, ASTNode* func, ASTList* args){
     ASTNode* arg = item->node;
     SetNodeValue(runner, arg);
   }
+
+  Run(runner, func->meta.funcExpr.body);
 }
 
 void SetNodeValue(Runner* runner, ASTNode* node){
@@ -91,7 +92,7 @@ void SetNodeValue(Runner* runner, ASTNode* node){
 }
 
 RunnerContext* GetNextContext(Runner* runner) {
-  if (runner->contextSpot + 1 >= runner->totalContexts) {
+  if (runner->contextSpot + 1 > runner->totalContexts) {
     RUNTIME_ERROR("Ran out of contexts");
   }
   return &runner->contexts[runner->contextSpot++];

@@ -72,7 +72,7 @@ typedef struct Runner {
  * Public Functions
  */
 void InitRunner(Runner* runner, Scope* scope);
-void Run(Runner* runner);
+void Run(Runner* runner, int scopeId);
 
 /**
  * Private functions
