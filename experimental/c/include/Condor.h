@@ -1,1 +1,0 @@
-void Scan(char* rawSourceCode);
