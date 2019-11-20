@@ -74,7 +74,9 @@ void BuildTree(char* rawSourceCode){
 	int totalVars = 0;
 	for (int i = 0; i < scope.nodeLength; i++){
 		if (scope.nodes[i].type == VAR ||
-				scope.nodes[i].type == RETURN) totalVars++;
+				scope.nodes[i].type == RETURN ||
+				(scope.nodes[i].type > BEGIN_NUMBER && 
+				 scope.nodes[i].type < END_STRING)) totalVars++;
 	}
 
 	Runner runner;
@@ -93,7 +95,10 @@ void BuildTree(char* rawSourceCode){
 	EndClock(&clock);
 	DEBUG_PRINT("\n\n------Program Completed------\n");
 	DEBUG_PRINT("\n\n------Program Stats------\n");
-	DEBUG_PRINT2("Time: %lld nanoseconds\n", GetClockNanosecond(&clock));
+	#if DEBUG == 1
+	printf("Time: %lld nanoseconds\n", GetClockNanosecond(&clock));
+	
+	#endif
 }
 
 /**

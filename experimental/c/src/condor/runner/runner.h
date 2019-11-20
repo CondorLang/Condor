@@ -14,60 +14,7 @@
 #include "../ast/astlist.h"
 #include "./runner-math.h"
 #include "utils/debug.h"
-
-typedef struct RunnerContext {
-  ASTNode* node;
-  Token dataType;
-
-  union {
-
-    struct {
-			bool value;
-		} booleanValue;
-
-		struct {
-			signed char value;
-		} byteValue;
-
-		struct {
-			short value;
-		} shortValue;
-
-		struct {
-			int value;
-		} intValue;
-
-		struct {
-			float value;
-		} floatValue;
-
-		struct {
-			double value;
-		} doubleValue;
-
-		struct {
-			long value;
-		} longValue;
-
-		struct {
-			char value;
-		} charValue;
-
-		struct {
-			char* value;
-		} stringValue;
-
-  } value;
-} RunnerContext;
-
-typedef struct Runner {
-  Scope* scope;
-  ASTNode* currentNode;
-  RunnerContext* contexts;
-
-  int totalContexts;
-  int contextSpot;
-} Runner;
+#include "./runner-types.h"
 
 /**
  * Public Functions

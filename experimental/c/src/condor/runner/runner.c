@@ -49,7 +49,7 @@ RunnerContext* RunStatement(Runner* runner){
     }
   }
 
-  return NULL;
+  return SetNodeValue(runner, node);
 }
 
 RunnerContext* RunBinary(Runner* runner){
@@ -60,7 +60,8 @@ RunnerContext* RunBinary(Runner* runner){
   Token op = binary->meta.binaryExpr.op;
 
   RunnerContext* leftContext = SetNodeValue(runner, left);
-  RunnerContext* rightContext = SetNodeValue(runner, right);
+  runner->currentNode = right;
+  RunnerContext* rightContext = RunStatement(runner);
 
   return RunMathContexts(leftContext, rightContext, op);
 }
@@ -69,15 +70,20 @@ RunnerContext* RunMathContexts(RunnerContext* left, RunnerContext* right, Token 
   DEBUG_PRINT_RUNNER("Math")
 
   if (left->dataType == STRING || right->dataType == STRING){
-    RUNTIME_ERROR("NOT IMPLEMENTED");
+    NOT_IMPLEMENTED("String concatenation");
   }
 
-  if (left->dataType == BOOLEAN && right->dataType == BOOLEAN) {
-    left->value.intValue.value = MathBooleanBoolean(CONTEXT_BOOLEAN_VALUE(left), CONTEXT_BOOLEAN_VALUE(right), op);
-    left->dataType = INT;
+  if (left->dataType == STRING || left->dataType == CHAR ||
+      right->dataType == STRING || right->dataType == CHAR) {
+    NOT_IMPLEMENTED("String comparisons not implemented")      
   }
   else {
-    NOT_IMPLEMENTED("Math between other datatypes");
+    double leftVal = ContextToDouble(left);
+    double rightVal = ContextToDouble(right);
+
+    // TODO: Figure out true type
+    left->value.vDouble = RunMath(leftVal, rightVal, op);
+    CastToType(left);
   }
 
   return left;
@@ -127,48 +133,48 @@ RunnerContext* SetNodeValue(Runner* runner, ASTNode* node){
   int type = (int) node->type;
   switch (type) {
     case BOOLEAN: {
-      context->dataType = BOOLEAN;
-      context->value.booleanValue.value = node->meta.booleanExpr.value;
+      context->dataType = node->type;
+      context->value.vBoolean = node->meta.booleanExpr.value;
       break;
     }
     case BYTE: {
       context->dataType = BYTE;
-      context->value.byteValue.value = node->meta.byteExpr.value;
+      context->value.vByte = node->meta.byteExpr.value;
       break;
     }
     case SHORT: {
       context->dataType = SHORT;
-      context->value.shortValue.value = node->meta.shortExpr.value;
+      context->value.vShort = node->meta.shortExpr.value;
       break;
     }
     case INT: {
       context->dataType = INT;
-      context->value.intValue.value = node->meta.intExpr.value;
+      context->value.vInt = node->meta.intExpr.value;
       break;
     }
     case FLOAT: {
       context->dataType = FLOAT;
-      context->value.floatValue.value = node->meta.floatExpr.value;
+      context->value.vFloat = node->meta.floatExpr.value;
       break;
     }
     case DOUBLE: {
       context->dataType = DOUBLE;
-      context->value.doubleValue.value = node->meta.doubleExpr.value;
+      context->value.vDouble = node->meta.doubleExpr.value;
       break;
     }
     case LONG: {
       context->dataType = LONG;
-      context->value.longValue.value = node->meta.longExpr.value;
+      context->value.vLong = node->meta.longExpr.value;
       break;
     }
     case CHAR: {
       context->dataType = CHAR;
-      context->value.charValue.value = node->meta.charExpr.value;
+      context->value.vChar = node->meta.charExpr.value;
       break;
     }
     case STRING: {
       context->dataType = STRING;
-      context->value.stringValue.value = node->meta.stringExpr.value;
+      context->value.vString = node->meta.stringExpr.value;
       break;
     }
     case VAR: {
@@ -186,55 +192,55 @@ void RunSetVarType(Runner* runner, RunnerContext* context, ASTNode* node){
     case BOOLEAN: {
       context->dataType = BOOLEAN;
       RunnerContext* varContext = SetNodeValue(runner, node->meta.varExpr.value);
-      context->value.booleanValue.value = varContext->value.booleanValue.value;
+      context->value.vBoolean = varContext->value.vBoolean;
       break;
     }
     case BYTE: {
       context->dataType = BYTE;
       RunnerContext* varContext = SetNodeValue(runner, node->meta.varExpr.value);
-      context->value.byteValue.value = varContext->value.byteValue.value;
+      context->value.vByte = varContext->value.vByte;
       break;
     }
     case SHORT: {
       context->dataType = SHORT;
       RunnerContext* varContext = SetNodeValue(runner, node->meta.varExpr.value);
-      context->value.shortValue.value = varContext->value.shortValue.value;
+      context->value.vShort = varContext->value.vShort;
       break;
     }
     case INT: {
       context->dataType = INT;
       RunnerContext* varContext = SetNodeValue(runner, node->meta.varExpr.value);
-      context->value.intValue.value = varContext->value.intValue.value;
+      context->value.vInt = varContext->value.vInt;
       break;
     }
     case FLOAT: {
       context->dataType = FLOAT;
       RunnerContext* varContext = SetNodeValue(runner, node->meta.varExpr.value);
-      context->value.floatValue.value = varContext->value.floatValue.value;
+      context->value.vFloat = varContext->value.vFloat;
       break;
     }
     case DOUBLE: {
       context->dataType = DOUBLE;
       RunnerContext* varContext = SetNodeValue(runner, node->meta.varExpr.value);
-      context->value.doubleValue.value = varContext->value.doubleValue.value;
+      context->value.vDouble = varContext->value.vDouble;
       break;
     }
     case LONG: {
       context->dataType = LONG;
       RunnerContext* varContext = SetNodeValue(runner, node->meta.varExpr.value);
-      context->value.longValue.value = varContext->value.longValue.value;
+      context->value.vLong = varContext->value.vLong;
       break;
     }
     case CHAR: {
       context->dataType = CHAR;
       RunnerContext* varContext = SetNodeValue(runner, node->meta.varExpr.value);
-      context->value.charValue.value = varContext->value.charValue.value;
+      context->value.vChar = varContext->value.vChar;
       break;
     }
     case STRING: {
       context->dataType = STRING;
       RunnerContext* varContext = SetNodeValue(runner, node->meta.varExpr.value);
-      context->value.stringValue.value = varContext->value.stringValue.value;
+      context->value.vString = varContext->value.vString;
       break;
     }
   }
@@ -262,39 +268,39 @@ void PrintContext(RunnerContext* context){
   int type = (int) context->dataType;
   switch (type) {
     case BOOLEAN: {
-      printf("%d\n", context->value.booleanValue.value);
+      printf("%d\n", context->value.vBoolean);
       break;
     }
     case BYTE: {
-      printf("%d\n", context->value.byteValue.value);
+      printf("%d\n", context->value.vByte);
       break;
     }
     case SHORT: {
-      printf("%d\n", context->value.shortValue.value);
+      printf("%d\n", context->value.vShort);
       break;
     }
     case INT: {
-      printf("%d\n", context->value.intValue.value);
+      printf("%d\n", context->value.vInt);
       break;
     }
     case FLOAT: {
-      printf("%f\n", context->value.floatValue.value);
+      printf("%f\n", context->value.vFloat);
       break;
     }
     case DOUBLE: {
-      printf("%f\n", context->value.doubleValue.value);
+      printf("%f\n", context->value.vDouble);
       break;
     }
     case LONG: {
-      printf("%ld\n", context->value.longValue.value);
+      printf("%ld\n", context->value.vLong);
       break;
     }
     case CHAR: {
-      printf("%d\n", context->value.charValue.value);
+      printf("%d\n", context->value.vChar);
       break;
     }
     case STRING: {
-      printf("%s\n", context->value.stringValue.value);
+      printf("%s\n", context->value.vString);
       break;
     }
   }

@@ -5,8 +5,13 @@
 #ifndef RUNNER_MATH_H_
 #define RUNNER_MATH_H_
 
+#include <limits.h>
+#include <float.h>
 #include "../ast/ast.h"
+#include "./runner-types.h"
 
-int MathBooleanBoolean(bool a, bool b, Token op);
+double ContextToDouble(RunnerContext* context);
+double RunMath(double left, double right, Token op);
+void CastToType(RunnerContext* context);
 
 #endif // RUNNER_MATH_H_

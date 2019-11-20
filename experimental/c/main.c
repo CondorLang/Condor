@@ -18,7 +18,8 @@ int main(){
 	// Scan("var i = 0; if (i == 0) {switch (i) {case 0: break;}}");
 	// Scan("func add(int a, int b){return a + b;} func minus(int a, int b){return a + b;} func multiply(int a, int b){return a * b;} for (int i = 0; i < 10; i++){if (i > 0){return 1 + 10;}} while (0 == 0 || 1 == 1 && 2 == 2 && 3 == 3){var a = 10;}");
 	
-	Scan("func add(int a, int b) return a + b; add(1,1);");
+	// Scan("func sumAddOne(int a, int b, int c) return a + b + c + 1; sumAddOne(8,10000, 1);");
+	Scan("func add(int a, int b) return a + b; func multiply(int a, int b) return a * b; multiply(add(1, 1), add(2, 2))");
 
 	// printf("Press enter to continue...\n");
 	// getchar();
