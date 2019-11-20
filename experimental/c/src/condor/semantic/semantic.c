@@ -93,7 +93,7 @@ void BuildTree(char* rawSourceCode){
 	EndClock(&clock);
 	DEBUG_PRINT("\n\n------Program Completed------\n");
 	DEBUG_PRINT("\n\n------Program Stats------\n");
-	printf("Time: %lld nanoseconds\n", GetClockNanosecond(&clock));
+	DEBUG_PRINT2("Time: %lld nanoseconds\n", GetClockNanosecond(&clock));
 }
 
 /**

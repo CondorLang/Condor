@@ -3,6 +3,7 @@
     "__node_handle": "c",
     "locale": "cpp",
     "algorithm": "cpp",
-    "runner.h": "c"
+    "runner.h": "c",
+    "cstddef": "cpp"
   }
 }

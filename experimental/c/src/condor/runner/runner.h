@@ -12,6 +12,7 @@
 #include "../ast/scope.h"
 #include "../ast/ast.h"
 #include "../ast/astlist.h"
+#include "./runner-math.h"
 #include "utils/debug.h"
 
 typedef struct RunnerContext {
@@ -72,15 +73,23 @@ typedef struct Runner {
  * Public Functions
  */
 void InitRunner(Runner* runner, Scope* scope);
-void Run(Runner* runner, int scopeId);
+RunnerContext* Run(Runner* runner, int scopeId);
 
 /**
  * Private functions
  */
-void RunStatement(Runner* runner);
-void RunFuncCall(Runner* runner);
-void RunFuncWithArgs(Runner* runner, ASTNode* func, ASTList* args);
-void SetNodeValue(Runner* runner, ASTNode* node);
+RunnerContext* RunStatement(Runner* runner);
+RunnerContext* RunFuncCall(Runner* runner);
+RunnerContext* RunFuncWithArgs(Runner* runner, ASTNode* func, ASTList* args);
+RunnerContext* SetNodeValue(Runner* runner, ASTNode* node);
 RunnerContext* GetNextContext(Runner* runner);
+RunnerContext* GetContextByNodeId(Runner* runner, int nodeId);
+RunnerContext* RunBinary(Runner* runner);
+void RunSetVarType(Runner* runner, RunnerContext* context, ASTNode* node);
+RunnerContext* RunMathContexts(RunnerContext* left, RunnerContext* right, Token op);
+void PrintContext(RunnerContext* context);
+
+#define CONTEXT_BOOLEAN_VALUE(node) node->value.booleanValue.value
+#define CONTEXT_INT_VALUE(node) node->value.intValue.value
 
 #endif // RUNNER_H_
