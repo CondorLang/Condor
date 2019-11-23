@@ -12,4 +12,4 @@ jobs:
     - name: cmake-configure
       uses: snickerbockers/cmake-configure@prerel1
     - name: configure
-      run: ./experimental/c/init -c
+      run: cd ./experimental/c && ./init -c
